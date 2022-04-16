@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="code.name.monkey.retro">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+
+    <application
+        android:name="code.name.monkey.retro.App"
+        android:allowBackup="@bool/allowBackup"
+        android:configChanges="locale|layoutDirection"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:restoreAnyVersion="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RetroMusic.FollowSystem"
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        tools:targetApi="m">
+        <activity
+            android:name="code.name.monkey.retro.activities.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MUSIC_PLAYER" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.APP_MUSIC" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="content" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/itunes" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="file" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/itunes" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/itunes" />
+            </intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="vnd.android.cursor.dir/playlist" />
+                <data android:mimeType="vnd.android.cursor.dir/albums" />
+                <data android:mimeType="vnd.android.cursor.dir/artists" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.cyanogenmod.eleven.AUDIO_PLAYER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PICK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+
+                <data android:mimeType="vnd.android.cursor.dir/audio" />
+            </intent-filter>
+        </activity>
+        <activity android:name="code.name.monkey.retro.activities.SettingsActivity" />
+        <activity android:name="code.name.monkey.retro.activities.tageditor.AlbumTagEditorActivity" />
+        <activity android:name="code.name.monkey.retro.activities.tageditor.SongTagEditorActivity" />
+        <activity android:name="code.name.monkey.retro.activities.SupportDevelopmentActivity" />
+        <activity android:name="code.name.monkey.retro.activities.LicenseActivity" />
+        <activity android:name="code.name.monkey.retro.activities.PurchaseActivity" />
+        <activity android:name="code.name.monkey.retro.activities.WhatsNewActivity" />
+        <activity android:name="code.name.monkey.retro.activities.bugreport.BugReportActivity" />
+        <activity android:name="code.name.monkey.retro.activities.ShareInstagramStory" />
+        <activity android:name="code.name.monkey.retro.activities.DriveModeActivity" />
+        <activity android:name="code.name.monkey.retro.activities.PermissionActivity" />
+        <activity android:name="code.name.monkey.retro.activities.LockScreenActivity" />
+        <activity
+            android:name="code.name.monkey.retro.fragments.backup.RestoreActivity"
+            android:excludeFromRecents="false"
+            android:exported="true"
+            android:label="@string/restore"
+            android:theme="@style/Theme.RetroMusic.Dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/x-zip-compressed" />
+                <data android:mimeType="application/zip" />
+
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+                <!--
+                    Work around Android's ugly primitive PatternMatcher
+                    implementation that can't cope with finding a . early in
+                    the path unless it's explicitly matched.
+                -->
+                <data android:host="*" />
+                <data android:pathPattern=".*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="code.name.monkey.retro.appshortcuts.AppShortcutLauncherActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="code.name.monkey.retro.activities.saf.SAFGuideActivity"
+            android:theme="@style/Theme.Intro" />
+
+        <activity
+            android:name="code.name.monkey.retro.cast.ExpandedControlsActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="code.name.monkey.retro.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="code.name.monkey.retro.activities.ErrorActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cat.ereza.customactivityoncrash.RESTART" />
+            </intent-filter>
+        </activity>
+
+
+        <provider
+            android:name="code.name.monkey.retro.misc.GenericFileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <receiver
+            android:name="androidx.media.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.AppWidgetBig"
+            android:exported="true"
+            android:label="@string/app_widget_big_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_big_info" />
+        </receiver>
+
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.AppWidgetClassic"
+            android:exported="true"
+            android:label="@string/app_widget_classic_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_classic_info" />
+        </receiver>
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.AppWidgetSmall"
+            android:exported="true"
+            android:label="@string/app_widget_small_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_small_info" />
+        </receiver>
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.AppWidgetText"
+            android:exported="true"
+            android:label="@string/app_widget_text_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_text" />
+        </receiver>
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.AppWidgetCard"
+            android:exported="true"
+            android:label="@string/app_widget_card_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_card_info" />
+        </receiver>
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.AppWidgetMD3"
+            android:exported="true"
+            android:label="@string/app_widget_md3_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_md3_info" />
+        </receiver>
+        <receiver
+            android:name="code.name.monkey.retro.appwidgets.AppWidgetCircle"
+            android:exported="true"
+            android:label="@string/app_widget_circle_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_circle_info" />
+        </receiver>
+
+        <service
+            android:name="code.name.monkey.retro.service.MusicService"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <meta-data
+            android:name="com.lge.support.SPLIT_WINDOW"
+            android:value="true" />
+
+        <meta-data
+            android:name="com.android.vending.splits.required"
+            android:value="true" />
+
+        <!-- Android Auto -->
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+        <meta-data
+            android:name="com.google.android.gms.car.application.theme"
+            android:resource="@style/CarTheme" />
+        <meta-data
+            android:name="com.google.android.gms.car.notification.SmallIcon"
+            android:resource="@drawable/ic_notification" />
+
+        <!-- ChromeCast -->
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="code.name.monkey.retro.cast.CastOptionsProvider" />
+    </application>
+
+    <!--
+    This is not that important, it's just here so that we can query equalizer package
+    and check if it's present on A11+ because of Package visibility restrictions.
+    -->
+    <queries>
+        <package android:name="com.android.musicfx" />
+    </queries>
+</manifest>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:transitionGroup="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true"
+        android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="@drawable/ic_search"
+                app:popupTheme="?attr/toolbarPopupTheme"
+                app:title="@null"
+                tools:ignore="UnusedAttribute">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/appNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAppearance="@style/TextViewHeadline6"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.Toolbar>
+        </FrameLayout>
+
+        <code.name.monkey.retro.views.BreadCrumbLayout
+            android:id="@+id/breadCrumbs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:paddingStart="60dp"
+            android:paddingEnd="8dp"
+            app:layout_collapseMode="pin" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/emptyEmoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/empty_text_emoji"
+            android:textAppearance="@style/TextViewHeadline3" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/emptyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/nothing_to_see"
+            android:textAppearance="@style/TextViewHeadline5"
+            android:textColor="?android:attr/textColorSecondary"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <code.name.monkey.retro.views.insets.InsetsRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="@integer/overScrollMode"
+        android:scrollbars="none"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

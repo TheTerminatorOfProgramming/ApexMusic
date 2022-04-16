@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:transitionName="@string/transition_album_art"
+    tools:ignore="UnusedAttribute"
+    android:transitionGroup="true">
+
+    <FrameLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            app:navigationIcon="@drawable/ic_keyboard_backspace_black" />
+    </FrameLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/albumCoverContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/mini_player_height"
+        app:cardCornerRadius="@dimen/m3_card_large_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_container">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:descendantFocusability="beforeDescendants"
+        android:fillViewport="true"
+        android:focusableInTouchMode="true"
+        android:overScrollMode="@integer/overScrollMode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/albumCoverContainer"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <code.name.monkey.retro.views.RetroShapeableImageView
+                    android:id="@+id/artistImage"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="8dp"
+                    android:scaleType="centerCrop"
+                    app:retroCornerSize="26dp"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp">
+
+                    <code.name.monkey.retro.views.BaselineGridTextView
+                        android:id="@+id/albumTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:textAppearance="@style/TextViewHeadline5"
+                        android:textStyle="bold"
+                        app:lineHeightHint="28sp"
+                        tools:ignore="MissingPrefix"
+                        tools:text="Album name" />
+
+                    <code.name.monkey.retro.views.BaselineGridTextView
+                        android:id="@+id/albumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:paddingTop="4dp"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextViewSubtitle2"
+                        android:textColor="?android:attr/textColorSecondary"
+                        app:lineHeightHint="24sp"
+                        tools:ignore="MissingPrefix"
+                        tools:text="Album details name" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include
+                android:id="@+id/fragment_album_content"
+                layout="@layout/fragment_album_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

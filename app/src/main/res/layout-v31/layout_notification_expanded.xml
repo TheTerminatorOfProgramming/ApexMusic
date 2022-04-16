@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/md_red_500">
+
+    <RelativeLayout
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/largeIcon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_alignParentStart="true"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/avatars" />
+
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/largeIcon"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:paddingStart="16dp"
+                android:paddingEnd="0dp"
+                android:singleLine="true"
+                android:textAppearance="@style/Theme.RetroMusic.Notification"
+                android:textStyle="bold"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:paddingStart="16dp"
+                android:paddingEnd="0dp"
+                android:singleLine="true"
+                android:textAppearance="@style/Theme.RetroMusic.Notification.Title"
+                tools:text="@tools:sample/lorem/random" />
+
+            <LinearLayout
+                android:id="@+id/actions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/action_prev"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/notification_selector"
+                    android:scaleType="centerInside"
+                    tools:src="@drawable/ic_skip_previous_round_white_32dp"
+                    tools:tint="?colorOnPrimary" />
+
+                <ImageButton
+                    android:id="@+id/action_play_pause"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/notification_selector"
+                    android:scaleType="centerInside"
+                    tools:src="@drawable/ic_pause_white_48dp"
+                    tools:tint="?colorOnPrimary" />
+
+                <ImageButton
+                    android:id="@+id/action_next"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/notification_selector"
+                    android:scaleType="centerInside"
+                    tools:src="@drawable/ic_skip_next_round_white_32dp"
+                    tools:tint="?colorOnPrimary" />
+
+                <ImageButton
+                    android:id="@+id/action_quit"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/notification_selector"
+                    android:scaleType="centerInside"
+                    tools:src="@drawable/ic_close"
+                    tools:tint="?colorOnPrimary" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

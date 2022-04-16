@@ -1,0 +1,31 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+android {
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 31
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lint {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$mdc_version"
+    implementation "androidx.preference:preference-ktx:$preference_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
