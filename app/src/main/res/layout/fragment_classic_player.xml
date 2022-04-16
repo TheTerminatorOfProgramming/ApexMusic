@@ -23,7 +23,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/playerAlbumCoverFragment"
-                android:name="code.name.monkey.retro.fragments.player.PlayerAlbumCoverFragment"
+                android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout="@layout/fragment_album_cover" />
@@ -48,7 +48,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <code.name.monkey.retro.views.StatusBarView
+            <com.ttop.app.apex.views.StatusBarView
                 android:id="@+id/status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/status_bar_padding" />
@@ -82,7 +82,7 @@
         android:theme="@style/TopCornerCardView"
         app:behavior_hideable="false"
         app:cardElevation="24dp"
-        app:layout_behavior="code.name.monkey.retro.RetroBottomSheetBehavior"
+        app:layout_behavior="com.ttop.app.apex.ApexBottomSheetBehavior"
         tools:peekHeight="0dp">
 
         <LinearLayout

@@ -15,7 +15,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/cover_lyrics"
-        android:name="code.name.monkey.retro.fragments.other.CoverLyricsFragment"
+        android:name="com.ttop.app.apex.fragments.other.CoverLyricsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical" />
@@ -28,7 +28,7 @@
         app:fel_size_bottom="100dp"
         app:fel_size_top="100dp">
 
-        <code.name.monkey.retro.lyrics.CoverLrcView
+        <com.ttop.app.apex.lyrics.CoverLrcView
             android:id="@+id/lyricsView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

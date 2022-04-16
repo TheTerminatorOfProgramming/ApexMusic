@@ -13,7 +13,7 @@
   -->
 
 <resources>
-    <declare-styleable name="RetroShapeableImageView">
+    <declare-styleable name="ApexShapeableImageView">
         <attr name="retroCornerSize" format="dimension" />
         <attr name="circleShape" format="boolean" />
     </declare-styleable>

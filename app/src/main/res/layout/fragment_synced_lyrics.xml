@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <code.name.monkey.retro.lyrics.LrcView
+    <com.ttop.app.apex.lyrics.LrcView
         android:id="@+id/lyricsView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

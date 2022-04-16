@@ -1,25 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.RetroMusic" parent="Theme.RetroMusic.Base" />
+    <style name="Theme.Apex" parent="Theme.Apex.Base" />
 
-    <style name="Theme.RetroMusic.Light" parent="Theme.RetroMusic.Base.Light" />
+    <style name="Theme.Apex.Light" parent="Theme.Apex.Base.Light" />
 
-    <style name="Theme.RetroMusic.Black" parent="Theme.RetroMusic.Base.Black" />
+    <style name="Theme.Apex.Black" parent="Theme.Apex.Base.Black" />
 
-    <style name="Theme.RetroMusic.FollowSystem" parent="Theme.RetroMusic.Base.Adaptive">
+    <style name="Theme.Apex.FollowSystem" parent="Theme.Apex.Base.Adaptive">
         <item name="android:windowBackground">@color/window_color</item>
     </style>
 
-    <style name="Theme.RetroMusic.MD3" parent="@style/Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Apex.MD3" parent="@style/Theme.Material3.DayNight.NoActionBar">
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
         <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
         <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
     </style>
 
-    <style name="Theme.RetroMusic.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
+    <style name="Theme.Apex.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
 
-    <style name="Theme.RetroMusic.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
+    <style name="Theme.Apex.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
 
     <style name="OverFlowButton">
         <item name="srcCompat">@drawable/ic_more_vert</item>
@@ -123,11 +123,6 @@
     <style name="ClassicThemeOverLay">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">0dp</item>
-    </style>
-
-    <style name="SplashTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="MaterialPopupMenuStyle" parent="Widget.Material3.PopupMenu">
@@ -243,7 +238,7 @@
         <item name="colorPrimary">@color/md_deep_purple_500</item>
     </style>
 
-    <style name="Theme.RetroMusic.Dialog" parent="Theme.Material3.DayNight.Dialog">
+    <style name="Theme.Apex.Dialog" parent="Theme.Material3.DayNight.Dialog">
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
@@ -263,5 +258,5 @@
         </item>
     </style>
 
-    <style name="Theme.AppWidget" parent="Theme.RetroMusic.FollowSystem" />
+    <style name="Theme.AppWidget" parent="Theme.Apex.FollowSystem" />
 </resources>

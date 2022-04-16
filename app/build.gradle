@@ -13,14 +13,21 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        applicationId "code.name.monkey.retro"
-        versionCode 10573
-        versionName '5.8.0'
+        applicationId "com.ttop.app.apex"
+        versionCode 100
+        versionName '1.0.0'
 
         buildConfigField("String", "GOOGLE_PLAY_LICENSING_KEY", "\"${getProperty(getProperties('../public.properties'), 'GOOGLE_PLAY_LICENSE_KEY')}\"")
     }
     signingConfigs {
         release {
+            Properties properties = getProperties('retro.properties')
+            storeFile file(getProperty(properties, 'storeFile'))
+            keyAlias getProperty(properties, 'keyAlias')
+            storePassword getProperty(properties, 'storePassword')
+            keyPassword getProperty(properties, 'keyPassword')
+        }
+        beta {
             Properties properties = getProperties('retro.properties')
             storeFile file(getProperty(properties, 'storeFile'))
             keyAlias getProperty(properties, 'keyAlias')
@@ -37,8 +44,8 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-            applicationIdSuffix '.test'
-            versionNameSuffix 'TEST'
+            applicationIdSuffix '.beta'
+            versionNameSuffix ' BETA'
         }
     }
 
@@ -118,7 +125,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
-    implementation "androidx.core:core-splashscreen:1.0.0-beta02"
+    // "androidx.core:core-splashscreen:1.0.0-beta02"
 
     implementation 'com.google.android.play:core-ktx:1.8.1'
     implementation "com.google.android.material:material:$mdc_version"
@@ -171,6 +178,4 @@ dependencies {
     implementation 'me.zhanghai.android.fastscroll:library:1.1.7'
     implementation 'cat.ereza:customactivityoncrash:2.3.0'
     implementation 'me.tankery.lib:circularSeekBar:1.3.2'
-    debugImplementation 'com.github.amitshekhariitbhu:Android-Debug-Database:1.0.6'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 }

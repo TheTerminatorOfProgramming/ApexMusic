@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<code.name.monkey.retro.views.insets.InsetsConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ttop.app.apex.views.insets.InsetsConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <code.name.monkey.retro.views.StatusBarView
+    <com.ttop.app.apex.views.StatusBarView
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -198,4 +198,4 @@
             app:cornerRadius="28dp" />
 
     </LinearLayout>
-</code.name.monkey.retro.views.insets.InsetsConstraintLayout>
+</com.ttop.app.apex.views.insets.InsetsConstraintLayout>

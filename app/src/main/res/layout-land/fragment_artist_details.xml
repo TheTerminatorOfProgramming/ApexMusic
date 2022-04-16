@@ -73,7 +73,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <code.name.monkey.retro.views.BaselineGridTextView
+                <com.ttop.app.apex.views.BaselineGridTextView
                     android:id="@+id/artistTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                     tools:ignore="MissingPrefix"
                     tools:text="Title" />
 
-                <code.name.monkey.retro.views.BaselineGridTextView
+                <com.ttop.app.apex.views.BaselineGridTextView
                     android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

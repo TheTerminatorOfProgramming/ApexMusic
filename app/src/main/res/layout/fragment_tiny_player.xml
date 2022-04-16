@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playerAlbumCoverFragment"
-        android:name="code.name.monkey.retro.fragments.player.PlayerAlbumCoverFragment"
+        android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
         <include layout="@layout/status_bar" />
     </FrameLayout>
 
-    <code.name.monkey.retro.views.VerticalTextView
+    <com.ttop.app.apex.views.VerticalTextView
         android:id="@+id/playerSongTotalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         tools:ignore="MissingPrefix"
         tools:text="@tools:sample/date/hhmm" />
 
-    <code.name.monkey.retro.views.VerticalTextView
+    <com.ttop.app.apex.views.VerticalTextView
         android:id="@+id/songInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,14 +107,14 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"
-            android:name="code.name.monkey.retro.fragments.player.tiny.TinyPlaybackControlsFragment"
+            android:name="com.ttop.app.apex.fragments.player.tiny.TinyPlaybackControlsFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_tiny_controls_fragment" />
 
     </LinearLayout>
 
-    <code.name.monkey.retro.views.VerticalTextView
+    <com.ttop.app.apex.views.VerticalTextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -136,7 +136,7 @@
         tools:ignore="MissingPrefix"
         tools:text="@tools:sample/lorem/random" />
 
-    <code.name.monkey.retro.views.VerticalTextView
+    <com.ttop.app.apex.views.VerticalTextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="0dp"

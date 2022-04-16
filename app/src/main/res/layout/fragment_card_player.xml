@@ -14,14 +14,14 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playerAlbumCoverFragment"
-        android:name="code.name.monkey.retro.fragments.player.PlayerAlbumCoverFragment"
+        android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_album_full_cover" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/cover_lyrics"
-        android:name="code.name.monkey.retro.fragments.other.CoverLyricsFragment"
+        android:name="com.ttop.app.apex.fragments.other.CoverLyricsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <code.name.monkey.retro.views.StatusBarView
+            <com.ttop.app.apex.views.StatusBarView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/status_bar_padding" />
 
@@ -60,7 +60,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"
-            android:name="code.name.monkey.retro.fragments.player.card.CardPlaybackControlsFragment"
+            android:name="com.ttop.app.apex.fragments.player.card.CardPlaybackControlsFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_card_player_playback_controls" />

@@ -7,7 +7,7 @@
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true">
 
-    <code.name.monkey.retro.views.BaselineGridTextView
+    <com.ttop.app.apex.views.BaselineGridTextView
         android:id="@+id/appNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:orientation="@integer/permission_orientation">
 
-            <code.name.monkey.retro.views.PermissionItem
+            <com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/storagePermission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 app:permissionTitleNumber="1"
                 app:permissionTitleSubTitle="@string/permission_summary" />
 
-            <code.name.monkey.retro.views.PermissionItem
+            <com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/audioPermission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -129,7 +129,7 @@
         </HorizontalScrollView>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <code.name.monkey.retro.views.insets.InsetsRecyclerView
+    <com.ttop.app.apex.views.insets.InsetsRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

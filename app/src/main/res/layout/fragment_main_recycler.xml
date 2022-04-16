@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <code.name.monkey.retro.views.TopAppBarLayout
+    <com.ttop.app.apex.views.TopAppBarLayout
         android:id="@+id/appBarLayout"
         style="?appBarLayoutStyle"
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:fitsSystemWindows="true"
         android:theme="@style/CenteredCheckBoxTheme" />
 
-    <code.name.monkey.retro.views.insets.InsetsRecyclerView
+    <com.ttop.app.apex.views.insets.InsetsRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

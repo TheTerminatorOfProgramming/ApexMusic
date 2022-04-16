@@ -16,7 +16,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"
-            android:name="code.name.monkey.retro.fragments.player.PlayerAlbumCoverFragment"
+            android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constrainedHeight="true"
@@ -62,7 +62,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/cover_lyrics"
-            android:name="code.name.monkey.retro.fragments.other.CoverLyricsFragment"
+            android:name="com.ttop.app.apex.fragments.other.CoverLyricsFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:elevation="20dp"
@@ -80,7 +80,7 @@
         android:layout_height="match_parent"
         app:behavior_hideable="false"
         app:gestureInsetBottomIgnored="true"
-        app:layout_behavior="code.name.monkey.retro.RetroBottomSheetBehavior">
+        app:layout_behavior="com.ttop.app.apex.ApexBottomSheetBehavior">
 
         <LinearLayout
             android:id="@+id/container"

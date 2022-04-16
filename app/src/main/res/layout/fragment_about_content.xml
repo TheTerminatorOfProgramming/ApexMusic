@@ -9,12 +9,12 @@
         layout="@layout/card_credit" />
 
     <include
-        android:id="@+id/card_retro_info"
-        layout="@layout/card_retro_info" />
+        android:id="@+id/card_apex_info"
+        layout="@layout/card_apex_info" />
 
-    <include
+    <!--<include
         android:id="@+id/card_social"
-        layout="@layout/card_social" />
+        layout="@layout/card_social" />-->
 
     <include
         android:id="@+id/card_other"

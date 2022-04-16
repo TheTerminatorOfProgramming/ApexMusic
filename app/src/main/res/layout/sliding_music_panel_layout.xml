@@ -25,7 +25,7 @@
         app:behavior_peekHeight="0dp"
         app:gestureInsetBottomIgnored="true"
         app:enableEdgeToEdge="true"
-        app:layout_behavior="code.name.monkey.retro.RetroBottomSheetBehavior">
+        app:layout_behavior="com.ttop.app.apex.ApexBottomSheetBehavior">
 
         <FrameLayout
             android:id="@+id/playerFragmentContainer"
@@ -34,7 +34,7 @@
 
         <fragment
             android:id="@+id/miniPlayerFragment"
-            android:name="code.name.monkey.retro.fragments.other.MiniPlayerFragment"
+            android:name="com.ttop.app.apex.fragments.other.MiniPlayerFragment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mini_player_height"
             tools:layout="@layout/fragment_mini_player" />
@@ -47,7 +47,7 @@
 
     </FrameLayout>
 
-    <code.name.monkey.retro.views.BottomNavigationBarTinted
+    <com.ttop.app.apex.views.BottomNavigationBarTinted
         android:id="@+id/bottomNavigationView"
         style="@style/Widget.Material3.BottomNavigationView"
         android:layout_width="match_parent"

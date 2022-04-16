@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <code.name.monkey.appthemehelper.common.views.ATEAccentTextView
+        <com.ttop.app.appthemehelper.common.views.ATEAccentTextView
             android:id="@+id/sb1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

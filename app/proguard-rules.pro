@@ -66,6 +66,6 @@
 -keep class * extends androidx.fragment.app.Fragment{}
 -keepnames class * extends android.os.Parcelable
 -keepnames class * extends java.io.Serializable
--keep class code.name.monkey.retro.network.model.** { *; }
--keep class code.name.monkey.retro.model.** { *; }
+-keep class com.ttop.app.apex.network.model.** { *; }
+-keep class com.ttop.app.apex.model.** { *; }
 -keep class com.google.android.material.bottomsheet.** { *; }

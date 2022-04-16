@@ -72,7 +72,7 @@
     <string name="app_share">Hey check out this cool music player at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
     <string name="app_shortcut_top_tracks_short">Top Tracks</string>
-    <string name="app_widget_big_name">Full Image</string>
+    <string name="app_widget_big_name">Big</string>
     <string name="app_widget_card_name">Card</string>
     <string name="app_widget_classic_name">Classic</string>
     <string name="app_widget_md3_name">MD3</string>

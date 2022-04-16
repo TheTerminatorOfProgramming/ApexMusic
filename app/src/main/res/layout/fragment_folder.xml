@@ -39,7 +39,7 @@
             </androidx.appcompat.widget.Toolbar>
         </FrameLayout>
 
-        <code.name.monkey.retro.views.BreadCrumbLayout
+        <com.ttop.app.apex.views.BreadCrumbLayout
             android:id="@+id/breadCrumbs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_height"
@@ -77,7 +77,7 @@
             tools:visibility="visible" />
     </LinearLayout>
 
-    <code.name.monkey.retro.views.insets.InsetsRecyclerView
+    <com.ttop.app.apex.views.insets.InsetsRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

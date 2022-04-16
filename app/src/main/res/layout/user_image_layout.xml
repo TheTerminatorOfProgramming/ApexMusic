@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <code.name.monkey.retro.views.RetroShapeableImageView
+    <com.ttop.app.apex.views.ApexShapeableImageView
         android:id="@+id/userImage"
         android:layout_width="42dp"
         android:layout_height="42dp"

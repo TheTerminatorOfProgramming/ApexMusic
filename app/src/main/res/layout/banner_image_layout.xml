@@ -34,7 +34,7 @@
                 android:background="@drawable/shadow_up"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <code.name.monkey.retro.views.RetroShapeableImageView
+            <com.ttop.app.apex.views.ApexShapeableImageView
                 android:id="@+id/userImage"
                 android:layout_width="42dp"
                 android:layout_height="42dp"

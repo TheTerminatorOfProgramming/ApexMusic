@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="code.name.monkey.retro">
+    package="com.ttop.app.apex">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -19,11 +19,10 @@
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="com.android.vending.BILLING" />
 
 
     <application
-        android:name="code.name.monkey.retro.App"
+        android:name="com.ttop.app.apex.App"
         android:allowBackup="@bool/allowBackup"
         android:configChanges="locale|layoutDirection"
         android:icon="@mipmap/ic_launcher"
@@ -32,15 +31,14 @@
         android:restoreAnyVersion="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RetroMusic.FollowSystem"
+        android:theme="@style/Theme.Apex.FollowSystem"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
         <activity
-            android:name="code.name.monkey.retro.activities.MainActivity"
+            android:name="com.ttop.app.apex.activities.MainActivity"
             android:exported="true"
-            android:launchMode="singleTop"
-            android:theme="@style/SplashTheme">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.MUSIC_PLAYER" />
@@ -111,24 +109,24 @@
                 <data android:mimeType="vnd.android.cursor.dir/audio" />
             </intent-filter>
         </activity>
-        <activity android:name="code.name.monkey.retro.activities.SettingsActivity" />
-        <activity android:name="code.name.monkey.retro.activities.tageditor.AlbumTagEditorActivity" />
-        <activity android:name="code.name.monkey.retro.activities.tageditor.SongTagEditorActivity" />
-        <activity android:name="code.name.monkey.retro.activities.SupportDevelopmentActivity" />
-        <activity android:name="code.name.monkey.retro.activities.LicenseActivity" />
-        <activity android:name="code.name.monkey.retro.activities.PurchaseActivity" />
-        <activity android:name="code.name.monkey.retro.activities.WhatsNewActivity" />
-        <activity android:name="code.name.monkey.retro.activities.bugreport.BugReportActivity" />
-        <activity android:name="code.name.monkey.retro.activities.ShareInstagramStory" />
-        <activity android:name="code.name.monkey.retro.activities.DriveModeActivity" />
-        <activity android:name="code.name.monkey.retro.activities.PermissionActivity" />
-        <activity android:name="code.name.monkey.retro.activities.LockScreenActivity" />
+        <activity android:name="com.ttop.app.apex.activities.SettingsActivity" />
+        <activity android:name="com.ttop.app.apex.activities.tageditor.AlbumTagEditorActivity" />
+        <activity android:name="com.ttop.app.apex.activities.tageditor.SongTagEditorActivity" />
+        <activity android:name="com.ttop.app.apex.activities.SupportDevelopmentActivity" />
+        <activity android:name="com.ttop.app.apex.activities.LicenseActivity" />
+        <activity android:name="com.ttop.app.apex.activities.PurchaseActivity" />
+        <activity android:name="com.ttop.app.apex.activities.WhatsNewActivity" />
+        <activity android:name="com.ttop.app.apex.activities.bugreport.BugReportActivity" />
+        <activity android:name="com.ttop.app.apex.activities.ShareInstagramStory" />
+        <activity android:name="com.ttop.app.apex.activities.DriveModeActivity" />
+        <activity android:name="com.ttop.app.apex.activities.PermissionActivity" />
+        <activity android:name="com.ttop.app.apex.activities.LockScreenActivity" />
         <activity
-            android:name="code.name.monkey.retro.fragments.backup.RestoreActivity"
+            android:name="com.ttop.app.apex.fragments.backup.RestoreActivity"
             android:excludeFromRecents="false"
             android:exported="true"
             android:label="@string/restore"
-            android:theme="@style/Theme.RetroMusic.Dialog">
+            android:theme="@style/Theme.Apex.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -161,16 +159,16 @@
         </activity>
 
         <activity
-            android:name="code.name.monkey.retro.appshortcuts.AppShortcutLauncherActivity"
+            android:name="com.ttop.app.apex.appshortcuts.AppShortcutLauncherActivity"
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
-            android:name="code.name.monkey.retro.activities.saf.SAFGuideActivity"
+            android:name="com.ttop.app.apex.activities.saf.SAFGuideActivity"
             android:theme="@style/Theme.Intro" />
 
         <activity
-            android:name="code.name.monkey.retro.cast.ExpandedControlsActivity"
+            android:name="com.ttop.app.apex.cast.ExpandedControlsActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -180,11 +178,11 @@
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="code.name.monkey.retro.activities.MainActivity" />
+                android:value="com.ttop.app.apex.activities.MainActivity" />
         </activity>
 
         <activity
-            android:name="code.name.monkey.retro.activities.ErrorActivity"
+            android:name="com.ttop.app.apex.activities.ErrorActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="cat.ereza.customactivityoncrash.RESTART" />
@@ -193,7 +191,7 @@
 
 
         <provider
-            android:name="code.name.monkey.retro.misc.GenericFileProvider"
+            android:name="com.ttop.app.apex.misc.GenericFileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -221,7 +219,7 @@
         </receiver>
 
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.BootReceiver"
+            android:name="com.ttop.app.apex.appwidgets.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -230,7 +228,7 @@
         </receiver>
 
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.AppWidgetBig"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetBig"
             android:exported="true"
             android:label="@string/app_widget_big_name">
             <intent-filter>
@@ -243,7 +241,7 @@
         </receiver>
 
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.AppWidgetClassic"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetClassic"
             android:exported="true"
             android:label="@string/app_widget_classic_name">
             <intent-filter>
@@ -255,7 +253,7 @@
                 android:resource="@xml/app_widget_classic_info" />
         </receiver>
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.AppWidgetSmall"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetSmall"
             android:exported="true"
             android:label="@string/app_widget_small_name">
             <intent-filter>
@@ -267,7 +265,7 @@
                 android:resource="@xml/app_widget_small_info" />
         </receiver>
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.AppWidgetText"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetText"
             android:exported="true"
             android:label="@string/app_widget_text_name">
             <intent-filter>
@@ -279,7 +277,7 @@
                 android:resource="@xml/app_widget_text" />
         </receiver>
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.AppWidgetCard"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetCard"
             android:exported="true"
             android:label="@string/app_widget_card_name">
             <intent-filter>
@@ -291,7 +289,7 @@
                 android:resource="@xml/app_widget_card_info" />
         </receiver>
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.AppWidgetMD3"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetMD3"
             android:exported="true"
             android:label="@string/app_widget_md3_name">
             <intent-filter>
@@ -303,7 +301,7 @@
                 android:resource="@xml/app_widget_md3_info" />
         </receiver>
         <receiver
-            android:name="code.name.monkey.retro.appwidgets.AppWidgetCircle"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetCircle"
             android:exported="true"
             android:label="@string/app_widget_circle_name">
             <intent-filter>
@@ -316,7 +314,7 @@
         </receiver>
 
         <service
-            android:name="code.name.monkey.retro.service.MusicService"
+            android:name="com.ttop.app.apex.service.MusicService"
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
@@ -355,7 +353,7 @@
         <!-- ChromeCast -->
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
-            android:value="code.name.monkey.retro.cast.CastOptionsProvider" />
+            android:value="com.ttop.app.apex.cast.CastOptionsProvider" />
     </application>
 
     <!--
