@@ -1,6 +1,6 @@
 <p align="center">
     <img src="app\src\main\ic_launcher-web.png" height="128">
-    <h1 align="center">Apex Music Player</h1>
+    <h1 align="center">Apex Music</h1>
   </a>
 </p>
 <p align="center">
@@ -18,7 +18,7 @@
   </a
 </p>
 
-## 📱 Screenshots
+## Screenshots
 ### App Themes
 | <img src="screenshots/home_light.jpg" width="200"/> | <img src="screenshots/home_dark.jpg" width="200"/> | <img src="screenshots/home_black.jpg" width="200"/> |
 |:---:|:---:|:---:|
@@ -50,19 +50,19 @@
 
 ___
 
-## 🧭 Navigation never made easier 
+## Navigation never made easier 
 Self-explanatory interface without overloaded menus.
 
-## 🎨 Colorful
+## Colorful
 You can choose between three different main themes: Clearly White, Kinda
 Dark and Just Black for AMOLED displays. Select your favorite accent
 color from a color palette.
 
-## 🏠 Home
+## Home
 Where you can view your recently/top played artists, albums and
 favorite songs. No other music player has this feature.
 
-## 📦 Included Features
+## Included Features
 -  Base 3 themes (Clearly White, Kinda Dark and Just Black)
 -  Chromecast support
 -  Choose from 10+ now playing themes
@@ -94,7 +94,7 @@ favorite songs. No other music player has this feature.
 
 We are trying our best to bring you the best user experience. The app is regularly being updated for bug fixes and new features.
 
-## 🗂️ License
+## License
 
 Apex Music is released under the GNU General Public License v3.0
 (GPLv3), which can be found [here](LICENSE.md)
