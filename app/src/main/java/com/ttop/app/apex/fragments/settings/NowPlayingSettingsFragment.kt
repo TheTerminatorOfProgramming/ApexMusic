@@ -35,7 +35,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
         carouselEffect?.setOnPreferenceChangeListener { _, newValue ->
-            return@setOnPreferenceChangeListener newValue as Boolean
+            carouselEffect.isChecked = newValue as Boolean
+            return@setOnPreferenceChangeListener newValue
         }
     }
 
