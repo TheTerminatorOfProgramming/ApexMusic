@@ -18,22 +18,8 @@
   </a>
   <a href="https://github.com/RetroMusicPlayer/RetroMusicPlayer/blob/master/LICENSE.md" style="text-decoration:none" area-label="License: GPL v3">
     <img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg">
-  </a>
-  <a href="https://twitter.com/retromusicapp" style="text-decoration:none" area-label="Twitter Follow">
-    <img src="https://img.shields.io/twitter/follow/retromusicapp?style=social">
-  </a>
-  <a href="https://crowdin.com/project/retromusicplayer" style="text-decoration:none" area-label="Crowdin">
-    <img src="https://badges.crowdin.net/retromusicplayer/localized.svg">
-  </a>
-
+  </a
 </p>
-
-___
-
-## 🆕 Material You Design Music Player for Android music lovers 
-
-## ⚠ Join [@retromusiclog](https://telegram.me/retromusiclog) on Telegram for important updates.
-___
 
 ## 📱 Screenshots
 ### App Themes
@@ -111,27 +97,11 @@ favorite songs. No other music player has this feature.
 
 We are trying our best to bring you the best user experience. The app is regularly being updated for bug fixes and new features.
 
-___
-
-
-## ❓ FAQ
-Please read the FAQ [here](https://retromusic.app/faq.html)
-
-In any case, you find or notice any bugs please report them by creating an issue or by contacting us in the [Telegram help & feedback group](https://t.me/retromusicapp).
-If you have any feature suggestions, please create an issue with detailed information or by contacting us in the [Telegram suggestions group](https://t.me/retro_music_suggestion).
-
-## 🔗 Social links
-**Telegram:** https://t.me/retromusicapp <br>
-**Instagram:** https://instagram.com/retromusicapp <br>
-**Crowdin**: https://crowdin.com/project/retromusicplayer <br>
-**Pinterest:** https://pinterest.com/retromusicapp <br>
-**Twitter:** https://twitter.com/retromusicapp <br>
-
 ## 🗂️ License
 
-Retro Music Player is released under the GNU General Public License v3.0
+Apex Music is released under the GNU General Public License v3.0
 (GPLv3), which can be found [here](LICENSE.md)
 
 
->Please note: Retro Music Player is an offline music player app. It
+>Please note: Apex Music is an offline music player app. It
 >doesn't support music downloading or online music streaming.
