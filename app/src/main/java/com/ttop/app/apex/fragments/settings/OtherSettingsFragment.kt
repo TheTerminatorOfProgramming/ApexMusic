@@ -36,12 +36,6 @@ class OtherSettingsFragment : AbsSettingsFragment() {
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
 
     override fun invalidateSettings() {
-        val languagePreference: ATEListPreference? = findPreference(LANGUAGE_NAME)
-        languagePreference?.setOnPreferenceChangeListener { _, _ ->
-            println("Invalidated")
-            restartActivity()
-            return@setOnPreferenceChangeListener true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
