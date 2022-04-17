@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="about_album_label">About %s</string>
-    <string name="about_settings_summary">Team, social links</string>
+    <string name="about_settings_summary">Team, changelog</string>
     <string name="accent_color">Accent color</string>
     <string name="accent_color_desc">The theme accent color, defaults to purple</string>
     <string name="action_about">About</string>
@@ -105,13 +105,11 @@
     <string name="bug_report_no_username">Please enter your valid GitHub username</string>
     <string name="bug_report_summary">An unexpected error occurred. Sorry you found this bug, if it keeps crashing \"Clear app data\" or send an Email </string>
     <string name="bug_report_use_account">Send using GitHub account</string>
-    <string name="buy_now">Buy now</string>
     <string name="cancel_current_timer">Cancel</string>
     <string name="card">Card</string>
     <string name="card_color_style">Colored Card</string>
     <string name="card_square">Square Card</string>
     <string name="card_style">Card</string>
-    <string name="carousal_effect_on_now_playing_screen">Carousel effect on the now playing screen</string>
     <string name="cascading">Cascading</string>
     <string name="changelog">Changelog</string>
     <string name="changelog_summary">Check out What\'s New</string>
@@ -130,7 +128,6 @@
     <string name="copied_device_info_to_clipboard">Copied device info to clipboard.</string>
     <string name="could_not_create_playlist">Couldn\u2019t create playlist.</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>
-    <string name="could_not_restore_purchase">Could not restore purchase.</string>
     <string name="could_not_scan_files">Could not scan %d files.</string>
     <string name="create_action">Create</string>
     <string name="create_new_backup">Create</string>
@@ -158,9 +155,6 @@
     <string name="disc_hint">Disc Number</string>
     <string name="do_you_want_to_clear_the_blacklist">Do you want to clear the blacklist?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Do you want to remove <b>%1$s</b> from the blacklist?]]></string>
-    <string name="donate">Donate</string>
-    <string name="donate_summary">If you think I deserve to get paid for my work, you can leave some money here</string>
-    <string name="donation_header">Buy me a:</string>
     <string name="done">Done</string>
     <string name="drive_mode">Drive mode</string>
     <string name="edit_fab">Edit Button</string>
@@ -168,15 +162,13 @@
     <string name="edit_synced_lyrics">Edit Synced Lyrics</string>
     <string name="empty">Empty</string>
     <string name="equalizer">Equalizer</string>
-    <string name="faq">FAQ</string>
     <string name="favorites">Favorites</string>
     <string name="finish_last_song">Finish last song</string>
     <string name="fit">Fit</string>
     <string name="flat">Flat</string>
     <string name="folders">Folders</string>
     <string name="follow_system">Follow system</string>
-    <string name="for_you">For you</string>
-    <string name="free">Free</string>
+    <string name="for_you">Home</string>
     <string name="full">Full</string>
     <string name="full_card">Full card</string>
     <string name="general_settings_summary">Change the theme and colors of the app</string>
@@ -208,8 +200,6 @@
     <string name="import_playlist">Import playlist</string>
     <string name="import_playlist_message">It imports all playlists listed in the Android Media Store with songs, if the playlists already exists, the songs will get merged.</string>
     <string name="inserted_x_songs_into_playlist_x">Inserted %1$d songs into the playlist %2$s.</string>
-    <string name="instagram_page" translatable="false">Instagram</string>
-    <string name="instagram_page_summary">Share your Retro Music setup to showcase on Instagram</string>
     <string name="keyboard">Keyboard</string>
     <string name="label_bit_rate">Bitrate</string>
     <string name="label_file_format">Format</string>
@@ -231,7 +221,6 @@
     <string name="loading_products">Loading products…</string>
     <string name="login">Login</string>
     <string name="lyrics">Lyrics</string>
-    <string name="made_with_love">Made with ❤️ in India</string>
     <string name="material">Material</string>
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Permission error</string>
@@ -251,7 +240,6 @@
     <string name="no_lyrics_found">No lyrics found</string>
     <string name="no_playing_queue">No songs playing</string>
     <string name="no_playlists">You have no playlists</string>
-    <string name="no_purchase_found">No purchase found.</string>
     <string name="no_results">No results</string>
     <string name="no_songs">You have no songs</string>
     <string name="normal">Normal</string>
@@ -282,8 +270,6 @@
     <string name="personalize">Personalize</string>
     <string name="personalize_settings_summary">Customize your now playing and UI controls</string>
     <string name="pick_from_local_storage">Pick from local storage</string>
-    <string name="pinterest_page">Pinterest</string>
-    <string name="pinterest_page_summary">Follow Pinterest page for Retro Music design inspiration</string>
     <string name="plain">Plain</string>
     <string name="playList_already_exits">Playlist already exists</string>
     <string name="playback_pitch">Pitch</string>
@@ -396,10 +382,7 @@
     <string name="pref_title_toggle_volume">Volume controls</string>
     <string name="pref_title_wallpaper_accent">Wallpaper accent color</string>
     <string name="pref_title_whitelist">Whitelist music</string>
-    <string name="pro">Pro</string>
-    <string name="pro_summary">Black theme, Now playing themes, Carousel effect and more..</string>
     <string name="profile">Profile</string>
-    <string name="purchase">Purchase</string>
     <string name="queue">Playing Queue</string>
     <string name="rate_app">Rate the app</string>
     <string name="rate_on_google_play_summary">Love this app? Let us know in the Google Play Store how we can make it even better</string>
@@ -421,11 +404,7 @@
     <string name="reset_artist_image">Reset artist image</string>
     <string name="restore">Restore</string>
     <string name="restore_message">Do you want to restore backup?</string>
-    <string name="restored_previous_purchase_please_restart">Restored previous purchase. Please restart the app to make use of all features.</string>
-    <string name="restored_previous_purchases">Restored previous purchases.</string>
-    <string name="restoring_purchase">Restoring purchase…</string>
     <string name="retro_music_player">Retro Music Player</string>
-    <string name="retro_music_pro">Retro Music Pro</string>
     <string name="ringtone_summary">The app needs permission to access your device settings in order to set music as Ringtone</string>
     <string name="ringtone_title">Ringtone (Optional)</string>
     <string name="saf_delete_failed">File delete failed: %s</string>
@@ -502,11 +481,6 @@
     <string name="top_artists">Top artists</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
     <string name="track_list">Track number</string>
-    <string name="translate">Translate</string>
-    <string name="translate_community">Help us translate the app to your language</string>
-    <string name="try_retro_music_premium">Try Retro Music Premium</string>
-    <string name="twitter_page">Twitter</string>
-    <string name="twitter_page_summary">Share your design with Retro Music</string>
     <string name="unlabeled">Unlabeled</string>
     <string name="unplayable_file">Couldn\u2019t play this song.</string>
     <string name="up_next">Up next</string>
@@ -517,7 +491,6 @@
     <string name="username">Username</string>
     <string name="version">Version</string>
     <string name="vertical_flip">Vertical flip</string>
-    <string name="view_on_telegram">View on Telegram</string>
     <string name="volume">Volume</string>
     <string name="web_search">Web search</string>
     <string name="website">Website</string>
