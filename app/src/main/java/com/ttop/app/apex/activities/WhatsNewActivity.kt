@@ -4,22 +4,18 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import androidx.core.widget.NestedScrollView
 import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.appthemehelper.util.ATHUtil.isWindowBackgroundDark
 import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight
 import com.ttop.app.appthemehelper.util.ColorUtil.lightenColor
 import com.ttop.app.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
-import com.ttop.app.apex.Constants
 import com.ttop.app.apex.activities.base.AbsThemeActivity
 import com.ttop.app.apex.databinding.ActivityWhatsNewBinding
-import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.util.PreferenceUtil.lastVersion
-import com.ttop.app.apex.util.RetroUtil
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
@@ -35,7 +31,7 @@ class WhatsNewActivity : AbsThemeActivity() {
         ToolbarContentTintHelper.colorBackButton(binding.toolbar)
         try {
             val buf = StringBuilder()
-            val json = assets.open("retro-changelog.html")
+            val json = assets.open("apex-changelog.html")
             BufferedReader(InputStreamReader(json, StandardCharsets.UTF_8)).use { br ->
                 var str: String?
                 while (br.readLine().also { str = it } != null) {
