@@ -24,7 +24,7 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.google.android.material.button.MaterialButton
 
 class ShuffleButtonSongAdapter(
@@ -60,7 +60,7 @@ class ShuffleButtonSongAdapter(
             }
         } else {
             super.onBindViewHolder(holder, position - 1)
-            val landscape = RetroUtil.isLandscape()
+            val landscape = ApexUtil.isLandscape()
             if ((PreferenceUtil.songGridSize > 2 && !landscape) || (PreferenceUtil.songGridSizeLand > 5 && landscape)) {
                 holder.menu?.isVisible = false
             }

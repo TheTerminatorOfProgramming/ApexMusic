@@ -51,7 +51,7 @@ import java.util.List;
 import com.ttop.app.appthemehelper.util.TintHelper;
 import com.ttop.app.apex.App;
 
-public class RetroUtil {
+public class ApexUtil {
 
   private static final int[] TEMP_ARRAY = new int[1];
 

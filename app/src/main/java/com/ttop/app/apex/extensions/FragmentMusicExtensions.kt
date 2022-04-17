@@ -3,7 +3,7 @@ package com.ttop.app.apex.extensions
 import android.webkit.MimeTypeMap
 import androidx.core.net.toUri
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import org.jaudiotagger.audio.AudioFileIO
 import java.io.File
 import java.net.URLEncoder
@@ -17,7 +17,7 @@ fun getSongInfo(song: Song): String {
             val uriFile = file.toUri()
             string.append(getMimeType(uriFile.toString())).append(" • ")
             string.append(audioHeader.bitRate).append(" kb/s").append(" • ")
-            string.append(RetroUtil.frequencyCount(audioHeader.sampleRate.toInt()))
+            string.append(ApexUtil.frequencyCount(audioHeader.sampleRate.toInt()))
                 .append(" kHz")
             string.toString()
         } catch (er: Exception) {

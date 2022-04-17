@@ -44,8 +44,8 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
-import com.ttop.app.apex.util.RetroUtil.createBitmap
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.ApexUtil.createBitmap
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -184,21 +184,21 @@ class PlayingNotificationClassic(
                     primaryColor = primary
 
                     val close = createBitmap(
-                        RetroUtil.getTintedVectorDrawable(
+                        ApexUtil.getTintedVectorDrawable(
                             context,
                             R.drawable.ic_close,
                             primary
                         ), NOTIFICATION_CONTROLS_SIZE_MULTIPLIER
                     )
                     val prev = createBitmap(
-                        RetroUtil.getTintedVectorDrawable(
+                        ApexUtil.getTintedVectorDrawable(
                             context,
                             R.drawable.ic_skip_previous_round_white_32dp,
                             primary
                         ), NOTIFICATION_CONTROLS_SIZE_MULTIPLIER
                     )
                     val next = createBitmap(
-                        RetroUtil.getTintedVectorDrawable(
+                        ApexUtil.getTintedVectorDrawable(
                             context,
                             R.drawable.ic_skip_next_round_white_32dp,
                             primary
@@ -226,7 +226,7 @@ class PlayingNotificationClassic(
                     contentView.setImageViewBitmap(
                         R.id.smallIcon,
                         createBitmap(
-                            RetroUtil.getTintedVectorDrawable(
+                            ApexUtil.getTintedVectorDrawable(
                                 context,
                                 R.drawable.ic_notification,
                                 secondary
@@ -236,7 +236,7 @@ class PlayingNotificationClassic(
                     bigContentView.setImageViewBitmap(
                         R.id.smallIcon,
                         createBitmap(
-                            RetroUtil.getTintedVectorDrawable(
+                            ApexUtil.getTintedVectorDrawable(
                                 context,
                                 R.drawable.ic_notification,
                                 secondary
@@ -249,7 +249,7 @@ class PlayingNotificationClassic(
 
     private fun getPlayPauseBitmap(isPlaying: Boolean): Bitmap {
         return createBitmap(
-            RetroUtil.getTintedVectorDrawable(
+            ApexUtil.getTintedVectorDrawable(
                 context,
                 if (isPlaying)
                     R.drawable.ic_pause_white_48dp

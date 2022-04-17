@@ -5,7 +5,7 @@ import com.ttop.app.apex.cast.RetroWebServer.Companion.MIME_TYPE_AUDIO
 import com.ttop.app.apex.cast.RetroWebServer.Companion.PART_COVER_ART
 import com.ttop.app.apex.cast.RetroWebServer.Companion.PART_SONG
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.google.android.gms.cast.*
 import com.google.android.gms.cast.MediaInfo.STREAM_TYPE_BUFFERED
 import com.google.android.gms.cast.MediaMetadata.*
@@ -57,7 +57,7 @@ object CastHelper {
         val song = this
         val baseUrl: URL
         try {
-            baseUrl = URL(CAST_URL_PROTOCOL, RetroUtil.getIpAddress(true), SERVER_PORT, "")
+            baseUrl = URL(CAST_URL_PROTOCOL, ApexUtil.getIpAddress(true), SERVER_PORT, "")
         } catch (e: MalformedURLException) {
             return null
         }

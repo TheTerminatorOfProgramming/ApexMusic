@@ -90,7 +90,7 @@ import com.ttop.app.apex.util.PreferenceUtil.isPauseOnZeroVolume
 import com.ttop.app.apex.util.PreferenceUtil.playbackSpeed
 import com.ttop.app.apex.util.PreferenceUtil.registerOnSharedPreferenceChangedListener
 import com.ttop.app.apex.util.PreferenceUtil.unregisterOnSharedPreferenceChangedListener
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.volume.AudioVolumeObserver
 import com.ttop.app.apex.volume.OnAudioVolumeChangedListener
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -1182,7 +1182,7 @@ class MusicService : MediaBrowserServiceCompat(),
             playingQueue.size.toLong()
         )
         if (isAlbumArtOnLockScreen) {
-            val screenSize = RetroUtil.getScreenSize(this@MusicService)
+            val screenSize = ApexUtil.getScreenSize(this@MusicService)
             val request: RequestBuilder<Bitmap> =
                 GlideApp.with(this@MusicService)
                     .asBitmap()

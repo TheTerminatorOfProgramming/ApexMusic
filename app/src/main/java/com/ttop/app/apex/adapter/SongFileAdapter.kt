@@ -31,7 +31,7 @@ import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.signature.MediaStoreSignature
 import me.zhanghai.android.fastscroll.PopupTextProvider
@@ -110,7 +110,7 @@ class SongFileAdapter(
                 )
             )
         } else {
-            val error = RetroUtil.getTintedVectorDrawable(
+            val error = ApexUtil.getTintedVectorDrawable(
                 activity, R.drawable.ic_file_music, iconColor
             )
             GlideApp.with(activity)

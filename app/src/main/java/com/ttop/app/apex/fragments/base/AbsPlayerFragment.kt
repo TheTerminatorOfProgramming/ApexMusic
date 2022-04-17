@@ -206,7 +206,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMainActivityFragme
     private fun showLyricsIcon(item: MenuItem) {
         val icon =
             if (PreferenceUtil.showLyrics) R.drawable.ic_lyrics else R.drawable.ic_lyrics_outline
-        val drawable: Drawable = RetroUtil.getTintedVectorDrawable(
+        val drawable: Drawable = ApexUtil.getTintedVectorDrawable(
             requireContext(),
             icon,
             toolbarIconColor()
@@ -264,7 +264,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMainActivityFragme
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
                 }
-                val drawable: Drawable = RetroUtil.getTintedVectorDrawable(
+                val drawable: Drawable = ApexUtil.getTintedVectorDrawable(
                     requireContext(),
                     icon,
                     toolbarIconColor()

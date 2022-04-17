@@ -146,7 +146,7 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
         }
         this.artist = artist
         loadArtistImage(artist)
-        if (RetroUtil.isAllowedToDownloadMetadata(requireContext())) {
+        if (ApexUtil.isAllowedToDownloadMetadata(requireContext())) {
             loadBiography(artist.name)
         }
         binding.artistTitle.text = artist.name
@@ -202,9 +202,9 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
                         scrobbles.show()
                         scrobblesLabel.show()
                         listeners.text =
-                            RetroUtil.formatValue(lastFmArtist.artist.stats.listeners.toFloat())
+                            ApexUtil.formatValue(lastFmArtist.artist.stats.listeners.toFloat())
                         scrobbles.text =
-                            RetroUtil.formatValue(lastFmArtist.artist.stats.playcount.toFloat())
+                            ApexUtil.formatValue(lastFmArtist.artist.stats.playcount.toFloat())
                     }
                 }
             }
@@ -379,7 +379,7 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
         cab = createCab(R.id.toolbar_container) {
             menu(menuRes)
             closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = RetroColorUtil.shiftBackgroundColor(surfaceColor()))
+            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
             slideDown()
             onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
             onSelection {

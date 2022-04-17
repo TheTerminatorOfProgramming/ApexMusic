@@ -18,7 +18,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.ttop.app.apex.R
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.google.android.material.transition.MaterialFade
 
 abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
@@ -28,7 +28,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     private var sortOrder: String? = null
     private var currentLayoutRes: Int = 0
     private val isLandscape: Boolean
-        get() = RetroUtil.isLandscape()
+        get() = ApexUtil.isLandscape()
 
     val maxGridSize: Int
         get() = if (isLandscape) {
@@ -55,7 +55,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
 
     fun getGridSize(): Int {
         if (gridSize == 0) {
-            gridSize = if (RetroUtil.isTablet()) {
+            gridSize = if (ApexUtil.isTablet()) {
                 if (isLandscape) {
                     if (loadGridSizeTabletLand() == 2){
                         saveGridSizeTabletLand(1)
@@ -95,7 +95,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     fun setAndSaveGridSize(gridSize: Int) {
         val oldLayoutRes = itemLayoutRes()
         this.gridSize = gridSize
-        if (RetroUtil.isTablet()) {
+        if (ApexUtil.isTablet()) {
             if (isLandscape) {
                 saveGridSizeTabletLand(gridSize)
             } else {

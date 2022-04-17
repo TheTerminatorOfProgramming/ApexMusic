@@ -48,7 +48,7 @@ import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -237,7 +237,7 @@ class FullPlaybackControlsFragment :
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
                 }
-                val drawable: Drawable = RetroUtil.getTintedVectorDrawable(
+                val drawable: Drawable = ApexUtil.getTintedVectorDrawable(
                     requireContext(),
                     icon,
                     Color.WHITE

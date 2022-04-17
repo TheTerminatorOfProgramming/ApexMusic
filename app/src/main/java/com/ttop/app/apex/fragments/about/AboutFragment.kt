@@ -31,7 +31,7 @@ import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.fragments.LibraryViewModel
 import com.ttop.app.apex.util.NavigationUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,8 +50,8 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         // This is a workaround as CollapsingToolbarLayout consumes insets and
         // insets are not passed to child views
         // https://github.com/material-components/material-components-android/issues/1310
-        if (!RetroUtil.isLandscape()) {
-            binding.aboutContent.root.updatePadding(bottom = RetroUtil.getNavigationBarHeight())
+        if (!ApexUtil.isLandscape()) {
+            binding.aboutContent.root.updatePadding(bottom = ApexUtil.getNavigationBarHeight())
         }
     }
 

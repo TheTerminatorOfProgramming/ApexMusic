@@ -14,7 +14,7 @@
 
 package com.ttop.app.apex.views;
 
-import static com.ttop.app.apex.util.RetroUtil.openUrl;
+import static com.ttop.app.apex.util.ApexUtil.openUrl;
 
 import android.app.Activity;
 import android.content.Context;

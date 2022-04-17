@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.ttop.app.apex.extensions.drawAboveSystemBarsWithPadding
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 
 class InsetsLinearLayout @JvmOverloads constructor(
     context: Context,
@@ -12,7 +12,7 @@ class InsetsLinearLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
     init {
-        if (!RetroUtil.isLandscape())
+        if (!ApexUtil.isLandscape())
             drawAboveSystemBarsWithPadding()
     }
 }

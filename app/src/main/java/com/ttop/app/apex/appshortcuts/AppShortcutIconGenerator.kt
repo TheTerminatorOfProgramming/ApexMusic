@@ -27,7 +27,7 @@ import androidx.core.graphics.createBitmap
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 
 @RequiresApi(Build.VERSION_CODES.N_MR1)
 object AppShortcutIconGenerator {
@@ -67,8 +67,8 @@ object AppShortcutIconGenerator {
         backgroundColor: Int
     ): Icon {
         // Get and tint foreground and background drawables
-        val vectorDrawable = RetroUtil.getTintedVectorDrawable(context, iconId, foregroundColor)
-        val backgroundDrawable = RetroUtil.getTintedVectorDrawable(
+        val vectorDrawable = ApexUtil.getTintedVectorDrawable(context, iconId, foregroundColor)
+        val backgroundDrawable = ApexUtil.getTintedVectorDrawable(
             context, R.drawable.ic_app_shortcut_background, backgroundColor
         )
 

@@ -22,7 +22,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.model.Contributor
-import com.ttop.app.apex.util.RetroUtil.openUrl
+import com.ttop.app.apex.util.ApexUtil.openUrl
 import com.ttop.app.apex.views.ApexShapeableImageView
 import com.bumptech.glide.Glide
 

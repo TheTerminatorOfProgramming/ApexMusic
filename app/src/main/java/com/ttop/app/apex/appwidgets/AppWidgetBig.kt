@@ -34,7 +34,7 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
@@ -59,7 +59,7 @@ class AppWidgetBig : BaseAppWidget() {
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
         appWidgetView.setImageViewBitmap(
             R.id.button_next, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     context,
                     R.drawable.ic_skip_next,
                     MaterialValueHelper.getPrimaryTextColor(context, false)
@@ -68,7 +68,7 @@ class AppWidgetBig : BaseAppWidget() {
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     context,
                     R.drawable.ic_skip_previous,
                     MaterialValueHelper.getPrimaryTextColor(context, false)
@@ -77,7 +77,7 @@ class AppWidgetBig : BaseAppWidget() {
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     context,
                     R.drawable.ic_play_arrow_white_32dp,
                     MaterialValueHelper.getPrimaryTextColor(context, false)
@@ -124,7 +124,7 @@ class AppWidgetBig : BaseAppWidget() {
             if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow_white_32dp
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     service,
                     playPauseRes,
                     primaryColor
@@ -135,7 +135,7 @@ class AppWidgetBig : BaseAppWidget() {
         // Set prev/next button drawables
         appWidgetView.setImageViewBitmap(
             R.id.button_next, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     service,
                     R.drawable.ic_skip_next,
                     primaryColor
@@ -144,7 +144,7 @@ class AppWidgetBig : BaseAppWidget() {
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     service,
                     R.drawable.ic_skip_previous,
                     primaryColor
@@ -156,7 +156,7 @@ class AppWidgetBig : BaseAppWidget() {
         linkButtons(service, appWidgetView)
 
         // Load the album cover async and push the update on completion
-        val p = RetroUtil.getScreenSize(service)
+        val p = ApexUtil.getScreenSize(service)
         val widgetImageSize = p.x.coerceAtMost(p.y)
         val appContext = service.applicationContext
         service.runOnUiThread {

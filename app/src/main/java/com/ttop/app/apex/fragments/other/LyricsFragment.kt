@@ -52,7 +52,7 @@ import com.ttop.app.apex.model.AudioTagInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.FileUtils
 import com.ttop.app.apex.util.LyricUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.UriUtil
 import com.afollestad.materialdialogs.input.input
 import com.google.android.material.color.MaterialColors
@@ -225,7 +225,7 @@ class LyricsFragment : AbsMusicServiceFragment(R.layout.fragment_lyrics) {
             return true
         }
         if (item.itemId == R.id.action_search) {
-            RetroUtil.openUrl(
+            ApexUtil.openUrl(
                 requireActivity(), when (binding.lyricsPager.currentItem) {
                     0 -> syairSearchLrcUrl
                     1 -> googleSearchLrcUrl

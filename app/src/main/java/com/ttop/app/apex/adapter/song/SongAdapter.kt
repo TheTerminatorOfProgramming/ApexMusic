@@ -41,7 +41,7 @@ import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import me.zhanghai.android.fastscroll.PopupTextProvider
 
@@ -100,7 +100,7 @@ open class SongAdapter(
         holder.text?.text = getSongText(song)
         holder.text2?.text = getSongText(song)
         loadAlbumCover(song, holder)
-        val landscape = RetroUtil.isLandscape()
+        val landscape = ApexUtil.isLandscape()
         if ((PreferenceUtil.songGridSize > 2 && !landscape) || (PreferenceUtil.songGridSizeLand > 5 && landscape)) {
             holder.menu?.isVisible = false
         }

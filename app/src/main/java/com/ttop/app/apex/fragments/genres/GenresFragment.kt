@@ -31,7 +31,7 @@ import com.ttop.app.apex.fragments.ReloadType
 import com.ttop.app.apex.fragments.base.AbsRecyclerViewFragment
 import com.ttop.app.apex.interfaces.IGenreClickListener
 import com.ttop.app.apex.model.Genre
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -53,7 +53,7 @@ GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
     }
 
     override fun createLayoutManager(): LinearLayoutManager {
-        return if (RetroUtil.isLandscape()) {
+        return if (ApexUtil.isLandscape()) {
             GridLayoutManager(activity, 4)
         } else {
             GridLayoutManager(activity, 2)

@@ -44,7 +44,7 @@ import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.model.AudioTagInfo
 import com.ttop.app.apex.repository.Repository
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.SAFUtil
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -345,7 +345,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         fieldKeyValueMap: Map<FieldKey, String>,
         artworkInfo: ArtworkInfo?
     ) {
-        RetroUtil.hideSoftKeyboard(this)
+        ApexUtil.hideSoftKeyboard(this)
 
         hideFab()
         println(fieldKeyValueMap)

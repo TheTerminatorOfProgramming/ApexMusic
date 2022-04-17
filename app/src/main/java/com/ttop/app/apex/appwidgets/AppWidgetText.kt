@@ -31,7 +31,7 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 
 class AppWidgetText : BaseAppWidget() {
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
@@ -39,7 +39,7 @@ class AppWidgetText : BaseAppWidget() {
 
         appWidgetView.setImageViewBitmap(
             R.id.button_next, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     context, R.drawable.ic_skip_next, ContextCompat.getColor(
                         context, R.color.md_white_1000
                     )
@@ -48,7 +48,7 @@ class AppWidgetText : BaseAppWidget() {
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     context, R.drawable.ic_skip_previous, ContextCompat.getColor(
                         context, R.color.md_white_1000
                     )
@@ -57,7 +57,7 @@ class AppWidgetText : BaseAppWidget() {
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     context, R.drawable.ic_play_arrow_white_32dp, ContextCompat.getColor(
                         context, R.color.md_white_1000
                     )
@@ -133,7 +133,7 @@ class AppWidgetText : BaseAppWidget() {
         else R.drawable.ic_play_arrow_white_32dp
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     App.getContext(), playPauseRes, ContextCompat.getColor(
                         App.getContext(), R.color.md_white_1000
                     )
@@ -142,7 +142,7 @@ class AppWidgetText : BaseAppWidget() {
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_next, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     App.getContext(),
                     R.drawable.ic_skip_next,
                     ContextCompat.getColor(
@@ -153,7 +153,7 @@ class AppWidgetText : BaseAppWidget() {
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     App.getContext(),
                     R.drawable.ic_skip_previous,
                     ContextCompat.getColor(

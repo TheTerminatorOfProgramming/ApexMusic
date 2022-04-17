@@ -39,7 +39,7 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import kotlin.math.abs
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
@@ -67,7 +67,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         view.setOnTouchListener(FlingPlayBackController(requireContext()))
         setUpMiniPlayer()
 
-        if (RetroUtil.isTablet()) {
+        if (ApexUtil.isTablet()) {
             binding.actionNext.show()
             binding.actionPrevious.show()
         } else {

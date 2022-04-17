@@ -35,7 +35,7 @@ import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -59,7 +59,7 @@ class AppWidgetCircle : BaseAppWidget() {
         val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     context,
                     R.drawable.ic_play_arrow,
                     secondaryColor
@@ -85,7 +85,7 @@ class AppWidgetCircle : BaseAppWidget() {
             if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     service,
                     playPauseRes,
                     MaterialValueHelper.getSecondaryTextColor(service, true)
@@ -99,7 +99,7 @@ class AppWidgetCircle : BaseAppWidget() {
             if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_favorite, createBitmap(
-                RetroUtil.getTintedVectorDrawable(
+                ApexUtil.getTintedVectorDrawable(
                     service,
                     favoriteRes,
                     MaterialValueHelper.getSecondaryTextColor(service, true)
@@ -111,7 +111,7 @@ class AppWidgetCircle : BaseAppWidget() {
         linkButtons(service, appWidgetView)
 
         if (imageSize == 0) {
-            val p = RetroUtil.getScreenSize(service)
+            val p = ApexUtil.getScreenSize(service)
             imageSize = p.x.coerceAtMost(p.y)
         }
 

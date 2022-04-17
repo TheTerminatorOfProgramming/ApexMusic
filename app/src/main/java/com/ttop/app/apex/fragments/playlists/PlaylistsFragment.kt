@@ -30,7 +30,7 @@ import com.ttop.app.apex.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.interfaces.IPlaylistClickListener
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -79,7 +79,7 @@ class PlaylistsFragment :
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         val gridSizeItem: MenuItem = menu.findItem(R.id.action_grid_size)
-        if (RetroUtil.isLandscape()) {
+        if (ApexUtil.isLandscape()) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
         setupGridSizeMenu(gridSizeItem.subMenu)
@@ -114,7 +114,7 @@ class PlaylistsFragment :
             7 -> gridSizeMenu.findItem(R.id.action_grid_size_7).isChecked = true
             8 -> gridSizeMenu.findItem(R.id.action_grid_size_8).isChecked = true
         }
-        val gridSize = if (RetroUtil.isLandscape()) 4 else 2
+        val gridSize = if (ApexUtil.isLandscape()) 4 else 2
         if (gridSize < 8) {
             gridSizeMenu.findItem(R.id.action_grid_size_8).isVisible = false
         }
@@ -134,7 +134,7 @@ class PlaylistsFragment :
             gridSizeMenu.findItem(R.id.action_grid_size_3).isVisible = false
         }
 
-        if (RetroUtil.isTablet()) {
+        if (ApexUtil.isTablet()) {
             gridSizeMenu.findItem(R.id.action_grid_size_2).isVisible = false
         }
     }

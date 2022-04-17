@@ -31,7 +31,7 @@ import androidx.core.view.*
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.TintHelper
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dev.chrisbanes.insetter.applyInsetter
 
@@ -122,7 +122,7 @@ fun View.focusAndShowKeyboard() {
  */
 fun View.drawAboveSystemBars(onlyPortrait: Boolean = true) {
     if (PreferenceUtil.isFullScreenMode) return
-    if (onlyPortrait && RetroUtil.isLandscape()) return
+    if (onlyPortrait && ApexUtil.isLandscape()) return
     applyInsetter {
         type(navigationBars = true) {
             margin()
