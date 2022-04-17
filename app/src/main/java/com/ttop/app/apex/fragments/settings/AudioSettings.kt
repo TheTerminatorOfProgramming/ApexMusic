@@ -39,9 +39,6 @@ class AudioSettings : AbsSettingsFragment() {
             NavigationUtil.openEqualizer(requireActivity())
             true
         }
-
-        val bluetooth: ATESwitchPreference? = findPreference("bluetooth_playback")
-        bluetooth?.isVisible = !(BuildConfig.BUILD_TYPE.equals("beta") || BuildConfig.DEBUG)
     }
 
 

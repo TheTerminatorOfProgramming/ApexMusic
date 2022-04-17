@@ -61,6 +61,7 @@
         android:key="bluetooth_playback"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_bluetooth_playback"
-        android:title="@string/pref_title_bluetooth_playback" />
+        android:title="@string/pref_title_bluetooth_playback"
+        app:icon="@drawable/ic_bluetooth"/>
 
 </androidx.preference.PreferenceScreen>

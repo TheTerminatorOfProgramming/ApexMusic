@@ -16,8 +16,10 @@ package com.ttop.app.apex.activities.base
 
 import android.Manifest
 import android.content.*
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.toPlayCount
@@ -187,7 +189,24 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
         println("sendBroadcast $hasPermissions")
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun getPermissionsToRequest(): Array<String> {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.BLUETOOTH
+                )
+            }else{
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                )
+            }
+        }
         return arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

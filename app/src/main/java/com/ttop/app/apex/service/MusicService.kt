@@ -39,6 +39,7 @@ import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.media.AudioAttributesCompat
@@ -74,6 +75,7 @@ import com.ttop.app.apex.service.notification.PlayingNotificationClassic
 import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil.getMediaStoreAlbumCoverUri
 import com.ttop.app.apex.util.MusicUtil.getSongFileUri
 import com.ttop.app.apex.util.MusicUtil.isFavorite
@@ -81,7 +83,6 @@ import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
-import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
 import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt
 import com.ttop.app.apex.util.PreferenceUtil.isClassicNotification
 import com.ttop.app.apex.util.PreferenceUtil.isHeadsetPlugged
@@ -90,12 +91,13 @@ import com.ttop.app.apex.util.PreferenceUtil.isPauseOnZeroVolume
 import com.ttop.app.apex.util.PreferenceUtil.playbackSpeed
 import com.ttop.app.apex.util.PreferenceUtil.registerOnSharedPreferenceChangedListener
 import com.ttop.app.apex.util.PreferenceUtil.unregisterOnSharedPreferenceChangedListener
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.volume.AudioVolumeObserver
 import com.ttop.app.apex.volume.OnAudioVolumeChangedListener
 import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.java.KoinJavaComponent.get
 import java.util.*
+import java.util.concurrent.Executor
+
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal. Modified by Prathamesh More
@@ -235,10 +237,14 @@ class MusicService : MediaBrowserServiceCompat(),
     private val bluetoothReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            if (action != null) {
-                if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
+            if (BluetoothDevice.ACTION_ACL_CONNECTED == action) {
+                if (VERSION.SDK_INT >= VERSION_CODES.M) {
+                    if (audioManager!!.getDevices(AudioManager.GET_DEVICES_OUTPUTS).isNotEmpty()) {
+                        Handler().postDelayed({ play() }, 1000)
+                    }
+                } else {
                     if (audioManager!!.isBluetoothA2dpOn) {
-                        play()
+                        Handler().postDelayed({ play() }, 1000)
                     }
                 }
             }
