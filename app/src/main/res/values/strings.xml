@@ -322,7 +322,7 @@
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
-    <string name="pref_summary_lock_screen">Use Retro Music\'s custom lockscreen controls</string>
+    <string name="pref_summary_lock_screen">Use Apex Music\'s custom lockscreen controls</string>
     <string name="pref_summary_open_source_licences">License details for open source software</string>
     <string name="pref_summary_pause_history">When enabled, newly played songs won\'t show in history</string>
     <string name="pref_summary_remember_tab">Navigate to the last used tab on start</string>
@@ -443,9 +443,9 @@
     <string name="sleep_timer_set">Sleep timer set for %d minutes from now.</string>
     <string name="social">Social</string>
     <string name="social_stories">Share story</string>
-    <string name="song">Song</string>
+    <string name="song">Track</string>
     <string name="song_duration">Song duration</string>
-    <string name="songs">Songs</string>
+    <string name="songs">Tracks</string>
     <string name="sort_order">Sort order</string>
     <string name="sort_order_a_z">Ascending</string>
     <string name="sort_order_album">Album</string>
