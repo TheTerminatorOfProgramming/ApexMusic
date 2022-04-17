@@ -46,8 +46,8 @@ import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
-import com.ttop.app.apex.util.RetroColorUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
@@ -237,10 +237,10 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
         GridLayoutManager(requireContext(), gridCount(), GridLayoutManager.VERTICAL, false)
 
     private fun gridCount(): Int {
-        if (RetroUtil.isTablet()) {
-            return if (RetroUtil.isLandscape()) 6 else 4
+        if (ApexUtil.isTablet()) {
+            return if (ApexUtil.isLandscape()) 6 else 4
         }
-        return if (RetroUtil.isLandscape()) 4 else 2
+        return if (ApexUtil.isLandscape()) 4 else 2
     }
 
 
@@ -291,7 +291,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
         cab = createCab(R.id.toolbar_container) {
             menu(menuRes)
             closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = RetroColorUtil.shiftBackgroundColor(surfaceColor()))
+            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
             slideDown()
             onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
             onSelection {

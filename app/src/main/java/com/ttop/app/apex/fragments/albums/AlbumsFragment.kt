@@ -35,8 +35,8 @@ import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroColorUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
@@ -161,7 +161,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         val gridSizeItem: MenuItem = menu.findItem(R.id.action_grid_size)
-        if (RetroUtil.isLandscape()) {
+        if (ApexUtil.isLandscape()) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
         setUpGridSizeMenu(gridSizeItem.subMenu)
@@ -266,7 +266,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             gridSizeMenu.findItem(R.id.action_grid_size_3).isVisible = false
         }
 
-        if (RetroUtil.isTablet()) {
+        if (ApexUtil.isTablet()) {
             gridSizeMenu.findItem(R.id.action_grid_size_2).isVisible = false
         }
     }
@@ -379,7 +379,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
         cab = createCab(R.id.toolbar_container) {
             menu(menuRes)
             closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = RetroColorUtil.shiftBackgroundColor(surfaceColor()))
+            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
             slideDown()
             onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
             onSelection {

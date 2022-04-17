@@ -43,7 +43,7 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroColorUtil
+import com.ttop.app.apex.util.ApexColorUtil
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import kotlinx.coroutines.Dispatchers
@@ -143,7 +143,7 @@ class PlayingNotificationImpl24(
                     if (Build.VERSION.SDK_INT <=
                         Build.VERSION_CODES.O && PreferenceUtil.isColoredNotification
                     ) {
-                        color = RetroColorUtil.getColor(resource.palette, Color.TRANSPARENT)
+                        color = ApexColorUtil.getColor(resource.palette, Color.TRANSPARENT)
                     }
                     onUpdate()
                 }

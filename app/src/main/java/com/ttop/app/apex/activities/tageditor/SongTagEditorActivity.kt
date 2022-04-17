@@ -38,7 +38,7 @@ import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.repository.SongRepository
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.RetroColorUtil
+import com.ttop.app.apex.util.ApexColorUtil
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.transition.Transition
@@ -112,8 +112,8 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
         val bitmap = albumArt
         setImageBitmap(
             bitmap,
-            RetroColorUtil.getColor(
-                RetroColorUtil.generatePalette(bitmap),
+            ApexColorUtil.getColor(
+                ApexColorUtil.generatePalette(bitmap),
                 defaultFooterColor()
             )
         )
@@ -180,11 +180,11 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
                     resource: BitmapPaletteWrapper,
                     transition: Transition<in BitmapPaletteWrapper>?
                 ) {
-                    RetroColorUtil.getColor(resource.palette, Color.TRANSPARENT)
+                    ApexColorUtil.getColor(resource.palette, Color.TRANSPARENT)
                     albumArtBitmap = resource.bitmap?.let { ImageUtil.resizeBitmap(it, 2048) }
                     setImageBitmap(
                         albumArtBitmap,
-                        RetroColorUtil.getColor(
+                        ApexColorUtil.getColor(
                             resource.palette,
                             defaultFooterColor()
                         )

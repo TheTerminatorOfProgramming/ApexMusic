@@ -37,7 +37,7 @@ import com.ttop.app.appthemehelper.util.ColorUtil;
 import com.ttop.app.appthemehelper.util.VersionUtils;
 import com.ttop.app.apex.R;
 
-public class RetroColorUtil {
+public class ApexColorUtil {
   public static int desaturateColor(int color, float ratio) {
     float[] hsv = new float[3];
     Color.colorToHSV(color, hsv);

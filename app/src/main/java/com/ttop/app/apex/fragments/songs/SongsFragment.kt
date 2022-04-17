@@ -34,8 +34,8 @@ import com.ttop.app.apex.helper.SortOrder.SongSortOrder
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroColorUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.ApexUtil
 
 class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager>(),
     ICabHolder {
@@ -131,7 +131,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         val gridSizeItem: MenuItem = menu.findItem(R.id.action_grid_size)
-        if (RetroUtil.isLandscape()) {
+        if (ApexUtil.isLandscape()) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
 
@@ -279,7 +279,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             gridSizeMenu.findItem(R.id.action_grid_size_3).isVisible = false
         }
 
-        if (RetroUtil.isTablet()) {
+        if (ApexUtil.isTablet()) {
             gridSizeMenu.findItem(R.id.action_grid_size_2).isVisible = false
         }
     }
@@ -410,7 +410,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         cab = createCab(R.id.toolbar_container) {
             menu(menuRes)
             closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = RetroColorUtil.shiftBackgroundColor(surfaceColor()))
+            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
             slideDown()
             onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
             onSelection {

@@ -64,8 +64,8 @@ import com.ttop.app.apex.network.model.LastFmAlbum
 import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroColorUtil
-import com.ttop.app.apex.util.RetroUtil
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.ApexUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
@@ -292,9 +292,9 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
                 binding.fragmentAlbumContent.scrobblesLabel.show()
 
                 binding.fragmentAlbumContent.listeners.text =
-                    RetroUtil.formatValue(lastFmAlbum.album.listeners.toFloat())
+                    ApexUtil.formatValue(lastFmAlbum.album.listeners.toFloat())
                 binding.fragmentAlbumContent.scrobbles.text =
-                    RetroUtil.formatValue(lastFmAlbum.album.playcount.toFloat())
+                    ApexUtil.formatValue(lastFmAlbum.album.playcount.toFloat())
             }
         }
     }
@@ -475,7 +475,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         cab = createCab(R.id.toolbar_container) {
             menu(menuRes)
             closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = RetroColorUtil.shiftBackgroundColor(surfaceColor()))
+            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
             slideDown()
             onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
             onSelection {

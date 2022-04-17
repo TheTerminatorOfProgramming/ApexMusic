@@ -26,7 +26,7 @@ import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.RetroColorUtil
+import com.ttop.app.apex.util.ApexColorUtil
 import com.google.android.material.color.MaterialColors
 
 
@@ -48,7 +48,7 @@ class ColorIconsImageView @JvmOverloads constructor(
     fun setIconBackgroundColor(color: Int) {
         background = ContextCompat.getDrawable(context, R.drawable.color_circle_gradient)
         if (ATHUtil.isWindowBackgroundDark(context) && PreferenceUtil.isDesaturatedColor) {
-            val desaturatedColor = RetroColorUtil.desaturateColor(color, 0.4f)
+            val desaturatedColor = ApexColorUtil.desaturateColor(color, 0.4f)
             backgroundTintList = ColorStateList.valueOf(desaturatedColor)
             imageTintList =
                 ColorStateList.valueOf(ATHUtil.resolveColor(context, R.attr.colorSurface))

@@ -62,7 +62,7 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.apex.util.FileUtil
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
-import com.ttop.app.apex.util.RetroColorUtil
+import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ThemedFastScroller.create
 import com.ttop.app.apex.views.BreadCrumbLayout.Crumb
 import com.ttop.app.apex.views.BreadCrumbLayout.SelectionCallback
@@ -441,7 +441,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         cab = createCab(R.id.toolbar_container) {
             menu(menuRes)
             closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = RetroColorUtil.shiftBackgroundColor(surfaceColor()))
+            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
             slideDown()
             onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
             onSelection {

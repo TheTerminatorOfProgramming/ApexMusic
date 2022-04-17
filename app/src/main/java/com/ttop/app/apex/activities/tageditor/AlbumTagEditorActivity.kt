@@ -38,8 +38,8 @@ import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.RetroColorUtil.generatePalette
-import com.ttop.app.apex.util.RetroColorUtil.getColor
+import com.ttop.app.apex.util.ApexColorUtil.generatePalette
+import com.ttop.app.apex.util.ApexColorUtil.getColor
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.transition.Transition

@@ -25,7 +25,7 @@ import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.RetroColorUtil
+import com.ttop.app.apex.util.ApexColorUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
@@ -191,7 +191,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
         cab = createCab(R.id.toolbar_container) {
             menu(menuRes)
             closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = RetroColorUtil.shiftBackgroundColor(surfaceColor()))
+            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
             slideDown()
             onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
             onSelection {

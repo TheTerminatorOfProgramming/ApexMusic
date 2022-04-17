@@ -12,7 +12,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
-import com.ttop.app.apex.util.RetroColorUtil
+import com.ttop.app.apex.util.ApexColorUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
@@ -25,7 +25,7 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
     private var menuRes: Int
     override fun onCabCreated(cab: AttachedCab, menu: Menu): Boolean {
         activity.window.statusBarColor =
-            RetroColorUtil.shiftBackgroundColor(activity.surfaceColor())
+            ApexColorUtil.shiftBackgroundColor(activity.surfaceColor())
         return true
     }
 
