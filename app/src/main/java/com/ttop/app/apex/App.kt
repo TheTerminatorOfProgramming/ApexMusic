@@ -39,7 +39,7 @@ class App : Application() {
         // default theme
         if (!ThemeStore.isConfigured(this, 3)) {
             ThemeStore.editTheme(this)
-                .accentColorRes(R.color.md_deep_purple_A200)
+                .accentColorRes(R.color.md_red_A400)
                 .coloredNavigationBar(true)
                 .commit()
         }
