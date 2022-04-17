@@ -259,7 +259,7 @@ object BackupHelper : KoinComponent {
 
     fun getBackupRoot(): File {
         return File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
             "Apex/Backups"
         )
     }
