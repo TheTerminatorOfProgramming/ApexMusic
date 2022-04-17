@@ -20,6 +20,7 @@ import android.os.Bundle
 import androidx.preference.Preference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 
 /**
  * @author Hemanth S (h4h13).
@@ -38,6 +39,9 @@ class AudioSettings : AbsSettingsFragment() {
             NavigationUtil.openEqualizer(requireActivity())
             true
         }
+
+        val bluetooth: ATESwitchPreference? = findPreference("bluetooth_playback")
+        bluetooth?.isVisible = !(BuildConfig.BUILD_TYPE.equals("beta") || BuildConfig.DEBUG)
     }
 
 
