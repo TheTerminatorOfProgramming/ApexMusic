@@ -264,7 +264,7 @@ object BackupHelper : KoinComponent {
         )
     }
 
-    const val BACKUP_EXTENSION = "rmbak"
+    const val BACKUP_EXTENSION = "abak"
     const val APPEND_EXTENSION = ".$BACKUP_EXTENSION"
     private const val PLAYLISTS_PATH = "Playlists"
     private const val SETTINGS_PATH = "prefs"

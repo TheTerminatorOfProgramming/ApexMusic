@@ -112,9 +112,7 @@
         <activity android:name="com.ttop.app.apex.activities.SettingsActivity" />
         <activity android:name="com.ttop.app.apex.activities.tageditor.AlbumTagEditorActivity" />
         <activity android:name="com.ttop.app.apex.activities.tageditor.SongTagEditorActivity" />
-        <activity android:name="com.ttop.app.apex.activities.SupportDevelopmentActivity" />
         <activity android:name="com.ttop.app.apex.activities.LicenseActivity" />
-        <activity android:name="com.ttop.app.apex.activities.PurchaseActivity" />
         <activity android:name="com.ttop.app.apex.activities.WhatsNewActivity" />
         <activity android:name="com.ttop.app.apex.activities.bugreport.BugReportActivity" />
         <activity android:name="com.ttop.app.apex.activities.ShareInstagramStory" />
@@ -146,15 +144,15 @@
                     the path unless it's explicitly matched.
                 -->
                 <data android:host="*" />
-                <data android:pathPattern=".*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\.abak" />
+                <data android:pathPattern=".*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
             </intent-filter>
         </activity>
 
