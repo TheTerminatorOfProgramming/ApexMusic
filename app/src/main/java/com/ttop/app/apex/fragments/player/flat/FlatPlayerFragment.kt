@@ -83,7 +83,7 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
             )
             _binding?.colorGradientBackground?.background = drawable
         }
-        valueAnimator?.setDuration(ViewUtil.RETRO_MUSIC_ANIM_TIME.toLong())?.start()
+        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
