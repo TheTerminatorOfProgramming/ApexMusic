@@ -28,7 +28,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.activities.MainActivity
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
@@ -166,7 +166,7 @@ class AppWidgetBig : BaseAppWidget() {
             target = GlideApp.with(appContext)
                 .asBitmap()
                 //.checkIgnoreMediaStore()
-                .load(RetroGlideExtension.getSongModel(song))
+                .load(ApexGlideExtension.getSongModel(song))
                 .into(object : SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
                     override fun onResourceReady(
                         resource: Bitmap,
