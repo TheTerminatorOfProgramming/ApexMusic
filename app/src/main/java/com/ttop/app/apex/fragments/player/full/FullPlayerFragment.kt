@@ -30,7 +30,7 @@ import com.ttop.app.apex.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.fragments.base.goToArtist
 import com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -134,7 +134,7 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
             .observe(viewLifecycleOwner) { artist ->
                 if (artist.id != -1L) {
                     GlideApp.with(requireActivity())
-                        .load(RetroGlideExtension.getArtistModel(artist))
+                        .load(ApexGlideExtension.getArtistModel(artist))
                         .artistImageOptions(artist)
                         .into(binding.artistImage)
                 }
