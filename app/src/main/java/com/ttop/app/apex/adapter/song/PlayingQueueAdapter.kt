@@ -20,7 +20,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.R
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.isPlaying
 import com.ttop.app.apex.helper.MusicPlayerRemote.playNextSong
@@ -78,7 +78,7 @@ class PlayingQueueAdapter(
             return
         }
         GlideApp.with(activity)
-            .load(RetroGlideExtension.getSongModel(song))
+            .load(ApexGlideExtension.getSongModel(song))
             .songCoverOptions(song)
             .into(holder.image!!)
     }
