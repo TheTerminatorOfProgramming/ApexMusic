@@ -87,7 +87,7 @@ object SongMenuHelper : KoinComponent {
                 return true
             }
             R.id.action_play_next -> {
-                MusicPlayerRemote.playNext(song)
+                MusicPlayerRemote.playNext(song, true)
                 return true
             }
             R.id.action_add_to_current_playing -> {
