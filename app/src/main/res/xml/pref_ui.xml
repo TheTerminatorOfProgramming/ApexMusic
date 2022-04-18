@@ -27,8 +27,17 @@
             android:title="@string/pref_title_home_album_grid_style" />
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="toggle_user_name"
+            android:disableDependentsState="false"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_user_name"
+            android:title="@string/pref_title_user_name" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="toggle_home_banner"
+            android:dependency="toggle_user_name"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_home_banner"
             android:title="@string/pref_title_home_banner" />

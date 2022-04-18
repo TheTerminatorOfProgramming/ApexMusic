@@ -233,6 +233,12 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             TOGGLE_HOME_BANNER, false
         )
+
+    val isUserName
+        get() = sharedPreferences.getBoolean(
+            TOGGLE_USER_NAME, false
+        )
+
     var isClassicNotification
         get() = sharedPreferences.getBoolean(CLASSIC_NOTIFICATION, false)
         set(value) = sharedPreferences.edit { putBoolean(CLASSIC_NOTIFICATION, value) }

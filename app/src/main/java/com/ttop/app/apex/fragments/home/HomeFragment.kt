@@ -69,6 +69,7 @@ class HomeFragment :
         mainActivity.setSupportActionBar(binding.toolbar)
         mainActivity.supportActionBar?.title = null
         setupListeners()
+
         binding.titleWelcome.text = String.format("%s", PreferenceUtil.userName)
 
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
