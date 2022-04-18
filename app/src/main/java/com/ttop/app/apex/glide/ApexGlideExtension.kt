@@ -39,7 +39,7 @@ import java.io.File
 
 
 @GlideExtension
-object RetroGlideExtension {
+object ApexGlideExtension {
 
     private const val DEFAULT_ARTIST_IMAGE =
         R.drawable.default_artist_art
