@@ -26,7 +26,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.interfaces.ICallbacks
@@ -118,7 +118,7 @@ class SongFileAdapter(
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(error)
                 .placeholder(error)
-                .transition(RetroGlideExtension.getDefaultTransition())
+                .transition(ApexGlideExtension.getDefaultTransition())
                 .signature(MediaStoreSignature("", file.lastModified(), 0))
                 .into(holder.image!!)
         }
