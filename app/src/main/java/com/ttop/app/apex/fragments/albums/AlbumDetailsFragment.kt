@@ -47,7 +47,7 @@ import com.ttop.app.apex.dialogs.DeleteSongsDialog
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.SingleColorTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_A_Z
@@ -306,7 +306,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         GlideApp.with(requireContext())
             //.forceDownload(PreferenceUtil.isAllowedToDownloadMetadata())
             .load(
-                RetroGlideExtension.getArtistModel(
+                ApexGlideExtension.getArtistModel(
                     artist,
                     PreferenceUtil.isAllowedToDownloadMetadata()
                 )
@@ -321,7 +321,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         GlideApp.with(requireContext()).asBitmapPalette()
             .albumCoverOptions(album.safeGetFirstSong())
             //.checkIgnoreMediaStore()
-            .load(RetroGlideExtension.getSongModel(album.safeGetFirstSong()))
+            .load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
             .into(object : SingleColorTarget(binding.image) {
                 override fun onColorReady(color: Int) {
                     setColors(color)
