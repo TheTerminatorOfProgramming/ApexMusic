@@ -69,6 +69,7 @@
         <item quantity="other">Albums</item>
     </plurals>
     <string name="always">Always</string>
+    <string name="apex_music_player">Apex Music Player</string>
     <string name="app_share">Hey check out this cool music player at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
     <string name="app_shortcut_top_tracks_short">Top Tracks</string>
@@ -406,7 +407,6 @@
     <string name="reset_artist_image">Reset artist image</string>
     <string name="restore">Restore</string>
     <string name="restore_message">Do you want to restore backup?</string>
-    <string name="retro_music_player">Retro Music Player</string>
     <string name="ringtone_summary">The app needs permission to access your device settings in order to set music as Ringtone</string>
     <string name="ringtone_title">Ringtone (Optional)</string>
     <string name="saf_delete_failed">File delete failed: %s</string>
