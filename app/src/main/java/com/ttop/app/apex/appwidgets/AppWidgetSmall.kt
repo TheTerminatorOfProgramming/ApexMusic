@@ -28,7 +28,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.activities.MainActivity
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
@@ -130,7 +130,7 @@ class AppWidgetSmall : BaseAppWidget() {
             }
             target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
                 //.checkIgnoreMediaStore()
-                .load(RetroGlideExtension.getSongModel(song))
+                .load(ApexGlideExtension.getSongModel(song))
                 .centerCrop()
                 .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                     override fun onResourceReady(
