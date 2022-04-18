@@ -30,7 +30,7 @@ import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.SingleColorTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
@@ -218,7 +218,7 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
 
     private fun loadArtistImage(artist: Artist) {
         GlideApp.with(requireContext()).asBitmapPalette().artistImageOptions(artist)
-            .load(RetroGlideExtension.getArtistModel(artist))
+            .load(ApexGlideExtension.getArtistModel(artist))
             .dontAnimate()
             .into(object : SingleColorTarget(binding.image) {
                 override fun onColorReady(color: Int) {
