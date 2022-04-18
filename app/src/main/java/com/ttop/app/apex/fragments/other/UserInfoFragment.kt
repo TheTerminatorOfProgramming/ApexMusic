@@ -37,7 +37,7 @@ import com.ttop.app.apex.databinding.FragmentUserInfoBinding
 import com.ttop.app.apex.extensions.applyToolbar
 import com.ttop.app.apex.fragments.LibraryViewModel
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.bumptech.glide.Glide
@@ -162,13 +162,13 @@ class UserInfoFragment : Fragment() {
     private fun loadProfile() {
         binding.bannerImage.let {
             GlideApp.with(this)
-                .load(RetroGlideExtension.getBannerModel())
-                .profileBannerOptions(RetroGlideExtension.getBannerModel())
+                .load(ApexGlideExtension.getBannerModel())
+                .profileBannerOptions(ApexGlideExtension.getBannerModel())
                 .into(it)
         }
         GlideApp.with(this)
-            .load(RetroGlideExtension.getUserModel())
-            .userProfileOptions(RetroGlideExtension.getUserModel(), requireContext())
+            .load(ApexGlideExtension.getUserModel())
+            .userProfileOptions(ApexGlideExtension.getUserModel(), requireContext())
             .into(binding.userImage)
     }
 
