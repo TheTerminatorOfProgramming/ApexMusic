@@ -27,7 +27,7 @@ import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.fragments.player.lockscreen.LockScreenControlsFragment
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -109,7 +109,7 @@ class LockScreenActivity : AbsMusicServiceActivity() {
         GlideApp.with(this)
             .asBitmapPalette()
             .songCoverOptions(song)
-            .load(RetroGlideExtension.getSongModel(song))
+            .load(ApexGlideExtension.getSongModel(song))
             .dontAnimate()
             .into(object : ApexColoredTarget(binding.image) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
