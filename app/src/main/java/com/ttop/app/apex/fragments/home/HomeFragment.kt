@@ -20,6 +20,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.core.text.parseAsHtml
@@ -53,6 +54,7 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.extensions.drawNextToNavbar
 import com.ttop.app.apex.extensions.elevatedAccentColor
+import com.ttop.app.apex.util.MusicUtil.repository
 
 class HomeFragment :
     AbsMainActivityFragment(R.layout.fragment_home), IScrollHelper {
@@ -263,10 +265,17 @@ class HomeFragment :
             imageView.setOnClickListener {
                 it.isClickable = false
                 it.postDelayed({ it.isClickable = true }, 500)
-                MusicPlayerRemote.playNext(songs[index])
-                if (!MusicPlayerRemote.isPlaying) {
-                    MusicPlayerRemote.playNextSong()
+                if (MusicPlayerRemote.isPlaying) {
+                    MusicPlayerRemote.clearQueue()
                 }
+
+                val song = repository.allSong()
+
+                MusicPlayerRemote.openAndShuffleQueue(song, false)
+                MusicPlayerRemote.playNext(songs[index], false)
+                MusicPlayerRemote.moveSong(1, 0)
+                MusicPlayerRemote.playSongAt(0)
+
             }
             GlideApp.with(this)
                 .load(ApexGlideExtension.getSongModel(songs[index]))
