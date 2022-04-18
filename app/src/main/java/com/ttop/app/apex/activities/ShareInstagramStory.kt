@@ -31,7 +31,7 @@ import com.ttop.app.apex.databinding.ActivityShareInstagramBinding
 import com.ttop.app.apex.extensions.setLightStatusBar
 import com.ttop.app.apex.extensions.setStatusBarColor
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.Share
@@ -71,7 +71,7 @@ class ShareInstagramStory : AbsBaseActivity() {
             GlideApp.with(this)
                 .asBitmapPalette()
                 .songCoverOptions(songFinal)
-                .load(RetroGlideExtension.getSongModel(songFinal))
+                .load(ApexGlideExtension.getSongModel(songFinal))
                 .into(object : ApexColoredTarget(binding.image) {
                     override fun onColorReady(colors: MediaNotificationProcessor) {
                         val isColorLight = ColorUtil.isColorLight(colors.backgroundColor)
