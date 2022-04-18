@@ -24,15 +24,12 @@ class HomeImageLayout @JvmOverloads constructor(
     init {
         if (PreferenceUtil.isHomeBanner) {
             bannerImageBinding = BannerImageLayoutBinding.inflate(LayoutInflater.from(context), this, true)
-
         } else {
             userImageBinding = UserImageLayoutBinding.inflate(LayoutInflater.from(context), this, true)
-            userImageBinding?.titleWelcome?.isVisible = false
         }
 
-        if (!PreferenceUtil.isUserName) {
-            bannerImageBinding?.userImage?.isVisible = false
-            userImageBinding?.userImage?.isVisible = false
+        if (!PreferenceUtil.isUserName){
+            visibility = View.GONE
         }
     }
 
