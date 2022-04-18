@@ -202,7 +202,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity() {
         navigationBarColorAnimator?.cancel()
         navigationBarColorAnimator = ValueAnimator
             .ofArgb(window.navigationBarColor, color).apply {
-                duration = ViewUtil.RETRO_MUSIC_ANIM_TIME.toLong()
+                duration = ViewUtil.APEX_MUSIC_ANIM_TIME.toLong()
                 interpolator = PathInterpolator(0.4f, 0f, 1f, 1f)
                 addUpdateListener { animation: ValueAnimator ->
                     setNavigationBarColorPreOreo(
