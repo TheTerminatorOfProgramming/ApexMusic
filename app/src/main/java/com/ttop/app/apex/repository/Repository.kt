@@ -48,6 +48,7 @@ interface Repository {
     suspend fun fetchAlbums(): List<Album>
     suspend fun albumByIdAsync(albumId: Long): Album
     suspend fun allSongs(): List<Song>
+    fun allSong(): List<Song>
     suspend fun fetchArtists(): List<Artist>
     suspend fun albumArtists(): List<Artist>
     suspend fun fetchLegacyPlaylist(): List<Playlist>
@@ -174,6 +175,8 @@ class RealRepository(
     override suspend fun fetchGenres(): List<Genre> = genreRepository.genres()
 
     override suspend fun allSongs(): List<Song> = songRepository.songs()
+
+    override fun allSong(): List<Song> = songRepository.songs()
 
     override suspend fun search(query: String?, filter: Filter): MutableList<Any> =
         searchRepository.searchAll(context, query, filter)
