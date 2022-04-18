@@ -48,6 +48,7 @@ import androidx.media.AudioFocusRequestCompat
 import androidx.media.AudioManagerCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.session.MediaButtonReceiver.handleIntent
+import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.target.SimpleTarget
@@ -60,7 +61,7 @@ import com.ttop.app.apex.auto.AutoMediaIDHelper
 import com.ttop.app.apex.auto.AutoMusicProvider
 import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension.getSongModel
+import com.ttop.app.apex.glide.ApexGlideExtension.getSongModel
 import com.ttop.app.apex.helper.MusicPlayerRemote.isCasting
 import com.ttop.app.apex.helper.ShuffleHelper.makeShuffleList
 import com.ttop.app.apex.model.Song
@@ -81,6 +82,7 @@ import com.ttop.app.apex.util.MusicUtil.getSongFileUri
 import com.ttop.app.apex.util.MusicUtil.isFavorite
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt
@@ -237,7 +239,7 @@ class MusicService : MediaBrowserServiceCompat(),
     private val bluetoothReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            if (BluetoothDevice.ACTION_ACL_CONNECTED == action) {
+            if (BluetoothDevice.ACTION_ACL_CONNECTED == action && PreferenceUtil.isBluetoothSpeaker) {
                 if (VERSION.SDK_INT >= VERSION_CODES.M) {
                     if (audioManager!!.getDevices(AudioManager.GET_DEVICES_OUTPUTS).isNotEmpty()) {
                         Handler().postDelayed({ play() }, 1000)
@@ -363,7 +365,7 @@ class MusicService : MediaBrowserServiceCompat(),
         audioVolumeObserver.register(AudioManager.STREAM_MUSIC, this)
         registerOnSharedPreferenceChangedListener(this)
         restoreState()
-        sendBroadcast(Intent("com.ttop.app.apex.RETRO_MUSIC_SERVICE_CREATED"))
+        sendBroadcast(Intent("com.ttop.app.apex.APEX_MUSIC_SERVICE_CREATED"))
         registerHeadsetEvents()
         registerBluetoothConnected()
         mPackageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
@@ -392,7 +394,7 @@ class MusicService : MediaBrowserServiceCompat(),
         contentResolver.unregisterContentObserver(mediaStoreObserver)
         unregisterOnSharedPreferenceChangedListener(this)
         wakeLock?.release()
-        sendBroadcast(Intent("com.ttop.app.apex.RETRO_MUSIC_SERVICE_DESTROYED"))
+        sendBroadcast(Intent("com.ttop.app.apex.APEX_MUSIC_SERVICE_DESTROYED"))
     }
 
     private fun acquireWakeLock(milli: Long) {
@@ -1127,7 +1129,7 @@ class MusicService : MediaBrowserServiceCompat(),
 
     // to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
     fun sendPublicIntent(what: String) {
-        val intent = Intent(what.replace(RETRO_MUSIC_PACKAGE_NAME, MUSIC_PACKAGE_NAME))
+        val intent = Intent(what.replace(APEX_MUSIC_PACKAGE_NAME, MUSIC_PACKAGE_NAME))
         val song = currentSong
         intent.putExtra("id", song.id)
         intent.putExtra("artist", song.artistName)
@@ -1136,7 +1138,7 @@ class MusicService : MediaBrowserServiceCompat(),
         intent.putExtra("duration", song.duration)
         intent.putExtra("position", songProgressMillis.toLong())
         intent.putExtra("playing", isPlaying)
-        intent.putExtra("scrobbling_source", RETRO_MUSIC_PACKAGE_NAME)
+        intent.putExtra("scrobbling_source", APEX_MUSIC_PACKAGE_NAME)
         sendStickyBroadcast(intent)
     }
 
@@ -1494,34 +1496,34 @@ class MusicService : MediaBrowserServiceCompat(),
 
     companion object {
         val TAG: String = MusicService::class.java.simpleName
-        const val RETRO_MUSIC_PACKAGE_NAME = "com.ttop.app.apex"
+        const val APEX_MUSIC_PACKAGE_NAME = "com.ttop.app.apex"
         const val MUSIC_PACKAGE_NAME = "com.android.music"
-        const val ACTION_TOGGLE_PAUSE = "$RETRO_MUSIC_PACKAGE_NAME.togglepause"
-        const val ACTION_PLAY = "$RETRO_MUSIC_PACKAGE_NAME.play"
-        const val ACTION_PLAY_PLAYLIST = "$RETRO_MUSIC_PACKAGE_NAME.play.playlist"
-        const val ACTION_PAUSE = "$RETRO_MUSIC_PACKAGE_NAME.pause"
-        const val ACTION_STOP = "$RETRO_MUSIC_PACKAGE_NAME.stop"
-        const val ACTION_SKIP = "$RETRO_MUSIC_PACKAGE_NAME.skip"
-        const val ACTION_REWIND = "$RETRO_MUSIC_PACKAGE_NAME.rewind"
-        const val ACTION_QUIT = "$RETRO_MUSIC_PACKAGE_NAME.quitservice"
-        const val ACTION_PENDING_QUIT = "$RETRO_MUSIC_PACKAGE_NAME.pendingquitservice"
-        const val INTENT_EXTRA_PLAYLIST = RETRO_MUSIC_PACKAGE_NAME + "intentextra.playlist"
-        const val INTENT_EXTRA_SHUFFLE_MODE = "$RETRO_MUSIC_PACKAGE_NAME.intentextra.shufflemode"
-        const val APP_WIDGET_UPDATE = "$RETRO_MUSIC_PACKAGE_NAME.appreciate"
-        const val EXTRA_APP_WIDGET_NAME = RETRO_MUSIC_PACKAGE_NAME + "app_widget_name"
+        const val ACTION_TOGGLE_PAUSE = "$APEX_MUSIC_PACKAGE_NAME.togglepause"
+        const val ACTION_PLAY = "$APEX_MUSIC_PACKAGE_NAME.play"
+        const val ACTION_PLAY_PLAYLIST = "$APEX_MUSIC_PACKAGE_NAME.play.playlist"
+        const val ACTION_PAUSE = "$APEX_MUSIC_PACKAGE_NAME.pause"
+        const val ACTION_STOP = "$APEX_MUSIC_PACKAGE_NAME.stop"
+        const val ACTION_SKIP = "$APEX_MUSIC_PACKAGE_NAME.skip"
+        const val ACTION_REWIND = "$APEX_MUSIC_PACKAGE_NAME.rewind"
+        const val ACTION_QUIT = "$APEX_MUSIC_PACKAGE_NAME.quitservice"
+        const val ACTION_PENDING_QUIT = "$APEX_MUSIC_PACKAGE_NAME.pendingquitservice"
+        const val INTENT_EXTRA_PLAYLIST = APEX_MUSIC_PACKAGE_NAME + "intentextra.playlist"
+        const val INTENT_EXTRA_SHUFFLE_MODE = "$APEX_MUSIC_PACKAGE_NAME.intentextra.shufflemode"
+        const val APP_WIDGET_UPDATE = "$APEX_MUSIC_PACKAGE_NAME.appreciate"
+        const val EXTRA_APP_WIDGET_NAME = APEX_MUSIC_PACKAGE_NAME + "app_widget_name"
 
         // Do not change these three strings as it will break support with other apps (e.g. last.fm
         // scrobbling)
-        const val META_CHANGED = "$RETRO_MUSIC_PACKAGE_NAME.metachanged"
-        const val QUEUE_CHANGED = "$RETRO_MUSIC_PACKAGE_NAME.queuechanged"
-        const val PLAY_STATE_CHANGED = "$RETRO_MUSIC_PACKAGE_NAME.playstatechanged"
-        const val FAVORITE_STATE_CHANGED = "$RETRO_MUSIC_PACKAGE_NAME.favoritestatechanged"
-        const val REPEAT_MODE_CHANGED = "$RETRO_MUSIC_PACKAGE_NAME.repeatmodechanged"
-        const val SHUFFLE_MODE_CHANGED = "$RETRO_MUSIC_PACKAGE_NAME.shufflemodechanged"
-        const val MEDIA_STORE_CHANGED = "$RETRO_MUSIC_PACKAGE_NAME.mediastorechanged"
-        const val CYCLE_REPEAT = "$RETRO_MUSIC_PACKAGE_NAME.cyclerepeat"
-        const val TOGGLE_SHUFFLE = "$RETRO_MUSIC_PACKAGE_NAME.toggleshuffle"
-        const val TOGGLE_FAVORITE = "$RETRO_MUSIC_PACKAGE_NAME.togglefavorite"
+        const val META_CHANGED = "$APEX_MUSIC_PACKAGE_NAME.metachanged"
+        const val QUEUE_CHANGED = "$APEX_MUSIC_PACKAGE_NAME.queuechanged"
+        const val PLAY_STATE_CHANGED = "$APEX_MUSIC_PACKAGE_NAME.playstatechanged"
+        const val FAVORITE_STATE_CHANGED = "$APEX_MUSIC_PACKAGE_NAME.favoritestatechanged"
+        const val REPEAT_MODE_CHANGED = "$APEX_MUSIC_PACKAGE_NAME.repeatmodechanged"
+        const val SHUFFLE_MODE_CHANGED = "$APEX_MUSIC_PACKAGE_NAME.shufflemodechanged"
+        const val MEDIA_STORE_CHANGED = "$APEX_MUSIC_PACKAGE_NAME.mediastorechanged"
+        const val CYCLE_REPEAT = "$APEX_MUSIC_PACKAGE_NAME.cyclerepeat"
+        const val TOGGLE_SHUFFLE = "$APEX_MUSIC_PACKAGE_NAME.toggleshuffle"
+        const val TOGGLE_FAVORITE = "$APEX_MUSIC_PACKAGE_NAME.togglefavorite"
         const val SAVED_POSITION = "POSITION"
         const val SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK"
         const val SAVED_SHUFFLE_MODE = "SHUFFLE_MODE"
