@@ -30,7 +30,7 @@ import com.ttop.app.apex.*
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.model.Album
@@ -89,7 +89,7 @@ class SearchAdapter(
                 val album = dataSet[position] as Album
                 holder.title?.text = album.title
                 holder.text?.text = album.artistName
-                GlideApp.with(activity).asDrawable().albumCoverOptions(album.safeGetFirstSong()).load(RetroGlideExtension.getSongModel(album.safeGetFirstSong()))
+                GlideApp.with(activity).asDrawable().albumCoverOptions(album.safeGetFirstSong()).load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
                     .into(holder.image!!)
             }
             ARTIST -> {
@@ -98,14 +98,14 @@ class SearchAdapter(
                 holder.title?.text = artist.name
                 holder.text?.text = MusicUtil.getArtistInfoString(activity, artist)
                 GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
-                    RetroGlideExtension.getArtistModel(artist)).into(holder.image!!)
+                    ApexGlideExtension.getArtistModel(artist)).into(holder.image!!)
             }
             SONG -> {
                 holder.imageTextContainer?.isVisible = true
                 val song = dataSet[position] as Song
                 holder.title?.text = song.title
                 holder.text?.text = song.albumName
-                GlideApp.with(activity).asDrawable().songCoverOptions(song).load(RetroGlideExtension.getSongModel(song)).into(holder.image!!)
+                GlideApp.with(activity).asDrawable().songCoverOptions(song).load(ApexGlideExtension.getSongModel(song)).into(holder.image!!)
             }
             GENRE -> {
                 val genre = dataSet[position] as Genre
@@ -130,7 +130,7 @@ class SearchAdapter(
                 holder.title?.text = artist.name
                 holder.text?.text = MusicUtil.getArtistInfoString(activity, artist)
                 GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
-                    RetroGlideExtension.getArtistModel(artist)).into(holder.image!!)
+                    ApexGlideExtension.getArtistModel(artist)).into(holder.image!!)
             }
             else -> {
                 holder.title?.text = dataSet[position].toString()
