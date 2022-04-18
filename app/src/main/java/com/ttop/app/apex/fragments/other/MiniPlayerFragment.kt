@@ -34,7 +34,7 @@ import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
@@ -113,8 +113,8 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private fun updateSongCover() {
         val song = MusicPlayerRemote.currentSong
         GlideApp.with(requireContext())
-            .load(RetroGlideExtension.getSongModel(song))
-            .transition(RetroGlideExtension.getDefaultTransition())
+            .load(ApexGlideExtension.getSongModel(song))
+            .transition(ApexGlideExtension.getDefaultTransition())
             .songCoverOptions(song)
             .into(binding.image)
     }
