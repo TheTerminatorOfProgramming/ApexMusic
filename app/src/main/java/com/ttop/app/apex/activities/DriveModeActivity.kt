@@ -31,7 +31,7 @@ import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper.Callback
@@ -245,7 +245,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         binding.songText.text = song.artistName
 
         GlideApp.with(this)
-            .load(RetroGlideExtension.getSongModel(song))
+            .load(ApexGlideExtension.getSongModel(song))
             .songCoverOptions(song).transform(BlurTransformation.Builder(this).build())
             .into(binding.image)
     }
