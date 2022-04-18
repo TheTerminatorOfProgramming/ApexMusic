@@ -319,7 +319,11 @@ object MusicPlayerRemote : KoinComponent {
         return false
     }
 
-    fun playNext(song: Song): Boolean {
+    fun addSong(position: Int, song: Song) {
+        musicService?.addSong(position, song)
+    }
+
+    fun playNext(song: Song, message: Boolean): Boolean {
         if (musicService != null) {
             if (playingQueue.isNotEmpty()) {
                 musicService?.addSong(position + 1, song)
@@ -328,11 +332,13 @@ object MusicPlayerRemote : KoinComponent {
                 queue.add(song)
                 openQueue(queue, 0, false)
             }
-            Toast.makeText(
-                musicService,
-                musicService!!.resources.getString(R.string.added_title_to_playing_queue),
-                Toast.LENGTH_SHORT
-            ).show()
+            if(message){
+                Toast.makeText(
+                    musicService,
+                    musicService!!.resources.getString(R.string.added_title_to_playing_queue),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             return true
         }
         return false
