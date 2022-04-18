@@ -32,7 +32,7 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
 import com.ttop.app.apex.activities.MainActivity
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
@@ -126,7 +126,7 @@ class PlayingNotificationImpl24(
         val bigNotificationImageSize = context.resources
             .getDimensionPixelSize(R.dimen.notification_big_image_size)
         GlideApp.with(context).asBitmapPalette().songCoverOptions(song)
-            .load(RetroGlideExtension.getSongModel(song))
+            .load(ApexGlideExtension.getSongModel(song))
             //.checkIgnoreMediaStore()
             .centerCrop()
             .into(object : CustomTarget<BitmapPaletteWrapper>(
