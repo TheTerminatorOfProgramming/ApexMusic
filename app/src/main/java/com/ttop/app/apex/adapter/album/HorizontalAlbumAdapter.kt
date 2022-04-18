@@ -18,7 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.helper.HorizontalAdapterHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
@@ -50,7 +50,7 @@ class HorizontalAlbumAdapter(
     override fun loadAlbumCover(album: Album, holder: ViewHolder) {
         if (holder.image == null) return
         GlideApp.with(activity).asBitmapPalette().albumCoverOptions(album.safeGetFirstSong())
-            .load(RetroGlideExtension.getSongModel(album.safeGetFirstSong()))
+            .load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
             .into(object : ApexColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
