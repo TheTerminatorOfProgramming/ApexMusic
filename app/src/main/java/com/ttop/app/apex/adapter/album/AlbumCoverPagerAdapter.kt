@@ -29,7 +29,7 @@ import com.ttop.app.apex.fragments.AlbumCoverStyle
 import com.ttop.app.apex.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.fragments.base.goToLyrics
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
@@ -169,7 +169,7 @@ class AlbumCoverPagerAdapter(
         private fun loadAlbumCover() {
             GlideApp.with(this).asBitmapPalette().songCoverOptions(song)
                 //.checkIgnoreMediaStore()
-                .load(RetroGlideExtension.getSongModel(song))
+                .load(ApexGlideExtension.getSongModel(song))
                 .dontAnimate()
                 .into(object : ApexColoredTarget(albumCover) {
                     override fun onColorReady(colors: MediaNotificationProcessor) {
