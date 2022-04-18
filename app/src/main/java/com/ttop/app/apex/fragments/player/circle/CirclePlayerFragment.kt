@@ -43,7 +43,7 @@ import com.ttop.app.apex.fragments.base.goToAlbum
 import com.ttop.app.apex.fragments.base.goToArtist
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.GlideRequest
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.crossfadeListener
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
@@ -242,7 +242,7 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
             binding.songInfo.hide()
         }
         GlideApp.with(this)
-            .load(RetroGlideExtension.getSongModel(MusicPlayerRemote.currentSong))
+            .load(ApexGlideExtension.getSongModel(MusicPlayerRemote.currentSong))
             .simpleSongCoverOptions(MusicPlayerRemote.currentSong)
             .thumbnail(lastRequest)
             .error(GlideApp.with(this).load(R.drawable.default_audio_art).fitCenter())
