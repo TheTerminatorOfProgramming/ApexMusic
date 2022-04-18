@@ -28,7 +28,7 @@ import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumArtistClickListener
@@ -114,9 +114,9 @@ class ArtistAdapter(
         }
         GlideApp.with(activity)
             .asBitmapPalette()
-            .load(RetroGlideExtension.getArtistModel(artist))
+            .load(ApexGlideExtension.getArtistModel(artist))
             .artistImageOptions(artist)
-            .transition(RetroGlideExtension.getDefaultTransition())
+            .transition(ApexGlideExtension.getDefaultTransition())
             .into(object : ApexColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
