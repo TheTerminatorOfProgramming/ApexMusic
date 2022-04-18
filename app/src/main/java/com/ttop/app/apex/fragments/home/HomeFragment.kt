@@ -42,7 +42,7 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.fragments.ReloadType
 import com.ttop.app.apex.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.RetroGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.Song
@@ -178,13 +178,13 @@ class HomeFragment :
     private fun loadProfile() {
         binding.bannerImage?.let {
             GlideApp.with(requireContext())
-                .load(RetroGlideExtension.getBannerModel())
-                .profileBannerOptions(RetroGlideExtension.getBannerModel())
+                .load(ApexGlideExtension.getBannerModel())
+                .profileBannerOptions(ApexGlideExtension.getBannerModel())
                 .into(it)
         }
         GlideApp.with(requireActivity())
-            .load(RetroGlideExtension.getUserModel())
-            .userProfileOptions(RetroGlideExtension.getUserModel(), requireContext())
+            .load(ApexGlideExtension.getUserModel())
+            .userProfileOptions(ApexGlideExtension.getUserModel(), requireContext())
             .into(binding.userImage)
     }
 
@@ -269,7 +269,7 @@ class HomeFragment :
                 }
             }
             GlideApp.with(this)
-                .load(RetroGlideExtension.getSongModel(songs[index]))
+                .load(ApexGlideExtension.getSongModel(songs[index]))
                 .songCoverOptions(songs[index])
                 .into(imageView)
         }
