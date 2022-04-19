@@ -255,10 +255,16 @@ class HomeFragment :
             setOnClickListener {
                 it.isClickable = false
                 it.postDelayed({ it.isClickable = true }, 500)
-                MusicPlayerRemote.playNext(songs.subList(0, 8))
-                if (!MusicPlayerRemote.isPlaying) {
-                    MusicPlayerRemote.playNextSong()
+                if (MusicPlayerRemote.isPlaying) {
+                    MusicPlayerRemote.clearQueue()
                 }
+
+                val song = repository.allSong()
+
+                MusicPlayerRemote.openAndShuffleQueue(song, false)
+                MusicPlayerRemote.playNext(songs.subList(0, 8), false)
+                MusicPlayerRemote.moveSong(0, 9)
+                MusicPlayerRemote.playSongAt(0)
             }
         }
         binding.suggestions.card6.setCardBackgroundColor(ColorUtil.withAlpha(color, 0.12f))
@@ -276,7 +282,6 @@ class HomeFragment :
                 MusicPlayerRemote.playNext(songs[index], false)
                 MusicPlayerRemote.moveSong(1, 0)
                 MusicPlayerRemote.playSongAt(0)
-
             }
             GlideApp.with(this)
                 .load(ApexGlideExtension.getSongModel(songs[index]))
