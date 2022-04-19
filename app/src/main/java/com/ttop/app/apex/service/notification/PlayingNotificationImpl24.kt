@@ -111,11 +111,20 @@ class PlayingNotificationImpl24(
             addAction(dismissAction)
         }
 
-        setStyle(
-            MediaStyle()
-                .setMediaSession(mediaSessionToken)
-                .setShowActionsInCompactView(2)
-        )
+        if (!PreferenceUtil.notificationActions){
+            setStyle(
+                MediaStyle()
+                    .setMediaSession(mediaSessionToken)
+                    .setShowActionsInCompactView(1, 2, 3)
+            )
+        }else{
+            setStyle(
+                MediaStyle()
+                    .setMediaSession(mediaSessionToken)
+                    .setShowActionsInCompactView(2)
+            )
+        }
+
         setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
     }
 
