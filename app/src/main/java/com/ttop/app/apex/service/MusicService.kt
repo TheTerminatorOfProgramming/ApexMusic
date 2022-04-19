@@ -62,6 +62,7 @@ import com.ttop.app.apex.auto.AutoMusicProvider
 import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension.getSongModel
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.isCasting
 import com.ttop.app.apex.helper.ShuffleHelper.makeShuffleList
 import com.ttop.app.apex.model.Song
@@ -242,11 +243,15 @@ class MusicService : MediaBrowserServiceCompat(),
             if (BluetoothDevice.ACTION_ACL_CONNECTED == action && PreferenceUtil.isBluetoothSpeaker) {
                 if (VERSION.SDK_INT >= VERSION_CODES.M) {
                     if (audioManager!!.getDevices(AudioManager.GET_DEVICES_OUTPUTS).isNotEmpty()) {
-                        Handler().postDelayed({ play() }, 1000)
+                        if (MusicPlayerRemote.playingQueue.isEmpty()){
+                            Handler().postDelayed({ play() }, 1000)
+                        }
                     }
                 } else {
                     if (audioManager!!.isBluetoothA2dpOn) {
-                        Handler().postDelayed({ play() }, 1000)
+                        if (MusicPlayerRemote.playingQueue.isEmpty()){
+                            Handler().postDelayed({ play() }, 1000)
+                        }
                     }
                 }
             }
