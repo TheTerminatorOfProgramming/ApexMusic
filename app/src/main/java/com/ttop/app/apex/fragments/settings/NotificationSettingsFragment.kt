@@ -22,7 +22,10 @@ import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.CLASSIC_NOTIFICATION
 import com.ttop.app.apex.COLORED_NOTIFICATION
+import com.ttop.app.apex.NOTIFICATION_ACTIONS
 import com.ttop.app.apex.R
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
 
 /**
@@ -69,6 +72,13 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 }
             }
         }
+/*
+        val notificationActions: TwoStatePreference? = findPreference(NOTIFICATION_ACTIONS)
+        notificationActions?.setOnPreferenceChangeListener { _, newValue ->
+            notificationActions.isChecked = newValue as Boolean
+            MusicPlayerRemote.
+            return@setOnPreferenceChangeListener newValue
+        }*/
     }
 
     override fun onResume() {
