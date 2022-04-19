@@ -244,6 +244,11 @@ object PreferenceUtil {
             SYNCED_LYRICS, false
         )
 
+    val notificationActions
+        get() = sharedPreferences.getBoolean(
+            NOTIFICATION_ACTIONS, false
+        )
+
     var isClassicNotification
         get() = sharedPreferences.getBoolean(CLASSIC_NOTIFICATION, false)
         set(value) = sharedPreferences.edit { putBoolean(CLASSIC_NOTIFICATION, value) }
