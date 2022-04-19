@@ -29,16 +29,6 @@
 |:---:|:---:|:---:|:---:|:---:|
 | Home | Songs | Albums | Artists | Settings |
 
-### Synced lyrics screen (Over Cover)
-| <img src="screenshots/synced_over_light.jpg" width="200"/>| <img src="screenshots/synced_over_dark.jpg" width="200"/>| <img src="screenshots/synced_over_black.jpg" width="200"/>|
-|:---:|:---:|:---:|
-| Synced Over Cover light | Synced Over Cover dark | Synced Over Cover black |
-
-### Synced lyrics screen (Replace Cover)
-| <img src="screenshots/synced_replace_light.jpg" width="200"/>| <img src="screenshots/synced_replace_dark.jpg" width="200"/>| <img src="screenshots/synced_replace_black.jpg" width="200"/>|
-|:---:|:---:|:---:|
-| Synced Replace Cover light | Synced Replace Cover dark | Synced Replace Cover black |
-
 ### 10+ Now playing themes
 | <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|     <img src="screenshots/material.jpg" width="200"/>	|
 |:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
