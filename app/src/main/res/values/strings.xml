@@ -89,7 +89,7 @@
     <string name="backup_restore_title"><![CDATA[Backup & Restore]]></string>
     <string name="backup_title">Backups</string>
     <string name="biography">Biography</string>
-    <string name="black_theme_name">Just Black</string>
+    <string name="black_theme_name">Jet Black</string>
     <string name="blacklist">Blacklist</string>
     <string name="blur">Blur</string>
     <string name="blur_card">Blur Card</string>
@@ -137,7 +137,7 @@
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
     <string name="custom_artist_images">Custom Artist Images</string>
     <string name="customactivityoncrash_error_activity_error_details_share">Share Crash Report</string>
-    <string name="dark_theme_name">Kinda Dark</string>
+    <string name="dark_theme_name">Sorta Dark</string>
     <string name="delete_playlist_title">Delete playlist</string>
     <string name="delete_playlist_x"><![CDATA[Delete the playlist <b>%1$s</b>?]]></string>
     <string name="delete_playlists_title">Delete playlists</string>
@@ -216,7 +216,7 @@
     <string name="last_song">Last song</string>
     <string name="library_categories">Library categories</string>
     <string name="licenses">Licenses</string>
-    <string name="light_theme_name">Clearly White</string>
+    <string name="light_theme_name">Bright White</string>
     <string name="listeners_label">Listeners</string>
     <string name="listing_files">Listing files</string>
     <string name="loading_products">Loading products…</string>
