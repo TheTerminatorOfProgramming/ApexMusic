@@ -363,6 +363,26 @@ object MusicPlayerRemote : KoinComponent {
         return false
     }
 
+    fun playNext(songs: List<Song>, message: Boolean): Boolean {
+        if (musicService != null) {
+            if (playingQueue.isNotEmpty()) {
+                musicService?.addSongs(position + 1, songs)
+            } else {
+                openQueue(songs, 0, false)
+            }
+            val toast =
+                if (songs.size == 1) musicService!!.resources.getString(R.string.added_title_to_playing_queue) else musicService!!.resources.getString(
+                    R.string.added_x_titles_to_playing_queue,
+                    songs.size
+                )
+            if(message){
+                Toast.makeText(musicService, toast, Toast.LENGTH_SHORT).show()
+            }
+            return true
+        }
+        return false
+    }
+
     fun enqueue(song: Song): Boolean {
         if (musicService != null) {
             if (playingQueue.isNotEmpty()) {
