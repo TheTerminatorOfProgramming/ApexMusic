@@ -783,8 +783,8 @@ class MusicService : MediaBrowserServiceCompat(),
                 ACTION_PAUSE -> pause()
                 ACTION_PLAY -> play()
                 ACTION_PLAY_PLAYLIST -> playFromPlaylist(intent)
-                ACTION_REWIND -> back(true)
-                ACTION_SKIP -> playNextSong(true)
+                ACTION_REWIND -> playPreviousSongAuto(true, isPlaying)
+                ACTION_SKIP -> playNextSongAuto(true, isPlaying)
                 ACTION_STOP, ACTION_QUIT -> {
                     pendingQuit = false
                     quit()
