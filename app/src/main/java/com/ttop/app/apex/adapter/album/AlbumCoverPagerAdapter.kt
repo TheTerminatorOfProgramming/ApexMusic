@@ -126,8 +126,10 @@ class AlbumCoverPagerAdapter(
                     ).apply {
                         setTitle(song.title)
                         setMessage(if (data.isNullOrEmpty()) "No lyrics found" else data)
-                        setNegativeButton(R.string.synced_lyrics) { _, _ ->
-                            goToLyrics(requireActivity())
+                        if (PreferenceUtil.syncedLyrics){
+                            setNegativeButton(R.string.synced_lyrics) { _, _ ->
+                                goToLyrics(requireActivity())
+                        }
                         }
                         show()
                     }

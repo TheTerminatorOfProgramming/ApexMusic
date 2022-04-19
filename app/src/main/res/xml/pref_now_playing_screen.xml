@@ -21,6 +21,13 @@
         android:layout="@layout/list_item_view_switch_no_title"
         android:title="@string/pref_snow_fall_title" />
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="synced_lyrics"
+        android:layout="@layout/list_item_view_switch"
+        android:title="@string/pref_synced_lyrics_title"
+        android:summary="@string/pref_summary_synced_lyrics"/>
+
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
         android:defaultValue="0"
         android:entries="@array/pref_lyrics_type_entries"

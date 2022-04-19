@@ -239,6 +239,11 @@ object PreferenceUtil {
             TOGGLE_USER_NAME, false
         )
 
+    val syncedLyrics
+        get() = sharedPreferences.getBoolean(
+            SYNCED_LYRICS, false
+        )
+
     var isClassicNotification
         get() = sharedPreferences.getBoolean(CLASSIC_NOTIFICATION, false)
         set(value) = sharedPreferences.edit { putBoolean(CLASSIC_NOTIFICATION, value) }
