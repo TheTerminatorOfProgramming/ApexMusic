@@ -169,6 +169,9 @@
     <string name="flat">Flat</string>
     <string name="folders">Folders</string>
     <string name="follow_system">Follow system</string>
+    <string name="font_default_name">Default</string>
+    <string name="font_manrope_name">Manrope</string>
+    <string name="font_sans_name">Google Sans</string>
     <string name="for_you">Home</string>
     <string name="full">Full</string>
     <string name="full_card">Full card</string>
@@ -359,7 +362,7 @@
     <string name="pref_title_colored_app">Adaptive color</string>
     <string name="pref_title_colored_notification">Colored notification</string>
     <string name="pref_title_cross_fade">Crossfade (Beta)</string>
-    <string name="pref_title_custom_font">Use Manrope font</string>
+    <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Desaturated color</string>
     <string name="pref_title_expand_now_playing_panel">Show now playing screen</string>
     <string name="pref_title_extra_controls">Extra controls</string>
