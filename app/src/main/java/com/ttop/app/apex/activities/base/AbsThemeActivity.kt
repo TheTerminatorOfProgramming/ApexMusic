@@ -63,6 +63,14 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.SansThemeOverlay)
         }
 
+        if (PreferenceUtil.isCustomFont == "barlow") {
+            setTheme(R.style.BarlowThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "jose") {
+            setTheme(R.style.JosefinSansThemeOverlay)
+        }
+
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
         }
