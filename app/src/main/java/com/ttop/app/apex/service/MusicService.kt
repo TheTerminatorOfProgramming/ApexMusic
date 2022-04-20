@@ -602,6 +602,10 @@ class MusicService : MediaBrowserServiceCompat(),
         sendChangeInternal(what)
     }
 
+    fun rebuildMetaData(){
+        playingNotification?.updateMetadata(currentSong) { startForegroundOrNotify() }
+    }
+
     private fun initNotification() {
         playingNotification = if (VERSION.SDK_INT >= VERSION_CODES.N
             && !isClassicNotification
@@ -1167,7 +1171,7 @@ class MusicService : MediaBrowserServiceCompat(),
         mediaSession?.setPlaybackState(stateBuilder.build())
     }
 
-    private fun updateNotification() {
+    public fun updateNotification() {
         if (playingNotification != null && currentSong.id != -1L) {
             stopForegroundAndNotification()
             initNotification()
