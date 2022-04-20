@@ -77,13 +77,17 @@
     <string-array name="pref_font_list_titles">
         <item>@string/font_default_name</item>
         <item>@string/font_manrope_name</item>
+        <item>@string/font_barlow_name</item>
         <item>@string/font_sans_name</item>
+        <item>@string/font_josefinsans_name</item>
     </string-array>
 
     <string-array name="pref_font_list_values">
         <item>default</item>
         <item>manrope</item>
+        <item>barlow</item>
         <item>sans</item>
+        <item>jose</item>
     </string-array>
 
     <string-array name="pref_home_grid_style_list_titles">
