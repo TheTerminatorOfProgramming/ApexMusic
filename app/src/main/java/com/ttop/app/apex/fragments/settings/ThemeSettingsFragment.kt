@@ -32,6 +32,7 @@ import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.util.PreferenceUtil
 import com.afollestad.materialdialogs.color.colorChooser
 import com.google.android.material.color.DynamicColors
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 
 /**
  * @author Hemanth S (h4h13).
@@ -123,7 +124,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             restartActivity()
             true
         }
-        val customFont: ATESwitchPreference? = findPreference(CUSTOM_FONT)
+        val customFont: Preference? = findPreference(CUSTOM_FONT)
         customFont?.setOnPreferenceChangeListener { _, _ ->
             restartActivity()
             true
