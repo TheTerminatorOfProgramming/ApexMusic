@@ -229,6 +229,8 @@ object MusicPlayerRemote : KoinComponent {
         musicService?.play()
     }
 
+
+
     /**
      * Async
      */
@@ -381,6 +383,11 @@ object MusicPlayerRemote : KoinComponent {
             return true
         }
         return false
+    }
+
+    fun updateNotification(){
+        musicService?.updateNotification()
+        musicService?.rebuildMetaData()
     }
 
     fun enqueue(song: Song): Boolean {
