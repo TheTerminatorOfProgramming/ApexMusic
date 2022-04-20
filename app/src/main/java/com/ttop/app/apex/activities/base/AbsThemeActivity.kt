@@ -55,9 +55,14 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setDefaultNightMode(ThemeManager.getNightMode())
         }
 
-        if (PreferenceUtil.isCustomFont) {
-            setTheme(R.style.FontThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "manrope") {
+            setTheme(R.style.ManropeThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "sans") {
+            setTheme(R.style.SansThemeOverlay)
+        }
+
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
         }
