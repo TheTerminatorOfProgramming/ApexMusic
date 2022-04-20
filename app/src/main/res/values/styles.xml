@@ -247,9 +247,14 @@
         <item name="background">@color/transparent</item>
     </style>
 
-    <style name="FontThemeOverlay">
+    <style name="ManropeThemeOverlay">
         <item name="fontFamily">@font/manrope</item>
         <item name="android:fontFamily">@font/manrope</item>
+    </style>
+
+    <style name="SansThemeOverlay">
+        <item name="fontFamily">@font/sans</item>
+        <item name="android:fontFamily">@font/sans</item>
     </style>
 
     <style name="CircleFABOverlay">
