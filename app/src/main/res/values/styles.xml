@@ -257,6 +257,16 @@
         <item name="android:fontFamily">@font/sans</item>
     </style>
 
+    <style name="BarlowThemeOverlay">
+        <item name="fontFamily">@font/barlow</item>
+        <item name="android:fontFamily">@font/barlow</item>
+    </style>
+
+    <style name="JosefinSansThemeOverlay">
+        <item name="fontFamily">@font/josefinsans</item>
+        <item name="android:fontFamily">@font/josefinsans</item>
+    </style>
+
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton
