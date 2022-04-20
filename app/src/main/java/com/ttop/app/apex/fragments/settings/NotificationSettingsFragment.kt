@@ -72,13 +72,13 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 }
             }
         }
-/*
+
         val notificationActions: TwoStatePreference? = findPreference(NOTIFICATION_ACTIONS)
         notificationActions?.setOnPreferenceChangeListener { _, newValue ->
             notificationActions.isChecked = newValue as Boolean
-            MusicPlayerRemote.
+            MusicPlayerRemote.updateNotification()
             return@setOnPreferenceChangeListener newValue
-        }*/
+        }
     }
 
     override fun onResume() {
