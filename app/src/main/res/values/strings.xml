@@ -169,7 +169,9 @@
     <string name="flat">Flat</string>
     <string name="folders">Folders</string>
     <string name="follow_system">Follow system</string>
+    <string name="font_barlow_name">Barlow</string>
     <string name="font_default_name">Default</string>
+    <string name="font_josefinsans_name">JosefinSans</string>
     <string name="font_manrope_name">Manrope</string>
     <string name="font_sans_name">Google Sans</string>
     <string name="for_you">Home</string>
