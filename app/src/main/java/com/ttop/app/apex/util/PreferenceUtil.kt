@@ -764,7 +764,7 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, VersionUtils.hasS())
 
     val isCustomFont
-        get() = sharedPreferences.getBoolean(CUSTOM_FONT, false)
+        get() = sharedPreferences.getString(CUSTOM_FONT, "default")
 
     val isSnowFalling
         get() = sharedPreferences.getBoolean(SNOWFALL, false)
