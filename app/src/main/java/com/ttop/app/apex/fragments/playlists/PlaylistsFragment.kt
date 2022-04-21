@@ -70,7 +70,7 @@ class PlaylistsFragment :
         return PlaylistAdapter(
             requireActivity(),
             dataSet,
-            itemLayoutRes(),
+            itemLayoutResPlaylist(),
             null,
             this
         )
@@ -134,9 +134,6 @@ class PlaylistsFragment :
             gridSizeMenu.findItem(R.id.action_grid_size_3).isVisible = false
         }
 
-        if (ApexUtil.isTablet()) {
-            gridSizeMenu.findItem(R.id.action_grid_size_2).isVisible = false
-        }
     }
 
     private fun setUpSortOrderMenu(subMenu: SubMenu) {
