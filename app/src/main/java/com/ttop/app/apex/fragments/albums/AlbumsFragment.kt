@@ -46,6 +46,8 @@ import com.google.android.gms.cast.framework.CastButtonFactory
 class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager>(),
     IAlbumClickListener, ICabHolder {
 
+    private var layout: MenuItem? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryViewModel.getAlbums().observe(viewLifecycleOwner) {
@@ -91,7 +93,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
         return AlbumAdapter(
             requireActivity(),
             dataSet,
-            itemLayoutRes(),
+            itemLayoutResAlbum(),
             this,
             this
         )
@@ -167,6 +169,12 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
         setUpGridSizeMenu(gridSizeItem.subMenu)
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu)
+        if (ApexUtil.isTablet()){
+            layoutItem?.isVisible = getGridSize() >= 3
+        }else{
+            layoutItem?.isVisible = getGridSize() != 1
+        }
+        layout = layoutItem
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
         //Setting up cast button
         CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
@@ -266,9 +274,6 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             gridSizeMenu.findItem(R.id.action_grid_size_3).isVisible = false
         }
 
-        if (ApexUtil.isTablet()) {
-            gridSizeMenu.findItem(R.id.action_grid_size_2).isVisible = false
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -340,6 +345,11 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
         if (gridSize > 0) {
             item.isChecked = true
             setAndSaveGridSize(gridSize)
+            if (ApexUtil.isTablet()){
+                layout?.isVisible = gridSize >= 3
+            }else{
+                layout?.isVisible = gridSize != 1
+            }
             return true
         }
         return false
