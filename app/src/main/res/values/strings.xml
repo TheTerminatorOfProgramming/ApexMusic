@@ -174,7 +174,7 @@
     <string name="font_josefinsans_name">JosefinSans</string>
     <string name="font_manrope_name">Manrope</string>
     <string name="font_sans_name">Google Sans</string>
-    <string name="for_you">Home</string>
+    <string name="home">Home</string>
     <string name="full">Full</string>
     <string name="full_card">Full card</string>
     <string name="general_settings_summary">Change the theme and colors of the app</string>
@@ -197,7 +197,6 @@
     <string name="history">History</string>
     <string name="history_cleared">History cleared</string>
     <string name="history_undo_button">Undo</string>
-    <string name="home">Home</string>
     <string name="horizontal_flip">Horizontal flip</string>
     <string name="image">Image</string>
     <string name="image_gradient">Gradient image</string>
