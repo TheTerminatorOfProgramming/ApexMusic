@@ -12,7 +12,7 @@
     android:focusable="true"
     android:minHeight="?attr/listPreferredItemHeight"
     android:orientation="horizontal"
-    android:paddingHorizontal="64dp"
+    android:paddingHorizontal="10dp"
     tools:ignore="MissingPrefix">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -67,7 +67,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
