@@ -43,6 +43,24 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         } else R.layout.item_list
     }
 
+    fun itemLayoutResArtist(): Int {
+        return if (getGridSize() > maxGridSizeForList) {
+            loadLayoutRes()
+        } else R.layout.item_list_artist
+    }
+
+    fun itemLayoutResAlbum(): Int {
+        return if (getGridSize() > maxGridSizeForList) {
+            loadLayoutRes()
+        } else R.layout.item_list_album
+    }
+
+    fun itemLayoutResPlaylist(): Int {
+        return if (getGridSize() > maxGridSizeForList) {
+            loadLayoutRes()
+        } else R.layout.item_list_playlist
+    }
+
     fun setAndSaveLayoutRes(layoutRes: Int) {
         saveLayoutRes(layoutRes)
         invalidateAdapter()
@@ -57,14 +75,8 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         if (gridSize == 0) {
             gridSize = if (ApexUtil.isTablet()) {
                 if (isLandscape) {
-                    if (loadGridSizeTabletLand() == 2){
-                        saveGridSizeTabletLand(1)
-                    }
                     loadGridSizeTabletLand()
                 } else {
-                    if (loadGridSizeTablet() == 2){
-                        saveGridSizeTablet(1)
-                    }
                     loadGridSizeTablet()
                 }
             } else {
