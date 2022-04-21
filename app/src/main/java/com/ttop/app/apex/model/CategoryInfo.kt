@@ -31,7 +31,7 @@ data class CategoryInfo(
         @StringRes val stringRes: Int,
         @DrawableRes val icon: Int
     ) {
-        Home(R.id.action_home, R.string.for_you, R.drawable.asld_face),
+        Home(R.id.action_home, R.string.home, R.drawable.ic_home),
         Songs(R.id.action_song, R.string.songs, R.drawable.asld_music_note),
         Albums(R.id.action_album, R.string.albums, R.drawable.asld_album),
         Artists(R.id.action_artist, R.string.artists, R.drawable.asld_artist),
