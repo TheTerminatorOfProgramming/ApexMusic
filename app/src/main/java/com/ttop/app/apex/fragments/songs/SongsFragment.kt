@@ -16,16 +16,21 @@ package com.ttop.app.apex.fragments.songs
 
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.annotation.LayoutRes
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.GridLayoutManager
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
 import com.afollestad.materialcab.createCab
 import com.google.android.gms.cast.framework.CastButtonFactory
+import com.google.android.material.textview.MaterialTextView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.SongAdapter
+import com.ttop.app.apex.extensions.recordInitialPaddingForView
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.fragments.GridStyle
 import com.ttop.app.apex.fragments.ReloadType
@@ -353,6 +358,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         if (gridSize > 0) {
             item.isChecked = true
             setAndSaveGridSize(gridSize)
+
             if (ApexUtil.isTablet()){
                 layout?.isVisible = gridSize >= 3
             }else{
@@ -360,9 +366,6 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             }
             return true
         }
-
-
-
         return false
     }
 
