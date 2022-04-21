@@ -139,15 +139,15 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu)
 
+        if (ApexUtil.isTablet()){
+            layoutItem?.isVisible = getGridSize() >= 3
+        }else{
+            layoutItem?.isVisible = getGridSize() != 1
+        }
+
         layout = layoutItem
 
-        if (getGridSize() == 2){
-            layoutItem.isVisible = false
-            setAndSaveLayoutRes(R.layout.item_grid)
-        }
-        else{
-            layoutItem.isVisible = true
-        }
+        setAndSaveLayoutRes(R.layout.item_grid)
 
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
         //Setting up cast button
@@ -278,10 +278,6 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         if (gridSize < 3) {
             gridSizeMenu.findItem(R.id.action_grid_size_3).isVisible = false
         }
-
-        if (ApexUtil.isTablet()) {
-            gridSizeMenu.findItem(R.id.action_grid_size_2).isVisible = false
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -343,7 +339,6 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     private fun handleGridSizeMenuItem(
         item: MenuItem
     ): Boolean {
-
         val gridSize = when (item.itemId) {
             R.id.action_grid_size_1 -> 1
             R.id.action_grid_size_2 -> 2
@@ -358,10 +353,15 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         if (gridSize > 0) {
             item.isChecked = true
             setAndSaveGridSize(gridSize)
-
-            layout?.isVisible = gridSize != 2
+            if (ApexUtil.isTablet()){
+                layout?.isVisible = gridSize >= 3
+            }else{
+                layout?.isVisible = gridSize != 1
+            }
             return true
         }
+
+
 
         return false
     }
