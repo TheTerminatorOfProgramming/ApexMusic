@@ -48,6 +48,7 @@ import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.ttop.app.appthemehelper.util.TintHelper;
 import com.ttop.app.apex.App;
 
