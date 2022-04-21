@@ -95,21 +95,6 @@
         app:layout_constraintTop_toTopOf="@id/title"
         tools:text="@tools:sample/full_names" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingHorizontal="16dp"
-        android:textAppearance="@style/TextViewBody2"
-        android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@id/text"
-        app:layout_constraintEnd_toStartOf="@id/menu"
-        app:layout_constraintStart_toEndOf="@id/text"
-        app:layout_constraintTop_toTopOf="@id/text"
-        tools:text="@tools:sample/full_names" />
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/menu"
         style="@style/OverFlowButton"
