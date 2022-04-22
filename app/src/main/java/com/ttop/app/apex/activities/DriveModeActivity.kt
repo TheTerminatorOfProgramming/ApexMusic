@@ -28,6 +28,7 @@ import com.ttop.app.apex.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.databinding.ActivityDriveModeBinding
 import com.ttop.app.apex.db.toSongEntity
 import com.ttop.app.apex.extensions.drawAboveSystemBars
+import com.ttop.app.apex.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.glide.GlideApp
@@ -139,9 +140,8 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     private fun setUpPrevNext() {
-
-        binding.nextButton.setOnClickListener { MusicPlayerRemote.playNextSong() }
-        binding.previousButton.setOnClickListener { MusicPlayerRemote.back() }
+        binding.nextButton.setOnClickListener { MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying) }
+        binding.previousButton.setOnClickListener { MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying) }
     }
 
     private fun setUpShuffleButton() {
