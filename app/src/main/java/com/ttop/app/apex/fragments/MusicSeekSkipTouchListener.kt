@@ -30,9 +30,9 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                     wasSeeking = true
                     var seekingDuration = MusicPlayerRemote.songProgressMillis
                     if (next) {
-                        seekingDuration += 5000 * (counter.floorDiv(2) + 1)
+                        seekingDuration += 2000 * (counter.floorDiv(2) + 1)
                     } else {
-                        seekingDuration -= 5000 * (counter.floorDiv(2) + 1)
+                        seekingDuration -= 2000 * (counter.floorDiv(2) + 1)
                     }
                     MusicPlayerRemote.seekTo(seekingDuration)
                     counter += 1
