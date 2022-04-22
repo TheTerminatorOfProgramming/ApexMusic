@@ -394,7 +394,7 @@
     <string name="pref_title_toggle_volume">Volume controls</string>
     <string name="pref_title_user_name">User name</string>
     <string name="pref_title_wallpaper_accent">Wallpaper accent color</string>
-    <string name="pref_title_whitelist">Whitelist music</string>
+    <string name="pref_title_whitelist">Whitelist</string>
     <string name="profile">Profile</string>
     <string name="queue">Playing Queue</string>
     <string name="rate_app">Rate the app</string>
