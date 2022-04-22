@@ -120,7 +120,11 @@
         <activity android:name="com.ttop.app.apex.activities.ShareInstagramStory" />
         <activity android:name="com.ttop.app.apex.activities.DriveModeActivity" />
         <activity android:name="com.ttop.app.apex.activities.PermissionActivity" />
-        <activity android:name="com.ttop.app.apex.activities.LockScreenActivity" />
+        <activity android:name="com.ttop.app.apex.activities.LockScreenActivity"
+            android:exported="true"
+            android:label="@string/pref_title_lock_screen"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleInstance"/>
         <activity
             android:name="com.ttop.app.apex.fragments.backup.RestoreActivity"
             android:excludeFromRecents="false"
