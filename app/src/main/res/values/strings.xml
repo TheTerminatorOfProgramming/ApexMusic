@@ -283,7 +283,7 @@
     <string name="playback_settings">Playback Settings</string>
     <string name="playback_speed">Playback Speed</string>
     <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
-    <string name="playing_notification_name">Playing notification</string>
+    <string name="playing_notification_name">Playback Controls</string>
     <string name="playlist_created_sucessfully">%s created successfully</string>
     <string name="playlist_is_empty">Playlist is empty</string>
     <string name="playlist_name_empty">Playlist name</string>
