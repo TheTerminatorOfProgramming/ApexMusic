@@ -6,13 +6,12 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="1dp"
     android:layout_marginEnd="1dp"
-    android:layout_marginBottom="1dp"
     android:background="?rectSelector"
+    android:layout_marginVertical="2dp"
     android:clickable="true"
     android:focusable="true"
     android:minHeight="?attr/listPreferredItemHeight"
     android:orientation="horizontal"
-    android:paddingHorizontal="10dp"
     tools:ignore="MissingPrefix">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -36,15 +35,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
-        app:cardCornerRadius="6dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/drag_view"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:scaleType="centerCrop"
@@ -64,20 +63,21 @@
             tools:visibility="visible" />
     </com.google.android.material.card.MaterialCardView>
 
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingHorizontal="16dp"
         android:textAppearance="@style/TextViewSubtitle1"
         android:textColor="?android:attr/textColorPrimary"
-        app:layout_constraintBottom_toBottomOf="@id/imageTextContainer"
-        app:layout_constraintEnd_toStartOf="@id/text"
+        app:layout_constraintBottom_toTopOf="@+id/text"
+        app:layout_constraintEnd_toStartOf="@id/menu"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/imageTextContainer"
-        app:layout_constraintTop_toTopOf="@id/imageTextContainer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="@tools:sample/full_names" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -89,10 +89,11 @@
         android:paddingHorizontal="16dp"
         android:textAppearance="@style/TextViewBody2"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@id/title"
-        app:layout_constraintEnd_toStartOf="@id/text2"
-        app:layout_constraintStart_toEndOf="@id/title"
-        app:layout_constraintTop_toTopOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/menu"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/imageTextContainer"
+        app:layout_constraintTop_toBottomOf="@+id/title"
         tools:text="@tools:sample/full_names" />
 
     <androidx.appcompat.widget.AppCompatImageView
