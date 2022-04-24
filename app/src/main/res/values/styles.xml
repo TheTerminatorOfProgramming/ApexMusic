@@ -267,6 +267,16 @@
         <item name="android:fontFamily">@font/josefinsans</item>
     </style>
 
+    <style name="JuraThemeOverlay">
+        <item name="fontFamily">@font/jura</item>
+        <item name="android:fontFamily">@font/jura</item>
+    </style>
+
+    <style name="CaveatThemeOverlay">
+        <item name="fontFamily">@font/caveat</item>
+        <item name="android:fontFamily">@font/caveat</item>
+    </style>
+
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton

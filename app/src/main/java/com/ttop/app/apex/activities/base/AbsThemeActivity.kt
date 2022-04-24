@@ -71,6 +71,14 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.JosefinSansThemeOverlay)
         }
 
+        if (PreferenceUtil.isCustomFont == "jura") {
+            setTheme(R.style.JuraThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "caveat") {
+            setTheme(R.style.CaveatThemeOverlay)
+        }
+
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
         }
