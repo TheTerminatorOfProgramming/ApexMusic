@@ -124,12 +124,9 @@ class MusicService : MediaBrowserServiceCompat(),
     @JvmField
     var position = -1
     private val appWidgetBig = AppWidgetBig.instance
-    private val appWidgetCard = AppWidgetCard.instance
     private val appWidgetClassic = AppWidgetClassic.instance
-    private val appWidgetSmall = AppWidgetSmall.instance
-    private val appWidgetText = AppWidgetText.instance
-    private val appWidgetMd3 = AppWidgetMD3.instance
     private val appWidgetCircle = AppWidgetCircle.instance
+    private val appWidgetFull = AppWidgetFull.instance
     private val widgetIntentReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME)
@@ -139,23 +136,14 @@ class MusicService : MediaBrowserServiceCompat(),
                     AppWidgetClassic.NAME -> {
                         appWidgetClassic.performUpdate(this@MusicService, ids)
                     }
-                    AppWidgetSmall.NAME -> {
-                        appWidgetSmall.performUpdate(this@MusicService, ids)
-                    }
                     AppWidgetBig.NAME -> {
                         appWidgetBig.performUpdate(this@MusicService, ids)
                     }
-                    AppWidgetCard.NAME -> {
-                        appWidgetCard.performUpdate(this@MusicService, ids)
-                    }
-                    AppWidgetText.NAME -> {
-                        appWidgetText.performUpdate(this@MusicService, ids)
-                    }
-                    AppWidgetMD3.NAME -> {
-                        appWidgetMd3.performUpdate(this@MusicService, ids)
-                    }
                     AppWidgetCircle.NAME -> {
                         appWidgetCircle.performUpdate(this@MusicService, ids)
+                    }
+                    AppWidgetFull.NAME -> {
+                        appWidgetFull.performUpdate(this@MusicService, ids)
                     }
                 }
             }
@@ -1447,11 +1435,8 @@ class MusicService : MediaBrowserServiceCompat(),
         sendBroadcast(Intent(what))
         appWidgetBig.notifyChange(this, what)
         appWidgetClassic.notifyChange(this, what)
-        appWidgetSmall.notifyChange(this, what)
-        appWidgetCard.notifyChange(this, what)
-        appWidgetText.notifyChange(this, what)
-        appWidgetMd3.notifyChange(this, what)
         appWidgetCircle.notifyChange(this, what)
+        appWidgetFull.notifyChange(this, what)
     }
 
     private fun setCustomAction(stateBuilder: PlaybackStateCompat.Builder) {
