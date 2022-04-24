@@ -256,54 +256,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_classic_info" />
         </receiver>
-        <receiver
-            android:name="com.ttop.app.apex.appwidgets.AppWidgetSmall"
-            android:exported="true"
-            android:label="@string/app_widget_small_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_small_info" />
-        </receiver>
-        <receiver
-            android:name="com.ttop.app.apex.appwidgets.AppWidgetText"
-            android:exported="true"
-            android:label="@string/app_widget_text_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_text" />
-        </receiver>
-        <receiver
-            android:name="com.ttop.app.apex.appwidgets.AppWidgetCard"
-            android:exported="true"
-            android:label="@string/app_widget_card_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_card_info" />
-        </receiver>
-        <receiver
-            android:name="com.ttop.app.apex.appwidgets.AppWidgetMD3"
-            android:exported="true"
-            android:label="@string/app_widget_md3_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_md3_info" />
-        </receiver>
         <receiver
             android:name="com.ttop.app.apex.appwidgets.AppWidgetCircle"
             android:exported="true"
@@ -315,6 +268,19 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_circle_info" />
+        </receiver>
+
+        <receiver
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetFull"
+            android:exported="true"
+            android:label="@string/app_widget_full_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_full_info" />
         </receiver>
 
         <service

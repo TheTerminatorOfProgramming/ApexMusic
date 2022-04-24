@@ -33,6 +33,9 @@
     <dimen name="app_widget_big_min_width">250dp</dimen>
     <dimen name="app_widget_big_min_height">110dp</dimen>
 
+    <dimen name="app_widget_full_min_width">250dp</dimen>
+    <dimen name="app_widget_full_min_height">180dp</dimen>
+
     <dimen name="app_widget_card_image_size">56dp</dimen>
     <dimen name="app_widget_card_min_width">250dp</dimen>
     <dimen name="app_widget_card_buttons_width">128dp</dimen>

@@ -37,11 +37,7 @@ class BootReceiver : BroadcastReceiver() {
                 )
             ).isNotEmpty() || widgetManager.getAppWidgetIds(
                 ComponentName(
-                    context, AppWidgetSmall::class.java
-                )
-            ).isNotEmpty() || widgetManager.getAppWidgetIds(
-                ComponentName(
-                    context, AppWidgetCard::class.java
+                    context, AppWidgetFull::class.java
                 )
             ).isNotEmpty()
         ) {

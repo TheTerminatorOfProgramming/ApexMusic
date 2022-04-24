@@ -123,7 +123,7 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = String.format("%s \nby - %s", song.albumName, song.artistName)
+        binding.text.text = String.format("%s \n%s", song.albumName, song.artistName)
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)

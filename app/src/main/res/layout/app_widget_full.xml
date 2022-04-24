@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layoutDirection="ltr"
+        android:background="@color/black_color"
         android:orientation="vertical"
         android:padding="10dp">
 
