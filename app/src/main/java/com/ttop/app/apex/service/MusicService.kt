@@ -15,7 +15,11 @@ package com.ttop.app.apex.service
 
 import android.app.NotificationManager
 import android.appwidget.AppWidgetManager
+import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothHeadset
+import android.bluetooth.BluetoothProfile
+import android.bluetooth.BluetoothProfile.ServiceListener
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.ServiceInfo
@@ -39,7 +43,6 @@ import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.media.AudioAttributesCompat
@@ -48,7 +51,6 @@ import androidx.media.AudioFocusRequestCompat
 import androidx.media.AudioManagerCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.session.MediaButtonReceiver.handleIntent
-import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.target.SimpleTarget
@@ -59,9 +61,9 @@ import com.ttop.app.apex.activities.MainActivity
 import com.ttop.app.apex.appwidgets.*
 import com.ttop.app.apex.auto.AutoMediaIDHelper
 import com.ttop.app.apex.auto.AutoMusicProvider
+import com.ttop.app.apex.glide.ApexGlideExtension.getSongModel
 import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.ApexGlideExtension.getSongModel
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.isCasting
 import com.ttop.app.apex.helper.ShuffleHelper.makeShuffleList
@@ -99,7 +101,6 @@ import com.ttop.app.apex.volume.OnAudioVolumeChangedListener
 import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.java.KoinJavaComponent.get
 import java.util.*
-import java.util.concurrent.Executor
 
 
 /**
@@ -162,6 +163,7 @@ class MusicService : MediaBrowserServiceCompat(),
     private var becomingNoisyReceiverRegistered = false
     private val bluetoothConnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED)
     private var bluetoothConnectedRegistered = false
+    var mBluetoothHeadset: BluetoothHeadset? = null
     private val headsetReceiverIntentFilter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
     private var headsetReceiverRegistered = false
     private var mediaSession: MediaSessionCompat? = null
@@ -228,20 +230,54 @@ class MusicService : MediaBrowserServiceCompat(),
     private val bluetoothReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
+
+            // Get the default adapter
+            val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
             if (BluetoothDevice.ACTION_ACL_CONNECTED == action && PreferenceUtil.isBluetoothSpeaker) {
                 if (VERSION.SDK_INT >= VERSION_CODES.M) {
                     if (audioManager!!.getDevices(AudioManager.GET_DEVICES_OUTPUTS).isNotEmpty()) {
-                        if (MusicPlayerRemote.playingQueue.isEmpty()){
-                            Handler().postDelayed({ play() }, 1000)
+                        if (MusicPlayerRemote.playingQueue.isNotEmpty() ){
+                            //Handler().postDelayed({ play() }, 1000)
+
+// Establish connection to the proxy.
+                            mBluetoothAdapter.getProfileProxy(
+                                applicationContext,
+                                mProfileListener,
+                                BluetoothProfile.HEADSET
+                            )
                         }
                     }
                 } else {
                     if (audioManager!!.isBluetoothA2dpOn) {
-                        if (MusicPlayerRemote.playingQueue.isEmpty()){
-                            Handler().postDelayed({ play() }, 1000)
+                        if (MusicPlayerRemote.playingQueue.isNotEmpty()){
+                            //Handler().postDelayed({ play() }, 1000)
+
+// Establish connection to the proxy.
+                            mBluetoothAdapter.getProfileProxy(
+                                applicationContext,
+                                mProfileListener,
+                                BluetoothProfile.HEADSET
+                            )
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private val mProfileListener: ServiceListener = object : ServiceListener {
+        override fun onServiceConnected(profile: Int, proxy: BluetoothProfile) {
+            if (profile == BluetoothProfile.HEADSET) {
+                mBluetoothHeadset = proxy as BluetoothHeadset
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    Handler().postDelayed(MusicPlayerRemote::resumePlaying, 2000)
+                }
+            }
+        }
+
+        override fun onServiceDisconnected(profile: Int) {
+            if (profile == BluetoothProfile.HEADSET) {
+                mBluetoothHeadset = null
             }
         }
     }
@@ -264,9 +300,11 @@ class MusicService : MediaBrowserServiceCompat(),
             val action = intent.action
             if (action != null) {
                 if (Intent.ACTION_HEADSET_PLUG == action) {
-                    when (intent.getIntExtra("state", -1)) {
-                        0 -> pause()
-                        1 -> play()
+                    if (MusicPlayerRemote.playingQueue.isNotEmpty()){
+                        when (intent.getIntExtra("state", -1)) {
+                            0 -> pause()
+                            1 -> play()
+                        }
                     }
                 }
             }
