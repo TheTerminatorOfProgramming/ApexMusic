@@ -53,16 +53,5 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             setSummary(prefs, newValue)
             true
         }
-
-        val albumCover: ATESwitchPreference? = findPreference(ALBUM_ART_ON_LOCK_SCREEN)
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R){
-            albumCover?.isChecked = false
-            albumCover?.isVisible = false
-        }
-
-        val blurredCover: ATESwitchPreference? = findPreference(BLURRED_ALBUM_ART)
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R){
-            blurredCover?.isVisible = false
-        }
     }
 }
