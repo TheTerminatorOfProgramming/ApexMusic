@@ -42,6 +42,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.ttop.app.apex.util.DensityUtil
 
 class AppWidgetClassic : BaseAppWidget() {
     private var target: Target<BitmapPaletteWrapper>? = null // for cancellation
@@ -51,37 +52,35 @@ class AppWidgetClassic : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_classic)
+        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_md3)
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
+        val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
         appWidgetView.setImageViewBitmap(
-            R.id.button_next,
-            createBitmap(
+            R.id.button_next, createBitmap(
                 ApexUtil.getTintedVectorDrawable(
                     context,
                     R.drawable.ic_skip_next,
-                    MaterialValueHelper.getSecondaryTextColor(context, true)
+                    secondaryColor
                 ), 1f
             )
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_prev,
-            createBitmap(
+            R.id.button_prev, createBitmap(
                 ApexUtil.getTintedVectorDrawable(
                     context,
                     R.drawable.ic_skip_previous,
-                    MaterialValueHelper.getSecondaryTextColor(context, true)
+                    secondaryColor
                 ), 1f
             )
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause,
-            createBitmap(
+            R.id.button_toggle_play_pause, createBitmap(
                 ApexUtil.getTintedVectorDrawable(
                     context,
                     R.drawable.ic_play_arrow_white_32dp,
-                    MaterialValueHelper.getSecondaryTextColor(context, true)
+                    secondaryColor
                 ), 1f
             )
         )
@@ -94,7 +93,7 @@ class AppWidgetClassic : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_classic)
+        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_md3)
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -108,26 +107,58 @@ class AppWidgetClassic : BaseAppWidget() {
             appWidgetView.setTextViewText(R.id.text, getSongArtistAndAlbum(song))
         }
 
+        // Set correct drawable for pause state
+        val playPauseRes =
+            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow_white_32dp
+        appWidgetView.setImageViewBitmap(
+            R.id.button_toggle_play_pause, createBitmap(
+                ApexUtil.getTintedVectorDrawable(
+                    service,
+                    playPauseRes,
+                    MaterialValueHelper.getSecondaryTextColor(service, true)
+                ), 1f
+            )
+        )
+
+        // Set prev/next button drawables
+        appWidgetView.setImageViewBitmap(
+            R.id.button_next, createBitmap(
+                ApexUtil.getTintedVectorDrawable(
+                    service,
+                    R.drawable.ic_skip_next,
+                    MaterialValueHelper.getSecondaryTextColor(service, true)
+                ), 1f
+            )
+        )
+        appWidgetView.setImageViewBitmap(
+            R.id.button_prev, createBitmap(
+                ApexUtil.getTintedVectorDrawable(
+                    service,
+                    R.drawable.ic_skip_previous,
+                    MaterialValueHelper.getSecondaryTextColor(service, true)
+                ), 1f
+            )
+        )
+
         // Link actions buttons to intents
         linkButtons(service, appWidgetView)
 
         if (imageSize == 0) {
             imageSize =
-                service.resources.getDimensionPixelSize(R.dimen.app_widget_classic_image_size)
+                service.resources.getDimensionPixelSize(R.dimen.app_widget_card_image_size)
         }
         if (cardRadius == 0f) {
-            cardRadius = service.resources.getDimension(R.dimen.app_widget_card_radius)
+            cardRadius =
+                DensityUtil.dip2px(service, 15F).toFloat()
         }
 
         // Load the album cover async and push the update on completion
-        val appContext = service.applicationContext
         service.runOnUiThread {
             if (target != null) {
                 Glide.with(service).clear(target)
             }
             target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
                 .load(ApexGlideExtension.getSongModel(song))
-                //.checkIgnoreMediaStore()
                 .centerCrop()
                 .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                     override fun onResourceReady(
@@ -136,12 +167,10 @@ class AppWidgetClassic : BaseAppWidget() {
                     ) {
                         val palette = resource.palette
                         update(
-                            resource.bitmap,
-                            palette.getVibrantColor(
+                            resource.bitmap, palette.getVibrantColor(
                                 palette.getMutedColor(
                                     MaterialValueHelper.getSecondaryTextColor(
-                                        service,
-                                        true
+                                        service, true
                                     )
                                 )
                             )
@@ -150,60 +179,48 @@ class AppWidgetClassic : BaseAppWidget() {
 
                     override fun onLoadFailed(errorDrawable: Drawable?) {
                         super.onLoadFailed(errorDrawable)
-                        update(null, Color.WHITE)
+                        update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
                     }
 
                     private fun update(bitmap: Bitmap?, color: Int) {
                         // Set correct drawable for pause state
-                        val playPauseRes =
-                            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_toggle_play_pause,
-                            ImageUtil.createBitmap(
+                            R.id.button_toggle_play_pause, ImageUtil.createBitmap(
                                 ImageUtil.getTintedVectorDrawable(
-                                    service,
-                                    playPauseRes,
-                                    color
+                                    service, playPauseRes, color
                                 )
                             )
                         )
 
                         // Set prev/next button drawables
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_next,
-                            ImageUtil.createBitmap(
+                            R.id.button_next, ImageUtil.createBitmap(
                                 ImageUtil.getTintedVectorDrawable(
-                                    service,
-                                    R.drawable.ic_skip_next,
-                                    color
+                                    service, R.drawable.ic_skip_next, color
                                 )
                             )
                         )
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_prev,
-                            ImageUtil.createBitmap(
+                            R.id.button_prev, ImageUtil.createBitmap(
                                 ImageUtil.getTintedVectorDrawable(
-                                    service,
-                                    R.drawable.ic_skip_previous,
-                                    color
+                                    service, R.drawable.ic_skip_previous, color
                                 )
                             )
                         )
 
                         val image = getAlbumArtDrawable(service.resources, bitmap)
-                        val roundedBitmap =
-                            createRoundedBitmap(
-                                image,
-                                imageSize,
-                                imageSize,
-                                cardRadius,
-                                0F,
-                                cardRadius,
-                                0F
-                            )
+                        val roundedBitmap = createRoundedBitmap(
+                            image,
+                            imageSize,
+                            imageSize,
+                            cardRadius,
+                            cardRadius,
+                            cardRadius,
+                            cardRadius
+                        )
                         appWidgetView.setImageViewBitmap(R.id.image, roundedBitmap)
 
-                        pushUpdate(appContext, appWidgetIds, appWidgetView)
+                        pushUpdate(service, appWidgetIds, appWidgetView)
                     }
                 })
         }
@@ -223,11 +240,12 @@ class AppWidgetClassic : BaseAppWidget() {
 
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        var pendingIntent = PendingIntent.getActivity(
-            context, 0, action, if (VersionUtils.hasMarshmallow())
-                PendingIntent.FLAG_IMMUTABLE
-            else 0
-        )
+        var pendingIntent =
+            PendingIntent.getActivity(
+                context, 0, action, if (VersionUtils.hasMarshmallow())
+                    PendingIntent.FLAG_IMMUTABLE
+                else 0
+            )
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
         //views.setOnClickPendingIntent(R.id.media_titles, pendingIntent)
 
@@ -246,11 +264,11 @@ class AppWidgetClassic : BaseAppWidget() {
 
     companion object {
 
-        const val NAME = "app_widget_classic"
+        const val NAME = "app_widget_md3"
 
         private var mInstance: AppWidgetClassic? = null
         private var imageSize = 0
-        private var cardRadius = 0f
+        private var cardRadius = 0F
 
         val instance: AppWidgetClassic
             @Synchronized get() {
