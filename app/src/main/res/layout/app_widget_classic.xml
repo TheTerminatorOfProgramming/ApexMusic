@@ -4,7 +4,8 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_widget_classic_height"
-    android:background="?attr/colorSurface"
+    android:background="@drawable/app_widget_background"
+    android:backgroundTint="?attr/colorSurface"
     android:orientation="horizontal"
     android:theme="@style/Theme.AppWidget"
     tools:ignore="ContentDescription">
@@ -13,7 +14,10 @@
         android:id="@+id/image"
         android:layout_width="@dimen/app_widget_classic_image_size"
         android:layout_height="@dimen/app_widget_classic_image_size"
-        android:scaleType="centerCrop" />
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/app_widget_background"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/backgrounds/scenic[6]" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -91,7 +95,6 @@
                 android:textAppearance="@style/TextViewNormal"
                 android:textColor="?android:attr/textColorSecondary"
                 tools:text="Text" />
-
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
