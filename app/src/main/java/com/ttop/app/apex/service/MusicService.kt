@@ -1197,7 +1197,7 @@ class MusicService : MediaBrowserServiceCompat(),
         mediaSession?.setPlaybackState(stateBuilder.build())
     }
 
-    public fun updateNotification() {
+    fun updateNotification() {
         if (playingNotification != null && currentSong.id != -1L) {
             stopForegroundAndNotification()
             initNotification()
