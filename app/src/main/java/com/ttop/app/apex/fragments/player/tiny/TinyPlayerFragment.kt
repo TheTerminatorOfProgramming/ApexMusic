@@ -235,10 +235,10 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
                 ): Boolean {
                     if (abs(velocityX) > abs(velocityY)) {
                         if (velocityX < 0) {
-                            MusicPlayerRemote.playNextSong()
+                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                             return true
                         } else if (velocityX > 0) {
-                            MusicPlayerRemote.playPreviousSong()
+                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                             return true
                         }
                     }
