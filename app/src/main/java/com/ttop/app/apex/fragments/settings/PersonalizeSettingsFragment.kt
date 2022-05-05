@@ -17,6 +17,7 @@ package com.ttop.app.apex.fragments.settings
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.preference.TwoStatePreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -52,6 +53,27 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         tabTextMode?.setOnPreferenceChangeListener { prefs, newValue ->
             setSummary(prefs, newValue)
             true
+        }
+
+        val albumArtOnLockScreen: ATESwitchPreference? = findPreference(ALBUM_ART_ON_LOCK_SCREEN)
+        albumArtOnLockScreen?.setOnPreferenceChangeListener { _, newValue ->
+            if (!albumArtOnLockScreen.isChecked){
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Notification Bug")
+                builder.setMessage("Enabling this option produces a bug with the playback notification")
+
+                builder.setPositiveButton(android.R.string.yes) { _, _ ->
+                    albumArtOnLockScreen.isChecked = newValue as Boolean
+                }
+
+                builder.setNegativeButton(android.R.string.no) { _, _ ->
+                    albumArtOnLockScreen.isChecked != newValue as Boolean
+                }
+                builder.show()
+            }else{
+                albumArtOnLockScreen.isChecked = false
+            }
+            false
         }
     }
 }
