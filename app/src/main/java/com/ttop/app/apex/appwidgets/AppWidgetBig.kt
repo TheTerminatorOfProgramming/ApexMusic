@@ -39,6 +39,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.ttop.app.apex.helper.MusicPlayerRemote
 
 class AppWidgetBig : BaseAppWidget() {
     private var target: Target<Bitmap>? = null // for cancellation
@@ -86,6 +87,17 @@ class AppWidgetBig : BaseAppWidget() {
         )
 
         linkButtons(context, appWidgetView)
+
+        if (MusicPlayerRemote.playingQueue.isNotEmpty()){
+            if (!MusicPlayerRemote.isPlaying){
+                MusicPlayerRemote.resumePlaying()
+                MusicPlayerRemote.pauseSong()
+            }else{
+                MusicPlayerRemote.pauseSong()
+                MusicPlayerRemote.resumePlaying()
+            }
+        }
+
         pushUpdate(context, appWidgetIds, appWidgetView)
     }
 
