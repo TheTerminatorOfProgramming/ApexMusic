@@ -12,9 +12,12 @@ object ThemeManager {
 
     @StyleRes
     fun getThemeResValue(): Int =
-        if (PreferenceUtil.materialYou) {
+        if (PreferenceUtil.materialYou && App.getContext().generalThemeValue == BLACK) {
+            R.style.Theme_Apex_MD3_Black
+
+        } else if (PreferenceUtil.materialYou && App.getContext().generalThemeValue == DARK) {
             R.style.Theme_Apex_MD3
-        } else {
+        }else{
             when (App.getContext().generalThemeValue) {
                 LIGHT -> R.style.Theme_Apex_Light
                 DARK -> R.style.Theme_Apex_Base
