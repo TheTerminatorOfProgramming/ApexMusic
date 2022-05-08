@@ -22,4 +22,11 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_notification_actions"
         android:title="@string/pref_title_notification_actions" />
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="show_update"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_show_update"
+        android:title="@string/pref_title_show_update" />
 </androidx.preference.PreferenceScreen>
