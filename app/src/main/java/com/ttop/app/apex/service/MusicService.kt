@@ -821,6 +821,7 @@ class MusicService : MediaBrowserServiceCompat(),
                 }
                 ACTION_PENDING_QUIT -> pendingQuit = true
                 TOGGLE_FAVORITE -> toggleFavorite(applicationContext, currentSong)
+                UPDATE_NOTIFY -> MusicPlayerRemote.updateNotification()
             }
         }
         return START_NOT_STICKY
@@ -1556,6 +1557,7 @@ class MusicService : MediaBrowserServiceCompat(),
         const val CYCLE_REPEAT = "$APEX_MUSIC_PACKAGE_NAME.cyclerepeat"
         const val TOGGLE_SHUFFLE = "$APEX_MUSIC_PACKAGE_NAME.toggleshuffle"
         const val TOGGLE_FAVORITE = "$APEX_MUSIC_PACKAGE_NAME.togglefavorite"
+        const val UPDATE_NOTIFY = "$APEX_MUSIC_PACKAGE_NAME.updatenotify"
         const val SAVED_POSITION = "POSITION"
         const val SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK"
         const val SAVED_SHUFFLE_MODE = "SHUFFLE_MODE"
