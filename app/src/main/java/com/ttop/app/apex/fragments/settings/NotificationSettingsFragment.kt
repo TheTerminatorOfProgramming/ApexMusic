@@ -20,10 +20,7 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.CLASSIC_NOTIFICATION
-import com.ttop.app.apex.COLORED_NOTIFICATION
-import com.ttop.app.apex.NOTIFICATION_ACTIONS
-import com.ttop.app.apex.R
+import com.ttop.app.apex.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
@@ -79,7 +76,21 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             MusicPlayerRemote.updateNotification()
             return@setOnPreferenceChangeListener newValue
         }
+
+        val update: TwoStatePreference? = findPreference(SHOW_UPDATE)
+        if (!PreferenceUtil.isAlbumArtOnLockScreen) {
+            update?.isChecked = false
+            update?.isEnabled = false
+            MusicPlayerRemote.updateNotification()
+        }
+
+        update?.setOnPreferenceChangeListener { _, newValue ->
+            update.isChecked = newValue as Boolean
+            MusicPlayerRemote.updateNotification()
+            false
+        }
     }
+
 
     override fun onResume() {
         super.onResume()
