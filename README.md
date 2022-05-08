@@ -20,7 +20,7 @@
 
 ## Screenshots
 ### App Themes
-| <img src="screenshots/1.Main_White.jpg" width="200"/> | <img src="screenshots/2.manin_dark.jpg" width="200"/> | <img src="screenshots/3.main_black.jpg" width="200"/> |
+| <img src="screenshots/1.Main_White.jpg" width="200"/> | <img src="screenshots/2.Main_Dark.jpg" width="200"/> | <img src="screenshots/3.Main_Black.jpg" width="200"/> |
 |:---:|:---:|:---:|
 |Clearly white| Kinda dark | Just black|
 
