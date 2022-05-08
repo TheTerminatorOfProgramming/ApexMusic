@@ -10,6 +10,17 @@
         <item name="popupMenuBackground">@drawable/popup_background</item>
     </style>
 
+    <style name="Theme.Apex.MD3_Black" parent="@style/Theme.Material3.DynamicColors.DayNight">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorSurface">@color/blackColorSurface</item>
+        <item name="roundSelector">@drawable/round_selector</item>
+        <item name="rectSelector">@drawable/rect_selector</item>
+        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
+        <item name="popupMenuBackground">@drawable/popup_background</item>
+    </style>
+
     <style name="Theme.AppWidget" parent="@android:style/Theme.DeviceDefault.DayNight">
         <item name="colorSurface">@android:color/system_accent1_50</item>
     </style>
