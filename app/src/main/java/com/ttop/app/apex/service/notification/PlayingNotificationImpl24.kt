@@ -46,6 +46,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ApexColorUtil
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -83,6 +84,7 @@ class PlayingNotificationImpl24(
             else 0)
         )
         val toggleFavorite = buildFavoriteAction(false)
+        val update = buildUpdateAction()
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
             R.drawable.ic_skip_previous_round_white_32dp,
@@ -103,7 +105,11 @@ class PlayingNotificationImpl24(
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
-        addAction(toggleFavorite)
+        if (!PreferenceUtil.showUpdate){
+            addAction(toggleFavorite)
+        }else{
+            addAction(update)
+        }
         addAction(previousAction)
         addAction(playPauseAction)
         addAction(nextAction)
@@ -118,11 +124,19 @@ class PlayingNotificationImpl24(
                     .setShowActionsInCompactView(1, 2, 3)
             )
         }else{
-            setStyle(
-                MediaStyle()
-                    .setMediaSession(mediaSessionToken)
-                    .setShowActionsInCompactView(2)
-            )
+            if (PreferenceUtil.showUpdate){
+                setStyle(
+                    MediaStyle()
+                        .setMediaSession(mediaSessionToken)
+                        .setShowActionsInCompactView(0, 2)
+                )
+            }else{
+                setStyle(
+                    MediaStyle()
+                        .setMediaSession(mediaSessionToken)
+                        .setShowActionsInCompactView(2)
+                )
+            }
         }
 
         setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -200,16 +214,28 @@ class PlayingNotificationImpl24(
         ).build()
     }
 
+    private fun buildUpdateAction(): NotificationCompat.Action {
+        val updateResId =
+            R.drawable.ic_update
+        return NotificationCompat.Action.Builder(
+            updateResId,
+            context.getString(R.string.action_update),
+            retrievePlaybackAction(UPDATE_NOTIFY)
+        ).build()
+    }
+
     override fun setPlaying(isPlaying: Boolean) {
         mActions[2] = buildPlayAction(isPlaying)
     }
 
     override fun updateFavorite(song: Song, onUpdate: () -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val isFavorite = MusicUtil.repository.isSongFavorite(song.id)
-            withContext(Dispatchers.Main) {
-                mActions[0] = buildFavoriteAction(isFavorite)
-                onUpdate()
+        if (!PreferenceUtil.showUpdate) {
+            GlobalScope.launch(Dispatchers.IO) {
+                val isFavorite = MusicUtil.repository.isSongFavorite(song.id)
+                withContext(Dispatchers.Main) {
+                    mActions[0] = buildFavoriteAction(isFavorite)
+                    onUpdate()
+                }
             }
         }
     }
