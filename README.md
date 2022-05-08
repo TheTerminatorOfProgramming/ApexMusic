@@ -20,14 +20,15 @@
 
 ## Screenshots
 ### App Themes
-| <img src="screenshots/1.Main_White.jpg" width="200"/> | <img src="screenshots/2.Main_Dark.jpg" width="200"/> | <img src="screenshots/3.Main_Black.jpg" width="200"/> |
+| <img src="screenshots/1.Main_White.jpg" width="200"/> | <img src="screenshots/2.Main_Dark.jpg" width="200"/> | <img src="screenshots/3.Main_Black.jpg" width="200"/> | <img src="screenshots/4.Main_Material_White.jpg" width="200"/> | <img src="screenshots/5.Main_Material_Dark.jpg" width="200"/> |
 |:---:|:---:|:---:|
-|Clearly white| Kinda dark | Just black|
+|Clearly white| Kinda dark | Just black | Material U white(A12+) | Material U dark(A12+)
 
 ### Player screen
-| <img src="screenshots/home_light.jpg" width="200"/>| <img src="screenshots/songs.jpg" width="200"/>| <img src="screenshots/albums.jpg" width="200"/>| <img src="screenshots/artists.jpg" width="200"/>| <img src="screenshots/settings.jpg" width="200"/>|
+| <img src="screenshots/1.Main_White.jpg" width="200"/>| <img src="screenshots/6.Settings_White.jpg" width="200"/>| <img src="screenshots/
+24.LockScreen_White.jpg " width="200"/>|
 |:---:|:---:|:---:|:---:|:---:|
-| Home | Songs | Albums | Artists | Settings |
+| Home | Settings | LockScreen Controls
 
 ### 10+ Now playing themes
 | <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|     <img src="screenshots/material.jpg" width="200"/>	|
