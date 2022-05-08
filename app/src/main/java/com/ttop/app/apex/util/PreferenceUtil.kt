@@ -229,6 +229,11 @@ object PreferenceUtil {
             TOGGLE_ADD_CONTROLS, false
         )
 
+    val showUpdate
+        get() = sharedPreferences.getBoolean(
+            SHOW_UPDATE, false
+        )
+
     val isHomeBanner
         get() = sharedPreferences.getBoolean(
             TOGGLE_HOME_BANNER, false
