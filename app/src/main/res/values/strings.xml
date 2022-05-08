@@ -50,6 +50,7 @@
     <string name="action_tag_editor">Tag editor</string>
     <string name="action_toggle_favorite">Toggle favorite</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
+    <string name="action_update">Update notification</string>
     <string name="adaptive">Adaptive</string>
     <string name="add_action">Add</string>
     <string name="add_playlist_title">"Add to playlist"</string>
@@ -327,6 +328,7 @@
     <string name="pref_summary_extra_controls">Add extra controls for mini player</string>
     <string name="pref_summary_extra_song_info">Show extra Song information, such as file format, bitrate and frequency</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
+    <string name="pref_summary_hide_favorite">Hide favorite on playback notification</string>
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
@@ -336,6 +338,7 @@
     <string name="pref_summary_pause_history">When enabled, newly played songs won\'t show in history</string>
     <string name="pref_summary_remember_tab">Navigate to the last used tab on start</string>
     <string name="pref_summary_show_lyrics">Display synced lyrics over album cover</string>
+    <string name="pref_summary_show_update">Replace favorite with update in the playback notification when album art on lockscreen is enabled</string>
     <string name="pref_summary_suggestions">Show New Music Mix on homescreen</string>
     <string name="pref_summary_swipe_anywhere_now_playing">Enables changing song by swiping anywhere on the now playing screen</string>
     <string name="pref_summary_synced_lyrics">Show Synced lyrics</string>
@@ -370,6 +373,7 @@
     <string name="pref_title_extra_song_info">Song info</string>
     <string name="pref_title_gapless_playback">Gapless playback</string>
     <string name="pref_title_general_theme">App theme</string>
+    <string name="pref_title_hide_favorite">Hide favorite</string>
     <string name="pref_title_home_album_grid_style">Album grid</string>
     <string name="pref_title_home_artist_grid_style">Artist grid</string>
     <string name="pref_title_home_banner">Banner</string>
@@ -384,6 +388,7 @@
     <string name="pref_title_pause_history">Pause history</string>
     <string name="pref_title_remember_tab">Remember last tab</string>
     <string name="pref_title_show_lyrics">Show lyrics</string>
+    <string name="pref_title_show_update">Show update</string>
     <string name="pref_title_suggestions">Show suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Swipe anywhere to change song</string>
     <string name="pref_title_tab_text_mode">Tab titles mode</string>
