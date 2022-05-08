@@ -129,5 +129,4 @@
         android:id="@+id/backup_fragment"
         android:name="com.ttop.app.apex.fragments.backup.BackupFragment"
         android:label="About" />
-
 </navigation>
