@@ -51,6 +51,7 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
 
     private fun updateTheme() {
         setTheme(ThemeManager.getThemeResValue())
+
         if (PreferenceUtil.materialYou) {
             setDefaultNightMode(ThemeManager.getNightMode())
         }
