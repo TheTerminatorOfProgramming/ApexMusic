@@ -16,7 +16,6 @@ package com.ttop.app.apex.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_PLAYLISTS
@@ -26,7 +25,7 @@ import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.model.Song
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -50,12 +49,6 @@ class AddToPlaylistDialog : DialogFragment() {
         }
     }
 
-    private fun playlistAdapter(playlists: List<String>): ArrayAdapter<String> {
-        val adapter = ArrayAdapter<String>(requireContext(), R.layout.item_simple_text, R.id.title)
-        adapter.addAll(playlists)
-        return adapter
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val playlistEntities = extraNotNull<List<PlaylistEntity>>(EXTRA_PLAYLISTS).value
         val songs = extraNotNull<List<Song>>(EXTRA_SONG).value
@@ -65,18 +58,17 @@ class AddToPlaylistDialog : DialogFragment() {
             playlistNames.add(entity.playlistName)
         }
         return materialDialog(R.string.add_playlist_title)
-            .setAdapter(
-                playlistAdapter(playlistNames)
-            ) { dialog, which ->
-                if (which == 0) {
+            .setItems(playlistNames.toTypedArray()) { dialog, which->
+                 if (which == 0) {
                     showCreateDialog(songs)
                 } else {
-                    libraryViewModel.addToPlaylist(playlistNames[which], songs)
+                    libraryViewModel.addToPlaylist(requireContext(), playlistNames[which], songs)
                 }
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.action_cancel, null)
-            .create().colorButtons()
+            .create()
+            .colorButtons()
     }
 
     private fun showCreateDialog(songs: List<Song>) {

@@ -17,7 +17,7 @@ package com.ttop.app.apex.repository
 import android.content.Context
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistWithSongs
-import com.ttop.app.apex.fragments.search.Filter
+import com.ttop.app.apex.ui.fragments.search.Filter
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Genre

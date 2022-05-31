@@ -23,9 +23,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ItemGenreBinding
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexMusicColoredTarget
 import com.ttop.app.apex.interfaces.IGenreClickListener
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.util.MusicUtil
@@ -72,7 +72,7 @@ class GenreAdapter(
             .asBitmapPalette()
             .load(ApexGlideExtension.getSongModel(genreSong))
             .songCoverOptions(genreSong)
-            .into(object : ApexColoredTarget(holder.binding.image) {
+            .into(object : ApexMusicColoredTarget(holder.binding.image) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(holder, colors)
                 }

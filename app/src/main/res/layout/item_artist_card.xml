@@ -35,7 +35,7 @@
             app:civ_border_width="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:retroCornerSize="21dp"
+            app:apexCornerSize="21dp"
             app:srcCompat="@drawable/default_album_art"
             tools:src="@tools:sample/avatars" />
 

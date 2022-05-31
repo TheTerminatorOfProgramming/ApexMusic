@@ -32,7 +32,7 @@ import com.ttop.app.apex.*
 import com.ttop.app.apex.adapter.album.AlbumAdapter
 import com.ttop.app.apex.adapter.artist.ArtistAdapter
 import com.ttop.app.apex.adapter.song.SongAdapter
-import com.ttop.app.apex.fragments.home.HomeFragment
+import com.ttop.app.apex.ui.fragments.home.HomeFragment
 import com.ttop.app.apex.interfaces.IAlbumClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
 import com.ttop.app.apex.interfaces.IGenreClickListener

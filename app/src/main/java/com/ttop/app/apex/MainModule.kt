@@ -4,15 +4,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ttop.app.apex.auto.AutoMusicProvider
+import com.ttop.app.apex.cast.RetroWebServer
 import com.ttop.app.apex.db.BlackListStoreDao
 import com.ttop.app.apex.db.BlackListStoreEntity
 import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.db.RetroDatabase
-import com.ttop.app.apex.fragments.LibraryViewModel
-import com.ttop.app.apex.fragments.albums.AlbumDetailsViewModel
-import com.ttop.app.apex.fragments.artists.ArtistDetailsViewModel
-import com.ttop.app.apex.fragments.genres.GenreDetailsViewModel
-import com.ttop.app.apex.fragments.playlists.PlaylistDetailsViewModel
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.albums.AlbumDetailsViewModel
+import com.ttop.app.apex.ui.fragments.artists.ArtistDetailsViewModel
+import com.ttop.app.apex.ui.fragments.genres.GenreDetailsViewModel
+import com.ttop.app.apex.ui.fragments.playlists.PlaylistDetailsViewModel
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.network.provideDefaultCache
 import com.ttop.app.apex.network.provideLastFmRest
@@ -88,19 +89,23 @@ private val roomModule = module {
 }
 private val autoModule = module {
     single {
-        AutoMusicProvider(androidContext(),
-        get(),
-        get(),
-        get(),
-        get(),
-        get(),
-        get()
+        AutoMusicProvider(
+            androidContext(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
         )
     }
 }
 private val mainModule = module {
     single {
         androidContext().contentResolver
+    }
+    single {
+        RetroWebServer(get())
     }
 }
 private val dataModule = module {

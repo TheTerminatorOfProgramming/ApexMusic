@@ -18,7 +18,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import android.widget.Toast
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
@@ -30,6 +29,7 @@ import com.ttop.app.apex.databinding.PreferenceDialogLibraryCategoriesBinding
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
 
@@ -76,7 +76,7 @@ class LibraryPreferenceDialog : DialogFragment() {
     private fun updateCategories(categories: List<CategoryInfo>) {
         if (getSelected(categories) == 0) return
         if (getSelected(categories) > 5) {
-            Toast.makeText(context, "Not more than 5 items", Toast.LENGTH_SHORT).show()
+            showToast(R.string.message_limit_tabs)
             return
         }
         PreferenceUtil.libraryCategory = categories

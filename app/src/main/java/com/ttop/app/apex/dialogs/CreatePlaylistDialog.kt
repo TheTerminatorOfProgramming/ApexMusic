@@ -22,13 +22,13 @@ import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogPlaylistBinding
+import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.model.Song
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.ttop.app.apex.extensions.colorButtons
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CreatePlaylistDialog : DialogFragment() {
@@ -64,11 +64,12 @@ class CreatePlaylistDialog : DialogFragment() {
             ) { _, _ ->
                 val playlistName = playlistView.text.toString()
                 if (!TextUtils.isEmpty(playlistName)) {
-                    libraryViewModel.addToPlaylist(playlistName, songs)
+                    libraryViewModel.addToPlaylist(requireContext(), playlistName, songs)
                 } else {
                     playlistContainer.error = "Playlist name can't be empty"
                 }
             }
+            .setNegativeButton(R.string.action_cancel, null)
             .create()
             .colorButtons()
     }

@@ -25,13 +25,13 @@ import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
+import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.ApexUtil
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.signature.MediaStoreSignature
 import me.zhanghai.android.fastscroll.PopupTextProvider
@@ -45,7 +45,7 @@ class SongFileAdapter(
     private var dataSet: List<File>,
     private val itemLayoutRes: Int,
     private val iCallbacks: ICallbacks?,
-    iCabHolder: ICabHolder?
+    iCabHolder: ICabHolder?,
 ) : AbsMultiSelectAdapter<SongFileAdapter.ViewHolder, File>(
     activity, iCabHolder, R.menu.menu_media_selection
 ), PopupTextProvider {
@@ -110,9 +110,7 @@ class SongFileAdapter(
                 )
             )
         } else {
-            val error = ApexUtil.getTintedVectorDrawable(
-                activity, R.drawable.ic_file_music, iconColor
-            )
+            val error = activity.getTintedDrawable(R.drawable.ic_file_music, iconColor)
             GlideApp.with(activity)
                 .load(AudioFileCover(file.path))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -132,8 +130,8 @@ class SongFileAdapter(
         return dataSet[position]
     }
 
-    override fun getName(`object`: File): String {
-        return getFileTitle(`object`)
+    override fun getName(model: File): String {
+        return getFileTitle(model)
     }
 
     override fun onMultipleItemAction(menuItem: MenuItem, selection: List<File>) {

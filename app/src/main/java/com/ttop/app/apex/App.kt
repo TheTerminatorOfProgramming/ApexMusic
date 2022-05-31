@@ -15,11 +15,10 @@
 package com.ttop.app.apex
 
 import android.app.Application
-import android.widget.Toast
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.activities.ErrorActivity
+import com.ttop.app.apex.ui.activities.ErrorActivity
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.helper.WallpaperAccentManager
 import org.koin.android.ext.koin.androidContext

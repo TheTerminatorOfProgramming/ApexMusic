@@ -29,7 +29,7 @@ import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.ApexMusicColoredTarget
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumArtistClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
@@ -92,9 +92,9 @@ class ArtistAdapter(
         val transitionName =
             if (albumArtistsOnly) artist.name else artist.id.toString()
         if (holder.imageContainer != null) {
-            holder.imageContainer!!.setTransitionName(transitionName)
+            holder.imageContainer?.transitionName = transitionName
         } else {
-            holder.image!!.setTransitionName(transitionName)
+            holder.image?.transitionName = transitionName
         }
         loadArtistImage(artist, holder)
     }
@@ -117,7 +117,7 @@ class ArtistAdapter(
             .load(ApexGlideExtension.getArtistModel(artist))
             .artistImageOptions(artist)
             .transition(ApexGlideExtension.getDefaultTransition())
-            .into(object : ApexColoredTarget(holder.image!!) {
+            .into(object : ApexMusicColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
                 }
@@ -132,8 +132,8 @@ class ArtistAdapter(
         return dataSet[position]
     }
 
-    override fun getName(artist: Artist): String {
-        return artist.name
+    override fun getName(model: Artist): String {
+        return model.name
     }
 
     override fun onMultipleItemAction(

@@ -21,28 +21,27 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
+import androidx.core.graphics.drawable.toBitmap
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.MainActivity
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
+import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
-import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ApexUtil
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
@@ -59,27 +58,14 @@ class AppWidgetCircle : BaseAppWidget() {
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
         val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    context,
-                    R.drawable.ic_play_arrow,
-                    secondaryColor
-                ), 1f
-            )
+            R.id.button_toggle_play_pause,
+            context.getTintedDrawable(
+                R.drawable.ic_play_arrow,
+                secondaryColor
+            ).toBitmap()
         )
 
         linkButtons(context, appWidgetView)
-
-        if (MusicPlayerRemote.playingQueue.isNotEmpty()){
-            if (!MusicPlayerRemote.isPlaying){
-                MusicPlayerRemote.resumePlaying()
-                MusicPlayerRemote.pauseSong()
-            }else{
-                MusicPlayerRemote.pauseSong()
-                MusicPlayerRemote.resumePlaying()
-            }
-        }
-
         pushUpdate(context, appWidgetIds, appWidgetView)
     }
 
@@ -96,13 +82,11 @@ class AppWidgetCircle : BaseAppWidget() {
         val playPauseRes =
             if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
-                    playPauseRes,
-                    MaterialValueHelper.getSecondaryTextColor(service, true)
-                ), 1f
-            )
+            R.id.button_toggle_play_pause,
+            service.getTintedDrawable(
+                playPauseRes,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
         )
         val isFavorite = runBlocking(Dispatchers.IO) {
             return@runBlocking MusicUtil.repository.isSongFavorite(song.id)
@@ -110,13 +94,11 @@ class AppWidgetCircle : BaseAppWidget() {
         val favoriteRes =
             if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_favorite, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
-                    favoriteRes,
-                    MaterialValueHelper.getSecondaryTextColor(service, true)
-                ), 1f
-            )
+            R.id.button_toggle_favorite,
+            service.getTintedDrawable(
+                favoriteRes,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
         )
 
         // Link actions buttons to intents
@@ -134,13 +116,11 @@ class AppWidgetCircle : BaseAppWidget() {
             }
             target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
                 .load(ApexGlideExtension.getSongModel(song))
-                .apply(
-                    RequestOptions().transform(RoundedCorners(imageSize / 2))
-                )
-                .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+                .apply(RequestOptions.circleCropTransform())
+                .into(object : CustomTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                     override fun onResourceReady(
                         resource: BitmapPaletteWrapper,
-                        transition: Transition<in BitmapPaletteWrapper>?
+                        transition: Transition<in BitmapPaletteWrapper>?,
                     ) {
                         val palette = resource.palette
                         update(
@@ -162,25 +142,27 @@ class AppWidgetCircle : BaseAppWidget() {
                     private fun update(bitmap: Bitmap?, color: Int) {
                         // Set correct drawable for pause state
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_toggle_play_pause, ImageUtil.createBitmap(
-                                ImageUtil.getTintedVectorDrawable(
-                                    service, playPauseRes, color
-                                )
-                            )
+                            R.id.button_toggle_play_pause,
+                            service.getTintedDrawable(
+                                playPauseRes, color
+                            ).toBitmap()
                         )
 
                         // Set favorite button drawables
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_toggle_favorite, ImageUtil.createBitmap(
-                                ImageUtil.getTintedVectorDrawable(
-                                    service, favoriteRes, color
-                                )
-                            )
+                            R.id.button_toggle_favorite,
+                            service.getTintedDrawable(
+                                favoriteRes, color
+                            ).toBitmap()
                         )
-                        appWidgetView.setImageViewBitmap(R.id.image, bitmap)
+                        if (bitmap != null) {
+                            appWidgetView.setImageViewBitmap(R.id.image, bitmap)
+                        }
 
                         pushUpdate(service, appWidgetIds, appWidgetView)
                     }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
                 })
         }
     }

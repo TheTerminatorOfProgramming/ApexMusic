@@ -21,17 +21,16 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
-import com.ttop.app.apex.App
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.EXTRA_ARTIST_ID
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.tageditor.AbsTagEditorActivity
-import com.ttop.app.apex.activities.tageditor.SongTagEditorActivity
+import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
+import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.dialogs.DeleteSongsDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
-import com.ttop.app.apex.fragments.LibraryViewModel
-import com.ttop.app.apex.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IPaletteColorHolder
 import com.ttop.app.apex.model.Song
@@ -56,10 +55,10 @@ object SongMenuHelper : KoinComponent {
         when (menuItemId) {
             R.id.action_set_as_ringtone -> {
                 if (RingtoneManager.requiresDialog(activity)) {
-                    RingtoneManager.getDialog(activity)
+                    RingtoneManager.showDialog(activity)
                 } else {
-                    val ringtoneManager = RingtoneManager(activity)
-                    ringtoneManager.setRingtone(song)
+                    val ringtoneManager = android.media.RingtoneManager(activity)
+                    RingtoneManager.setRingtone(activity, song)
                 }
                 return true
             }
@@ -87,7 +86,7 @@ object SongMenuHelper : KoinComponent {
                 return true
             }
             R.id.action_play_next -> {
-                MusicPlayerRemote.playNext(song, true)
+                MusicPlayerRemote.playNext(song)
                 return true
             }
             R.id.action_add_to_current_playing -> {
@@ -124,7 +123,7 @@ object SongMenuHelper : KoinComponent {
                 return true
             }
             R.id.action_add_to_blacklist -> {
-                BlacklistStore.getInstance(App.getContext()).addPath(File(song.data))
+                BlacklistStore.getInstance(activity).addPath(File(song.data))
                 libraryViewModel.forceReload(ReloadType.Songs)
                 return true
             }

@@ -44,6 +44,8 @@ class BootReceiver : BroadcastReceiver() {
             val serviceIntent = Intent(context, MusicService::class.java)
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) { // not allowed on Oreo
                 context.startService(serviceIntent)
+            }else{
+                context.startForegroundService(serviceIntent)
             }
         }
     }

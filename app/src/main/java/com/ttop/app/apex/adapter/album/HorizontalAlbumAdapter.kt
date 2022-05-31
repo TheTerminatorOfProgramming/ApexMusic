@@ -19,7 +19,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.ApexMusicColoredTarget
 import com.ttop.app.apex.helper.HorizontalAdapterHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
 import com.ttop.app.apex.interfaces.ICabHolder
@@ -51,7 +51,7 @@ class HorizontalAlbumAdapter(
         if (holder.image == null) return
         GlideApp.with(activity).asBitmapPalette().albumCoverOptions(album.safeGetFirstSong())
             .load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
-            .into(object : ApexColoredTarget(holder.image!!) {
+            .into(object : ApexMusicColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
                 }

@@ -2,21 +2,22 @@ package com.ttop.app.apex.dialogs
 
 import android.Manifest
 import android.app.Dialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.util.getExternalStorageDirectory
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.updateListItems
 import java.io.File
 
 class BlacklistFolderChooserDialog : DialogFragment() {
-    private var initialPath: String = Environment.getExternalStorageDirectory().absolutePath
+    private var initialPath: String = getExternalStorageDirectory().absolutePath
     private var parentFolder: File? = null
     private var parentContents: Array<File>? = null
     private var canGoUp = false
@@ -80,7 +81,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
             }
             .noAutoDismiss()
             .positiveButton(res = R.string.add_action) {
-                callback?.onFolderSelection(this@BlacklistFolderChooserDialog, parentFolder!!)
+                callback?.onFolderSelection(requireContext(), parentFolder!!)
                 dismiss()
             }
             .negativeButton(res = android.R.string.cancel) { dismiss() }
@@ -97,7 +98,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
             parentFolder = parentContents?.getOrNull(if (canGoUp) i - 1 else i)
             canGoUp = true
             if (parentFolder?.absolutePath == "/storage/emulated") {
-                parentFolder = Environment.getExternalStorageDirectory()
+                parentFolder = getExternalStorageDirectory()
             }
         }
         reload()
@@ -128,7 +129,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
     }
 
     interface FolderCallback {
-        fun onFolderSelection(dialog: BlacklistFolderChooserDialog, folder: File)
+        fun onFolderSelection(context: Context, folder: File)
     }
 
     companion object {

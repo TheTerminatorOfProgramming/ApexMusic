@@ -16,20 +16,19 @@ package com.ttop.app.apex.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_PLAYLIST_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.fragments.LibraryViewModel
-import com.ttop.app.apex.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.ReloadType
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.ttop.app.apex.extensions.colorButtons
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class RenamePlaylistDialog : DialogFragment() {
@@ -48,7 +47,7 @@ class RenamePlaylistDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val playlistEntity = extraNotNull<PlaylistEntity>(EXTRA_PLAYLIST_ID).value
-        val layout = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_playlist, null)
+        val layout = layoutInflater.inflate(R.layout.dialog_playlist, null)
         val inputEditText: TextInputEditText = layout.findViewById(R.id.actionNewPlaylist)
         val nameContainer: TextInputLayout = layout.findViewById(R.id.actionNewPlaylistContainer)
         nameContainer.accentColor()

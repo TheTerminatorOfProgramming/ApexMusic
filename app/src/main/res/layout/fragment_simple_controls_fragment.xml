@@ -160,4 +160,5 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:backgroundTint="@color/md_red_400"
         tools:layout_height="52dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

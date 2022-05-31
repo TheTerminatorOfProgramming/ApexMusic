@@ -25,15 +25,18 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle
 import com.ttop.app.appthemehelper.util.ATHUtil.resolveColor
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.MainActivity
+import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.extensions.isSystemDarkModeEnabled
+import com.ttop.app.apex.extensions.toBitmap
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
@@ -44,8 +47,6 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.ApexUtil.createBitmap
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -55,7 +56,7 @@ import com.bumptech.glide.request.transition.Transition
  */
 @SuppressLint("RestrictedApi")
 class PlayingNotificationClassic(
-    val context: Context
+    val context: Context,
 ) : PlayingNotification(context) {
     private var primaryColor: Int = 0
 
@@ -114,7 +115,7 @@ class PlayingNotificationClassic(
             ) {
                 override fun onResourceReady(
                     resource: BitmapPaletteWrapper,
-                    transition: Transition<in BitmapPaletteWrapper>?
+                    transition: Transition<in BitmapPaletteWrapper>?,
                 ) {
                     val colors = MediaNotificationProcessor(context, resource.bitmap)
                     update(resource.bitmap, colors.backgroundColor)
@@ -183,27 +184,20 @@ class PlayingNotificationClassic(
                     val secondary = MaterialValueHelper.getSecondaryTextColor(context, dark)
                     primaryColor = primary
 
-                    val close = createBitmap(
-                        ApexUtil.getTintedVectorDrawable(
-                            context,
-                            R.drawable.ic_close,
-                            primary
-                        ), NOTIFICATION_CONTROLS_SIZE_MULTIPLIER
-                    )
-                    val prev = createBitmap(
-                        ApexUtil.getTintedVectorDrawable(
-                            context,
+                    val close = context.getTintedDrawable(
+                        R.drawable.ic_close,
+                        primary
+                    ).toBitmap()
+                    val prev =
+                        context.getTintedDrawable(
                             R.drawable.ic_skip_previous_round_white_32dp,
                             primary
-                        ), NOTIFICATION_CONTROLS_SIZE_MULTIPLIER
-                    )
-                    val next = createBitmap(
-                        ApexUtil.getTintedVectorDrawable(
-                            context,
+                        ).toBitmap()
+                    val next =
+                        context.getTintedDrawable(
                             R.drawable.ic_skip_next_round_white_32dp,
                             primary
-                        ), NOTIFICATION_CONTROLS_SIZE_MULTIPLIER
-                    )
+                        ).toBitmap()
                     val playPause = getPlayPauseBitmap(true)
 
                     contentView.setTextColor(R.id.title, primary)
@@ -225,44 +219,35 @@ class PlayingNotificationClassic(
 
                     contentView.setImageViewBitmap(
                         R.id.smallIcon,
-                        createBitmap(
-                            ApexUtil.getTintedVectorDrawable(
-                                context,
-                                R.drawable.ic_notification,
-                                secondary
-                            ), 0.6f
-                        )
+                        context.getTintedDrawable(
+                            R.drawable.ic_notification,
+                            secondary
+                        ).toBitmap(0.6f)
                     )
                     bigContentView.setImageViewBitmap(
                         R.id.smallIcon,
-                        createBitmap(
-                            ApexUtil.getTintedVectorDrawable(
-                                context,
-                                R.drawable.ic_notification,
-                                secondary
-                            ), 0.6f
-                        )
+                        context.getTintedDrawable(
+                            R.drawable.ic_notification,
+                            secondary
+                        ).toBitmap(0.6f)
                     )
                 }
             })
     }
 
     private fun getPlayPauseBitmap(isPlaying: Boolean): Bitmap {
-        return createBitmap(
-            ApexUtil.getTintedVectorDrawable(
-                context,
-                if (isPlaying)
-                    R.drawable.ic_pause_white_48dp
-                else
-                    R.drawable.ic_play_arrow_white_48dp, primaryColor
-            ), NOTIFICATION_CONTROLS_SIZE_MULTIPLIER
-        )
+        return context.getTintedDrawable(
+            if (isPlaying)
+                R.drawable.ic_pause_white_48dp
+            else
+                R.drawable.ic_play_arrow_white_48dp, primaryColor
+        ).toBitmap()
     }
 
     override fun setPlaying(isPlaying: Boolean) {
         getPlayPauseBitmap(isPlaying).also {
-            contentView.setImageViewBitmap(R.id.action_play_pause, it)
-            bigContentView.setImageViewBitmap(R.id.action_play_pause, it)
+            contentView?.setImageViewBitmap(R.id.action_play_pause, it)
+            bigContentView?.setImageViewBitmap(R.id.action_play_pause, it)
         }
     }
 
@@ -271,7 +256,7 @@ class PlayingNotificationClassic(
 
     private fun buildPendingIntent(
         context: Context, action: String,
-        serviceName: ComponentName?
+        serviceName: ComponentName?,
     ): PendingIntent {
         val intent = Intent(action)
         intent.component = serviceName
@@ -308,7 +293,7 @@ class PlayingNotificationClassic(
     companion object {
         fun from(
             context: Context,
-            notificationManager: NotificationManager
+            notificationManager: NotificationManager,
         ): PlayingNotification {
             if (VersionUtils.hasOreo()) {
                 createNotificationChannel(context, notificationManager)

@@ -23,27 +23,30 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.graphics.drawable.toBitmap
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.MainActivity
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
+import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
-import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ApexUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.DensityUtil
+import com.ttop.app.apex.util.ImageUtil
 
 class AppWidgetClassic : BaseAppWidget() {
     private var target: Target<BitmapPaletteWrapper>? = null // for cancellation
@@ -53,37 +56,31 @@ class AppWidgetClassic : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_md3)
+        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_classic)
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
         val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
         appWidgetView.setImageViewBitmap(
-            R.id.button_next, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    context,
+            R.id.button_next,
+                context.getTintedDrawable(
                     R.drawable.ic_skip_next,
                     secondaryColor
-                ), 1f
-            )
+                ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_prev, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    context,
+            R.id.button_prev,
+                context.getTintedDrawable(
                     R.drawable.ic_skip_previous,
                     secondaryColor
-                ), 1f
-            )
+                ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    context,
+            R.id.button_toggle_play_pause,
+                context.getTintedDrawable(
                     R.drawable.ic_play_arrow_white_32dp,
                     secondaryColor
-                ), 1f
-            )
+                ).toBitmap()
         )
 
         linkButtons(context, appWidgetView)
@@ -105,7 +102,7 @@ class AppWidgetClassic : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_md3)
+        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_classic)
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -123,35 +120,36 @@ class AppWidgetClassic : BaseAppWidget() {
         val playPauseRes =
             if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow_white_32dp
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
+            R.id.button_toggle_play_pause,
+                service.getTintedDrawable(
                     playPauseRes,
                     MaterialValueHelper.getSecondaryTextColor(service, true)
-                ), 1f
-            )
+                ).toBitmap()
         )
 
         // Set prev/next button drawables
         appWidgetView.setImageViewBitmap(
-            R.id.button_next, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
+            R.id.button_next,
+            service.getTintedDrawable(
                     R.drawable.ic_skip_next,
                     MaterialValueHelper.getSecondaryTextColor(service, true)
-                ), 1f
-            )
+                ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_prev, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
+            R.id.button_prev,
+                service.getTintedDrawable(
                     R.drawable.ic_skip_previous,
                     MaterialValueHelper.getSecondaryTextColor(service, true)
-                ), 1f
-            )
+                ).toBitmap()
         )
+        appWidgetView.setImageViewBitmap(
+            R.id.button_toggle_play_pause,
 
+            service.getTintedDrawable(
+                R.drawable.ic_play_arrow_white_32dp,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
+        )
         // Link actions buttons to intents
         linkButtons(service, appWidgetView)
 
@@ -197,28 +195,25 @@ class AppWidgetClassic : BaseAppWidget() {
                     private fun update(bitmap: Bitmap?, color: Int) {
                         // Set correct drawable for pause state
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_toggle_play_pause, ImageUtil.createBitmap(
-                                ImageUtil.getTintedVectorDrawable(
-                                    service, playPauseRes, color
-                                )
-                            )
+                            R.id.button_toggle_play_pause,
+                            service.getTintedDrawable(
+                                    playPauseRes, color
+                                ).toBitmap()
                         )
 
                         // Set prev/next button drawables
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_next, ImageUtil.createBitmap(
-                                ImageUtil.getTintedVectorDrawable(
-                                    service, R.drawable.ic_skip_next, color
-                                )
-                            )
+                            R.id.button_next,
+                                service.getTintedDrawable(
+                                    R.drawable.ic_skip_next, color
+                                ).toBitmap()
                         )
                         appWidgetView.setImageViewBitmap(
-                            R.id.button_prev, ImageUtil.createBitmap(
-                                ImageUtil.getTintedVectorDrawable(
-                                    service, R.drawable.ic_skip_previous, color
-                                )
-                            )
+                            R.id.button_prev, service.getTintedDrawable(
+                                R.drawable.ic_skip_previous, color
+                                ).toBitmap()
                         )
+
 
                         val image = getAlbumArtDrawable(service.resources, bitmap)
                         val roundedBitmap = createRoundedBitmap(

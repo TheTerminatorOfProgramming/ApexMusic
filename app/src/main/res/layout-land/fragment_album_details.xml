@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:transitionName="@string/transition_album_art"
@@ -79,7 +78,7 @@
                     android:layout_height="52dp"
                     android:layout_marginStart="8dp"
                     android:scaleType="centerCrop"
-                    app:retroCornerSize="26dp"
+                    app:apexCornerSize="26dp"
                     tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
 
                 <LinearLayout

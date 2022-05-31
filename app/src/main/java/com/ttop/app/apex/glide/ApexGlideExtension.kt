@@ -2,12 +2,14 @@ package com.ttop.app.apex.glide
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import com.ttop.app.appthemehelper.util.TintHelper
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.Constants.USER_BANNER
 import com.ttop.app.apex.Constants.USER_PROFILE
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.glide.artistimage.ArtistImage
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
@@ -107,8 +109,8 @@ object ApexGlideExtension {
         return baseRequestOptions
             .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY_ARTIST)
             .priority(Priority.LOW)
-            .error(DEFAULT_ARTIST_IMAGE)
-            .placeholder(DEFAULT_ARTIST_IMAGE)
+            .error(getDrawable(DEFAULT_ARTIST_IMAGE))
+            .placeholder(getDrawable(DEFAULT_ARTIST_IMAGE))
             .override(SIZE_ORIGINAL, SIZE_ORIGINAL)
             .signature(createSignature(artist))
     }
@@ -120,8 +122,8 @@ object ApexGlideExtension {
         song: Song
     ): BaseRequestOptions<*> {
         return baseRequestOptions.diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-            .error(DEFAULT_SONG_IMAGE)
-            .placeholder(DEFAULT_SONG_IMAGE)
+            .error(getDrawable(DEFAULT_SONG_IMAGE))
+            .placeholder(getDrawable(DEFAULT_SONG_IMAGE))
             .signature(createSignature(song))
     }
 
@@ -142,8 +144,8 @@ object ApexGlideExtension {
         song: Song
     ): BaseRequestOptions<*> {
         return baseRequestOptions.diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-            .error(DEFAULT_ALBUM_IMAGE)
-            .placeholder(DEFAULT_ALBUM_IMAGE)
+            .error(ContextCompat.getDrawable(getContext(), DEFAULT_ALBUM_IMAGE))
+            .placeholder(ContextCompat.getDrawable(getContext(), DEFAULT_ALBUM_IMAGE))
             .signature(createSignature(song))
     }
 
@@ -177,7 +179,7 @@ object ApexGlideExtension {
         baseRequestOptions: BaseRequestOptions<*>
     ): BaseRequestOptions<*> {
         return baseRequestOptions.diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-            .error(DEFAULT_ALBUM_IMAGE)
+            .error(getDrawable(DEFAULT_ALBUM_IMAGE))
     }
 
     private fun createSignature(song: Song): Key {
@@ -205,14 +207,18 @@ object ApexGlideExtension {
 
     private fun getErrorUserProfile(context: Context): Drawable {
         return TintHelper.createTintedDrawable(
-            getContext(),
+            context,
             R.drawable.ic_account,
-            accentColor(context)
+            context.accentColor()
         )
     }
 
     fun <TranscodeType> getDefaultTransition(): GenericTransitionOptions<TranscodeType> {
         return GenericTransitionOptions<TranscodeType>().transition(DEFAULT_ANIMATION)
+    }
+
+    fun getDrawable(@DrawableRes id: Int): Drawable? {
+        return ContextCompat.getDrawable(getContext(), id)
     }
 }
 

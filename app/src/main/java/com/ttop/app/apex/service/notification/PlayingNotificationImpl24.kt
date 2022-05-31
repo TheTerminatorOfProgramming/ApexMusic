@@ -20,20 +20,18 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.text.parseAsHtml
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.MainActivity
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
@@ -41,12 +39,11 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
+import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ApexColorUtil
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -105,6 +102,7 @@ class PlayingNotificationImpl24(
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
+        setOngoing(false)
         if (!PreferenceUtil.showUpdate){
             addAction(toggleFavorite)
         }else{
@@ -122,21 +120,12 @@ class PlayingNotificationImpl24(
                 MediaStyle()
                     .setMediaSession(mediaSessionToken)
                     .setShowActionsInCompactView(1, 2, 3)
+            )}else{
+            setStyle(
+                MediaStyle()
+                    .setMediaSession(mediaSessionToken)
+                    .setShowActionsInCompactView(2)
             )
-        }else{
-            if (PreferenceUtil.showUpdate){
-                setStyle(
-                    MediaStyle()
-                        .setMediaSession(mediaSessionToken)
-                        .setShowActionsInCompactView(0, 2)
-                )
-            }else{
-                setStyle(
-                    MediaStyle()
-                        .setMediaSession(mediaSessionToken)
-                        .setShowActionsInCompactView(2)
-                )
-            }
         }
 
         setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -148,26 +137,18 @@ class PlayingNotificationImpl24(
         setSubText(("<b>" + song.albumName + "</b>").parseAsHtml())
         val bigNotificationImageSize = context.resources
             .getDimensionPixelSize(R.dimen.notification_big_image_size)
-        GlideApp.with(context).asBitmapPalette().songCoverOptions(song)
+        GlideApp.with(context)
+            .asBitmap()
+            .songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))
             //.checkIgnoreMediaStore()
             .centerCrop()
-            .into(object : CustomTarget<BitmapPaletteWrapper>(
+            .into(object : CustomTarget<Bitmap>(
                 bigNotificationImageSize,
                 bigNotificationImageSize
             ) {
-                override fun onResourceReady(
-                    resource: BitmapPaletteWrapper,
-                    transition: Transition<in BitmapPaletteWrapper>?
-                ) {
-                    setLargeIcon(
-                        resource.bitmap
-                    )
-                    if (Build.VERSION.SDK_INT <=
-                        Build.VERSION_CODES.O && PreferenceUtil.isColoredNotification
-                    ) {
-                        color = ApexColorUtil.getColor(resource.palette, Color.TRANSPARENT)
-                    }
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    setLargeIcon(resource)
                     onUpdate()
                 }
 

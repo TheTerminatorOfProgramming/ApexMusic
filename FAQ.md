@@ -1,5 +1,5 @@
 ## **Q: How do I get the beta version of Retro Music?**
-You can opt-in for the beta build by clicking on this link: https://play.google.com/apps/testing/code.name.monkey.retro
+You can opt-in for the beta build by clicking on this link: https://play.google.com/apps/testing/code.name.monkey.retromusic
 
 ___
 

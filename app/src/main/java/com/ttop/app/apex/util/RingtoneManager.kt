@@ -19,18 +19,18 @@ import android.content.Intent
 import android.provider.BaseColumns
 import android.provider.MediaStore
 import android.provider.Settings
-import android.widget.Toast
 import androidx.core.net.toUri
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil.getSongFileUri
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class RingtoneManager(val context: Context) {
-    fun setRingtone(song: Song) {
-        val resolver = context.contentResolver
+object RingtoneManager {
+    fun setRingtone(context: Context, song: Song) {
         val uri = getSongFileUri(song.id)
+        val resolver = context.contentResolver
 
         try {
             val cursor = resolver.query(
@@ -45,35 +45,32 @@ class RingtoneManager(val context: Context) {
                     Settings.System.putString(resolver, Settings.System.RINGTONE, uri.toString())
                     val message = context
                         .getString(R.string.x_has_been_set_as_ringtone, cursorSong.getString(0))
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    context.showToast(message)
                 }
             }
         } catch (ignored: SecurityException) {
         }
     }
 
-    companion object {
-
-        fun requiresDialog(context: Context): Boolean {
-            if (VersionUtils.hasMarshmallow()) {
-                if (!Settings.System.canWrite(context)) {
-                    return true
-                }
+    fun requiresDialog(context: Context): Boolean {
+        if (VersionUtils.hasMarshmallow()) {
+            if (!Settings.System.canWrite(context)) {
+                return true
             }
-            return false
         }
+        return false
+    }
 
-        fun getDialog(context: Context) {
-            return MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogTheme)
-                .setTitle(R.string.dialog_title_set_ringtone)
-                .setMessage(R.string.dialog_message_set_ringtone)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
-                    intent.data = ("package:" + context.applicationContext.packageName).toUri()
-                    context.startActivity(intent)
-                }
-                .setNegativeButton(android.R.string.cancel, null)
-                .create().show()
-        }
+    fun showDialog(context: Context) {
+        return MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogTheme)
+            .setTitle(R.string.dialog_title_set_ringtone)
+            .setMessage(R.string.dialog_message_set_ringtone)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                intent.data = ("package:" + context.applicationContext.packageName).toUri()
+                context.startActivity(intent)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .create().show()
     }
 }

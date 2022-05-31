@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
     android:clickable="true"
     android:focusable="true">
 
@@ -12,7 +11,6 @@
         android:id="@+id/colorBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorSurface"
         android:scaleType="centerCrop"
         app:srcCompat="@color/black_color" />
 
@@ -54,7 +52,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/playerAlbumCoverFragment"
-                    android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
+                    android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:layout="@layout/fragment_album_cover" />
@@ -67,7 +65,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/playbackControlsFragment"
-                    android:name="com.ttop.app.apex.fragments.player.blur.BlurPlaybackControlsFragment"
+                    android:name="com.ttop.app.apex.ui.fragments.player.blur.BlurPlaybackControlsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />

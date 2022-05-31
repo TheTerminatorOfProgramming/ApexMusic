@@ -36,7 +36,6 @@ import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.apex.App
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.PreferenceUtil.materialYou
 import com.google.android.material.button.MaterialButton
@@ -131,12 +130,12 @@ fun Slider.accent() {
 
 fun Button.accentTextColor() {
     if (materialYou) return
-    setTextColor(ThemeStore.accentColor(App.getContext()))
+    setTextColor(context.accentColor())
 }
 
 fun MaterialButton.accentBackgroundColor() {
     if (materialYou) return
-    backgroundTintList = ColorStateList.valueOf(ThemeStore.accentColor(App.getContext()))
+    backgroundTintList = ColorStateList.valueOf(context.accentColor())
 }
 
 fun MaterialButton.accentOutlineColor() {
@@ -292,6 +291,9 @@ fun Context.accentColorVariant(): Int {
 
 inline val @receiver:ColorInt Int.isColorLight
     get() = ColorUtil.isColorLight(this)
+
+inline val @receiver:ColorInt Int.lightColor
+    get() = ColorUtil.withAlpha(this, 0.5F)
 
 inline val @receiver:ColorInt Int.lighterColor
     get() = ColorUtil.lightenColor(this)

@@ -21,21 +21,18 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
-import com.ttop.app.apex.App
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogNowPlayingScreenBinding
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.fragments.AlbumCoverStyle
-import com.ttop.app.apex.fragments.AlbumCoverStyle.*
-import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
+import com.ttop.app.apex.ui.fragments.AlbumCoverStyle.*
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.bumptech.glide.Glide
@@ -138,4 +135,8 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
             return AlbumCoverStylePreferenceDialog()
         }
     }
+}
+
+private fun isAlbumCoverStyle(style: AlbumCoverStyle): Boolean {
+    return ((style == Circle || style == Card || style == FullCard))
 }

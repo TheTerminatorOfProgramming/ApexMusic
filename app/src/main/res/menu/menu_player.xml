@@ -80,7 +80,8 @@
         android:id="@+id/action_sleep_timer"
         android:orderInCategory="12"
         android:title="@string/action_sleep_timer"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_bedtime"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_equalizer"
         android:orderInCategory="13"

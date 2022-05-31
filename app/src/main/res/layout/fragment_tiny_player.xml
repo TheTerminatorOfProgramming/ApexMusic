@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playerAlbumCoverFragment"
-        android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -107,7 +107,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"
-            android:name="com.ttop.app.apex.fragments.player.tiny.TinyPlaybackControlsFragment"
+            android:name="com.ttop.app.apex.ui.fragments.player.tiny.TinyPlaybackControlsFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_tiny_controls_fragment" />

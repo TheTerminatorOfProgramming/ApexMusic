@@ -14,15 +14,14 @@
  */
 package com.ttop.app.apex.adapter
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.model.Contributor
-import com.ttop.app.apex.util.ApexUtil.openUrl
 import com.ttop.app.apex.views.ApexShapeableImageView
 import com.bumptech.glide.Glide
 
@@ -65,7 +64,7 @@ class ContributorAdapter(
         val contributor = contributors[position]
         holder.bindData(contributor)
         holder.itemView.setOnClickListener {
-            openUrl(it?.context as Activity, contributors[position].link)
+            it?.context?.openUrl(contributors[position].link)
         }
     }
 

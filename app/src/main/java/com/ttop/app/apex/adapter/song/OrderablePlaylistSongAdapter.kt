@@ -26,7 +26,7 @@ import com.ttop.app.apex.db.toSongsEntity
 import com.ttop.app.apex.dialogs.RemoveSongFromPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentOutlineColor
-import com.ttop.app.apex.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song

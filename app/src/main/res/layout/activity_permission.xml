@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true">
 
     <com.ttop.app.apex.views.BaselineGridTextView
@@ -44,26 +43,26 @@
             android:orientation="@integer/permission_orientation">
 
             <com.ttop.app.apex.views.PermissionItem
-                android:id="@+id/storageBTPermissions"
+                android:id="@+id/storagePermission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="@integer/permission_layout_weight"
                 app:permissionButtonTitle="Grant access"
                 app:permissionIcon="@drawable/ic_sd_storage"
-                app:permissionTitle="@string/permission_bluetooth_title"
+                app:permissionTitle="@string/permission_title_storage"
                 app:permissionTitleNumber="1"
-                app:permissionTitleSubTitle="@string/permission_bluetooth_summary" />
+                app:permissionTitleSubTitle="@string/permission_summary_storage" />
 
             <com.ttop.app.apex.views.PermissionItem
-                android:id="@+id/storagePermissions"
+                android:id="@+id/btPermission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="@integer/permission_layout_weight"
                 app:permissionButtonTitle="Grant access"
-                app:permissionIcon="@drawable/ic_sd_storage"
-                app:permissionTitle="@string/permission_title"
-                app:permissionTitleNumber="1"
-                app:permissionTitleSubTitle="@string/permission_summary" />
+                app:permissionIcon="@drawable/ic_bluetooth_connect"
+                app:permissionTitle="@string/permission_title_bluetooth"
+                app:permissionTitleNumber="2"
+                app:permissionTitleSubTitle="@string/permission_summary_bluetooth" />
 
             <com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/audioPermission"
@@ -74,7 +73,7 @@
                 app:permissionButtonTitle="Grant access"
                 app:permissionIcon="@drawable/ic_phonelink_ring"
                 app:permissionTitle="@string/ringtone_title"
-                app:permissionTitleNumber="2"
+                app:permissionTitleNumber="3"
                 app:permissionTitleSubTitle="@string/ringtone_summary"
                 tools:visibility="visible" />
         </LinearLayout>

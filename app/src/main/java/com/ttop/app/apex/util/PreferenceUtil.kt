@@ -1,20 +1,23 @@
 package com.ttop.app.apex.util
 
+import android.content.Context
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.net.NetworkCapabilities
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
+import androidx.core.content.res.use
+import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.*
 import com.ttop.app.apex.extensions.getIntRes
 import com.ttop.app.apex.extensions.getStringOrDefault
-import com.ttop.app.apex.fragments.AlbumCoverStyle
-import com.ttop.app.apex.fragments.GridStyle
-import com.ttop.app.apex.fragments.NowPlayingScreen
-import com.ttop.app.apex.fragments.folder.FoldersFragment
+import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
+import com.ttop.app.apex.ui.fragments.GridStyle
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.helper.SortOrder.*
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.transform.*
@@ -65,12 +68,12 @@ object PreferenceUtil {
         }
 
     fun registerOnSharedPreferenceChangedListener(
-        listener: OnSharedPreferenceChangeListener
+        listener: OnSharedPreferenceChangeListener,
     ) = sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
 
 
     fun unregisterOnSharedPreferenceChangedListener(
-        changeListener: OnSharedPreferenceChangeListener
+        changeListener: OnSharedPreferenceChangeListener,
     ) = sharedPreferences.unregisterOnSharedPreferenceChangeListener(changeListener)
 
 
@@ -97,10 +100,10 @@ object PreferenceUtil {
 
     val languageCode: String get() = sharedPreferences.getString(LANGUAGE_NAME, "auto") ?: "auto"
 
-    var userName
+    var Fragment.userName
         get() = sharedPreferences.getString(
             USER_NAME,
-            App.getContext().getString(R.string.user_name)
+            getString(R.string.user_name)
         )
         set(value) = sharedPreferences.edit {
             putString(USER_NAME, value)
@@ -229,39 +232,17 @@ object PreferenceUtil {
             TOGGLE_ADD_CONTROLS, false
         )
 
-    val showUpdate
-        get() = sharedPreferences.getBoolean(
-            SHOW_UPDATE, false
-        )
-
     val isHomeBanner
         get() = sharedPreferences.getBoolean(
             TOGGLE_HOME_BANNER, false
         )
-
-    val isUserName
-        get() = sharedPreferences.getBoolean(
-            TOGGLE_USER_NAME, false
-        )
-
-    val syncedLyrics
-        get() = sharedPreferences.getBoolean(
-            SYNCED_LYRICS, false
-        )
-
-    val notificationActions
-        get() = sharedPreferences.getBoolean(
-            NOTIFICATION_ACTIONS, false
-        )
-
     var isClassicNotification
         get() = sharedPreferences.getBoolean(CLASSIC_NOTIFICATION, false)
         set(value) = sharedPreferences.edit { putBoolean(CLASSIC_NOTIFICATION, value) }
 
     val isScreenOnEnabled get() = sharedPreferences.getBoolean(KEEP_SCREEN_ON, false)
 
-    val isShuffleModeOn
-        get() = sharedPreferences.getBoolean(TOGGLE_SHUFFLE, false)
+    val isShuffleModeOn get() = sharedPreferences.getBoolean(TOGGLE_SHUFFLE, false)
 
     val isSongInfo get() = sharedPreferences.getBoolean(EXTRA_SONG_INFO, false)
 
@@ -348,18 +329,26 @@ object PreferenceUtil {
             TOGGLE_FULL_SCREEN, false
         )
 
+    val isAudioFocusEnabled
+        get() = sharedPreferences.getBoolean(
+            MANAGE_AUDIO_FOCUS, false
+        )
+
     val isLockScreen get() = sharedPreferences.getBoolean(LOCK_SCREEN, false)
 
-    fun isAllowedToDownloadMetadata(): Boolean {
+    fun isAllowedToDownloadMetadata(context: Context): Boolean {
         return when (autoDownloadImagesPolicy) {
             "always" -> true
             "only_wifi" -> {
-                val connectivityManager = App.getContext().getSystemService<ConnectivityManager>()
-                var netInfo: NetworkInfo? = null
-                if (connectivityManager != null) {
-                    netInfo = connectivityManager.activeNetworkInfo
+                val connectivityManager = context.getSystemService<ConnectivityManager>()
+                if (VersionUtils.hasMarshmallow()) {
+                    val network = connectivityManager?.activeNetwork
+                    val capabilities = connectivityManager?.getNetworkCapabilities(network)
+                    capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                } else {
+                    val netInfo = connectivityManager?.activeNetworkInfo
+                    netInfo != null && netInfo.type == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting
                 }
-                netInfo != null && netInfo.type == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting
             }
             "never" -> false
             else -> false
@@ -412,9 +401,15 @@ object PreferenceUtil {
     val filterLength get() = sharedPreferences.getInt(FILTER_SONG, 20)
 
     var lastVersion
-        get() = sharedPreferences.getInt(LAST_CHANGELOG_VERSION, 0)
+    // This was stored as an integer before now it's a long, so avoid a ClassCastException
+        get() = try {
+            sharedPreferences.getLong(LAST_CHANGELOG_VERSION, 0)
+        } catch (e: ClassCastException) {
+            sharedPreferences.edit { remove(LAST_CHANGELOG_VERSION) }
+            0
+        }
         set(value) = sharedPreferences.edit {
-            putInt(LAST_CHANGELOG_VERSION, value)
+            putLong(LAST_CHANGELOG_VERSION, value)
         }
 
     var lastSleepTimerValue
@@ -449,10 +444,11 @@ object PreferenceUtil {
             val position = sharedPreferences.getStringOrDefault(
                 HOME_ARTIST_GRID_STYLE, "0"
             ).toInt()
-            val typedArray = App.getContext()
-                .resources.obtainTypedArray(R.array.pref_home_grid_style_layout)
-            val layoutRes = typedArray.getResourceId(position, 0)
-            typedArray.recycle()
+            val layoutRes =
+                App.getContext().resources.obtainTypedArray(R.array.pref_home_grid_style_layout)
+                    .use {
+                        it.getResourceId(position, 0)
+                    }
             return if (layoutRes == 0) {
                 R.layout.item_artist
             } else layoutRes
@@ -463,10 +459,10 @@ object PreferenceUtil {
             val position = sharedPreferences.getStringOrDefault(
                 HOME_ALBUM_GRID_STYLE, "4"
             ).toInt()
-            val typedArray = App.getContext()
-                .resources.obtainTypedArray(R.array.pref_home_grid_style_layout)
-            val layoutRes = typedArray.getResourceId(position, 0)
-            typedArray.recycle()
+            val layoutRes = App.getContext()
+                .resources.obtainTypedArray(R.array.pref_home_grid_style_layout).use {
+                    it.getResourceId(position, 0)
+                }
             return if (layoutRes == 0) {
                 R.layout.item_image
             } else layoutRes
@@ -484,7 +480,6 @@ object PreferenceUtil {
                 else -> BottomNavigationView.LABEL_VISIBILITY_LABELED
             }
         }
-
 
     var songGridSize
         get() = sharedPreferences.getInt(
@@ -683,7 +678,7 @@ object PreferenceUtil {
                 4 -> VerticalFlipTransformation()
                 5 -> HingeTransformation()
                 6 -> VerticalStackTransformer()
-                else -> NormalPageTransformer()
+                else -> ViewPager.PageTransformer { _, _ -> }
             }
         }
 
@@ -765,6 +760,8 @@ object PreferenceUtil {
         get() = sharedPreferences
             .getInt(CROSS_FADE_DURATION, 0)
 
+    val isCrossfadeEnabled get() = crossFadeDuration > 0
+
     val materialYou
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, VersionUtils.hasS())
 
@@ -812,6 +809,36 @@ object PreferenceUtil {
 
     val swipeAnywhereToChangeSong
         get() = sharedPreferences.getBoolean(SWIPE_ANYWHERE_NOW_PLAYING, true)
+
+    val notificationActions
+        get() = sharedPreferences.getBoolean(
+            NOTIFICATION_ACTIONS, false
+        )
+
+    val isUserName
+        get() = sharedPreferences.getBoolean(
+            TOGGLE_USER_NAME, false
+        )
+
+    val syncedLyrics
+        get() = sharedPreferences.getBoolean(
+            SYNCED_LYRICS, false
+        )
+
+    var shouldRecreate
+        get() = sharedPreferences.getBoolean(
+            SHOULD_RECREATE, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(SAF_SDCARD_URI, value)}
+
+    val showUpdate
+        get() = sharedPreferences.getBoolean(
+            SHOW_UPDATE, false
+        )
+
+    val swipeDownToDismiss
+        get() = sharedPreferences.getBoolean(SWIPE_DOWN_DISMISS, true)
 }
 
 enum class LyricsType {

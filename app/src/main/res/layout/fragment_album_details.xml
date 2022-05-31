@@ -72,7 +72,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/albumCoverContainer"
-                app:retroCornerSize="26dp"
+                app:apexCornerSize="26dp"
                 tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
 
             <com.ttop.app.apex.views.BaselineGridTextView

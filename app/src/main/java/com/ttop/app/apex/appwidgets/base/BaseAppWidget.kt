@@ -27,9 +27,8 @@ import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.applyCanvas
-import androidx.core.graphics.createBitmap
-import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.App
+import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
@@ -172,7 +171,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         }
 
         fun createBitmap(drawable: Drawable, sizeMultiplier: Float): Bitmap {
-            return createBitmap(
+            return androidx.core.graphics.createBitmap(
                 (drawable.intrinsicWidth * sizeMultiplier).toInt(),
                 (drawable.intrinsicHeight * sizeMultiplier).toInt(),
             ).applyCanvas {

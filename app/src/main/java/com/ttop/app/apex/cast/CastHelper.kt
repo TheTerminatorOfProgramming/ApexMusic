@@ -39,7 +39,7 @@ object CastHelper {
             val remoteMediaClient = castSession.remoteMediaClient
             remoteMediaClient?.queueLoad(
                 songs.toMediaInfoList(),
-                position,
+                if (position != -1) position else 0,
                 MediaStatus.REPEAT_MODE_REPEAT_OFF,
                 progress,
                 JSONObject()
@@ -79,6 +79,5 @@ object CastHelper {
             setMetadata(musicMetadata)
             setStreamDuration(song.duration)
         }.build()
-
     }
 }

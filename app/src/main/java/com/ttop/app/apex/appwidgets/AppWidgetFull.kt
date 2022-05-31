@@ -22,10 +22,10 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.graphics.drawable.toBitmap
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.MainActivity
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -39,7 +39,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.ttop.app.apex.extensions.getTintedDrawable
+import com.ttop.app.apex.extensions.toBitmap
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.activities.MainActivity
 
 class AppWidgetFull : BaseAppWidget() {
     private var target: Target<Bitmap>? = null // for cancellation
@@ -59,31 +62,20 @@ class AppWidgetFull : BaseAppWidget() {
         )
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
         appWidgetView.setImageViewBitmap(
-            R.id.button_next, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    context,
-                    R.drawable.ic_skip_next,
-                    MaterialValueHelper.getPrimaryTextColor(context, false)
-                ), 1f
-            )
+            R.id.button_next, context.getTintedDrawable(
+                R.drawable.ic_skip_next,
+                MaterialValueHelper.getPrimaryTextColor(context, false)
+            ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_prev, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    context,
-                    R.drawable.ic_skip_previous,
-                    MaterialValueHelper.getPrimaryTextColor(context, false)
-                ), 1f
-            )
+            R.id.button_prev, context.getTintedDrawable(
+                R.drawable.ic_skip_previous,  MaterialValueHelper.getPrimaryTextColor(context, false)
+            ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    context,
-                    R.drawable.ic_play_arrow_white_32dp,
-                    MaterialValueHelper.getPrimaryTextColor(context, false)
-                ), 1f
-            )
+            R.id.button_toggle_play_pause, context.getTintedDrawable(
+                R.drawable.ic_play_arrow_white_32dp,  MaterialValueHelper.getPrimaryTextColor(context, false)
+            ).toBitmap()
         )
 
         linkButtons(context, appWidgetView)
@@ -135,33 +127,27 @@ class AppWidgetFull : BaseAppWidget() {
         val playPauseRes =
             if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow_white_32dp
         appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
+            R.id.button_toggle_play_pause,
+                service.getTintedDrawable(
                     playPauseRes,
                     primaryColor
-                ), 1f
-            )
+                ).toBitmap()
         )
 
         // Set prev/next button drawables
         appWidgetView.setImageViewBitmap(
-            R.id.button_next, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
+            R.id.button_next,
+            service.getTintedDrawable(
                     R.drawable.ic_skip_next,
                     primaryColor
-                ), 1f
-            )
+                ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
-            R.id.button_prev, createBitmap(
-                ApexUtil.getTintedVectorDrawable(
-                    service,
+            R.id.button_prev,
+                service.getTintedDrawable(
                     R.drawable.ic_skip_previous,
                     primaryColor
-                ), 1f
-            )
+                ).toBitmap()
         )
 
         // Link actions buttons to intents

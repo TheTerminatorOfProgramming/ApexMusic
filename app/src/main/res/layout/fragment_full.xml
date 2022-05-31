@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playerAlbumCoverFragment"
-        android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
-        android:name="com.ttop.app.apex.fragments.player.full.FullPlaybackControlsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.full.FullPlaybackControlsFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
@@ -136,7 +136,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/cover_lyrics"
-        android:name="com.ttop.app.apex.fragments.other.CoverLyricsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.CoverLyricsFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

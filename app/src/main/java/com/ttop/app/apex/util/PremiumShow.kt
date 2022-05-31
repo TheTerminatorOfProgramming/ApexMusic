@@ -1,8 +1,6 @@
 package com.ttop.app.apex.util
 
 import android.content.Context
-import android.content.Intent
-import com.ttop.app.apex.App
 
 object PremiumShow {
     private const val PREF_NAME = "premium_show"

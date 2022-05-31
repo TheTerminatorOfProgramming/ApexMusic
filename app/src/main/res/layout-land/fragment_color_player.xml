@@ -37,7 +37,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/playerAlbumCoverFragment"
-                    android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
+                    android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:layout="@layout/fragment_album_cover" />
@@ -55,7 +55,7 @@
 
                     <androidx.fragment.app.FragmentContainerView
                         android:id="@+id/playbackControlsFragment"
-                        android:name="com.ttop.app.apex.fragments.player.color.ColorPlaybackControlsFragment"
+                        android:name="com.ttop.app.apex.ui.fragments.player.color.ColorPlaybackControlsFragment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:layout="@layout/fragment_player_playback_controls" />

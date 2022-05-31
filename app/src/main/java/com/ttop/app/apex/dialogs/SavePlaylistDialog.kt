@@ -22,14 +22,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.App
 import com.ttop.app.apex.EXTRA_PLAYLIST
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistWithSongs
-import com.ttop.app.apex.extensions.colorButtons
-import com.ttop.app.apex.extensions.createNewFile
-import com.ttop.app.apex.extensions.extraNotNull
-import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.M3UWriter
 import com.ttop.app.apex.util.PlaylistsUtil
 import kotlinx.coroutines.Dispatchers
@@ -64,25 +60,19 @@ class SavePlaylistDialog : DialogFragment() {
                                 playlistWithSongs
                             )
                             withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    String.format(
-                                        requireContext().getString(R.string.saved_playlist_to),
-                                        data?.lastPathSegment
-                                    ),
+                                showToast(
+                                    requireContext().getString(R.string.saved_playlist_to,
+                                        data?.lastPathSegment),
                                     Toast.LENGTH_LONG
-                                ).show()
+                                )
                                 dismiss()
                             }
                         }
                     }
                 } catch (e: Exception) {
-                    Toast.makeText(
-                        context,
-                        "Something went wrong : " + e.message,
-                        Toast.LENGTH_SHORT
+                    showToast(
+                        "Something went wrong : " + e.message
                     )
-                        .show()
                 }
             }
         } else {
@@ -95,11 +85,10 @@ class SavePlaylistDialog : DialogFragment() {
                 ) { _, _ ->
                 }
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(),
-                        String.format(App.getContext().getString(R.string.saved_playlist_to), file),
+                    showToast(
+                        getString(R.string.saved_playlist_to, file),
                         Toast.LENGTH_LONG
-                    ).show()
+                    )
                     dismiss()
                 }
             }

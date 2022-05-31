@@ -34,7 +34,7 @@
         grid:layout_row="0">
 
         <include
-            android:id="@+id/card_retro_info"
+            android:id="@+id/card_apex_info"
             layout="@layout/card_apex_info" />
 
         <include

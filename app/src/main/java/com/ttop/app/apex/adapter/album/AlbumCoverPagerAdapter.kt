@@ -24,13 +24,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.MainActivity
-import com.ttop.app.apex.fragments.AlbumCoverStyle
-import com.ttop.app.apex.fragments.NowPlayingScreen.*
-import com.ttop.app.apex.fragments.base.goToLyrics
+import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.ApexMusicColoredTarget
 import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
@@ -85,7 +85,6 @@ class AlbumCoverPagerAdapter(
 
     class AlbumCoverFragment : Fragment() {
 
-        private lateinit var albumCover: ImageView
         private var isColorReady: Boolean = false
         private lateinit var color: MediaNotificationProcessor
         private lateinit var song: Song
@@ -106,8 +105,6 @@ class AlbumCoverPagerAdapter(
             savedInstanceState: Bundle?
         ): View? {
             val view = inflater.inflate(getLayoutWithPlayerTheme(), container, false)
-            view.setTransitionName("lyrics")
-            albumCover = view.findViewById(R.id.player_image)
             view.setOnClickListener {
                 if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
                     showLyricsDialog()
@@ -129,7 +126,7 @@ class AlbumCoverPagerAdapter(
                         if (PreferenceUtil.syncedLyrics){
                             setNegativeButton(R.string.synced_lyrics) { _, _ ->
                                 goToLyrics(requireActivity())
-                        }
+                            }
                         }
                         show()
                     }
@@ -160,7 +157,7 @@ class AlbumCoverPagerAdapter(
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            loadAlbumCover()
+            loadAlbumCover(albumCover = view.findViewById(R.id.player_image))
         }
 
         override fun onDestroyView() {
@@ -168,12 +165,12 @@ class AlbumCoverPagerAdapter(
             colorReceiver = null
         }
 
-        private fun loadAlbumCover() {
+        private fun loadAlbumCover(albumCover: ImageView) {
             GlideApp.with(this).asBitmapPalette().songCoverOptions(song)
                 //.checkIgnoreMediaStore()
                 .load(ApexGlideExtension.getSongModel(song))
                 .dontAnimate()
-                .into(object : ApexColoredTarget(albumCover) {
+                .into(object : ApexMusicColoredTarget(albumCover) {
                     override fun onColorReady(colors: MediaNotificationProcessor) {
                         setColor(colors)
                     }

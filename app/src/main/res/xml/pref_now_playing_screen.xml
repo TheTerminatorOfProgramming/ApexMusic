@@ -25,7 +25,7 @@
         android:defaultValue="false"
         android:key="synced_lyrics"
         android:layout="@layout/list_item_view_switch"
-        android:title="@string/pref_synced_lyrics_title"
+        android:title="@string/pref_title_synced_lyrics"
         android:summary="@string/pref_summary_synced_lyrics"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
@@ -86,6 +86,13 @@
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_controls">
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:key="swipe_to_dismiss"
+            app:summary="@string/pref_summary_swipe_to_dismiss"
+            app:title="@string/pref_title_swipe_to_dismiss" />
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"

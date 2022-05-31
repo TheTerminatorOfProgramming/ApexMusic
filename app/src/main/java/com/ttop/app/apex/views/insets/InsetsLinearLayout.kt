@@ -12,7 +12,7 @@ class InsetsLinearLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
     init {
-        if (!ApexUtil.isLandscape())
+        if (!ApexUtil.isLandscape)
             drawAboveSystemBarsWithPadding()
     }
 }

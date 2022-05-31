@@ -19,7 +19,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.ttop.app.apex.*
 import com.ttop.app.apex.db.*
-import com.ttop.app.apex.fragments.search.Filter
+import com.ttop.app.apex.ui.fragments.search.Filter
 import com.ttop.app.apex.model.*
 import com.ttop.app.apex.model.smartplaylist.NotPlayedPlaylist
 import com.ttop.app.apex.network.LastFMService

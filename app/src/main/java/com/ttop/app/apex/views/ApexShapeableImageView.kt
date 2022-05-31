@@ -15,6 +15,7 @@ package com.ttop.app.apex.views
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.core.content.withStyledAttributes
 import com.ttop.app.apex.R
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
@@ -29,13 +30,12 @@ class ApexShapeableImageView @JvmOverloads constructor(
 
 
     init {
-        val typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.ApexShapeableImageView, defStyle, -1)
-        addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            val radius = width / 2f
-            shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(radius)
+        context.withStyledAttributes(attrs, R.styleable.ApexShapeableImageView, defStyle, -1) {
+            addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                val radius = width / 2f
+                shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(radius)
+            }
         }
-        typedArray.recycle()
     }
 
     private fun updateCornerSize(cornerSize: Float) {

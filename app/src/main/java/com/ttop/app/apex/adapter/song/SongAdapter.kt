@@ -31,7 +31,7 @@ import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.ApexMusicColoredTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
@@ -100,7 +100,7 @@ open class SongAdapter(
         holder.text?.text = getSongText(song)
         holder.text2?.text = getSongText(song)
         loadAlbumCover(song, holder)
-        val landscape = ApexUtil.isLandscape()
+        val landscape = ApexUtil.isLandscape
         if ((PreferenceUtil.songGridSize > 2 && !landscape) || (PreferenceUtil.songGridSizeLand > 5 && landscape)) {
             holder.menu?.isVisible = false
         }
@@ -122,7 +122,7 @@ open class SongAdapter(
         }
         GlideApp.with(activity).asBitmapPalette().songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))
-            .into(object : ApexColoredTarget(holder.image!!) {
+            .into(object : ApexMusicColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
                 }
@@ -149,8 +149,8 @@ open class SongAdapter(
         return dataSet[position]
     }
 
-    override fun getName(song: Song): String {
-        return song.title
+    override fun getName(model: Song): String {
+        return model.title
     }
 
     override fun onMultipleItemAction(menuItem: MenuItem, selection: List<Song>) {

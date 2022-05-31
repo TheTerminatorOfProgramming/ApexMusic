@@ -23,7 +23,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/playerAlbumCoverFragment"
-                android:name="com.ttop.app.apex.fragments.player.PlayerAlbumCoverFragment"
+                android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout="@layout/fragment_album_cover" />
@@ -82,7 +82,7 @@
         android:theme="@style/TopCornerCardView"
         app:behavior_hideable="false"
         app:cardElevation="24dp"
-        app:layout_behavior="com.ttop.app.apex.ApexBottomSheetBehavior"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:peekHeight="0dp">
 
         <LinearLayout

@@ -31,6 +31,7 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogSleepTimerBinding
 import com.ttop.app.apex.extensions.addAccentColor
+import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
@@ -40,7 +41,6 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
-import com.ttop.app.apex.extensions.colorButtons
 
 class SleepTimerDialog : DialogFragment() {
 

@@ -13,7 +13,6 @@
  */
 package com.ttop.app.apex.util
 
-import android.os.Environment
 import android.util.Log
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.model.lyrics.AbsSynchronizedLyrics
@@ -26,7 +25,7 @@ import java.io.*
  */
 object LyricUtil {
     private val lrcRootPath =
-        Environment.getExternalStorageDirectory().toString() + "/Apex/lyrics/"
+        getExternalStorageDirectory().toString() + "/RetroMusic/lyrics/"
     private const val TAG = "LyricUtil"
     fun writeLrcToLoc(
         title: String, artist: String, lrcContext: String
@@ -52,7 +51,7 @@ object LyricUtil {
         }
     }
 
-    //So in Apex, Lrc file can be same folder as Music File or in Apex Folder
+    //So in Retro, Lrc file can be same folder as Music File or in RetroMusic Folder
     // In this case we pass location of the file and Contents to write to file
     fun writeLrc(song: Song, lrcContext: String) {
         var writer: FileWriter? = null

@@ -27,11 +27,11 @@ import androidx.fragment.app.DialogFragment
 import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
-import com.ttop.app.apex.activities.saf.SAFGuideActivity
+import com.ttop.app.apex.ui.activities.saf.SAFGuideActivity
 import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.fragments.LibraryViewModel
-import com.ttop.app.apex.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil

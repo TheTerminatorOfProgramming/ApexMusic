@@ -6,127 +6,128 @@
 
     <fragment
         android:id="@+id/mainSettingsFragment"
-        android:name="com.ttop.app.apex.fragments.settings.MainSettingsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.MainSettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_main_settings">
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_themeSettingsFragment"
             app:destination="@id/themeSettingsFragment"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_imageSettingFragment"
             app:destination="@id/imageSettingFragment"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_nowPlayingSettingsFragment"
             app:destination="@id/nowPlayingSettingsFragment"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_audioSettings"
             app:destination="@id/audioSettings"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_otherSettingsFragment"
             app:destination="@id/otherSettingsFragment"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_personalizeSettingsFragment"
             app:destination="@id/personalizeSettingsFragment"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_notificationSettingsFragment"
             app:destination="@id/notificationSettingsFragment"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_aboutActivity"
             app:destination="@id/aboutActivity"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
             app:launchSingleTop="true"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
 
         <action
             android:id="@+id/action_mainSettingsFragment_to_backupFragment"
             app:destination="@id/backup_fragment"
-            app:enterAnim="@anim/retro_fragment_open_enter"
-            app:exitAnim="@anim/retro_fragment_open_exit"
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
             app:launchSingleTop="true"
-            app:popEnterAnim="@anim/retro_fragment_close_enter"
-            app:popExitAnim="@anim/retro_fragment_close_exit" />
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/audioSettings"
-        android:name="com.ttop.app.apex.fragments.settings.AudioSettings"
+        android:name="com.ttop.app.apex.ui.fragments.settings.AudioSettings"
         android:label="Audio" />
 
     <fragment
         android:id="@+id/imageSettingFragment"
-        android:name="com.ttop.app.apex.fragments.settings.ImageSettingFragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.ImageSettingFragment"
         android:label="Image" />
 
     <fragment
         android:id="@+id/notificationSettingsFragment"
-        android:name="com.ttop.app.apex.fragments.settings.NotificationSettingsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.NotificationSettingsFragment"
         android:label="Notification" />
 
     <fragment
         android:id="@+id/nowPlayingSettingsFragment"
-        android:name="com.ttop.app.apex.fragments.settings.NowPlayingSettingsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.NowPlayingSettingsFragment"
         android:label="Now Playing" />
 
     <fragment
         android:id="@+id/otherSettingsFragment"
-        android:name="com.ttop.app.apex.fragments.settings.OtherSettingsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.OtherSettingsFragment"
         android:label="Other" />
 
     <fragment
         android:id="@+id/personalizeSettingsFragment"
-        android:name="com.ttop.app.apex.fragments.settings.PersonalizeSettingsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.PersonalizeSettingsFragment"
         android:label="Personalize" />
 
     <fragment
         android:id="@+id/themeSettingsFragment"
-        android:name="com.ttop.app.apex.fragments.settings.ThemeSettingsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.ThemeSettingsFragment"
         android:label="Look &amp; Feel" />
 
     <fragment
         android:id="@+id/aboutActivity"
-        android:name="com.ttop.app.apex.fragments.about.AboutFragment"
+        android:name="com.ttop.app.apex.ui.fragments.about.AboutFragment"
         android:label="About" />
 
     <fragment
         android:id="@+id/backup_fragment"
-        android:name="com.ttop.app.apex.fragments.backup.BackupFragment"
+        android:name="com.ttop.app.apex.ui.fragments.backup.BackupFragment"
         android:label="About" />
+
 </navigation>

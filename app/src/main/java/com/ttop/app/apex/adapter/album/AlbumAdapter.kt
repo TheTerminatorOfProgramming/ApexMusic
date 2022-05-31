@@ -26,7 +26,7 @@ import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.ApexMusicColoredTarget
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
@@ -91,9 +91,9 @@ open class AlbumAdapter(
         // Check if imageContainer exists so we can have a smooth transition without
         // CardView clipping, if it doesn't exist in current layout set transition name to image instead.
         if (holder.imageContainer != null) {
-            holder.imageContainer!!.setTransitionName(album.id.toString())
+            holder.imageContainer?.transitionName = album.id.toString()
         } else {
-            holder.image!!.setTransitionName(album.id.toString())
+            holder.image?.transitionName = album.id.toString()
         }
         loadAlbumCover(album, holder)
     }
@@ -116,7 +116,7 @@ open class AlbumAdapter(
         GlideApp.with(activity).asBitmapPalette().albumCoverOptions(song)
             //.checkIgnoreMediaStore()
             .load(ApexGlideExtension.getSongModel(song))
-            .into(object : ApexColoredTarget(holder.image!!) {
+            .into(object : ApexMusicColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
                 }
@@ -135,8 +135,8 @@ open class AlbumAdapter(
         return dataSet[position]
     }
 
-    override fun getName(album: Album): String {
-        return album.title
+    override fun getName(model: Album): String {
+        return model.title
     }
 
     override fun onMultipleItemAction(

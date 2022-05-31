@@ -23,7 +23,7 @@ interface Playback {
 
     val audioSessionId: Int
 
-    fun setDataSource(path: String): Boolean
+    fun setDataSource(path: String, force: Boolean): Boolean
 
     fun setNextDataSource(path: String?)
 
@@ -48,6 +48,9 @@ interface Playback {
     fun setAudioSessionId(sessionId: Int): Boolean
 
     fun setCrossFadeDuration(duration: Int)
+
+    fun setPlaybackSpeedPitch(speed: Float, pitch: Float)
+
 
     interface PlaybackCallbacks {
         fun onTrackWentToNext()

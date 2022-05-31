@@ -16,10 +16,13 @@ package com.ttop.app.apex.extensions
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.LayoutRes
@@ -32,7 +35,9 @@ import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.TintHelper
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ApexUtil
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.card.MaterialCardView
 import dev.chrisbanes.insetter.applyInsetter
 
 @Suppress("UNCHECKED_CAST")
@@ -58,6 +63,84 @@ fun EditText.appHandleColor(): EditText {
     return this
 }
 
+/**
+ * Potentially animate showing a [BottomNavigationView].
+ *
+ * Abruptly changing the visibility leads to a re-layout of main content, animating
+ * `translationY` leaves a gap where the view was that content does not fill.
+ *
+ * Instead, take a snapshot of the view, and animate this in, only changing the visibility (and
+ * thus layout) when the animation completes.
+ */
+fun BottomNavigationView.show() {
+    if (isVisible) return
+
+    val parent = parent as ViewGroup
+    // View needs to be laid out to create a snapshot & know position to animate. If view isn't
+    // laid out yet, need to do this manually.
+    if (!isLaidOut) {
+        measure(
+            View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.AT_MOST)
+        )
+        layout(parent.left, parent.height - measuredHeight, parent.right, parent.height)
+    }
+
+    val drawable = BitmapDrawable(context.resources, drawToBitmap())
+    drawable.setBounds(left, parent.height, right, parent.height + height)
+    parent.overlay.add(drawable)
+    ValueAnimator.ofInt(parent.height, top).apply {
+        duration = 300
+        interpolator = AnimationUtils.loadInterpolator(
+            context,
+            android.R.interpolator.linear_out_slow_in
+        )
+        addUpdateListener {
+            val newTop = it.animatedValue as Int
+            drawable.setBounds(left, newTop, right, newTop + height)
+        }
+        doOnEnd {
+            parent.overlay.remove(drawable)
+            isVisible = true
+        }
+        start()
+    }
+}
+
+/**
+ * Potentially animate hiding a [BottomNavigationView].
+ *
+ * Abruptly changing the visibility leads to a re-layout of main content, animating
+ * `translationY` leaves a gap where the view was that content does not fill.
+ *
+ * Instead, take a snapshot, instantly hide the view (so content lays out to fill), then animate
+ * out the snapshot.
+ */
+fun BottomNavigationView.hide() {
+    if (isGone) return
+
+    val drawable = BitmapDrawable(context.resources, drawToBitmap())
+    val parent = parent as ViewGroup
+    drawable.setBounds(left, top, right, bottom)
+    parent.overlay.add(drawable)
+    isGone = true
+    ValueAnimator.ofInt(top, parent.height).apply {
+        duration = 300L
+        interpolator = AnimationUtils.loadInterpolator(
+            context,
+            android.R.interpolator.fast_out_linear_in
+        )
+        addUpdateListener {
+            val newTop = it.animatedValue as Int
+            drawable.setBounds(left, newTop, right, newTop + height)
+        }
+        doOnEnd {
+            parent.overlay.remove(drawable)
+        }
+        start()
+    }
+}
+
 fun View.translateYAnimate(value: Float): Animator {
     return ObjectAnimator.ofFloat(this, "translationY", value)
         .apply {
@@ -79,6 +162,23 @@ fun BottomSheetBehavior<*>.peekHeightAnimate(value: Int): Animator {
             duration = 300
             start()
         }
+}
+
+fun MaterialCardView.animateRadius(cornerRadius: Float, pause: Boolean = true) {
+    ValueAnimator.ofFloat(radius, cornerRadius).apply {
+        addUpdateListener { radius = animatedValue as Float }
+        start()
+    }
+    ValueAnimator.ofInt(measuredWidth, if (pause) (height * 1.5).toInt() else height).apply {
+        addUpdateListener {
+            updateLayoutParams<ViewGroup.LayoutParams> { width = animatedValue as Int }
+        }
+        start()
+    }
+}
+
+fun MaterialCardView.animateToCircle() {
+    animateRadius(measuredHeight / 2F, pause = false)
 }
 
 fun View.focusAndShowKeyboard() {
@@ -122,7 +222,7 @@ fun View.focusAndShowKeyboard() {
  */
 fun View.drawAboveSystemBars(onlyPortrait: Boolean = true) {
     if (PreferenceUtil.isFullScreenMode) return
-    if (onlyPortrait && ApexUtil.isLandscape()) return
+    if (onlyPortrait && ApexUtil.isLandscape) return
     applyInsetter {
         type(navigationBars = true) {
             margin()

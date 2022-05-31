@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isVisible
 import com.ttop.app.apex.databinding.BannerImageLayoutBinding
 import com.ttop.app.apex.databinding.UserImageLayoutBinding
 import com.ttop.app.apex.util.PreferenceUtil
