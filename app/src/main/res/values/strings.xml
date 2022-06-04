@@ -71,6 +71,7 @@
         <item quantity="other">Albums</item>
     </plurals>
     <string name="always">Always</string>
+    <string name="apex_music">Apex Music</string>
     <string name="app_share">Hey check out this cool music player at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
     <string name="app_shortcut_top_tracks_short">Top Tracks</string>
@@ -461,8 +462,6 @@
     <string name="reset_artist_image">Reset artist image</string>
     <string name="restore">Restore</string>
     <string name="restore_message">Do you want to restore backup?</string>
-    <string name="retro_music_player">Retro Music Player</string>
-    <string name="retro_music_pro">Retro Music Pro</string>
     <string name="ringtone_summary">The app needs permission to access your device settings in order to set music as Ringtone</string>
     <string name="ringtone_title">Ringtone (Optional)</string>
     <string name="saf_delete_failed">File delete failed: %s</string>
@@ -541,7 +540,6 @@
     <string name="track_list">Track number</string>
     <string name="translate">Translate</string>
     <string name="translate_community">Help us translate the app to your language</string>
-    <string name="try_retro_music_premium">Try Retro Music Premium</string>
     <string name="twitter_page">Twitter</string>
     <string name="twitter_page_summary">Share your design with Retro Music</string>
     <string name="unlabeled">Unlabeled</string>
@@ -554,7 +552,6 @@
     <string name="username">Username</string>
     <string name="version">Version</string>
     <string name="vertical_flip">Vertical flip</string>
-    <string name="view_on_telegram">View on Telegram</string>
     <string name="volume">Volume</string>
     <string name="web_search">Web search</string>
     <string name="website">Website</string>

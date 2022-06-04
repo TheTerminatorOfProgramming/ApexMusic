@@ -39,6 +39,9 @@ import com.google.android.gms.cast.framework.CastButtonFactory
 
 class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager>(),
     ICabHolder {
+
+    private var layout: MenuItem? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryViewModel.getSongs().observe(viewLifecycleOwner) {
@@ -134,6 +137,15 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         setUpGridSizeMenu(gridSizeItem.subMenu)
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu)
+
+        if (ApexUtil.isTablet){
+            layoutItem?.isVisible = getGridSize() >= 3
+        }else{
+            layoutItem?.isVisible = getGridSize() != 1
+        }
+
+        layout = layoutItem
+
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
         //Setting up cast button
         CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
@@ -220,6 +232,9 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             R.layout.image -> subMenu.findItem(R.id.action_layout_image).isChecked = true
             R.layout.item_image_gradient ->
                 subMenu.findItem(R.id.action_layout_gradient_image).isChecked = true
+        }
+        if (getGridSize() < 2){
+            subMenu.findItem(R.id.action_layout_normal).isChecked = true
         }
     }
 
@@ -322,6 +337,12 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         if (gridSize > 0) {
             item.isChecked = true
             setAndSaveGridSize(gridSize)
+
+            if (ApexUtil.isTablet){
+                layout?.isVisible = gridSize >= 3
+            }else{
+                layout?.isVisible = gridSize != 1
+            }
             return true
         }
         return false

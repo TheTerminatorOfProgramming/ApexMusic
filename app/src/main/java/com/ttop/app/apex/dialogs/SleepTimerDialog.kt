@@ -21,13 +21,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.SystemClock
-import android.widget.CheckBox
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.*
 import androidx.core.content.getSystemService
 import androidx.fragment.app.DialogFragment
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.getActionButton
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogSleepTimerBinding
 import com.ttop.app.apex.extensions.addAccentColor
@@ -38,9 +39,9 @@ import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_PENDING_QUIT
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
 import com.ttop.app.apex.util.PreferenceUtil
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.WhichButton
-import com.afollestad.materialdialogs.actions.getActionButton
+import com.ttop.app.appthemehelper.util.VersionUtils
+import java.util.concurrent.atomic.AtomicBoolean
+
 
 class SleepTimerDialog : DialogFragment() {
 
@@ -48,7 +49,8 @@ class SleepTimerDialog : DialogFragment() {
     private lateinit var timerUpdater: TimerUpdater
     private lateinit var dialog: MaterialDialog
     private lateinit var shouldFinishLastSong: CheckBox
-    private lateinit var timerDisplay: TextView
+    private lateinit var timerDisplay: EditText
+    private val changingText: AtomicBoolean = AtomicBoolean(false)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         timerUpdater = TimerUpdater()
@@ -68,6 +70,26 @@ class SleepTimerDialog : DialogFragment() {
             progress = seekArcProgress
         }
 
+
+        timerDisplay.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (changingText.get()) {
+                    return
+                }
+                changingText.set(true);
+                var value = s.toString()
+                if (value.isEmpty()) {
+                    value = "1";
+                }
+                binding.seekBar.progress = value.toInt()
+                seekArcProgress = value.toInt()
+                PreferenceUtil.lastSleepTimerValue = seekArcProgress
+                changingText.set(false);
+            }
+        })
+
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 if (i < 1) {
@@ -75,7 +97,9 @@ class SleepTimerDialog : DialogFragment() {
                     return
                 }
                 seekArcProgress = i
-                updateTimeDisplayTime()
+                if (!changingText.get()) {
+                    updateTimeDisplayTime();
+                }
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -89,6 +113,12 @@ class SleepTimerDialog : DialogFragment() {
             .setView(binding.root)
             .setPositiveButton(R.string.action_set) { _, _ ->
                 PreferenceUtil.isSleepTimerFinishMusic = shouldFinishLastSong.isChecked
+
+                if (timerDisplay.text.isEmpty()){
+                    seekArcProgress = 1
+                    updateTimeDisplayTime()
+                }
+
                 val minutes = seekArcProgress
                 val pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT)
                 val nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000
@@ -129,8 +159,11 @@ class SleepTimerDialog : DialogFragment() {
     }
 
     private fun updateTimeDisplayTime() {
-        timerDisplay.text = "$seekArcProgress min"
+        val seek = "$seekArcProgress"
+        timerDisplay.text = seek.toEditable()
     }
+
+    private fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 
     private fun makeTimerPendingIntent(flag: Int): PendingIntent? {
         return PendingIntent.getService(

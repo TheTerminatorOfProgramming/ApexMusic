@@ -67,7 +67,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
-        val swipeAnywhere: TwoStatePreference? = findPreference(SWIPE_DOWN_DISMISS)
+        val swipeAnywhere: TwoStatePreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING)
         swipeAnywhere?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }

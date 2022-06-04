@@ -7,9 +7,6 @@ assignees: ''
 
 ---
 
-**Have you read the [FAQ](https://github.com/RetroMusicPlayer/RetroMusicPlayer/blob/master/FAQ.md)?**
-[Yes/No]
-
 **Has the bug already been reported? Please search in GitHub issue tab before creating an issue.**
 [Yes/No]
 

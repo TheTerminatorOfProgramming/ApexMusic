@@ -412,6 +412,7 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
+
         val restartServiceIntent = Intent(applicationContext, this.javaClass)
         restartServiceIntent.setPackage(packageName)
         val restartServicePendingIntent = if (VERSION.SDK_INT >= VERSION_CODES.M) {
@@ -449,8 +450,10 @@ class MusicService : MediaBrowserServiceCompat(),
             val name = "Bluetooth Foreground Notification"
             val descriptionText = "Foreground Notification"
             val importance = NotificationManager.IMPORTANCE_LOW
-            val mChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance)
-            mChannel.description = descriptionText
+            val mChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+                setShowBadge(false)
+            }
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
