@@ -86,6 +86,11 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         nowPlaying?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
+        val swipeDismiss: TwoStatePreference? = findPreference(SWIPE_DOWN_DISMISS)
+        swipeDismiss?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
