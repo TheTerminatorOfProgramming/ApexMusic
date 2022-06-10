@@ -64,12 +64,31 @@
         android:title="@string/pref_title_toggle_toggle_shuffle"
         app:icon="@drawable/ic_shuffle" />
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="bluetooth_playback"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_bluetooth_playback"
-        android:title="@string/pref_title_bluetooth_playback"
-        app:icon="@drawable/ic_bluetooth"/>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_bluetooth">
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="bluetooth_playback"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_bluetooth_playback"
+            android:title="@string/pref_title_bluetooth_playback"
+            app:icon="@drawable/ic_bluetooth"/>
 
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="specific_device"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_specific_device"
+            android:title="@string/pref_title_specific_device"
+            android:dependency="bluetooth_playback"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:key="bluetooth_device"
+            android:layout="@layout/list_item_view"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_bluetooth_device"
+            android:dependency="specific_device"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>
