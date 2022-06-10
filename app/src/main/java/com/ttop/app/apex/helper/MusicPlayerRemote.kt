@@ -520,7 +520,7 @@ object MusicPlayerRemote : KoinComponent {
                 openQueue(songs, 0, true)
             } else {
                 // TODO the file is not listed in the media store
-                context.showToast(R.string.unplayable_file)
+                //context.showToast(R.string.unplayable_file)
                 println("The file is not listed in the media store")
             }
         }
