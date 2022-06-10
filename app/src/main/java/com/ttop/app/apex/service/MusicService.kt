@@ -13,19 +13,15 @@
  */
 package com.ttop.app.apex.service
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothHeadset
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.database.ContentObserver
 import android.graphics.Bitmap
@@ -50,7 +46,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.media.AudioAttributesCompat
@@ -97,6 +92,7 @@ import com.ttop.app.apex.util.MusicUtil.getMediaStoreAlbumCoverUri
 import com.ttop.app.apex.util.MusicUtil.getSongFileUri
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
@@ -113,6 +109,7 @@ import com.ttop.app.apex.volume.AudioVolumeObserver
 import com.ttop.app.apex.volume.OnAudioVolumeChangedListener
 import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.java.KoinJavaComponent.get
+import java.lang.reflect.Method
 import java.util.*
 
 
@@ -178,7 +175,11 @@ class MusicService : MediaBrowserServiceCompat(),
         IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
     private var becomingNoisyReceiverRegistered = false
     private val bluetoothConnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED)
+    private val bluetoothDisconnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED)
+    private val bluetoothRequestDisconnectIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED)
     private var bluetoothConnectedRegistered = false
+    private var bluetoothDisconnectedRegistered = false
+    private var bluetoothRequestDisconnectRegistered = false
     private val headsetReceiverIntentFilter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
     private var headsetReceiverRegistered = false
     private var mediaSession: MediaSessionCompat? = null
@@ -246,14 +247,35 @@ class MusicService : MediaBrowserServiceCompat(),
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
             if (action != null) {
+                val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+                var connected = false
                 if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
-                    Handler(Looper.getMainLooper()).postDelayed(
-                        Runnable {
-                            if (isBluetoothHeadsetConnected()) {
-                                play()
-                            }
-                        }, 1000
+                    if(PreferenceUtil.specificDevice){
+                        if (device?.address == PreferenceUtil.bluetoothDevice){
+                            connected = true
+                        }
+
+                        if (connected){
+                            Handler(Looper.getMainLooper()).postDelayed(
+                                Runnable {
+                            play()
+                                }, 1000
+                            )
+                        }
+                    }else{
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            Runnable {
+                        play()
+                    }, 1000
                     )
+                    }
+                }
+                if (BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED == action || BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
+                    if (PreferenceUtil.specificDevice){
+                        if (device?.address == PreferenceUtil.bluetoothDevice){
+                            connected = false
+                        }
+                    }
                 }
             }
         }
@@ -291,7 +313,6 @@ class MusicService : MediaBrowserServiceCompat(),
     private var isForeground = false
     override fun onCreate() {
         super.onCreate()
-
         val telephonyManager = getSystemService<TelephonyManager>()
         telephonyManager?.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE)
         val powerManager = getSystemService<PowerManager>()
@@ -374,6 +395,8 @@ class MusicService : MediaBrowserServiceCompat(),
         sendBroadcast(Intent("com.ttop.app.apex.APEX_MUSIC_SERVICE_CREATED"))
         registerHeadsetEvents()
         registerBluetoothConnected()
+        registerBluetoothDisconnected()
+        registerBluetoothRequestDisconnect()
         mPackageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
         mMusicProvider.setMusicService(this)
 
@@ -402,38 +425,23 @@ class MusicService : MediaBrowserServiceCompat(),
             unregisterReceiver(bluetoothReceiver)
             bluetoothConnectedRegistered = false
         }
+        if (bluetoothDisconnectedRegistered) {
+            unregisterReceiver(bluetoothReceiver)
+            bluetoothDisconnectedRegistered = false
+        }
+
+        if (bluetoothRequestDisconnectRegistered) {
+            unregisterReceiver(bluetoothReceiver)
+            bluetoothRequestDisconnectRegistered = false
+        }
         mediaSession?.isActive = false
         quit()
+        cancelNotification()
         releaseResources()
         contentResolver.unregisterContentObserver(mediaStoreObserver)
         unregisterOnSharedPreferenceChangedListener(this)
         wakeLock?.release()
         sendBroadcast(Intent("com.ttop.app.apex.APEX_MUSIC_SERVICE_DESTROYED"))
-    }
-
-    override fun onTaskRemoved(rootIntent: Intent?) {
-
-        val restartServiceIntent = Intent(applicationContext, this.javaClass)
-        restartServiceIntent.setPackage(packageName)
-        val restartServicePendingIntent = if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            PendingIntent.getService(
-                applicationContext,
-                1,
-                restartServiceIntent,
-                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-            )
-        } else {
-            PendingIntent.getService(
-                applicationContext,
-                1,
-                restartServiceIntent,
-                PendingIntent.FLAG_ONE_SHOT
-            )
-        }
-        val alarmService = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmService[AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 500] =
-            restartServicePendingIntent
-        super.onTaskRemoved(rootIntent)
     }
 
     fun createNotification() {
@@ -470,6 +478,18 @@ class MusicService : MediaBrowserServiceCompat(),
     fun cancelNotification() {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(NOTIFICATION_ID)
+    }
+
+    fun checkNotificationExists() : Boolean {
+        if (VersionUtils.hasMarshmallow())
+        {
+            val mNotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val notifications = mNotificationManager.activeNotifications
+            for (notification in notifications) {
+                return notification.id == NOTIFICATION_ID
+            }
+        }
+        return false
     }
 
     private fun acquireWakeLock(milli: Long) {
@@ -833,7 +853,11 @@ class MusicService : MediaBrowserServiceCompat(),
             }
             PLAYBACK_SPEED -> updateMediaSessionPlaybackState()
             TOGGLE_HEADSET -> registerHeadsetEvents()
-            BLUETOOTH_PLAYBACK -> registerBluetoothConnected()
+            BLUETOOTH_PLAYBACK -> {
+                registerBluetoothConnected()
+                registerBluetoothDisconnected()
+                registerBluetoothRequestDisconnect()
+            }
         }
     }
 
@@ -871,24 +895,6 @@ class MusicService : MediaBrowserServiceCompat(),
             }
         }
         return START_STICKY
-    }
-
-    fun isBluetoothHeadsetConnected(): Boolean {
-        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        if (VersionUtils.hasS()) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
-                    == PackageManager.PERMISSION_GRANTED) {
-                    return (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled
-                            && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED)
-                }
-            }else{
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH)
-                == PackageManager.PERMISSION_GRANTED) {
-                return (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled
-                        && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED)
-            }
-        }
-        return false
     }
 
     override fun onTrackEnded() {
@@ -948,6 +954,15 @@ class MusicService : MediaBrowserServiceCompat(),
         notifyChange(META_CHANGED)
         notHandledMetaChangedForCurrentTrack = false
         return prepared
+    }
+
+    private fun isConnected(device: BluetoothDevice): Boolean {
+        return try {
+            val m: Method = device.javaClass.getMethod("isConnected")
+            m.invoke(device) as Boolean
+        } catch (e: Exception) {
+            throw IllegalStateException(e)
+        }
     }
 
     fun pause() {
@@ -1048,8 +1063,7 @@ class MusicService : MediaBrowserServiceCompat(),
                 play()
             }
         } else {
-            Toast.makeText(this, resources.getString(R.string.unplayable_file), Toast.LENGTH_SHORT)
-                .show()
+            showToast(resources.getString(R.string.unplayable_file))
         }
     }
 
@@ -1480,6 +1494,24 @@ class MusicService : MediaBrowserServiceCompat(),
         if (!bluetoothConnectedRegistered) {
             registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
             bluetoothConnectedRegistered = true
+        }
+    }
+
+    private fun registerBluetoothDisconnected() {
+        Log.i(TAG, "registerBluetoothDisconnected: ")
+        registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
+        if (!bluetoothDisconnectedRegistered) {
+            registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
+            bluetoothDisconnectedRegistered = true
+        }
+    }
+
+    private fun registerBluetoothRequestDisconnect() {
+        Log.i(TAG, "registerBluetoothRequestDisconnect: ")
+        registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
+        if (!bluetoothRequestDisconnectRegistered) {
+            registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
+            bluetoothRequestDisconnectRegistered = true
         }
     }
 
