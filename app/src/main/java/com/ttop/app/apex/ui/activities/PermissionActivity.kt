@@ -125,7 +125,11 @@ class PermissionActivity : AbsMusicServiceActivity() {
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun hasBtPermission(): Boolean {
-        return checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
+        return if (VersionUtils.hasS()){
+            checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
+        }else{
+            checkSelfPermission(Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED
+        }
     }
 
     override fun onBackPressed() {
