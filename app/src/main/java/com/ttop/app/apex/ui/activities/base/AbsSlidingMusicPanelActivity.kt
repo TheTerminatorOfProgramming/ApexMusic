@@ -61,6 +61,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+import com.ttop.app.apex.ui.fragments.player.swipe.SwipePlayerFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -458,6 +459,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity() {
             Peek -> PeekPlayerFragment()
             Circle -> CirclePlayerFragment()
             Classic -> ClassicPlayerFragment()
+            Swipe -> SwipePlayerFragment()
             else -> PlayerFragment()
         } // must implement AbsPlayerFragment
         supportFragmentManager.commit {
