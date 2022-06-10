@@ -13,10 +13,19 @@
  */
 package com.ttop.app.apex.util
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
+import android.os.Build
+import android.os.Environment
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import com.ttop.app.apex.App.Companion.getContext
+import com.ttop.app.apex.helper.BackupHelper
+import com.ttop.app.appthemehelper.util.VersionUtils
+import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.DecimalFormat
@@ -113,5 +122,39 @@ object ApexUtil {
         } catch (ignored: Exception) {
         }
         return ""
+    }
+
+    fun createFolderStructure() {
+        val backupRoot = getBackupRoot()
+        val lrcRoot = getLrcRoot()
+        if (!backupRoot.exists()) {
+            backupRoot.mkdirs()
+        }
+
+        if (!lrcRoot.exists()) {
+            lrcRoot.mkdirs()
+        }
+    }
+
+    private fun getBackupRoot(): File {
+        return File(
+            getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "Apex/Backups"
+        )
+    }
+
+    private fun getLrcRoot(): File {
+        return File(
+            getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "Apex/LRC"
+        )
+    }
+
+    fun hasBtPermission(): Boolean {
+        return if (VersionUtils.hasS()){
+            ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
+        }else{
+            ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED
+        }
     }
 }
