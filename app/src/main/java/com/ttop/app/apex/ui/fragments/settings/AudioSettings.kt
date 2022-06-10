@@ -14,15 +14,29 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.Manifest
+import android.bluetooth.BluetoothAdapter
+import android.content.Context
+import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.media.audiofx.AudioEffect
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+import com.ttop.app.appthemehelper.util.VersionUtils
+
 
 /**
  * @author Hemanth S (h4h13).
@@ -68,6 +82,11 @@ class AudioSettings : AbsSettingsFragment() {
         }
 
         val bluetooth: TwoStatePreference? = findPreference(BLUETOOTH_PLAYBACK)
+        if (!ApexUtil.hasBtPermission()){
+            bluetooth?.isEnabled = false
+            bluetooth?.isVisible = false
+        }
+
         bluetooth?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
 
@@ -80,6 +99,48 @@ class AudioSettings : AbsSettingsFragment() {
             }
             true
         }
+
+        val specific_device : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
+
+        specific_device?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val bluetooth_device : ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
+
+        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        val address = ArrayList<String>()
+        val name = ArrayList<String>()
+
+        if (VersionUtils.hasS()) {
+            if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
+                == PackageManager.PERMISSION_GRANTED) {
+                val pairedDevices = mBluetoothAdapter.bondedDevices
+                for (bt in pairedDevices){
+                    address.add(bt.address)
+                }
+
+                for (bt in pairedDevices){
+                    name.add(bt.name)
+                }
+            }
+        }else{
+            if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH) }
+                == PackageManager.PERMISSION_GRANTED) {
+                val pairedDevices = mBluetoothAdapter.bondedDevices
+
+                for (bt in pairedDevices){
+                    address.add(bt.address)
+                }
+
+                for (bt in pairedDevices){
+                    name.add(bt.name)
+                }
+            }
+        }
+
+        bluetooth_device?.entries = name.toTypedArray()
+        bluetooth_device?.entryValues = address.toTypedArray()
     }
 
     private fun hasEqualizer(): Boolean {

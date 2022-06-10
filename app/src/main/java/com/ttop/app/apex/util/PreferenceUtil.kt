@@ -650,7 +650,7 @@ object PreferenceUtil {
 
     var nowPlayingScreen: NowPlayingScreen
         get() {
-            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 0)
+            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 18)
             for (nowPlayingScreen in NowPlayingScreen.values()) {
                 if (nowPlayingScreen.id == id) {
                     return nowPlayingScreen
@@ -839,6 +839,12 @@ object PreferenceUtil {
 
     val swipeDownToDismiss
         get() = sharedPreferences.getBoolean(SWIPE_DOWN_DISMISS, true)
+
+    val specificDevice
+        get() = sharedPreferences.getBoolean(SPECIFIC_DEVICE, false)
+
+    val bluetoothDevice
+        get() = sharedPreferences.getString(BLUETOOTH_DEVICE, "")
 }
 
 enum class LyricsType {

@@ -305,8 +305,8 @@
     <string name="permission_external_storage_denied">Permission to access external storage denied.</string>
     <string name="permission_summary_storage">The app needs permission to access your device storage for playing music</string>
     <string name="permission_summary_bluetooth">The app needs permission to access bluetooth for the autoplay function. if permission is not granted then the bluetooth autoplay function will be disabled. Requires Android 12+</string>
-    <string name="permission_title_storage">Storage Access</string>
-    <string name="permission_title_bluetooth">Bluetooth Access</string>
+    <string name="permission_title_storage">Storage Access (Required)</string>
+    <string name="permission_title_bluetooth">Bluetooth Access (Optional)</string>
     <string name="permissions_denied">Permissions denied.</string>
     <string name="personalize">Personalize</string>
     <string name="personalize_settings_summary">Customize your now playing and UI controls</string>
@@ -332,6 +332,7 @@
     <string name="pref_header_album">Album style</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_blacklist">Blacklist</string>
+    <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Controls</string>
     <string name="pref_header_general">Theme</string>
     <string name="pref_header_images">Images</string>
@@ -373,6 +374,7 @@
     <string name="pref_summary_remember_tab">Navigate to the last used tab on start</string>
     <string name="pref_summary_show_lyrics">Display synced lyrics over album cover</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
+    <string name="pref_summary_specific_device">Allow only a specific bluetooth device to autoplay music</string>
     <string name="pref_summary_suggestions">Show new music mix on homescreen</string>
     <string name="pref_summary_swipe_anywhere_now_playing">Enables changing song by swiping anywhere on the now playing screen</string>
     <string name="pref_summary_swipe_to_dismiss">Swipe down to dismiss mini player</string>
@@ -394,6 +396,7 @@
     <string name="pref_title_audio_fade">Fade audio</string>
     <string name="pref_title_auto_download_artist_images">Auto-download artist images</string>
     <string name="pref_title_blacklist">Blacklist</string>
+    <string name="pref_title_bluetooth_device">Bluetooth device</string>
     <string name="pref_title_bluetooth_playback">Bluetooth playback</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
     <string name="pref_title_circle_button">Circular play button</string>
@@ -424,6 +427,7 @@
     <string name="pref_title_remember_tab">Remember last tab</string>
     <string name="pref_title_show_lyrics">Show lyrics</string>
     <string name="pref_title_show_update">Show update</string>
+    <string name="pref_title_specific_device">Specific device</string>
     <string name="pref_title_suggestions">Show suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Swipe anywhere to change song</string>
     <string name="pref_title_swipe_to_dismiss">Dismiss with swipe down</string>
@@ -521,6 +525,7 @@
     <string name="suggestion_songs">Suggestions</string>
     <string name="support_development">Support development</string>
     <string name="swipe_to_unlock">Swipe to unlock</string>
+    <string name="swipe">Swipe</string>
     <string name="synced_lyrics">Synced lyrics</string>
     <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Join the Telegram group to discuss bugs, make suggestions, show off and more</string>
