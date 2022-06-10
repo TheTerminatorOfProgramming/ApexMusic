@@ -141,8 +141,8 @@ class LyricsFragment : AbsMainActivityFragment(R.layout.fragment_lyrics) {
         binding.lyricsPager.adapter = lyricsSectionsAdapter
         TabLayoutMediator(binding.tabLyrics, binding.lyricsPager) { tab, position ->
             tab.text = when (position) {
-                0 -> getString(R.string.synced_lyrics)
-                1 -> getString(R.string.normal_lyrics)
+                0 -> getString(R.string.normal_lyrics)
+                1 -> getString(R.string.synced_lyrics)
                 else -> ""
             }
         }.attach()
@@ -314,8 +314,8 @@ class LyricsFragment : AbsMainActivityFragment(R.layout.fragment_lyrics) {
     class LyricsSectionsAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
         val fragments = listOf(
-            Pair(SyncedLyrics(), R.string.synced_lyrics),
-            Pair(NormalLyrics(), R.string.normal_lyrics)
+            Pair(NormalLyrics(), R.string.normal_lyrics),
+            Pair(SyncedLyrics(), R.string.synced_lyrics)
         )
 
 
