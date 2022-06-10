@@ -35,6 +35,7 @@ import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.PlaylistSongsLoader
 import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.AppRater
 import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.Dispatchers.IO
@@ -70,6 +71,8 @@ class MainActivity : AbsCastActivity(), OnSharedPreferenceChangeListener {
             MusicPlayerRemote.setShuffleMode(1)
         }
         PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
+
+        ApexUtil.createFolderStructure()
     }
 
     private fun setupNavigationController() {
