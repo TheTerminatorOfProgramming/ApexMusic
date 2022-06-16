@@ -18,12 +18,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
-import android.os.Build
 import android.os.Environment
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.ttop.app.apex.App.Companion.getContext
-import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 import java.net.InetAddress
@@ -31,7 +28,9 @@ import java.net.NetworkInterface
 import java.text.DecimalFormat
 import java.util.*
 
+
 object ApexUtil {
+
     fun formatValue(numValue: Float): String {
         var value = numValue
         val arr = arrayOf("", "K", "M", "B", "T", "P", "E")
