@@ -36,7 +36,6 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.PlaylistSongsLoader
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.AppRater
 import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -57,10 +56,8 @@ class MainActivity : AbsCastActivity(), OnSharedPreferenceChangeListener {
         setTaskDescriptionColorAuto()
         hideStatusBar()
         updateTabs()
-        //AppRater.appLaunched(this)
 
         PreferenceUtil.shouldRecreate = false
-
         setupNavigationController()
         if (!hasPermissions()) {
             findNavController(R.id.fragment_container).navigate(R.id.permissionFragment)
@@ -152,8 +149,8 @@ class MainActivity : AbsCastActivity(), OnSharedPreferenceChangeListener {
         super.onResume()
         PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
         if (PreferenceUtil.shouldRecreate) {
-            postRecreate()
             PreferenceUtil.shouldRecreate = false
+            postRecreate()
         }
     }
 
