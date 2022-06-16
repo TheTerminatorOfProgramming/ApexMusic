@@ -424,14 +424,7 @@ class MusicService : MediaBrowserServiceCompat(),
         if (bluetoothConnectedRegistered) {
             unregisterReceiver(bluetoothReceiver)
             bluetoothConnectedRegistered = false
-        }
-        if (bluetoothDisconnectedRegistered) {
-            unregisterReceiver(bluetoothReceiver)
             bluetoothDisconnectedRegistered = false
-        }
-
-        if (bluetoothRequestDisconnectRegistered) {
-            unregisterReceiver(bluetoothReceiver)
             bluetoothRequestDisconnectRegistered = false
         }
         mediaSession?.isActive = false
@@ -1490,7 +1483,6 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun registerBluetoothConnected() {
         Log.i(TAG, "registerBluetoothConnected: ")
-        registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
         if (!bluetoothConnectedRegistered) {
             registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
             bluetoothConnectedRegistered = true
