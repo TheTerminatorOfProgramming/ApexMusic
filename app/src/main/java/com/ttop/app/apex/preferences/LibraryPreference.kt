@@ -16,6 +16,7 @@ package com.ttop.app.apex.preferences
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.AttributeSet
 import androidx.core.graphics.BlendModeColorFilterCompat
@@ -33,7 +34,6 @@ import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
 
-
 class LibraryPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -49,7 +49,7 @@ class LibraryPreference @JvmOverloads constructor(
 }
 
 class LibraryPreferenceDialog : DialogFragment() {
-
+    var positiveBtnClicked = false
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = PreferenceDialogLibraryCategoriesBinding.inflate(layoutInflater)
 
@@ -67,7 +67,10 @@ class LibraryPreferenceDialog : DialogFragment() {
                 updateCategories(PreferenceUtil.defaultCategories)
             }
             .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.done) { _, _ -> updateCategories(categoryAdapter.categoryInfos) }
+            .setPositiveButton(R.string.done) { _, _ ->
+                updateCategories(categoryAdapter.categoryInfos)
+                positiveBtnClicked = true
+            }
             .setView(binding.root)
             .create()
             .colorButtons()
@@ -80,6 +83,8 @@ class LibraryPreferenceDialog : DialogFragment() {
             return
         }
         PreferenceUtil.libraryCategory = categories
+
+        PreferenceUtil.tempValue = getSelected(categories)
     }
 
     private fun getSelected(categories: List<CategoryInfo>): Int {
@@ -89,6 +94,13 @@ class LibraryPreferenceDialog : DialogFragment() {
                 selected++
         }
         return selected
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if (positiveBtnClicked){
+            activity?.recreate()
+        }
     }
 
     companion object {
