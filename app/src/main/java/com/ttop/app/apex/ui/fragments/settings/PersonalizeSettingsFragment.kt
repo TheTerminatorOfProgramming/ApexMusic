@@ -18,8 +18,11 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.TwoStatePreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.preferences.LibraryPreference
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 
 class PersonalizeSettingsFragment : AbsSettingsFragment() {
 
@@ -52,10 +55,15 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         }
 
         val lastTab: TwoStatePreference? = findPreference(REMEMBER_LAST_TAB)
-        lastTab?.setOnPreferenceChangeListener { _, _ ->
+        if (PreferenceUtil.tempValue == 1){
+            lastTab?.isChecked = false
+            lastTab?.isEnabled = false
+        }else{
+            lastTab?.isEnabled = true
+        }
+        lastTab?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
-
         val albumArt: TwoStatePreference? = findPreference(ALBUM_ART_ON_LOCK_SCREEN)
         albumArt?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
