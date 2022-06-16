@@ -17,7 +17,6 @@ package com.ttop.app.apex.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.SeekBar
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import com.afollestad.materialdialogs.MaterialDialog
