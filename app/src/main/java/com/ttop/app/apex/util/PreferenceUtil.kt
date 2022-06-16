@@ -27,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import java.io.File
 
 
@@ -38,9 +39,9 @@ object PreferenceUtil {
         CategoryInfo(CategoryInfo.Category.Songs, true),
         CategoryInfo(CategoryInfo.Category.Albums, true),
         CategoryInfo(CategoryInfo.Category.Artists, true),
-        CategoryInfo(CategoryInfo.Category.Playlists, true),
+        CategoryInfo(CategoryInfo.Category.Playlists, false),
         CategoryInfo(CategoryInfo.Category.Genres, false),
-        CategoryInfo(CategoryInfo.Category.Folder, false),
+        CategoryInfo(CategoryInfo.Category.Folder, true),
         CategoryInfo(CategoryInfo.Category.Search, false)
     )
 
@@ -830,12 +831,10 @@ object PreferenceUtil {
             SHOULD_RECREATE, false
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(SAF_SDCARD_URI, value)}
+            putBoolean(SHOULD_RECREATE, value)}
 
     val showUpdate
-        get() = sharedPreferences.getBoolean(
-            SHOW_UPDATE, false
-        )
+        get() = sharedPreferences.getBoolean(SHOW_UPDATE, false)
 
     val swipeDownToDismiss
         get() = sharedPreferences.getBoolean(SWIPE_DOWN_DISMISS, true)
@@ -845,6 +844,15 @@ object PreferenceUtil {
 
     val bluetoothDevice
         get() = sharedPreferences.getString(BLUETOOTH_DEVICE, "")
+
+    var tempValue
+        get() = sharedPreferences.getInt(TEMP_VALUE, 0)
+        set(value) = sharedPreferences.edit {
+            putInt(TEMP_VALUE, value)
+        }
+
+    val peekAlternative
+        get() = sharedPreferences.getBoolean(PEEK_ALT, false)
 }
 
 enum class LyricsType {
