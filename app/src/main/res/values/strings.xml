@@ -301,6 +301,7 @@
     <string name="paste_lyrics_here">Paste Lyrics Here</string>
     <string name="paste_timeframe_lyrics_here">Paste timeframe lyrics here</string>
     <string name="peek">Peek</string>
+    <string name="peek_queue">Peek Queue</string>
     <string name="permission_bluetooth_denied">Nearby devices permission denied.</string>
     <string name="permission_external_storage_denied">Permission to access external storage denied.</string>
     <string name="permission_summary_storage">The app needs permission to access your device storage for playing music</string>
@@ -371,6 +372,7 @@
     <string name="pref_summary_notification_actions">Hide the previous &amp; next actions in the playback notification</string>
     <string name="pref_summary_open_source_licences">License details for open source software</string>
     <string name="pref_summary_pause_history">When enabled, newly played songs won\'t show in history</string>
+    <string name="pref_summary_peek_alt_layout">Use the alternate layout for the peek queue theme where the queue is underneth the controls</string>
     <string name="pref_summary_remember_tab">Navigate to the last used tab on start</string>
     <string name="pref_summary_show_lyrics">Display synced lyrics over album cover</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
@@ -424,6 +426,7 @@
     <string name="pref_title_now_playing_screen_appearance">Now playing theme</string>
     <string name="pref_title_open_source_licences">Open source licences</string>
     <string name="pref_title_pause_history">Pause history</string>
+    <string name="pref_title_peek_alt_layout">Use alternative peek queue layout</string>
     <string name="pref_title_remember_tab">Remember last tab</string>
     <string name="pref_title_show_lyrics">Show lyrics</string>
     <string name="pref_title_show_update">Show update</string>

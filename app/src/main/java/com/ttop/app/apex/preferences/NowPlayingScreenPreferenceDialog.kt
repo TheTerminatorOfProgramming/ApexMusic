@@ -16,6 +16,7 @@ package com.ttop.app.apex.preferences
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -60,7 +61,7 @@ class NowPlayingScreenPreference @JvmOverloads constructor(
 class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChangeListener {
 
     private var viewPagerPosition: Int = 0
-
+    var positiveBtnClicked = false
     override fun onPageScrollStateChanged(state: Int) {
     }
 
@@ -86,10 +87,18 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
             .setPositiveButton(R.string.set) { _, _ ->
                 val nowPlayingScreen = values()[viewPagerPosition]
                 PreferenceUtil.nowPlayingScreen = nowPlayingScreen
+                positiveBtnClicked = true
             }
             .setView(view)
             .create()
             .colorButtons()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if (positiveBtnClicked){
+            activity?.recreate()
+        }
     }
 
     companion object {

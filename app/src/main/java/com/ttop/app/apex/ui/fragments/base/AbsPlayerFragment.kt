@@ -308,7 +308,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         super.onResume()
         val nps = PreferenceUtil.nowPlayingScreen
 
-        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
+        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Peek_Queue || nps == NowPlayingScreen.Tiny) {
             playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
         } else {
             playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {

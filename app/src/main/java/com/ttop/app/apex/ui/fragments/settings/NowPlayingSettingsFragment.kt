@@ -21,6 +21,8 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 
@@ -86,11 +88,19 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         nowPlaying?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
+
         val swipeDismiss: TwoStatePreference? = findPreference(SWIPE_DOWN_DISMISS)
         swipeDismiss?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
+        val peekAlt: TwoStatePreference? = findPreference(PEEK_ALT)
+        peekAlt?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Peek_Queue
+        peekAlt?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.shouldRecreate = true
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

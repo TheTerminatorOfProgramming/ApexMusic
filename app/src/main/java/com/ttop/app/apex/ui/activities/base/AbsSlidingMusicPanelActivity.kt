@@ -61,6 +61,8 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+import com.ttop.app.apex.ui.fragments.player.peek.PeekExtPlayerFragment
+import com.ttop.app.apex.ui.fragments.player.peek.PeekQueuePlayerFragment
 import com.ttop.app.apex.ui.fragments.player.swipe.SwipePlayerFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -239,9 +241,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity() {
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 binding.slidingPanel.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
                 if (nowPlayingScreen != Peek) {
-                    binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
-                        height = ViewGroup.LayoutParams.MATCH_PARENT
+                    if (nowPlayingScreen != Peek_Queue) {
+                        binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
+                            height = ViewGroup.LayoutParams.MATCH_PARENT
+                        }
                     }
                 }
                 when (panelState) {
@@ -460,6 +465,13 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity() {
             Circle -> CirclePlayerFragment()
             Classic -> ClassicPlayerFragment()
             Swipe -> SwipePlayerFragment()
+            Peek_Queue -> {
+                if (PreferenceUtil.peekAlternative){
+                    PeekExtPlayerFragment()
+                }else{
+                    PeekQueuePlayerFragment()
+                }
+            }
             else -> PlayerFragment()
         } // must implement AbsPlayerFragment
         supportFragmentManager.commit {
