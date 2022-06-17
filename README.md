@@ -19,10 +19,15 @@
 </p>
 
 ## Screenshots
+      
 ### App Themes
-| <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/> | <img src="screenshots/Artwork/2.Main_Dark.jpg" width="200"/> | <img src="screenshots/Artwork/3.Main_Black.jpg" width="200"/> | <img src="screenshots/Artwork/4.Main_Material_White.jpg" width="200"/> | <img src="screenshots/Artwork/5.Main_Material_Dark.jpg" width="200"/> |
-|:---:|:---:|:---:|
-|Clearly white| Kinda dark | Just black | Material U white(A12+) | Material U dark(A12+)
+| <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/>	|<img src="screenshots/Artwork/2.Main_Dark.jpg" width="200"/>|   <img src="screenshots/Artwork/3.Main_Black.jpg" width="200"/>  	|    <img src="screenshots/Artwork/4.Main_Material_White.jpg" width="200"/> 	|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Clearly White 	| Kinda Dark 	| Just Black 	| Material U White (A12+) 	|      
+      
+| <img src="screenshots/Artwork/5.Main_Material_Dark.jpg" width="200"/>	|
+|:-----:	|
+| Material U Dark (A12+) 	| 
 
 ### Player screen
 | <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/>| <img src="scrscreenshots/Artworkeenshots/6.Settings_White.jpg" width="200"/>| <img src="screenshots/Artwork/
