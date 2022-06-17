@@ -62,6 +62,7 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
 
     private var viewPagerPosition: Int = 0
     var positiveBtnClicked = false
+    var wasPeekQueue = false
     override fun onPageScrollStateChanged(state: Int) {
     }
 
@@ -85,6 +86,8 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
         return materialDialog(R.string.pref_title_now_playing_screen_appearance)
             .setCancelable(false)
             .setPositiveButton(R.string.set) { _, _ ->
+                wasPeekQueue = PreferenceUtil.nowPlayingScreen == Peek_Queue
+
                 val nowPlayingScreen = values()[viewPagerPosition]
                 PreferenceUtil.nowPlayingScreen = nowPlayingScreen
                 positiveBtnClicked = true
@@ -96,7 +99,11 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if (positiveBtnClicked){
+        if (positiveBtnClicked && wasPeekQueue){
+            activity?.recreate()
+        }
+
+        if (positiveBtnClicked && PreferenceUtil.nowPlayingScreen == Peek_Queue){
             activity?.recreate()
         }
     }

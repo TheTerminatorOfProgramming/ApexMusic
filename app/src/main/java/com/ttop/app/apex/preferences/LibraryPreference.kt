@@ -50,6 +50,7 @@ class LibraryPreference @JvmOverloads constructor(
 
 class LibraryPreferenceDialog : DialogFragment() {
     var positiveBtnClicked = false
+    var wasOne = 0
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = PreferenceDialogLibraryCategoriesBinding.inflate(layoutInflater)
 
@@ -68,6 +69,7 @@ class LibraryPreferenceDialog : DialogFragment() {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.done) { _, _ ->
+                wasOne = getSelected(PreferenceUtil.libraryCategory)
                 updateCategories(categoryAdapter.categoryInfos)
                 positiveBtnClicked = true
             }
@@ -98,7 +100,14 @@ class LibraryPreferenceDialog : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if (positiveBtnClicked){
+
+        if (positiveBtnClicked && wasOne == 1){
+            positiveBtnClicked = false
+            activity?.recreate()
+        }
+
+        if (positiveBtnClicked && PreferenceUtil.tempValue == 1){
+            positiveBtnClicked = false
             activity?.recreate()
         }
     }

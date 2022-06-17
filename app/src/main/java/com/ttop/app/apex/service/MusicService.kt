@@ -435,6 +435,9 @@ class MusicService : MediaBrowserServiceCompat(),
         unregisterOnSharedPreferenceChangedListener(this)
         wakeLock?.release()
         sendBroadcast(Intent("com.ttop.app.apex.APEX_MUSIC_SERVICE_DESTROYED"))
+        val restartServiceIntent = Intent(applicationContext, this.javaClass)
+        restartServiceIntent.setPackage(packageName)
+        startService(restartServiceIntent)
     }
 
     fun createNotification() {

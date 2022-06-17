@@ -158,15 +158,15 @@
                     the path unless it's explicitly matched.
                 -->
                 <data android:host="*" />
-                <data android:pathPattern=".*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\.abak" />
+                <data android:pathPattern=".*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
             </intent-filter>
         </activity>
         <activity
@@ -286,8 +286,7 @@
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
-            android:label="@string/app_name"
-            android:stopWithTask="false">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
