@@ -28,14 +28,13 @@
 | <img src="screenshots/Artwork/5.Main_Material_Dark.jpg" width="200"/>	|
 |:-----:	|
 | Material U Dark (A12+) 	| 
-
+      
 ### Player screen
-| <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/>| <img src="scrscreenshots/Artworkeenshots/6.Settings_White.jpg" width="200"/>| <img src="screenshots/Artwork/
-24.LockScreen_White.jpg " width="200"/>|
-|:---:|:---:|:---:|:---:|:---:|
-| Home | Settings | LockScreen Controls
-
-### 10+ Now playing themes
+| <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/>	|<img src="screenshots/Artwork/6.Settings_White.jpg" width="200"/>|   <img src="screenshots/Artwork/24.LockScreen_White.jpg" width="200"/>  	|
+|:-----:	|:-----:	|:-----:	|
+| Home 	| Settings 	| LockScreen Controls 	|
+      
+### 15+ Now playing themes
 | <img src="screenshots/peek_queue.jpg" width="200"/>	|<img src="screenshots/swipe.jpg" width="200"/>|   <img src="screenshots/material.jpg" width="200"/>  	|    <img src="screenshots/peek.jpg" width="200"/> 	|
 |:-----:	|:-----:	|:-----:	|:-----:	|
 | Peek Queue 	| Swipe 	| Material 	| Peek 	|      
@@ -49,9 +48,11 @@
 | Classic 	| Adaptive 	| Blur 	| Tiny 	|
 
 ___
-
+## About
+Apex Music is an offline music player forked from Retro Music (https://github.com/RetroMusicPlayer/RetroMusicPlayer), an Open Source Music Player. Apex Music is also Open Source.
+___    
 ## Colorful
-3 color themes: Bright White, Sorta Dark and Jet Black.
+3 color themes: Clearly White, Kinda Dark and Just Black.
 Select your favorite accent color
 
 ## Home
@@ -59,9 +60,9 @@ Where you can view your recently/top played artists, albums and
 favorite songs.
 
 ## Included Features
--  3 themes (Bright White, Sorta Dark and Jet Black)
+-  3 themes (Clearly White, Kinda Dark and Just Black)
 -  Chromecast support
--  Choose from 10+ now playing themes
+-  Choose from 15+ now playing themes
 -  Driving Mode
 -  Headset/Bluetooth support
 -  Music duration filter
