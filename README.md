@@ -20,24 +20,28 @@
 
 ## Screenshots
 ### App Themes
-| <img src="screenshots/1.Main_White.jpg" width="200"/> | <img src="screenshots/2.Main_Dark.jpg" width="200"/> | <img src="screenshots/3.Main_Black.jpg" width="200"/> | <img src="screenshots/4.Main_Material_White.jpg" width="200"/> | <img src="screenshots/5.Main_Material_Dark.jpg" width="200"/> |
+| <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/> | <img src="screenshots/Artwork/2.Main_Dark.jpg" width="200"/> | <img src="screenshots/Artwork/3.Main_Black.jpg" width="200"/> | <img src="screenshots/Artwork/4.Main_Material_White.jpg" width="200"/> | <img src="screenshots/Artwork/5.Main_Material_Dark.jpg" width="200"/> |
 |:---:|:---:|:---:|
 |Clearly white| Kinda dark | Just black | Material U white(A12+) | Material U dark(A12+)
 
 ### Player screen
-| <img src="screenshots/1.Main_White.jpg" width="200"/>| <img src="screenshots/6.Settings_White.jpg" width="200"/>| <img src="screenshots/
+| <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/>| <img src="scrscreenshots/Artworkeenshots/6.Settings_White.jpg" width="200"/>| <img src="screenshots/Artwork/
 24.LockScreen_White.jpg " width="200"/>|
 |:---:|:---:|:---:|:---:|:---:|
 | Home | Settings | LockScreen Controls
 
 ### 10+ Now playing themes
-| <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|     <img src="screenshots/material.jpg" width="200"/>	|
-|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
-| Normal 	| Fit 	| Flat 	| Color 	| Material 	|
+| <img src="screenshots/peek_queue.jpg" width="200"/>	|<img src="screenshots/swipe.jpg" width="200"/>|   <img src="screenshots/material.jpg" width="200"/>  	|    <img src="screenshots/peek.jpg" width="200"/> 	|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Peek Queue 	| Swipe 	| Material 	| Peek 	|      
+      
+| <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Normal 	| Fit 	| Flat 	| Color 	|
 
-| <img src="screenshots/classic.jpg" width="200"/>	|<img src="screenshots/adaptive.jpg" width="200"/>|   <img src="screenshots/blur.jpg" width="200"/>  	|    <img src="screenshots/tiny.jpg" width="200"/> 	|     <img src="screenshots/peek.jpg" width="200"/>	|
-|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
-| Classic 	| Adaptive 	| Blur 	| Tiny 	| Peek 	|
+| <img src="screenshots/classic.jpg" width="200"/>	|<img src="screenshots/adaptive.jpg" width="200"/>|   <img src="screenshots/blur.jpg" width="200"/>  	|    <img src="screenshots/tiny.jpg" width="200"/> 	|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Classic 	| Adaptive 	| Blur 	| Tiny 	|
 
 ___
 
