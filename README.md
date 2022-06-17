@@ -31,13 +31,17 @@
 | Home | Settings | LockScreen Controls
 
 ### 10+ Now playing themes
-| <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|     <img src="screenshots/material.jpg" width="200"/>	|
-|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
-| Normal 	| Fit 	| Flat 	| Color 	| Material 	|
+| <img src="screenshots/peek_queue.jpg" width="200"/>	|<img src="screenshots/swipe.jpg" width="200"/>|   <img src="screenshots/material.jpg" width="200"/>  	|    <img src="screenshots/peek.jpg" width="200"/> 	|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Peek Queue 	| Swipe 	| Material 	| Peek 	|      
+      
+| <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Normal 	| Fit 	| Flat 	| Color 	|
 
-| <img src="screenshots/classic.jpg" width="200"/>	|<img src="screenshots/adaptive.jpg" width="200"/>|   <img src="screenshots/blur.jpg" width="200"/>  	|    <img src="screenshots/tiny.jpg" width="200"/> 	|     <img src="screenshots/peek.jpg" width="200"/>	|
-|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
-| Classic 	| Adaptive 	| Blur 	| Tiny 	| Peek 	|
+| <img src="screenshots/classic.jpg" width="200"/>	|<img src="screenshots/adaptive.jpg" width="200"/>|   <img src="screenshots/blur.jpg" width="200"/>  	|    <img src="screenshots/tiny.jpg" width="200"/> 	|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Classic 	| Adaptive 	| Blur 	| Tiny 	|
 
 ___
 
