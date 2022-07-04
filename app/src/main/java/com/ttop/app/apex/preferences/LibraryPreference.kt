@@ -34,6 +34,7 @@ import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
 
+
 class LibraryPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

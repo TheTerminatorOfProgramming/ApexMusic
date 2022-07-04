@@ -28,6 +28,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
+import com.ttop.app.apex.App
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
 import com.ttop.app.apex.extensions.*
