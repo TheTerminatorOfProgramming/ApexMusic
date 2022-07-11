@@ -14,7 +14,6 @@
  */
 package com.ttop.app.apex.ui.fragments.player.gradient
 
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -22,8 +21,6 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.View
-import android.view.animation.LinearInterpolator
-import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
@@ -35,33 +32,33 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.R
-import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
-import com.ttop.app.apex.databinding.FragmentGradientPlayerBinding
-import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.ui.fragments.other.VolumeFragment
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
-import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
-import com.ttop.app.apex.misc.SimpleOnSeekbarChangeListener
-import com.ttop.app.apex.service.MusicService
-import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+import com.google.android.material.slider.Slider
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
+import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
+import com.ttop.app.apex.databinding.FragmentGradientPlayerBinding
+import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
+import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.base.goToAlbum
+import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.ui.fragments.other.VolumeFragment
+import com.ttop.app.apex.ui.fragments.player.CoverLyricsFragment
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -99,7 +96,8 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             when (newState) {
                 STATE_EXPANDED,
-                STATE_DRAGGING -> {
+                STATE_DRAGGING,
+                -> {
                     mainActivity.getBottomSheetBehavior().isDraggable = false
                 }
                 STATE_COLLAPSED -> {
@@ -161,7 +159,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         ViewCompat.setOnApplyWindowInsetsListener(
             (binding.container)
         ) { v: View, insets: WindowInsetsCompat ->
-            navBarHeight = insets.safeGetBottomInsets()
+            navBarHeight = insets.getBottomInsets()
             v.updatePadding(bottom = navBarHeight)
             insets
         }
@@ -263,11 +261,13 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         binding.playbackControlsFragment.songInfo.setTextColor(lastDisabledPlaybackControlsColor)
 
         volumeFragment?.setTintableColor(lastPlaybackControlsColor.ripAlpha())
+
         binding.playbackControlsFragment.progressSlider.applyColor(lastPlaybackControlsColor.ripAlpha())
 
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
+        binding.coverLyrics.getFragment<CoverLyricsFragment>().setColors(color)
     }
 
     override fun onFavoriteToggled() {
@@ -310,7 +310,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     override fun onServiceConnected() {
         super.onServiceConnected()
         updateSong()
-        updatePlayPauseDrawableState()
         updatePlayPauseDrawableState()
         updateQueue()
         updateIsFavoriteIcon()
@@ -385,8 +384,15 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     @SuppressLint("ClickableViewAccessibility")
     private fun setUpPrevNext() {
         updatePrevNextColor()
-        binding.playbackControlsFragment.nextButton.setOnTouchListener(MusicSeekSkipTouchListener(requireActivity(), true))
-        binding.playbackControlsFragment.previousButton.setOnTouchListener(MusicSeekSkipTouchListener(requireActivity(), false))
+        binding.playbackControlsFragment.nextButton.setOnTouchListener(
+            MusicSeekSkipTouchListener(
+                requireActivity(),
+                true
+            )
+        )
+        binding.playbackControlsFragment.previousButton.setOnTouchListener(
+            MusicSeekSkipTouchListener(requireActivity(), false)
+        )
     }
 
     private fun updatePrevNextColor() {
@@ -468,7 +474,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         oldLeft: Int,
         oldTop: Int,
         oldRight: Int,
-        oldBottom: Int
+        oldBottom: Int,
     ) {
         val panel = getQueuePanel()
         if (panel.state == STATE_COLLAPSED) {
@@ -541,30 +547,34 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     }
 
     private fun setUpProgressSlider() {
-        binding.playbackControlsFragment.progressSlider.setOnSeekBarChangeListener(object :
-            SimpleOnSeekbarChangeListener() {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    MusicPlayerRemote.seekTo(progress)
-                    onUpdateProgressViews(
-                        MusicPlayerRemote.songProgressMillis,
-                        MusicPlayerRemote.songDurationMillis
-                    )
-                }
+        val progressSlider = binding.playbackControlsFragment.progressSlider
+        progressSlider.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
+            if (fromUser) {
+                onUpdateProgressViews(
+                    value.toInt(),
+                    MusicPlayerRemote.songDurationMillis
+                )
+            }
+        })
+        progressSlider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: Slider) {
+                progressViewUpdateHelper.stop()
+            }
+
+            override fun onStopTrackingTouch(slider: Slider) {
+                MusicPlayerRemote.seekTo(slider.value.toInt())
+                progressViewUpdateHelper.start()
             }
         })
     }
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
-        binding.playbackControlsFragment.progressSlider.max = total
-        val animator = ObjectAnimator.ofInt(
-            binding.playbackControlsFragment.progressSlider,
-            "progress",
-            progress
-        )
-        animator.duration = AbsPlayerControlsFragment.SLIDER_ANIMATION_TIME
-        animator.interpolator = LinearInterpolator()
-        animator.start()
+        val progressSlider = binding.playbackControlsFragment.progressSlider
+        progressSlider.valueTo = total.toFloat()
+
+        progressSlider.value =
+            progress.toFloat().coerceIn(progressSlider.valueFrom, progressSlider.valueTo)
+
         binding.playbackControlsFragment.songTotalTime.text =
             MusicUtil.getReadableDurationString(total.toLong())
         binding.playbackControlsFragment.songCurrentProgress.text =

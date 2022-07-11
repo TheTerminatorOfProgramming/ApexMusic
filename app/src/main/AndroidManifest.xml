@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
+        android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
@@ -22,9 +22,10 @@
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_CONNECT"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
     <!--
     This is not that important, it's just here so that we can query equalizer package
     and check if it's present on A11+ because of Package visibility restrictions.
@@ -39,13 +40,12 @@
         android:configChanges="locale|layoutDirection"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:restoreAnyVersion="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Apex.FollowSystem"
-        android:usesCleartextTraffic="true"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
-        tools:targetApi="m">
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name="com.ttop.app.apex.ui.activities.MainActivity"
@@ -124,16 +124,16 @@
         <activity android:name="com.ttop.app.apex.ui.activities.SettingsActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity" />
+        <activity android:name="com.ttop.app.apex.ui.activities.SupportDevelopmentActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.LicenseActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.bugreport.BugReportActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.ShareInstagramStory" />
         <activity android:name="com.ttop.app.apex.ui.activities.DriveModeActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.PermissionActivity" />
-        <activity android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
-            android:exported="true"
-            android:label="@string/pref_title_lock_screen"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:launchMode="singleInstance"/>
+        <activity
+            android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
+            android:launchMode="singleTop"
+            android:showOnLockScreen="true" />
         <activity
             android:name="com.ttop.app.apex.ui.fragments.backup.RestoreActivity"
             android:excludeFromRecents="false"
@@ -158,15 +158,15 @@
                     the path unless it's explicitly matched.
                 -->
                 <data android:host="*" />
-                <data android:pathPattern=".*\\.abak" />
-                <data android:pathPattern=".*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
             </intent-filter>
         </activity>
         <activity
@@ -177,20 +177,6 @@
             android:name="com.ttop.app.apex.ui.activities.saf.SAFGuideActivity"
             android:theme="@style/Theme.Intro" />
         <activity
-            android:name="com.ttop.app.apex.cast.ExpandedControlsActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ttop.app.apex.ui.activities.MainActivity" />
-        </activity>
-        <activity
             android:name="com.ttop.app.apex.ui.activities.ErrorActivity"
             android:exported="true">
             <intent-filter>
@@ -198,15 +184,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name="com.ttop.app.apex.misc.GenericFileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}"
@@ -303,7 +280,8 @@
             android:value="true" />
         <meta-data
             android:name="com.android.vending.splits.required"
-            android:value="true" /> <!-- Android Auto -->
+            android:value="true" />
+        <!-- Android Auto -->
         <meta-data
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
@@ -312,7 +290,8 @@
             android:resource="@style/CarTheme" />
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
-            android:resource="@drawable/ic_notification" /> <!-- ChromeCast -->
+            android:resource="@drawable/ic_notification" />
+        <!-- ChromeCast -->
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="com.ttop.app.apex.cast.CastOptionsProvider" />

@@ -17,15 +17,15 @@ package com.ttop.app.apex.adapter.song
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.button.MaterialButton
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentOutlineColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ApexUtil
-import com.google.android.material.button.MaterialButton
+import com.ttop.app.apex.util.PreferenceUtil
 
 class ShuffleButtonSongAdapter(
     activity: FragmentActivity,

@@ -29,9 +29,9 @@ import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexMusicColoredTarget
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
@@ -39,9 +39,9 @@ import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import me.zhanghai.android.fastscroll.PopupTextProvider
 
@@ -122,7 +122,7 @@ open class SongAdapter(
         }
         GlideApp.with(activity).asBitmapPalette().songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))
-            .into(object : ApexMusicColoredTarget(holder.image!!) {
+            .into(object : ApexColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
                 }
@@ -159,6 +159,7 @@ open class SongAdapter(
 
     override fun getPopupText(position: Int): String {
         val sectionName: String? = when (PreferenceUtil.songSortOrder) {
+            SortOrder.SongSortOrder.SONG_DEFAULT -> return MusicUtil.getSectionName(dataSet[position].title, true)
             SortOrder.SongSortOrder.SONG_A_Z, SortOrder.SongSortOrder.SONG_Z_A -> dataSet[position].title
             SortOrder.SongSortOrder.SONG_ALBUM -> dataSet[position].albumName
             SortOrder.SongSortOrder.SONG_ARTIST -> dataSet[position].artistName

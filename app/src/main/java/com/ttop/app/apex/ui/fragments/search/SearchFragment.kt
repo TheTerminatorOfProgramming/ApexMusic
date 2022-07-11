@@ -29,22 +29,17 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.apex.R
-import com.ttop.app.apex.adapter.SearchAdapter
-import com.ttop.app.apex.databinding.FragmentSearchBinding
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.dipToPix
-import com.ttop.app.apex.extensions.focusAndShowKeyboard
-import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.views.addAlpha
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.transition.MaterialFadeThrough
+import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.SearchAdapter
+import com.ttop.app.apex.databinding.FragmentSearchBinding
+import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.Job
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.util.*
@@ -133,7 +128,7 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
 
             val colors = intArrayOf(
                 android.R.color.transparent,
-                ThemeStore.accentColor(requireContext()).addAlpha(0.5F)
+                accentColor().addAlpha(0.5F)
             )
 
             chips.forEach {
@@ -151,14 +146,20 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
         }
     }
 
+    private fun checkForMargins() {
+        if (mainActivity.isBottomNavVisible) {
+            binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = dip(R.dimen.bottom_nav_height)
+            }
+        }
+    }
+
     private fun setupRecyclerView() {
         searchAdapter = SearchAdapter(requireActivity(), emptyList())
         searchAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()
                 binding.empty.isVisible = searchAdapter.itemCount < 1
-                val height = dipToPix(52f)
-                binding.recyclerView.updatePadding(bottom = height.toInt())
             }
         })
         binding.recyclerView.apply {
@@ -223,6 +224,11 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
                 binding.searchView.setText(spokenText)
             }
         }
+
+    override fun onResume() {
+        super.onResume()
+        checkForMargins()
+    }
 
     override fun onDestroyView() {
         hideKeyboard(view)

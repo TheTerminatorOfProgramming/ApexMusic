@@ -17,24 +17,26 @@ import android.content.Context
 import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.os.Environment
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.webkit.MimeTypeMap
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
 import androidx.core.text.parseAsHtml
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import com.afollestad.materialcab.attached.AttachedCab
+import com.afollestad.materialcab.attached.destroy
+import com.afollestad.materialcab.attached.isActive
+import com.afollestad.materialcab.createCab
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialFadeThrough
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.SongFileAdapter
 import com.ttop.app.apex.adapter.Storage
@@ -42,9 +44,7 @@ import com.ttop.app.apex.adapter.StorageAdapter
 import com.ttop.app.apex.adapter.StorageClickListener
 import com.ttop.app.apex.databinding.FragmentFolderBinding
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote.openQueue
-import com.ttop.app.apex.helper.MusicPlayerRemote.playingQueue
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
@@ -54,21 +54,18 @@ import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener
 import com.ttop.app.apex.misc.WrappedAsyncTaskLoader
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.FileUtil
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
-import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ThemedFastScroller.create
 import com.ttop.app.apex.util.getExternalStorageDirectory
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import com.ttop.app.apex.views.BreadCrumbLayout.Crumb
 import com.ttop.app.apex.views.BreadCrumbLayout.SelectionCallback
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.transition.MaterialFadeThrough
+import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -83,6 +80,9 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     LoaderManager.LoaderCallbacks<List<File>>, StorageClickListener {
     private var _binding: FragmentFolderBinding? = null
     private val binding get() = _binding!!
+
+    val toolbar: Toolbar get() = binding.appBarLayout.toolbar
+
     private var adapter: SongFileAdapter? = null
     private var storageAdapter: StorageAdapter? = null
     private var cab: AttachedCab? = null
@@ -98,14 +98,16 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     private var storageItems = ArrayList<Storage>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFolderBinding.bind(view)
         mainActivity.addMusicServiceEventListener(libraryViewModel)
-        mainActivity.setSupportActionBar(binding.toolbar)
+        mainActivity.setSupportActionBar(toolbar)
         mainActivity.supportActionBar?.title = null
         enterTransition = MaterialFadeThrough()
         reenterTransition = MaterialFadeThrough()
 
         setUpBreadCrumbs()
+        checkForMargins()
         setUpRecyclerView()
         setUpAdapter()
         setUpTitle()
@@ -119,16 +121,13 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                     }
                 }
             })
-        binding.toolbarContainer.drawNextToNavbar()
-        binding.appBarLayout.statusBarForeground =
-            MaterialShapeDrawable.createWithElevationOverlay(requireContext())
     }
 
     private fun setUpTitle() {
-        binding.toolbar.setNavigationOnClickListener {
+        toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_search, null, navOptions)
         }
-        binding.appNameText.text = resources.getString(R.string.folders)
+        binding.appBarLayout.title = resources.getString(R.string.folders)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -185,7 +184,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                         lifecycleScope.launch(Dispatchers.IO) {
                             listSongs(
                                 requireContext(),
-                                toList(file),
+                                listOf(file),
                                 AUDIO_FILE_FILTER,
                                 fileComparator
                             ) { songs ->
@@ -226,7 +225,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                         lifecycleScope.launch(Dispatchers.IO) {
                             listSongs(
                                 requireContext(),
-                                toList(file),
+                                listOf(file),
                                 AUDIO_FILE_FILTER,
                                 fileComparator
                             ) { songs ->
@@ -264,7 +263,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
             lifecycleScope.launch(Dispatchers.IO) {
                 listSongs(
                     requireContext(),
-                    toList(mFile.parentFile),
+                    listOf(mFile.parentFile),
                     fileFilter,
                     fileComparator
                 ) { songs ->
@@ -332,7 +331,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(requireActivity(), binding.toolbar)
+        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(requireActivity(), toolbar)
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
@@ -346,8 +345,8 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         menu.removeItem(R.id.action_layout_type)
         menu.removeItem(R.id.action_sort_order)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
-            requireContext(), binding.toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(
-                binding.toolbar
+            requireContext(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(
+                toolbar
             )
         )
     }
@@ -384,14 +383,9 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         return false
     }
 
-    override fun onQueueChanged() {
-        super.onQueueChanged()
-        checkForPadding()
-    }
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        checkForPadding()
+    override fun onResume() {
+        super.onResume()
+        checkForMargins()
     }
 
     override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
@@ -412,13 +406,11 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         return cab as AttachedCab
     }
 
-    private fun checkForPadding() {
-        val count = adapter?.itemCount ?: 0
-        if (_binding != null) {
-            binding.recyclerView.updatePadding(
-                bottom = if (count > 0 && playingQueue.isNotEmpty()) dip(R.dimen.mini_player_height_expanded)
-                else dip(R.dimen.mini_player_height)
-            )
+    private fun checkForMargins() {
+        if (mainActivity.isBottomNavVisible) {
+            binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = dip(R.dimen.bottom_nav_height)
+            }
         }
     }
 
@@ -501,12 +493,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         )
     }
 
-    private fun toList(file: File): ArrayList<File> {
-        val files = ArrayList<File>(1)
-        files.add(file)
-        return files
-    }
-
     private fun updateAdapter(files: List<File>) {
         adapter?.swapDataSet(files)
         val crumb = activeCrumb
@@ -524,7 +510,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     private suspend fun listPaths(
         file: File,
         fileFilter: FileFilter,
-        doOnPathListed: (paths: Array<String?>) -> Unit
+        doOnPathListed: (paths: Array<String?>) -> Unit,
     ) {
         val paths = try {
             val paths: Array<String?>
@@ -578,10 +564,10 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     suspend fun listSongs(
         context: Context,
-        files: List<File>,
+        files: List<File?>,
         fileFilter: FileFilter,
         fileComparator: Comparator<File>,
-        doOnSongsListed: (songs: List<Song>) -> Unit
+        doOnSongsListed: (songs: List<Song>) -> Unit,
     ) {
         val songs = try {
             val fileList = FileUtil.listFilesDeep(files, fileFilter)
@@ -613,7 +599,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 override fun onChanged() {
                     super.onChanged()
                     checkIsEmpty()
-                    checkForPadding()
                 }
             })
         binding.recyclerView.adapter = adapter

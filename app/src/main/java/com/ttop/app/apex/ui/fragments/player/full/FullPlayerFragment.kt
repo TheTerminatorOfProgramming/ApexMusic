@@ -19,21 +19,22 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentFullBinding
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.whichFragment
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.ui.fragments.player.CoverLyricsFragment
+import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
     private var _binding: FragmentFullBinding? = null
@@ -98,6 +99,7 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
         controlsFragment.setColor(color)
         libraryViewModel.updateColor(color.backgroundColor)
         ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
+        binding.coverLyrics.getFragment<CoverLyricsFragment>().setColors(color)
     }
 
     override fun onFavoriteToggled() {

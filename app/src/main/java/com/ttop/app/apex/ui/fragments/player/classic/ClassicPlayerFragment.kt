@@ -28,30 +28,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
-import com.ttop.app.apex.R
-import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
-import com.ttop.app.apex.databinding.FragmentClassicPlayerBinding
-import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.ui.fragments.other.VolumeFragment
-import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
-import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
-import com.ttop.app.apex.misc.SimpleOnSeekbarChangeListener
-import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.service.MusicService
-import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ViewUtil
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.google.android.material.card.MaterialCardView
@@ -62,6 +38,30 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
+import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
+import com.ttop.app.apex.databinding.FragmentClassicPlayerBinding
+import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
+import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.misc.SimpleOnSeekbarChangeListener
+import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.base.goToAlbum
+import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.ui.fragments.other.VolumeFragment
+import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.ViewUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.TintHelper
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player),
     View.OnLayoutChangeListener,
@@ -85,7 +85,7 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
 
     private val bottomSheetCallbackList = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            mainActivity.getBottomSheetBehavior().isDraggable = false   
+            mainActivity.getBottomSheetBehavior().isDraggable = false
             binding.playerQueueSheet.setContentPadding(
                 binding.playerQueueSheet.contentPaddingLeft,
                 (slideOffset * binding.statusBar.height).toInt(),

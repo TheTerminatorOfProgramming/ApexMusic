@@ -20,23 +20,23 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
-import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.MainActivity
-import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
-import com.ttop.app.apex.databinding.FragmentPlayingQueueBinding
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.ThemedFastScroller
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
+import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
+import com.ttop.app.apex.databinding.FragmentPlayingQueueBinding
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.ThemedFastScroller
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 class PlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_playing_queue) {
 
@@ -48,6 +48,9 @@ class PlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_playing_q
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
     private var playingQueueAdapter: PlayingQueueAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
+
+    val mainActivity: MainActivity
+        get() = activity as MainActivity
 
     private fun getUpNextAndQueueTime(): String {
         val duration = MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.position)
@@ -68,6 +71,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_playing_q
             MusicPlayerRemote.clearQueue()
         }
         checkForPadding()
+        mainActivity.collapsePanel()
     }
 
     private fun setUpRecyclerView() {
@@ -174,7 +178,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_playing_q
         playingQueueAdapter = null
         super.onDestroy()
         if (MusicPlayerRemote.playingQueue.isNotEmpty())
-            (requireActivity() as MainActivity).expandPanel()
+            mainActivity.expandPanel()
     }
 
     private fun setupToolbar() {

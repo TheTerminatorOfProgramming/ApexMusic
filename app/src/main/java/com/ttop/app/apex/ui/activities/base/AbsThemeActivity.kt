@@ -20,18 +20,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.os.ConfigurationCompat
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.LanguageContextWrapper
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.maybeShowAnnoyingToasts
 import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
-import com.google.android.play.core.splitcompat.SplitCompat
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.appthemehelper.util.VersionUtils
 import java.util.*
 
 abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
@@ -43,13 +42,13 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         hideStatusBar()
         super.onCreate(savedInstanceState)
         setEdgeToEdgeOrImmersive()
-        registerSystemUiVisibility()
-        toggleScreenOn()
+        maybeSetScreenOn()
         setLightNavigationBarAuto()
         setLightStatusBarAuto(surfaceColor())
         if (VersionUtils.hasQ()) {
             window.decorView.isForceDarkAllowed = false
         }
+        maybeShowAnnoyingToasts()
     }
 
     private fun updateTheme() {
@@ -102,20 +101,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         }
     }
 
-    private fun registerSystemUiVisibility() {
-        val decorView = window.decorView
-        decorView.setOnSystemUiVisibilityChangeListener { visibility ->
-            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
-                setImmersiveFullscreen()
-            }
-        }
-    }
-
-    private fun unregisterSystemUiVisibility() {
-        val decorView = window.decorView
-        decorView.setOnSystemUiVisibilityChangeListener(null)
-    }
-
     override fun run() {
         setImmersiveFullscreen()
     }
@@ -127,7 +112,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
 
     public override fun onDestroy() {
         super.onDestroy()
-        unregisterSystemUiVisibility()
         exitFullscreen()
     }
 
@@ -148,6 +132,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             Locale.forLanguageTag(code)
         }
         super.attachBaseContext(LanguageContextWrapper.wrap(newBase, locale))
-        SplitCompat.install(this)
+        installSplitCompat()
     }
 }

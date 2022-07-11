@@ -26,7 +26,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableSwipeableItemViewHolder;
-
 import com.ttop.app.apex.R;
 
 public class MediaEntryViewHolder extends AbstractDraggableSwipeableItemViewHolder

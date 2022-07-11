@@ -9,7 +9,7 @@ import java.io.*
 
 const val SERVER_PORT = 9090
 
-class RetroWebServer(val context: Context) : NanoHTTPD(SERVER_PORT) {
+class ApexWebServer(val context: Context) : NanoHTTPD(SERVER_PORT) {
     companion object {
         private const val MIME_TYPE_IMAGE = "image/jpg"
         const val MIME_TYPE_AUDIO = "audio/mp3"

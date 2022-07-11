@@ -20,23 +20,19 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
-import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.apex.R
+import com.ttop.app.apex.databinding.FragmentCardPlayerPlaybackControlsBinding
+import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.ui.fragments.base.goToAlbum
+import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.apex.R
-import com.ttop.app.apex.databinding.FragmentCardPlayerPlaybackControlsBinding
-import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.hide
-import com.ttop.app.apex.extensions.ripAlpha
-import com.ttop.app.apex.extensions.show
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 
 class CardPlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_card_player_playback_controls) {
@@ -45,7 +41,7 @@ class CardPlaybackControlsFragment :
     private var _binding: FragmentCardPlayerPlaybackControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: SeekBar
+    override val seekBar: SeekBar
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -138,7 +134,7 @@ class CardPlaybackControlsFragment :
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
             color.primaryTextColor
         } else {
-            ThemeStore.accentColor(requireContext()).ripAlpha()
+            accentColor().ripAlpha()
         }
         binding.image.setColorFilter(colorFinal, PorterDuff.Mode.SRC_IN)
         TintHelper.setTintAuto(

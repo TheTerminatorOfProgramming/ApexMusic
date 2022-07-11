@@ -11,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.core.view.*
 import androidx.fragment.app.FragmentActivity
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 
-fun AppCompatActivity.toggleScreenOn() {
+fun AppCompatActivity.maybeSetScreenOn() {
     if (PreferenceUtil.isScreenOnEnabled) {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     } else {

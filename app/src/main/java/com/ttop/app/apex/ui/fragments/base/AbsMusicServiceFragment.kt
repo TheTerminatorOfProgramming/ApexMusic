@@ -17,12 +17,14 @@ package com.ttop.app.apex.ui.fragments.base
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.navOptions
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.interfaces.IMusicServiceEventListener
+import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
+import com.ttop.app.apex.util.maybeShowAnnoyingToasts
 
 /**
  * Created by hemanths on 18/08/17.
@@ -60,11 +62,14 @@ open class AbsMusicServiceFragment(@LayoutRes layout: Int) : Fragment(layout),
         serviceActivity = null
     }
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         serviceActivity?.addMusicServiceEventListener(this)
+        maybeShowAnnoyingToasts()
     }
 
+    @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
         serviceActivity?.removeMusicServiceEventListener(this)

@@ -27,7 +27,10 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.ImageViewTarget
+import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivityAlbumTagEditorBinding
 import com.ttop.app.apex.extensions.*
@@ -35,14 +38,12 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.ImageUtil
-import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.ApexColorUtil.generatePalette
 import com.ttop.app.apex.util.ApexColorUtil.getColor
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.ImageViewTarget
-import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.shape.MaterialShapeDrawable
+import com.ttop.app.apex.util.ImageUtil
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.logD
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import org.jaudiotagger.tag.FieldKey
 import java.util.*
 
@@ -98,7 +99,7 @@ class AlbumTagEditorActivity : AbsTagEditorActivity<ActivityAlbumTagEditorBindin
         binding.albumArtistText.setText(albumArtistName)
         binding.genreTitle.setText(genreName)
         binding.yearTitle.setText(songYear)
-        println(albumTitle + albumArtistName)
+        logD(albumTitle + albumArtistName)
     }
 
     override fun loadCurrentImage() {
@@ -154,7 +155,7 @@ class AlbumTagEditorActivity : AbsTagEditorActivity<ActivityAlbumTagEditorBindin
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
-                    showToast("Load Failed", Toast.LENGTH_LONG)
+                    showToast(R.string.error_load_failed, Toast.LENGTH_LONG)
                 }
 
                 override fun setResource(resource: BitmapPaletteWrapper?) {}

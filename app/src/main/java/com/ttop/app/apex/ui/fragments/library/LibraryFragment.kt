@@ -23,18 +23,18 @@ import androidx.core.text.parseAsHtml
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentLibraryBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
+import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.extensions.whichFragment
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.PreferenceUtil
-import com.google.android.gms.cast.framework.CastButtonFactory
+import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
 
@@ -80,7 +80,7 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
             navGraph.setStartDestination(categoryInfo.category.id)
         }
         navController.graph = navGraph
-        NavigationUI.setupWithNavController(mainActivity.bottomNavigationView, navController)
+        NavigationUI.setupWithNavController(mainActivity.navigationView, navController)
         navController.addOnDestinationChangedListener { _, _, _ ->
             binding.appBarLayout.setExpanded(true, true)
         }
@@ -99,7 +99,7 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
             getToolbarBackgroundColor(binding.toolbar)
         )
         //Setting up cast button
-        CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
+        requireContext().setUpMediaRouteButton(menu)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {

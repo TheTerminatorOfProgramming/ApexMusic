@@ -24,18 +24,18 @@ import androidx.navigation.findNavController
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.EXTRA_ARTIST_ID
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
-import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.dialogs.DeleteSongsDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
-import com.ttop.app.apex.ui.fragments.LibraryViewModel
-import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IPaletteColorHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.apex.repository.RealRepository
+import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
+import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.RingtoneManager
 import kotlinx.coroutines.CoroutineScope
@@ -57,7 +57,6 @@ object SongMenuHelper : KoinComponent {
                 if (RingtoneManager.requiresDialog(activity)) {
                     RingtoneManager.showDialog(activity)
                 } else {
-                    val ringtoneManager = android.media.RingtoneManager(activity)
                     RingtoneManager.setRingtone(activity, song)
                 }
                 return true
@@ -65,7 +64,7 @@ object SongMenuHelper : KoinComponent {
             R.id.action_share -> {
                 activity.startActivity(
                     Intent.createChooser(
-                        MusicUtil.createShareSongFileIntent(song, activity),
+                        MusicUtil.createShareSongFileIntent(activity, song),
                         null
                     )
                 )

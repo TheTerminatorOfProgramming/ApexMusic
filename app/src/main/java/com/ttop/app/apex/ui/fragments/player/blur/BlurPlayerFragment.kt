@@ -22,19 +22,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.PreferenceManager
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentBlurBinding
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.whichFragment
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.glide.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.PreferenceUtil.blurAmount
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 
 class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
@@ -139,9 +139,13 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
         updateBlur()
     }
 
+    override fun onPause() {
+        super.onPause()
+        lastRequest = null
+    }
+
     override fun onResume() {
         super.onResume()
-        lastRequest = null
         PreferenceManager.getDefaultSharedPreferences(requireContext())
             .registerOnSharedPreferenceChangeListener(this)
     }

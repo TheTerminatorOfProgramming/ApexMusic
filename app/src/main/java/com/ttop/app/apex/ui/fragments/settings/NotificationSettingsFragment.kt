@@ -14,20 +14,16 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.view.HapticFeedbackConstants
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.*
-import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.CLASSIC_NOTIFICATION
+import com.ttop.app.apex.COLORED_NOTIFICATION
+import com.ttop.app.apex.R
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -53,7 +49,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             classicNotification?.apply {
                 isChecked = PreferenceUtil.isClassicNotification
                 setOnPreferenceChangeListener { _, newValue ->
-                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     // Save preference
                     PreferenceUtil.isClassicNotification = newValue as Boolean
                     invalidateSettings()
@@ -69,39 +64,9 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             coloredNotification?.apply {
                 isChecked = PreferenceUtil.isColoredNotification
                 setOnPreferenceChangeListener { _, newValue ->
-                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     PreferenceUtil.isColoredNotification = newValue as Boolean
                     true
                 }
-            }
-        }
-
-        val notificationActions: TwoStatePreference? = findPreference(NOTIFICATION_ACTIONS)
-        if (VERSION.SDK_INT >= VERSION_CODES.M){
-            notificationActions?.setOnPreferenceChangeListener { _, newValue ->
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                notificationActions.isChecked = newValue as Boolean
-                MusicPlayerRemote.updateNotification()
-                return@setOnPreferenceChangeListener newValue
-            }
-        }else{
-            notificationActions?.isEnabled=false
-            notificationActions?.isChecked=false
-        }
-
-        val update: TwoStatePreference? = findPreference(SHOW_UPDATE)
-        if (VersionUtils.hasMarshmallow()){
-            if (!PreferenceUtil.isAlbumArtOnLockScreen) {
-                update?.isChecked = false
-                update?.isEnabled = false
-                MusicPlayerRemote.updateNotification()
-            }
-
-            update?.setOnPreferenceChangeListener { _, newValue ->
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                update.isChecked = newValue as Boolean
-                MusicPlayerRemote.updateNotification()
-                false
             }
         }
     }

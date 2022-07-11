@@ -6,11 +6,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.content.withStyledAttributes
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ItemPermissionBinding
 import com.ttop.app.apex.extensions.accentOutlineColor
+import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.ColorUtil
 
 class PermissionItem @JvmOverloads constructor(
     context: Context,
@@ -45,5 +45,9 @@ class PermissionItem @JvmOverloads constructor(
 
     fun setButtonClick(callBack: () -> Unit) {
         binding.button.setOnClickListener { callBack() }
+    }
+
+    fun setNumber(number: String) {
+        binding.number.text = number
     }
 }

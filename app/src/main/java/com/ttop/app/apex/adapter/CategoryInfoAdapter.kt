@@ -21,7 +21,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogLibraryCategoriesListitemBinding
 import com.ttop.app.apex.extensions.showToast
@@ -29,6 +28,7 @@ import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.SwipeAndDragHelper
 import com.ttop.app.apex.util.SwipeAndDragHelper.ActionCompletionContract
+import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
 
 class CategoryInfoAdapter : RecyclerView.Adapter<CategoryInfoAdapter.ViewHolder>(),
     ActionCompletionContract {

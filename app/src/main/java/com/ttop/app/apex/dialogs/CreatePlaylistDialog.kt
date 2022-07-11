@@ -19,16 +19,16 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogPlaylistBinding
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.model.Song
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CreatePlaylistDialog : DialogFragment() {

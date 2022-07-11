@@ -31,23 +31,26 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import androidx.transition.Fade
+import com.afollestad.materialcab.attached.AttachedCab
+import com.afollestad.materialcab.attached.destroy
+import com.afollestad.materialcab.attached.isActive
+import com.afollestad.materialcab.createCab
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.transition.MaterialArcMotion
+import com.google.android.material.transition.MaterialContainerTransform
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.EXTRA_ARTIST_ID
 import com.ttop.app.apex.EXTRA_ARTIST_NAME
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
-import com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity
 import com.ttop.app.apex.adapter.album.HorizontalAlbumAdapter
 import com.ttop.app.apex.adapter.song.SimpleSongAdapter
 import com.ttop.app.apex.databinding.FragmentAlbumDetailsBinding
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.dialogs.DeleteSongsDialog
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.SingleColorTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_A_Z
@@ -62,17 +65,12 @@ import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.network.Result
 import com.ttop.app.apex.network.model.LastFmAlbum
 import com.ttop.app.apex.repository.RealRepository
-import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ApexColorUtil
-import com.ttop.app.apex.util.ApexUtil
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.transition.MaterialArcMotion
-import com.google.android.material.transition.MaterialContainerTransform
+import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
+import com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.*
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -112,6 +110,8 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAlbumDetailsBinding.bind(view)
+        enterTransition = Fade()
+        exitTransition = Fade()
         mainActivity.addMusicServiceEventListener(detailsViewModel)
         mainActivity.setSupportActionBar(binding.toolbar)
 
@@ -245,10 +245,10 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         detailsViewModel.getAlbumInfo(album).observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
-                    println("Loading")
+                    logD("Loading")
                 }
                 is Result.Error -> {
-                    println("Error")
+                    logE("Error")
                 }
                 is Result.Success -> {
                     aboutAlbum(result.data)

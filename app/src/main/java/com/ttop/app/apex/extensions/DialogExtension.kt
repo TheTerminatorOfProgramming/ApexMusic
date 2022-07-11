@@ -16,10 +16,10 @@ package com.ttop.app.apex.extensions
 
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.ttop.app.apex.BuildConfig
-import com.ttop.app.apex.R
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ttop.app.apex.BuildConfig
+import com.ttop.app.apex.R
 
 fun Fragment.materialDialog(title: Int): MaterialAlertDialogBuilder {
     return if (BuildConfig.DEBUG) {

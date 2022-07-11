@@ -36,30 +36,30 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
 import androidx.viewpager.widget.ViewPager
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.EXTRA_ARTIST_ID
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.MainActivity
-import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
-import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.db.toSongEntity
 import com.ttop.app.apex.dialogs.*
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.LibraryViewModel
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.ReloadType
-import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IPaletteColorHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
+import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -163,8 +163,10 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             R.id.now_playing -> {
                 requireActivity().findNavController(R.id.fragment_container).navigate(
                     R.id.playing_queue_fragment,
-                    null
+                    null,
+                    navOptions { launchSingleTop = true }
                 )
+                mainActivity.collapsePanel()
                 return true
             }
             R.id.action_show_lyrics -> {
@@ -268,7 +270,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
                 }
-                val drawable =  requireContext().getTintedDrawable(
+                val drawable = requireContext().getTintedDrawable(
                     icon,
                     toolbarIconColor()
                 )
@@ -286,6 +288,15 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     }
                 }
             }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (PreferenceUtil.circlePlayButton) {
+            requireContext().theme.applyStyle(R.style.CircleFABOverlay, true)
+        } else {
+            requireContext().theme.applyStyle(R.style.RoundedFABOverlay, true)
         }
     }
 
@@ -308,7 +319,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         super.onResume()
         val nps = PreferenceUtil.nowPlayingScreen
 
-        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Peek_Queue || nps == NowPlayingScreen.Tiny) {
+        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
             playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
         } else {
             playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
@@ -316,7 +327,21 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 showLyricsIcon(this)
             }
         }
-        requireView().setOnTouchListener(
+
+        if (nps == NowPlayingScreen.Peek){
+            playerToolbar()?.menu?.removeItem(R.id.now_playing)
+        }else{
+            playerToolbar()?.menu?.removeItem(R.id.action_queue)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        addSwipeDetector()
+    }
+
+    fun addSwipeDetector() {
+        view?.setOnTouchListener(
             if (PreferenceUtil.swipeAnywhereToChangeSong) {
                 SwipeDetector(
                     requireContext(),
@@ -381,9 +406,7 @@ fun goToArtist(activity: Activity) {
 
         findNavController(R.id.fragment_container).navigate(
             R.id.artistDetailsFragment,
-            bundleOf(EXTRA_ARTIST_ID to song.artistId),
-            null,
-            null
+            bundleOf(EXTRA_ARTIST_ID to song.artistId)
         )
     }
 }
@@ -402,9 +425,7 @@ fun goToAlbum(activity: Activity) {
 
         findNavController(R.id.fragment_container).navigate(
             R.id.albumDetailsFragment,
-            bundleOf(EXTRA_ALBUM_ID to song.albumId),
-         null,
-            null
+            bundleOf(EXTRA_ALBUM_ID to song.albumId)
         )
     }
 }
@@ -421,8 +442,7 @@ fun goToLyrics(activity: Activity) {
         findNavController(R.id.fragment_container).navigate(
             R.id.lyrics_fragment,
             null,
-            navOptions { launchSingleTop = true },
-            null
+            navOptions { launchSingleTop = true }
         )
     }
 }

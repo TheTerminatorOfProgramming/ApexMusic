@@ -25,8 +25,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.ttop.app.apex.util.PreferenceUtil
 import com.google.android.material.appbar.MaterialToolbar
+import com.ttop.app.apex.util.PreferenceUtil
 
 fun Fragment.getIntRes(@IntegerRes int: Int): Int {
     return resources.getInteger(int)

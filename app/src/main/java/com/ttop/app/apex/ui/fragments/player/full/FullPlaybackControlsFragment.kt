@@ -23,28 +23,28 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
-import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.lifecycleScope
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentFullPlayerControlsBinding
 import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.db.toSongEntity
 import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
-import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -62,7 +62,7 @@ class FullPlaybackControlsFragment :
     private var _binding: FragmentFullPlayerControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: SeekBar
+    override val progressSlider: Slider
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -177,10 +177,9 @@ class FullPlaybackControlsFragment :
 
     private fun setUpPlayPauseFab() {
         binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
-        binding.playPauseButton.post {
-            binding.playPauseButton.pivotX = (binding.playPauseButton.width / 2).toFloat()
-            binding.playPauseButton.pivotY = (binding.playPauseButton.height / 2).toFloat()
-        }
+
+        binding.playPauseButton.pivotX = (binding.playPauseButton.width / 2).toFloat()
+        binding.playPauseButton.pivotY = (binding.playPauseButton.height / 2).toFloat()
     }
 
     private fun setUpMusicControllers() {

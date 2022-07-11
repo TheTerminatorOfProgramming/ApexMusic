@@ -48,26 +48,24 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.root.applyInsetter {
             type(navigationBars = true) {
-                padding()
+                padding(vertical = true)
             }
         }
     }
 
     private fun setUpView() {
-        binding.aboutContent.cardApexInfo?.appGithub?.setOnClickListener(this)
-        binding.aboutContent.cardSocial?.telegramLink?.setOnClickListener(this)
-        binding.aboutContent.cardApexInfo?.appRate?.setOnClickListener(this)
-        binding.aboutContent.cardApexInfo?.appShare?.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.appGithub.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.appShare.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.bugReportLink.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.websiteLink.setOnClickListener(this)
+
         binding.aboutContent.cardOther.changelog.setOnClickListener(this)
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
-        binding.aboutContent.cardApexInfo?.bugReportLink?.setOnClickListener(this)
-        binding.aboutContent.cardSocial?.websiteLink?.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.appGithub -> openUrl(Constants.GITHUB_PROJECT)
-            R.id.appRate -> openUrl(Constants.RATE_ON_GOOGLE_PLAY)
             R.id.appShare -> shareApp()
             R.id.changelog -> NavigationUtil.gotoWhatNews(requireActivity())
             R.id.openSource -> NavigationUtil.goToOpenSource(requireActivity())

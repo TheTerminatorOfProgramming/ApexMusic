@@ -7,15 +7,15 @@ import android.view.MenuItem
 import androidx.annotation.MenuRes
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.afollestad.materialcab.attached.AttachedCab
+import com.afollestad.materialcab.attached.destroy
+import com.afollestad.materialcab.attached.isActive
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.util.ApexColorUtil
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
     open val activity: FragmentActivity, private val ICabHolder: ICabHolder?, @MenuRes menuRes: Int

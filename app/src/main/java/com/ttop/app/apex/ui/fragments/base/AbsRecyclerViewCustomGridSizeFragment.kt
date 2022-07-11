@@ -17,9 +17,10 @@ package com.ttop.app.apex.ui.fragments.base
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
+import com.google.android.material.transition.MaterialFade
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.ApexUtil
-import com.google.android.material.transition.MaterialFade
+import com.ttop.app.apex.util.logD
 
 abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
     AbsRecyclerViewFragment<A, LM>() {
@@ -99,7 +100,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
 
     fun setAndSaveSortOrder(sortOrder: String) {
         this.sortOrder = sortOrder
-        println(sortOrder)
+        logD(sortOrder)
         saveSortOrder(sortOrder)
         setSortOrder(sortOrder)
     }

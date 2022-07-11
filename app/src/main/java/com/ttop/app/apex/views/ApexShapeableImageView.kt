@@ -16,10 +16,10 @@ package com.ttop.app.apex.views
 import android.content.Context
 import android.util.AttributeSet
 import androidx.core.content.withStyledAttributes
-import com.ttop.app.apex.R
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.ttop.app.apex.R
 
 
 class ApexShapeableImageView @JvmOverloads constructor(

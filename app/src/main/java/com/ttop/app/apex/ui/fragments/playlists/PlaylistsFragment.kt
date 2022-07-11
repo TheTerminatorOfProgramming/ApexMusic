@@ -20,18 +20,18 @@ import androidx.core.os.bundleOf
 import androidx.core.view.MenuCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.EXTRA_PLAYLIST
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.playlist.PlaylistAdapter
 import com.ttop.app.apex.db.PlaylistWithSongs
-import com.ttop.app.apex.ui.fragments.ReloadType
-import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
+import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.interfaces.IPlaylistClickListener
-import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.google.android.gms.cast.framework.CastButtonFactory
-import com.google.android.material.transition.MaterialSharedAxis
+import com.ttop.app.apex.util.PreferenceUtil
 
 class PlaylistsFragment :
     AbsRecyclerViewCustomGridSizeFragment<PlaylistAdapter, GridLayoutManager>(),
@@ -85,7 +85,7 @@ class PlaylistsFragment :
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
         MenuCompat.setGroupDividerEnabled(menu, true)
         //Setting up cast button
-        CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
+        requireContext().setUpMediaRouteButton(menu)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
@@ -245,9 +245,7 @@ class PlaylistsFragment :
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         findNavController().navigate(
             R.id.playlistDetailsFragment,
-            bundleOf(EXTRA_PLAYLIST to playlistWithSongs),
-            null,
-            null
+            bundleOf(EXTRA_PLAYLIST to playlistWithSongs)
         )
     }
 

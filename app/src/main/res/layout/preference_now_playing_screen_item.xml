@@ -27,6 +27,7 @@
         android:gravity="center"
         android:padding="8dp"
         android:textAppearance="@style/TextViewHeadline6"
+        android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

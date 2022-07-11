@@ -18,22 +18,21 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
-import android.widget.SeekBar
 import android.widget.TextView
-import com.ttop.app.appthemehelper.ThemeStore
+import com.google.android.material.slider.Slider
+import com.ttop.app.apex.R
+import com.ttop.app.apex.databinding.FragmentPlayerPlaybackControlsBinding
+import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.ui.fragments.base.goToAlbum
+import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.apex.R
-import com.ttop.app.apex.databinding.FragmentPlayerPlaybackControlsBinding
-import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 
 class PlayerPlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_player_playback_controls) {
@@ -41,7 +40,7 @@ class PlayerPlaybackControlsFragment :
     private var _binding: FragmentPlayerPlaybackControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: SeekBar
+    override val progressSlider: Slider
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -94,7 +93,7 @@ class PlayerPlaybackControlsFragment :
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
             color.primaryTextColor
         } else {
-            ThemeStore.accentColor(requireContext())
+            accentColor()
         }.ripAlpha()
 
         TintHelper.setTintAuto(

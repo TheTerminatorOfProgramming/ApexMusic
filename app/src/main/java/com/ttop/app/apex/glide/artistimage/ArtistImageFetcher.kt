@@ -1,16 +1,16 @@
 package com.ttop.app.apex.glide.artistimage
 
 import android.content.Context
-import com.ttop.app.apex.model.Data
-import com.ttop.app.apex.model.DeezerResponse
-import com.ttop.app.apex.network.DeezerService
-import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.PreferenceUtil
 import com.bumptech.glide.Priority
 import com.bumptech.glide.integration.okhttp3.OkHttpStreamFetcher
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.data.DataFetcher
 import com.bumptech.glide.load.model.GlideUrl
+import com.ttop.app.apex.model.Data
+import com.ttop.app.apex.model.DeezerResponse
+import com.ttop.app.apex.network.DeezerService
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback

@@ -5,32 +5,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/timerDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <EditText
-            android:id="@+id/timerDisplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:inputType="number"
-            android:textAppearance="@style/TextViewHeadline6"
-            tools:ignore="Autofill,LabelFor"
-             />
-
-        <TextView
-            android:id="@+id/unit_display_min"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/timerDisplay"
-            android:layout_toRightOf="@id/timerDisplay"
-            android:labelFor="@id/timerDisplay"
-            android:text="min"
-            android:textAppearance="?android:textAppearanceLarge" />
-    </RelativeLayout>
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="16dp"
+        android:textAppearance="@style/TextViewHeadline6" />
 
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/seekBar"

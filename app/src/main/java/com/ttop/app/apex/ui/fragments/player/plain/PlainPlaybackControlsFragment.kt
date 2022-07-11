@@ -18,23 +18,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
-import android.widget.SeekBar
 import android.widget.TextView
-import com.ttop.app.appthemehelper.ThemeStore
+import com.google.android.material.slider.Slider
+import com.ttop.app.apex.R
+import com.ttop.app.apex.databinding.FragmentPlainControlsFragmentBinding
+import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.apex.R
-import com.ttop.app.apex.databinding.FragmentPlainControlsFragmentBinding
-import com.ttop.app.apex.extensions.applyColor
-import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.hide
-import com.ttop.app.apex.extensions.show
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 
 /**
  * @author Hemanth S (h4h13).
@@ -46,7 +42,7 @@ class PlainPlaybackControlsFragment :
     private var _binding: FragmentPlainControlsFragmentBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: SeekBar
+    override val progressSlider: Slider
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -134,7 +130,7 @@ class PlainPlaybackControlsFragment :
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
             color.primaryTextColor
         } else {
-            ThemeStore.accentColor(requireContext())
+            accentColor()
         }
         volumeFragment?.setTintable(colorFinal)
         binding.progressSlider.applyColor(colorFinal)

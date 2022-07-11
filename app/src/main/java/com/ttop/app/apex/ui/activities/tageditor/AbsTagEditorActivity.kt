@@ -33,12 +33,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
-import com.ttop.app.apex.ui.activities.saf.SAFGuideActivity
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.hideSoftKeyboard
@@ -46,9 +43,11 @@ import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.model.AudioTagInfo
 import com.ttop.app.apex.repository.Repository
+import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
+import com.ttop.app.apex.ui.activities.saf.SAFGuideActivity
 import com.ttop.app.apex.util.SAFUtil
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ttop.app.apex.util.logD
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jaudiotagger.audio.AudioFile
@@ -222,7 +221,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         getIntentExtras()
 
         songPaths = getSongPaths()
-        println(songPaths?.size)
+        logD(songPaths?.size)
         if (songPaths!!.isEmpty()) {
             finish()
         }
@@ -275,7 +274,6 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
             scaleY = 0f
             isEnabled = false
             setOnClickListener { save() }
-            TintHelper.setTintAuto(this, ThemeStore.accentColor(this@AbsTagEditorActivity), true)
         }
     }
 
@@ -351,7 +349,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         hideSoftKeyboard()
 
         hideFab()
-        println(fieldKeyValueMap)
+        logD(fieldKeyValueMap)
         GlobalScope.launch {
             if (VersionUtils.hasR()) {
                 cacheFiles = TagWriter.writeTagsToFilesR(

@@ -15,16 +15,19 @@
 package com.ttop.app.apex
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import cat.ereza.customactivityoncrash.config.CaocConfig
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.ui.activities.ErrorActivity
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.helper.WallpaperAccentManager
+import com.ttop.app.apex.ui.activities.ErrorActivity
+import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class App : Application() {
+
     private val wallpaperAccentManager = WallpaperAccentManager(this)
 
     override fun onCreate() {
@@ -48,7 +51,12 @@ class App : Application() {
             DynamicShortcutManager(this).initDynamicShortcuts()
 
         // setting Error activity
-        CaocConfig.Builder.create().errorActivity(ErrorActivity::class.java).apply()
+        CaocConfig.Builder.create().errorActivity(ErrorActivity::class.java)
+            .restartActivity(MainActivity::class.java).apply()
+
+        // Set Default values for now playing preferences
+        // This will reduce startup time for now playing settings fragment as Preference listener of AbsSlidingMusicPanelActivity won't be called
+        PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen, false)
     }
 
     override fun onTerminate() {

@@ -12,20 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.apex.R
-import com.ttop.app.apex.adapter.song.OrderablePlaylistSongAdapter
-import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
-import com.ttop.app.apex.db.PlaylistWithSongs
-import com.ttop.app.apex.db.toSongs
-import com.ttop.app.apex.extensions.dip
-import com.ttop.app.apex.extensions.surfaceColor
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
-import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.ApexColorUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
@@ -37,6 +23,20 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
+import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.song.OrderablePlaylistSongAdapter
+import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
+import com.ttop.app.apex.db.PlaylistWithSongs
+import com.ttop.app.apex.db.toSongs
+import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
+import com.ttop.app.apex.interfaces.ICabCallback
+import com.ttop.app.apex.interfaces.ICabHolder
+import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.ThemedFastScroller
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -73,6 +73,8 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
         binding.container.transitionName = "playlist"
         playlist = arguments.extraPlaylist
         binding.toolbar.title = playlist.playlistEntity.playlistName
+        binding.toolbar.subtitle =
+            MusicUtil.getPlaylistInfoString(requireContext(), playlist.songs.toSongs())
         setUpRecyclerView()
         viewModel.getSongs().observe(viewLifecycleOwner) {
             songs(it.toSongs())
@@ -111,6 +113,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             binding.recyclerView.adapter = wrappedAdapter
+            ThemedFastScroller.create(this)
         }
         playlistSongAdapter.registerAdapterDataObserver(object :
             RecyclerView.AdapterDataObserver() {
@@ -129,17 +132,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
         return PlaylistMenuHelper.handleMenuClick(requireActivity(), playlist, item)
     }
 
-    private fun checkForPadding() {
-        val itemCount: Int = playlistSongAdapter.itemCount
-        if (itemCount > 0 && MusicPlayerRemote.playingQueue.isNotEmpty()) {
-            binding.recyclerView.updatePadding(bottom = dip(R.dimen.mini_player_height))
-        } else {
-            binding.recyclerView.updatePadding(bottom = 0)
-        }
-    }
-
     private fun checkIsEmpty() {
-        checkForPadding()
         binding.empty.isVisible = playlistSongAdapter.itemCount == 0
         binding.emptyText.isVisible = playlistSongAdapter.itemCount == 0
     }
@@ -177,7 +170,6 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
 
     override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
         cab?.let {
-            println("Cab")
             if (it.isActive()) {
                 it.destroy()
             }

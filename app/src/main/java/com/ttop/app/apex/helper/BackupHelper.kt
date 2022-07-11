@@ -251,12 +251,12 @@ object BackupHelper : KoinComponent {
 
     fun getBackupRoot(): File {
         return File(
-            getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
             "Apex/Backups"
         )
     }
 
-    const val BACKUP_EXTENSION = "abak"
+    const val BACKUP_EXTENSION = "rmbak"
     const val APPEND_EXTENSION = ".$BACKUP_EXTENSION"
     private const val PLAYLISTS_PATH = "Playlists"
     private const val SETTINGS_PATH = "prefs"

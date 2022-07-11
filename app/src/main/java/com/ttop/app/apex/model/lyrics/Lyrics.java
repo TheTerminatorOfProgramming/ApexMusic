@@ -14,9 +14,9 @@
 
 package com.ttop.app.apex.model.lyrics;
 
-import java.util.ArrayList;
-
 import com.ttop.app.apex.model.Song;
+
+import java.util.ArrayList;
 
 public class Lyrics {
 

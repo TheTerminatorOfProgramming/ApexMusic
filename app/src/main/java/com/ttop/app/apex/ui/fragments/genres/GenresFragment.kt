@@ -23,16 +23,16 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.EXTRA_GENRE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.GenreAdapter
-import com.ttop.app.apex.ui.fragments.ReloadType
-import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewFragment
+import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.interfaces.IGenreClickListener
 import com.ttop.app.apex.model.Genre
+import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.google.android.gms.cast.framework.CastButtonFactory
-import com.google.android.material.transition.MaterialSharedAxis
 
 class
 GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
@@ -67,13 +67,14 @@ GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
         menu.removeItem(R.id.action_sort_order)
         menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         //Setting up cast button
-        CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
+        requireContext().setUpMediaRouteButton(menu)
     }
 
     override fun onResume() {
         super.onResume()
         libraryViewModel.forceReload(ReloadType.Genres)
     }
+
 
 
     override val titleRes: Int
@@ -100,9 +101,7 @@ GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         findNavController().navigate(
             R.id.genreDetailsFragment,
-            bundleOf(EXTRA_GENRE to genre),
-            null,
-            null
+            bundleOf(EXTRA_GENRE to genre)
         )
     }
 }

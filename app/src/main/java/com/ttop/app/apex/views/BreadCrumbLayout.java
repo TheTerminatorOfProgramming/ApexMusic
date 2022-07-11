@@ -30,14 +30,14 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
+import com.ttop.app.apex.R;
+import com.ttop.app.appthemehelper.util.ATHUtil;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import com.ttop.app.appthemehelper.util.ATHUtil;
-import com.ttop.app.apex.R;
 
 /** @author Aidan Follestad (afollestad), modified for Phonograph by Karim Abou Zeid (kabouzeid) */
 public class BreadCrumbLayout extends HorizontalScrollView implements View.OnClickListener {

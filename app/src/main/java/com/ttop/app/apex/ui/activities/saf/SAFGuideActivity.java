@@ -21,7 +21,6 @@ import androidx.annotation.Nullable;
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
-
 import com.ttop.app.apex.R;
 
 /** Created by hemanths on 2019-07-31. */

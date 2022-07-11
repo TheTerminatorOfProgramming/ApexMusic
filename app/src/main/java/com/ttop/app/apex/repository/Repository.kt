@@ -19,27 +19,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.ttop.app.apex.*
 import com.ttop.app.apex.db.*
-import com.ttop.app.apex.ui.fragments.search.Filter
 import com.ttop.app.apex.model.*
 import com.ttop.app.apex.model.smartplaylist.NotPlayedPlaylist
 import com.ttop.app.apex.network.LastFMService
 import com.ttop.app.apex.network.Result
-import com.ttop.app.apex.network.Result.*
+import com.ttop.app.apex.network.Result.Error
+import com.ttop.app.apex.network.Result.Success
 import com.ttop.app.apex.network.model.LastFmAlbum
 import com.ttop.app.apex.network.model.LastFmArtist
-import com.ttop.app.apex.util.PreferenceUtil
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
+import com.ttop.app.apex.ui.fragments.search.Filter
+import com.ttop.app.apex.util.logE
 
 interface Repository {
 
-    fun songsFlow(): Flow<Result<List<Song>>>
-    fun albumsFlow(): Flow<Result<List<Album>>>
-    fun artistsFlow(): Flow<Result<List<Artist>>>
-    fun playlistsFlow(): Flow<Result<List<Playlist>>>
-    fun genresFlow(): Flow<Result<List<Genre>>>
     fun historySong(): List<HistoryEntity>
     fun favorites(): LiveData<List<SongEntity>>
     fun observableHistorySongs(): LiveData<List<Song>>
@@ -69,14 +61,10 @@ interface Repository {
     suspend fun topAlbumsHome(): Home
     suspend fun recentAlbumsHome(): Home
     suspend fun favoritePlaylistHome(): Home
-    suspend fun suggestionsHome(): Home
     suspend fun suggestions(): List<Song>
     suspend fun genresHome(): Home
     suspend fun playlists(): Home
     suspend fun homeSections(): List<Home>
-
-    @ExperimentalCoroutinesApi
-    suspend fun homeSectionsFlow(): Flow<Result<List<Home>>>
     suspend fun playlist(playlistId: Long): Playlist
     suspend fun fetchPlaylistWithSongs(): List<PlaylistWithSongs>
     suspend fun playlistSongs(playlistWithSongs: PlaylistWithSongs): List<Song>
@@ -104,7 +92,6 @@ interface Repository {
     suspend fun clearSongHistory()
     suspend fun checkSongExistInPlayCount(songId: Long): List<PlayCountEntity>
     suspend fun playCountSongs(): List<PlayCountEntity>
-    suspend fun blackListPaths(): List<BlackListStoreEntity>
     suspend fun deleteSongs(songs: List<Song>)
     suspend fun contributor(): List<Contributor>
     suspend fun searchArtists(query: String): List<Artist>
@@ -127,9 +114,8 @@ class RealRepository(
     private val searchRepository: RealSearchRepository,
     private val topPlayedRepository: TopPlayedRepository,
     private val roomRepository: RoomRepository,
-    private val localDataRepository: LocalDataRepository
+    private val localDataRepository: LocalDataRepository,
 ) : Repository {
-
 
     override suspend fun deleteSongs(songs: List<Song>) = roomRepository.deleteSongs(songs)
 
@@ -193,54 +179,27 @@ class RealRepository(
     override suspend fun artistInfo(
         name: String,
         lang: String?,
-        cache: String?
+        cache: String?,
     ): Result<LastFmArtist> {
         return try {
             Success(lastFMService.artistInfo(name, lang, cache))
         } catch (e: Exception) {
-            println(e)
+            logE(e)
             Error(e)
         }
     }
 
     override suspend fun albumInfo(
         artist: String,
-        album: String
+        album: String,
     ): Result<LastFmAlbum> {
         return try {
             val lastFmAlbum = lastFMService.albumInfo(artist, album)
             Success(lastFmAlbum)
         } catch (e: Exception) {
-            println(e)
+            logE(e)
             Error(e)
         }
-    }
-
-    @ExperimentalCoroutinesApi
-    override suspend fun homeSectionsFlow(): Flow<Result<List<Home>>> {
-        val homes = MutableStateFlow<Result<List<Home>>>(value = Loading)
-        val homeSections = mutableListOf<Home>()
-        val sections = listOf(
-            topArtistsHome(),
-            topAlbumsHome(),
-            recentArtistsHome(),
-            recentAlbumsHome(),
-            suggestionsHome(),
-            favoritePlaylistHome(),
-            genresHome()
-        )
-        for (section in sections) {
-            if (section.arrayList.isNotEmpty()) {
-                println("${section.homeSection} -> ${section.arrayList.size}")
-                homeSections.add(section)
-            }
-        }
-        if (homeSections.isEmpty()) {
-            homes.value = Error(Exception(Throwable("No items")))
-        } else {
-            homes.value = Success(homeSections)
-        }
-        return homes
     }
 
     override suspend fun homeSections(): List<Home> {
@@ -348,9 +307,6 @@ class RealRepository(
     override suspend fun playCountSongs(): List<PlayCountEntity> =
         roomRepository.playCountSongs()
 
-    override suspend fun blackListPaths(): List<BlackListStoreEntity> =
-        roomRepository.blackListPaths()
-
     override fun observableHistorySongs(): LiveData<List<Song>> =
         Transformations.map(roomRepository.observableHistorySongs()) {
             it.fromHistoryToSongs()
@@ -362,29 +318,7 @@ class RealRepository(
     override fun favorites(): LiveData<List<SongEntity>> =
         roomRepository.favoritePlaylistLiveData(context.getString(R.string.favorites))
 
-    var suggestions = Home(
-        listOf(), SUGGESTIONS,
-        R.string.suggestion_songs
-    )
-
-    override suspend fun suggestionsHome(): Home {
-        if (!PreferenceUtil.homeSuggestions) return Home(
-            listOf(),
-            SUGGESTIONS,
-            R.string.suggestion_songs
-        )
-        // Don't reload Suggestions everytime
-        if (suggestions.arrayList.isEmpty()) {
-            val songs = NotPlayedPlaylist().songs().shuffled().takeIf {
-                it.size > 9
-            } ?: emptyList()
-            suggestions = Home(songs, SUGGESTIONS, R.string.suggestion_songs)
-        }
-        return suggestions
-    }
-
     override suspend fun suggestions(): List<Song> {
-        if (!PreferenceUtil.homeSuggestions) return listOf()
         return NotPlayedPlaylist().songs().shuffled().takeIf {
             it.size > 9
         } ?: emptyList()
@@ -425,55 +359,5 @@ class RealRepository(
             it.toSong()
         }
         return Home(songs, FAVOURITES, R.string.favorites)
-    }
-
-    override fun songsFlow(): Flow<Result<List<Song>>> = flow {
-        emit(Loading)
-        val data = songRepository.songs()
-        if (data.isEmpty()) {
-            emit(Error(Exception(Throwable("No items"))))
-        } else {
-            emit(Success(data))
-        }
-    }
-
-    override fun albumsFlow(): Flow<Result<List<Album>>> = flow {
-        emit(Loading)
-        val data = albumRepository.albums()
-        if (data.isEmpty()) {
-            emit(Error(Exception(Throwable("No items"))))
-        } else {
-            emit(Success(data))
-        }
-    }
-
-    override fun artistsFlow(): Flow<Result<List<Artist>>> = flow {
-        emit(Loading)
-        val data = artistRepository.artists()
-        if (data.isEmpty()) {
-            emit(Error(Exception(Throwable("No items"))))
-        } else {
-            emit(Success(data))
-        }
-    }
-
-    override fun playlistsFlow(): Flow<Result<List<Playlist>>> = flow {
-        emit(Loading)
-        val data = playlistRepository.playlists()
-        if (data.isEmpty()) {
-            emit(Error(Exception(Throwable("No items"))))
-        } else {
-            emit(Success(data))
-        }
-    }
-
-    override fun genresFlow(): Flow<Result<List<Genre>>> = flow {
-        emit(Loading)
-        val data = genreRepository.genres()
-        if (data.isEmpty()) {
-            emit(Error(Exception(Throwable("No items"))))
-        } else {
-            emit(Success(data))
-        }
     }
 }

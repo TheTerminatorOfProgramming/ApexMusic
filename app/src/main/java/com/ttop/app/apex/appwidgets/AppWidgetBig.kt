@@ -23,26 +23,25 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.getTintedDrawable
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
-import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.ApexUtil
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
-import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 class AppWidgetBig : BaseAppWidget() {
     private var target: Target<Bitmap>? = null // for cancellation

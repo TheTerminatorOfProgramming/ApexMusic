@@ -25,23 +25,23 @@ import androidx.annotation.StringRes
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
-import com.ttop.app.appthemehelper.util.MaterialUtil
-import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputLayout
 import com.ttop.app.apex.R
+import com.ttop.app.apex.databinding.ActivityBugReportBinding
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.activities.base.AbsThemeActivity
 import com.ttop.app.apex.ui.activities.bugreport.model.DeviceInfo
 import com.ttop.app.apex.ui.activities.bugreport.model.Report
 import com.ttop.app.apex.ui.activities.bugreport.model.github.ExtraInfo
 import com.ttop.app.apex.ui.activities.bugreport.model.github.GithubLogin
 import com.ttop.app.apex.ui.activities.bugreport.model.github.GithubTarget
-import com.ttop.app.apex.databinding.ActivityBugReportBinding
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
-import com.ttop.app.apex.extensions.showToast
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputLayout
+import com.ttop.app.appthemehelper.util.MaterialUtil
+import com.ttop.app.appthemehelper.util.TintHelper
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -220,7 +220,7 @@ open class BugReportActivity : AbsThemeActivity() {
         onSaveExtraInfo()
 
         val report = Report(bugTitle, bugDescription, deviceInfo, extraInfo)
-        val target = GithubTarget("TheTerminatorOfProgramming", "ApexMusic")
+        val target = GithubTarget("RetroMusicPlayer", "RetroMusicPlayer")
 
         reportIssue(report, target, login)
     }
@@ -311,6 +311,6 @@ open class BugReportActivity : AbsThemeActivity() {
         private const val STATUS_BAD_CREDENTIALS = 401
         private const val STATUS_ISSUES_NOT_ENABLED = 410
         private const val ISSUE_TRACKER_LINK =
-            "https://github.com/TheTerminatorOfProgramming/ApexMusic"
+            "https://github.com/RetroMusicPlayer/RetroMusicPlayer"
     }
 }

@@ -23,21 +23,21 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
+import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
+import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
-import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexMusicColoredTarget
-import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
-import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -170,7 +170,7 @@ class AlbumCoverPagerAdapter(
                 //.checkIgnoreMediaStore()
                 .load(ApexGlideExtension.getSongModel(song))
                 .dontAnimate()
-                .into(object : ApexMusicColoredTarget(albumCover) {
+                .into(object : ApexColoredTarget(albumCover) {
                     override fun onColorReady(colors: MediaNotificationProcessor) {
                         setColor(colors)
                     }

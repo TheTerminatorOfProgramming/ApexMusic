@@ -1,10 +1,10 @@
 package com.ttop.app.apex.network
 
 import android.content.Context
+import com.google.gson.GsonBuilder
 import com.ttop.app.apex.App
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.network.conversion.LyricsConverterFactory
-import com.google.gson.GsonBuilder
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -49,7 +49,7 @@ fun headerInterceptor(context: Context): Interceptor {
 fun provideOkHttp(context: Context, cache: Cache): OkHttpClient {
     return OkHttpClient.Builder()
         .addNetworkInterceptor(logInterceptor())
-        //.addInterceptor(headerInterceptor(context))
+        .addInterceptor(headerInterceptor(context))
         .connectTimeout(1, TimeUnit.SECONDS)
         .readTimeout(1, TimeUnit.SECONDS)
         .cache(cache)

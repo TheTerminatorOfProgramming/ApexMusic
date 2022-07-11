@@ -23,7 +23,6 @@ import android.util.TypedValue;
 import androidx.annotation.FontRes;
 
 import com.google.android.material.textview.MaterialTextView;
-
 import com.ttop.app.apex.R;
 
 public class BaselineGridTextView extends MaterialTextView {

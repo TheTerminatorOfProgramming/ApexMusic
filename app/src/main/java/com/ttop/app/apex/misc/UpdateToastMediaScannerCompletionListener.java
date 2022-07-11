@@ -20,10 +20,10 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.ttop.app.apex.R;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
-
-import com.ttop.app.apex.R;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)

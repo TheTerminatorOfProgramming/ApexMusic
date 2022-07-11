@@ -1,29 +1,22 @@
 package com.ttop.app.apex
 
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ttop.app.apex.auto.AutoMusicProvider
-import com.ttop.app.apex.cast.RetroWebServer
-import com.ttop.app.apex.db.BlackListStoreDao
-import com.ttop.app.apex.db.BlackListStoreEntity
+import com.ttop.app.apex.cast.ApexWebServer
+import com.ttop.app.apex.db.ApexDatabase
+import com.ttop.app.apex.db.MIGRATION_23_24
 import com.ttop.app.apex.db.PlaylistWithSongs
-import com.ttop.app.apex.db.RetroDatabase
-import com.ttop.app.apex.ui.fragments.LibraryViewModel
-import com.ttop.app.apex.ui.fragments.albums.AlbumDetailsViewModel
-import com.ttop.app.apex.ui.fragments.artists.ArtistDetailsViewModel
-import com.ttop.app.apex.ui.fragments.genres.GenreDetailsViewModel
-import com.ttop.app.apex.ui.fragments.playlists.PlaylistDetailsViewModel
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.network.provideDefaultCache
 import com.ttop.app.apex.network.provideLastFmRest
 import com.ttop.app.apex.network.provideLastFmRetrofit
 import com.ttop.app.apex.network.provideOkHttp
 import com.ttop.app.apex.repository.*
-import com.ttop.app.apex.util.FilePathUtil
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.fragments.albums.AlbumDetailsViewModel
+import com.ttop.app.apex.ui.fragments.artists.ArtistDetailsViewModel
+import com.ttop.app.apex.ui.fragments.genres.GenreDetailsViewModel
+import com.ttop.app.apex.ui.fragments.playlists.PlaylistDetailsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
@@ -48,43 +41,25 @@ val networkModule = module {
 private val roomModule = module {
 
     single {
-        Room.databaseBuilder(androidContext(), RetroDatabase::class.java, "playlist.db")
-            .allowMainThreadQueries()
-            .addCallback(object : RoomDatabase.Callback() {
-                override fun onOpen(db: SupportSQLiteDatabase) {
-                    super.onOpen(db)
-                    GlobalScope.launch(IO) {
-                        FilePathUtil.blacklistFilePaths().map {
-                            get<BlackListStoreDao>().insertBlacklistPath(BlackListStoreEntity(it))
-                        }
-                    }
-                }
-            })
-            .fallbackToDestructiveMigration()
+        Room.databaseBuilder(androidContext(), ApexDatabase::class.java, "playlist.db")
+            .addMigrations(MIGRATION_23_24)
             .build()
     }
+
     factory {
-        get<RetroDatabase>().lyricsDao()
+        get<ApexDatabase>().playlistDao()
     }
 
     factory {
-        get<RetroDatabase>().playlistDao()
+        get<ApexDatabase>().playCountDao()
     }
 
     factory {
-        get<RetroDatabase>().blackListStore()
-    }
-
-    factory {
-        get<RetroDatabase>().playCountDao()
-    }
-
-    factory {
-        get<RetroDatabase>().historyDao()
+        get<ApexDatabase>().historyDao()
     }
 
     single {
-        RealRoomRepository(get(), get(), get(), get(), get())
+        RealRoomRepository(get(), get(), get())
     } bind RoomRepository::class
 }
 private val autoModule = module {
@@ -105,7 +80,7 @@ private val mainModule = module {
         androidContext().contentResolver
     }
     single {
-        RetroWebServer(get())
+        ApexWebServer(get())
     }
 }
 private val dataModule = module {

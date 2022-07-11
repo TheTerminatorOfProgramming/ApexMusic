@@ -8,19 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.pm.PackageInfoCompat
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ttop.app.apex.BuildConfig
+import com.ttop.app.apex.databinding.FragmentWhatsNewBinding
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.util.PreferenceUtil.lastVersion
 import com.ttop.app.appthemehelper.util.ATHUtil.isWindowBackgroundDark
 import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight
 import com.ttop.app.appthemehelper.util.ColorUtil.lightenColor
 import com.ttop.app.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
-import com.ttop.app.apex.BuildConfig
-import com.ttop.app.apex.Constants
-import com.ttop.app.apex.databinding.FragmentWhatsNewBinding
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.openUrl
-import com.ttop.app.apex.util.PreferenceUtil.lastVersion
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.nio.charset.StandardCharsets
 import java.util.*
 

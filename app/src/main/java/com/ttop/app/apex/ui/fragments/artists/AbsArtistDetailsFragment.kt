@@ -22,6 +22,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Fade
+import com.afollestad.materialcab.attached.AttachedCab
+import com.afollestad.materialcab.attached.destroy
+import com.afollestad.materialcab.attached.isActive
+import com.afollestad.materialcab.createCab
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.transition.MaterialContainerTransform
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.album.HorizontalAlbumAdapter
@@ -29,9 +36,8 @@ import com.ttop.app.apex.adapter.song.SimpleSongAdapter
 import com.ttop.app.apex.databinding.FragmentArtistDetailsBinding
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.SingleColorTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
@@ -42,13 +48,8 @@ import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.network.Result
 import com.ttop.app.apex.network.model.LastFmArtist
 import com.ttop.app.apex.repository.RealRepository
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.*
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -85,6 +86,8 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentArtistDetailsBinding.bind(view)
+        enterTransition = Fade()
+        exitTransition = Fade()
         mainActivity.addMusicServiceEventListener(detailsViewModel)
         mainActivity.setSupportActionBar(binding.toolbar)
         binding.toolbar.title = null
@@ -180,8 +183,8 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
         detailsViewModel.getArtistInfo(name, lang, null)
             .observe(viewLifecycleOwner) { result ->
                 when (result) {
-                    is Result.Loading -> println("Loading")
-                    is Result.Error -> println("Error")
+                    is Result.Loading -> logD("Loading")
+                    is Result.Error -> logE("Error")
                     is Result.Success -> artistInfo(result.data)
                 }
             }

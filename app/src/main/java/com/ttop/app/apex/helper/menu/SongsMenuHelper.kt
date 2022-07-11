@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.helper.menu
 
+import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.R
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
@@ -21,6 +22,7 @@ import com.ttop.app.apex.dialogs.DeleteSongsDialog
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
+import com.ttop.app.apex.util.MusicUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,6 +53,15 @@ object SongsMenuHelper : KoinComponent {
                             .show(activity.supportFragmentManager, "ADD_PLAYLIST")
                     }
                 }
+                return true
+            }
+            R.id.action_share -> {
+                activity.startActivity(
+                    Intent.createChooser(
+                        MusicUtil.createShareMultipleSongIntent(activity, songs),
+                        null
+                    )
+                )
                 return true
             }
             R.id.action_delete_from_device -> {

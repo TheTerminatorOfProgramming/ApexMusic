@@ -25,16 +25,16 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.SongAdapter
 import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
 import com.ttop.app.apex.extensions.dipToPix
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.helper.menu.GenreMenuHelper
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.model.Song
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.transition.MaterialSharedAxis
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 

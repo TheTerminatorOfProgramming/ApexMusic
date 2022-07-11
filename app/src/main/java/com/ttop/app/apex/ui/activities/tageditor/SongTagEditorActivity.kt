@@ -27,7 +27,10 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.ImageViewTarget
+import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivitySongTagEditorBinding
 import com.ttop.app.apex.extensions.*
@@ -35,13 +38,11 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.repository.SongRepository
+import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.ApexColorUtil
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.ImageViewTarget
-import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.shape.MaterialShapeDrawable
+import com.ttop.app.apex.util.logD
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import org.jaudiotagger.tag.FieldKey
 import org.koin.android.ext.android.inject
 import java.util.*
@@ -102,7 +103,7 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
         binding.discNumberText.setText(discNumber)
         binding.lyricsText.setText(lyrics)
         binding.songComposerText.setText(composer)
-        println(songTitle + songYear)
+        logD(songTitle + songYear)
     }
 
     override fun loadCurrentImage() {

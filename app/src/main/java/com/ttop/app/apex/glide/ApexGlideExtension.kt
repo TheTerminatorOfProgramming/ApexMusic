@@ -4,22 +4,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.apex.App.Companion.getContext
-import com.ttop.app.apex.Constants.USER_BANNER
-import com.ttop.app.apex.Constants.USER_PROFILE
-import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.glide.artistimage.ArtistImage
-import com.ttop.app.apex.glide.audiocover.AudioFileCover
-import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
-import com.ttop.app.apex.model.Artist
-import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.ArtistSignatureUtil
-import com.ttop.app.apex.util.CustomArtistImageUtil.Companion.getFile
-import com.ttop.app.apex.util.CustomArtistImageUtil.Companion.getInstance
-import com.ttop.app.apex.util.MusicUtil.getMediaStoreAlbumCoverUri
-import com.ttop.app.apex.util.PreferenceUtil
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Priority
 import com.bumptech.glide.RequestBuilder
@@ -37,6 +21,22 @@ import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.signature.MediaStoreSignature
+import com.ttop.app.apex.App.Companion.getContext
+import com.ttop.app.apex.Constants.USER_BANNER
+import com.ttop.app.apex.Constants.USER_PROFILE
+import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.glide.artistimage.ArtistImage
+import com.ttop.app.apex.glide.audiocover.AudioFileCover
+import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
+import com.ttop.app.apex.model.Artist
+import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.util.ArtistSignatureUtil
+import com.ttop.app.apex.util.CustomArtistImageUtil.Companion.getFile
+import com.ttop.app.apex.util.CustomArtistImageUtil.Companion.getInstance
+import com.ttop.app.apex.util.MusicUtil.getMediaStoreAlbumCoverUri
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.TintHelper
 import java.io.File
 
 

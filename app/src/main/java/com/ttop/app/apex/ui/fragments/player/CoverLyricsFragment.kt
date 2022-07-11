@@ -11,16 +11,18 @@ import androidx.preference.PreferenceManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SHOW_LYRICS
 import com.ttop.app.apex.databinding.FragmentCoverLyricsBinding
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.extensions.dipToPix
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.model.lyrics.AbsSynchronizedLyrics
 import com.ttop.app.apex.model.lyrics.Lyrics
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jaudiotagger.audio.exceptions.CannotReadException
@@ -54,6 +56,17 @@ class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyri
         binding.playerLyricsLine2.setOnClickListener {
             goToLyrics(requireActivity())
         }
+    }
+
+    fun setColors(color: MediaNotificationProcessor) {
+        binding.run {
+            playerLyrics.background = null
+            playerLyricsLine1.setTextColor(color.primaryTextColor)
+            playerLyricsLine1.setShadowLayer(dipToPix(10f), 0f, 0f, color.backgroundColor)
+            playerLyricsLine2.setTextColor(color.primaryTextColor)
+            playerLyricsLine2.setShadowLayer(dipToPix(10f), 0f, 0f, color.backgroundColor)
+        }
+
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
@@ -102,8 +115,6 @@ class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyri
                 null
             }
         }
-
-
     }
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {

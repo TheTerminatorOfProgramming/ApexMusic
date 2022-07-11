@@ -19,23 +19,23 @@ import android.view.*
 import androidx.activity.addCallback
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
-import com.ttop.app.apex.R
-import com.ttop.app.apex.adapter.song.SongAdapter
-import com.ttop.app.apex.extensions.surfaceColor
-import com.ttop.app.apex.ui.fragments.GridStyle
-import com.ttop.app.apex.ui.fragments.ReloadType
-import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
-import com.ttop.app.apex.helper.SortOrder.SongSortOrder
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ApexColorUtil
-import com.ttop.app.apex.util.ApexUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
 import com.afollestad.materialcab.createCab
-import com.google.android.gms.cast.framework.CastButtonFactory
+import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.song.SongAdapter
+import com.ttop.app.apex.extensions.setUpMediaRouteButton
+import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.helper.SortOrder.SongSortOrder
+import com.ttop.app.apex.interfaces.ICabCallback
+import com.ttop.app.apex.interfaces.ICabHolder
+import com.ttop.app.apex.ui.fragments.GridStyle
+import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 
 class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager>(),
     ICabHolder {
@@ -148,12 +148,19 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
 
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
         //Setting up cast button
-        CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
+        requireContext().setUpMediaRouteButton(menu)
     }
 
     private fun setUpSortOrderMenu(sortOrderMenu: SubMenu) {
         val currentSortOrder: String? = getSortOrder()
         sortOrderMenu.clear()
+        sortOrderMenu.add(
+            0,
+            R.id.action_song_default_sort_order,
+            0,
+            R.string.sort_order_default
+        ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_DEFAULT
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_asc,
@@ -233,6 +240,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             R.layout.item_image_gradient ->
                 subMenu.findItem(R.id.action_layout_gradient_image).isChecked = true
         }
+
         if (getGridSize() < 2){
             subMenu.findItem(R.id.action_layout_normal).isChecked = true
         }
@@ -285,6 +293,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
 
     private fun handleSortOrderMenuItem(item: MenuItem): Boolean {
         val sortOrder: String = when (item.itemId) {
+            R.id.action_song_default_sort_order -> SongSortOrder.SONG_DEFAULT
             R.id.action_song_sort_order_asc -> SongSortOrder.SONG_A_Z
             R.id.action_song_sort_order_desc -> SongSortOrder.SONG_Z_A
             R.id.action_song_sort_order_artist -> SongSortOrder.SONG_ARTIST
@@ -384,7 +393,6 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
 
     override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
         cab?.let {
-            println("Cab")
             if (it.isActive()) {
                 it.destroy()
             }

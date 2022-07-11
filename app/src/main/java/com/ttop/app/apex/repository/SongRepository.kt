@@ -20,7 +20,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.AudioColumns
 import android.provider.MediaStore.Audio.Media
-import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.Constants.IS_MUSIC
 import com.ttop.app.apex.Constants.baseProjection
@@ -33,6 +32,7 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
+import com.ttop.app.appthemehelper.util.VersionUtils
 import java.text.Collator
 
 /**

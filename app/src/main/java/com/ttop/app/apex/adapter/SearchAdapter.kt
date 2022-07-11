@@ -25,12 +25,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.apex.*
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.db.PlaylistWithSongs
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.model.Album
@@ -38,6 +37,7 @@ import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.appthemehelper.ThemeStore
 import java.util.*
 
 class SearchAdapter(
@@ -60,26 +60,26 @@ class SearchAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return if (viewType == HEADER) ViewHolder(
-            LayoutInflater.from(activity).inflate(
-                R.layout.sub_header,
-                parent,
-                false
-            ), viewType
-        )
-        else if (viewType == ALBUM || viewType == ARTIST || viewType== ALBUM_ARTIST)
-            ViewHolder(
+        return when (viewType) {
+            HEADER -> ViewHolder(
+                LayoutInflater.from(activity).inflate(
+                    R.layout.sub_header,
+                    parent,
+                    false
+                ), viewType
+            )
+            ALBUM, ARTIST, ALBUM_ARTIST -> ViewHolder(
                 LayoutInflater.from(activity).inflate(
                     R.layout.item_list_big,
                     parent,
                     false
                 ), viewType
             )
-        else
-            ViewHolder(
+            else -> ViewHolder(
                 LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false),
                 viewType
             )
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

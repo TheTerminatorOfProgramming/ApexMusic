@@ -15,27 +15,26 @@
 package com.ttop.app.apex.ui.activities
 
 import android.app.KeyguardManager
-import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.core.content.getSystemService
-import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
-import com.ttop.app.apex.databinding.ActivityLockScreenBinding
-import com.ttop.app.apex.extensions.hideStatusBar
-import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
-import com.ttop.app.apex.extensions.whichFragment
-import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
-import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexMusicColoredTarget
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.r0adkll.slidr.Slidr
 import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrListener
 import com.r0adkll.slidr.model.SlidrPosition
+import com.ttop.app.apex.R
+import com.ttop.app.apex.databinding.ActivityLockScreenBinding
+import com.ttop.app.apex.extensions.hideStatusBar
+import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
+import com.ttop.app.apex.extensions.whichFragment
+import com.ttop.app.apex.glide.ApexColoredTarget
+import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
+import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 class LockScreenActivity : AbsMusicServiceActivity() {
     private lateinit var binding: ActivityLockScreenBinding
@@ -83,10 +82,15 @@ class LockScreenActivity : AbsMusicServiceActivity() {
 
     @Suppress("Deprecation")
     private fun lockScreenInit() {
-        if (Build.VERSION.SDK_INT >= 27) {
+        if (VersionUtils.hasOreoMR1()) {
             setShowWhenLocked(true)
+            val keyguardManager = getSystemService<KeyguardManager>()
+            keyguardManager?.requestDismissKeyguard(this, null)
         } else {
-            this.window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+            this.window.addFlags(
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+            )
         }
     }
 
@@ -107,7 +111,7 @@ class LockScreenActivity : AbsMusicServiceActivity() {
             .songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))
             .dontAnimate()
-            .into(object : ApexMusicColoredTarget(binding.image) {
+            .into(object : ApexColoredTarget(binding.image) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     fragment?.setColor(colors)
                 }

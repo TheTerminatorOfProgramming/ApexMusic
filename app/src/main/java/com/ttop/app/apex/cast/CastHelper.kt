@@ -1,17 +1,16 @@
 package com.ttop.app.apex.cast
 
 import androidx.core.net.toUri
-import com.ttop.app.apex.cast.RetroWebServer.Companion.MIME_TYPE_AUDIO
-import com.ttop.app.apex.cast.RetroWebServer.Companion.PART_COVER_ART
-import com.ttop.app.apex.cast.RetroWebServer.Companion.PART_SONG
+import com.google.android.gms.cast.MediaInfo
+import com.google.android.gms.cast.MediaInfo.STREAM_TYPE_BUFFERED
+import com.google.android.gms.cast.MediaMetadata
+import com.google.android.gms.cast.MediaMetadata.*
+import com.google.android.gms.common.images.WebImage
+import com.ttop.app.apex.cast.ApexWebServer.Companion.MIME_TYPE_AUDIO
+import com.ttop.app.apex.cast.ApexWebServer.Companion.PART_COVER_ART
+import com.ttop.app.apex.cast.ApexWebServer.Companion.PART_SONG
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.ApexUtil
-import com.google.android.gms.cast.*
-import com.google.android.gms.cast.MediaInfo.STREAM_TYPE_BUFFERED
-import com.google.android.gms.cast.MediaMetadata.*
-import com.google.android.gms.cast.framework.CastSession
-import com.google.android.gms.common.images.WebImage
-import org.json.JSONObject
 import java.net.MalformedURLException
 import java.net.URL
 
@@ -21,39 +20,7 @@ object CastHelper {
     private const val CAST_MUSIC_METADATA_ALBUM_ID = "metadata_album_id"
     private const val CAST_URL_PROTOCOL = "http"
 
-    fun castSong(castSession: CastSession, song: Song) {
-        try {
-            val remoteMediaClient = castSession.remoteMediaClient
-            val mediaLoadOptions = MediaLoadOptions.Builder().apply {
-                setPlayPosition(0)
-                setAutoplay(true)
-            }.build()
-            remoteMediaClient?.load(song.toMediaInfo()!!, mediaLoadOptions)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    fun castQueue(castSession: CastSession, songs: List<Song>, position: Int, progress: Long) {
-        try {
-            val remoteMediaClient = castSession.remoteMediaClient
-            remoteMediaClient?.queueLoad(
-                songs.toMediaInfoList(),
-                if (position != -1) position else 0,
-                MediaStatus.REPEAT_MODE_REPEAT_OFF,
-                progress,
-                JSONObject()
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun List<Song>.toMediaInfoList(): Array<MediaQueueItem> {
-        return map { MediaQueueItem.Builder(it.toMediaInfo()!!).build() }.toTypedArray()
-    }
-
-    private fun Song.toMediaInfo(): MediaInfo? {
+    fun Song.toMediaInfo(): MediaInfo? {
         val song = this
         val baseUrl: URL
         try {

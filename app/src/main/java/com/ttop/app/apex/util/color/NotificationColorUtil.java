@@ -35,9 +35,10 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import java.util.WeakHashMap;
-
 import com.ttop.app.apex.R;
+
+import java.util.Locale;
+import java.util.WeakHashMap;
 
 /**
  * Helper class to process legacy (Holo) notifications to make them look like material
@@ -329,7 +330,7 @@ public class NotificationColorUtil {
   }
 
   private static String contrastChange(int colorOld, int colorNew, int bg) {
-    return String.format(
+    return String.format(Locale.ROOT,
         "from %.2f:1 to %.2f:1",
         ColorUtilsFromCompat.calculateContrast(colorOld, bg),
         ColorUtilsFromCompat.calculateContrast(colorNew, bg));

@@ -3,13 +3,13 @@ package com.ttop.app.apex.dialogs
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogPlaybackSpeedBinding
 import com.ttop.app.apex.extensions.accent
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.util.PreferenceUtil
-import com.google.android.material.slider.Slider
 
 class PlaybackSpeedDialog : DialogFragment() {
 

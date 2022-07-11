@@ -8,8 +8,7 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_audio_ducking"
         android:title="@string/pref_title_audio_ducking"
-        app:icon="@drawable/ic_volume_down"
-        app:isPreferenceVisible="@bool/isNotOreo"/>
+        app:icon="@drawable/ic_volume_down"/>
 
     <com.ttop.app.apex.preferences.DurationPreference
         android:defaultValue="0"
@@ -56,17 +55,10 @@
         android:title="@string/pref_title_toggle_toggle_headset"
         app:icon="@drawable/ic_play_arrow" />
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="toggle_shuffle"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_toggle_shuffle"
-        android:title="@string/pref_title_toggle_toggle_shuffle"
-        app:icon="@drawable/ic_shuffle" />
-
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_bluetooth">
+        android:title="@string/pref_header_bluetooth"
+        android:key="bluetooth_section">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="bluetooth_playback"
@@ -91,4 +83,5 @@
             android:title="@string/pref_title_bluetooth_device"
             android:dependency="specific_device"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
 </androidx.preference.PreferenceScreen>

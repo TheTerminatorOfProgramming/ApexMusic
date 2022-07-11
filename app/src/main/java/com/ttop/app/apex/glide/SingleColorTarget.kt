@@ -16,12 +16,12 @@ package com.ttop.app.apex.glide
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import com.ttop.app.appthemehelper.util.ATHUtil
+import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.glide.palette.BitmapPaletteTarget
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.util.ColorUtil
-import com.bumptech.glide.request.transition.Transition
+import com.ttop.app.appthemehelper.util.ATHUtil
 
 abstract class SingleColorTarget(view: ImageView) : BitmapPaletteTarget(view) {
 

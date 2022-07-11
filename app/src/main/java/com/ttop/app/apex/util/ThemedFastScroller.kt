@@ -14,11 +14,11 @@
 package com.ttop.app.apex.util
 
 import android.view.ViewGroup
+import com.ttop.app.apex.views.PopupBackground
 import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight
 import com.ttop.app.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
 import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.apex.views.PopupBackground
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import me.zhanghai.android.fastscroll.PopupStyles

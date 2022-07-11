@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
+import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogAudioFadeBinding
 import com.ttop.app.apex.extensions.addAccentColor
@@ -16,7 +16,7 @@ import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.util.PreferenceUtil
-import com.google.android.material.slider.Slider
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 
 class DurationPreference @JvmOverloads constructor(

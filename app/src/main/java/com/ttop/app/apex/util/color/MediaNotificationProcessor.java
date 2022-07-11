@@ -31,11 +31,11 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.palette.graphics.Palette;
 
-import java.util.List;
-
+import com.ttop.app.apex.R;
 import com.ttop.app.appthemehelper.util.ATHUtil;
 import com.ttop.app.appthemehelper.util.ColorUtil;
-import com.ttop.app.apex.R;
+
+import java.util.List;
 
 /** A class the processes media notifications and extracts the right text and background colors. */
 public class MediaNotificationProcessor {

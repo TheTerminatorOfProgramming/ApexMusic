@@ -15,13 +15,13 @@
 package com.ttop.app.apex.glide.artistimage
 
 import android.content.Context
-import com.ttop.app.apex.network.DeezerService
 import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.model.ModelLoader
 import com.bumptech.glide.load.model.ModelLoader.LoadData
 import com.bumptech.glide.load.model.ModelLoaderFactory
 import com.bumptech.glide.load.model.MultiModelLoaderFactory
 import com.bumptech.glide.signature.ObjectKey
+import com.ttop.app.apex.network.DeezerService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -55,25 +55,20 @@ class Factory(
     val context: Context
 ) : ModelLoaderFactory<ArtistImage, InputStream> {
 
-    private var deezerService: DeezerService
-    private var okHttp: OkHttpClient
+    private var deezerService = DeezerService.invoke(
+        DeezerService.createDefaultOkHttpClient(context)
+            .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+            .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+            .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+            .addInterceptor(createLogInterceptor())
+            .build()
+    )
 
-    init {
-        okHttp =
-            OkHttpClient.Builder()
-                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .build()
-        deezerService = DeezerService.invoke(
-            DeezerService.createDefaultOkHttpClient(context)
-                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .addInterceptor(createLogInterceptor())
-                .build()
-        )
-    }
+    private var okHttp = OkHttpClient.Builder()
+        .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+        .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+        .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+        .build()
 
     private fun createLogInterceptor(): Interceptor {
         val interceptor = HttpLoggingInterceptor()

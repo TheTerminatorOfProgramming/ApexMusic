@@ -16,7 +16,6 @@ package com.ttop.app.apex.preferences
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -27,16 +26,16 @@ import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
-import com.ttop.app.apex.App
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
-import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.colorControlNormal
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.values
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
-import com.bumptech.glide.Glide
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 class NowPlayingScreenPreference @JvmOverloads constructor(
     context: Context,
@@ -62,8 +61,6 @@ class NowPlayingScreenPreference @JvmOverloads constructor(
 class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChangeListener {
 
     private var viewPagerPosition: Int = 0
-    var positiveBtnClicked = false
-    var wasPeekQueue = false
     override fun onPageScrollStateChanged(state: Int) {
     }
 
@@ -87,26 +84,12 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
         return materialDialog(R.string.pref_title_now_playing_screen_appearance)
             .setCancelable(false)
             .setPositiveButton(R.string.set) { _, _ ->
-                wasPeekQueue = PreferenceUtil.nowPlayingScreen == Peek_Queue
-
                 val nowPlayingScreen = values()[viewPagerPosition]
                 PreferenceUtil.nowPlayingScreen = nowPlayingScreen
-                positiveBtnClicked = true
             }
             .setView(view)
             .create()
             .colorButtons()
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        if (positiveBtnClicked && wasPeekQueue){
-            activity?.recreate()
-        }
-
-        if (positiveBtnClicked && PreferenceUtil.nowPlayingScreen == Peek_Queue){
-            activity?.recreate()
-        }
     }
 
     companion object {
@@ -147,8 +130,4 @@ private class NowPlayingScreenAdapter(private val context: Context) : PagerAdapt
     override fun getPageTitle(position: Int): CharSequence {
         return context.getString(values()[position].titleRes)
     }
-}
-
-private fun isNowPlayingThemes(screen: NowPlayingScreen): Boolean {
-    return (screen == Full || screen == Card || screen == Plain || screen == Blur || screen == Color || screen == Simple || screen == BlurCard || screen == Circle || screen == Adaptive)
 }

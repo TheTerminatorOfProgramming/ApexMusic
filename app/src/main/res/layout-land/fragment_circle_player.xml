@@ -47,7 +47,8 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"
         style="@style/Toolbar"
-        android:navigationIcon="@drawable/ic_keyboard_arrow_down_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
@@ -81,7 +82,7 @@
     <me.tankery.lib.circularseekbar.CircularSeekBar
         android:id="@+id/volumeSeekBar"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="275dp"
         app:cs_circle_stroke_width="4dp"
         app:cs_end_angle="60"
         app:cs_move_outside_circle="true"
@@ -94,7 +95,8 @@
         app:layout_constraintEnd_toEndOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerToolbar"
-        tools:progress="50" />
+        tools:progress="50"
+        android:layout_marginBottom="100dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/playPauseButton"
@@ -111,7 +113,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:background="?attr/roundSelector"
         android:padding="16dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/playPauseButton"
         app:layout_constraintStart_toEndOf="@+id/playPauseButton"
         app:layout_constraintTop_toTopOf="@+id/playPauseButton"
@@ -123,7 +127,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:background="?attr/roundSelector"
         android:padding="16dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/playPauseButton"
         app:layout_constraintEnd_toStartOf="@+id/playPauseButton"
         app:layout_constraintTop_toTopOf="@+id/playPauseButton"
@@ -136,7 +142,7 @@
         android:text="@string/volume"
         android:textAppearance="@style/TextViewSubtitle2"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@+id/volumeSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/volumeSeekBar"
         app:layout_constraintEnd_toEndOf="@+id/volumeSeekBar"
         app:layout_constraintStart_toStartOf="@+id/volumeSeekBar" />
 
@@ -178,11 +184,11 @@
         app:layout_constraintTop_toBottomOf="@+id/titleContainer"
         tools:text="@tools:sample/lorem/random" />
 
-    <androidx.appcompat.widget.AppCompatSeekBar
+    <com.google.android.material.slider.Slider
         android:id="@+id/progressSlider"
+        style="@style/Widget.Apex.Slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/seekbar_padding"
         app:layout_constraintBottom_toTopOf="@id/songInfo"
         app:layout_constraintEnd_toStartOf="@id/songTotalTime"
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
@@ -194,7 +200,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:gravity="center_vertical|right|end"
+        android:gravity="center_vertical|end"
         android:singleLine="true"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp"
@@ -202,16 +208,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/progressSlider"
         app:layout_constraintTop_toTopOf="@id/progressSlider"
-        tools:ignore="RtlHardcoded,RtlSymmetry"
         tools:text="@tools:sample/date/hhmmss" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songCurrentProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:gravity="center_vertical|left|end"
-        android:paddingLeft="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical|start"
+        android:paddingStart="8dp"
+        android:paddingEnd="0dp"
         android:singleLine="true"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp"
@@ -219,7 +226,6 @@
         app:layout_constraintEnd_toStartOf="@id/progressSlider"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toTopOf="@id/progressSlider"
-        tools:ignore="RtlHardcoded,RtlSymmetry"
         tools:text="@tools:sample/date/hhmmss" />
 
 

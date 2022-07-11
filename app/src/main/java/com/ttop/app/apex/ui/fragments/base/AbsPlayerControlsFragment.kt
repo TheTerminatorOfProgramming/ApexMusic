@@ -29,15 +29,14 @@ import androidx.annotation.LayoutRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
-import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
-import com.ttop.app.apex.ui.fragments.other.VolumeFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
-import com.ttop.app.apex.misc.SimpleOnSeekbarChangeListener
 import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
+import com.ttop.app.apex.ui.fragments.other.VolumeFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -59,10 +58,11 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
 
     var lastDisabledPlaybackControlsColor: Int = 0
 
-    var isSeeking = false
-        private set
+    private var isSeeking = false
 
-    open val progressSlider: SeekBar? = null
+    open val progressSlider: Slider? = null
+
+    open val seekBar: SeekBar? = null
 
     abstract val shuffleButton: ImageButton
 
@@ -79,45 +79,75 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     private var progressAnimator: ObjectAnimator? = null
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
-        progressSlider?.max = total
+        if (seekBar == null) {
+            progressSlider?.valueTo = total.toFloat()
 
-        if (isSeeking) {
-            progressSlider?.progress = progress
+            progressSlider?.value =
+                progress.toFloat().coerceIn(progressSlider?.valueFrom, progressSlider?.valueTo)
         } else {
-            progressAnimator = ObjectAnimator.ofInt(progressSlider, "progress", progress).apply {
-                duration = SLIDER_ANIMATION_TIME
-                interpolator = LinearInterpolator()
-                start()
-            }
+            seekBar?.max = total
 
+            if (isSeeking) {
+                seekBar?.progress = progress
+            } else {
+                progressAnimator =
+                    ObjectAnimator.ofInt(seekBar, "progress", progress).apply {
+                        duration = SLIDER_ANIMATION_TIME
+                        interpolator = LinearInterpolator()
+                        start()
+                    }
+
+            }
         }
         songTotalTime?.text = MusicUtil.getReadableDurationString(total.toLong())
         songCurrentProgress?.text = MusicUtil.getReadableDurationString(progress.toLong())
     }
 
     private fun setUpProgressSlider() {
-        progressSlider?.setOnSeekBarChangeListener(object : SimpleOnSeekbarChangeListener() {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    onUpdateProgressViews(
-                        progress,
-                        MusicPlayerRemote.songDurationMillis
-                    )
-                }
+        progressSlider?.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
+            onProgressChange(value.toInt(), fromUser)
+        })
+        progressSlider?.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: Slider) {
+                onStartTrackingTouch()
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-                isSeeking = true
-                progressViewUpdateHelper.stop()
-                progressAnimator?.cancel()
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                isSeeking = false
-                MusicPlayerRemote.seekTo(seekBar.progress)
-                progressViewUpdateHelper.start()
+            override fun onStopTrackingTouch(slider: Slider) {
+                onStopTrackingTouch(slider.value.toInt())
             }
         })
+
+        seekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                onProgressChange(progress, fromUser)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                onStartTrackingTouch()
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                onStopTrackingTouch(seekBar?.progress ?: 0)
+            }
+        })
+    }
+
+    private fun onProgressChange(value: Int, fromUser: Boolean) {
+        if (fromUser) {
+            onUpdateProgressViews(value, MusicPlayerRemote.songDurationMillis)
+        }
+    }
+
+    private fun onStartTrackingTouch() {
+        isSeeking = true
+        progressViewUpdateHelper.stop()
+        progressAnimator?.cancel()
+    }
+
+    private fun onStopTrackingTouch(value: Int) {
+        isSeeking = false
+        MusicPlayerRemote.seekTo(value)
+        progressViewUpdateHelper.start()
     }
 
     private lateinit var progressViewUpdateHelper: MusicProgressViewUpdateHelper

@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.color.DynamicColors
+import com.google.android.material.color.DynamicColorsOptions
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivityRestoreBinding
 import com.ttop.app.apex.extensions.accentColor
@@ -19,8 +21,6 @@ import com.ttop.app.apex.helper.BackupContent
 import com.ttop.app.apex.helper.BackupContent.*
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.theme.getNightMode
-import com.google.android.material.color.DynamicColors
-import com.google.android.material.color.DynamicColorsOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

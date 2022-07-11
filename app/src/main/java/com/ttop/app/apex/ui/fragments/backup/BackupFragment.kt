@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.input.input
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.backup.BackupAdapter
 import com.ttop.app.apex.databinding.FragmentBackupBinding
@@ -22,8 +23,7 @@ import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
-import com.ttop.app.apex.util.BackupUtil
-import com.afollestad.materialdialogs.input.input
+import com.ttop.app.apex.util.Share
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -128,12 +128,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                 return true
             }
             R.id.action_share -> {
-                activity?.startActivity(
-                    Intent.createChooser(
-                        BackupUtil.createShareFileIntent(file, requireContext()),
-                        null
-                    )
-                )
+                Share.shareFile(requireContext(), file, "*/*")
                 return true
             }
             R.id.action_rename -> {
@@ -158,5 +153,10 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             }
         }
         return false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

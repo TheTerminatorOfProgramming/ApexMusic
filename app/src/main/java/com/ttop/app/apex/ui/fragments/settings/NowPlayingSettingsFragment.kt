@@ -21,10 +21,7 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 
 /**
  * @author Hemanth S (h4h13).
@@ -32,7 +29,6 @@ import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 
 class NowPlayingSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
-
 
     override fun invalidateSettings() {
         updateNowPlayingScreenSummary()
@@ -93,14 +89,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         swipeDismiss?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
-
-        val peekAlt: TwoStatePreference? = findPreference(PEEK_ALT)
-        peekAlt?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Peek_Queue
-        peekAlt?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.shouldRecreate = true
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -120,6 +108,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
+
         val preference: Preference? = findPreference(ALBUM_COVER_TRANSFORM)
         preference?.setOnPreferenceChangeListener { albumPrefs, newValue ->
             setSummary(albumPrefs, newValue)

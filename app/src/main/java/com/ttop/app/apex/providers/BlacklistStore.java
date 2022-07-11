@@ -27,11 +27,11 @@ import android.os.Environment;
 
 import androidx.annotation.NonNull;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import com.ttop.app.apex.util.FileUtil;
 import com.ttop.app.apex.util.PreferenceUtil;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class BlacklistStore extends SQLiteOpenHelper {
   public static final String DATABASE_NAME = "blacklist.db";

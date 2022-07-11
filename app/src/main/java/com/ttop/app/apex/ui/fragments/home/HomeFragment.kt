@@ -15,44 +15,40 @@
 package com.ttop.app.apex.ui.fragments.home
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
-import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.bundleOf
 import androidx.core.text.parseAsHtml
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.*
 import com.ttop.app.apex.adapter.HomeAdapter
 import com.ttop.app.apex.databinding.FragmentHomeBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.drawNextToNavbar
-import com.ttop.app.apex.extensions.elevatedAccentColor
-import com.ttop.app.apex.ui.fragments.ReloadType
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.MusicUtil.repository
+import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.userName
-import com.google.android.gms.cast.framework.CastButtonFactory
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 class HomeFragment :
     AbsMainActivityFragment(R.layout.fragment_home), IScrollHelper {
@@ -71,6 +67,8 @@ class HomeFragment :
 
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
+
+        checkForMargins()
 
         val homeAdapter = HomeAdapter(mainActivity)
         binding.recyclerView.apply {
@@ -190,6 +188,14 @@ class HomeFragment :
         binding.actionShuffle.elevatedAccentColor()
     }
 
+    private fun checkForMargins() {
+        if (mainActivity.isBottomNavVisible) {
+            binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = dip(R.dimen.bottom_nav_height)
+            }
+        }
+    }
+
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
         menu.removeItem(R.id.action_grid_size)
@@ -203,7 +209,7 @@ class HomeFragment :
             ATHToolbarActivity.getToolbarBackgroundColor(binding.toolbar)
         )
         //Setting up cast button
-        CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
+        requireContext().setUpMediaRouteButton(menu)
     }
 
     override fun scrollToTop() {
@@ -212,17 +218,19 @@ class HomeFragment :
     }
 
     fun setSharedAxisXTransitions() {
-        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).addTarget(CoordinatorLayout::class.java)
+        exitTransition =
+            MaterialSharedAxis(MaterialSharedAxis.X, true).addTarget(CoordinatorLayout::class.java)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
     }
 
     private fun setSharedAxisYTransitions() {
-        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true).addTarget(CoordinatorLayout::class.java)
+        exitTransition =
+            MaterialSharedAxis(MaterialSharedAxis.Y, true).addTarget(CoordinatorLayout::class.java)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
     }
 
     private fun loadSuggestions(songs: List<Song>) {
-        if (songs.isEmpty()) {
+        if (!PreferenceUtil.homeSuggestions || songs.isEmpty()) {
             binding.suggestions.root.isVisible = false
             return
         }
@@ -246,7 +254,7 @@ class HomeFragment :
                     MusicPlayerRemote.clearQueue()
                 }
 
-                val song = repository.allSong()
+                val song = MusicUtil.repository.allSong()
 
                 MusicPlayerRemote.openAndShuffleQueue(song, false)
                 MusicPlayerRemote.playNext(songs.subList(0, 8), false)
@@ -263,7 +271,7 @@ class HomeFragment :
                     MusicPlayerRemote.clearQueue()
                 }
 
-                val song = repository.allSong()
+                val song = MusicUtil.repository.allSong()
 
                 MusicPlayerRemote.openAndShuffleQueue(song, false)
                 MusicPlayerRemote.playNext(songs[index], false)
@@ -313,7 +321,9 @@ class HomeFragment :
 
     override fun onResume() {
         super.onResume()
+        checkForMargins()
         libraryViewModel.forceReload(ReloadType.HomeSections)
+        exitTransition = null
     }
 
     override fun onDestroyView() {

@@ -23,25 +23,25 @@ import android.provider.MediaStore.Images.Media
 import android.view.MenuItem
 import androidx.core.net.toUri
 import androidx.core.view.drawToBitmap
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
 import com.ttop.app.apex.databinding.ActivityShareInstagramBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.setLightStatusBar
 import com.ttop.app.apex.extensions.setStatusBarColor
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexMusicColoredTarget
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.activities.base.AbsThemeActivity
 import com.ttop.app.apex.util.Share
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
 
 /**
  * Created by hemanths on 2020-02-02.
  */
 
-class ShareInstagramStory : AbsBaseActivity() {
+class ShareInstagramStory : AbsThemeActivity() {
 
     private lateinit var binding: ActivityShareInstagramBinding
 
@@ -72,7 +72,7 @@ class ShareInstagramStory : AbsBaseActivity() {
                 .asBitmapPalette()
                 .songCoverOptions(songFinal)
                 .load(ApexGlideExtension.getSongModel(songFinal))
-                .into(object : ApexMusicColoredTarget(binding.image) {
+                .into(object : ApexColoredTarget(binding.image) {
                     override fun onColorReady(colors: MediaNotificationProcessor) {
                         val isColorLight = ColorUtil.isColorLight(colors.backgroundColor)
                         setColors(isColorLight, colors.backgroundColor)

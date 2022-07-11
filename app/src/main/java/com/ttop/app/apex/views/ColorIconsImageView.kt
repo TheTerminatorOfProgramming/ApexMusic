@@ -21,13 +21,13 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
+import com.google.android.material.color.MaterialColors
+import com.ttop.app.apex.R
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.apex.R
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ApexColorUtil
-import com.google.android.material.color.MaterialColors
 
 
 class ColorIconsImageView @JvmOverloads constructor(

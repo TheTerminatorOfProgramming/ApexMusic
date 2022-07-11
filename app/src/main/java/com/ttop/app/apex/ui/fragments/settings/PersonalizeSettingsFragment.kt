@@ -19,8 +19,6 @@ import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
-import com.ttop.app.apex.preferences.LibraryPreference
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 

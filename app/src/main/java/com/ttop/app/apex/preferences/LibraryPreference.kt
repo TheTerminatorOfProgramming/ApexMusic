@@ -23,7 +23,6 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.CategoryInfoAdapter
 import com.ttop.app.apex.databinding.PreferenceDialogLibraryCategoriesBinding
@@ -33,6 +32,7 @@ import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 
 class LibraryPreference @JvmOverloads constructor(

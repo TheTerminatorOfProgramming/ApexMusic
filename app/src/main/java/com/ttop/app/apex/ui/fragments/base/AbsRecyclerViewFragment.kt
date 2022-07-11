@@ -24,19 +24,18 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import com.google.android.material.transition.MaterialFadeThrough
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMainRecyclerBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dip
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller.create
-import com.google.android.material.transition.MaterialFadeThrough
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
@@ -61,6 +60,7 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         mainActivity.supportActionBar?.title = null
         initLayoutManager()
         initAdapter()
+        checkForMargins()
         setUpRecyclerView()
         setupToolbar()
         binding.shuffleButton.fitsSystemWindows = PreferenceUtil.isFullScreenMode
@@ -118,7 +118,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             adapter = this@AbsRecyclerViewFragment.adapter
             create(this)
         }
-        checkForPadding()
     }
 
     protected open fun createFastScroller(recyclerView: RecyclerView): FastScroller {
@@ -131,7 +130,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             override fun onChanged() {
                 super.onChanged()
                 checkIsEmpty()
-                checkForPadding()
             }
         })
     }
@@ -148,16 +146,12 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         binding.empty.isVisible = adapter!!.itemCount == 0
     }
 
-    private fun checkForPadding() {
-        val itemCount: Int = adapter?.itemCount ?: 0
-
-        binding.recyclerView.updatePadding(
-            bottom = if (itemCount > 0 && MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                dip(R.dimen.mini_player_height_expanded)
-            } else {
-                dip(R.dimen.bottom_nav_height)
+    private fun checkForMargins() {
+        if (mainActivity.isBottomNavVisible) {
+            binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = dip(R.dimen.bottom_nav_height)
             }
-        )
+        }
     }
 
     private fun initLayoutManager() {
@@ -168,16 +162,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
 
     @NonNull
     protected abstract fun createAdapter(): A
-
-    override fun onQueueChanged() {
-        super.onQueueChanged()
-        checkForPadding()
-    }
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        checkForPadding()
-    }
 
     protected fun invalidateLayoutManager() {
         initLayoutManager()
@@ -230,6 +214,11 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             )
         }
         return false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkForMargins()
     }
 
     override fun onDestroyView() {

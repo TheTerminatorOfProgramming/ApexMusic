@@ -17,17 +17,17 @@ package com.ttop.app.apex.ui.fragments.player.simple
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentSimplePlayerBinding
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.whichFragment
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 /**
  * @author Hemanth S (h4h13).

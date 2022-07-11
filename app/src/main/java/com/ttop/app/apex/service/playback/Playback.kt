@@ -14,6 +14,8 @@
 
 package com.ttop.app.apex.service.playback
 
+import com.ttop.app.apex.model.Song
+
 
 interface Playback {
 
@@ -23,11 +25,13 @@ interface Playback {
 
     val audioSessionId: Int
 
-    fun setDataSource(path: String, force: Boolean): Boolean
+    fun setDataSource(
+        song: Song, force: Boolean, completion: (success: Boolean) -> Unit,
+    )
 
     fun setNextDataSource(path: String?)
 
-    fun setCallbacks(callbacks: PlaybackCallbacks)
+    var callbacks: PlaybackCallbacks?
 
     fun start(): Boolean
 
@@ -51,12 +55,13 @@ interface Playback {
 
     fun setPlaybackSpeedPitch(speed: Float, pitch: Float)
 
-
     interface PlaybackCallbacks {
         fun onTrackWentToNext()
 
         fun onTrackEnded()
 
         fun onTrackEndedWithCrossfade()
+
+        fun onPlayStateChanged()
     }
 }

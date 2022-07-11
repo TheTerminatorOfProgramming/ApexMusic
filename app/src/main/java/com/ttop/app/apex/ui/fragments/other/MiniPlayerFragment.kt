@@ -14,7 +14,6 @@
  */
 package com.ttop.app.apex.ui.fragments.other
 
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -23,7 +22,6 @@ import android.text.style.ForegroundColorSpan
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import com.ttop.app.apex.R
@@ -32,14 +30,14 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
-import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
-import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import kotlin.math.abs
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
@@ -66,7 +64,10 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         _binding = FragmentMiniPlayerBinding.bind(view)
         view.setOnTouchListener(FlingPlayBackController(requireContext()))
         setUpMiniPlayer()
+        setUpButtons()
+    }
 
+    fun setUpButtons() {
         if (ApexUtil.isTablet) {
             binding.actionNext.show()
             binding.actionPrevious.show()
@@ -136,10 +137,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
         binding.progressBar.max = total
-        val animator = ObjectAnimator.ofInt(binding.progressBar, "progress", progress)
-        animator.duration = 1000
-        animator.interpolator = DecelerateInterpolator()
-        animator.start()
+        binding.progressBar.progress = progress
     }
 
     override fun onResume() {

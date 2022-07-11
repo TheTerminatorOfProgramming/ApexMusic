@@ -17,11 +17,11 @@ package com.ttop.app.apex.ui.fragments.player.tiny
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentTinyControlsFragmentBinding
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ColorUtil
 
 class TinyPlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_tiny_controls_fragment) {

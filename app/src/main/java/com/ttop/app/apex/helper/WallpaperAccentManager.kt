@@ -4,9 +4,9 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.util.PreferenceUtil
 
 class WallpaperAccentManager(val context: Context) {
 

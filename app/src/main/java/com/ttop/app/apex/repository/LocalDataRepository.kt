@@ -1,9 +1,9 @@
 package com.ttop.app.apex.repository
 
 import android.content.Context
-import com.ttop.app.apex.model.Contributor
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.ttop.app.apex.model.Contributor
 
 interface LocalDataRepository {
     fun contributors(): List<Contributor>

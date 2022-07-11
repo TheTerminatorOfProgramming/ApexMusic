@@ -68,6 +68,7 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
         binding.otherSettings.setOnClickListener(this)
         binding.aboutSettings.setOnClickListener(this)
         binding.backupRestoreSettings.setOnClickListener(this)
+
         binding.container.drawAboveSystemBarsWithPadding()
     }
 

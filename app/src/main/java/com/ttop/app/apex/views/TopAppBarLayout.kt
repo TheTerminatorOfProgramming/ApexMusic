@@ -6,12 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.updateLayoutParams
-import com.ttop.app.apex.databinding.CollapsingAppbarLayoutBinding
-import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
-import com.ttop.app.apex.util.PreferenceUtil
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
 import com.google.android.material.shape.MaterialShapeDrawable
+import com.ttop.app.apex.databinding.CollapsingAppbarLayoutBinding
+import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
+import com.ttop.app.apex.util.PreferenceUtil
 import dev.chrisbanes.insetter.applyInsetter
 
 class TopAppBarLayout @JvmOverloads constructor(

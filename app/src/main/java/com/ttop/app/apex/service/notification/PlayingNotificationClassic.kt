@@ -26,19 +26,15 @@ import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle
-import com.ttop.app.appthemehelper.util.ATHUtil.resolveColor
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.extensions.isSystemDarkModeEnabled
 import com.ttop.app.apex.extensions.toBitmap
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
@@ -46,10 +42,13 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
+import com.ttop.app.appthemehelper.util.ATHUtil.resolveColor
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -76,6 +75,7 @@ class PlayingNotificationClassic(
     }
 
     override fun updateMetadata(song: Song, onUpdate: () -> Unit) {
+        if (song == Song.emptySong) return
         val notificationLayout = getCombinedRemoteViews(true, song)
         val notificationLayoutBig = getCombinedRemoteViews(false, song)
 
@@ -102,7 +102,6 @@ class PlayingNotificationClassic(
         setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         setCustomContentView(notificationLayout)
         setCustomBigContentView(notificationLayoutBig)
-        setStyle(DecoratedMediaCustomViewStyle())
         setOngoing(true)
         val bigNotificationImageSize = context.resources
             .getDimensionPixelSize(R.dimen.notification_big_image_size)
@@ -251,8 +250,7 @@ class PlayingNotificationClassic(
         }
     }
 
-    override fun updateFavorite(song: Song, onUpdate: () -> Unit) {
-    }
+    override fun updateFavorite(isFavorite: Boolean) {}
 
     private fun buildPendingIntent(
         context: Context, action: String,

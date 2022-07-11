@@ -20,6 +20,13 @@ import android.view.HapticFeedbackConstants
 import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
+import com.afollestad.materialdialogs.color.colorChooser
+import com.google.android.material.color.DynamicColors
+import com.ttop.app.apex.*
+import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
 import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
 import com.ttop.app.appthemehelper.ThemeStore
@@ -27,12 +34,6 @@ import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.*
-import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
-import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.util.PreferenceUtil
-import com.afollestad.materialdialogs.color.colorChooser
-import com.google.android.material.color.DynamicColors
 
 /**
  * @author Hemanth S (h4h13).
@@ -78,11 +79,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
         blackTheme?.setOnPreferenceChangeListener { _, _ ->
             ThemeStore.markChanged(requireContext())
-            if (VersionUtils.hasNougatMR()) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
-                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-            }
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
+            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
             restartActivity()
             true
         }
@@ -100,17 +99,13 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         }
 
         val colorAppShortcuts: TwoStatePreference? = findPreference(SHOULD_COLOR_APP_SHORTCUTS)
-        if (!VersionUtils.hasNougatMR()) {
-            colorAppShortcuts?.isVisible = false
-        } else {
-            colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
+        colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
             colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                 true
             }
-        }
 
         val materialYou: ATESwitchPreference? = findPreference(MATERIAL_YOU)
         materialYou?.setOnPreferenceChangeListener { _, newValue ->
@@ -128,15 +123,17 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val adaptive: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
-        adaptive?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
         val customFont: Preference? = findPreference(CUSTOM_FONT)
         customFont?.setOnPreferenceChangeListener { _, _ ->
             restartActivity()
             true
+        }
+
+        val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
+        adaptiveColor?.isEnabled =
+            PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)
+        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
     }
 

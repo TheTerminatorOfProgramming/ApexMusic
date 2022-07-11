@@ -25,17 +25,17 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 
+import com.ttop.app.apex.R;
+import com.ttop.app.appthemehelper.ThemeStore;
+import com.ttop.app.appthemehelper.util.ColorUtil;
+import com.ttop.app.appthemehelper.util.VersionUtils;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import com.ttop.app.appthemehelper.ThemeStore;
-import com.ttop.app.appthemehelper.util.ColorUtil;
-import com.ttop.app.appthemehelper.util.VersionUtils;
-import com.ttop.app.apex.R;
 
 public class ApexColorUtil {
   public static int desaturateColor(int color, float ratio) {

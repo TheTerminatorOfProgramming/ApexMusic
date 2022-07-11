@@ -7,13 +7,13 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
-import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.util.getExternalStorageDirectory
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.updateListItems
+import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.util.getExternalStorageDirectory
+import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 
 class BlacklistFolderChooserDialog : DialogFragment() {

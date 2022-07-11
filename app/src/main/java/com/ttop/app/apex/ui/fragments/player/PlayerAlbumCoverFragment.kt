@@ -26,8 +26,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.apex.LYRICS_TYPE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SHOW_LYRICS
@@ -36,19 +34,21 @@ import com.ttop.app.apex.adapter.album.AlbumCoverPagerAdapter.AlbumCoverFragment
 import com.ttop.app.apex.databinding.FragmentPlayerAlbumCoverBinding
 import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.extensions.surfaceColor
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
-import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
-import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.lyrics.CoverLrcView
 import com.ttop.app.apex.model.lyrics.Lyrics
 import com.ttop.app.apex.transform.CarousalPagerTransformer
 import com.ttop.app.apex.transform.ParallaxPagerTransformer
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
+import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.util.CoverLyricsType
 import com.ttop.app.apex.util.LyricUtil
-import com.ttop.app.apex.util.LyricsType
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -85,21 +85,19 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private fun updateLyrics() {
-        binding.lyricsView.setLabel(context?.getString(R.string.no_lyrics_found))
         val song = MusicPlayerRemote.currentSong
         lifecycleScope.launch(Dispatchers.IO) {
             val lrcFile = LyricUtil.getSyncedLyricsFile(song)
             if (lrcFile != null) {
-                withContext(Dispatchers.Main) {
-                    binding.lyricsView.loadLrc(lrcFile)
-                }
+                binding.lyricsView.loadLrc(lrcFile)
             } else {
                 val embeddedLyrics = LyricUtil.getEmbeddedSyncedLyrics(song.data)
-                withContext(Dispatchers.Main) {
-                    if (embeddedLyrics != null) {
-                        binding.lyricsView.loadLrc(embeddedLyrics)
-                    } else {
+                if (embeddedLyrics != null) {
+                    binding.lyricsView.loadLrc(embeddedLyrics)
+                } else {
+                    withContext(Dispatchers.Main) {
                         binding.lyricsView.reset()
+                        binding.lyricsView.setLabel(context?.getString(R.string.no_lyrics_found))
                     }
                 }
             }
@@ -115,6 +113,22 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPlayerAlbumCoverBinding.bind(view)
+        setupViewPager()
+        progressViewUpdateHelper = MusicProgressViewUpdateHelper(this, 500, 1000)
+        maybeInitLyrics()
+        lrcView.apply {
+            setDraggable(true) { time ->
+                MusicPlayerRemote.seekTo(time.toInt())
+                MusicPlayerRemote.resumePlaying()
+                true
+            }
+            setOnClickListener {
+                goToLyrics(requireActivity())
+            }
+        }
+    }
+
+    private fun setupViewPager() {
         binding.viewPager.addOnPageChangeListener(this)
         val nps = PreferenceUtil.nowPlayingScreen
 
@@ -140,18 +154,6 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
                 PreferenceUtil.albumCoverTransform
             )
         }
-        progressViewUpdateHelper = MusicProgressViewUpdateHelper(this, 500, 1000)
-        maybeInitLyrics()
-        lrcView.apply {
-            setDraggable(true) { time ->
-                MusicPlayerRemote.seekTo(time.toInt())
-                MusicPlayerRemote.resumePlaying()
-                true
-            }
-            setOnClickListener {
-                goToLyrics(requireActivity())
-            }
-        }
     }
 
     override fun onResume() {
@@ -176,7 +178,9 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     override fun onPlayingMetaChanged() {
-        binding.viewPager.currentItem = MusicPlayerRemote.position
+        if (viewPager.currentItem != MusicPlayerRemote.position) {
+            viewPager.setCurrentItem(MusicPlayerRemote.position, true)
+        }
         updateLyrics()
     }
 
@@ -185,15 +189,18 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
-        if (key == SHOW_LYRICS) {
-            if (sharedPreferences.getBoolean(key, false)) {
-                maybeInitLyrics()
-            } else {
-                showLyrics(false)
-                progressViewUpdateHelper?.stop()
+        when (key) {
+            SHOW_LYRICS -> {
+                if (PreferenceUtil.showLyrics) {
+                    maybeInitLyrics()
+                } else {
+                    showLyrics(false)
+                    progressViewUpdateHelper?.stop()
+                }
             }
-        } else if (key == LYRICS_TYPE) {
-            maybeInitLyrics()
+            LYRICS_TYPE -> {
+                maybeInitLyrics()
+            }
         }
     }
 
@@ -211,7 +218,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         binding.coverLyrics.isVisible = false
         binding.lyricsView.isVisible = false
         binding.viewPager.isVisible = true
-        val lyrics: View = if (PreferenceUtil.lyricsType == LyricsType.REPLACE_COVER) {
+        val lyrics: View = if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
             ObjectAnimator.ofFloat(viewPager, View.ALPHA, if (visible) 0F else 1F).start()
             lrcView
         } else {
@@ -231,7 +238,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         // Don't show lyrics container for below conditions
         if (lyricViewNpsList.contains(nps) && PreferenceUtil.showLyrics) {
             showLyrics(true)
-            if (PreferenceUtil.lyricsType == LyricsType.REPLACE_COVER) {
+            if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
                 progressViewUpdateHelper?.start()
             }
         } else {
@@ -242,15 +249,13 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
 
     private fun updatePlayingQueue() {
         binding.viewPager.apply {
-            adapter = AlbumCoverPagerAdapter(childFragmentManager, MusicPlayerRemote.playingQueue)
-            adapter?.notifyDataSetChanged()
-            currentItem = MusicPlayerRemote.position
+            adapter = AlbumCoverPagerAdapter(parentFragmentManager, MusicPlayerRemote.playingQueue)
+            setCurrentItem(MusicPlayerRemote.position, true)
             onPageSelected(MusicPlayerRemote.position)
         }
     }
 
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    }
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
     override fun onPageSelected(position: Int) {
         currentPosition = position
@@ -312,5 +317,5 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private val lyricViewNpsList =
-        listOf(Blur, Classic, Color, Flat, Material, Normal, Plain, Simple)
+        listOf(Blur, Classic, Color, Flat, Material, MD3, Normal, Plain, Simple)
 }

@@ -19,7 +19,6 @@ import android.content.*
 import android.os.Bundle
 import android.os.IBinder
 import androidx.lifecycle.lifecycleScope
-import com.ttop.app.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.toPlayCount
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -33,6 +32,8 @@ import com.ttop.app.apex.service.MusicService.Companion.QUEUE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.REPEAT_MODE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.SHUFFLE_MODE_CHANGED
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.logD
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -185,17 +186,16 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
             true
         ) // just in case we need to know this at some point
         sendBroadcast(intent)
-        println("sendBroadcast $hasPermissions")
+        logD("sendBroadcast $hasPermissions")
     }
 
     override fun getPermissionsToRequest(): Array<String> {
         return mutableListOf(Manifest.permission.READ_EXTERNAL_STORAGE).apply {
-            if (!VersionUtils.hasQ()) {
+            if (!VersionUtils.hasR()) {
                 add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
         }.toTypedArray()
     }
-
 
     private class MusicStateReceiver(activity: AbsMusicServiceActivity) : BroadcastReceiver() {
 

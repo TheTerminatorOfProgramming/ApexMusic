@@ -25,37 +25,33 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
-import android.widget.SeekBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.getSystemService
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentCirclePlayerBinding
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.GlideRequest
-import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.crossfadeListener
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper.Callback
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
-import com.ttop.app.apex.misc.SimpleOnSeekbarChangeListener
+import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.base.goToAlbum
+import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.volume.AudioVolumeObserver
 import com.ttop.app.apex.volume.OnAudioVolumeChangedListener
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.appthemehelper.util.TintHelper
+import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import me.tankery.lib.circularseekbar.CircularSeekBar
 
 /**
@@ -77,6 +73,9 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
 
     private var rotateAnimator: ObjectAnimator? = null
     private var lastRequest: GlideRequest<Drawable>? = null
+
+    private var progressAnimator: ObjectAnimator? = null
+    var isSeeking = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,11 +112,6 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
 
     private fun setupViews() {
         setUpProgressSlider()
-        ViewUtil.setProgressDrawable(
-            binding.progressSlider,
-            ThemeStore.accentColor(requireContext()),
-            false
-        )
         binding.volumeSeekBar.circleProgressColor = accentColor()
         binding.volumeSeekBar.circleColor = ColorUtil.withAlpha(accentColor(), 0.25f)
         setUpPlayPauseFab()
@@ -135,11 +129,12 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     private fun setUpPrevNext() {
         updatePrevNextColor()
         binding.nextButton.setOnTouchListener(MusicSeekSkipTouchListener(requireActivity(), true))
-        binding.previousButton.setOnTouchListener(MusicSeekSkipTouchListener(requireActivity(), false))
+        binding.previousButton.setOnTouchListener(MusicSeekSkipTouchListener(requireActivity(),
+            false))
     }
 
     private fun updatePrevNextColor() {
-        val accentColor = ThemeStore.accentColor(requireContext())
+        val accentColor = accentColor()
         binding.nextButton.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN)
         binding.previousButton.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN)
     }
@@ -147,7 +142,7 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     private fun setUpPlayPauseFab() {
         TintHelper.setTintAuto(
             binding.playPauseButton,
-            ThemeStore.accentColor(requireContext()),
+            accentColor(),
             false
         )
         binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
@@ -166,7 +161,6 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
 
     override fun onResume() {
         super.onResume()
-        lastRequest = null
         progressViewUpdateHelper.start()
         if (audioVolumeObserver == null) {
             audioVolumeObserver = AudioVolumeObserver(requireActivity())
@@ -183,6 +177,7 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
 
     override fun onPause() {
         super.onPause()
+        lastRequest = null
         progressViewUpdateHelper.stop()
     }
 
@@ -275,7 +270,11 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     }
 
 
-    override fun onProgressChanged(seekBar: CircularSeekBar?, progress: Float, fromUser: Boolean) {
+    override fun onProgressChanged(
+        circularSeekBar: CircularSeekBar?,
+        progress: Float,
+        fromUser: Boolean,
+    ) {
         val audioManager = audioManager
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress.toInt(), 0)
     }
@@ -286,28 +285,39 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     override fun onStopTrackingTouch(seekBar: CircularSeekBar?) {
     }
 
-    fun setUpProgressSlider() {
+    private fun setUpProgressSlider() {
         binding.progressSlider.applyColor(accentColor())
-        binding.progressSlider.setOnSeekBarChangeListener(object : SimpleOnSeekbarChangeListener() {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    MusicPlayerRemote.seekTo(progress)
-                    onUpdateProgressViews(
-                        MusicPlayerRemote.songProgressMillis,
-                        MusicPlayerRemote.songDurationMillis
-                    )
-                }
+        val progressSlider = binding.progressSlider
+        progressSlider.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
+            if (fromUser) {
+                onUpdateProgressViews(
+                    value.toInt(),
+                    MusicPlayerRemote.songDurationMillis
+                )
+            }
+        })
+        progressSlider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: Slider) {
+                isSeeking = true
+                progressViewUpdateHelper.stop()
+            }
+
+            override fun onStopTrackingTouch(slider: Slider) {
+                isSeeking = false
+                MusicPlayerRemote.seekTo(slider.value.toInt())
+                progressViewUpdateHelper.start()
             }
         })
     }
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
-        binding.progressSlider.max = total
+        val progressSlider = binding.progressSlider
+        progressSlider.valueTo = total.toFloat()
 
-        val animator = ObjectAnimator.ofInt(binding.progressSlider, "progress", progress)
-        animator.duration = AbsPlayerControlsFragment.SLIDER_ANIMATION_TIME
-        animator.interpolator = LinearInterpolator()
-        animator.start()
+        progressSlider.valueTo = total.toFloat()
+
+        progressSlider.value =
+            progress.toFloat().coerceIn(progressSlider.valueFrom, progressSlider.valueTo)
 
         binding.songTotalTime.text = MusicUtil.getReadableDurationString(total.toLong())
         binding.songCurrentProgress.text = MusicUtil.getReadableDurationString(progress.toLong())

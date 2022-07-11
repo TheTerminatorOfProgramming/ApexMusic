@@ -24,12 +24,12 @@ import android.provider.MediaStore.Audio.AudioColumns;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.List;
-
 import com.ttop.app.apex.App;
 import com.ttop.app.apex.Constants;
 import com.ttop.app.apex.model.Song;
 import com.ttop.app.apex.repository.RealSongRepository;
+
+import java.util.List;
 
 /**
  * @author Andrew Neal, modified for Phonograph by Karim Abou Zeid

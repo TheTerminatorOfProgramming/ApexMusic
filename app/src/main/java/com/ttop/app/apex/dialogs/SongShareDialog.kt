@@ -21,10 +21,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.ShareInstagramStory
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.activities.ShareInstagramStory
 import com.ttop.app.apex.util.MusicUtil
 
 class SongShareDialog : DialogFragment() {
@@ -60,8 +60,7 @@ class SongShareDialog : DialogFragment() {
             0 -> {
                 startActivity(Intent.createChooser(song?.let {
                     MusicUtil.createShareSongFileIntent(
-                        it,
-                        requireContext()
+                        requireContext(), it
                     )
                 }, null))
             }

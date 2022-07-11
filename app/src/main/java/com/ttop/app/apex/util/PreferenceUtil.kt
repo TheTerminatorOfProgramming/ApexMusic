@@ -10,24 +10,23 @@ import androidx.core.content.res.use
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
-import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.*
-import com.ttop.app.apex.extensions.getIntRes
-import com.ttop.app.apex.extensions.getStringOrDefault
-import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
-import com.ttop.app.apex.ui.fragments.GridStyle
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
-import com.ttop.app.apex.helper.SortOrder.*
-import com.ttop.app.apex.model.CategoryInfo
-import com.ttop.app.apex.transform.*
-import com.ttop.app.apex.util.theme.ThemeMode
-import com.ttop.app.apex.views.TopAppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
-import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.*
+import com.ttop.app.apex.extensions.getIntRes
+import com.ttop.app.apex.extensions.getStringOrDefault
+import com.ttop.app.apex.helper.SortOrder.*
+import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.transform.*
+import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
+import com.ttop.app.apex.ui.fragments.GridStyle
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
+import com.ttop.app.apex.util.theme.ThemeMode
+import com.ttop.app.apex.views.TopAppBarLayout
+import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 
 
@@ -39,9 +38,9 @@ object PreferenceUtil {
         CategoryInfo(CategoryInfo.Category.Songs, true),
         CategoryInfo(CategoryInfo.Category.Albums, true),
         CategoryInfo(CategoryInfo.Category.Artists, true),
-        CategoryInfo(CategoryInfo.Category.Playlists, false),
+        CategoryInfo(CategoryInfo.Category.Playlists, true),
         CategoryInfo(CategoryInfo.Category.Genres, false),
-        CategoryInfo(CategoryInfo.Category.Folder, true),
+        CategoryInfo(CategoryInfo.Category.Folder, false),
         CategoryInfo(CategoryInfo.Category.Search, false)
     )
 
@@ -116,7 +115,7 @@ object PreferenceUtil {
             putString(SAF_SDCARD_URI, value)
         }
 
-    val autoDownloadImagesPolicy
+    private val autoDownloadImagesPolicy
         get() = sharedPreferences.getStringOrDefault(
             AUTO_DOWNLOAD_IMAGES_POLICY,
             "only_wifi"
@@ -243,8 +242,6 @@ object PreferenceUtil {
 
     val isScreenOnEnabled get() = sharedPreferences.getBoolean(KEEP_SCREEN_ON, false)
 
-    val isShuffleModeOn get() = sharedPreferences.getBoolean(TOGGLE_SHUFFLE, false)
-
     val isSongInfo get() = sharedPreferences.getBoolean(EXTRA_SONG_INFO, false)
 
     val isPauseOnZeroVolume get() = sharedPreferences.getBoolean(PAUSE_ON_ZERO_VOLUME, false)
@@ -337,6 +334,7 @@ object PreferenceUtil {
 
     val isLockScreen get() = sharedPreferences.getBoolean(LOCK_SCREEN, false)
 
+    @Suppress("deprecation")
     fun isAllowedToDownloadMetadata(context: Context): Boolean {
         return when (autoDownloadImagesPolicy) {
             "always" -> true
@@ -402,7 +400,7 @@ object PreferenceUtil {
     val filterLength get() = sharedPreferences.getInt(FILTER_SONG, 20)
 
     var lastVersion
-    // This was stored as an integer before now it's a long, so avoid a ClassCastException
+        // This was stored as an integer before now it's a long, so avoid a ClassCastException
         get() = try {
             sharedPreferences.getLong(LAST_CHANGELOG_VERSION, 0)
         } catch (e: ClassCastException) {
@@ -472,15 +470,16 @@ object PreferenceUtil {
     val tabTitleMode: Int
         get() {
             return when (sharedPreferences.getStringOrDefault(
-                TAB_TEXT_MODE, "1"
+                TAB_TEXT_MODE, "0"
             ).toInt()) {
-                1 -> BottomNavigationView.LABEL_VISIBILITY_LABELED
                 0 -> BottomNavigationView.LABEL_VISIBILITY_AUTO
+                1 -> BottomNavigationView.LABEL_VISIBILITY_LABELED
                 2 -> BottomNavigationView.LABEL_VISIBILITY_SELECTED
                 3 -> BottomNavigationView.LABEL_VISIBILITY_UNLABELED
                 else -> BottomNavigationView.LABEL_VISIBILITY_LABELED
             }
         }
+
 
     var songGridSize
         get() = sharedPreferences.getInt(
@@ -651,7 +650,7 @@ object PreferenceUtil {
 
     var nowPlayingScreen: NowPlayingScreen
         get() {
-            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 18)
+            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 19)
             for (nowPlayingScreen in NowPlayingScreen.values()) {
                 if (nowPlayingScreen.id == id) {
                     return nowPlayingScreen
@@ -772,11 +771,11 @@ object PreferenceUtil {
     val isSnowFalling
         get() = sharedPreferences.getBoolean(SNOWFALL, false)
 
-    val lyricsType: LyricsType
+    val lyricsType: CoverLyricsType
         get() = if (sharedPreferences.getString(LYRICS_TYPE, "0") == "0") {
-            LyricsType.REPLACE_COVER
+            CoverLyricsType.REPLACE_COVER
         } else {
-            LyricsType.OVER_COVER
+            CoverLyricsType.OVER_COVER
         }
 
     var playbackSpeed
@@ -811,20 +810,14 @@ object PreferenceUtil {
     val swipeAnywhereToChangeSong
         get() = sharedPreferences.getBoolean(SWIPE_ANYWHERE_NOW_PLAYING, true)
 
-    val notificationActions
-        get() = sharedPreferences.getBoolean(
-            NOTIFICATION_ACTIONS, false
-        )
+    val swipeDownToDismiss
+        get() = sharedPreferences.getBoolean(SWIPE_DOWN_DISMISS, true)
 
-    val isUserName
-        get() = sharedPreferences.getBoolean(
-            TOGGLE_USER_NAME, false
-        )
-
-    val syncedLyrics
-        get() = sharedPreferences.getBoolean(
-            SYNCED_LYRICS, false
-        )
+    var tempValue
+        get() = sharedPreferences.getInt(TEMP_VALUE, 0)
+        set(value) = sharedPreferences.edit {
+            putInt(TEMP_VALUE, value)
+        }
 
     var shouldRecreate
         get() = sharedPreferences.getBoolean(
@@ -833,11 +826,10 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(SHOULD_RECREATE, value)}
 
-    val showUpdate
-        get() = sharedPreferences.getBoolean(SHOW_UPDATE, false)
-
-    val swipeDownToDismiss
-        get() = sharedPreferences.getBoolean(SWIPE_DOWN_DISMISS, true)
+    val isUserName
+        get() = sharedPreferences.getBoolean(
+            TOGGLE_USER_NAME, false
+        )
 
     val specificDevice
         get() = sharedPreferences.getBoolean(SPECIFIC_DEVICE, false)
@@ -845,16 +837,19 @@ object PreferenceUtil {
     val bluetoothDevice
         get() = sharedPreferences.getString(BLUETOOTH_DEVICE, "")
 
-    var tempValue
-        get() = sharedPreferences.getInt(TEMP_VALUE, 0)
+    var isQueueHidden
+        get() = sharedPreferences.getBoolean(
+            IS_QUEUE_HIDDEN, true
+        )
         set(value) = sharedPreferences.edit {
-            putInt(TEMP_VALUE, value)
-        }
+            putBoolean(IS_QUEUE_HIDDEN, value)}
 
-    val peekAlternative
-        get() = sharedPreferences.getBoolean(PEEK_ALT, false)
+    val syncedLyrics
+        get() = sharedPreferences.getBoolean(
+            SYNCED_LYRICS, false
+        )
 }
 
-enum class LyricsType {
+enum class CoverLyricsType {
     REPLACE_COVER, OVER_COVER
 }

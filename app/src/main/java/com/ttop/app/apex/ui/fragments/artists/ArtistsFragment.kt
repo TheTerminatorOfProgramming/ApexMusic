@@ -21,14 +21,16 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.afollestad.materialcab.attached.AttachedCab
+import com.afollestad.materialcab.attached.destroy
+import com.afollestad.materialcab.attached.isActive
+import com.afollestad.materialcab.createCab
 import com.ttop.app.apex.EXTRA_ARTIST_ID
 import com.ttop.app.apex.EXTRA_ARTIST_NAME
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.artist.ArtistAdapter
+import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.extensions.surfaceColor
-import com.ttop.app.apex.ui.fragments.GridStyle
-import com.ttop.app.apex.ui.fragments.ReloadType
-import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.ArtistSortOrder
 import com.ttop.app.apex.interfaces.IAlbumArtistClickListener
@@ -36,14 +38,12 @@ import com.ttop.app.apex.interfaces.IArtistClickListener
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.service.MusicService
-import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.ui.fragments.GridStyle
+import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ApexUtil
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
-import com.google.android.gms.cast.framework.CastButtonFactory
+import com.ttop.app.apex.util.PreferenceUtil
 
 class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, GridLayoutManager>(),
     IArtistClickListener, IAlbumArtistClickListener, ICabHolder {
@@ -180,7 +180,7 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
         setupAlbumArtistMenu(menu)
         //Setting up cast button
-        CastButtonFactory.setUpMediaRouteButton(requireContext(), menu, R.id.action_cast)
+        requireContext().setUpMediaRouteButton(menu)
     }
 
     private fun setupAlbumArtistMenu(menu: Menu) {

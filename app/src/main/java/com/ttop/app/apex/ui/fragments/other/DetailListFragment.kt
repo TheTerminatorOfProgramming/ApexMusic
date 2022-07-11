@@ -29,25 +29,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
-import com.ttop.app.apex.*
-import com.ttop.app.apex.adapter.album.AlbumAdapter
-import com.ttop.app.apex.adapter.artist.ArtistAdapter
-import com.ttop.app.apex.adapter.song.ShuffleButtonSongAdapter
-import com.ttop.app.apex.adapter.song.SongAdapter
-import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
-import com.ttop.app.apex.db.toSong
-import com.ttop.app.apex.extensions.dipToPix
-import com.ttop.app.apex.extensions.surfaceColor
-import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.interfaces.IAlbumClickListener
-import com.ttop.app.apex.interfaces.IArtistClickListener
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
-import com.ttop.app.apex.model.Album
-import com.ttop.app.apex.model.Artist
-import com.ttop.app.apex.util.ApexColorUtil
-import com.ttop.app.apex.util.ApexUtil
 import com.afollestad.materialcab.attached.AttachedCab
 import com.afollestad.materialcab.attached.destroy
 import com.afollestad.materialcab.attached.isActive
@@ -55,6 +36,23 @@ import com.afollestad.materialcab.createCab
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
+import com.ttop.app.apex.*
+import com.ttop.app.apex.adapter.album.AlbumAdapter
+import com.ttop.app.apex.adapter.artist.ArtistAdapter
+import com.ttop.app.apex.adapter.song.ShuffleButtonSongAdapter
+import com.ttop.app.apex.adapter.song.SongAdapter
+import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
+import com.ttop.app.apex.db.toSong
+import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.interfaces.IAlbumClickListener
+import com.ttop.app.apex.interfaces.IArtistClickListener
+import com.ttop.app.apex.interfaces.ICabCallback
+import com.ttop.app.apex.interfaces.ICabHolder
+import com.ttop.app.apex.model.Album
+import com.ttop.app.apex.model.Artist
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.util.ApexUtil
 
 
 class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_detail),
@@ -71,7 +69,8 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
             RECENT_ARTISTS,
             TOP_ALBUMS,
             RECENT_ALBUMS,
-            FAVOURITES -> {
+            FAVOURITES,
+            -> {
                 enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
                 returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
             }
@@ -103,13 +102,6 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
             TOP_PLAYED_PLAYLIST -> topPlayed()
         }
 
-        binding.recyclerView.adapter?.registerAdapterDataObserver(object : AdapterDataObserver() {
-            override fun onChanged() {
-                super.onChanged()
-                val height = dipToPix(52f)
-                binding.recyclerView.updatePadding(bottom = height.toInt())
-            }
-        })
         binding.appBarLayout.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -282,7 +274,6 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
 
     override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
         cab?.let {
-            println("Cab")
             if (it.isActive()) {
                 it.destroy()
             }

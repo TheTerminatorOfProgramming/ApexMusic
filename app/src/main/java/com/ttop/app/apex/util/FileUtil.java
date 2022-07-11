@@ -24,6 +24,12 @@ import android.webkit.MimeTypeMap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.ttop.app.apex.Constants;
+import com.ttop.app.apex.adapter.Storage;
+import com.ttop.app.apex.model.Song;
+import com.ttop.app.apex.repository.RealSongRepository;
+import com.ttop.app.apex.repository.SortedCursor;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,13 +45,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
-
-import com.ttop.app.apex.Constants;
-import com.ttop.app.apex.adapter.Storage;
-import com.ttop.app.apex.model.Song;
-import com.ttop.app.apex.repository.RealSongRepository;
-import com.ttop.app.apex.repository.SortedCursor;
 
 public final class FileUtil {
 
@@ -178,7 +179,7 @@ public final class FileUtil {
       if (dotPos == -1) {
         return false;
       }
-      String fileExtension = filename.substring(dotPos + 1).toLowerCase();
+      String fileExtension = filename.substring(dotPos + 1).toLowerCase(Locale.ROOT);
       String fileType = mimeTypeMap.getMimeTypeFromExtension(fileExtension);
       if (fileType == null) {
         return false;
@@ -304,7 +305,7 @@ public final class FileUtil {
               paths.add(path);
               try {
                 Storage item = new Storage();
-                if (path.toLowerCase().contains("sd")) {
+                if (path.toLowerCase(Locale.ROOT).contains("sd")) {
                   item.title = "SD Card";
                 } else {
                   item.title = "External Storage";

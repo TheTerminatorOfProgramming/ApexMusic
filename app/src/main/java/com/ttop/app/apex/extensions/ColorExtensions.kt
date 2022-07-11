@@ -32,18 +32,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.apex.R
-import com.ttop.app.apex.util.PreferenceUtil.materialYou
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputLayout
+import com.ttop.app.apex.R
+import com.ttop.app.apex.util.PreferenceUtil.materialYou
+import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.ATHUtil
+import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.MaterialValueHelper
 
 fun Int.ripAlpha(): Int {
     return ColorUtil.stripAlpha(this)
@@ -135,7 +135,9 @@ fun Button.accentTextColor() {
 
 fun MaterialButton.accentBackgroundColor() {
     if (materialYou) return
-    backgroundTintList = ColorStateList.valueOf(context.accentColor())
+    backgroundTintList = ColorStateList(
+        arrayOf(intArrayOf(android.R.attr.state_enabled), intArrayOf()),
+            intArrayOf(context.accentColor(), context.accentColor().addAlpha(0.12f)))
 }
 
 fun MaterialButton.accentOutlineColor() {
@@ -161,6 +163,15 @@ fun SeekBar.applyColor(@ColorInt color: Int) {
     thumbTintList = ColorStateList.valueOf(color)
     progressTintList = ColorStateList.valueOf(color)
     progressBackgroundTintList = ColorStateList.valueOf(color)
+}
+
+fun Slider.applyColor(@ColorInt color: Int) {
+    ColorStateList.valueOf(color).run {
+        thumbTintList = this
+        trackActiveTintList = this
+        trackInactiveTintList = ColorStateList.valueOf(color.addAlpha(0.1f))
+        haloTintList = this
+    }
 }
 
 fun ExtendedFloatingActionButton.accentColor() {
@@ -301,5 +312,9 @@ inline val @receiver:ColorInt Int.lighterColor
 inline val @receiver:ColorInt Int.darkerColor
     get() = ColorUtil.darkenColor(this)
 
-inline val Int.colorStateList : ColorStateList
+inline val Int.colorStateList: ColorStateList
     get() = ColorStateList.valueOf(this)
+
+fun @receiver:ColorInt Int.addAlpha(alpha: Float): Int {
+    return ColorUtil.withAlpha(this, alpha)
+}

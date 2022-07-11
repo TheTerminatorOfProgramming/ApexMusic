@@ -18,20 +18,18 @@ import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.text.parseAsHtml
 import androidx.media.app.NotificationCompat.MediaStyle
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
-import com.ttop.app.apex.ui.activities.MainActivity
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
@@ -39,20 +37,14 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
-import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
-import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 @SuppressLint("RestrictedApi")
 class PlayingNotificationImpl24(
-    val context: Context,
-    mediaSessionToken: MediaSessionCompat.Token
+    val context: MusicService,
+    mediaSessionToken: MediaSessionCompat.Token,
 ) : PlayingNotification(context) {
 
     init {
@@ -81,7 +73,6 @@ class PlayingNotificationImpl24(
             else 0)
         )
         val toggleFavorite = buildFavoriteAction(false)
-        val update = buildUpdateAction()
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
             R.drawable.ic_skip_previous_round_white_32dp,
@@ -102,12 +93,7 @@ class PlayingNotificationImpl24(
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
-        setOngoing(false)
-        if (!PreferenceUtil.showUpdate){
-            addAction(toggleFavorite)
-        }else{
-            addAction(update)
-        }
+        addAction(toggleFavorite)
         addAction(previousAction)
         addAction(playPauseAction)
         addAction(nextAction)
@@ -115,26 +101,19 @@ class PlayingNotificationImpl24(
             addAction(dismissAction)
         }
 
-        if (!PreferenceUtil.notificationActions){
-            setStyle(
-                MediaStyle()
-                    .setMediaSession(mediaSessionToken)
-                    .setShowActionsInCompactView(1, 2, 3)
-            )}else{
-            setStyle(
-                MediaStyle()
-                    .setMediaSession(mediaSessionToken)
-                    .setShowActionsInCompactView(2)
-            )
-        }
-
+        setStyle(
+            MediaStyle()
+                .setMediaSession(mediaSessionToken)
+                .setShowActionsInCompactView(1, 2, 3)
+        )
         setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
     }
 
     override fun updateMetadata(song: Song, onUpdate: () -> Unit) {
-        setContentTitle(("<b>" + song.title + "</b>").parseAsHtml())
+        if (song == Song.emptySong) return
+        setContentTitle(song.title)
         setContentText(song.artistName)
-        setSubText(("<b>" + song.albumName + "</b>").parseAsHtml())
+        setSubText(song.albumName)
         val bigNotificationImageSize = context.resources
             .getDimensionPixelSize(R.dimen.notification_big_image_size)
         GlideApp.with(context)
@@ -195,30 +174,12 @@ class PlayingNotificationImpl24(
         ).build()
     }
 
-    private fun buildUpdateAction(): NotificationCompat.Action {
-        val updateResId =
-            R.drawable.ic_update
-        return NotificationCompat.Action.Builder(
-            updateResId,
-            context.getString(R.string.action_update),
-            retrievePlaybackAction(UPDATE_NOTIFY)
-        ).build()
-    }
-
     override fun setPlaying(isPlaying: Boolean) {
         mActions[2] = buildPlayAction(isPlaying)
     }
 
-    override fun updateFavorite(song: Song, onUpdate: () -> Unit) {
-        if (!PreferenceUtil.showUpdate) {
-            GlobalScope.launch(Dispatchers.IO) {
-                val isFavorite = MusicUtil.repository.isSongFavorite(song.id)
-                withContext(Dispatchers.Main) {
-                    mActions[0] = buildFavoriteAction(isFavorite)
-                    onUpdate()
-                }
-            }
-        }
+    override fun updateFavorite(isFavorite: Boolean) {
+        mActions[0] = buildFavoriteAction(isFavorite)
     }
 
     private fun retrievePlaybackAction(action: String): PendingIntent {
@@ -235,13 +196,11 @@ class PlayingNotificationImpl24(
     companion object {
 
         fun from(
-            context: Context,
+            context: MusicService,
             notificationManager: NotificationManager,
-            mediaSession: MediaSessionCompat
+            mediaSession: MediaSessionCompat,
         ): PlayingNotification {
-            if (VersionUtils.hasOreo()) {
-                createNotificationChannel(context, notificationManager)
-            }
+            createNotificationChannel(context, notificationManager)
             return PlayingNotificationImpl24(context, mediaSession.sessionToken)
         }
     }

@@ -17,20 +17,19 @@ package com.ttop.app.apex.ui.fragments.player.adaptive
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import android.widget.SeekBar
 import android.widget.TextView
-import com.ttop.app.appthemehelper.ThemeStore
+import com.google.android.material.slider.Slider
+import com.ttop.app.apex.R
+import com.ttop.app.apex.databinding.FragmentAdaptivePlayerPlaybackControlsBinding
+import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.apex.R
-import com.ttop.app.apex.databinding.FragmentAdaptivePlayerPlaybackControlsBinding
-import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 
 class AdaptivePlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_adaptive_player_playback_controls) {
@@ -38,7 +37,7 @@ class AdaptivePlaybackControlsFragment :
     private var _binding: FragmentAdaptivePlayerPlaybackControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: SeekBar
+    override val progressSlider: Slider
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -124,7 +123,7 @@ class AdaptivePlaybackControlsFragment :
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
             color.primaryTextColor
         } else {
-            ThemeStore.accentColor(requireContext())
+            accentColor()
         }.ripAlpha()
 
         TintHelper.setTintAuto(

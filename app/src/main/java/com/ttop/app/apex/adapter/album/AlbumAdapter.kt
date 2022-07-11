@@ -24,9 +24,9 @@ import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexMusicColoredTarget
+import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
@@ -116,7 +116,7 @@ open class AlbumAdapter(
         GlideApp.with(activity).asBitmapPalette().albumCoverOptions(song)
             //.checkIgnoreMediaStore()
             .load(ApexGlideExtension.getSongModel(song))
-            .into(object : ApexMusicColoredTarget(holder.image!!) {
+            .into(object : ApexColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(colors, holder)
                 }

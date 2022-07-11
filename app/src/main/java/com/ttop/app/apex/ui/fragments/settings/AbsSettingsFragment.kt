@@ -19,13 +19,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.updatePadding
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat
-import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.apex.ui.activities.OnThemeChangedListener
+import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.preferences.*
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat
 import dev.chrisbanes.insetter.applyInsetter
 
 /**
@@ -63,9 +64,10 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
             listView.overScrollMode = View.OVER_SCROLL_NEVER
         }
 
+        listView.updatePadding(bottom = dip(R.dimen.mini_player_height))
         listView.applyInsetter {
             type(navigationBars = true) {
-                padding()
+                padding(vertical = true)
             }
         }
         invalidateSettings()
@@ -98,10 +100,6 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
     }
 
     fun restartActivity() {
-        if (activity is OnThemeChangedListener && !VersionUtils.hasS()) {
-            (activity as OnThemeChangedListener).onThemeValuesChanged()
-        } else {
-            activity?.recreate()
-        }
+        activity?.recreate()
     }
 }

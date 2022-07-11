@@ -3,9 +3,9 @@ package com.ttop.app.apex.ui.activities
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.FileUtils.createFile
 import com.ttop.app.apex.util.Share.shareFile
@@ -15,7 +15,7 @@ import java.util.*
 
 class ErrorActivity : AppCompatActivity() {
     private val dayFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    private val ReportPrefix = "bug_report-"
+    private val reportPrefix = "bug_report-"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.customactivityoncrash_default_error_activity)
@@ -39,7 +39,7 @@ class ErrorActivity : AppCompatActivity() {
             findViewById<Button>(R.id.customactivityoncrash_error_activity_more_info_button)
 
         moreInfoButton.setOnClickListener { //We retrieve all the error data and show it
-            AlertDialog.Builder(this@ErrorActivity)
+            MaterialAlertDialogBuilder(this@ErrorActivity)
                 .setTitle(R.string.customactivityoncrash_error_activity_error_details_title)
                 .setMessage(
                     CustomActivityOnCrash.getAllErrorDetailsFromIntent(
@@ -58,13 +58,13 @@ class ErrorActivity : AppCompatActivity() {
                     val bugReport = createFile(
                         context = this,
                         "Bug Report",
-                        "$ReportPrefix${dayFormat.format(Date())}",
+                        "$reportPrefix${dayFormat.format(Date())}",
                         CustomActivityOnCrash.getAllErrorDetailsFromIntent(
                             this@ErrorActivity,
                             intent
                         ), ".txt"
                     )
-                    shareFile(this, bugReport)
+                    shareFile(this, bugReport, "text/*")
                 }
                 .show()
         }
