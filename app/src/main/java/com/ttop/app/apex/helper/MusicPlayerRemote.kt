@@ -110,14 +110,6 @@ object MusicPlayerRemote : KoinComponent {
     val isServiceConnected: Boolean
         get() = musicService != null
 
-    fun createNotification(btName: String) {
-        musicService!!.createNotification(btName)
-    }
-
-    fun cancelNotification() {
-        musicService!!.cancelNotification()
-    }
-
     fun bindToService(context: Context, callback: ServiceConnection): ServiceToken? {
 
         val realActivity = (context as Activity).parent ?: context
