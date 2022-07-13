@@ -191,6 +191,8 @@
     <string name="font_barlow_name">Barlow</string>
     <string name="font_caveat_name">Caveat</string>
     <string name="font_default_name">Default</string>
+    <string name="font_square_dot_name">Square Dot</string>
+    <string name="font_round_dot_name">Round Dot</string>
     <string name="font_josefinsans_name">JosefinSans</string>
     <string name="font_jura_name">Jura</string>
     <string name="font_manrope_name">Manrope</string>

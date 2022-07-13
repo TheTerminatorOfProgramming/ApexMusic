@@ -81,8 +81,12 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.CaveatThemeOverlay)
         }
 
-        if (PreferenceUtil.circlePlayButton) {
-            setTheme(R.style.CircleFABOverlay)
+        if (PreferenceUtil.isCustomFont == "square_dot") {
+            setTheme(R.style.SquareDotThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "round_dot") {
+            setTheme(R.style.RoundDotThemeOverlay)
         }
 
         if (PreferenceUtil.circlePlayButton) {

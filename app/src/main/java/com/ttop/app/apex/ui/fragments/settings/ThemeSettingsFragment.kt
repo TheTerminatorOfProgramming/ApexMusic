@@ -123,6 +123,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val customFont: Preference? = findPreference(CUSTOM_FONT)
         customFont?.setOnPreferenceChangeListener { _, _ ->
             restartActivity()
+            PreferenceUtil.shouldRecreate = true
             true
         }
 

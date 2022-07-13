@@ -272,6 +272,16 @@
         <item name="android:fontFamily">@font/caveat</item>
     </style>
 
+    <style name="SquareDotThemeOverlay">
+        <item name="fontFamily">@font/square_dot</item>
+        <item name="android:fontFamily">@font/square_dot</item>
+    </style>
+
+    <style name="RoundDotThemeOverlay">
+        <item name="fontFamily">@font/round_dot</item>
+        <item name="android:fontFamily">@font/round_dot</item>
+    </style>
+
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton

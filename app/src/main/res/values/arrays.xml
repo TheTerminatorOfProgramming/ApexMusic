@@ -82,6 +82,8 @@
         <item>@string/font_sans_name</item>
         <item>@string/font_josefinsans_name</item>
         <item>@string/font_caveat_name</item>
+        <item>@string/font_square_dot_name</item>
+        <item>@string/font_round_dot_name</item>
     </string-array>
 
     <string-array name="pref_font_list_values">
@@ -92,6 +94,8 @@
         <item>sans</item>
         <item>jose</item>
         <item>caveat</item>
+        <item>square_dot</item>
+        <item>round_dot</item>
     </string-array>
 
     <string-array name="pref_home_grid_style_list_titles">
