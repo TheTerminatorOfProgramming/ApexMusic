@@ -186,6 +186,7 @@
         app:layout_constraintBottom_toTopOf="@id/songCurrentProgress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         tools:progress="20" />
 
     <com.google.android.material.textview.MaterialTextView

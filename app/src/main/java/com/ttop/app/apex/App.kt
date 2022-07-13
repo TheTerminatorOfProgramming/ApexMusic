@@ -47,8 +47,7 @@ class App : Application() {
         }
         wallpaperAccentManager.init()
 
-        if (VersionUtils.hasNougatMR())
-            DynamicShortcutManager(this).initDynamicShortcuts()
+        DynamicShortcutManager(this).initDynamicShortcuts()
 
         // setting Error activity
         CaocConfig.Builder.create().errorActivity(ErrorActivity::class.java)

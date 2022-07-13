@@ -47,14 +47,12 @@ class PermissionActivity : AbsMusicServiceActivity() {
         binding.storagePermission.setButtonClick {
             requestPermissions()
         }
-        if (VersionUtils.hasMarshmallow()) {
-            binding.audioPermission.show()
-            binding.audioPermission.setButtonClick {
-                if (!hasAudioPermission()) {
-                    val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
-                    intent.data = ("package:" + applicationContext.packageName).toUri()
-                    startActivity(intent)
-                }
+        binding.audioPermission.show()
+        binding.audioPermission.setButtonClick {
+            if (!hasAudioPermission()) {
+                val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                intent.data = ("package:" + applicationContext.packageName).toUri()
+                startActivity(intent)
             }
         }
 
@@ -101,12 +99,10 @@ class PermissionActivity : AbsMusicServiceActivity() {
             binding.storagePermission.checkImage.imageTintList =
                 ColorStateList.valueOf(accentColor())
         }
-        if (VersionUtils.hasMarshmallow()) {
-            if (hasAudioPermission()) {
-                binding.audioPermission.checkImage.isVisible = true
-                binding.audioPermission.checkImage.imageTintList =
-                    ColorStateList.valueOf(accentColor())
-            }
+        if (hasAudioPermission()) {
+            binding.audioPermission.checkImage.isVisible = true
+            binding.audioPermission.checkImage.imageTintList =
+                ColorStateList.valueOf(accentColor())
         }
         if (VersionUtils.hasS()) {
             if (hasBluetoothPermission()) {

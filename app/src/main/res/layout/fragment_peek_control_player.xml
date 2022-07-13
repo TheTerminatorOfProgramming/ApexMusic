@@ -45,7 +45,7 @@
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded,UnusedAttribute"
-        tools:progress="20" />
+        tools:progress="20"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songTotalTime"

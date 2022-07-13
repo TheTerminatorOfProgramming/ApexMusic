@@ -18,6 +18,7 @@ import android.content.SharedPreferences
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.CLASSIC_NOTIFICATION
@@ -43,30 +44,24 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
     override fun invalidateSettings() {
 
         val classicNotification: TwoStatePreference? = findPreference(CLASSIC_NOTIFICATION)
-        if (VERSION.SDK_INT < VERSION_CODES.N) {
-            classicNotification?.isVisible = false
-        } else {
-            classicNotification?.apply {
-                isChecked = PreferenceUtil.isClassicNotification
-                setOnPreferenceChangeListener { _, newValue ->
-                    // Save preference
-                    PreferenceUtil.isClassicNotification = newValue as Boolean
-                    invalidateSettings()
-                    true
-                }
+        classicNotification?.apply {
+            isChecked = PreferenceUtil.isClassicNotification
+            setOnPreferenceChangeListener { _, newValue ->
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                // Save preference
+                PreferenceUtil.isClassicNotification = newValue as Boolean
+                invalidateSettings()
+                true
             }
         }
 
         val coloredNotification: TwoStatePreference? = findPreference(COLORED_NOTIFICATION)
-        if (VERSION.SDK_INT >= VERSION_CODES.O) {
-            coloredNotification?.isEnabled = PreferenceUtil.isClassicNotification
-        } else {
-            coloredNotification?.apply {
-                isChecked = PreferenceUtil.isColoredNotification
-                setOnPreferenceChangeListener { _, newValue ->
-                    PreferenceUtil.isColoredNotification = newValue as Boolean
-                    true
-                }
+        coloredNotification?.apply {
+            isChecked = PreferenceUtil.isColoredNotification
+            setOnPreferenceChangeListener { _, newValue ->
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                PreferenceUtil.isColoredNotification = newValue as Boolean
+                true
             }
         }
     }

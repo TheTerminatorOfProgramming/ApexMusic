@@ -49,9 +49,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 setSummary(it, newValue)
                 ThemeStore.markChanged(requireContext())
 
-                if (VersionUtils.hasNougatMR()) {
-                    DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-                }
+                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                 restartActivity()
                 true
             }
@@ -69,8 +67,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                     subColors = ACCENT_COLORS_SUB, allowCustomArgb = true
                 ) { _, color ->
                     ThemeStore.editTheme(requireContext()).accentColor(color).commit()
-                    if (VersionUtils.hasNougatMR())
-                        DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                    DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                     restartActivity()
                 }
             }

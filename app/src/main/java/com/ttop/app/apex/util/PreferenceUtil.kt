@@ -340,14 +340,10 @@ object PreferenceUtil {
             "always" -> true
             "only_wifi" -> {
                 val connectivityManager = context.getSystemService<ConnectivityManager>()
-                if (VersionUtils.hasMarshmallow()) {
-                    val network = connectivityManager?.activeNetwork
-                    val capabilities = connectivityManager?.getNetworkCapabilities(network)
-                    capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                } else {
-                    val netInfo = connectivityManager?.activeNetworkInfo
-                    netInfo != null && netInfo.type == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting
-                }
+
+                val network = connectivityManager?.activeNetwork
+                val capabilities = connectivityManager?.getNetworkCapabilities(network)
+                capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
             }
             "never" -> false
             else -> false

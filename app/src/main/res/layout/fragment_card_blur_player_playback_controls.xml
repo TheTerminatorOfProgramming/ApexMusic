@@ -57,7 +57,8 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:progressDrawable="@drawable/color_progress_seek"
-        tools:progress="20" />
+
+        tools:progress="20"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songInfo"

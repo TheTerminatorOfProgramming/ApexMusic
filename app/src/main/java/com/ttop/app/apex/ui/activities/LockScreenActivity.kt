@@ -15,6 +15,7 @@
 package com.ttop.app.apex.ui.activities
 
 import android.app.KeyguardManager
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.core.content.getSystemService
@@ -82,15 +83,10 @@ class LockScreenActivity : AbsMusicServiceActivity() {
 
     @Suppress("Deprecation")
     private fun lockScreenInit() {
-        if (VersionUtils.hasOreoMR1()) {
+        if (Build.VERSION.SDK_INT >= 27) {
             setShowWhenLocked(true)
-            val keyguardManager = getSystemService<KeyguardManager>()
-            keyguardManager?.requestDismissKeyguard(this, null)
         } else {
-            this.window.addFlags(
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-            )
+            this.window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         }
     }
 

@@ -24,7 +24,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission
         android:name="android.permission.BLUETOOTH_CONNECT"
-        android:usesPermissionFlags="neverForLocation"
         tools:targetApi="s" />
     <!--
     This is not that important, it's just here so that we can query equalizer package
@@ -158,15 +157,15 @@
                     the path unless it's explicitly matched.
                 -->
                 <data android:host="*" />
-                <data android:pathPattern=".*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.rmbak" />
+                <data android:pathPattern=".*\\.abak" />
+                <data android:pathPattern=".*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
             </intent-filter>
         </activity>
         <activity
@@ -280,8 +279,7 @@
             android:value="true" />
         <meta-data
             android:name="com.android.vending.splits.required"
-            android:value="true" />
-        <!-- Android Auto -->
+            android:value="true" /> <!-- Android Auto -->
         <meta-data
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
@@ -290,8 +288,7 @@
             android:resource="@style/CarTheme" />
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
-            android:resource="@drawable/ic_notification" />
-        <!-- ChromeCast -->
+            android:resource="@drawable/ic_notification" /> <!-- ChromeCast -->
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="com.ttop.app.apex.cast.CastOptionsProvider" />

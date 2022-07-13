@@ -265,7 +265,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Main) {
-                val icon = if (animate && VersionUtils.hasMarshmallow()) {
+                val icon =  if (animate) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -310,8 +310,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         playerAlbumCoverFragment = whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment?.setCallbacks(this)
 
-        if (VersionUtils.hasMarshmallow())
-            view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
+        view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
     }
 
     @SuppressLint("ClickableViewAccessibility")

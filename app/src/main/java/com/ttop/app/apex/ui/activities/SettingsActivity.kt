@@ -85,8 +85,7 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
 
     override fun invoke(dialog: MaterialDialog, color: Int) {
         ThemeStore.editTheme(this).accentColor(color).commit()
-        if (VersionUtils.hasNougatMR())
-            DynamicShortcutManager(this).updateDynamicShortcuts()
+        DynamicShortcutManager(this).updateDynamicShortcuts()
         restart()
     }
 

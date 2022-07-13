@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded,UnusedAttribute"
         style="@style/Widget.Apex.Slider"
-        tools:progress="20" />
+        tools:progress="20"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songTotalTime"

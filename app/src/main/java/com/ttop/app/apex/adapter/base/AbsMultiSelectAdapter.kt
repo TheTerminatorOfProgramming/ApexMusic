@@ -31,10 +31,7 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
 
     override fun onCabFinished(cab: AttachedCab): Boolean {
         clearChecked()
-        activity.window.statusBarColor = when {
-            VersionUtils.hasMarshmallow() -> Color.TRANSPARENT
-            else -> Color.BLACK
-        }
+        activity.window.statusBarColor = Color.TRANSPARENT
         return true
     }
 

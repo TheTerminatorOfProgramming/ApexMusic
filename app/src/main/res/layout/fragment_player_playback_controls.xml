@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/progressSlider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/progressSlider"
-        tools:text="@tools:sample/date/hhmmss" />
+        tools:text="@tools:sample/date/hhmmss"/>
 
     <com.google.android.material.slider.Slider
         android:id="@+id/progressSlider"
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded,UnusedAttribute"
-        tools:progress="20" />
+        tools:progress="20"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songTotalTime"

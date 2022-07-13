@@ -157,11 +157,7 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private val bluetoothConnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED)
-    private val bluetoothDisconnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED)
-    private val bluetoothRequestDisconnectIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED)
     private var bluetoothConnectedRegistered = false
-    private var bluetoothDisconnectedRegistered = false
-    private var bluetoothRequestDisconnectRegistered = false
     private val headsetReceiverIntentFilter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
     private var headsetReceiverRegistered = false
     private var mediaSession: MediaSessionCompat? = null
@@ -349,8 +345,6 @@ class MusicService : MediaBrowserServiceCompat(),
         if (bluetoothConnectedRegistered) {
             unregisterReceiver(bluetoothReceiver)
             bluetoothConnectedRegistered = false
-            //bluetoothDisconnectedRegistered = false
-            //bluetoothRequestDisconnectRegistered = false
         }
         mediaSession?.isActive = false
         quit()
@@ -431,13 +425,10 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     fun checkNotificationExists() : Boolean {
-        if (VersionUtils.hasMarshmallow())
-        {
-            val mNotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            val notifications = mNotificationManager.activeNotifications
-            for (notification in notifications) {
-                return notification.id == NOTIFICATION_ID
-            }
+        val mNotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notifications = mNotificationManager.activeNotifications
+        for (notification in notifications) {
+            return notification.id == NOTIFICATION_ID
         }
         return false
     }
@@ -755,8 +746,6 @@ class MusicService : MediaBrowserServiceCompat(),
             TOGGLE_HEADSET -> registerHeadsetEvents()
             BLUETOOTH_PLAYBACK -> {
                 registerBluetoothConnected()
-                //registerBluetoothDisconnected()
-                //registerBluetoothRequestDisconnect()
             }
         }
     }
@@ -1384,24 +1373,6 @@ class MusicService : MediaBrowserServiceCompat(),
         }
     }
 
-    private fun registerBluetoothDisconnected() {
-        Log.i(TAG, "registerBluetoothDisconnected: ")
-        registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
-        if (!bluetoothDisconnectedRegistered) {
-            registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
-            bluetoothDisconnectedRegistered = true
-        }
-    }
-
-    private fun registerBluetoothRequestDisconnect() {
-        Log.i(TAG, "registerBluetoothRequestDisconnect: ")
-        registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
-        if (!bluetoothRequestDisconnectRegistered) {
-            registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
-            bluetoothRequestDisconnectRegistered = true
-        }
-    }
-
     private fun registerHeadsetEvents() {
         if (!headsetReceiverRegistered && isHeadsetPlugged) {
             registerReceiver(headsetReceiver, headsetReceiverIntentFilter)
@@ -1485,7 +1456,7 @@ class MusicService : MediaBrowserServiceCompat(),
         mediaButtonIntent.component = mediaButtonReceiverComponentName
         val mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(
             applicationContext, 0, mediaButtonIntent,
-            if (VersionUtils.hasMarshmallow()) PendingIntent.FLAG_IMMUTABLE else 0
+            PendingIntent.FLAG_IMMUTABLE
         )
         mediaSession = MediaSessionCompat(
             this,
