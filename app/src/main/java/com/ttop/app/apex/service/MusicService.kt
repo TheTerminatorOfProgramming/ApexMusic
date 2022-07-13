@@ -19,8 +19,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.PackageManager
@@ -82,7 +80,6 @@ import com.ttop.app.apex.util.PackageValidator
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
-import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
 import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt
 import com.ttop.app.apex.util.PreferenceUtil.isClassicNotification
 import com.ttop.app.apex.util.PreferenceUtil.isHeadsetPlugged
@@ -125,8 +122,6 @@ class MusicService : MediaBrowserServiceCompat(),
     private var trackEndedByCrossfade = false
     private val serviceScope = CoroutineScope(Job() + Main)
 
-    val NOTIFICATION_CHANNEL_ID = "bluetooth_detection"
-    val NOTIFICATION_ID = 2
     @JvmField
     var position = -1
     private val appWidgetBig = AppWidgetBig.instance
@@ -156,8 +151,6 @@ class MusicService : MediaBrowserServiceCompat(),
         }
     }
 
-    private val bluetoothConnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED)
-    private var bluetoothConnectedRegistered = false
     private val headsetReceiverIntentFilter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
     private var headsetReceiverRegistered = false
     private var mediaSession: MediaSessionCompat? = null
@@ -221,42 +214,6 @@ class MusicService : MediaBrowserServiceCompat(),
     @JvmField
     var shuffleMode = 0
     private val songPlayCountHelper = SongPlayCountHelper()
-
-    private val bluetoothReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-            if (action != null) {
-                val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-                var connected = false
-                if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
-
-                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                        if (!MusicPlayerRemote.isPlaying) {
-                            if (applicationContext?.let {
-                                    ContextCompat.checkSelfPermission(
-                                        it,
-                                        Manifest.permission.BLUETOOTH_CONNECT
-                                    )
-                                }
-                                == PackageManager.PERMISSION_GRANTED) {
-                                if (PreferenceUtil.specificDevice) {
-                                    if (device?.address == PreferenceUtil.bluetoothDevice) {
-                                        device?.name?.let {
-                                            createNotification(it)
-                                        }
-                                    }
-                                } else {
-                                    device?.name?.let {
-                                        createNotification(it)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     private var receivedHeadsetConnected = false
     private val headsetReceiver = object : BroadcastReceiver() {
@@ -323,7 +280,6 @@ class MusicService : MediaBrowserServiceCompat(),
         restoreState()
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_CREATED"))
         registerHeadsetEvents()
-        registerBluetoothConnected()
 
         mPackageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
         mMusicProvider.setMusicService(this)
@@ -341,10 +297,6 @@ class MusicService : MediaBrowserServiceCompat(),
         if (headsetReceiverRegistered) {
             unregisterReceiver(headsetReceiver)
             headsetReceiverRegistered = false
-        }
-        if (bluetoothConnectedRegistered) {
-            unregisterReceiver(bluetoothReceiver)
-            bluetoothConnectedRegistered = false
         }
         mediaSession?.isActive = false
         quit()
@@ -364,73 +316,6 @@ class MusicService : MediaBrowserServiceCompat(),
         val intent = Intent(action)
         intent.component = serviceName
         return PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-    }
-
-    fun createNotification(btName: String) {
-        val serviceName = ComponentName(applicationContext, MusicService::class.java)
-
-        //CREATE NOTIFICATION
-        var builder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentText("Would you like to autoplay music using this device?")
-            .setOngoing(false)
-            .setAutoCancel(true)
-            .addAction(R.drawable.ic_thumb_up,"Yes",buildPendingIntent(applicationContext, ACTION_PLAY_NOTIFICATION, serviceName))
-
-        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        if (applicationContext?.let {
-                ContextCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.BLUETOOTH_CONNECT
-                )
-            }
-            == PackageManager.PERMISSION_GRANTED) {
-            val pairedDevices = mBluetoothAdapter.bondedDevices
-
-
-            if (PreferenceUtil.specificDevice) {
-                for (bt in pairedDevices) {
-                    if (bt.address == PreferenceUtil.bluetoothDevice){
-                        builder.setContentTitle(bt.name)
-                    }
-                }
-            } else {
-                builder.setContentTitle(btName)
-            }
-        }
-
-        //CREATE CHANNEL
-        val name = "Bluetooth Detection"
-        val descriptionText = "Bluetooth Detection Notification"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val mChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance).apply {
-            description = descriptionText
-            setShowBadge(true)
-        }
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(mChannel)
-
-        //SHOW NOTIFICATION
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(NOTIFICATION_ID, builder.build())
-        }
-    }
-
-    fun cancelNotification() {
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(NOTIFICATION_ID)
-    }
-
-    fun checkNotificationExists() : Boolean {
-        val mNotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val notifications = mNotificationManager.activeNotifications
-        for (notification in notifications) {
-            return notification.id == NOTIFICATION_ID
-        }
-        return false
     }
 
     private fun acquireWakeLock() {
@@ -744,9 +629,6 @@ class MusicService : MediaBrowserServiceCompat(),
                 }
             }
             TOGGLE_HEADSET -> registerHeadsetEvents()
-            BLUETOOTH_PLAYBACK -> {
-                registerBluetoothConnected()
-            }
         }
     }
 
@@ -762,10 +644,6 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
                     ACTION_PAUSE -> pause()
                     ACTION_PLAY -> play()
-                    ACTION_PLAY_NOTIFICATION -> {
-                        play()
-                        notificationManager?.cancel(NOTIFICATION_ID)
-                    }
                     ACTION_PLAY_PLAYLIST -> playFromPlaylist(intent)
                     ACTION_REWIND -> playPreviousSongAuto(true, isPlaying)
                     ACTION_SKIP -> playNextSongAuto(true, isPlaying)
@@ -1365,14 +1243,6 @@ class MusicService : MediaBrowserServiceCompat(),
         prepareNextImpl()
     }
 
-    private fun registerBluetoothConnected() {
-        Log.i(TAG, "registerBluetoothConnected: ")
-        if (!bluetoothConnectedRegistered) {
-            registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
-            bluetoothConnectedRegistered = true
-        }
-    }
-
     private fun registerHeadsetEvents() {
         if (!headsetReceiverRegistered && isHeadsetPlugged) {
             registerReceiver(headsetReceiver, headsetReceiverIntentFilter)
@@ -1481,7 +1351,6 @@ class MusicService : MediaBrowserServiceCompat(),
         const val MUSIC_PACKAGE_NAME = "com.android.music"
         const val ACTION_TOGGLE_PAUSE = "$APEX_MUSIC_PACKAGE_NAME.togglepause"
         const val ACTION_PLAY = "$APEX_MUSIC_PACKAGE_NAME.play"
-        const val ACTION_PLAY_NOTIFICATION = "$APEX_MUSIC_PACKAGE_NAME.playnotification"
         const val ACTION_PLAY_PLAYLIST = "$APEX_MUSIC_PACKAGE_NAME.play.playlist"
         const val ACTION_PAUSE = "$APEX_MUSIC_PACKAGE_NAME.pause"
         const val ACTION_STOP = "$APEX_MUSIC_PACKAGE_NAME.stop"
