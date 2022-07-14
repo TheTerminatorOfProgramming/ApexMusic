@@ -73,7 +73,6 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         }
 
         val fullscreenControls: TwoStatePreference? = findPreference(LOCK_SCREEN)
-        fullscreenControls?.isVisible = false
         fullscreenControls?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
