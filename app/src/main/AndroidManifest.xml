@@ -20,6 +20,7 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
+        android:usesPermissionFlags="neverForLocation"
         tools:targetApi="s" />
     <!--
     This is not that important, it's just here so that we can query equalizer package
@@ -125,10 +126,12 @@
         <activity android:name="com.ttop.app.apex.ui.activities.ShareInstagramStory" />
         <activity android:name="com.ttop.app.apex.ui.activities.DriveModeActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.PermissionActivity" />
-        <activity
-            android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
-            android:launchMode="singleTop"
-            android:showOnLockScreen="true" />
+        <activity android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
+            android:exported="true"
+            android:label="@string/pref_title_lock_screen"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleInstance"
+            android:showOnLockScreen="true"/>
         <activity
             android:name="com.ttop.app.apex.ui.fragments.backup.RestoreActivity"
             android:excludeFromRecents="false"
@@ -275,7 +278,8 @@
             android:value="true" />
         <meta-data
             android:name="com.android.vending.splits.required"
-            android:value="true" /> <!-- Android Auto -->
+            android:value="true" />
+        <!-- Android Auto -->
         <meta-data
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
@@ -284,7 +288,8 @@
             android:resource="@style/CarTheme" />
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
-            android:resource="@drawable/ic_notification" /> <!-- ChromeCast -->
+            android:resource="@drawable/ic_notification" />
+        <!-- ChromeCast -->
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="com.ttop.app.apex.cast.CastOptionsProvider" />

@@ -15,10 +15,13 @@
 package com.ttop.app.apex.ui.activities
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
@@ -35,9 +38,11 @@ import com.ttop.app.apex.ui.activities.base.AbsCastActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
+import kotlinx.coroutines.flow.collect
 
 class MainActivity : AbsCastActivity() {
     companion object {
@@ -65,6 +70,12 @@ class MainActivity : AbsCastActivity() {
         PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
 
         ApexUtil.createFolderStructure()
+
+        requestedOrientation = if(!ApexUtil.isTablet){
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        } else{
+            ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        }
     }
 
     private fun setupNavigationController() {
@@ -147,6 +158,12 @@ class MainActivity : AbsCastActivity() {
         if (PreferenceUtil.shouldRecreate) {
             PreferenceUtil.shouldRecreate = false
             postRecreate()
+        }
+
+        requestedOrientation = if(!ApexUtil.isTablet){
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        } else{
+            ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }
     }
 

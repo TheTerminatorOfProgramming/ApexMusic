@@ -306,6 +306,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
 
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
+
     private fun updateQueuePosition() {
         playingQueueAdapter?.setCurrent(MusicPlayerRemote.position)
         resetToCurrentPosition()

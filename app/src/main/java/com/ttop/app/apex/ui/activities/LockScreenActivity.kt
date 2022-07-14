@@ -17,13 +17,28 @@ package com.ttop.app.apex.ui.activities
 import android.app.KeyguardManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
+import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.card.MaterialCardView
+import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
+import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.r0adkll.slidr.Slidr
 import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrListener
 import com.r0adkll.slidr.model.SlidrPosition
 import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.ActivityLockScreenBinding
 import com.ttop.app.apex.extensions.hideStatusBar
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
@@ -34,6 +49,7 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
+import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -83,10 +99,15 @@ class LockScreenActivity : AbsMusicServiceActivity() {
 
     @Suppress("Deprecation")
     private fun lockScreenInit() {
-        if (Build.VERSION.SDK_INT >= 27) {
+        if (VersionUtils.hasOreoMR1()) {
             setShowWhenLocked(true)
+            val keyguardManager = getSystemService<KeyguardManager>()
+            keyguardManager?.requestDismissKeyguard(this, null)
         } else {
-            this.window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+            this.window.addFlags(
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+            )
         }
     }
 
