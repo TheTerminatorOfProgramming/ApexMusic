@@ -68,7 +68,7 @@
             app:listItemSummary="@string/share_summary"
             app:listItemTitle="@string/action_share" />
 
-        <com.ttop.app.apex.views.ListItemView
+        <!--<com.ttop.app.apex.views.ListItemView
             android:id="@+id/websiteLink"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@id/appShare"
             app:listItemIcon="@drawable/ic_baseline"
             app:listItemSummary="@string/website_summary"
-            app:listItemTitle="@string/website" />
+            app:listItemTitle="@string/website" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
