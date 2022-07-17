@@ -22,6 +22,7 @@ import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
@@ -56,6 +57,7 @@ class PermissionActivity : AbsMusicServiceActivity() {
             }
         }
 
+        /*
         if (VersionUtils.hasS()) {
             binding.bluetoothPermission.show()
             binding.bluetoothPermission.setButtonClick {
@@ -65,7 +67,10 @@ class PermissionActivity : AbsMusicServiceActivity() {
             }
         } else {
             binding.audioPermission.setNumber("2")
-        }
+        }*/
+
+        binding.bluetoothPermission.hide()
+        binding.audioPermission.setNumber("2")
 
         binding.finish.accentBackgroundColor()
         binding.finish.setOnClickListener {
