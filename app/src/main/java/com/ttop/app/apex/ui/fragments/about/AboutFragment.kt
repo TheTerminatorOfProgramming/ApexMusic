@@ -57,7 +57,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardApexInfo.appGithub.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.appShare.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.bugReportLink.setOnClickListener(this)
-        binding.aboutContent.cardApexInfo.websiteLink.setOnClickListener(this)
+        //binding.aboutContent.cardApexInfo.websiteLink.setOnClickListener(this)
 
         binding.aboutContent.cardOther.changelog.setOnClickListener(this)
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
