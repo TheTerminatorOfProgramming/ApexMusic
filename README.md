@@ -35,17 +35,17 @@
 | Home 	| Settings 	| LockScreen Controls 	|
       
 ### 15+ Now playing themes
-| <img src="screenshots/swipe.jpg" width="200"/>|   <img src="screenshots/material.jpg" width="200"/>  	|    <img src="screenshots/peek.jpg" width="200"/> 	|
+| <img src="screenshots/swipe.jpg" width="200"/>	|<img src="screenshots/material.jpg" width="200"/>|   <img src="screenshots/peek.jpg" width="200"/>  	|    <img src="screenshots/normal.jpg" width="200"/> 	|
 |:-----:	|:-----:	|:-----:	|:-----:	|
-| Swipe 	| Material 	| Peek 	|      
+| Swipe 	| Material 	| Peek 	| Normal 	|      
       
-| <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|
+| <img src="screenshots/fit.jpg" width="200"/>	|<img src="screenshots/flat.jpg" width="200"/>|   <img src="screenshots/color.jpg" width="200"/>  	|    <img src="screenshots/classic.jpg" width="200"/> 	|
 |:-----:	|:-----:	|:-----:	|:-----:	|
-| Normal 	| Fit 	| Flat 	| Color 	|
+| Fit 	| Flat 	| Color 	| Classic 	|
 
-| <img src="screenshots/classic.jpg" width="200"/>	|<img src="screenshots/adaptive.jpg" width="200"/>|   <img src="screenshots/blur.jpg" width="200"/>  	|    <img src="screenshots/tiny.jpg" width="200"/> 	|
-|:-----:	|:-----:	|:-----:	|:-----:	|
-| Classic 	| Adaptive 	| Blur 	| Tiny 	|
+| <img src="screenshots/adaptive.jpg" width="200"/>	|<img src="screenshots/blur.jpg" width="200"/>|   <img src="screenshots/tiny.jpg" width="200"/>   	|
+|:-----:	|:-----:	|:-----:	|
+| Adaptive 	| Blur 	| Tiny 	| 
 
 ___
 ## About
@@ -94,5 +94,5 @@ Apex Music is released under the GNU General Public License v3.0
 (GPLv3), which can be found [here](LICENSE.md)
 
 
->Please note: Apex Music is an offline music player app. It
+>Please note: Apex Music is an offline local music player app. It
 >doesn't support music downloading or online music streaming.
