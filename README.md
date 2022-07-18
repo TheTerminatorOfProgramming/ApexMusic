@@ -35,9 +35,9 @@
 | Home 	| Settings 	| LockScreen Controls 	|
       
 ### 15+ Now playing themes
-| <img src="screenshots/peek_queue.jpg" width="200"/>	|<img src="screenshots/swipe.jpg" width="200"/>|   <img src="screenshots/material.jpg" width="200"/>  	|    <img src="screenshots/peek.jpg" width="200"/> 	|
+| <img src="screenshots/swipe.jpg" width="200"/>|   <img src="screenshots/material.jpg" width="200"/>  	|    <img src="screenshots/peek.jpg" width="200"/> 	|
 |:-----:	|:-----:	|:-----:	|:-----:	|
-| Peek Queue 	| Swipe 	| Material 	| Peek 	|      
+| Swipe 	| Material 	| Peek 	|      
       
 | <img src="screenshots/normal.jpg" width="200"/>	|<img src="screenshots/fit.jpg" width="200"/>|   <img src="screenshots/flat.jpg" width="200"/>  	|    <img src="screenshots/color.jpg" width="200"/> 	|
 |:-----:	|:-----:	|:-----:	|:-----:	|
