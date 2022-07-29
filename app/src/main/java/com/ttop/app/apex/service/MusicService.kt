@@ -14,10 +14,7 @@
 package com.ttop.app.apex.service
 
 import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.appwidget.AppWidgetManager
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -46,7 +43,10 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.*
+import com.ttop.app.apex.appwidgets.AppWidgetBig
+import com.ttop.app.apex.appwidgets.AppWidgetCircle
+import com.ttop.app.apex.appwidgets.AppWidgetClassic
+import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.auto.AutoMediaIDHelper
 import com.ttop.app.apex.auto.AutoMusicProvider
 import com.ttop.app.apex.extensions.showToast
@@ -241,8 +241,8 @@ class MusicService : MediaBrowserServiceCompat(),
 
     override fun onCreate() {
         super.onCreate()
-        createNotification()
-        startForeground(NOTIFICATION_ID, defaultNotification)
+        //createNotification()
+        //startForeground(NOTIFICATION_ID, defaultNotification)
         val powerManager = getSystemService<PowerManager>()
         if (powerManager != null) {
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, javaClass.name)
@@ -350,16 +350,6 @@ class MusicService : MediaBrowserServiceCompat(),
             // notificationId is a unique int for each notification that you must define
             notify(NOTIFICATION_ID, defaultNotification!!)
         }
-    }
-
-    fun buildPendingIntent(
-        context: Context,
-        action: String,
-        serviceName: ComponentName
-    ): PendingIntent {
-        val intent = Intent(action)
-        intent.component = serviceName
-        return PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     private fun acquireWakeLock() {
@@ -677,8 +667,8 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        createNotification()
-        startForeground(NOTIFICATION_ID, defaultNotification)
+        //createNotification()
+        //startForeground(NOTIFICATION_ID, defaultNotification)
         if (intent != null && intent.action != null) {
             serviceScope.launch {
                 restoreQueuesAndPositionIfNecessary()
