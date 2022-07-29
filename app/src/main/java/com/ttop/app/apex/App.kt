@@ -50,8 +50,12 @@ class App : Application() {
         DynamicShortcutManager(this).initDynamicShortcuts()
 
         // setting Error activity
-        CaocConfig.Builder.create().errorActivity(ErrorActivity::class.java)
-            .restartActivity(MainActivity::class.java).apply()
+        CaocConfig.Builder.create()
+            .errorActivity(ErrorActivity::class.java)
+            .restartActivity(MainActivity::class.java)
+            .errorDrawable(R.mipmap.ic_launcher_round)
+            .apply()
+
 
         // Set Default values for now playing preferences
         // This will reduce startup time for now playing settings fragment as Preference listener of AbsSlidingMusicPanelActivity won't be called

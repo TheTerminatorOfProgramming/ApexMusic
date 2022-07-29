@@ -24,7 +24,6 @@ import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote.audioSessionId
 import com.ttop.app.apex.ui.activities.DriveModeActivity
 import com.ttop.app.apex.ui.activities.LicenseActivity
-import com.ttop.app.apex.ui.activities.SupportDevelopmentActivity
 import com.ttop.app.apex.ui.activities.WhatsNewFragment
 import com.ttop.app.apex.ui.activities.bugreport.BugReportActivity
 
@@ -38,12 +37,6 @@ object NavigationUtil {
     fun goToOpenSource(activity: Activity) {
         activity.startActivity(
             Intent(activity, LicenseActivity::class.java), null
-        )
-    }
-
-    fun goToSupportDevelopment(activity: Activity) {
-        activity.startActivity(
-            Intent(activity, SupportDevelopmentActivity::class.java), null
         )
     }
 

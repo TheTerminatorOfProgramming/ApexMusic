@@ -84,7 +84,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + "_" + formattedDate + "_" + formattedTime
+                ).versionName + " (" + formattedDate + "-" + formattedTime + ")"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }

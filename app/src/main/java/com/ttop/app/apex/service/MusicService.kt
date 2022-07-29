@@ -13,15 +13,14 @@
  */
 package com.ttop.app.apex.service
 
-import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.database.ContentObserver
 import android.graphics.Bitmap
@@ -30,6 +29,7 @@ import android.media.AudioManager
 import android.os.*
 import android.os.PowerManager.WakeLock
 import android.provider.MediaStore
+import android.provider.Settings
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
@@ -38,7 +38,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.media.MediaBrowserServiceCompat
@@ -47,10 +46,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.AppWidgetBig
-import com.ttop.app.apex.appwidgets.AppWidgetCircle
-import com.ttop.app.apex.appwidgets.AppWidgetClassic
-import com.ttop.app.apex.appwidgets.AppWidgetFull
+import com.ttop.app.apex.appwidgets.*
 import com.ttop.app.apex.auto.AutoMediaIDHelper
 import com.ttop.app.apex.auto.AutoMusicProvider
 import com.ttop.app.apex.extensions.showToast
@@ -77,7 +73,6 @@ import com.ttop.app.apex.ui.activities.LockScreenActivity
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt
@@ -121,6 +116,10 @@ class MusicService : MediaBrowserServiceCompat(),
     private lateinit var storage: PersistentStorage
     private var trackEndedByCrossfade = false
     private val serviceScope = CoroutineScope(Job() + Main)
+
+    val NOTIFICATION_CHANNEL_ID = "foreground_notification"
+    val NOTIFICATION_ID = 2
+    var defaultNotification: Notification? = null
 
     @JvmField
     var position = -1
@@ -242,6 +241,8 @@ class MusicService : MediaBrowserServiceCompat(),
 
     override fun onCreate() {
         super.onCreate()
+        createNotification()
+        startForeground(NOTIFICATION_ID, defaultNotification)
         val powerManager = getSystemService<PowerManager>()
         if (powerManager != null) {
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, javaClass.name)
@@ -306,6 +307,49 @@ class MusicService : MediaBrowserServiceCompat(),
         unregisterOnSharedPreferenceChangedListener(this)
         wakeLock?.release()
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_DESTROYED"))
+    }
+
+    fun createNotification() {
+        //CREATE NOTIFICATION ONCLICK
+        val settingsIntent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+            .putExtra(Settings.EXTRA_CHANNEL_ID, NOTIFICATION_CHANNEL_ID)
+
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            0,
+            settingsIntent,PendingIntent.FLAG_IMMUTABLE
+        )
+
+        //CREATE NOTIFICATION
+        var builder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("Default Foreground Notification")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setOngoing(true)
+            .setContentIntent(pendingIntent)
+
+        //CREATE CHANNEL
+        val name = "Default Foreground Notification"
+        val descriptionText = "Default Foreground Notification"
+        val importance = NotificationManager.IMPORTANCE_LOW
+        val mChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance).apply {
+            description = descriptionText
+            setShowBadge(false)
+        }
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(mChannel)
+
+        defaultNotification = builder.build()
+
+        //SHOW NOTIFICATION
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            notify(NOTIFICATION_ID, defaultNotification!!)
+        }
     }
 
     fun buildPendingIntent(
@@ -633,6 +677,8 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        createNotification()
+        startForeground(NOTIFICATION_ID, defaultNotification)
         if (intent != null && intent.action != null) {
             serviceScope.launch {
                 restoreQueuesAndPositionIfNecessary()

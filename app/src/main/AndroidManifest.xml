@@ -120,7 +120,6 @@
         <activity android:name="com.ttop.app.apex.ui.activities.SettingsActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity" />
-        <activity android:name="com.ttop.app.apex.ui.activities.SupportDevelopmentActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.LicenseActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.bugreport.BugReportActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.ShareInstagramStory" />
@@ -181,7 +180,6 @@
                 <action android:name="cat.ereza.customactivityoncrash.RESTART" />
             </intent-filter>
         </activity>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}"
@@ -191,7 +189,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
         <receiver
             android:name="androidx.media.session.MediaButtonReceiver"
             android:exported="true">
