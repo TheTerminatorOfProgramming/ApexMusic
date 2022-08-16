@@ -24,7 +24,7 @@ import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
@@ -117,7 +117,7 @@ class AppWidgetCircle : BaseAppWidget() {
             target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
                 .load(ApexGlideExtension.getSongModel(song))
                 .apply(RequestOptions.circleCropTransform())
-                .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+                .into(object : CustomTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                     override fun onResourceReady(
                         resource: BitmapPaletteWrapper,
                         transition: Transition<in BitmapPaletteWrapper>?,
@@ -161,6 +161,8 @@ class AppWidgetCircle : BaseAppWidget() {
 
                         pushUpdate(service, appWidgetIds, appWidgetView)
                     }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
                 })
         }
     }

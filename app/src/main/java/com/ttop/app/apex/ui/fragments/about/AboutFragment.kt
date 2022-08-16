@@ -14,10 +14,15 @@
  */
 package com.ttop.app.apex.ui.fragments.about
 
+import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +38,7 @@ import dev.chrisbanes.insetter.applyInsetter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private var _binding: FragmentAboutBinding? = null
@@ -54,6 +60,8 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun setUpView() {
+
+
         binding.aboutContent.cardApexInfo.appGithub.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.appShare.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.bugReportLink.setOnClickListener(this)
@@ -61,6 +69,9 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardOther.changelog.setOnClickListener(this)
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
+
+        binding.aboutContent.cardPermissions?.storagePermission?.text = checkStoragePermission()
+        binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -70,6 +81,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.changelog -> NavigationUtil.gotoWhatNews(requireActivity())
             R.id.openSource -> NavigationUtil.goToOpenSource(requireActivity())
             R.id.bugReportLink -> NavigationUtil.bugReport(requireActivity())
+            R.id.permissions_edit -> goToPermissions()
         }
     }
 
@@ -84,7 +96,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + " (" + formattedDate + "-" + formattedTime + ")"
+                ).versionName + "_" + formattedDate + "_" + formattedTime
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
@@ -115,6 +127,22 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         }
         libraryViewModel.fetchContributors().observe(viewLifecycleOwner) { contributors ->
             contributorAdapter.swapData(contributors)
+        }
+    }
+
+    private fun goToPermissions() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri: Uri = Uri.fromParts("package", activity?.packageName, null)
+        intent.data = uri
+        startActivity(intent)
+    }
+
+    private fun checkStoragePermission(): String {
+        return if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) }
+            == PackageManager.PERMISSION_GRANTED) {
+            "Granted"
+        }else{
+            "Denied"
         }
     }
 

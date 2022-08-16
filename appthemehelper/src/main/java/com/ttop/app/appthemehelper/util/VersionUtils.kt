@@ -61,7 +61,7 @@ object VersionUtils {
     }
 
     /**
-     * @return true if device is running API >= 32
+     * @return true if device is running API >= 31
      */
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S_V2)
     @JvmStatic

@@ -76,11 +76,10 @@ class LockScreenActivity : AbsMusicServiceActivity() {
             }
 
             override fun onSlideClosed(): Boolean {
-                if (VersionUtils.hasOreo()) {
-                    val keyguardManager =
-                        getSystemService<KeyguardManager>()
-                    keyguardManager?.requestDismissKeyguard(this@LockScreenActivity, null)
-                }
+                val keyguardManager =
+                    getSystemService<KeyguardManager>()
+                keyguardManager?.requestDismissKeyguard(this@LockScreenActivity, null)
+
                 finish()
                 return true
             }

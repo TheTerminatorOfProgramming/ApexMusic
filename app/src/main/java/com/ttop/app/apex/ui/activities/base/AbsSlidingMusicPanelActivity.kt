@@ -14,8 +14,6 @@
  */
 package com.ttop.app.apex.ui.activities.base
 
-import android.R.attr.left
-import android.R.attr.right
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Intent
@@ -28,8 +26,6 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.PathInterpolator
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
@@ -277,7 +273,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     }
 
     private fun animateNavigationBarColor(color: Int) {
-        if (VersionUtils.hasOreo()) return
         navigationBarColorAnimator?.cancel()
         navigationBarColorAnimator = ValueAnimator
             .ofArgb(window.navigationBarColor, color).apply {

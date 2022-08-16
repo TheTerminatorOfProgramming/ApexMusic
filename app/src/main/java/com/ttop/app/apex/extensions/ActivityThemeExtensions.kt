@@ -80,16 +80,11 @@ private fun AppCompatActivity.hideStatusBar(fullscreen: Boolean) {
 }
 
 fun AppCompatActivity.setDrawBehindSystemBars() {
-    if (VersionUtils.hasOreo()) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.navigationBarColor = Color.TRANSPARENT
-        window.statusBarColor = Color.TRANSPARENT
-        if (VersionUtils.hasQ()) {
-            window.isNavigationBarContrastEnforced = false
-        }
-    } else {
-        setNavigationBarColorPreOreo(surfaceColor())
-        setStatusBarColor(Color.TRANSPARENT)
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+    window.navigationBarColor = Color.TRANSPARENT
+    window.statusBarColor = Color.TRANSPARENT
+    if (VersionUtils.hasQ()) {
+        window.isNavigationBarContrastEnforced = false
     }
 }
 
@@ -138,7 +133,6 @@ fun AppCompatActivity.setLightStatusBarAuto(bgColor: Int) {
 
 @Suppress("Deprecation")
 fun AppCompatActivity.setLightNavigationBar(enabled: Boolean) {
-    if (VersionUtils.hasOreo()) {
         val decorView = window.decorView
         var systemUiVisibility = decorView.systemUiVisibility
         systemUiVisibility = if (enabled) {
@@ -147,7 +141,6 @@ fun AppCompatActivity.setLightNavigationBar(enabled: Boolean) {
             systemUiVisibility and SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
         }
         decorView.systemUiVisibility = systemUiVisibility
-    }
 }
 
 fun AppCompatActivity.setLightNavigationBarAuto() {
@@ -182,11 +175,7 @@ fun AppCompatActivity.setStatusBarColorAuto() {
 }
 
 fun AppCompatActivity.setNavigationBarColor(color: Int) {
-    if (VersionUtils.hasOreo()) {
-        window.navigationBarColor = color
-    } else {
-        window.navigationBarColor = ColorUtil.darkenColor(color)
-    }
+    window.navigationBarColor = color
     setLightNavigationBarAuto(color)
 }
 

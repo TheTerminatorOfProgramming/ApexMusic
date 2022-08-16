@@ -110,13 +110,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
     ): PendingIntent {
         val intent = Intent(action)
         intent.component = serviceName
-        return if (VersionUtils.hasOreo()) {
-            PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        } else {
-            PendingIntent.getService(
-                context, 0, intent, PendingIntent.FLAG_IMMUTABLE
-            )
-        }
+        return PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     protected abstract fun defaultAppWidget(context: Context, appWidgetIds: IntArray)

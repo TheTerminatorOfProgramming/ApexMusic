@@ -23,4 +23,5 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_show_update"
         android:title="@string/pref_title_show_update" />
+
 </androidx.preference.PreferenceScreen>

@@ -21,7 +21,6 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
 /**
@@ -72,7 +71,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         }
 
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
-        extraControls?.isEnabled = !ApexUtil.isTablet
         extraControls?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }

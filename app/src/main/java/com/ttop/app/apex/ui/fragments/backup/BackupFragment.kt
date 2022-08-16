@@ -39,7 +39,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentBackupBinding.bind(view)
-        /*initAdapter()
+        initAdapter()
         setupRecyclerview()
         backupViewModel.backupsLiveData.observe(viewLifecycleOwner) {
             if (it.isNotEmpty())
@@ -47,7 +47,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             else
                 backupAdapter?.swapDataset(listOf())
         }
-        backupViewModel.loadBackups()*/
+        backupViewModel.loadBackups()
         val openFilePicker = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
             lifecycleScope.launch(Dispatchers.IO) {
                 it?.let {
@@ -67,7 +67,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         }
     }
 
-    /*private fun initAdapter() {
+    private fun initAdapter() {
         backupAdapter = BackupAdapter(requireActivity(), ArrayList(), this)
         backupAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
@@ -88,7 +88,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             layoutManager = LinearLayoutManager(context)
             adapter = backupAdapter
         }
-    }*/
+    }
 
     @SuppressLint("CheckResult")
     private fun showCreateBackupDialog() {
@@ -107,15 +107,15 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         }
     }
 
-    /*override fun onBackupClicked(file: File) {
+    override fun onBackupClicked(file: File) {
         lifecycleScope.launch {
             startActivity(Intent(context, RestoreActivity::class.java).apply {
                 data = file.toUri()
             })
         }
-    }*/
+    }
 
-    /*@SuppressLint("CheckResult")
+    @SuppressLint("CheckResult")
     override fun onBackupMenuClicked(file: File, menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.action_delete -> {
@@ -127,9 +127,9 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                 backupViewModel.loadBackups()
                 return true
             }
-            R.id.action_share -> {*/
-                //Share.shareFile(requireContext(), file, "*/*")
-                /*return true
+            R.id.action_share -> {
+                Share.shareFile(requireContext(), file, "*/*")
+                return true
             }
             R.id.action_rename -> {
                 materialDialog().show {
@@ -153,18 +153,10 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             }
         }
         return false
-    }*/
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onBackupClicked(file: File) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBackupMenuClicked(file: File, menuItem: MenuItem): Boolean {
-        TODO("Not yet implemented")
     }
 }

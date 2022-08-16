@@ -280,11 +280,7 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
         @Suppress("Deprecation")
         private fun vibrate() {
             val v = requireContext().getSystemService<Vibrator>()
-            if (VersionUtils.hasOreo()) {
-                v?.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                v?.vibrate(10)
-            }
+            v?.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 

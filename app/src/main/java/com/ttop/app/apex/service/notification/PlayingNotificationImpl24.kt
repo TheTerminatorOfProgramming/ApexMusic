@@ -39,8 +39,13 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @SuppressLint("RestrictedApi")
 class PlayingNotificationImpl24(
@@ -57,7 +62,7 @@ class PlayingNotificationImpl24(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or  PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
         val serviceName = ComponentName(context, MusicService::class.java)
@@ -67,10 +72,9 @@ class PlayingNotificationImpl24(
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or  PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-        val toggleFavorite = buildFavoriteAction(false)
-        val update = buildUpdateAction()
+        val toggleFavoriteOrUpdate = buildFavoriteUpdateAction(false)
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
             R.drawable.ic_skip_previous_round_white_32dp,
@@ -91,11 +95,7 @@ class PlayingNotificationImpl24(
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
-        if (!PreferenceUtil.showUpdate){
-            addAction(toggleFavorite)
-        }else{
-            addAction(update)
-        }
+        addAction(toggleFavoriteOrUpdate)
         addAction(previousAction)
         addAction(playPauseAction)
         addAction(nextAction)
@@ -166,24 +166,24 @@ class PlayingNotificationImpl24(
         ).build()
     }
 
-    private fun buildFavoriteAction(isFavorite: Boolean): NotificationCompat.Action {
-        val favoriteResId =
-            if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
-        return NotificationCompat.Action.Builder(
-            favoriteResId,
-            context.getString(R.string.action_toggle_favorite),
-            retrievePlaybackAction(TOGGLE_FAVORITE)
-        ).build()
-    }
-
-    private fun buildUpdateAction(): NotificationCompat.Action {
-        val updateResId =
-            R.drawable.ic_update
-        return NotificationCompat.Action.Builder(
-            updateResId,
-            context.getString(R.string.action_update),
-            retrievePlaybackAction(UPDATE_NOTIFY)
-        ).build()
+    private fun buildFavoriteUpdateAction(isFavorite: Boolean): NotificationCompat.Action {
+        if (!PreferenceUtil.showUpdate) {
+            val favoriteResId =
+                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
+            return NotificationCompat.Action.Builder(
+                favoriteResId,
+                context.getString(R.string.action_toggle_favorite),
+                retrievePlaybackAction(TOGGLE_FAVORITE)
+            ).build()
+        }else{
+            val updateResId =
+                R.drawable.ic_update
+            return NotificationCompat.Action.Builder(
+                updateResId,
+                context.getString(R.string.action_update),
+                retrievePlaybackAction(UPDATE_NOTIFY)
+            ).build()
+        }
     }
 
     override fun setPlaying(isPlaying: Boolean) {
@@ -191,7 +191,7 @@ class PlayingNotificationImpl24(
     }
 
     override fun updateFavorite(isFavorite: Boolean) {
-        mActions[0] = buildFavoriteAction(isFavorite)
+        mActions[0] = buildFavoriteUpdateAction(isFavorite)
     }
 
     private fun retrievePlaybackAction(action: String): PendingIntent {

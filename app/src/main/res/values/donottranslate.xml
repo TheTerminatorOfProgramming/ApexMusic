@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="donation_ids" translatable="false">
+        <item>code_name_monkey_donate_1</item>
+        <item>code_name_monkey_donate_2</item>
+        <item>code_name_monkey_donate_3</item>
+        <item>code_name_monkey_donate_4</item>
+        <item>code_name_monkey_donate_5</item>
+        <item>code_name_monkey_donate_6</item>
+        <item>code_name_monkey_donate_7</item>
+        <item>code_name_monkey_donate_8</item>
+    </string-array>
+
     <string name="app_name" translatable="false">Apex Music</string>
     <string name="git_hub" translatable="false">GitHub</string>
+
 
     <string name="app_shortcut_last_added_long" translatable="false">@string/last_added</string>
     <string name="app_shortcut_last_added_short" translatable="false">@string/last_added</string>
@@ -15,4 +27,6 @@
 
     <string name="sort_order_album_artist">@string/album_artist</string>
     <string name="app_widget_circle_name">@string/circle</string>
+
+
 </resources>

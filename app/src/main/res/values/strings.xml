@@ -78,7 +78,6 @@
     <string name="app_shortcut_top_tracks_short">Top Tracks</string>
     <string name="app_widget_big_name">Big</string>
     <string name="app_widget_full_name">Full</string>
-    <string name="app_widget_full_circle_name">Full Circle</string>
     <string name="app_widget_classic_name">Classic</string>
     <string name="artist">Artist</string>
     <string name="artists">Artists</string>
@@ -312,6 +311,8 @@
     <string name="permission_summary">The app needs permission to access your device storage for playing music</string>
     <string name="permission_title">Storage Access</string>
     <string name="permissions_denied">Permissions denied.</string>
+    <string name="permissions">Permissions</string>
+    <string name="permission_edit">Edit Permissions</string>
     <string name="personalize">Personalize</string>
     <string name="personalize_settings_summary">Customize your now playing and UI controls</string>
     <string name="pick_from_local_storage">Pick from local storage</string>
@@ -374,6 +375,7 @@
     <string name="pref_summary_manage_audio_focus">Always play audio in background regardless of anything else being played</string>
     <string name="pref_summary_open_source_licences">License details for open source software</string>
     <string name="pref_summary_pause_history">When enabled, newly played songs won\'t show in history</string>
+    <string name="pref_summary_permissions_edit">Modify permissions relating to this app</string>
     <string name="pref_summary_remember_tab">Navigate to the last used tab on start</string>
     <string name="pref_summary_show_lyrics">Display synced lyrics over album cover</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
@@ -383,7 +385,7 @@
     <string name="pref_summary_swipe_to_dismiss">Swipe down to dismiss mini player</string>
     <string name="pref_summary_synced_lyrics">Show Synced lyrics</string>
     <string name="pref_summary_toggle_full_screen">Immersive mode</string>
-    <string name="pref_summary_toggle_headset">Start playing immediately after wired headphones are connected</string>
+    <string name="pref_summary_toggle_headset">Start playing immediately after headphones are connected</string>
     <string name="pref_summary_toggle_shuffle">Shuffle mode will turn off when playing a new list of songs</string>
     <string name="pref_summary_toggle_volume">If enough space is available, show volume controls in the now playing screen</string>
     <string name="pref_summary_user_name">Show or hide user name on the home page</string>

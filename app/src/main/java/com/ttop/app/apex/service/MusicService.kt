@@ -14,7 +14,8 @@
 package com.ttop.app.apex.service
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -36,7 +37,6 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.media.MediaBrowserServiceCompat
 import androidx.preference.PreferenceManager
-import androidx.viewbinding.BuildConfig
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
@@ -68,6 +68,7 @@ import com.ttop.app.apex.ui.activities.LockScreenActivity
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt
@@ -92,6 +93,19 @@ import java.util.*
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal. Modified by Prathamesh More
+ */
+/*
+ * Copyright (c) 2019 Hemanth Savarala.
+ *
+ * Licensed under the GNU General Public License v3
+ *
+ * This is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by
+ *  the Free Software Foundation either version 3 of the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
  */
 class MusicService : MediaBrowserServiceCompat(),
     OnSharedPreferenceChangeListener, PlaybackCallbacks, OnAudioVolumeChangedListener {
@@ -1314,7 +1328,7 @@ class MusicService : MediaBrowserServiceCompat(),
         )
         mediaSession = MediaSessionCompat(
             this,
-            BuildConfig.LIBRARY_PACKAGE_NAME,
+            BuildConfig.APPLICATION_ID,
             mediaButtonReceiverComponentName,
             mediaButtonReceiverPendingIntent
         )

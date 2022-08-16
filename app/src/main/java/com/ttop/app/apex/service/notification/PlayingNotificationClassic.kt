@@ -290,9 +290,7 @@ class PlayingNotificationClassic(
             context: Context,
             notificationManager: NotificationManager,
         ): PlayingNotification {
-            if (VersionUtils.hasOreo()) {
-                createNotificationChannel(context, notificationManager)
-            }
+            createNotificationChannel(context, notificationManager)
             return PlayingNotificationClassic(context)
         }
     }
