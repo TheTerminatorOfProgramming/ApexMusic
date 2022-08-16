@@ -17,12 +17,15 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Environment
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import com.ttop.app.apex.App.Companion.getContext
 import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.DecimalFormat
 import java.util.*
+
 
 object ApexUtil {
     fun formatValue(numValue: Float): String {
@@ -141,5 +144,13 @@ object ApexUtil {
             getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
             "Apex/LRC"
         )
+    }
+
+    fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
+        if (view.layoutParams is MarginLayoutParams) {
+            val p = view.layoutParams as MarginLayoutParams
+            p.setMargins(left, top, right, bottom)
+            view.requestLayout()
+        }
     }
 }

@@ -26,27 +26,22 @@ import android.media.AudioManager
 import android.os.*
 import android.os.PowerManager.WakeLock
 import android.provider.MediaStore
-import android.provider.Settings
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.media.MediaBrowserServiceCompat
 import androidx.preference.PreferenceManager
+import androidx.viewbinding.BuildConfig
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.AppWidgetBig
-import com.ttop.app.apex.appwidgets.AppWidgetCircle
-import com.ttop.app.apex.appwidgets.AppWidgetClassic
-import com.ttop.app.apex.appwidgets.AppWidgetFull
+import com.ttop.app.apex.appwidgets.*
 import com.ttop.app.apex.auto.AutoMediaIDHelper
 import com.ttop.app.apex.auto.AutoMusicProvider
 import com.ttop.app.apex.extensions.showToast
@@ -111,15 +106,12 @@ class MusicService : MediaBrowserServiceCompat(),
     private lateinit var playbackManager: PlaybackManager
 
     val playback: Playback? get() = playbackManager.playback
+
     private var mPackageValidator: PackageValidator? = null
     private val mMusicProvider = get<AutoMusicProvider>(AutoMusicProvider::class.java)
     private lateinit var storage: PersistentStorage
     private var trackEndedByCrossfade = false
     private val serviceScope = CoroutineScope(Job() + Main)
-
-    val NOTIFICATION_CHANNEL_ID = "foreground_notification"
-    val NOTIFICATION_ID = 2
-    var defaultNotification: Notification? = null
 
     @JvmField
     var position = -1
@@ -127,6 +119,7 @@ class MusicService : MediaBrowserServiceCompat(),
     private val appWidgetCircle = AppWidgetCircle.instance
     private val appWidgetClassic = AppWidgetClassic.instance
     private val appWidgetFull = AppWidgetFull.instance
+    private val appWidgetFullCircle = AppWidgetFullCircle.instance
     private val widgetIntentReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME)
@@ -144,6 +137,9 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
                     AppWidgetCircle.NAME -> {
                         appWidgetCircle.performUpdate(this@MusicService, ids)
+                    }
+                    AppWidgetFullCircle.NAME -> {
+                        appWidgetFullCircle.performUpdate(this@MusicService, ids)
                     }
                 }
             }
@@ -238,11 +234,8 @@ class MusicService : MediaBrowserServiceCompat(),
     private var wakeLock: WakeLock? = null
     private var notificationManager: NotificationManager? = null
     private var isForeground = false
-
     override fun onCreate() {
         super.onCreate()
-        //createNotification()
-        //startForeground(NOTIFICATION_ID, defaultNotification)
         val powerManager = getSystemService<PowerManager>()
         if (powerManager != null) {
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, javaClass.name)
@@ -281,14 +274,9 @@ class MusicService : MediaBrowserServiceCompat(),
         restoreState()
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_CREATED"))
         registerHeadsetEvents()
-
         mPackageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
         mMusicProvider.setMusicService(this)
         storage = PersistentStorage.getInstance(this)
-
-        updatePlaybackControls()
-
-        rebuildMetaData()
     }
 
     override fun onDestroy() {
@@ -307,49 +295,6 @@ class MusicService : MediaBrowserServiceCompat(),
         unregisterOnSharedPreferenceChangedListener(this)
         wakeLock?.release()
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_DESTROYED"))
-    }
-
-    fun createNotification() {
-        //CREATE NOTIFICATION ONCLICK
-        val settingsIntent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-            .putExtra(Settings.EXTRA_CHANNEL_ID, NOTIFICATION_CHANNEL_ID)
-
-        val pendingIntent = PendingIntent.getActivity(
-            applicationContext,
-            0,
-            settingsIntent,PendingIntent.FLAG_IMMUTABLE
-        )
-
-        //CREATE NOTIFICATION
-        var builder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Default Foreground Notification")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setOngoing(true)
-            .setContentIntent(pendingIntent)
-
-        //CREATE CHANNEL
-        val name = "Default Foreground Notification"
-        val descriptionText = "Default Foreground Notification"
-        val importance = NotificationManager.IMPORTANCE_LOW
-        val mChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance).apply {
-            description = descriptionText
-            setShowBadge(false)
-        }
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(mChannel)
-
-        defaultNotification = builder.build()
-
-        //SHOW NOTIFICATION
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(NOTIFICATION_ID, defaultNotification!!)
-        }
     }
 
     private fun acquireWakeLock() {
@@ -546,7 +491,9 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun initNotification() {
-        playingNotification = if (!isClassicNotification) {
+        playingNotification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+            && !isClassicNotification
+        ) {
             PlayingNotificationImpl24.from(this, notificationManager!!, mediaSession!!)
         } else {
             PlayingNotificationClassic.from(this, notificationManager!!)
@@ -667,8 +614,6 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        //createNotification()
-        //startForeground(NOTIFICATION_ID, defaultNotification)
         if (intent != null && intent.action != null) {
             serviceScope.launch {
                 restoreQueuesAndPositionIfNecessary()
@@ -689,10 +634,11 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
                     ACTION_PENDING_QUIT -> pendingQuit = true
                     TOGGLE_FAVORITE -> toggleFavorite()
+                    UPDATE_NOTIFY -> MusicPlayerRemote.updateNotification()
                 }
             }
         }
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     override fun onTrackEnded() {
@@ -877,6 +823,7 @@ class MusicService : MediaBrowserServiceCompat(),
         stopForeground(true)
         isForeground = false
         notificationManager?.cancel(PlayingNotification.NOTIFICATION_ID)
+
         stopSelf()
     }
 
@@ -1080,15 +1027,15 @@ class MusicService : MediaBrowserServiceCompat(),
             .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, null)
             .putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, playingQueue.size.toLong())
 
-        if (isAlbumArtOnLockScreen) {
-            // val screenSize: Point = ApexUtil.getScreenSize(this)
+        if (isAlbumArtOnLockScreen && VersionUtils.hasQ()) {
+            // val screenSize: Point = RetroUtil.getScreenSize(this)
             val request = GlideApp.with(this)
                 .asBitmap()
                 .songCoverOptions(song)
                 .load(getSongModel(song))
                 .transition(getDefaultTransition())
 
-            if (isBlurredAlbumArt) {
+            if (isBlurredAlbumArt && VersionUtils.hasQ()) {
                 request.transform(BlurTransformation.Builder(this@MusicService).build())
             }
             request.into(object :
@@ -1327,6 +1274,7 @@ class MusicService : MediaBrowserServiceCompat(),
         appWidgetClassic.notifyChange(this, what)
         appWidgetFull.notifyChange(this, what)
         appWidgetCircle.notifyChange(this, what)
+        appWidgetFullCircle.notifyChange(this, what)
     }
 
     private fun setCustomAction(stateBuilder: PlaybackStateCompat.Builder) {
@@ -1366,7 +1314,7 @@ class MusicService : MediaBrowserServiceCompat(),
         )
         mediaSession = MediaSessionCompat(
             this,
-            BuildConfig.APPLICATION_ID,
+            BuildConfig.LIBRARY_PACKAGE_NAME,
             mediaButtonReceiverComponentName,
             mediaButtonReceiverPendingIntent
         )
@@ -1395,7 +1343,8 @@ class MusicService : MediaBrowserServiceCompat(),
         const val ACTION_QUIT = "$APEX_MUSIC_PACKAGE_NAME.quitservice"
         const val ACTION_PENDING_QUIT = "$APEX_MUSIC_PACKAGE_NAME.pendingquitservice"
         const val INTENT_EXTRA_PLAYLIST = APEX_MUSIC_PACKAGE_NAME + "intentextra.playlist"
-        const val INTENT_EXTRA_SHUFFLE_MODE = "$APEX_MUSIC_PACKAGE_NAME.intentextra.shufflemode"
+        const val INTENT_EXTRA_SHUFFLE_MODE =
+            "$APEX_MUSIC_PACKAGE_NAME.intentextra.shufflemode"
         const val APP_WIDGET_UPDATE = "$APEX_MUSIC_PACKAGE_NAME.appreciate"
         const val EXTRA_APP_WIDGET_NAME = APEX_MUSIC_PACKAGE_NAME + "app_widget_name"
 
@@ -1411,6 +1360,7 @@ class MusicService : MediaBrowserServiceCompat(),
         const val CYCLE_REPEAT = "$APEX_MUSIC_PACKAGE_NAME.cyclerepeat"
         const val TOGGLE_SHUFFLE = "$APEX_MUSIC_PACKAGE_NAME.toggleshuffle"
         const val TOGGLE_FAVORITE = "$APEX_MUSIC_PACKAGE_NAME.togglefavorite"
+        const val UPDATE_NOTIFY = "$APEX_MUSIC_PACKAGE_NAME.updatenotify"
         const val SAVED_POSITION = "POSITION"
         const val SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK"
         const val SAVED_SHUFFLE_MODE = "SHUFFLE_MODE"

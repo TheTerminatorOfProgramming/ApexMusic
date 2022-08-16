@@ -59,4 +59,13 @@ object VersionUtils {
     fun hasS(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     }
+
+    /**
+     * @return true if device is running API >= 32
+     */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S_V2)
+    @JvmStatic
+    fun hasSv2(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2
+    }
 }

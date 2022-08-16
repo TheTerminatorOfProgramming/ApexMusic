@@ -21,10 +21,10 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.CLASSIC_NOTIFICATION
-import com.ttop.app.apex.COLORED_NOTIFICATION
-import com.ttop.app.apex.R
+import com.ttop.app.apex.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -63,6 +63,20 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 PreferenceUtil.isColoredNotification = newValue as Boolean
                 true
             }
+        }
+
+        val update: TwoStatePreference? = findPreference(SHOW_UPDATE)
+        /*if (!PreferenceUtil.isAlbumArtOnLockScreen) {
+            update?.isChecked = false
+            update?.isEnabled = false
+            MusicPlayerRemote.updateNotification()
+        }*/
+
+        update?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            update.isChecked = newValue as Boolean
+            MusicPlayerRemote.updateNotification()
+            false
         }
     }
 

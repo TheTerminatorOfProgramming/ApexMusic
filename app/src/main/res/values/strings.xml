@@ -52,6 +52,7 @@
     <string name="action_tag_editor">Tag editor</string>
     <string name="action_toggle_favorite">Toggle favorite</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
+    <string name="action_update">Update notification</string>
     <string name="adaptive">Adaptive</string>
     <string name="add_action">Add</string>
     <string name="add_playlist_title">"Add to playlist"</string>
@@ -77,6 +78,7 @@
     <string name="app_shortcut_top_tracks_short">Top Tracks</string>
     <string name="app_widget_big_name">Big</string>
     <string name="app_widget_full_name">Full</string>
+    <string name="app_widget_full_circle_name">Full Circle</string>
     <string name="app_widget_classic_name">Classic</string>
     <string name="artist">Artist</string>
     <string name="artists">Artists</string>
@@ -374,13 +376,14 @@
     <string name="pref_summary_pause_history">When enabled, newly played songs won\'t show in history</string>
     <string name="pref_summary_remember_tab">Navigate to the last used tab on start</string>
     <string name="pref_summary_show_lyrics">Display synced lyrics over album cover</string>
+    <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
     <string name="pref_summary_specific_device">Allow only a specific bluetooth device to autoplay music</string>
     <string name="pref_summary_suggestions">Show new music mix on homescreen</string>
     <string name="pref_summary_swipe_anywhere_now_playing">Enables changing song by swiping anywhere on the now playing screen</string>
     <string name="pref_summary_swipe_to_dismiss">Swipe down to dismiss mini player</string>
     <string name="pref_summary_synced_lyrics">Show Synced lyrics</string>
     <string name="pref_summary_toggle_full_screen">Immersive mode</string>
-    <string name="pref_summary_toggle_headset">Start playing immediately after headphones are connected</string>
+    <string name="pref_summary_toggle_headset">Start playing immediately after wired headphones are connected</string>
     <string name="pref_summary_toggle_shuffle">Shuffle mode will turn off when playing a new list of songs</string>
     <string name="pref_summary_toggle_volume">If enough space is available, show volume controls in the now playing screen</string>
     <string name="pref_summary_user_name">Show or hide user name on the home page</string>
@@ -425,6 +428,7 @@
     <string name="pref_title_pause_history">Pause history</string>
     <string name="pref_title_remember_tab">Remember last tab</string>
     <string name="pref_title_show_lyrics">Show lyrics</string>
+    <string name="pref_title_show_update">Show update</string>
     <string name="pref_title_specific_device">Specific device</string>
     <string name="pref_title_suggestions">Show suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Swipe anywhere to change song</string>

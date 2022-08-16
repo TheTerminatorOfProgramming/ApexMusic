@@ -14,6 +14,8 @@
  */
 package com.ttop.app.apex.ui.activities.base
 
+import android.R.attr.left
+import android.R.attr.right
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Intent
@@ -26,6 +28,8 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.PathInterpolator
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
@@ -66,6 +70,7 @@ import com.ttop.app.apex.ui.fragments.player.simple.SimplePlayerFragment
 import com.ttop.app.apex.ui.fragments.player.swipe.SwipePlayerFragment
 import com.ttop.app.apex.ui.fragments.player.tiny.TinyPlayerFragment
 import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.logD
@@ -168,6 +173,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         }
 
         navigationBarColor = surfaceColor()
+
+        val layoutParams = (binding.linearLayout?.layoutParams as? ViewGroup.MarginLayoutParams)
+        layoutParams?.setMargins(0, ApexUtil.statusBarHeight, 0, 0)
+        binding.linearLayout?.layoutParams = layoutParams
     }
 
     private fun setupBottomSheet() {

@@ -34,6 +34,8 @@ import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
+import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.ui.activities.MainActivity
@@ -41,11 +43,10 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-class AppWidgetCircle : BaseAppWidget() {
+class AppWidgetFullCircle : BaseAppWidget() {
     private var target: Target<BitmapPaletteWrapper>? = null // for cancellation
 
     /**
@@ -73,7 +74,7 @@ class AppWidgetCircle : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_circle)
+        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_full_circle)
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -155,6 +156,23 @@ class AppWidgetCircle : BaseAppWidget() {
                                 favoriteRes, color
                             ).toBitmap()
                         )
+
+                        // Forward
+                        appWidgetView.setImageViewBitmap(
+                            R.id.button_forward,
+                            service.getTintedDrawable(
+                                R.drawable.ic_skip_next, color
+                            ).toBitmap()
+                        )
+
+                        // Rewind
+                        appWidgetView.setImageViewBitmap(
+                            R.id.button_rewind,
+                            service.getTintedDrawable(
+                                R.drawable.ic_skip_previous, color
+                            ).toBitmap()
+                        )
+
                         if (bitmap != null) {
                             appWidgetView.setImageViewBitmap(R.id.image, bitmap)
                         }
@@ -191,19 +209,27 @@ class AppWidgetCircle : BaseAppWidget() {
         // Play and pause
         pendingIntent = buildPendingIntent(context, ACTION_TOGGLE_PAUSE, serviceName)
         views.setOnClickPendingIntent(R.id.button_toggle_play_pause, pendingIntent)
+
+        // Forward
+        pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
+        views.setOnClickPendingIntent(R.id.button_forward, pendingIntent)
+
+        // Rewind
+        pendingIntent = buildPendingIntent(context, ACTION_REWIND, serviceName)
+        views.setOnClickPendingIntent(R.id.button_rewind, pendingIntent)
     }
 
     companion object {
 
-        const val NAME = "app_widget_circle"
+        const val NAME = "app_widget_full_circle"
 
-        private var mInstance: AppWidgetCircle? = null
+        private var mInstance: AppWidgetFullCircle? = null
         private var imageSize = 0
 
-        val instance: AppWidgetCircle
+        val instance: AppWidgetFullCircle
             @Synchronized get() {
                 if (mInstance == null) {
-                    mInstance = AppWidgetCircle()
+                    mInstance = AppWidgetFullCircle()
                 }
                 return mInstance!!
             }

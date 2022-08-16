@@ -69,7 +69,7 @@ class PermissionActivity : AbsMusicServiceActivity() {
             binding.audioPermission.setNumber("2")
         }*/
 
-        binding.bluetoothPermission.hide()
+        //binding.bluetoothPermission.hide()
         binding.audioPermission.setNumber("2")
 
         binding.finish.accentBackgroundColor()
@@ -109,13 +109,13 @@ class PermissionActivity : AbsMusicServiceActivity() {
             binding.audioPermission.checkImage.imageTintList =
                 ColorStateList.valueOf(accentColor())
         }
-        if (VersionUtils.hasS()) {
+        /*if (VersionUtils.hasS()) {
             if (hasBluetoothPermission()) {
                 binding.bluetoothPermission.checkImage.isVisible = true
                 binding.bluetoothPermission.checkImage.imageTintList =
                     ColorStateList.valueOf(accentColor())
             }
-        }
+        }*/
     }
 
     private fun hasStoragePermission(): Boolean {

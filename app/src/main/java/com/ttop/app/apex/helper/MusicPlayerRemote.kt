@@ -501,6 +501,10 @@ object MusicPlayerRemote : KoinComponent {
         }
     }
 
+    fun updateNotification(){
+        musicService?.updatePlaybackControls()
+    }
+
     private fun getSongIdFromMediaProvider(uri: Uri): String {
         return DocumentsContract.getDocumentId(uri).split(":".toRegex())
             .dropLastWhile { it.isEmpty() }.toTypedArray()[1]

@@ -53,7 +53,7 @@
                 app:permissionTitleNumber="1"
                 app:permissionTitleSubTitle="@string/permission_summary" />
 
-            <com.ttop.app.apex.views.PermissionItem
+            <!--<com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/bluetooth_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 app:permissionTitle="@string/bluetooth_title"
                 app:permissionTitleNumber="2"
                 app:permissionTitleSubTitle="@string/bluetooth_summary"
-                tools:visibility="visible" />
+                tools:visibility="visible" />-->
 
             <com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/audio_permission"

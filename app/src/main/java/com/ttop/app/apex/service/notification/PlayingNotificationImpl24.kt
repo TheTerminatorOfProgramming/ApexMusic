@@ -37,6 +37,7 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
+import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -69,6 +70,7 @@ class PlayingNotificationImpl24(
             PendingIntent.FLAG_UPDATE_CURRENT or  PendingIntent.FLAG_IMMUTABLE
         )
         val toggleFavorite = buildFavoriteAction(false)
+        val update = buildUpdateAction()
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
             R.drawable.ic_skip_previous_round_white_32dp,
@@ -89,7 +91,11 @@ class PlayingNotificationImpl24(
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
-        addAction(toggleFavorite)
+        if (!PreferenceUtil.showUpdate){
+            addAction(toggleFavorite)
+        }else{
+            addAction(update)
+        }
         addAction(previousAction)
         addAction(playPauseAction)
         addAction(nextAction)
@@ -167,6 +173,16 @@ class PlayingNotificationImpl24(
             favoriteResId,
             context.getString(R.string.action_toggle_favorite),
             retrievePlaybackAction(TOGGLE_FAVORITE)
+        ).build()
+    }
+
+    private fun buildUpdateAction(): NotificationCompat.Action {
+        val updateResId =
+            R.drawable.ic_update
+        return NotificationCompat.Action.Builder(
+            updateResId,
+            context.getString(R.string.action_update),
+            retrievePlaybackAction(UPDATE_NOTIFY)
         ).build()
     }
 
