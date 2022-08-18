@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/badge/Platform-Android-green.svg">
   </a>
   <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Min API: 21">
-    <img src="https://img.shields.io/badge/minSdkVersion-21-green.svg">
+    <img src="https://img.shields.io/badge/minSdkVersion-26-green.svg">
   </a>
   <a href="https://play.google.com/store/apps/details?id=code.name.monkey.retromusic" style="text-decoration:none" area-label="Play Store">
     <img src="https://img.shields.io/badge/Download-Google_Play-green.svg">
