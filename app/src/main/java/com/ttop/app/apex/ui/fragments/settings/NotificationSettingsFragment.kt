@@ -26,6 +26,7 @@ import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
@@ -87,19 +88,11 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             false
         }
 
-        val transparency: SeekBarPreference? = findPreference(WIDGET_TRANSPERENCY)
-        transparency?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            false
-        }
-
         val colors: TwoStatePreference? = findPreference(WIDGET_COLORS)
         colors?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             colors.isChecked = newValue as Boolean
             appWidgetClassic.notifyThemeChange(musicService)
-            appWidgetCircle.notifyThemeChange(musicService)
-            appWidgetFullCircle.notifyThemeChange(musicService)
             false
         }
     }

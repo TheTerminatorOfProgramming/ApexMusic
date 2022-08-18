@@ -166,9 +166,6 @@
     <string name="disc_hint">Disc Number</string>
     <string name="do_you_want_to_clear_the_blacklist">Do you want to clear the blacklist?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Do you want to remove <b>%1$s</b> from the blacklist?]]></string>
-    <string name="donate">Donate</string>
-    <string name="donate_summary">If you think I deserve to get paid for my work, you can leave some money here</string>
-    <string name="donation_header">Buy me a:</string>
     <string name="done">Done</string>
     <string name="drive_mode">Drive mode</string>
     <string name="edit_fab">Edit Button</string>
@@ -246,6 +243,8 @@
     <string name="label_sampling_rate">Sampling rate</string>
     <string name="label_track_length">Length</string>
     <string name="labeled">Labeled</string>
+    <string name="labs">Labs</string>
+    <string name="labs_settings_summary">Testing features</string>
     <string name="last_added">Last added</string>
     <string name="last_song">Last song</string>
     <string name="lets_go">Let\'s go</string>
@@ -300,7 +299,7 @@
     <string name="now_playing_summary">Customize the now playing screen</string>
     <string name="now_playing_themes">9+ now playing themes</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
-    <string name="other_settings_summary">Advanced testing features</string>
+    <string name="other_settings_summary">Advanced features</string>
     <string name="others">Other</string>
     <string name="over_cover">Over Cover</string>
     <string name="password">Password</string>
@@ -343,6 +342,7 @@
     <string name="pref_header_controls">Controls</string>
     <string name="pref_header_general">Theme</string>
     <string name="pref_header_images">Images</string>
+    <string name="pref_header_labs">Labs</string>
     <string name="pref_header_library">Library</string>
     <string name="pref_header_lockscreen">Lockscreen &amp; WearOS</string>
     <string name="pref_header_notification">Notification</string>

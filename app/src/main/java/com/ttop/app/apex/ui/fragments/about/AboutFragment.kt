@@ -64,7 +64,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardApexInfo.appGithub.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.appShare.setOnClickListener(this)
-        binding.aboutContent.cardApexInfo.bugReportLink.setOnClickListener(this)
         //binding.aboutContent.cardApexInfo.websiteLink.setOnClickListener(this)
 
         binding.aboutContent.cardOther.changelog.setOnClickListener(this)
@@ -80,7 +79,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.appShare -> shareApp()
             R.id.changelog -> NavigationUtil.gotoWhatNews(requireActivity())
             R.id.openSource -> NavigationUtil.goToOpenSource(requireActivity())
-            R.id.bugReportLink -> NavigationUtil.bugReport(requireActivity())
             R.id.permissions_edit -> goToPermissions()
         }
     }

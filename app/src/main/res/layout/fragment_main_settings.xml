@@ -77,6 +77,15 @@
             app:settingListItemTitle="@string/others" />
 
         <com.ttop.app.apex.views.SettingListItemView
+            android:id="@+id/labs_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:settingListItemIcon="@drawable/ic_popcorn"
+            app:settingListItemIconColor="@color/labs_color"
+            app:settingListItemText="@string/labs_settings_summary"
+            app:settingListItemTitle="@string/labs" />
+
+        <com.ttop.app.apex.views.SettingListItemView
             android:id="@+id/backup_restore_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

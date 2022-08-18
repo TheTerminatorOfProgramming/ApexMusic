@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <!--<uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
         android:usesPermissionFlags="neverForLocation"
         tools:targetApi="s" />-->
@@ -126,11 +127,9 @@
         <activity android:name="com.ttop.app.apex.ui.activities.DriveModeActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.PermissionActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
-            android:exported="true"
-            android:label="@string/pref_title_lock_screen"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:launchMode="singleInstance"
-            android:showOnLockScreen="true"/>
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:showOnLockScreen="true" />
         <activity
             android:name="com.ttop.app.apex.ui.fragments.backup.RestoreActivity"
             android:excludeFromRecents="false"

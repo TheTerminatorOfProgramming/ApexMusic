@@ -32,20 +32,10 @@ class OtherSettingsFragment : AbsSettingsFragment() {
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
 
     override fun invalidateSettings() {
-        val whitelist: TwoStatePreference? = findPreference(WHITELIST_MUSIC)
+        /*val whitelist: TwoStatePreference? = findPreference(WHITELIST_MUSIC)
         whitelist?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
-        val pause: TwoStatePreference? = findPreference(PAUSE_ON_ZERO_VOLUME)
-        pause?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
-        val keepScreenOn: TwoStatePreference? = findPreference(KEEP_SCREEN_ON)
-        keepScreenOn?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
+        }*/
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

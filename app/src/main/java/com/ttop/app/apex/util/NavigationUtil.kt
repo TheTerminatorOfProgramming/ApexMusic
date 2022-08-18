@@ -25,15 +25,8 @@ import com.ttop.app.apex.helper.MusicPlayerRemote.audioSessionId
 import com.ttop.app.apex.ui.activities.DriveModeActivity
 import com.ttop.app.apex.ui.activities.LicenseActivity
 import com.ttop.app.apex.ui.activities.WhatsNewFragment
-import com.ttop.app.apex.ui.activities.bugreport.BugReportActivity
 
 object NavigationUtil {
-    fun bugReport(activity: Activity) {
-        activity.startActivity(
-            Intent(activity, BugReportActivity::class.java), null
-        )
-    }
-
     fun goToOpenSource(activity: Activity) {
         activity.startActivity(
             Intent(activity, LicenseActivity::class.java), null

@@ -33,16 +33,6 @@
         android:title="@string/pref_header_widgets"
         app:isPreferenceVisible="@bool/widget_prefs">
 
-    <!--<com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
-        android:defaultValue="0"
-        android:key="widget_transparency"
-        android:layout="@layout/list_item_view_seekbar"
-        android:max="100"
-        android:summary="Change the widgets background transparency"
-        android:title="Widget transparency"
-        app:icon="@drawable/ic_widget"
-        app:showSeekBarValue="true" />-->
-
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="widget_colors"

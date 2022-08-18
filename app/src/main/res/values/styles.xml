@@ -299,7 +299,9 @@
         </item>
     </style>
 
-    <style name="Theme.AppWidget" parent="Theme.Apex.FollowSystem" />
+    <style name="Theme.AppWidget" parent="" >
+        <item name="colorSurface">#ff000000</item>
+    </style>
 
     <style name="ShapeAppearance.Material3.Circle" parent="">
         <item name="cornerSize">50%</item>

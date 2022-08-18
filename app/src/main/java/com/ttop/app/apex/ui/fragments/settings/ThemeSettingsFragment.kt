@@ -73,6 +73,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             }
             return@setOnPreferenceClickListener true
         }
+
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
         blackTheme?.setOnPreferenceChangeListener { _, _ ->
             ThemeStore.markChanged(requireContext())

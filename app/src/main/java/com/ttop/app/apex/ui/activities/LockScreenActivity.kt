@@ -76,10 +76,18 @@ class LockScreenActivity : AbsMusicServiceActivity() {
             }
 
             override fun onSlideClosed(): Boolean {
-                val keyguardManager =
+                /* keyguardManager =
                     getSystemService<KeyguardManager>()
                 keyguardManager?.requestDismissKeyguard(this@LockScreenActivity, null)
 
+                finish()
+                return true*/
+
+                if (VersionUtils.hasOreo()) {
+                    val keyguardManager =
+                        getSystemService<KeyguardManager>()
+                    keyguardManager?.requestDismissKeyguard(this@LockScreenActivity, null)
+                }
                 finish()
                 return true
             }
@@ -100,6 +108,18 @@ class LockScreenActivity : AbsMusicServiceActivity() {
     private fun lockScreenInit() {
         if (VersionUtils.hasOreoMR1()) {
             setShowWhenLocked(true)
+            //setTurnScreenOn(true)
+        } else {
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                //          or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+            )
+        }
+    }
+
+    /*private fun lockScreenInit() {
+        if (VersionUtils.hasOreoMR1()) {
+            setShowWhenLocked(true)
             val keyguardManager = getSystemService<KeyguardManager>()
             keyguardManager?.requestDismissKeyguard(this, null)
         } else {
@@ -108,7 +128,7 @@ class LockScreenActivity : AbsMusicServiceActivity() {
                         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
             )
         }
-    }
+    }*/
 
     override fun onPlayingMetaChanged() {
         super.onPlayingMetaChanged()
