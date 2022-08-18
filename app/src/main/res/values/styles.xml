@@ -282,6 +282,11 @@
         <item name="android:fontFamily">@font/round_dot</item>
     </style>
 
+    <style name="PencilThemeOverlay">
+        <item name="fontFamily">@font/pencil_regular</item>
+        <item name="android:fontFamily">@font/pencil_regular</item>
+    </style>
+
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton

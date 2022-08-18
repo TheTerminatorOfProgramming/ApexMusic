@@ -43,6 +43,7 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
@@ -54,7 +55,17 @@ class AppWidgetFullCircle : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_circle)
+        var appWidgetView: RemoteViews? = null
+
+        appWidgetView = if (VersionUtils.hasS()) {
+            if (PreferenceUtil.widgetColors) {
+                RemoteViews(context.packageName, R.layout.app_widget_full_circle_day_night)
+            } else {
+                RemoteViews(context.packageName, R.layout.app_widget_full_circle)
+            }
+        } else {
+            RemoteViews(context.packageName, R.layout.app_widget_full_circle)
+        }
 
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
         val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
@@ -74,7 +85,17 @@ class AppWidgetFullCircle : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_full_circle)
+        var appWidgetView: RemoteViews? = null
+
+        appWidgetView = if (VersionUtils.hasS()) {
+            if (PreferenceUtil.widgetColors) {
+                RemoteViews(service.packageName, R.layout.app_widget_full_circle_day_night)
+            } else {
+                RemoteViews(service.packageName, R.layout.app_widget_full_circle)
+            }
+        } else {
+            RemoteViews(service.packageName, R.layout.app_widget_full_circle)
+        }
 
         val isPlaying = service.isPlaying
         val song = service.currentSong

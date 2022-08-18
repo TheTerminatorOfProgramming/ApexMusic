@@ -77,8 +77,9 @@
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
     <string name="app_shortcut_top_tracks_short">Top Tracks</string>
     <string name="app_widget_big_name">Big</string>
-    <string name="app_widget_full_name">Full</string>
     <string name="app_widget_classic_name">Classic</string>
+    <string name="app_widget_full_circle_name">Full Circle</string>
+    <string name="app_widget_full_name">Full</string>
     <string name="artist">Artist</string>
     <string name="artists">Artists</string>
     <string name="audio_fade_duration">Audio fade duration</string>
@@ -91,7 +92,7 @@
     </string>
     <string name="backup_title">Backups</string>
     <string name="biography">Biography</string>
-    <string name="black_theme_name">Just Black</string>
+    <string name="black_theme_name">Jet Black</string>
     <string name="blacklist">Blacklist</string>
     <string name="bluetooth_summary">The app needs nearby devices permission to check for bluetooth devices</string>
     <string name="bluetooth_title">Nearby devices</string>
@@ -146,7 +147,7 @@
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
     <string name="custom_artist_images">Custom Artist Images</string>
     <string name="customactivityoncrash_error_activity_error_details_share">Share Crash Report</string>
-    <string name="dark_theme_name">Kinda Dark</string>
+    <string name="dark_theme_name">Sorta Dark</string>
     <string name="delete_playlist_title">Delete playlist</string>
     <string name="delete_playlist_x"><![CDATA[Delete the playlist <b>%1$s</b>?]]></string>
     <string name="delete_playlists_title">Delete playlists</string>
@@ -197,6 +198,7 @@
     <string name="font_josefinsans_name">JosefinSans</string>
     <string name="font_jura_name">Jura</string>
     <string name="font_manrope_name">Manrope</string>
+    <string name="font_pencil_name">Pencil</string>
     <string name="font_sans_name">Google Sans</string>
     <string name="free">Free</string>
     <string name="full">Full</string>
@@ -249,7 +251,7 @@
     <string name="lets_go">Let\'s go</string>
     <string name="library_categories">Library categories</string>
     <string name="licenses">Licenses</string>
-    <string name="light_theme_name">Clearly White</string>
+    <string name="light_theme_name">Bright White</string>
     <string name="listeners_label">Listeners</string>
     <string name="listing_files">Listing files</string>
     <string name="loading_products">Loading products…</string>
@@ -343,7 +345,9 @@
     <string name="pref_header_images">Images</string>
     <string name="pref_header_library">Library</string>
     <string name="pref_header_lockscreen">Lockscreen &amp; WearOS</string>
+    <string name="pref_header_notification">Notification</string>
     <string name="pref_header_playlists">Playlists</string>
+    <string name="pref_header_widgets">Widgets</string>
     <string name="pref_keep_pause_on_zero_volume_summary">Pauses the song when the volume decreases to zero and starts playing back when the volume level rises. Also works outside the app</string>
     <string name="pref_keep_pause_on_zero_volume_title">Pause on zero</string>
     <string name="pref_keep_screen_on_summary">Keep in mind that enabling this feature may affect battery life</string>
@@ -391,6 +395,7 @@
     <string name="pref_summary_user_name">Show or hide user name on the home page</string>
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
+    <string name="pref_summary_widget_day_night">Use android 12 day/night widget theme</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
     <string name="pref_title_album_artists_only">Navigate by Album Artist</string>
     <string name="pref_title_album_cover_style">Album cover theme</string>
@@ -445,6 +450,7 @@
     <string name="pref_title_user_name">User name</string>
     <string name="pref_title_wallpaper_accent">Wallpaper accent color</string>
     <string name="pref_title_whitelist">Whitelist music</string>
+    <string name="pref_title_widget_day_night">Widget day/night</string>
     <string name="pro">Pro</string>
     <string name="pro_summary">Black theme, Now playing themes, Carousel effect and more..</string>
     <string name="profile">Profile</string>

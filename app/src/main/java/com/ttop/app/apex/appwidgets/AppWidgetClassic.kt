@@ -15,12 +15,15 @@
 package com.ttop.app.apex.appwidgets
 
 import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
@@ -29,6 +32,7 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
+import com.ttop.app.apex.extensions.colorBackground
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
@@ -44,6 +48,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 
+
 class AppWidgetClassic : BaseAppWidget() {
     private var target: Target<BitmapPaletteWrapper>? = null // for cancellation
 
@@ -52,7 +57,17 @@ class AppWidgetClassic : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_classic)
+        var appWidgetView: RemoteViews? = null
+
+        appWidgetView = if (VersionUtils.hasS()) {
+            if (PreferenceUtil.widgetColors) {
+                RemoteViews(context.packageName, R.layout.app_widget_classic_day_night)
+            } else {
+                RemoteViews(context.packageName, R.layout.app_widget_classic)
+            }
+        } else {
+            RemoteViews(context.packageName, R.layout.app_widget_classic)
+        }
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
@@ -98,7 +113,17 @@ class AppWidgetClassic : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_classic)
+        var appWidgetView: RemoteViews? = null
+
+        appWidgetView = if (VersionUtils.hasS()) {
+            if (PreferenceUtil.widgetColors) {
+                RemoteViews(service.packageName, R.layout.app_widget_classic_day_night)
+            } else {
+                RemoteViews(service.packageName, R.layout.app_widget_classic)
+            }
+        } else {
+            RemoteViews(service.packageName, R.layout.app_widget_classic)
+        }
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -261,8 +286,8 @@ class AppWidgetClassic : BaseAppWidget() {
         // Next track
         pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
         views.setOnClickPendingIntent(R.id.button_next, pendingIntent)
-    }
 
+    }
     companion object {
 
         const val NAME = "app_widget_md3"

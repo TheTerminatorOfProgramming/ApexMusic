@@ -89,6 +89,10 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.RoundDotThemeOverlay)
         }
 
+        if (PreferenceUtil.isCustomFont == "pencil") {
+            setTheme(R.style.PencilThemeOverlay)
+        }
+
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
         }

@@ -7,4 +7,5 @@
 
     <bool name="wallpaper_accent_enabled">false</bool>
     <bool name="wallpaper_accent_visible">false</bool>
+    <bool name="widget_prefs">false</bool>
 </resources>

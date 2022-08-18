@@ -849,6 +849,20 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             SHOW_UPDATE, false
         )
+
+    var widgetTransparency
+        get() = sharedPreferences.getInt(
+            WIDGET_TRANSPERENCY, 0
+        )
+        set(value) = sharedPreferences.edit {
+            putInt(WIDGET_TRANSPERENCY, 0)}
+
+    var widgetColors
+        get() = sharedPreferences.getBoolean(
+            WIDGET_COLORS, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(WIDGET_COLORS, false)}
 }
 
 enum class CoverLyricsType {

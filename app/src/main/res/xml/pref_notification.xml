@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_notification">
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="classic_notification"
@@ -23,5 +26,29 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_show_update"
         android:title="@string/pref_title_show_update" />
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_widgets"
+        app:isPreferenceVisible="@bool/widget_prefs">
+
+    <!--<com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+        android:defaultValue="0"
+        android:key="widget_transparency"
+        android:layout="@layout/list_item_view_seekbar"
+        android:max="100"
+        android:summary="Change the widgets background transparency"
+        android:title="Widget transparency"
+        app:icon="@drawable/ic_widget"
+        app:showSeekBarValue="true" />-->
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="widget_colors"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_widget_day_night"
+            android:title="@string/pref_title_widget_day_night"
+            android:icon="@drawable/ic_widget"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>
