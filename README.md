@@ -52,7 +52,7 @@ ___
 Apex Music is an offline music player forked from Retro Music (https://github.com/RetroMusicPlayer/RetroMusicPlayer), an Open Source Music Player. Apex Music is also Open Source.
 ___    
 ## Colorful
-3 color themes: Clearly White, Kinda Dark and Just Black.
+3 color themes: Bright White, Sorta Dark and Jet Black.
 Select your favorite accent color
 
 ## Home
@@ -60,11 +60,11 @@ Where you can view your recently/top played artists, albums and
 favorite songs.
 
 ## Included Features
--  3 themes (Clearly White, Kinda Dark and Just Black)
+-  3 themes (Bright White, Sorta Dark and Jet Black)
 -  Chromecast support
 -  Choose from 15+ now playing themes
 -  Driving Mode
--  Headset/Bluetooth support
+-  Headset support
 -  Music duration filter
 -  Android auto support
 -  Wallpaper accent picker on Android 8.1+
