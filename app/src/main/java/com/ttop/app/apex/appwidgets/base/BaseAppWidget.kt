@@ -60,8 +60,8 @@ abstract class BaseAppWidget : AppWidgetProvider() {
 
     override fun onEnabled(context: Context?) {
         musicService?.let { performUpdate(it, null) }
-        val serviceIntent = Intent(context, MusicService::class.java)
-        context?.startForegroundService(serviceIntent)
+        //val serviceIntent = Intent(context, MusicService::class.java)
+        //context?.startForegroundService(serviceIntent)
         super.onEnabled(context)
     }
 
