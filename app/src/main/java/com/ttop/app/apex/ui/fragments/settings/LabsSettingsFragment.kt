@@ -47,6 +47,15 @@ class LabsSettingsFragment : AbsSettingsFragment() {
         keepScreenOn?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
+
+        val progressbar: TwoStatePreference? = findPreference(PROGRESS_BAR_STYLE)
+        progressbar?.isChecked = PreferenceUtil.progressBarStyle
+        progressbar?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.progressBarStyle = newValue as Boolean
+            PreferenceUtil.shouldRecreate = true
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

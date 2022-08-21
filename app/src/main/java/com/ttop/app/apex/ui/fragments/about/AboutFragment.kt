@@ -34,6 +34,7 @@ import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
@@ -136,11 +137,20 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun checkStoragePermission(): String {
-        return if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) }
-            == PackageManager.PERMISSION_GRANTED) {
-            "Granted"
-        }else{
-            "Denied"
+        return if (VersionUtils.hasT()) {
+            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_MEDIA_AUDIO) }
+                == PackageManager.PERMISSION_GRANTED) {
+                "Granted"
+            }else{
+                "Denied"
+            }
+        } else {
+            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) }
+                == PackageManager.PERMISSION_GRANTED) {
+                "Granted"
+            }else{
+                "Denied"
+            }
         }
     }
 

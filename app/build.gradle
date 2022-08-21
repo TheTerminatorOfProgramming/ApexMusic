@@ -5,11 +5,11 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 26
-        targetSdk 32
+        targetSdk 33
 
         vectorDrawables.useSupportLibrary = true
 
@@ -98,6 +98,8 @@ dependencies {
     implementation "androidx.navigation:navigation-runtime-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation 'androidx.core:core-ktx:1.7.0-beta01'
 
     def room_version = '2.5.0-alpha02'
     implementation "androidx.room:room-runtime:$room_version"
@@ -157,4 +159,5 @@ dependencies {
     implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
     implementation 'me.tankery.lib:circularSeekBar:1.4.0'
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
 }

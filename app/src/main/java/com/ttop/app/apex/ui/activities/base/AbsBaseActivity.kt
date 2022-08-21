@@ -113,38 +113,74 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
         if (requestCode == PERMISSION_REQUEST) {
             for (grantResult in grantResults) {
                 if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this@AbsBaseActivity, Manifest.permission.READ_EXTERNAL_STORAGE,
-                        ) || ActivityCompat.shouldShowRequestPermissionRationale(
-                            this@AbsBaseActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        )
-                    ) {
-                        // User has deny from permission dialog
-                        Snackbar.make(
-                            snackBarContainer,
-                            permissionDeniedMessage!!,
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .setAction(R.string.action_grant) { requestPermissions() }
-                            .setActionTextColor(accentColor()).show()
-                    } else {
-                        // User has deny permission and checked never show permission dialog so you can redirect to Application settings page
-                        Snackbar.make(
-                            snackBarContainer,
-                            permissionDeniedMessage!!,
-                            Snackbar.LENGTH_INDEFINITE
-                        )
-                            .setAction(R.string.action_settings) {
-                                val intent = Intent()
-                                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                                val uri = Uri.fromParts(
-                                    "package",
-                                    this@AbsBaseActivity.packageName,
-                                    null
-                                )
-                                intent.data = uri
-                                startActivity(intent)
-                            }.setActionTextColor(accentColor()).show()
+                    if (VersionUtils.hasT()) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                                this@AbsBaseActivity, Manifest.permission.READ_MEDIA_AUDIO,
+                            ) || ActivityCompat.shouldShowRequestPermissionRationale(
+                                this@AbsBaseActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            )
+                        ) {
+                            // User has deny from permission dialog
+                            Snackbar.make(
+                                snackBarContainer,
+                                permissionDeniedMessage!!,
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .setAction(R.string.action_grant) { requestPermissions() }
+                                .setActionTextColor(accentColor()).show()
+                        } else {
+                            // User has deny permission and checked never show permission dialog so you can redirect to Application settings page
+                            Snackbar.make(
+                                snackBarContainer,
+                                permissionDeniedMessage!!,
+                                Snackbar.LENGTH_INDEFINITE
+                            )
+                                .setAction(R.string.action_settings) {
+                                    val intent = Intent()
+                                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                                    val uri = Uri.fromParts(
+                                        "package",
+                                        this@AbsBaseActivity.packageName,
+                                        null
+                                    )
+                                    intent.data = uri
+                                    startActivity(intent)
+                                }.setActionTextColor(accentColor()).show()
+                        }
+                    }else {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                                this@AbsBaseActivity, Manifest.permission.READ_EXTERNAL_STORAGE,
+                            ) || ActivityCompat.shouldShowRequestPermissionRationale(
+                                this@AbsBaseActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            )
+                        ) {
+                            // User has deny from permission dialog
+                            Snackbar.make(
+                                snackBarContainer,
+                                permissionDeniedMessage!!,
+                                Snackbar.LENGTH_SHORT
+                            )
+                                .setAction(R.string.action_grant) { requestPermissions() }
+                                .setActionTextColor(accentColor()).show()
+                        } else {
+                            // User has deny permission and checked never show permission dialog so you can redirect to Application settings page
+                            Snackbar.make(
+                                snackBarContainer,
+                                permissionDeniedMessage!!,
+                                Snackbar.LENGTH_INDEFINITE
+                            )
+                                .setAction(R.string.action_settings) {
+                                    val intent = Intent()
+                                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                                    val uri = Uri.fromParts(
+                                        "package",
+                                        this@AbsBaseActivity.packageName,
+                                        null
+                                    )
+                                    intent.data = uri
+                                    startActivity(intent)
+                                }.setActionTextColor(accentColor()).show()
+                        }
                     }
                     return
                 }

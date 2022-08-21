@@ -62,6 +62,7 @@ import com.ttop.app.apex.providers.SongPlayCountStore
 import com.ttop.app.apex.service.notification.PlayingNotification
 import com.ttop.app.apex.service.notification.PlayingNotificationClassic
 import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
+import com.ttop.app.apex.service.notification.PlayingNotificationImpl33
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.ui.activities.LockScreenActivity
@@ -505,12 +506,16 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun initNotification() {
-        playingNotification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-            && !isClassicNotification
-        ) {
-            PlayingNotificationImpl24.from(this, notificationManager!!, mediaSession!!)
+        if (!isClassicNotification) {
+            if (VersionUtils.hasOreo()) {
+                playingNotification =
+                    PlayingNotificationImpl24.from(this, notificationManager!!, mediaSession!!)
+            } else if (VersionUtils.hasT()) {
+                playingNotification =
+                    PlayingNotificationImpl33.from(this, notificationManager!!, mediaSession!!)
+            }
         } else {
-            PlayingNotificationClassic.from(this, notificationManager!!)
+            playingNotification = PlayingNotificationClassic.from(this, notificationManager!!)
         }
     }
 

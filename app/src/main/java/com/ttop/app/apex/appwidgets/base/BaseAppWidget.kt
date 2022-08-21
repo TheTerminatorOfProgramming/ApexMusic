@@ -37,6 +37,8 @@ import com.ttop.app.apex.service.MusicService.Companion.EXTRA_APP_WIDGET_NAME
 import com.ttop.app.apex.service.MusicService.Companion.FAVORITE_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.META_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.PLAY_STATE_CHANGED
+import com.ttop.app.apex.util.Android12Util
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class BaseAppWidget : AppWidgetProvider() {
     val musicService = MusicPlayerRemote.musicService
@@ -58,10 +60,14 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         MusicPlayerRemote.updatePlaybackControls()
     }
 
-    override fun onEnabled(context: Context?) {
+    override fun onEnabled(context: Context) {
         musicService?.let { performUpdate(it, null) }
-        //val serviceIntent = Intent(context, MusicService::class.java)
-        //context?.startForegroundService(serviceIntent)
+        val serviceIntent = Intent(context, MusicService::class.java)
+        if (VersionUtils.hasS()) {
+           Android12Util.StartForegroundService(context)
+        } else {
+            context.startForegroundService(serviceIntent)
+        }
         super.onEnabled(context)
     }
 

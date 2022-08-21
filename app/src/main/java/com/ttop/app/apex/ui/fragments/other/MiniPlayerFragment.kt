@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.fragments.other
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -38,6 +39,7 @@ import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.ThemeStore
 import kotlin.math.abs
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
@@ -62,6 +64,23 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMiniPlayerBinding.bind(view)
+
+        if (PreferenceUtil.progressBarStyle){
+            if (PreferenceUtil.progressBarTopAlignment){
+                binding.progressBar.visibility = View.GONE
+                binding.progressBarHorizontalTop.visibility = View.VISIBLE
+                binding.progressBarHorizontalBottom.visibility = View.GONE
+            }else{
+                binding.progressBar.visibility = View.GONE
+                binding.progressBarHorizontalTop.visibility = View.GONE
+                binding.progressBarHorizontalBottom.visibility = View.VISIBLE
+            }
+        }else{
+            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBarHorizontalTop.visibility = View.GONE
+            binding.progressBarHorizontalBottom.visibility = View.GONE
+        }
+
         view.setOnTouchListener(FlingPlayBackController(requireContext()))
         setUpMiniPlayer()
         setUpButtons()
@@ -82,6 +101,17 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private fun setUpMiniPlayer() {
         setUpPlayPauseButton()
         binding.progressBar.accentColor()
+        binding.progressBarHorizontalTop.supportProgressTintList = context?.let {
+            ThemeStore.accentColor(
+                it
+            )
+        }?.let { ColorStateList.valueOf(it) }
+
+        binding.progressBarHorizontalBottom.supportProgressTintList = context?.let {
+            ThemeStore.accentColor(
+                it
+            )
+        }?.let { ColorStateList.valueOf(it) }
     }
 
     private fun setUpPlayPauseButton() {
@@ -138,6 +168,12 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onUpdateProgressViews(progress: Int, total: Int) {
         binding.progressBar.max = total
         binding.progressBar.progress = progress
+
+        binding.progressBarHorizontalTop.max = total
+        binding.progressBarHorizontalTop.progress = progress
+
+        binding.progressBarHorizontalBottom.max = total
+        binding.progressBarHorizontalBottom.progress = progress
     }
 
     override fun onResume() {

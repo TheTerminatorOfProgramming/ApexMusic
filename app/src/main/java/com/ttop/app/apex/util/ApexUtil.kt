@@ -13,16 +13,26 @@
  */
 package com.ttop.app.apex.util
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
 import android.content.res.Configuration
 import android.graphics.Point
+import android.os.Build
 import android.os.Environment
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.getSystemService
 import com.ttop.app.apex.App.Companion.getContext
+import com.ttop.app.apex.R
 import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.DecimalFormat
 import java.util.*
+
 
 object ApexUtil {
     fun formatValue(numValue: Float): String {
@@ -141,5 +151,32 @@ object ApexUtil {
             getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
             "Apex/LRC"
         )
+    }
+
+    fun createNotification(ID: Int, ChannelID: String) : Notification{
+        //CREATE NOTIFICATION
+        val builder = NotificationCompat.Builder(getContext(), ChannelID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("Foreground Notification")
+            .setContentText("This Notification keeps the Service Alive for the Bluetooth AutoPlay Feature")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setOngoing(true)
+
+        //CREATE CHANNEL
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Bluetooth Foreground Notification"
+            val descriptionText = "Foreground Notification"
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val mChannel = NotificationChannel(ChannelID, name, importance).apply {
+                description = descriptionText
+                setShowBadge(false)
+            }
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            val notificationManager = getContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(mChannel)
+        }
+
+        return builder.build()
     }
 }

@@ -190,11 +190,19 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
     }
 
     override fun getPermissionsToRequest(): Array<String> {
-        return mutableListOf(Manifest.permission.READ_EXTERNAL_STORAGE).apply {
-            if (!VersionUtils.hasR()) {
-                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-        }.toTypedArray()
+        return if (VersionUtils.hasT()) {
+            mutableListOf(Manifest.permission.READ_MEDIA_AUDIO).apply {
+                if (!VersionUtils.hasR()) {
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }.toTypedArray()
+        }else {
+            mutableListOf(Manifest.permission.READ_EXTERNAL_STORAGE).apply {
+                if (!VersionUtils.hasR()) {
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }.toTypedArray()
+        }
     }
 
     private class MusicStateReceiver(activity: AbsMusicServiceActivity) : BroadcastReceiver() {

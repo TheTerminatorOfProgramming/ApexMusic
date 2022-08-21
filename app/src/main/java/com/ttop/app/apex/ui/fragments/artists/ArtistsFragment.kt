@@ -174,10 +174,10 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
-        setUpGridSizeMenu(gridSizeItem.subMenu)
+        gridSizeItem.subMenu?.let { setUpGridSizeMenu(it) }
         val layoutItem = menu.findItem(R.id.action_layout_type)
-        setupLayoutMenu(layoutItem.subMenu)
-        setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
+        layoutItem.subMenu?.let { setupLayoutMenu(it) }
+        menu.findItem(R.id.action_sort_order).subMenu?.let { setUpSortOrderMenu(it) }
         setupAlbumArtistMenu(menu)
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)

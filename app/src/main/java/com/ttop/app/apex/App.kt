@@ -22,7 +22,6 @@ import com.ttop.app.apex.helper.WallpaperAccentManager
 import com.ttop.app.apex.ui.activities.ErrorActivity
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

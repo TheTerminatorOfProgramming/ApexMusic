@@ -16,4 +16,19 @@
         android:summary="@string/pref_keep_screen_on_summary"
         android:title="@string/pref_keep_screen_on_title"
         app:icon="@drawable/ic_settings_brigntness" />
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:layout="@layout/list_item_view_switch"
+        app:defaultValue="false"
+        app:key="progress_bar_style"
+        app:summary="@string/pref_summary_progress_bar_style"
+        app:title="@string/pref_title_progress_bar_style" />
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:layout="@layout/list_item_view_switch"
+        app:defaultValue="false"
+        app:key="progress_bar_top_alignment"
+        app:summary="@string/pref_summary_progress_bar_top_alignment"
+        app:title="@string/pref_title_progress_bar_top_alignment"
+        android:dependency="progress_bar_style"/>
 </androidx.preference.PreferenceScreen>

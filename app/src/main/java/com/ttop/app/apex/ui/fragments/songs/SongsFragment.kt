@@ -134,9 +134,9 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
-        setUpGridSizeMenu(gridSizeItem.subMenu)
+        gridSizeItem.subMenu?.let { setUpGridSizeMenu(it) }
         val layoutItem = menu.findItem(R.id.action_layout_type)
-        setupLayoutMenu(layoutItem.subMenu)
+        layoutItem.subMenu?.let { setupLayoutMenu(it) }
 
         if (ApexUtil.isTablet){
             layoutItem?.isVisible = getGridSize() >= 3
@@ -146,7 +146,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
 
         layout = layoutItem
 
-        setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
+        menu.findItem(R.id.action_sort_order).subMenu?.let { setUpSortOrderMenu(it) }
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
     }

@@ -357,10 +357,10 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             context,
             object : GestureDetector.SimpleOnGestureListener() {
                 override fun onScroll(
-                    e1: MotionEvent?,
-                    e2: MotionEvent?,
+                    e1: MotionEvent,
+                    e2: MotionEvent,
                     distanceX: Float,
-                    distanceY: Float,
+                    distanceY: Float
                 ): Boolean {
                     return when {
                         abs(distanceX) > abs(distanceY) -> {
@@ -378,7 +378,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         @SuppressLint("ClickableViewAccessibility")
         override fun onTouch(v: View, event: MotionEvent?): Boolean {
             viewPager?.dispatchTouchEvent(event)
-            return flingPlayBackController.onTouchEvent(event)
+            return event?.let { flingPlayBackController.onTouchEvent(it) }!!
         }
     }
 

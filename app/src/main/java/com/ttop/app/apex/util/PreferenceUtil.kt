@@ -855,14 +855,28 @@ object PreferenceUtil {
             WIDGET_TRANSPERENCY, 0
         )
         set(value) = sharedPreferences.edit {
-            putInt(WIDGET_TRANSPERENCY, 0)}
+            putInt(WIDGET_TRANSPERENCY, value)}
 
     var widgetColors
         get() = sharedPreferences.getBoolean(
             WIDGET_COLORS, false
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(WIDGET_COLORS, false)}
+            putBoolean(WIDGET_COLORS, value)}
+
+    var progressBarStyle
+        get() = sharedPreferences.getBoolean(
+            PROGRESS_BAR_STYLE, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(PROGRESS_BAR_STYLE, value)}
+
+    var progressBarTopAlignment
+        get() = sharedPreferences.getBoolean(
+            PROGRESS_BAR_TOP_ALIGNMENT, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(PROGRESS_BAR_TOP_ALIGNMENT, value)}
 }
 
 enum class CoverLyricsType {

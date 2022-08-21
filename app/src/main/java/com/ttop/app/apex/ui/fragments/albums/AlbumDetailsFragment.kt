@@ -349,7 +349,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_album_detail, menu)
         val sortOrder = menu.findItem(R.id.action_sort_order)
-        setUpSortOrderMenu(sortOrder.subMenu)
+        sortOrder.subMenu?.let { setUpSortOrderMenu(it) }
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
             requireContext(),
             binding.toolbar,
