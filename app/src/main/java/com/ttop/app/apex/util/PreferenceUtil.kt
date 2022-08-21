@@ -871,12 +871,12 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(PROGRESS_BAR_STYLE, value)}
 
-    var progressBarTopAlignment
+    var progressBarAlignment
         get() = sharedPreferences.getBoolean(
-            PROGRESS_BAR_TOP_ALIGNMENT, false
+            PROGRESS_BAR_ALIGNMENT, false
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(PROGRESS_BAR_TOP_ALIGNMENT, value)}
+            putBoolean(PROGRESS_BAR_ALIGNMENT, value)}
 }
 
 enum class CoverLyricsType {

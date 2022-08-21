@@ -249,6 +249,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             KEEP_SCREEN_ON -> {
                 maybeSetScreenOn()
             }
+            PROGRESS_BAR_ALIGNMENT,
+            PROGRESS_BAR_STYLE -> {
+                recreate()
+            }
         }
     }
 

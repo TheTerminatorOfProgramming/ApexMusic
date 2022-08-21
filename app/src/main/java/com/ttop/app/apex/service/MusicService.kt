@@ -69,7 +69,6 @@ import com.ttop.app.apex.ui.activities.LockScreenActivity
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt

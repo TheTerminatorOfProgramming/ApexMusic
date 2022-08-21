@@ -66,7 +66,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         _binding = FragmentMiniPlayerBinding.bind(view)
 
         if (PreferenceUtil.progressBarStyle){
-            if (PreferenceUtil.progressBarTopAlignment){
+            if (PreferenceUtil.progressBarAlignment){
                 binding.progressBar.visibility = View.GONE
                 binding.progressBarHorizontalTop.visibility = View.VISIBLE
                 binding.progressBarHorizontalBottom.visibility = View.GONE

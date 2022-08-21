@@ -123,7 +123,6 @@
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.LicenseActivity" />
-        <activity android:name="com.ttop.app.apex.ui.activities.bugreport.BugReportActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.ShareInstagramStory" />
         <activity android:name="com.ttop.app.apex.ui.activities.DriveModeActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.PermissionActivity" />

@@ -52,8 +52,13 @@ class LabsSettingsFragment : AbsSettingsFragment() {
         progressbar?.isChecked = PreferenceUtil.progressBarStyle
         progressbar?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.progressBarStyle = newValue as Boolean
-            PreferenceUtil.shouldRecreate = true
+            true
+        }
+
+        val progressbarAlignment: TwoStatePreference? = findPreference(PROGRESS_BAR_ALIGNMENT)
+        progressbarAlignment?.isChecked = PreferenceUtil.progressBarAlignment
+        progressbarAlignment?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
     }
