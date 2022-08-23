@@ -99,4 +99,4 @@ Apex Music is released under the GNU General Public License v3.0
 
 ## Icon
       
-The icon is based on <a href="https://www.flaticon.com/free-icons/bass" title="bass icons">Bass icons created by Good Ware - Flaticon</a>, which i have edited
+The icon is based on <a href="https://www.flaticon.com/free-icon/sound_865548?term=music" title="sound icon">Sound Icon created by Good Ware - Flaticon</a>, which i have edited
