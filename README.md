@@ -7,7 +7,7 @@
   <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Android">
     <img src="https://img.shields.io/badge/Platform-Android-green.svg">
   </a>
-  <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Min API: 21">
+  <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Min API: 26">
     <img src="https://img.shields.io/badge/minSdkVersion-26-green.svg">
   </a>
   <a href="https://play.google.com/store/apps/details?id=code.name.monkey.retromusic" style="text-decoration:none" area-label="Play Store">
@@ -96,3 +96,7 @@ Apex Music is released under the GNU General Public License v3.0
 
 >Please note: Apex Music is an offline music player app. It
 >doesn't support music downloading or online music streaming.
+
+## Icon
+      
+The icon is based on <a href="https://www.flaticon.com/free-icon/sound_865548?term=music" title="sound icon">Sound Icon created by Good Ware - Flaticon</a>, which i have edited
