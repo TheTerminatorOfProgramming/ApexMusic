@@ -122,7 +122,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/previousButton"
-        app:srcCompat="@drawable/ic_repeat"
+        app:srcCompat="@drawable/mc_repeat"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 
@@ -137,7 +137,7 @@
         app:layout_constraintEnd_toStartOf="@+id/playPauseButton"
         app:layout_constraintStart_toEndOf="@+id/repeatButton"
         app:layout_constraintTop_toTopOf="@+id/playPauseButton"
-        app:srcCompat="@drawable/ic_skip_previous"
+        app:srcCompat="@drawable/mc_previous"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 
@@ -152,7 +152,8 @@
         app:layout_constraintStart_toEndOf="@+id/previousButton"
         app:layout_constraintTop_toBottomOf="@+id/progressSlider"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/ic_pause_white_64dp"
+        app:maxImageSize="35dp"
+        app:srcCompat="@drawable/mc_pause"
         tools:layout_editor_absoluteX="178dp"
         tools:tint="@color/md_black_1000" />
 
@@ -167,7 +168,7 @@
         app:layout_constraintEnd_toStartOf="@+id/shuffleButton"
         app:layout_constraintStart_toEndOf="@+id/playPauseButton"
         app:layout_constraintTop_toTopOf="@+id/playPauseButton"
-        app:srcCompat="@drawable/ic_skip_next"
+        app:srcCompat="@drawable/mc_next"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 
@@ -182,7 +183,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/nextButton"
         app:layout_constraintTop_toTopOf="@+id/nextButton"
-        app:srcCompat="@drawable/ic_shuffle"
+        app:srcCompat="@drawable/mc_shuffle"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 

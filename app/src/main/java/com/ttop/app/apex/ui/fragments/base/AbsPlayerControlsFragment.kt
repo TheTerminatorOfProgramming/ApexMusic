@@ -212,7 +212,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
         previousButton?.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
-    fun updateShuffleState() {
+    open fun updateShuffleState() {
         shuffleButton.setColorFilter(
             when (MusicPlayerRemote.shuffleMode) {
                 MusicService.SHUFFLE_MODE_SHUFFLE -> lastPlaybackControlsColor
@@ -221,7 +221,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
         )
     }
 
-    fun updateRepeatState() {
+    open fun updateRepeatState() {
         when (MusicPlayerRemote.repeatMode) {
             MusicService.REPEAT_MODE_NONE -> {
                 repeatButton.setImageResource(R.drawable.ic_repeat)

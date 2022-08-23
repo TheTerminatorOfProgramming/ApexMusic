@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.player.lockscreen
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -27,6 +28,7 @@ import com.ttop.app.apex.extensions.ripAlpha
 import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -145,11 +147,37 @@ class LockScreenControlsFragment :
         binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
     }
 
+    override fun updateRepeatState() {
+        when (MusicPlayerRemote.repeatMode) {
+            MusicService.REPEAT_MODE_NONE -> {
+                repeatButton.setImageResource(R.drawable.mc_repeat)
+                repeatButton.setColorFilter(
+                    lastDisabledPlaybackControlsColor,
+                    PorterDuff.Mode.SRC_IN
+                )
+            }
+            MusicService.REPEAT_MODE_ALL -> {
+                repeatButton.setImageResource(R.drawable.mc_repeat)
+                repeatButton.setColorFilter(
+                    lastPlaybackControlsColor,
+                    PorterDuff.Mode.SRC_IN
+                )
+            }
+            MusicService.REPEAT_MODE_THIS -> {
+                repeatButton.setImageResource(R.drawable.mc_repeat_one)
+                repeatButton.setColorFilter(
+                    lastPlaybackControlsColor,
+                    PorterDuff.Mode.SRC_IN
+                )
+            }
+        }
+    }
+//MC_PAUSE_PLAY
     private fun updatePlayPauseDrawableState() {
         if (MusicPlayerRemote.isPlaying) {
-            binding.playPauseButton.setImageResource(R.drawable.ic_pause)
+            binding.playPauseButton.setImageResource(R.drawable.mc_pause)
         } else {
-            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow_white_32dp)
+            binding.playPauseButton.setImageResource(R.drawable.mc_play)
         }
     }
 

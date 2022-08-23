@@ -77,21 +77,21 @@ class PlayingNotificationImpl33(
         val toggleFavoriteOrUpdate = buildFavoriteUpdateAction(false)
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
-            R.drawable.ic_skip_previous_round_white_32dp,
+            R.drawable.mc_previous,
             context.getString(R.string.action_previous),
             retrievePlaybackAction(ACTION_REWIND)
         )
         val nextAction = NotificationCompat.Action(
-            R.drawable.ic_skip_next_round_white_32dp,
+            R.drawable.mc_next,
             context.getString(R.string.action_next),
             retrievePlaybackAction(ACTION_SKIP)
         )
         val dismissAction = NotificationCompat.Action(
-            R.drawable.ic_close,
+            R.drawable.mc_close,
             context.getString(R.string.action_cancel),
             retrievePlaybackAction(ACTION_QUIT)
         )
-        setSmallIcon(R.drawable.ic_notification)
+        setSmallIcon(R.drawable.mc_notification)
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
@@ -158,7 +158,7 @@ class PlayingNotificationImpl33(
 
     private fun buildPlayAction(isPlaying: Boolean): NotificationCompat.Action {
         val playButtonResId =
-            if (isPlaying) R.drawable.ic_pause_white_48dp else R.drawable.ic_play_arrow_white_48dp
+            if (isPlaying) R.drawable.mc_pause else R.drawable.mc_play
         return NotificationCompat.Action.Builder(
             playButtonResId,
             context.getString(R.string.action_play_pause),
@@ -169,7 +169,7 @@ class PlayingNotificationImpl33(
     private fun buildFavoriteUpdateAction(isFavorite: Boolean): NotificationCompat.Action {
         if (!PreferenceUtil.showUpdate) {
             val favoriteResId =
-                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
+                if (isFavorite) R.drawable.mc_favorite else R.drawable.mc_favorite_border
             return NotificationCompat.Action.Builder(
                 favoriteResId,
                 context.getString(R.string.action_toggle_favorite),
@@ -177,7 +177,7 @@ class PlayingNotificationImpl33(
             ).build()
         }else{
             val updateResId =
-                R.drawable.ic_update
+                R.drawable.mc_update
             return NotificationCompat.Action.Builder(
                 updateResId,
                 context.getString(R.string.action_update),

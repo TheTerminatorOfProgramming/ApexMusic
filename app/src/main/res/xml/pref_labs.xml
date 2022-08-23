@@ -22,7 +22,8 @@
         app:defaultValue="false"
         app:key="progress_bar_style"
         app:summary="@string/pref_summary_progress_bar_style"
-        app:title="@string/pref_title_progress_bar_style" />
+        app:title="@string/pref_title_progress_bar_style"
+        android:icon="@drawable/ic_progress"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:layout="@layout/list_item_view_switch"
@@ -30,5 +31,6 @@
         app:key="progress_bar_alignment"
         app:summary="@string/pref_summary_progress_bar_alignment"
         app:title="@string/pref_title_progress_bar_alignment"
+        android:icon="@drawable/ic_vertical_align_top"
         android:dependency="progress_bar_style"/>
 </androidx.preference.PreferenceScreen>
