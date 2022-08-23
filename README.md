@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="app\src\main\ic_launcher_foreground.png" height="128">
+    <img src="app\src\main\ic_launcher_foreground.png" height="256">
     <h1 align="center">Apex Music</h1>
   </a>
 </p>
