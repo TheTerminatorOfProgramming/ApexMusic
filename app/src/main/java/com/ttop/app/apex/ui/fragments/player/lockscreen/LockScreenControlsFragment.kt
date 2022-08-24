@@ -72,12 +72,15 @@ class LockScreenControlsFragment :
         _binding = FragmentLockScreenPlaybackControlsBinding.bind(view)
         setUpPlayPauseFab()
         binding.title.isSelected = true
+        binding.artistText.isSelected = true
+        binding.albumText.isSelected = true
     }
 
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = String.format("%s - %s", song.artistName, song.albumName)
+        binding.artistText.text = String.format("%s", song.artistName)
+        binding.albumText.text = String.format("%s", song.albumName)
     }
 
     override fun onServiceConnected() {
@@ -133,7 +136,8 @@ class LockScreenControlsFragment :
         updatePrevNextColor()
 
         val isDark = ColorUtil.isColorLight(colorFinal)
-        binding.text.setTextColor(colorFinal)
+        binding.artistText.setTextColor(colorFinal)
+        binding.albumText.setTextColor(colorFinal)
 
         TintHelper.setTintAuto(
             binding.playPauseButton,
@@ -175,9 +179,9 @@ class LockScreenControlsFragment :
 //MC_PAUSE_PLAY
     private fun updatePlayPauseDrawableState() {
         if (MusicPlayerRemote.isPlaying) {
-            binding.playPauseButton.setImageResource(R.drawable.mc_pause)
+            binding.playPauseButton.setImageResource(R.drawable.ic_pause_outline_small)
         } else {
-            binding.playPauseButton.setImageResource(R.drawable.mc_play)
+            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow_outline_small)
         }
     }
 

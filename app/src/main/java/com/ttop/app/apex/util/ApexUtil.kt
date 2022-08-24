@@ -23,10 +23,13 @@ import android.graphics.Point
 import android.os.Build
 import android.os.Environment
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.getSystemService
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
+import androidx.work.WorkManager
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
+import com.ttop.app.apex.service.MusicServiceWorker
 import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -153,30 +156,38 @@ object ApexUtil {
         )
     }
 
-    fun createNotification(ID: Int, ChannelID: String) : Notification{
+    fun createForegroundInfo(notificationId: Int, notificationChannelId: String): Notification {
         //CREATE NOTIFICATION
-        val builder = NotificationCompat.Builder(getContext(), ChannelID)
+        val builder = NotificationCompat.Builder(getContext(), notificationChannelId)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("Foreground Notification")
-            .setContentText("This Notification keeps the Service Alive for the Bluetooth AutoPlay Feature")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setOngoing(true)
 
         //CREATE CHANNEL
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Bluetooth Foreground Notification"
-            val descriptionText = "Foreground Notification"
+            val name = "Foreground Notification"
+            val descriptionText = "Foreground Service Notification"
             val importance = NotificationManager.IMPORTANCE_LOW
-            val mChannel = NotificationChannel(ChannelID, name, importance).apply {
+            val mChannel = NotificationChannel(notificationChannelId, name, importance).apply {
                 description = descriptionText
                 setShowBadge(false)
             }
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            val notificationManager = getContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager =
+                getContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(mChannel)
         }
 
         return builder.build()
+    }
+
+    fun startForegroundService(context: Context) {
+        val request = OneTimeWorkRequestBuilder<MusicServiceWorker>()
+            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            .build()
+
+        WorkManager.getInstance(context).enqueue(request)
     }
 }

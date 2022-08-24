@@ -41,7 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                tools:src="@drawable/ic_skip_previous"
+                tools:src="@drawable/ic_skip_previous_outline"
                 tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                tools:src="@drawable/ic_play_arrow_white_32dp"
+                tools:src="@drawable/ic_play_arrow_outline_small"
                 tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
@@ -59,7 +59,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                tools:src="@drawable/ic_skip_next"
+                tools:src="@drawable/ic_skip_next_outline"
                 tools:tint="@color/ate_secondary_text_dark" />
 
         </LinearLayout>

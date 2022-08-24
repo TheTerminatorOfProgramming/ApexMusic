@@ -80,7 +80,7 @@ class AppWidgetCircle : BaseAppWidget() {
 
         // Set correct drawable for pause state
         val playPauseRes =
-            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
+            if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
             service.getTintedDrawable(

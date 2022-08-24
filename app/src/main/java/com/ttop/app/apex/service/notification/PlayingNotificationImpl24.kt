@@ -77,21 +77,21 @@ class PlayingNotificationImpl24(
         val toggleFavoriteOrUpdate = buildFavoriteUpdateAction(false)
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
-            R.drawable.mc_previous,
+            R.drawable.ic_skip_previous_outline,
             context.getString(R.string.action_previous),
             retrievePlaybackAction(ACTION_REWIND)
         )
         val nextAction = NotificationCompat.Action(
-            R.drawable.mc_next,
+            R.drawable.ic_skip_next_outline,
             context.getString(R.string.action_next),
             retrievePlaybackAction(ACTION_SKIP)
         )
         val dismissAction = NotificationCompat.Action(
-            R.drawable.mc_close,
+            R.drawable.ic_close,
             context.getString(R.string.action_cancel),
             retrievePlaybackAction(ACTION_QUIT)
         )
-        setSmallIcon(R.drawable.mc_notification)
+        setSmallIcon(R.drawable.ic_notification)
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
@@ -158,7 +158,7 @@ class PlayingNotificationImpl24(
 
     private fun buildPlayAction(isPlaying: Boolean): NotificationCompat.Action {
         val playButtonResId =
-            if (isPlaying) R.drawable.mc_pause else R.drawable.mc_play
+            if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
         return NotificationCompat.Action.Builder(
             playButtonResId,
             context.getString(R.string.action_play_pause),
@@ -169,7 +169,7 @@ class PlayingNotificationImpl24(
     private fun buildFavoriteUpdateAction(isFavorite: Boolean): NotificationCompat.Action {
         if (!PreferenceUtil.showUpdate) {
             val favoriteResId =
-                if (isFavorite) R.drawable.mc_favorite else R.drawable.mc_favorite_border
+                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
             return NotificationCompat.Action.Builder(
                 favoriteResId,
                 context.getString(R.string.action_toggle_favorite),
