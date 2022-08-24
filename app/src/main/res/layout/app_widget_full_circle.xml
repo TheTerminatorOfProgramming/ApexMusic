@@ -41,7 +41,7 @@
         android:clickable="false"
         android:padding="18dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_play_arrow" />
+        android:src="@drawable/ic_play_arrow_outline_small" />
 
     <ImageButton
         android:id="@+id/button_forward"
@@ -55,7 +55,7 @@
         android:clickable="false"
         android:padding="18dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_skip_next" />
+        android:src="@drawable/ic_skip_next_outline" />
 
     <ImageButton
         android:id="@+id/button_rewind"
@@ -69,5 +69,5 @@
         android:clickable="false"
         android:padding="18dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_skip_previous" />
+        android:src="@drawable/ic_skip_previous_outline" />
 </RelativeLayout>

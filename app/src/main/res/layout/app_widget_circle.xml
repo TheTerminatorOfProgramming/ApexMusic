@@ -41,5 +41,5 @@
         android:clickable="false"
         android:padding="18dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_play_arrow" />
+        android:src="@drawable/ic_play_arrow_outline_small" />
 </RelativeLayout>
