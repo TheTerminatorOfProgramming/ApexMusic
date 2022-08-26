@@ -14,14 +14,19 @@
  */
 package com.ttop.app.apex.ui.activities
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.MediaStore
-import androidx.lifecycle.Lifecycle
+import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
@@ -38,11 +43,10 @@ import com.ttop.app.apex.ui.activities.base.AbsCastActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import kotlinx.coroutines.flow.collect
+
 
 class MainActivity : AbsCastActivity() {
     companion object {
@@ -71,10 +75,19 @@ class MainActivity : AbsCastActivity() {
 
         ApexUtil.createFolderStructure()
 
-        requestedOrientation = if(!ApexUtil.isTablet){
+        requestedOrientation = if (!ApexUtil.isTablet) {
             ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        } else{
+        } else {
             ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        }
+
+        val intent = Intent()
+        val packageName = packageName
+        val pm = getSystemService(POWER_SERVICE) as PowerManager
+        if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+            intent.data = Uri.parse("package:$packageName")
+            startActivity(intent)
         }
     }
 

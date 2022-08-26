@@ -63,11 +63,13 @@ abstract class BaseAppWidget : AppWidgetProvider() {
     override fun onEnabled(context: Context) {
         musicService?.let { performUpdate(it, null) }
         val serviceIntent = Intent(context, MusicService::class.java)
-        if (VersionUtils.hasS()) {
+        /*if (VersionUtils.hasS()) {
             ApexUtil.startForegroundService(context)
         } else {
             context.startForegroundService(serviceIntent)
-        }
+        }*/
+
+        context.startForegroundService(serviceIntent)
         super.onEnabled(context)
     }
 
