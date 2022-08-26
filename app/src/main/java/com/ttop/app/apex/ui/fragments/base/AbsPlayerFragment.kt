@@ -23,10 +23,7 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.GestureDetector
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.RelativeLayout
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
@@ -56,6 +53,7 @@ import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
@@ -331,6 +329,12 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             playerToolbar()?.menu?.removeItem(R.id.now_playing)
         }else{
             playerToolbar()?.menu?.removeItem(R.id.action_queue)
+        }
+
+        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe) {
+            if (ApexUtil.isTablet) {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+            }
         }
     }
 

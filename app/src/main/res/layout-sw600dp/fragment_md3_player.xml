@@ -12,15 +12,23 @@
 
     <include layout="@layout/status_bar" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp">
+
+    </LinearLayout>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyle"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/TopCornerCardView"
         app:behavior_hideable="false"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="35dp"
         app:cardElevation="24dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:peekHeight="0dp">
@@ -71,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
-        android:layout_marginStart="400dp"
+        android:layout_marginStart="300dp"
         app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
 
