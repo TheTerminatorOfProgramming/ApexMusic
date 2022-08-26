@@ -53,6 +53,19 @@
                 app:permissionTitleNumber="1"
                 app:permissionTitleSubTitle="@string/permission_summary" />
 
+            <com.ttop.app.apex.views.PermissionItem
+                android:id="@+id/battery_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="@integer/permission_layout_weight"
+                android:visibility="gone"
+                app:permissionButtonTitle="@string/grant_access"
+                app:permissionIcon="@drawable/ic_battery"
+                app:permissionTitle="@string/battery_title"
+                app:permissionTitleNumber="2"
+                app:permissionTitleSubTitle="@string/battery_summary"
+                tools:visibility="visible" />
+
             <!--<com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/bluetooth_permission"
                 android:layout_width="match_parent"

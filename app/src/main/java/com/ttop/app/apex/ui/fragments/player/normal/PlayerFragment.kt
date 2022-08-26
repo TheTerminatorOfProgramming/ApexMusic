@@ -20,11 +20,19 @@ import android.content.SharedPreferences
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
+import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SNOWFALL
+import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentPlayerBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -43,6 +51,13 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
     private var lastColor: Int = 0
     override val paletteColor: Int
         get() = lastColor
+
+    private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
+    private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
+    private var recyclerViewSwipeManager: RecyclerViewSwipeManager? = null
+    private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
+    private var playingQueueAdapter: PlayingQueueAdapter? = null
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     private lateinit var controlsFragment: PlayerPlaybackControlsFragment
     private var valueAnimator: ValueAnimator? = null
@@ -123,6 +138,7 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
         _binding = FragmentPlayerBinding.bind(view)
         setUpSubFragments()
         setUpPlayerToolbar()
+        setupRecyclerView()
         startOrStopSnow(PreferenceUtil.isSnowFalling)
 
         PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -174,12 +190,62 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
         }
     }
 
+    private fun setupRecyclerView() {
+        playingQueueAdapter = PlayingQueueAdapter(
+            requireActivity() as AppCompatActivity,
+            MusicPlayerRemote.playingQueue.toMutableList(),
+            MusicPlayerRemote.position,
+            R.layout.item_queue_player
+        )
+        linearLayoutManager = LinearLayoutManager(requireContext())
+        recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
+        recyclerViewDragDropManager = RecyclerViewDragDropManager()
+        recyclerViewSwipeManager = RecyclerViewSwipeManager()
+
+        val animator = DraggableItemAnimator()
+        animator.supportsChangeAnimations = false
+        wrappedAdapter =
+            recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
+        wrappedAdapter =
+            recyclerViewSwipeManager?.createWrappedAdapter(wrappedAdapter) as RecyclerView.Adapter<*>
+        binding.recyclerView?.layoutManager = linearLayoutManager
+        binding.recyclerView?.adapter = wrappedAdapter
+        binding.recyclerView?.itemAnimator = animator
+        binding.recyclerView?.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
+        binding.recyclerView?.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
+        binding.recyclerView?.let { recyclerViewSwipeManager?.attachRecyclerView(it) }
+
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+    }
+
+    private fun updateQueuePosition() {
+        playingQueueAdapter?.setCurrent(MusicPlayerRemote.position)
+        resetToCurrentPosition()
+    }
+
+    private fun updateQueue() {
+        playingQueueAdapter?.swapDataSet(MusicPlayerRemote.playingQueue, MusicPlayerRemote.position)
+        resetToCurrentPosition()
+    }
+
+    private fun resetToCurrentPosition() {
+        binding.recyclerView?.stopScroll()
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+    }
+
+    override fun onQueueChanged() {
+        super.onQueueChanged()
+        updateQueue()
+    }
+
     override fun onServiceConnected() {
         updateIsFavorite()
+        updateQueue()
     }
 
     override fun onPlayingMetaChanged() {
         updateIsFavorite()
+        updateQueuePosition()
     }
 
     override fun playerToolbar(): Toolbar {

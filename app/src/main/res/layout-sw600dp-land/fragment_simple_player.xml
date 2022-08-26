@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,55 +11,68 @@
 
     <include layout="@layout/shadow_statusbar_toolbar" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <include
+        layout="@layout/status_bar" />
 
-        <include layout="@layout/status_bar" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/playerQueueSheet"
+        style="@style/BottomSheetStyle"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/TopCornerCardView"
+        app:behavior_hideable="false"
+        android:layout_marginTop="35dp"
+        app:cardElevation="24dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        tools:peekHeight="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <com.ttop.app.apex.views.HeightFitSquareLayout
-                android:layout_width="500dp"
-                android:layout_height="500dp"
-                android:layout_gravity="center_vertical">
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/playerAlbumCoverFragment"
-                    android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:layout="@layout/fragment_album_cover" />
-            </com.ttop.app.apex.views.HeightFitSquareLayout>
-
-
-            <LinearLayout
+            android:clickable="false"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingTop="8dp">
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/playbackControlsFragment"
-                    android:name="com.ttop.app.apex.ui.fragments.player.simple.SimplePlaybackControlsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    tools:layout="@layout/fragment_simple_controls_fragment" />
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/playerToolbar"
-                    style="@style/Toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
-            </LinearLayout>
+                android:overScrollMode="@integer/overScrollMode"
+                tools:listitem="@layout/item_list" />
         </LinearLayout>
-    </LinearLayout>
 
-</FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/playerAlbumCoverFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        app:layout_constraintTop_toBottomOf="@id/status_bar" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/playbackControlsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.simple.SimplePlaybackControlsFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/playerToolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
+        tools:layout="@layout/fragment_player_playback_controls" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/playerToolbar"
+        style="@style/Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        android:layout_marginStart="300dp"
+        app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
+        app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
+</androidx.constraintlayout.widget.ConstraintLayout>

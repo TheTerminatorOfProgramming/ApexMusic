@@ -331,7 +331,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             playerToolbar()?.menu?.removeItem(R.id.action_queue)
         }
 
-        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe) {
+        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe || nps == NowPlayingScreen.Flat || nps == NowPlayingScreen.Full
+            || nps == NowPlayingScreen.Material || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Normal ||
+            nps == NowPlayingScreen.Simple|| nps == NowPlayingScreen.Circle|| nps == NowPlayingScreen.Blur) {
             if (ApexUtil.isTablet) {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
             }
