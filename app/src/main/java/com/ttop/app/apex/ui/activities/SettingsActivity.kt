@@ -15,6 +15,7 @@
 package com.ttop.app.apex.ui.activities
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.navigation.NavController
@@ -26,6 +27,7 @@ import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.databinding.ActivitySettingsBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -39,11 +41,23 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
         setContentView(binding.root)
         setupToolbar()
         setPermissionDeniedMessage(getString(R.string.permission_bluetooth_denied))
+
+        requestedOrientation = if(!ApexUtil.isTablet){
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        } else{
+            ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        }
     }
 
     override fun onResume() {
         super.onResume()
         setNavigationBarColorPreOreo(surfaceColor())
+
+        requestedOrientation = if(!ApexUtil.isTablet){
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        } else{
+            ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        }
     }
 
     private fun setupToolbar() {
