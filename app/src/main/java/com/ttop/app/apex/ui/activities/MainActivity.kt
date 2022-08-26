@@ -75,12 +75,10 @@ class MainActivity : AbsCastActivity() {
 
         ApexUtil.createFolderStructure()
 
-        requestedOrientation = if (!ApexUtil.isTablet) {
-            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        } else {
-            ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        if (ApexUtil.isTablet) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }
-
+/*
         val intent = Intent()
         val packageName = packageName
         val pm = getSystemService(POWER_SERVICE) as PowerManager
@@ -88,7 +86,7 @@ class MainActivity : AbsCastActivity() {
             intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
             intent.data = Uri.parse("package:$packageName")
             startActivity(intent)
-        }
+        }*/
     }
 
     private fun setupNavigationController() {
@@ -173,10 +171,8 @@ class MainActivity : AbsCastActivity() {
             postRecreate()
         }
 
-        requestedOrientation = if(!ApexUtil.isTablet){
-            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        } else{
-            ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        if (ApexUtil.isTablet) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }
     }
 

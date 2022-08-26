@@ -42,10 +42,8 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
         setupToolbar()
         setPermissionDeniedMessage(getString(R.string.permission_bluetooth_denied))
 
-        requestedOrientation = if(!ApexUtil.isTablet){
-            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        } else{
-            ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        if (ApexUtil.isTablet) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }
     }
 
@@ -53,10 +51,8 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
         super.onResume()
         setNavigationBarColorPreOreo(surfaceColor())
 
-        requestedOrientation = if(!ApexUtil.isTablet){
-            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        } else{
-            ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        if (ApexUtil.isTablet) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }
     }
 
