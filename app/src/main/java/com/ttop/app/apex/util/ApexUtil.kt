@@ -22,7 +22,10 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Build
 import android.os.Environment
+import android.os.PowerManager
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
@@ -30,6 +33,7 @@ import androidx.work.WorkManager
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
 import com.ttop.app.apex.service.MusicServiceWorker
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -189,5 +193,12 @@ object ApexUtil {
             .build()
 
         WorkManager.getInstance(context).enqueue(request)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    fun hasBatteryPermission(): Boolean {
+        val packageName = getContext().packageName
+        val pm = getContext().getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager
+        return pm.isIgnoringBatteryOptimizations(packageName)
     }
 }
