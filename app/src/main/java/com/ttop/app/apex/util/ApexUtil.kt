@@ -18,15 +18,19 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Context.POWER_SERVICE
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Point
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.os.PowerManager
+import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
-import androidx.work.OneTimeWorkRequest
+import androidx.core.content.ContextCompat.startActivity
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
@@ -200,5 +204,20 @@ object ApexUtil {
         val packageName = getContext().packageName
         val pm = getContext().getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager
         return pm.isIgnoringBatteryOptimizations(packageName)
+    }
+
+    fun disableBatteryOptimization() {
+        val intent = Intent()
+        val packageName: String = getContext().packageName
+        /*val pm = getContext().getSystemService(POWER_SERVICE) as PowerManager?
+        if (!pm!!.isIgnoringBatteryOptimizations(packageName)) {
+            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+            intent.data = Uri.parse("package:$packageName")
+            getContext().startActivity(intent)
+        }*/
+
+        intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+        intent.data = Uri.parse("package:$packageName")
+        getContext().startActivity(intent)
     }
 }
