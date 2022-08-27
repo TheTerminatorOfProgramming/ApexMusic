@@ -78,15 +78,6 @@ class MainActivity : AbsCastActivity() {
         if (ApexUtil.isTablet) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }
-/*
-        val intent = Intent()
-        val packageName = packageName
-        val pm = getSystemService(POWER_SERVICE) as PowerManager
-        if (!pm.isIgnoringBatteryOptimizations(packageName)) {
-            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-            intent.data = Uri.parse("package:$packageName")
-            startActivity(intent)
-        }*/
     }
 
     private fun setupNavigationController() {

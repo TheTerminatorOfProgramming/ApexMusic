@@ -18,9 +18,12 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -33,7 +36,9 @@ import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -71,6 +76,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
 
         binding.aboutContent.cardPermissions?.storagePermission?.text = checkStoragePermission()
+        binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
         binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
     }
 
@@ -81,6 +87,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.changelog -> NavigationUtil.gotoWhatNews(requireActivity())
             R.id.openSource -> NavigationUtil.goToOpenSource(requireActivity())
             R.id.permissions_edit -> goToPermissions()
+            R.id.battery_permission_title -> ApexUtil.disableBatteryOptimization()
         }
     }
 
@@ -151,6 +158,18 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             }else{
                 "Denied"
             }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun checkBatteryOptimization(): String {
+        val packageName = context?.packageName
+        val pm = context?.getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager
+
+        return if (pm.isIgnoringBatteryOptimizations(packageName)) {
+            "Disabled"
+        } else {
+            "Enabled"
         }
     }
 

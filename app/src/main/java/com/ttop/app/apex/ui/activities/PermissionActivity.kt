@@ -19,8 +19,10 @@ import android.Manifest.permission.BLUETOOTH_CONNECT
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.view.View
 import androidx.annotation.RequiresApi
@@ -32,6 +34,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivityPermissionBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 class PermissionActivity : AbsMusicServiceActivity() {
@@ -70,7 +73,23 @@ class PermissionActivity : AbsMusicServiceActivity() {
         }*/
 
         //binding.bluetoothPermission.hide()
-        binding.audioPermission.setNumber("2")
+
+
+        if (VersionUtils.hasS()) {
+            binding.batteryPermission.show()
+            binding.batteryPermission.setButtonClick {
+                val intent = Intent()
+                val packageName = packageName
+                val pm = getSystemService(POWER_SERVICE) as PowerManager
+                if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                    intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                    intent.data = Uri.parse("package:$packageName")
+                    startActivity(intent)
+                }
+            }
+        } else {
+            binding.audioPermission.setNumber("2")
+        }
 
         binding.finish.accentBackgroundColor()
         binding.finish.setOnClickListener {
@@ -98,7 +117,7 @@ class PermissionActivity : AbsMusicServiceActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.finish.isEnabled = hasStoragePermission()
+        binding.finish.isEnabled = hasStoragePermission() && ApexUtil.hasBatteryPermission()
         if (hasStoragePermission()) {
             binding.storagePermission.checkImage.isVisible = true
             binding.storagePermission.checkImage.imageTintList =
@@ -116,6 +135,14 @@ class PermissionActivity : AbsMusicServiceActivity() {
                     ColorStateList.valueOf(accentColor())
             }
         }*/
+
+        if (VersionUtils.hasS()){
+            if (ApexUtil.hasBatteryPermission()) {
+                binding.batteryPermission.checkImage.isVisible = true
+                binding.batteryPermission.checkImage.imageTintList =
+                    ColorStateList.valueOf(accentColor())
+            }
+        }
     }
 
     private fun hasStoragePermission(): Boolean {

@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/storage_permission_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginStart="19dp"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/storage_permission"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -59,6 +59,36 @@
             android:layout_marginBottom="5dp"
             android:textSize="17sp"/>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/battery_permission_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/storage_permission_title"
+            android:text="Battery Optimization: "
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="19dp"/>
+
+        <TextView
+            android:id="@+id/battery_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/battery_permission_title"
+            app:layout_constraintTop_toBottomOf="@id/storage_permission"
+            android:text="ssssssss"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="17sp"/>
+
         <com.ttop.app.apex.views.ListItemView
             android:id="@+id/permissions_edit"
             android:layout_width="0dp"
@@ -67,7 +97,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/storage_permission_title"
+            app:layout_constraintTop_toBottomOf="@id/battery_permission_title"
             app:listItemIcon="@drawable/ic_storage"
             app:listItemSummary="@string/pref_summary_permissions_edit"
             app:listItemTitle="@string/permission_edit"

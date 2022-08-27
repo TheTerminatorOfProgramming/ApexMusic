@@ -33,6 +33,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.rootView
+import com.ttop.app.apex.ui.activities.PermissionActivity
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -98,7 +100,9 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
             if (ActivityCompat.checkSelfPermission(this,
                     permission) != PackageManager.PERMISSION_GRANTED
             ) {
-                return false
+                if (!ApexUtil.hasBatteryPermission()) {
+                    return false
+                }
             }
         }
         return true
@@ -187,28 +191,6 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
             }
             hadPermissions = true
             onHasPermissionsChanged(true)
-        } else if (requestCode == BLUETOOTH_PERMISSION_REQUEST) {
-            for (grantResult in grantResults) {
-                if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this@AbsBaseActivity, Manifest.permission.BLUETOOTH_CONNECT
-                        )
-                    ) {
-                        // User has deny from permission dialog
-                        Snackbar.make(
-                            snackBarContainer,
-                            R.string.permission_bluetooth_denied,
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .setAction(R.string.action_grant) {
-                                ActivityCompat.requestPermissions(this,
-                                    arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                                    BLUETOOTH_PERMISSION_REQUEST)
-                            }
-                            .setActionTextColor(accentColor()).show()
-                    }
-                }
-            }
         }
     }
 
