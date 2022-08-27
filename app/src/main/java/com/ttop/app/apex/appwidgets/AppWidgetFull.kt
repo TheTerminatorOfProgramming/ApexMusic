@@ -51,9 +51,17 @@ class AppWidgetFull : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = RemoteViews(
-            context.packageName, R.layout.app_widget_full
-        )
+        var appWidgetView: RemoteViews? = null
+
+        appWidgetView = if (VersionUtils.hasS()) {
+            if (PreferenceUtil.widgetColors) {
+                RemoteViews(context.packageName, R.layout.app_widget_full_day_night)
+            } else {
+                RemoteViews(context.packageName, R.layout.app_widget_full)
+            }
+        } else {
+            RemoteViews(context.packageName, R.layout.app_widget_full)
+        }
 
         appWidgetView.setViewVisibility(
             R.id.media_titles,
@@ -96,9 +104,17 @@ class AppWidgetFull : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(
-            service.packageName, R.layout.app_widget_full
-        )
+        var appWidgetView: RemoteViews? = null
+
+        appWidgetView = if (VersionUtils.hasS()) {
+            if (PreferenceUtil.widgetColors) {
+                RemoteViews(service.packageName, R.layout.app_widget_full_day_night)
+            } else {
+                RemoteViews(service.packageName, R.layout.app_widget_full)
+            }
+        } else {
+            RemoteViews(service.packageName, R.layout.app_widget_full)
+        }
 
         val isPlaying = service.isPlaying
         val song = service.currentSong

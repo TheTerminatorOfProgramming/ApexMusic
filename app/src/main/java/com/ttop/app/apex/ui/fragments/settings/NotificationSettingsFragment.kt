@@ -25,6 +25,7 @@ import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
+import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -51,6 +52,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
         val appWidgetClassic: AppWidgetClassic = AppWidgetClassic.instance
         val appWidgetCircle: AppWidgetCircle = AppWidgetCircle.instance
         val appWidgetFullCircle: AppWidgetFullCircle = AppWidgetFullCircle.instance
+        val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
 
         val classicNotification: TwoStatePreference? = findPreference(CLASSIC_NOTIFICATION)
         classicNotification?.apply {
@@ -93,6 +95,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             colors.isChecked = newValue as Boolean
             appWidgetClassic.notifyThemeChange(musicService)
+            appWidgetFull.notifyThemeChange(musicService)
             false
         }
     }

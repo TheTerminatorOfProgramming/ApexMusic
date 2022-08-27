@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_widget_background"
-    android:theme="@style/Theme.AppWidget"
+    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
     android:backgroundTint="?attr/colorSurface"
     android:id="@+id/app_widget_full">
 
@@ -13,16 +13,16 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:layout_above="@id/media_actions">
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_above="@id/media_actions"
-        android:scaleType="centerInside"
-        android:layout_weight="1"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/default_album_art" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_above="@id/media_actions"
+            android:scaleType="centerInside"
+            android:layout_weight="1"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/default_album_art" />
     </LinearLayout>
 
     <LinearLayout
