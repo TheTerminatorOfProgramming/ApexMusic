@@ -117,7 +117,13 @@ class PermissionActivity : AbsMusicServiceActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.finish.isEnabled = hasStoragePermission() && ApexUtil.hasBatteryPermission()
+
+        binding.finish.isEnabled = if (VersionUtils.hasS()) {
+            hasStoragePermission() && ApexUtil.hasBatteryPermission()
+        }else{
+            hasStoragePermission()
+        }
+
         if (hasStoragePermission()) {
             binding.storagePermission.checkImage.isVisible = true
             binding.storagePermission.checkImage.imageTintList =
