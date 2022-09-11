@@ -138,32 +138,6 @@ object ApexUtil {
         return ""
     }
 
-    fun createFolderStructure() {
-        val backupRoot = getBackupRoot()
-        val lrcRoot = getLrcRoot()
-        if (!backupRoot.exists()) {
-            backupRoot.mkdirs()
-        }
-
-        if (!lrcRoot.exists()) {
-            lrcRoot.mkdirs()
-        }
-    }
-
-    private fun getBackupRoot(): File {
-        return File(
-            getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "Apex/Backups"
-        )
-    }
-
-    private fun getLrcRoot(): File {
-        return File(
-            getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "Apex/LRC"
-        )
-    }
-
     fun createForegroundInfo(notificationId: Int, notificationChannelId: String): Notification {
         //CREATE NOTIFICATION
         val builder = NotificationCompat.Builder(getContext(), notificationChannelId)

@@ -5,4 +5,6 @@
 
     <color name="bottomSheetColor">#202020</color>
     <color name="widget_md3_bg_color">@color/darkerColorSurface</color>
+
+    <color name="border">#ffffff</color>
 </resources>

@@ -271,10 +271,15 @@ object PreferenceUtil {
             AUDIO_DUCKING, true
         )
 
-    val isBluetoothSpeaker
+    var isBluetoothSpeaker
         get() = sharedPreferences.getBoolean(
-            BLUETOOTH_PLAYBACK, false
+            BLUETOOTH_PLAYBACK, true
         )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(BLUETOOTH_PLAYBACK, value)
+        }
+
 
     val isBlurredAlbumArt
         get() = sharedPreferences.getBoolean(
@@ -833,12 +838,12 @@ object PreferenceUtil {
     val bluetoothDevice
         get() = sharedPreferences.getString(BLUETOOTH_DEVICE, "")
 
-    var isQueueHidden
+    var isQueueHiddenPeek
         get() = sharedPreferences.getBoolean(
-            IS_QUEUE_HIDDEN, true
+            IS_QUEUE_HIDDEN_PEEK, true
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(IS_QUEUE_HIDDEN, value)}
+            putBoolean(IS_QUEUE_HIDDEN_PEEK, value)}
 
     val syncedLyrics
         get() = sharedPreferences.getBoolean(
@@ -877,6 +882,27 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(PROGRESS_BAR_ALIGNMENT, value)}
+
+    val queueShowAlways
+        get() = sharedPreferences.getBoolean(
+            QUEUE_SHOW_ALWAYS, false
+        )
+
+    var isQueueHidden
+        get() = sharedPreferences.getBoolean(
+            IS_QUEUE_HIDDEN, true
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(IS_QUEUE_HIDDEN, value)}
+
+    var hasIntroShown
+        get() = sharedPreferences.getBoolean(
+            INTRO_SHOWN, false
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(INTRO_SHOWN, value)}
 }
 
 enum class CoverLyricsType {

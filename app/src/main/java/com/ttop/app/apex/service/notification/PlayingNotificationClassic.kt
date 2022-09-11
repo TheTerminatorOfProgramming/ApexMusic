@@ -93,7 +93,7 @@ class PlayingNotificationClassic(
             )
         val deleteIntent = buildPendingIntent(context, ACTION_QUIT, null)
 
-        setSmallIcon(R.drawable.ic_notification)
+        setSmallIcon(R.drawable.audio_wave_64px)
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setCategory(NotificationCompat.CATEGORY_SERVICE)
@@ -218,14 +218,14 @@ class PlayingNotificationClassic(
                     contentView.setImageViewBitmap(
                         R.id.smallIcon,
                         context.getTintedDrawable(
-                            R.drawable.ic_notification,
+                            R.drawable.audio_wave_64px,
                             secondary
                         ).toBitmap(0.6f)
                     )
                     bigContentView.setImageViewBitmap(
                         R.id.smallIcon,
                         context.getTintedDrawable(
-                            R.drawable.ic_notification,
+                            R.drawable.audio_wave_64px,
                             secondary
                         ).toBitmap(0.6f)
                     )

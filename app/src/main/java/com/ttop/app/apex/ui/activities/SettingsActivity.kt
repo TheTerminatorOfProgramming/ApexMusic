@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.activities
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.navigation.NavController
@@ -76,7 +77,6 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
             R.id.personalizeSettingsFragment -> R.string.personalize
             R.id.themeSettingsFragment -> R.string.general_settings_title
             R.id.aboutActivity -> R.string.action_about
-            R.id.backup_fragment -> R.string.backup_restore_title
             R.id.labsSettingsFragment -> R.string.pref_header_labs
             else -> R.id.action_settings
         }

@@ -12,6 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
+        android:background="@drawable/layout_border"
         android:layout_above="@id/media_actions">
         <ImageView
             android:id="@+id/image"

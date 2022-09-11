@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMainSettingsBinding
 import com.ttop.app.apex.extensions.drawAboveSystemBarsWithPadding
+import com.ttop.app.apex.util.ApexUtil
 
 class MainSettingsFragment : Fragment(), View.OnClickListener {
 
@@ -41,7 +43,6 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
                 R.id.otherSettings -> R.id.action_mainSettingsFragment_to_otherSettingsFragment
                 R.id.aboutSettings -> R.id.action_mainSettingsFragment_to_aboutActivity
                 R.id.nowPlayingSettings -> R.id.action_mainSettingsFragment_to_nowPlayingSettingsFragment
-                R.id.backup_restore_settings -> R.id.action_mainSettingsFragment_to_backupFragment
                 R.id.labs_settings -> R.id.action_mainSettingsFragment_to_labsFragment
                 else -> R.id.action_mainSettingsFragment_to_themeSettingsFragment
             }
@@ -68,7 +69,6 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
         binding.notificationSettings.setOnClickListener(this)
         binding.otherSettings.setOnClickListener(this)
         binding.aboutSettings.setOnClickListener(this)
-        binding.backupRestoreSettings.setOnClickListener(this)
         binding.labsSettings.setOnClickListener(this)
 
         binding.container.drawAboveSystemBarsWithPadding()

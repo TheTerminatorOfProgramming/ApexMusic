@@ -209,26 +209,15 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             }
             R.id.action_queue -> {
                 if (binding.playerQueueSheet.visibility == View.VISIBLE){
-                    PreferenceUtil.isQueueHidden = true
+                    PreferenceUtil.isQueueHiddenPeek = true
                     binding.playerQueueSheet.visibility = View.GONE
                 }else{
-                    PreferenceUtil.isQueueHidden = false
+                    PreferenceUtil.isQueueHiddenPeek = false
                     binding.playerQueueSheet.visibility = View.VISIBLE
                 }
             }
         }
         return false
-    }
-
-    private fun showLyricsIcon(item: MenuItem) {
-        val icon =
-            if (PreferenceUtil.showLyrics) R.drawable.ic_lyrics else R.drawable.ic_lyrics_outline
-        val drawable = requireContext().getTintedDrawable(
-            icon,
-            toolbarIconColor()
-        )
-        item.isChecked = PreferenceUtil.showLyrics
-        item.icon = drawable
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -246,11 +235,13 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         }
         binding.root.drawAboveSystemBarsWithPadding()
 
-        if (PreferenceUtil.isQueueHidden){
+        if (PreferenceUtil.isQueueHiddenPeek){
             binding.playerQueueSheet.visibility = View.GONE
         }else{
             binding.playerQueueSheet.visibility = View.VISIBLE
         }
+
+
     }
 
     private fun setUpSubFragments() {

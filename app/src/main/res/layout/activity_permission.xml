@@ -54,19 +54,6 @@
                 app:permissionTitleSubTitle="@string/permission_summary" />
 
             <com.ttop.app.apex.views.PermissionItem
-                android:id="@+id/battery_permission"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="@integer/permission_layout_weight"
-                android:visibility="gone"
-                app:permissionButtonTitle="@string/grant_access"
-                app:permissionIcon="@drawable/ic_battery"
-                app:permissionTitle="@string/battery_title"
-                app:permissionTitleNumber="2"
-                app:permissionTitleSubTitle="@string/battery_summary"
-                tools:visibility="visible" />
-
-            <!--<com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/bluetooth_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +64,20 @@
                 app:permissionTitle="@string/bluetooth_title"
                 app:permissionTitleNumber="2"
                 app:permissionTitleSubTitle="@string/bluetooth_summary"
-                tools:visibility="visible" />-->
+                tools:visibility="visible" />
+
+            <com.ttop.app.apex.views.PermissionItem
+                android:id="@+id/battery_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="@integer/permission_layout_weight"
+                android:visibility="gone"
+                app:permissionButtonTitle="@string/grant_access"
+                app:permissionIcon="@drawable/ic_battery"
+                app:permissionTitle="@string/battery_title"
+                app:permissionTitleNumber="3"
+                app:permissionTitleSubTitle="@string/battery_summary"
+                tools:visibility="visible" />
 
             <com.ttop.app.apex.views.PermissionItem
                 android:id="@+id/audio_permission"
@@ -88,12 +88,11 @@
                 app:permissionButtonTitle="@string/grant_access"
                 app:permissionIcon="@drawable/ic_phonelink_ring"
                 app:permissionTitle="@string/ringtone_title"
-                app:permissionTitleNumber="3"
+                app:permissionTitleNumber="4"
                 app:permissionTitleSubTitle="@string/ringtone_summary"
                 tools:visibility="visible" />
         </LinearLayout>
     </ScrollView>
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/finish"

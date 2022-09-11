@@ -17,6 +17,7 @@ import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
+import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.ServiceInfo
@@ -71,6 +72,7 @@ import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
+import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
 import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt
 import com.ttop.app.apex.util.PreferenceUtil.isClassicNotification
 import com.ttop.app.apex.util.PreferenceUtil.isHeadsetPlugged
@@ -160,6 +162,8 @@ class MusicService : MediaBrowserServiceCompat(),
         }
     }
 
+    private val bluetoothConnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED)
+    private var bluetoothConnectedRegistered = false
     private val headsetReceiverIntentFilter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
     private var headsetReceiverRegistered = false
     private var mediaSession: MediaSessionCompat? = null
@@ -223,6 +227,20 @@ class MusicService : MediaBrowserServiceCompat(),
     @JvmField
     var shuffleMode = 0
     private val songPlayCountHelper = SongPlayCountHelper()
+
+    private val bluetoothReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action
+            if (action != null) {
+                if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
+                    @Suppress("Deprecation")
+                    if (getSystemService<AudioManager>()!!.isBluetoothA2dpOn) {
+                        play()
+                    }
+                }
+            }
+        }
+    }
 
     private var receivedHeadsetConnected = false
     private val headsetReceiver = object : BroadcastReceiver() {
@@ -288,6 +306,7 @@ class MusicService : MediaBrowserServiceCompat(),
         restoreState()
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_CREATED"))
         registerHeadsetEvents()
+        registerBluetoothConnected()
         mPackageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
         mMusicProvider.setMusicService(this)
         storage = PersistentStorage.getInstance(this)
@@ -300,6 +319,10 @@ class MusicService : MediaBrowserServiceCompat(),
         if (headsetReceiverRegistered) {
             unregisterReceiver(headsetReceiver)
             headsetReceiverRegistered = false
+        }
+        if (bluetoothConnectedRegistered) {
+            unregisterReceiver(bluetoothReceiver)
+            bluetoothConnectedRegistered = false
         }
         mediaSession?.isActive = false
         quit()
@@ -1242,6 +1265,14 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun prepareNext() {
         prepareNextImpl()
+    }
+
+    private fun registerBluetoothConnected() {
+        Log.i(TAG, "registerBluetoothConnected: ")
+        if (!bluetoothConnectedRegistered) {
+            registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
+            bluetoothConnectedRegistered = true
+        }
     }
 
     private fun registerHeadsetEvents() {

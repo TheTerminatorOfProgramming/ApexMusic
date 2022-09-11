@@ -43,7 +43,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyle"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/TopCornerCardView"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="@integer/overScrollMode"
-                tools:listitem="@layout/item_list" />
+                tools:listitem="@layout/item_queue_player" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -160,4 +160,5 @@ dependencies {
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
     implementation 'me.tankery.lib:circularSeekBar:1.4.0'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'com.heinrichreimersoftware:material-intro:2.0.0'
 }

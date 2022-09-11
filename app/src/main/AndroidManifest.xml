@@ -22,9 +22,9 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-    <!--<uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
         android:usesPermissionFlags="neverForLocation"
-        tools:targetApi="s" />-->
+        tools:targetApi="s" />
     <!--
     This is not that important, it's just here so that we can query equalizer package
     and check if it's present on A11+ because of Package visibility restrictions.
@@ -125,46 +125,15 @@
         <activity android:name="com.ttop.app.apex.ui.activities.LicenseActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.ShareInstagramStory" />
         <activity android:name="com.ttop.app.apex.ui.activities.DriveModeActivity" />
+        <activity
+            android:name="com.ttop.app.apex.ui.activities.AppIntroActivity"
+            android:label="@string/intro_label"
+            android:theme="@style/Theme.Intro" />
         <activity android:name="com.ttop.app.apex.ui.activities.PermissionActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:showOnLockScreen="true" />
-        <activity
-            android:name="com.ttop.app.apex.ui.fragments.backup.RestoreActivity"
-            android:excludeFromRecents="false"
-            android:exported="true"
-            android:label="@string/restore"
-            android:theme="@style/Theme.Apex.Dialog">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:mimeType="application/octet-stream" />
-                <data android:mimeType="application/x-zip-compressed" />
-                <data android:mimeType="application/zip" />
-                <data android:scheme="file" />
-                <data android:scheme="content" />
-                <data android:mimeType="*/*" />
-                <!--
-                    Work around Android's ugly primitive PatternMatcher
-                    implementation that can't cope with finding a . early in
-                    the path unless it's explicitly matched.
-                -->
-                <data android:host="*" />
-                <data android:pathPattern=".*\\.abak" />
-                <data android:pathPattern=".*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.abak" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="com.ttop.app.apex.appshortcuts.AppShortcutLauncherActivity"
             android:launchMode="singleInstance"
@@ -197,14 +166,14 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-        <!--<receiver
+        <receiver
             android:name="com.ttop.app.apex.appwidgets.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
-        </receiver>-->
+        </receiver>
         <receiver
             android:name="com.ttop.app.apex.appwidgets.AppWidgetBig"
             android:exported="true"

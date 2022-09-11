@@ -89,6 +89,15 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         swipeDismiss?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
+
+        val queueShowAlways: TwoStatePreference? = findPreference(QUEUE_SHOW_ALWAYS)
+        queueShowAlways?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            restartActivity()
+            PreferenceUtil.shouldRecreate = true
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

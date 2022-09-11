@@ -60,7 +60,7 @@
         android:title="@string/pref_header_bluetooth"
         android:key="bluetooth_section">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="bluetooth_playback"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_bluetooth_playback"

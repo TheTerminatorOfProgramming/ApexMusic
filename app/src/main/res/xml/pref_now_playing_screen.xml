@@ -10,6 +10,14 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
+        android:key="queue_show_always"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_queue_show_always"
+        android:title="@string/pref_title_queue_show_always"
+        app:isPreferenceVisible="@bool/queue_show_always"/>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
         android:key="extra_song_info"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_extra_song_info"

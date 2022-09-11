@@ -32,15 +32,21 @@
         android:layout_alignParentBottom="true"
         android:layoutDirection="ltr"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/stroke"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/border" />
 
         <LinearLayout
             android:id="@+id/media_titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="10dp"
             android:orientation="vertical">
@@ -74,6 +80,8 @@
             android:id="@+id/media_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:orientation="horizontal">
 
             <ImageButton

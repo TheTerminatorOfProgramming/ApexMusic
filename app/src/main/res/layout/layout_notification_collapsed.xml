@@ -40,7 +40,7 @@
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:layout_marginStart="8dp"
-            tools:src="@drawable/ic_notification"
+            tools:src="@drawable/audio_wave_64px"
             tools:tint="@color/md_black_1000" />
 
         <TextView

@@ -60,7 +60,7 @@ class PermissionActivity : AbsMusicServiceActivity() {
             }
         }
 
-        /*
+
         if (VersionUtils.hasS()) {
             binding.bluetoothPermission.show()
             binding.bluetoothPermission.setButtonClick {
@@ -68,14 +68,7 @@ class PermissionActivity : AbsMusicServiceActivity() {
                     arrayOf(BLUETOOTH_CONNECT),
                     BLUETOOTH_PERMISSION_REQUEST)
             }
-        } else {
-            binding.audioPermission.setNumber("2")
-        }*/
 
-        //binding.bluetoothPermission.hide()
-
-
-        if (VersionUtils.hasS()) {
             binding.batteryPermission.show()
             binding.batteryPermission.setButtonClick {
                 val intent = Intent()
@@ -119,7 +112,7 @@ class PermissionActivity : AbsMusicServiceActivity() {
         super.onResume()
 
         binding.finish.isEnabled = if (VersionUtils.hasS()) {
-            hasStoragePermission() && ApexUtil.hasBatteryPermission()
+            hasStoragePermission() && ApexUtil.hasBatteryPermission() && hasBluetoothPermission()
         }else{
             hasStoragePermission()
         }
@@ -134,13 +127,13 @@ class PermissionActivity : AbsMusicServiceActivity() {
             binding.audioPermission.checkImage.imageTintList =
                 ColorStateList.valueOf(accentColor())
         }
-        /*if (VersionUtils.hasS()) {
+        if (VersionUtils.hasS()) {
             if (hasBluetoothPermission()) {
                 binding.bluetoothPermission.checkImage.isVisible = true
                 binding.bluetoothPermission.checkImage.imageTintList =
                     ColorStateList.valueOf(accentColor())
             }
-        }*/
+        }
 
         if (VersionUtils.hasS()){
             if (ApexUtil.hasBatteryPermission()) {

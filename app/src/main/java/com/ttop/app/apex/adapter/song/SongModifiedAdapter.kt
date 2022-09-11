@@ -49,13 +49,13 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
  * Created by hemanths on 13/08/17.
  */
 
-open class SongAdapter(
+open class SongModifiedAdapter(
     override val activity: FragmentActivity,
     var dataSet: MutableList<Song>,
     protected var itemLayoutRes: Int,
     ICabHolder: ICabHolder?,
     showSectionName: Boolean = true
-) : AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song>(
+) : AbsMultiSelectAdapter<SongModifiedAdapter.ViewHolder, Song>(
     activity,
     ICabHolder,
     R.menu.menu_media_selection
@@ -100,10 +100,6 @@ open class SongAdapter(
         holder.text?.text = getSongText(song)
         holder.text2?.text = getSongText2(song)
         loadAlbumCover(song, holder)
-        val landscape = ApexUtil.isLandscape
-        if ((PreferenceUtil.songGridSize > 2 && !landscape) || (PreferenceUtil.songGridSizeLand > 5 && landscape)) {
-            holder.menu?.isVisible = false
-        }
     }
 
     private fun setColors(color: MediaNotificationProcessor, holder: ViewHolder) {
@@ -222,6 +218,6 @@ open class SongAdapter(
     }
 
     companion object {
-        val TAG: String = SongAdapter::class.java.simpleName
+        val TAG: String = SongModifiedAdapter::class.java.simpleName
     }
 }

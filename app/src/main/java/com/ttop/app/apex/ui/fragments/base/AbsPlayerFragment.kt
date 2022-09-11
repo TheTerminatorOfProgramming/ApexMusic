@@ -210,7 +210,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         return false
     }
 
-    private fun showLyricsIcon(item: MenuItem) {
+    fun showLyricsIcon(item: MenuItem) {
         val icon =
             if (PreferenceUtil.showLyrics) R.drawable.ic_lyrics else R.drawable.ic_lyrics_outline
         val drawable = requireContext().getTintedDrawable(
@@ -335,7 +335,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             || nps == NowPlayingScreen.Material || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Normal ||
             nps == NowPlayingScreen.Simple|| nps == NowPlayingScreen.Circle|| nps == NowPlayingScreen.Blur) {
             if (ApexUtil.isTablet) {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (PreferenceUtil.queueShowAlways) {
+                    playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                }
             }
         }
     }

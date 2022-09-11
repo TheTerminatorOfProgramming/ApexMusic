@@ -16,18 +16,27 @@ package com.ttop.app.apex.ui.fragments.player.circle
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.ContentUris
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
+import android.media.MediaMetadataRetriever
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.getSystemService
+import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.Slider
@@ -35,9 +44,11 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
+import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentCirclePlayerBinding
+import com.ttop.app.apex.dialogs.*
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
@@ -47,12 +58,15 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper.Callback
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.repository.RealRepository
+import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
+import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.util.*
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.volume.AudioVolumeObserver
 import com.ttop.app.apex.volume.OnAudioVolumeChangedListener
@@ -60,7 +74,11 @@ import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.tankery.lib.circularseekbar.CircularSeekBar
+import org.koin.android.ext.android.get
 
 /**
  * Created by hemanths on 2020-01-06.
@@ -112,6 +130,158 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
         binding.songInfo.drawAboveSystemBars()
 
         setupRecyclerView()
+
+        if (PreferenceUtil.isQueueHidden){
+            binding.playerQueueSheet?.visibility = View.GONE
+        }else{
+            binding.playerQueueSheet?.visibility = View.VISIBLE
+        }
+
+        if (PreferenceUtil.queueShowAlways) {
+            binding.playerQueueSheet?.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        val song = MusicPlayerRemote.currentSong
+        when (item.itemId) {
+            R.id.action_playback_speed -> {
+                PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
+                return true
+            }
+            R.id.action_toggle_lyrics -> {
+                PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
+                showLyricsIcon(item)
+                if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
+                    mainActivity.keepScreenOn(true)
+                } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics) {
+                    mainActivity.keepScreenOn(false)
+                }
+                return true
+            }
+            R.id.action_go_to_lyrics -> {
+                goToLyrics(requireActivity())
+                return true
+            }
+            R.id.action_toggle_favorite -> {
+                toggleFavorite(song)
+                return true
+            }
+            R.id.action_share -> {
+                SongShareDialog.create(song).show(childFragmentManager, "SHARE_SONG")
+                return true
+            }
+            R.id.action_go_to_drive_mode -> {
+                NavigationUtil.gotoDriveMode(requireActivity())
+                return true
+            }
+            R.id.action_delete_from_device -> {
+                DeleteSongsDialog.create(song).show(childFragmentManager, "DELETE_SONGS")
+                return true
+            }
+            R.id.action_add_to_playlist -> {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val playlists = get<RealRepository>().fetchPlaylists()
+                    withContext(Dispatchers.Main) {
+                        AddToPlaylistDialog.create(playlists, song)
+                            .show(childFragmentManager, "ADD_PLAYLIST")
+                    }
+                }
+                return true
+            }
+            R.id.action_clear_playing_queue -> {
+                MusicPlayerRemote.clearQueue()
+                return true
+            }
+            R.id.action_save_playing_queue -> {
+                CreatePlaylistDialog.create(ArrayList(MusicPlayerRemote.playingQueue))
+                    .show(childFragmentManager, "ADD_TO_PLAYLIST")
+                return true
+            }
+            R.id.action_tag_editor -> {
+                val intent = Intent(activity, SongTagEditorActivity::class.java)
+                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_details -> {
+                SongDetailDialog.create(song).show(childFragmentManager, "SONG_DETAIL")
+                return true
+            }
+            R.id.action_go_to_album -> {
+                //Hide Bottom Bar First, else Bottom Sheet doesn't collapse fully
+                mainActivity.setBottomNavVisibility(false)
+                mainActivity.collapsePanel()
+                requireActivity().findNavController(R.id.fragment_container).navigate(
+                    R.id.albumDetailsFragment,
+                    bundleOf(EXTRA_ALBUM_ID to song.albumId)
+                )
+                return true
+            }
+            R.id.action_go_to_artist -> {
+                goToArtist(requireActivity())
+                return true
+            }
+            R.id.now_playing -> {
+                if (ApexUtil.isTablet) {
+                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
+                        PreferenceUtil.isQueueHidden = true
+                        binding.playerQueueSheet?.visibility = View.GONE
+                    }else{
+                        PreferenceUtil.isQueueHidden = false
+                        binding.playerQueueSheet?.visibility = View.VISIBLE
+                    }
+                }else {
+                    requireActivity().findNavController(R.id.fragment_container).navigate(
+                        R.id.playing_queue_fragment,
+                        null,
+                        navOptions { launchSingleTop = true }
+                    )
+                    mainActivity.collapsePanel()
+                }
+                return true
+            }
+            R.id.action_show_lyrics -> {
+                goToLyrics(requireActivity())
+                return true
+            }
+            R.id.action_equalizer -> {
+                NavigationUtil.openEqualizer(requireActivity())
+                return true
+            }
+            R.id.action_sleep_timer -> {
+                SleepTimerDialog().show(parentFragmentManager, "SLEEP_TIMER")
+                return true
+            }
+            R.id.action_set_as_ringtone -> {
+                requireContext().run {
+                    if (RingtoneManager.requiresDialog(this)) {
+                        RingtoneManager.showDialog(this)
+                    } else {
+                        RingtoneManager.setRingtone(this, song)
+                    }
+                }
+
+                return true
+            }
+            R.id.action_go_to_genre -> {
+                val retriever = MediaMetadataRetriever()
+                val trackUri =
+                    ContentUris.withAppendedId(
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        song.id
+                    )
+                retriever.setDataSource(activity, trackUri)
+                var genre: String? =
+                    retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE)
+                if (genre == null) {
+                    genre = "Not Specified"
+                }
+                showToast(genre)
+                return true
+            }
+        }
+        return false
     }
 
     private fun setUpPlayerToolbar() {

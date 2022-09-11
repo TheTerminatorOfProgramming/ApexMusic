@@ -73,8 +73,6 @@ class MainActivity : AbsCastActivity() {
         }
         PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
 
-        ApexUtil.createFolderStructure()
-
         if (ApexUtil.isTablet) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
         }

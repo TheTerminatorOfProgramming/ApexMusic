@@ -3,7 +3,7 @@
     <string name="about_album_label">About %s</string>
     <string name="about_settings_summary">Team, social links</string>
     <string name="accent_color">Accent color</string>
-    <string name="accent_color_desc">The theme accent color, defaults to purple</string>
+    <string name="accent_color_desc">The theme accent color, defaults to red</string>
     <string name="action_about">About</string>
     <string name="action_add_to_blacklist">Add to Blacklist</string>
     <string name="action_add_to_favorites">Add to favorites</string>
@@ -86,11 +86,6 @@
     <string name="audio_focus_denied">Audio focus denied.</string>
     <string name="audio_settings_summary">Change the sound settings and adjust the equalizer controls</string>
     <string name="auto">Auto</string>
-    <string name="backup_restore_settings_summary">Backup and restore your settings, playlists</string>
-    <string name="backup_restore_title">
-        <![CDATA[Backup & Restore]]>
-    </string>
-    <string name="backup_title">Backups</string>
     <string name="battery_summary">The app needs to disable the battery optimisation in order for the foreground service to work correctly</string>
     <string name="battery_title">Disable Battery Optimisation</string>
     <string name="biography">Biography</string>
@@ -125,7 +120,6 @@
     <string name="changelog">Changelog</string>
     <string name="changelog_summary">Check out What\'s New</string>
     <string name="choose_image">Choose Image</string>
-    <string name="choose_restore_title">Choose what to restore</string>
     <string name="circle">Circle</string>
     <string name="circular">Circular</string>
     <string name="classic">Classic</string>
@@ -143,7 +137,6 @@
     <string name="could_not_restore_purchase">Could not restore purchase.</string>
     <string name="could_not_scan_files">Could not scan %d files.</string>
     <string name="create_action">Create</string>
-    <string name="create_new_backup">Create</string>
     <string name="created_playlist_x">Created playlist %1$s.</string>
     <string name="credit_title">Members and contributors </string>
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
@@ -175,8 +168,6 @@
     <string name="edit_synced_lyrics">Edit Synced Lyrics</string>
     <string name="empty">Empty</string>
     <string name="equalizer">Equalizer</string>
-    <string name="error_create_backup">Couldn\u2019t create backup</string>
-    <string name="error_delete_backup">Couldn\u2019t delete backup</string>
     <string name="error_empty_name">Your name can\'t be empty!</string>
     <string name="error_load_failed">Load failed</string>
     <string name="error_share_file">Couldn\'t share file</string>
@@ -234,6 +225,7 @@
     <string name="inserted_x_songs_into_playlist_x">Inserted %1$d songs into the playlist %2$s.</string>
     <string name="instagram_page" translatable="false">Instagram</string>
     <string name="instagram_page_summary">Share your Apex Music setup to showcase on Instagram</string>
+    <string name="intro_label">Introduction</string>
     <string name="keyboard">Keyboard</string>
     <string name="label_bit_rate">Bitrate</string>
     <string name="label_file_format">Format</string>
@@ -263,10 +255,8 @@
     <string name="md3" translatable="false">MD3</string>
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Permission error</string>
-    <string name="message_backup_create_success">Backup created successfully.</string>
     <string name="message_limit_tabs">Not more than 5 items</string>
     <string name="message_pro_feature">%s is a Pro feature.</string>
-    <string name="message_restore_success">Restore completed successfully.</string>
     <string name="message_updated">Updated</string>
     <string name="message_welcome"><![CDATA[Hello there! <br>Welcome to %s]]></string>
     <string name="my_name">Name</string>
@@ -279,7 +269,6 @@
     <string name="no_albums">You have no albums</string>
     <string name="no_artists">You have no artists</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
-    <string name="no_backups_found">No Backups Found</string>
     <string name="no_equalizer">No equalizer found</string>
     <string name="no_genres">You have no genres</string>
     <string name="no_lyrics_found">No lyrics found</string>
@@ -385,6 +374,7 @@
     <string name="pref_summary_permissions_edit">Modify permissions relating to this app</string>
     <string name="pref_summary_progress_bar_alignment">Show the horizontal progress bar on top of mini player instead of the bottom</string>
     <string name="pref_summary_progress_bar_style">Show a horizontal progress bar instead of the circle progress bar</string>
+    <string name="pref_summary_queue_show_always">Always show the queue when using a tablet</string>
     <string name="pref_summary_remember_tab">Navigate to the last used tab on start</string>
     <string name="pref_summary_show_lyrics">Display synced lyrics over album cover</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
@@ -440,6 +430,7 @@
     <string name="pref_title_pause_history">Pause history</string>
     <string name="pref_title_progress_bar_alignment">Progress bar alignment</string>
     <string name="pref_title_progress_bar_style">Progress bar style</string>
+    <string name="pref_title_queue_show_always">Always show queue</string>
     <string name="pref_title_remember_tab">Remember last tab</string>
     <string name="pref_title_show_lyrics">Show lyrics</string>
     <string name="pref_title_show_update">Show update</string>
@@ -481,8 +472,6 @@
     <string name="report_bug">Report bug</string>
     <string name="reset_action">Reset</string>
     <string name="reset_artist_image">Reset artist image</string>
-    <string name="restore">Restore</string>
-    <string name="restore_message">Do you want to restore backup?</string>
     <string name="ringtone_summary">The app needs permission to access your device settings in order to set music as Ringtone</string>
     <string name="ringtone_title">Ringtone (Optional)</string>
     <string name="saf_delete_failed">File delete failed: %s</string>
@@ -555,7 +544,6 @@
     <string name="tiny">Tiny</string>
     <string name="tiny_card_style">Tiny card</string>
     <string name="title">Title</string>
-    <string name="title_new_backup">New Backup</string>
     <string name="today">Today</string>
     <string name="top_albums">Top albums</string>
     <string name="top_artists">Top artists</string>
