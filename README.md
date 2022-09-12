@@ -23,7 +23,7 @@
 ### App Themes
 | <img src="screenshots/Artwork/1.Main_White.jpg" width="200"/>	|<img src="screenshots/Artwork/2.Main_Dark.jpg" width="200"/>|   <img src="screenshots/Artwork/3.Main_Black.jpg" width="200"/>  	|    <img src="screenshots/Artwork/4.Main_Material_White.jpg" width="200"/> 	|
 |:-----:	|:-----:	|:-----:	|:-----:	|
-| Clearly White 	| Kinda Dark 	| Just Black 	| Material U White (A12+) 	|      
+| Bright White 	| Sorta Dark 	| Jet Black 	| Material U White (A12+) 	|      
       
 | <img src="screenshots/Artwork/5.Main_Material_Dark.jpg" width="200"/>	|
 |:-----:	|
