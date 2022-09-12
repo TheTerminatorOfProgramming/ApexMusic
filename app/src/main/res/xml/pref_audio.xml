@@ -58,7 +58,8 @@
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_bluetooth"
-        android:key="bluetooth_section">
+        android:key="bluetooth_section"
+        app:isPreferenceVisible="false">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="true"
             android:key="bluetooth_playback"

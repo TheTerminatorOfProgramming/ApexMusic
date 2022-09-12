@@ -71,9 +71,6 @@ class AudioSettings : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
-        val bluetoothSection: ATEPreferenceCategory? = findPreference("bluetooth_section")
-        bluetoothSection?.isVisible = false
-
         val bluetoothPreference: Preference? = findPreference(BLUETOOTH_PLAYBACK)
         if (VersionUtils.hasS()) {
             bluetoothPreference?.setOnPreferenceChangeListener { _, newValue ->
