@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:settingListItemIcon="@drawable/ic_popcorn"
-            app:settingListItemIconColor="@color/labs_color"
+            app:settingListItemIconColor="@color/md_grey_400"
             app:settingListItemText="@string/labs_settings_summary"
             app:settingListItemTitle="@string/labs" />
 
