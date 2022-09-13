@@ -21,6 +21,8 @@ import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.ServiceInfo
+import android.content.res.Configuration
+import android.content.res.Configuration.*
 import android.database.ContentObserver
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -91,10 +93,11 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import org.koin.java.KoinJavaComponent.get
 import java.util.*
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 
 
 /**
- * @author Karim Abou Zeid (kabouzeid), Andrew Neal. Modified by Prathamesh More
+ * @author Karim Abou Zeid (kabouzeid), Andrew Neal. Modified by TTOP
  */
 /*
  * Copyright (c) 2019 Hemanth Savarala.
@@ -1314,6 +1317,21 @@ class MusicService : MediaBrowserServiceCompat(),
         serviceScope.launch(IO) {
             MusicPlaybackQueueStore.getInstance(this@MusicService)
                 .saveQueues(playingQueue, originalPlayingQueue)
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        when (applicationContext.resources?.configuration?.uiMode?.and(UI_MODE_NIGHT_MASK)) {
+            UI_MODE_NIGHT_YES -> {
+                appWidgetClassic.notifyThemeChange(this)
+                appWidgetFull.notifyThemeChange(this)
+            }
+            UI_MODE_NIGHT_NO -> {
+                appWidgetClassic.notifyThemeChange(this)
+                appWidgetFull.notifyThemeChange(this)
+            }
         }
     }
 

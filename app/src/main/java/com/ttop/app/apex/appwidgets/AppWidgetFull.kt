@@ -18,6 +18,7 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -68,22 +69,46 @@ class AppWidgetFull : BaseAppWidget() {
             View.INVISIBLE
         )
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
-        appWidgetView.setImageViewBitmap(
-            R.id.button_next, context.getTintedDrawable(
-                R.drawable.ic_skip_next_outline,
-                MaterialValueHelper.getPrimaryTextColor(context, false)
-            ).toBitmap()
-        )
-        appWidgetView.setImageViewBitmap(
-            R.id.button_prev, context.getTintedDrawable(
-                R.drawable.ic_skip_previous_outline,  MaterialValueHelper.getPrimaryTextColor(context, false)
-            ).toBitmap()
-        )
-        appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause, context.getTintedDrawable(
-                R.drawable.ic_play_arrow_outline_small,  MaterialValueHelper.getPrimaryTextColor(context, false)
-            ).toBitmap()
-        )
+        when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                appWidgetView.setImageViewBitmap(
+                    R.id.button_next, context.getTintedDrawable(
+                        R.drawable.ic_skip_next_outline,
+                        MaterialValueHelper.getPrimaryTextColor(context, false)
+                    ).toBitmap()
+                )
+                appWidgetView.setImageViewBitmap(
+                    R.id.button_prev, context.getTintedDrawable(
+                        R.drawable.ic_skip_previous_outline,  MaterialValueHelper.getPrimaryTextColor(context, false)
+                    ).toBitmap()
+                )
+                appWidgetView.setImageViewBitmap(
+                    R.id.button_toggle_play_pause, context.getTintedDrawable(
+                        R.drawable.ic_play_arrow_outline_small,  MaterialValueHelper.getPrimaryTextColor(context, false)
+                    ).toBitmap()
+                )
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                appWidgetView.setImageViewBitmap(
+                    R.id.button_next, context.getTintedDrawable(
+                        R.drawable.ic_skip_next_outline,
+                        MaterialValueHelper.getPrimaryTextColor(context, true)
+                    ).toBitmap()
+                )
+                appWidgetView.setImageViewBitmap(
+                    R.id.button_prev, context.getTintedDrawable(
+                        R.drawable.ic_skip_previous_outline,  MaterialValueHelper.getPrimaryTextColor(context, true)
+                    ).toBitmap()
+                )
+                appWidgetView.setImageViewBitmap(
+                    R.id.button_toggle_play_pause, context.getTintedDrawable(
+                        R.drawable.ic_play_arrow_outline_small,  MaterialValueHelper.getPrimaryTextColor(context, true)
+                    ).toBitmap()
+                )
+            }
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> {}
+        }
+
 
         linkButtons(context, appWidgetView)
 
@@ -137,32 +162,47 @@ class AppWidgetFull : BaseAppWidget() {
             )
         }
 
-        val primaryColor = MaterialValueHelper.getPrimaryTextColor(service, false)
+        var primaryColor: Int? = null
+        when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                primaryColor = MaterialValueHelper.getPrimaryTextColor(service, false)
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                primaryColor = MaterialValueHelper.getPrimaryTextColor(service, true)
+            }
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> {}
+        }
         // Set correct drawable for pause state
         val playPauseRes =
             if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
+            primaryColor?.let {
                 service.getTintedDrawable(
                     playPauseRes,
-                    primaryColor
+                    it
                 ).toBitmap()
+            }
         )
 
         // Set prev/next button drawables
         appWidgetView.setImageViewBitmap(
             R.id.button_next,
-            service.getTintedDrawable(
+            primaryColor?.let {
+                service.getTintedDrawable(
                     R.drawable.ic_skip_next_outline,
-                    primaryColor
+                    it
                 ).toBitmap()
+            }
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev,
+            primaryColor?.let {
                 service.getTintedDrawable(
                     R.drawable.ic_skip_previous_outline,
-                    primaryColor
+                    it
                 ).toBitmap()
+            }
         )
 
         // Link actions buttons to intents

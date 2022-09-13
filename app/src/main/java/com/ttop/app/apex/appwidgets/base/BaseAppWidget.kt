@@ -37,8 +37,6 @@ import com.ttop.app.apex.service.MusicService.Companion.EXTRA_APP_WIDGET_NAME
 import com.ttop.app.apex.service.MusicService.Companion.FAVORITE_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.META_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.PLAY_STATE_CHANGED
-import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class BaseAppWidget : AppWidgetProvider() {
     val musicService = MusicPlayerRemote.musicService
