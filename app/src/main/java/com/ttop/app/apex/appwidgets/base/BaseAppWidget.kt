@@ -68,6 +68,11 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         }*/
 
         context.startForegroundService(serviceIntent)
+
+        if (musicService != null) {
+            performUpdate(musicService, null)
+        }
+
         super.onEnabled(context)
     }
 
