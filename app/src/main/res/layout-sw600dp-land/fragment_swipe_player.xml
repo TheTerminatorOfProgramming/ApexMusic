@@ -39,16 +39,16 @@
         <include layout="@layout/status_bar" />
     </FrameLayout>
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyle"
         android:layout_width="300dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
         app:shapeAppearanceOverlay="@style/TopCornerCardView"
         app:behavior_hideable="false"
-        android:layout_marginTop="24dp"
         app:cardElevation="24dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:peekHeight="0dp">
@@ -95,10 +95,8 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"
         style="@style/Toolbar"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:navigationIcon="@drawable/ic_keyboard_arrow_down_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"

@@ -37,6 +37,7 @@ import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -131,8 +132,20 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     private fun setUpPrevNext() {
-        binding.nextButton.setOnClickListener { MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying) }
-        binding.previousButton.setOnClickListener { MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying) }
+        binding.nextButton.setOnClickListener {
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playNextSong()
+            }else {
+                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+            }
+        }
+        binding.previousButton.setOnClickListener {
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playPreviousSong()
+            }else {
+                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+            }
+        }
     }
 
     private fun setUpShuffleButton() {

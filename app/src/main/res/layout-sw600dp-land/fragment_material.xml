@@ -73,13 +73,11 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"
         style="@style/Toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
-        android:layout_marginStart="300dp"
         app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
 </androidx.constraintlayout.widget.ConstraintLayout>

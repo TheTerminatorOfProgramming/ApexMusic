@@ -15,7 +15,11 @@ fun getSongInfo(song: Song): String {
             val audioHeader = AudioFileIO.read(File(song.data)).audioHeader
             val string: StringBuilder = StringBuilder()
             val uriFile = file.toUri()
-            string.append(getMimeType(uriFile.toString())).append(" • ")
+            if (getMimeType(uriFile.toString()) == "FLAC"){
+                string.append(audioHeader.format).append(" • ")
+            }else{
+                string.append(getMimeType(uriFile.toString())).append(" • ")
+            }
             string.append(audioHeader.bitRate).append(" kb/s").append(" • ")
             string.append(ApexUtil.frequencyCount(audioHeader.sampleRate.toInt()))
                 .append(" kHz")

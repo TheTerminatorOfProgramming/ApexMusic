@@ -56,8 +56,20 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.actionNext ->  MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-            R.id.actionPrevious ->  MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+            R.id.actionNext ->  {
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playNextSong()
+                }else {
+                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                }
+            }
+            R.id.actionPrevious ->  {
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playPreviousSong()
+                }else {
+                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                }
+            }
         }
     }
 
@@ -203,14 +215,25 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                     velocityX: Float,
                     velocityY: Float
                 ): Boolean {
-                    if (abs(velocityX) > abs(velocityY)) {
-                        if (velocityX < 0) {
-                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                            return true
-                        } else if (velocityX > 0) {
-                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                            return true
+                    if (PreferenceUtil.isSwipe) {
+                        if (abs(velocityX) > abs(velocityY)) {
+                            if (velocityX < 0) {
+                                if (PreferenceUtil.isAutoplay) {
+                                    MusicPlayerRemote.playNextSong()
+                                }else {
+                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                }
+                                return true
+                            } else if (velocityX > 0) {
+                                if (PreferenceUtil.isAutoplay) {
+                                    MusicPlayerRemote.playPreviousSong()
+                                }else {
+                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                }
+                                return true
+                            }
                         }
+                        return false
                     }
                     return false
                 }

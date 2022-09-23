@@ -9,16 +9,14 @@
 
     <color name="md_yellow_A400">#FFD600</color>
 
-    <color name="md_deep_purple_A400">#651FFF</color>
-
     <color name="md_deep_purple_300">#9575CD</color>
     <color name="md_deep_purple_400">#7E57C2</color>
+    <color name="md_deep_purple_500">#673AB7</color>
     <color name="md_deep_purple_600">#5E35B1</color>
     <color name="md_deep_purple_700">#512DA8</color>
     <color name="md_deep_purple_800">#4527A0</color>
-    <color name="md_deep_purple_500">#673AB7</color>
     <color name="md_deep_purple_A200">#7C4DFF</color>
-
+    <color name="md_deep_purple_A400">#651FFF</color>
 
     <color name="md_blue_500">#2196F3</color>
     <color name="md_blue_A400">#2979FF</color>

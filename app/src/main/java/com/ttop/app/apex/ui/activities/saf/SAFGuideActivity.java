@@ -44,13 +44,10 @@ public class SAFGuideActivity extends IntroActivity {
     addSlide(
         new SimpleSlide.Builder()
             .title(title)
-            .description(
-                Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1
-                    ? R.string.saf_guide_slide1_description_before_o
-                    : R.string.saf_guide_slide1_description)
+            .description(R.string.saf_guide_slide1_description)
             .image(R.drawable.saf_guide_1)
-            .background(R.color.md_deep_purple_300)
-            .backgroundDark(R.color.md_deep_purple_400)
+            .background(R.color.md_red_400)
+            .backgroundDark(R.color.md_red_500)
             .layout(R.layout.fragment_simple_slide_large_image)
             .build());
     addSlide(
@@ -58,8 +55,8 @@ public class SAFGuideActivity extends IntroActivity {
             .title(R.string.saf_guide_slide2_title)
             .description(R.string.saf_guide_slide2_description)
             .image(R.drawable.saf_guide_2)
-            .background(R.color.md_deep_purple_500)
-            .backgroundDark(R.color.md_deep_purple_600)
+            .background(R.color.md_red_400)
+            .backgroundDark(R.color.md_red_500)
             .layout(R.layout.fragment_simple_slide_large_image)
             .build());
     addSlide(
@@ -67,8 +64,8 @@ public class SAFGuideActivity extends IntroActivity {
             .title(R.string.saf_guide_slide3_title)
             .description(R.string.saf_guide_slide3_description)
             .image(R.drawable.saf_guide_3)
-            .background(R.color.md_deep_purple_700)
-            .backgroundDark(R.color.md_deep_purple_800)
+            .background(R.color.md_red_400)
+            .backgroundDark(R.color.md_red_500)
             .layout(R.layout.fragment_simple_slide_large_image)
             .build());
   }

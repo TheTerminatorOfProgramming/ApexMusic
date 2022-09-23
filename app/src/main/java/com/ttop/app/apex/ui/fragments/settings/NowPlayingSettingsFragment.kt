@@ -53,6 +53,10 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
         lyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            PreferenceUtil.shouldRecreate = true
+            restartActivity()
+            true
         }
 
         val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
@@ -94,9 +98,19 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         queueShowAlways?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
 
-            restartActivity()
             PreferenceUtil.shouldRecreate = true
+            restartActivity()
             true
+        }
+
+        val swipeGestures: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE)
+        swipeGestures?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
+        autoplay?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
     }
 

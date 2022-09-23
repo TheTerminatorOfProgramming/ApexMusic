@@ -56,8 +56,10 @@
         android:backgroundTint="@color/md_red_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
@@ -82,7 +84,7 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="24dp"
         app:contentInsetEndWithActions="0dp"
@@ -91,7 +93,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toBottomOf="@id/status_bar"
-        android:layout_marginStart="300dp"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black"
         app:titleMargin="0dp"
         app:titleMargins="0dp">
@@ -113,7 +114,7 @@
                 android:textAppearance="@style/TextViewSubtitle2"
                 android:textColor="@color/md_white_1000"
                 app:layout_constraintEnd_toStartOf="@+id/artistImage"
-                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem/random" />
 

@@ -266,11 +266,19 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
             )
         }
         if (position < MusicPlayerRemote.position) {
-            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playPreviousSong()
+            }else {
+                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+            }
         }
 
         if (position > MusicPlayerRemote.position) {
-            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playNextSong()
+            }else {
+                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+            }
         }
     }
 

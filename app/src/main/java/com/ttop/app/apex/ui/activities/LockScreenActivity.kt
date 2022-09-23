@@ -49,7 +49,6 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
-import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -76,18 +75,9 @@ class LockScreenActivity : AbsMusicServiceActivity() {
             }
 
             override fun onSlideClosed(): Boolean {
-                /* keyguardManager =
+                val keyguardManager =
                     getSystemService<KeyguardManager>()
                 keyguardManager?.requestDismissKeyguard(this@LockScreenActivity, null)
-
-                finish()
-                return true*/
-
-                if (VersionUtils.hasOreo()) {
-                    val keyguardManager =
-                        getSystemService<KeyguardManager>()
-                    keyguardManager?.requestDismissKeyguard(this@LockScreenActivity, null)
-                }
                 finish()
                 return true
             }

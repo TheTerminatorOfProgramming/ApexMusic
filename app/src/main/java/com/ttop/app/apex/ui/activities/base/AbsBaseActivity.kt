@@ -33,7 +33,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.rootView
-import com.ttop.app.apex.ui.activities.PermissionActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -100,9 +99,7 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
             if (ActivityCompat.checkSelfPermission(this,
                     permission) != PackageManager.PERMISSION_GRANTED
             ) {
-                if (!ApexUtil.hasBatteryPermission()) {
-                    return false
-                }
+                return false
             }
         }
         return true

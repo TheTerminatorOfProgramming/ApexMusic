@@ -340,11 +340,21 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
             }
         }
+
+        if (!PreferenceUtil.syncedLyrics) {
+            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+        }
     }
 
     override fun onStart() {
         super.onStart()
         addSwipeDetector()
+    }
+
+    fun showSyncedLyrics() {
+        if (!PreferenceUtil.syncedLyrics) {
+            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+        }
     }
 
     fun addSwipeDetector() {

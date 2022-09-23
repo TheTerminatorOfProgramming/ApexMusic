@@ -98,12 +98,12 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val colorAppShortcuts: TwoStatePreference? = findPreference(SHOULD_COLOR_APP_SHORTCUTS)
         colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
-            colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
-                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-                true
-            }
+        colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
+            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+            true
+        }
 
         val materialYou: ATESwitchPreference? = findPreference(MATERIAL_YOU)
         materialYou?.setOnPreferenceChangeListener { _, newValue ->
@@ -123,8 +123,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val customFont: Preference? = findPreference(CUSTOM_FONT)
         customFont?.setOnPreferenceChangeListener { _, _ ->
-            restartActivity()
+
             PreferenceUtil.shouldRecreate = true
+            restartActivity()
             true
         }
 

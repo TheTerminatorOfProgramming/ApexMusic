@@ -13,6 +13,7 @@
  */
 package com.ttop.app.apex.util
 
+import android.app.Activity
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -20,6 +21,7 @@ import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Context.POWER_SERVICE
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.Uri
@@ -147,20 +149,18 @@ object ApexUtil {
             .setOngoing(true)
 
         //CREATE CHANNEL
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Foreground Notification"
-            val descriptionText = "Foreground Service Notification"
-            val importance = NotificationManager.IMPORTANCE_LOW
-            val mChannel = NotificationChannel(notificationChannelId, name, importance).apply {
-                description = descriptionText
-                setShowBadge(false)
-            }
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            val notificationManager =
-                getContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
+        val name = "Foreground Notification"
+        val descriptionText = "Foreground Service Notification"
+        val importance = NotificationManager.IMPORTANCE_LOW
+        val mChannel = NotificationChannel(notificationChannelId, name, importance).apply {
+            description = descriptionText
+            setShowBadge(false)
         }
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        val notificationManager =
+            getContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(mChannel)
 
         return builder.build()
     }
@@ -183,12 +183,6 @@ object ApexUtil {
     fun disableBatteryOptimization() {
         val intent = Intent()
         val packageName: String = getContext().packageName
-        /*val pm = getContext().getSystemService(POWER_SERVICE) as PowerManager?
-        if (!pm!!.isIgnoringBatteryOptimizations(packageName)) {
-            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-            intent.data = Uri.parse("package:$packageName")
-            getContext().startActivity(intent)
-        }*/
 
         intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
         intent.data = Uri.parse("package:$packageName")

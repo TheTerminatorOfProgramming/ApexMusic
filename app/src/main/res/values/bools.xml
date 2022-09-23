@@ -10,4 +10,5 @@
     <bool name="widget_prefs">false</bool>
 
     <bool name="queue_show_always">false</bool>
+    <bool name="auto_rotate">false</bool>
 </resources>

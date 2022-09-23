@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -26,6 +27,8 @@ import androidx.preference.PreferenceManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.preferences.*
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat
 import dev.chrisbanes.insetter.applyInsetter
 
@@ -101,5 +104,19 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
 
     fun restartActivity() {
         activity?.recreate()
+    }
+
+    fun autoRotate() {
+        if (ApexUtil.isTablet) {
+            activity?.requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            }else {
+                if (ApexUtil.isLandscape) {
+                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                }else {
+                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                }
+            }
+        }
     }
 }

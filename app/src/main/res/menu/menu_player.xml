@@ -17,7 +17,7 @@
     <item
         android:id="@+id/action_toggle_favorite"
         android:checkable="true"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_favorite_border"
         android:orderInCategory="2"
         android:title="@string/favorites"
         app:showAsAction="always" />

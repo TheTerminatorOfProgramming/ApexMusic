@@ -9,12 +9,13 @@
         android:title="@string/pref_header_blacklist"
         app:icon="@drawable/ic_music_note_off" />
 
-    <!--<com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="whitelist_music"
+        android:icon="@drawable/ic_filter_list"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_whitelist"
-        android:title="@string/pref_title_whitelist" />-->
+        android:title="@string/pref_title_whitelist" />
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
@@ -45,5 +46,14 @@
             android:title="@string/pref_filter_song_title"
             app:icon="@drawable/ic_filter_song"
             app:showSeekBarValue="true" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="auto_rotate"
+            android:icon="@drawable/ic_screen_rotation"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_auto_rotate"
+            android:title="@string/pref_title_auto_rotate"
+            app:isPreferenceVisible="@bool/auto_rotate"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

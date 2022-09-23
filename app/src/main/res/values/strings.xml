@@ -350,8 +350,11 @@
     <string name="pref_summary_album_artists_only">Show Album Artists in the Artist category</string>
     <string name="pref_summary_audio_ducking">Lower the volume when a system sound is played or a notification is received</string>
     <string name="pref_summary_audio_fade">Fade audio when song is paused or played</string>
+    <string name="pref_summary_auto_play">Autoplay song when going to next/previous song manually</string>
+    <string name="pref_summary_auto_rotate">Auto rotate the screen when using a tablet or foldable</string>
     <string name="pref_summary_blacklist">The content of blacklisted folders is hidden from your library.</string>
     <string name="pref_summary_bluetooth_playback">Start playing as soon as connected to bluetooth device</string>
+    <string name="pref_summary_bluetooth_volume">Set a specific volume when bluetooth autoplay is connected</string>
     <string name="pref_summary_blurred_album_art">Blur the album cover on the lockscreen and wearOS media controls. Can cause problems with third party apps and widgets</string>
     <string name="pref_summary_carousel_effect">Carousel effect for the album art in the now playing screen. Note that Card and Blur Card themes won\'t work</string>
     <string name="pref_summary_classic_notification">Use the classic notification design</string>
@@ -381,6 +384,7 @@
     <string name="pref_summary_specific_device">Allow only a specific bluetooth device to autoplay music</string>
     <string name="pref_summary_suggestions">Show new music mix on homescreen</string>
     <string name="pref_summary_swipe_anywhere_now_playing">Enables changing song by swiping anywhere on the now playing screen</string>
+    <string name="pref_summary_swipe_gestures">Allow swipe gestures in the mini player</string>
     <string name="pref_summary_swipe_to_dismiss">Swipe down to dismiss mini player</string>
     <string name="pref_summary_synced_lyrics">Show Synced lyrics</string>
     <string name="pref_summary_toggle_full_screen">Immersive mode</string>
@@ -400,9 +404,13 @@
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
     <string name="pref_title_audio_fade">Fade audio</string>
     <string name="pref_title_auto_download_artist_images">Auto-download artist images</string>
+    <string name="pref_title_auto_play">Next/previous behavior</string>
+    <string name="pref_title_auto_rotate">Screen rotation</string>
     <string name="pref_title_blacklist">Blacklist</string>
     <string name="pref_title_bluetooth_device">Bluetooth device</string>
+    <string name="pref_title_bluetooth_level">Bluetooth volume level</string>
     <string name="pref_title_bluetooth_playback">Bluetooth playback</string>
+    <string name="pref_title_bluetooth_volume">Bluetooth specific volume</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
     <string name="pref_title_circle_button">Circular play button</string>
     <string name="pref_title_classic_notification">Classic notification design</string>
@@ -437,6 +445,7 @@
     <string name="pref_title_specific_device">Specific device</string>
     <string name="pref_title_suggestions">Show suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Swipe anywhere to change song</string>
+    <string name="pref_title_swipe_gestures">Swipe gestures</string>
     <string name="pref_title_swipe_to_dismiss">Dismiss with swipe down</string>
     <string name="pref_title_synced_lyrics">Synced lyrics</string>
     <string name="pref_title_tab_text_mode">Tab titles mode</string>
@@ -472,6 +481,7 @@
     <string name="report_bug">Report bug</string>
     <string name="reset_action">Reset</string>
     <string name="reset_artist_image">Reset artist image</string>
+    <string name="retro_version">RetroMusic Base Version</string>
     <string name="ringtone_summary">The app needs permission to access your device settings in order to set music as Ringtone</string>
     <string name="ringtone_title">Ringtone (Optional)</string>
     <string name="saf_delete_failed">File delete failed: %s</string>

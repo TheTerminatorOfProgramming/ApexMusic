@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="queue_show_always">true</bool>
+    <bool name="auto_rotate">true</bool>
 </resources>

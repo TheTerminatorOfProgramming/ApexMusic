@@ -19,7 +19,7 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:layout="@layout/list_item_view_switch"
-        app:defaultValue="false"
+        app:defaultValue="true"
         app:key="progress_bar_style"
         app:summary="@string/pref_summary_progress_bar_style"
         app:title="@string/pref_title_progress_bar_style"

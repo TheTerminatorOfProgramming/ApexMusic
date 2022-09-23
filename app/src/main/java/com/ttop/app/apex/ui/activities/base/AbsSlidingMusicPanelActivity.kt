@@ -18,6 +18,7 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -43,7 +44,6 @@ import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.activities.AppIntroActivity
-import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.activities.PermissionActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
@@ -82,8 +82,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     companion object {
         val TAG: String = AbsSlidingMusicPanelActivity::class.java.simpleName
     }
-
-    val APP_INTRO_REQUEST = 100
     var fromNotification = false
     private var windowInsets: WindowInsetsCompat? = null
     protected val libraryViewModel by viewModel<LibraryViewModel>()
@@ -153,13 +151,21 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        checkAppIntro()
-
-        /*if (!hasPermissions()) {
+        if (!hasPermissions()) {
             startActivity(Intent(this, PermissionActivity::class.java))
+
             finish()
-        }*/
+        }else{
+            if (!PreferenceUtil.hasIntroShown) {
+                startActivity(
+                    Intent(
+                        this@AbsSlidingMusicPanelActivity,
+                        AppIntroActivity::class.java
+                    )
+                )
+                PreferenceUtil.hasIntroShown = true
+            }
+        }
         binding = SlidingMusicPanelLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.root.setOnApplyWindowInsetsListener { _, insets ->
@@ -180,23 +186,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         val layoutParams = (binding.linearLayout?.layoutParams as? ViewGroup.MarginLayoutParams)
         layoutParams?.setMargins(0, ApexUtil.statusBarHeight, 0, 0)
         binding.linearLayout?.layoutParams = layoutParams
-    }
-
-    private fun checkAppIntro(): Boolean {
-        if (!PreferenceUtil.hasIntroShown) {
-            PreferenceUtil.hasIntroShown = true
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(
-                    Intent(
-                        this@AbsSlidingMusicPanelActivity,
-                        AppIntroActivity::class.java
-                    )
-                )
-            }, 50)
-            return true
-        }
-        return false
     }
 
     private fun setupBottomSheet() {
@@ -276,6 +265,22 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             PROGRESS_BAR_ALIGNMENT,
             PROGRESS_BAR_STYLE -> {
                 recreate()
+            }
+            SYNCED_LYRICS -> {
+                playerFragment.showSyncedLyrics()
+            }
+            AUTO_ROTATE -> {
+                if (ApexUtil.isTablet) {
+                    requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+                        ActivityInfo.SCREEN_ORIENTATION_SENSOR
+                    }else {
+                        if (ApexUtil.isLandscape) {
+                            ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                        }else {
+                            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                        }
+                    }
+                }
             }
         }
     }

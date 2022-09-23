@@ -42,7 +42,8 @@
         android:entryValues="@array/pref_lyrics_type_values"
         android:key="lyrics_type"
         android:layout="@layout/list_item_view"
-        android:title="@string/pref_title_lyrics_type" />
+        android:title="@string/pref_title_lyrics_type"
+        android:dependency="synced_lyrics"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
@@ -109,6 +110,22 @@
             app:key="toggle_add_controls"
             app:summary="@string/pref_summary_extra_controls"
             app:title="@string/pref_title_extra_controls" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_gesture"
+            app:key="toggle_mini_swipe"
+            app:summary="@string/pref_summary_swipe_gestures"
+            app:title="@string/pref_title_swipe_gestures" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_skip_next"
+            app:key="toggle_autoplay"
+            app:summary="@string/pref_summary_auto_play"
+            app:title="@string/pref_title_auto_play" />
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"

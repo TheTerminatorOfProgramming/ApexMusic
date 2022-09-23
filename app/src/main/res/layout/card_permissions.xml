@@ -60,7 +60,7 @@
             android:textSize="17sp"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/battery_permission_title"
+            android:id="@+id/bt_permission_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
@@ -68,6 +68,36 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/storage_permission_title"
+            android:text="Bluetooth Permission: "
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="19dp"/>
+
+        <TextView
+            android:id="@+id/bt_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/bt_permission_title"
+            app:layout_constraintTop_toBottomOf="@id/storage_permission"
+            android:text="ssssssss"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="17sp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/battery_permission_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bt_permission"
             android:text="Battery Optimization: "
             android:textStyle="bold"
             android:textSize="17sp"
@@ -83,7 +113,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/battery_permission_title"
-            app:layout_constraintTop_toBottomOf="@id/storage_permission"
+            app:layout_constraintTop_toBottomOf="@id/bt_permission"
             android:text="ssssssss"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"

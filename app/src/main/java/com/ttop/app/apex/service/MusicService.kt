@@ -94,6 +94,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import org.koin.java.KoinJavaComponent.get
 import java.util.*
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import com.ttop.app.apex.util.PreferenceUtil
 
 
 /**
@@ -125,6 +126,9 @@ class MusicService : MediaBrowserServiceCompat(),
     private lateinit var playbackManager: PlaybackManager
 
     val playback: Playback? get() = playbackManager.playback
+
+    private val audioManager: AudioManager
+        get() = applicationContext.getSystemService()!!
 
     private var mPackageValidator: PackageValidator? = null
     private val mMusicProvider = get<AutoMusicProvider>(AutoMusicProvider::class.java)
@@ -166,7 +170,11 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private val bluetoothConnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED)
+    private val bluetoothDisconnectedIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED)
+    private val bluetoothRequestDisconnectIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED)
     private var bluetoothConnectedRegistered = false
+    private var bluetoothDisconnectedRegistered = false
+    private var bluetoothRequestDisconnectRegistered = false
     private val headsetReceiverIntentFilter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
     private var headsetReceiverRegistered = false
     private var mediaSession: MediaSessionCompat? = null
@@ -235,10 +243,42 @@ class MusicService : MediaBrowserServiceCompat(),
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
             if (action != null) {
+                val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+                var connected = false
                 if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
-                    @Suppress("Deprecation")
-                    if (getSystemService<AudioManager>()!!.isBluetoothA2dpOn) {
-                        play()
+                    if(PreferenceUtil.specificDevice){
+                        if (device?.address == PreferenceUtil.bluetoothDevice){
+                            connected = true
+                        }
+
+                        if (connected){
+                            Handler(Looper.getMainLooper()).postDelayed(
+                                Runnable {
+                                    if (PreferenceUtil.isBluetoothVolume){
+                                        val audioManager = audioManager
+                                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,PreferenceUtil.bluetoothVolumeLevel , 0)
+                                    }
+                                    play()
+                                }, 1000
+                            )
+                        }
+                    }else{
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            Runnable {
+                                if (PreferenceUtil.isBluetoothVolume){
+                                    val audioManager = audioManager
+                                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,PreferenceUtil.bluetoothVolumeLevel , 0)
+                                }
+                                play()
+                            }, 1000
+                        )
+                    }
+                }
+                if (BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED == action || BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
+                    if (PreferenceUtil.specificDevice){
+                        if (device?.address == PreferenceUtil.bluetoothDevice){
+                            connected = false
+                        }
                     }
                 }
             }
@@ -310,6 +350,8 @@ class MusicService : MediaBrowserServiceCompat(),
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_CREATED"))
         registerHeadsetEvents()
         registerBluetoothConnected()
+        registerBluetoothDisconnected()
+        registerBluetoothRequestDisconnect()
         mPackageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
         mMusicProvider.setMusicService(this)
         storage = PersistentStorage.getInstance(this)
@@ -323,10 +365,14 @@ class MusicService : MediaBrowserServiceCompat(),
             unregisterReceiver(headsetReceiver)
             headsetReceiverRegistered = false
         }
+
         if (bluetoothConnectedRegistered) {
             unregisterReceiver(bluetoothReceiver)
             bluetoothConnectedRegistered = false
+            bluetoothDisconnectedRegistered = false
+            bluetoothRequestDisconnectRegistered = false
         }
+
         mediaSession?.isActive = false
         quit()
         releaseResources()
@@ -654,6 +700,11 @@ class MusicService : MediaBrowserServiceCompat(),
                 }
             }
             TOGGLE_HEADSET -> registerHeadsetEvents()
+            BLUETOOTH_PLAYBACK -> {
+                registerBluetoothConnected()
+                registerBluetoothDisconnected()
+                registerBluetoothRequestDisconnect()
+            }
         }
     }
 
@@ -670,8 +721,20 @@ class MusicService : MediaBrowserServiceCompat(),
                     ACTION_PAUSE -> pause()
                     ACTION_PLAY -> play()
                     ACTION_PLAY_PLAYLIST -> playFromPlaylist(intent)
-                    ACTION_REWIND -> playPreviousSongAuto(true, isPlaying)
-                    ACTION_SKIP -> playNextSongAuto(true, isPlaying)
+                    ACTION_REWIND -> {
+                        if (PreferenceUtil.isAutoplay) {
+                            MusicPlayerRemote.playPreviousSong()
+                        }else {
+                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                        }
+                    }
+                    ACTION_SKIP -> {
+                        if (PreferenceUtil.isAutoplay) {
+                            MusicPlayerRemote.playNextSong()
+                        }else {
+                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                        }
+                    }
                     ACTION_STOP, ACTION_QUIT -> {
                         pendingQuit = false
                         quit()
@@ -1272,9 +1335,28 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun registerBluetoothConnected() {
         Log.i(TAG, "registerBluetoothConnected: ")
+        registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
         if (!bluetoothConnectedRegistered) {
             registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
             bluetoothConnectedRegistered = true
+        }
+    }
+
+    private fun registerBluetoothDisconnected() {
+        Log.i(TAG, "registerBluetoothDisconnected: ")
+        registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
+        if (!bluetoothDisconnectedRegistered) {
+            registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
+            bluetoothDisconnectedRegistered = true
+        }
+    }
+
+    private fun registerBluetoothRequestDisconnect() {
+        Log.i(TAG, "registerBluetoothRequestDisconnect: ")
+        registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
+        if (!bluetoothRequestDisconnectRegistered) {
+            registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
+            bluetoothRequestDisconnectRegistered = true
         }
     }
 

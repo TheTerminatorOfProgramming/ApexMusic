@@ -55,6 +55,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAboutBinding.bind(view)
         binding.aboutContent.cardOther.version.setSummary(getAppVersion())
+        binding.aboutContent.cardOther.retroVersion.setSummary(getRetroMusicVersion())
         setUpView()
         loadContributors()
 
@@ -76,7 +77,11 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
 
         binding.aboutContent.cardPermissions?.storagePermission?.text = checkStoragePermission()
-        binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
+        binding.aboutContent.cardPermissions?.btPermission?.text = checkBtPermission()
+        if (VersionUtils.hasS()) {
+            binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
+
+        }
         binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
     }
 
@@ -117,6 +122,10 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         return "Unknown"
     }
 
+    private fun getRetroMusicVersion(): String {
+        return "6.0.2 Beta"
+    }
+
     private fun shareApp() {
         ShareCompat.IntentBuilder(requireActivity()).setType("text/plain")
             .setChooserTitle(R.string.share_app)
@@ -153,6 +162,24 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             }
         } else {
             if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) }
+                == PackageManager.PERMISSION_GRANTED) {
+                "Granted"
+            }else{
+                "Denied"
+            }
+        }
+    }
+
+    private fun checkBtPermission(): String {
+        return if (VersionUtils.hasS()) {
+            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
+                == PackageManager.PERMISSION_GRANTED) {
+                "Granted"
+            }else{
+                "Denied"
+            }
+        } else {
+            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH) }
                 == PackageManager.PERMISSION_GRANTED) {
                 "Granted"
             }else{

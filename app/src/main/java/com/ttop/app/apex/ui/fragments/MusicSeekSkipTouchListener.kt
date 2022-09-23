@@ -7,6 +7,7 @@ import android.view.ViewConfiguration
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.*
 import kotlin.math.abs
 
@@ -56,9 +57,17 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                 val endY = event.y
                 if (!wasSeeking && isAClick(startX, endX, startY, endY)) {
                     if (next) {
-                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                        if (PreferenceUtil.isAutoplay) {
+                            MusicPlayerRemote.playNextSong()
+                        }else {
+                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                        }
                     } else {
-                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                        if (PreferenceUtil.isAutoplay) {
+                            MusicPlayerRemote.playPreviousSong()
+                        }else {
+                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                        }
                     }
                 }
 

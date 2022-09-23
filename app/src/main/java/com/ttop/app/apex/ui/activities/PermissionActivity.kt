@@ -20,9 +20,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.PowerManager
+import android.os.*
 import android.provider.Settings
 import android.view.View
 import androidx.annotation.RequiresApi
@@ -35,6 +33,7 @@ import com.ttop.app.apex.databinding.ActivityPermissionBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 class PermissionActivity : AbsMusicServiceActivity() {
@@ -47,7 +46,6 @@ class PermissionActivity : AbsMusicServiceActivity() {
         setStatusBarColorAuto()
         setTaskDescriptionColorAuto()
         setupTitle()
-
         binding.storagePermission.setButtonClick {
             requestPermissions()
         }
@@ -87,12 +85,23 @@ class PermissionActivity : AbsMusicServiceActivity() {
         binding.finish.accentBackgroundColor()
         binding.finish.setOnClickListener {
             if (hasPermissions()) {
+
+                if (!PreferenceUtil.hasIntroShown) {
+                    startActivity(
+                        Intent(
+                            this@PermissionActivity,
+                            AppIntroActivity::class.java
+                        )
+                    )
+                }
+
                 startActivity(
                     Intent(this, MainActivity::class.java).addFlags(
                         Intent.FLAG_ACTIVITY_NEW_TASK or
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK
                     )
                 )
+
                 finish()
             }
         }

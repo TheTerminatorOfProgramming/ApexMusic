@@ -14,19 +14,14 @@
  */
 package com.ttop.app.apex.ui.activities
 
-import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.PowerManager
 import android.provider.MediaStore
-import android.provider.Settings
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
@@ -69,6 +64,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         if (!hasPermissions()) {
             findNavController(R.id.fragment_container).navigate(R.id.permissionFragment)
         }
+
         WhatsNewFragment.showChangeLog(this)
 
         if (!PreferenceUtil.checkPreferences("SHUFFLE_MODE")) {
@@ -76,9 +72,30 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         }
         PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
 
+        PreferenceUtil.isSamsungSoundPluginInstalled = checkSamsungSoundPlugin()
+
         if (ApexUtil.isTablet) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            }else {
+                if (ApexUtil.isLandscape) {
+                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                }else {
+                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                }
+            }
         }
+    }
+
+    private fun checkSamsungSoundPlugin(): Boolean {
+        val packages: List<ApplicationInfo>
+        val pm: PackageManager = packageManager
+        packages = pm.getInstalledApplications(0)
+        for (packageInfo in packages) {
+            if (packageInfo.packageName == "com.samsung.android.soundassistant")
+                return true
+        }
+        return false
     }
 
     private fun setupNavigationController() {
@@ -171,7 +188,15 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         }
 
         if (ApexUtil.isTablet) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            }else {
+                if (ApexUtil.isLandscape) {
+                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                }else {
+                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                }
+            }
         }
     }
 

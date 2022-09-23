@@ -21,17 +21,19 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.media.audiofx.AudioEffect
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_PERMISSION_REQUEST
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
 import com.ttop.app.appthemehelper.util.VersionUtils
+
 
 /**
  * @author Hemanth S (h4h13).
@@ -90,7 +92,6 @@ class AudioSettings : AbsSettingsFragment() {
         }
 
         val specific_device : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
-
         specific_device?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
@@ -117,6 +118,11 @@ class AudioSettings : AbsSettingsFragment() {
 
         bluetooth_device?.entries = name.toTypedArray()
         bluetooth_device?.entryValues = address.toTypedArray()
+
+        val bt_volume: TwoStatePreference? = findPreference(BT_VOLUME)
+        bt_volume?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
     }
 
     private fun hasEqualizer(): Boolean {
@@ -128,6 +134,10 @@ class AudioSettings : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_audio)
+        if (PreferenceUtil.isSamsungSoundPluginInstalled) {
+            addPreferencesFromResource(R.xml.pref_audio_samsung)
+        }else {
+            addPreferencesFromResource(R.xml.pref_audio)
+        }
     }
 }

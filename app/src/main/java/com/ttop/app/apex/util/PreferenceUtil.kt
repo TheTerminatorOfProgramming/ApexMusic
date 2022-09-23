@@ -273,7 +273,7 @@ object PreferenceUtil {
 
     var isBluetoothSpeaker
         get() = sharedPreferences.getBoolean(
-            BLUETOOTH_PLAYBACK, true
+            BLUETOOTH_PLAYBACK, false
         )
 
         set(value) = sharedPreferences.edit {
@@ -871,7 +871,7 @@ object PreferenceUtil {
 
     var progressBarStyle
         get() = sharedPreferences.getBoolean(
-            PROGRESS_BAR_STYLE, false
+            PROGRESS_BAR_STYLE, true
         )
         set(value) = sharedPreferences.edit {
             putBoolean(PROGRESS_BAR_STYLE, value)}
@@ -903,6 +903,45 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(INTRO_SHOWN, value)}
+
+    var isBluetoothVolume
+        get() = sharedPreferences.getBoolean(
+            BT_VOLUME, false
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(BT_VOLUME, value)}
+
+    val bluetoothVolumeLevel
+        get() = sharedPreferences.getInt(
+            BT_CUSTOM_VOLUME, 4
+        )
+
+    var isSamsungSoundPluginInstalled
+        get() = sharedPreferences.getBoolean(
+            SAMSUNG_SOUND_PLUGIN, false
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(SAMSUNG_SOUND_PLUGIN, value)}
+
+    val isSwipe
+        get() = sharedPreferences.getBoolean(
+            TOGGLE_MINI_SWIPE, false
+        )
+
+    val isAutoplay
+        get() = sharedPreferences.getBoolean(
+            TOGGLE_AUTOPLAY, false
+        )
+
+    var isAutoRotate
+        get() = sharedPreferences.getBoolean(
+            AUTO_ROTATE, false
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(AUTO_ROTATE, value)}
 }
 
 enum class CoverLyricsType {

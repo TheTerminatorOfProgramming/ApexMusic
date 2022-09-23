@@ -14,6 +14,8 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
@@ -22,20 +24,34 @@ import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
  * @author Hemanth S (h4h13).
  */
 
-class OtherSettingsFragment : AbsSettingsFragment() {
+class OtherSettingsFragment : AbsSettingsFragment(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
 
     override fun invalidateSettings() {
-        /*val whitelist: TwoStatePreference? = findPreference(WHITELIST_MUSIC)
+        val whitelist: TwoStatePreference? = findPreference(WHITELIST_MUSIC)
         whitelist?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }*/
+        }
+
+        val auto_rotate: TwoStatePreference? = findPreference(AUTO_ROTATE)
+        auto_rotate?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            PreferenceUtil.isAutoRotate = newValue as Boolean
+
+            PreferenceUtil.shouldRecreate = true
+            restartActivity()
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -49,6 +65,14 @@ class OtherSettingsFragment : AbsSettingsFragment() {
             setSummary(lastAdded, newValue)
             libraryViewModel.forceReload(HomeSections)
             true
+        }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        when (key) {
+            AUTO_ROTATE -> {
+                autoRotate()
+            }
         }
     }
 }

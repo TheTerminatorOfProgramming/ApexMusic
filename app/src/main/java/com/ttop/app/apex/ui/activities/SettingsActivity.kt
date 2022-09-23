@@ -29,6 +29,7 @@ import com.ttop.app.apex.databinding.ActivitySettingsBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -44,7 +45,15 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
         setPermissionDeniedMessage(getString(R.string.permission_bluetooth_denied))
 
         if (ApexUtil.isTablet) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            }else {
+                if (ApexUtil.isLandscape) {
+                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                }else {
+                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                }
+            }
         }
     }
 
@@ -53,7 +62,15 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
         setNavigationBarColorPreOreo(surfaceColor())
 
         if (ApexUtil.isTablet) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            }else {
+                if (ApexUtil.isLandscape) {
+                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                }else {
+                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                }
+            }
         }
     }
 
