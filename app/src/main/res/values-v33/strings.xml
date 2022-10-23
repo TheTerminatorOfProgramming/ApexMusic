@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification"><![CDATA[Widgets]]></string>
+    <string name="notification_settings_summary">Customize the widgets style</string>
+</resources>

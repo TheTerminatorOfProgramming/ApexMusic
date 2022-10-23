@@ -3,6 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_ui">
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="full"
+            android:entries="@array/pref_ui_mode_list_titles"
+            android:entryValues="@array/pref_ui_mode_list_values"
+            android:key="ui_mode"
+            android:layout="@layout/list_item_view"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_ui_mode"
+            app:icon="@drawable/ic_account" />
+
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_general">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
@@ -85,5 +102,67 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_colored_app_shortcuts"
             android:title="@string/pref_title_app_shortcuts" />
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_controls">
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:key="swipe_to_dismiss"
+            app:summary="@string/pref_summary_swipe_to_dismiss"
+            app:title="@string/pref_title_swipe_to_dismiss" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_play_arrow"
+            app:key="toggle_add_controls"
+            app:summary="@string/pref_summary_extra_controls"
+            app:title="@string/pref_title_extra_controls" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_gesture"
+            app:key="toggle_mini_swipe"
+            app:summary="@string/pref_summary_swipe_gestures"
+            app:title="@string/pref_title_swipe_gestures" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="true"
+            app:key="progress_bar_style"
+            app:summary="@string/pref_summary_progress_bar_style"
+            app:title="@string/pref_title_progress_bar_style"
+            android:icon="@drawable/ic_progress"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:key="progress_bar_alignment"
+            app:summary="@string/pref_summary_progress_bar_alignment"
+            app:title="@string/pref_title_progress_bar_alignment"
+            android:icon="@drawable/ic_vertical_align_top"
+            android:dependency="progress_bar_style"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_skip_next"
+            app:key="toggle_autoplay"
+            app:summary="@string/pref_summary_auto_play"
+            app:title="@string/pref_title_auto_play"
+            app:isPreferenceVisible="@bool/next_prev_behaviour"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_volume_up"
+            app:key="toggle_volume"
+            app:summary="@string/pref_summary_toggle_volume"
+            app:title="@string/pref_title_toggle_volume" />
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

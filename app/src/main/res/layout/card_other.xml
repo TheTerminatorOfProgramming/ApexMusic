@@ -69,7 +69,7 @@
             app:listItemTitle="@string/version" />
 
         <com.ttop.app.apex.views.ListItemView
-            android:id="@+id/retroVersion"
+            android:id="@+id/appMode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
@@ -77,6 +77,19 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/version"
+            app:listItemIcon="@drawable/ic_info_outline"
+            app:listItemSummary="@string/pref_summary_open_source_licences"
+            app:listItemTitle="@string/pref_title_ui_mode" />
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/retroVersion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appMode"
             app:listItemIcon="@drawable/ic_info_outline"
             app:listItemSummary="@string/pref_summary_open_source_licences"
             app:listItemTitle="@string/retro_version" />

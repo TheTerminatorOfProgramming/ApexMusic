@@ -7,6 +7,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
 import android.provider.MediaStore
+import android.text.Editable
 import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.content.contentValuesOf

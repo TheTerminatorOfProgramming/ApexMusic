@@ -15,11 +15,14 @@
 package com.ttop.app.apex.ui.fragments.about
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.PowerManager
 import android.provider.Settings
 import android.view.View
@@ -33,11 +36,17 @@ import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.ContributorAdapter
+import com.ttop.app.apex.appwidgets.AppWidgetBig
+import com.ttop.app.apex.appwidgets.AppWidgetCircle
+import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
@@ -50,20 +59,95 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
+    private var cTimer: CountDownTimer? = null
+    private var count: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAboutBinding.bind(view)
+
         binding.aboutContent.cardOther.version.setSummary(getAppVersion())
         binding.aboutContent.cardOther.retroVersion.setSummary(getRetroMusicVersion())
-        setUpView()
-        loadContributors()
+        getAppMode()?.let { it ->
+            binding.aboutContent.cardOther.appMode.setSummary(it)
+            if (PreferenceUtil.isUiMode == "lite") {
+                binding.aboutContent.cardOther.appMode.setOnClickListener {
+                    val packageManager: PackageManager? = context?.packageManager
+                    if (count == 0) {
+                        startTimer()
+                    }
 
-        binding.aboutContent.root.applyInsetter {
-            type(navigationBars = true) {
-                padding(vertical = true)
+                    if (count == 3) {
+                        if (PreferenceUtil.isUiMode == "full") {
+                            showToast("App Mode: Full Already Activated")
+                        } else {
+                            PreferenceUtil.isUiMode = "full"
+                            showToast("App Mode: Full Activated")
+                            context?.let {
+                                ComponentName(
+                                    it,
+                                    AppWidgetBig::class.java
+                                )
+                            }?.let {
+                                packageManager!!.setComponentEnabledSetting(
+                                    it,
+                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                    PackageManager.DONT_KILL_APP
+                                )
+                            }
+
+                            context?.let {
+                                ComponentName(
+                                    it,
+                                    AppWidgetCircle::class.java
+                                )
+                            }?.let {
+                                packageManager!!.setComponentEnabledSetting(
+                                    it,
+                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                    PackageManager.DONT_KILL_APP
+                                )
+                            }
+
+                            context?.let {
+                                ComponentName(
+                                    it,
+                                    AppWidgetFullCircle::class.java
+                                )
+                            }?.let {
+                                packageManager!!.setComponentEnabledSetting(
+                                    it,
+                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                    PackageManager.DONT_KILL_APP
+                                )
+                            }
+                            PreferenceUtil.shouldRecreate = true
+                            activity?.recreate()
+                        }
+
+                    }
+                    count += 1
+                }
+            }
+            setUpView()
+            loadContributors()
+
+            binding.aboutContent.root.applyInsetter {
+                type(navigationBars = true) {
+                    padding(vertical = true)
+                }
             }
         }
+    }
+
+    fun startTimer() {
+        cTimer = object : CountDownTimer(15000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() {
+                count = 0
+            }
+        }
+        (cTimer as CountDownTimer).start()
     }
 
     private fun setUpView() {
@@ -107,7 +191,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + "_" + formattedDate + "_" + formattedTime
+                ).versionName + " Build " + formattedDate + "_" + formattedTime
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
@@ -123,7 +207,11 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun getRetroMusicVersion(): String {
-        return "6.0.2 Beta"
+        return "6.0.2 BETA"
+    }
+
+    private fun getAppMode(): String? {
+        return PreferenceUtil.isUiMode?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
 
     private fun shareApp() {

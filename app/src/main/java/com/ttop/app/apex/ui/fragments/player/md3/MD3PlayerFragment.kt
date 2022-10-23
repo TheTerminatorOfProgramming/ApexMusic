@@ -19,6 +19,7 @@ import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -29,11 +30,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.card.MaterialCardView
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
@@ -43,6 +41,7 @@ import com.ttop.app.apex.dialogs.*
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
@@ -74,7 +73,6 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
 
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
-    private var recyclerViewSwipeManager: RecyclerViewSwipeManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
     private var playingQueueAdapter: PlayingQueueAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -169,6 +167,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
             }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 return true
             }
             R.id.action_share -> {
@@ -228,12 +227,16 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
             }
             R.id.now_playing -> {
                 if (ApexUtil.isTablet) {
+                    val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
+                        whichFragment(R.id.playerAlbumCoverFragment)
                     if (binding.playerQueueSheet?.visibility == View.VISIBLE){
                         PreferenceUtil.isQueueHidden = true
                         binding.playerQueueSheet?.visibility = View.GONE
+                        playerAlbumCoverFragment.updatePlayingQueue()
                     }else{
                         PreferenceUtil.isQueueHidden = false
                         binding.playerQueueSheet?.visibility = View.VISIBLE
+                        playerAlbumCoverFragment.updatePlayingQueue()
                     }
                 }else {
                     requireActivity().findNavController(R.id.fragment_container).navigate(
@@ -243,6 +246,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
                     )
                     mainActivity.collapsePanel()
                 }
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 return true
             }
             R.id.action_show_lyrics -> {
@@ -319,20 +323,16 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()
-        recyclerViewSwipeManager = RecyclerViewSwipeManager()
 
         val animator = DraggableItemAnimator()
         animator.supportsChangeAnimations = false
         wrappedAdapter =
             recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
-        wrappedAdapter =
-            recyclerViewSwipeManager?.createWrappedAdapter(wrappedAdapter) as RecyclerView.Adapter<*>
         binding.recyclerView?.layoutManager = linearLayoutManager
         binding.recyclerView?.adapter = wrappedAdapter
         binding.recyclerView?.itemAnimator = animator
         binding.recyclerView?.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
         binding.recyclerView?.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
-        binding.recyclerView?.let { recyclerViewSwipeManager?.attachRecyclerView(it) }
 
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }

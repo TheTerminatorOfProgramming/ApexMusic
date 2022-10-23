@@ -37,6 +37,7 @@ import com.ttop.app.apex.service.MusicService.Companion.EXTRA_APP_WIDGET_NAME
 import com.ttop.app.apex.service.MusicService.Companion.FAVORITE_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.META_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.PLAY_STATE_CHANGED
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class BaseAppWidget : AppWidgetProvider() {
     val musicService = MusicPlayerRemote.musicService
@@ -78,7 +79,11 @@ abstract class BaseAppWidget : AppWidgetProvider() {
     }
 
     open fun notifyThemeChange(service: MusicService?) {
-        performUpdate(service!!, null)
+        if (service != null) {
+            if (hasInstances(service.applicationContext)) {
+                performUpdate(service, null)
+            }
+        }
     }
 
     protected fun pushUpdate(
@@ -114,7 +119,13 @@ abstract class BaseAppWidget : AppWidgetProvider() {
     ): PendingIntent {
         val intent = Intent(action)
         intent.component = serviceName
-        return PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        return if (VersionUtils.hasOreo()) {
+            PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getService(
+                context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+            )
+        }
     }
 
     protected abstract fun defaultAppWidget(context: Context, appWidgetIds: IntArray)

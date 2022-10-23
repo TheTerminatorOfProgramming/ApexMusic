@@ -57,7 +57,7 @@ Find your song to edit and paste the synced lyrics.
 ___
 
 ## **Q: How do I change the theme?**
-Settings -> Look and feel -> Select your theme.
+Settings -> User Interface -> Select your theme.
 ___
 
 ## **Q: Equalizer is very laggy and unstable or I am getting a "No equalizer found" error. Why?**

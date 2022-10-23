@@ -19,6 +19,7 @@ import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +34,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.card.MaterialCardView
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
@@ -74,7 +74,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
 
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
-    private var recyclerViewSwipeManager: RecyclerViewSwipeManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
     private var playingQueueAdapter: PlayingQueueAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -102,6 +101,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 return true
             }
             R.id.action_share -> {
@@ -280,20 +280,16 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()
-        recyclerViewSwipeManager = RecyclerViewSwipeManager()
 
         val animator = DraggableItemAnimator()
         animator.supportsChangeAnimations = false
         wrappedAdapter =
             recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
-        wrappedAdapter =
-            recyclerViewSwipeManager?.createWrappedAdapter(wrappedAdapter) as RecyclerView.Adapter<*>
         binding.recyclerView.layoutManager = linearLayoutManager
         binding.recyclerView.adapter = wrappedAdapter
         binding.recyclerView.itemAnimator = animator
         recyclerViewTouchActionGuardManager?.attachRecyclerView(binding.recyclerView)
         recyclerViewDragDropManager?.attachRecyclerView(binding.recyclerView)
-        recyclerViewSwipeManager?.attachRecyclerView(binding.recyclerView)
 
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }

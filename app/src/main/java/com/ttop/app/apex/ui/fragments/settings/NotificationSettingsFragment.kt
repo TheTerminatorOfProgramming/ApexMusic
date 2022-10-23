@@ -98,6 +98,15 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             appWidgetFull.notifyThemeChange(musicService)
             false
         }
+
+        val transparent: TwoStatePreference? = findPreference(WIDGET_TRANSPERENCY)
+        transparent?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            transparent.isChecked = newValue as Boolean
+            appWidgetClassic.notifyThemeChange(musicService)
+            appWidgetFull.notifyThemeChange(musicService)
+            false
+        }
     }
 
     override fun onResume() {

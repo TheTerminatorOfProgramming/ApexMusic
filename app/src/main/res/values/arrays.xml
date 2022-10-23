@@ -32,6 +32,20 @@
         <item>@string/over_cover</item>
     </array>
 
+    <string-array name="pref_embed_lyrics_values">
+        <item>none</item>
+        <item>tap</item>
+        <item>menu</item>
+        <item>both</item>
+    </string-array>
+
+    <array name="pref_embed_lyrics_entries">
+        <item>@string/none</item>
+        <item>@string/tap</item>
+        <item>@string/menu</item>
+        <item>@string/both</item>
+    </array>
+
     <string-array name="pref_tab_text_mode_values">
         <item>0</item>
         <item>1</item>
@@ -62,6 +76,16 @@
         <item>1</item>
     </string-array>
 
+    <string-array name="pref_ui_mode_list_titles">
+        <item>@string/full</item>
+        <item>@string/lite</item>
+    </string-array>
+
+    <string-array name="pref_ui_mode_list_values">
+        <item>full</item>
+        <item>lite</item>
+    </string-array>
+
     <string-array name="pref_general_theme_list_titles">
         <item>@string/light_theme_name</item>
         <item>@string/dark_theme_name</item>
@@ -85,6 +109,7 @@
         <item>@string/font_square_dot_name</item>
         <item>@string/font_round_dot_name</item>
         <item>@string/font_pencil_name</item>
+        <item>@string/font_oppo_name</item>
     </string-array>
 
     <string-array name="pref_font_list_values">
@@ -98,6 +123,19 @@
         <item>square_dot</item>
         <item>round_dot</item>
         <item>pencil</item>
+        <item>oppo</item>
+    </string-array>
+
+    <string-array name="pref_font_list_lite_titles">
+        <item>@string/font_default_name</item>
+        <item>@string/font_manrope_name</item>
+        <item>@string/font_square_dot_name</item>
+    </string-array>
+
+    <string-array name="pref_font_list_lite_values">
+        <item>default</item>
+        <item>manrope</item>
+        <item>square_dot</item>
     </string-array>
 
     <string-array name="pref_home_grid_style_list_titles">

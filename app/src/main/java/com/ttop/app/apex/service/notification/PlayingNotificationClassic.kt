@@ -89,7 +89,6 @@ class PlayingNotificationClassic(
                 0,
                 action,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-
             )
         val deleteIntent = buildPendingIntent(context, ACTION_QUIT, null)
 
@@ -290,7 +289,9 @@ class PlayingNotificationClassic(
             context: Context,
             notificationManager: NotificationManager,
         ): PlayingNotification {
-            createNotificationChannel(context, notificationManager)
+            if (VersionUtils.hasOreo()) {
+                createNotificationChannel(context, notificationManager)
+            }
             return PlayingNotificationClassic(context)
         }
     }

@@ -52,10 +52,26 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             restartActivity()
             true
         }
+
+        val keepScreenOn: TwoStatePreference? = findPreference(KEEP_SCREEN_ON)
+        keepScreenOn?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val toggleFullScreen: TwoStatePreference? = findPreference(TOGGLE_FULL_SCREEN)
+        toggleFullScreen?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            restartActivity()
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_advanced)
+        if(PreferenceUtil.isUiMode == "full") {
+            addPreferencesFromResource(R.xml.pref_advanced)
+        }else {
+            addPreferencesFromResource(R.xml.pref_advanced_lite)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

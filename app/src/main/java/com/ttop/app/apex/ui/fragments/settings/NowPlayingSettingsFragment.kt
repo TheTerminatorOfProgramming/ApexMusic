@@ -74,23 +74,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
-        val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
-        extraControls?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
-        val volume: TwoStatePreference? = findPreference(TOGGLE_VOLUME)
-        volume?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
         val nowPlaying: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
         nowPlaying?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
-        val swipeDismiss: TwoStatePreference? = findPreference(SWIPE_DOWN_DISMISS)
-        swipeDismiss?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
@@ -103,19 +88,18 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val swipeGestures: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE)
-        swipeGestures?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
-        val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
-        autoplay?.setOnPreferenceChangeListener { _, _ ->
+        val showlyrics: TwoStatePreference? = findPreference(LYRICS)
+        showlyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_now_playing_screen)
+        if (PreferenceUtil.isUiMode == "full") {
+            addPreferencesFromResource(R.xml.pref_now_playing_screen)
+        }else {
+            addPreferencesFromResource(R.xml.pref_now_playing_screen_lite)
+        }
     }
 
     private fun updateAlbumCoverStyleSummary() {
@@ -125,7 +109,11 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
     private fun updateNowPlayingScreenSummary() {
         val preference: Preference? = findPreference(NOW_PLAYING_SCREEN_ID)
-        preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
+        if (PreferenceUtil.isUiMode == "full") {
+            preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
+        }else {
+            preference?.setSummary(PreferenceUtil.nowPlayingScreenLite.titleRes)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

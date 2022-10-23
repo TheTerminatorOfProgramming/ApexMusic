@@ -15,6 +15,8 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.annotation.SuppressLint
+import android.content.ComponentName
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.core.content.edit
@@ -24,8 +26,12 @@ import com.afollestad.materialdialogs.color.colorChooser
 import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
+import com.ttop.app.apex.appwidgets.AppWidgetBig
+import com.ttop.app.apex.appwidgets.AppWidgetCircle
+import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
 import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
@@ -42,6 +48,96 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 class ThemeSettingsFragment : AbsSettingsFragment() {
     @SuppressLint("CheckResult")
     override fun invalidateSettings() {
+        val uiMode: Preference? = findPreference(UI_MODE)
+        uiMode?.let {
+            setSummary(it)
+            it.setOnPreferenceChangeListener { _, newValue ->
+                setSummary(it, newValue)
+                val packageManager: PackageManager? = context?.packageManager
+                if (newValue == "full") {
+                    context?.let {
+                        ComponentName(
+                            it,
+                            AppWidgetBig::class.java
+                        )
+                    }?.let {
+                        packageManager!!.setComponentEnabledSetting(
+                            it,
+                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP
+                        )
+                    }
+
+                    context?.let {
+                        ComponentName(
+                            it,
+                            AppWidgetCircle::class.java
+                        )
+                    }?.let {
+                        packageManager!!.setComponentEnabledSetting(
+                            it,
+                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP
+                        )
+                    }
+
+                    context?.let {
+                        ComponentName(
+                            it,
+                            AppWidgetFullCircle::class.java
+                        )
+                    }?.let {
+                        packageManager!!.setComponentEnabledSetting(
+                            it,
+                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP
+                        )
+                    }
+                }else {
+                    context?.let {
+                        ComponentName(
+                            it,
+                            AppWidgetBig::class.java
+                        )
+                    }?.let {
+                        packageManager!!.setComponentEnabledSetting(
+                            it,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP
+                        )
+                    }
+
+                    context?.let {
+                        ComponentName(
+                            it,
+                            AppWidgetCircle::class.java
+                        )
+                    }?.let {
+                        packageManager!!.setComponentEnabledSetting(
+                            it,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP
+                        )
+                    }
+
+                    context?.let {
+                        ComponentName(
+                            it,
+                            AppWidgetFullCircle::class.java
+                        )
+                    }?.let {
+                        packageManager!!.setComponentEnabledSetting(
+                            it,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP
+                        )
+                    }
+                }
+                restartActivity()
+                true
+            }
+        }
+
         val generalTheme: Preference? = findPreference(GENERAL_THEME)
         generalTheme?.let {
             setSummary(it)
@@ -109,11 +205,13 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         materialYou?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             if (newValue as Boolean) {
-                DynamicColors.applyToActivitiesIfAvailable(App.getContext())
+                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
             }
             restartActivity()
+            PreferenceUtil.shouldRecreate = true
             true
         }
+
         val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)
         wallpaperAccent?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -131,13 +229,61 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
         adaptiveColor?.isEnabled =
-            PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)
+            if (PreferenceUtil.isUiMode == "full") {
+                PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)
+            }else {
+                PreferenceUtil.nowPlayingScreenLite in listOf(NowPlayingScreenLite.Normal, NowPlayingScreenLite.Flat)
+            }
         adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val swipeGestures: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE)
+        swipeGestures?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
+        autoplay?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val swipeDismiss: TwoStatePreference? = findPreference(SWIPE_DOWN_DISMISS)
+        swipeDismiss?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+
+        val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
+        extraControls?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val volume: TwoStatePreference? = findPreference(TOGGLE_VOLUME)
+        volume?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
+        val progressbar: TwoStatePreference? = findPreference(PROGRESS_BAR_STYLE)
+        progressbar?.isChecked = PreferenceUtil.progressBarStyle
+        progressbar?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val progressbarAlignment: TwoStatePreference? = findPreference(PROGRESS_BAR_ALIGNMENT)
+        progressbarAlignment?.isChecked = PreferenceUtil.progressBarAlignment
+        progressbarAlignment?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_general)
+        if (PreferenceUtil.isUiMode == "full") {
+            addPreferencesFromResource(R.xml.pref_general)
+        }else {
+            addPreferencesFromResource(R.xml.pref_general_lite)
+        }
     }
 }

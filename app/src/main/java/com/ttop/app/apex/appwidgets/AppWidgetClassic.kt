@@ -62,11 +62,17 @@ class AppWidgetClassic : BaseAppWidget() {
         appWidgetView = if (VersionUtils.hasS()) {
             if (PreferenceUtil.widgetColors) {
                 RemoteViews(context.packageName, R.layout.app_widget_classic_day_night)
-            } else {
+            } else if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(context.packageName, R.layout.app_widget_classic_transparent)
+            }else {
                 RemoteViews(context.packageName, R.layout.app_widget_classic)
             }
         } else {
-            RemoteViews(context.packageName, R.layout.app_widget_classic)
+            if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(context.packageName, R.layout.app_widget_classic_transparent)
+            }else {
+                RemoteViews(context.packageName, R.layout.app_widget_classic)
+            }
         }
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
@@ -118,11 +124,17 @@ class AppWidgetClassic : BaseAppWidget() {
         appWidgetView = if (VersionUtils.hasS()) {
             if (PreferenceUtil.widgetColors) {
                 RemoteViews(service.packageName, R.layout.app_widget_classic_day_night)
-            } else {
+            } else if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(service.packageName, R.layout.app_widget_classic_transparent)
+            }else {
                 RemoteViews(service.packageName, R.layout.app_widget_classic)
             }
         } else {
-            RemoteViews(service.packageName, R.layout.app_widget_classic)
+            if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(service.packageName, R.layout.app_widget_classic_transparent)
+            }else {
+                RemoteViews(service.packageName, R.layout.app_widget_classic)
+            }
         }
 
         val isPlaying = service.isPlaying
@@ -235,7 +247,6 @@ class AppWidgetClassic : BaseAppWidget() {
                                 ).toBitmap()
                         )
 
-
                         val image = getAlbumArtDrawable(service.resources, bitmap)
                         val roundedBitmap = createRoundedBitmap(
                             image,
@@ -268,12 +279,10 @@ class AppWidgetClassic : BaseAppWidget() {
 
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        var pendingIntent =
-            PendingIntent.getActivity(
-                context, 0, action, PendingIntent.FLAG_IMMUTABLE
-            )
+        var pendingIntent = PendingIntent.getActivity(
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE
+        )
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
-        //views.setOnClickPendingIntent(R.id.media_titles, pendingIntent)
 
         // Previous track
         pendingIntent = buildPendingIntent(context, ACTION_REWIND, serviceName)
@@ -286,7 +295,6 @@ class AppWidgetClassic : BaseAppWidget() {
         // Next track
         pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
         views.setOnClickPendingIntent(R.id.button_next, pendingIntent)
-
     }
     companion object {
 

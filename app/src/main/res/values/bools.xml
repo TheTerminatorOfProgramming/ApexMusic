@@ -11,4 +11,6 @@
 
     <bool name="queue_show_always">false</bool>
     <bool name="auto_rotate">false</bool>
+    <bool name="classic_notification">true</bool>
+    <bool name="next_prev_behaviour">false</bool>
 </resources>

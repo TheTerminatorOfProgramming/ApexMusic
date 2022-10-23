@@ -38,32 +38,18 @@ import com.ttop.app.apex.util.PreferenceUtil
 class LabsSettingsFragment : AbsSettingsFragment() {
 
     override fun invalidateSettings() {
-        val pause: TwoStatePreference? = findPreference(PAUSE_ON_ZERO_VOLUME)
-        pause?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
 
-        val keepScreenOn: TwoStatePreference? = findPreference(KEEP_SCREEN_ON)
-        keepScreenOn?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
 
-        val progressbar: TwoStatePreference? = findPreference(PROGRESS_BAR_STYLE)
-        progressbar?.isChecked = PreferenceUtil.progressBarStyle
-        progressbar?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
 
-        val progressbarAlignment: TwoStatePreference? = findPreference(PROGRESS_BAR_ALIGNMENT)
-        progressbarAlignment?.isChecked = PreferenceUtil.progressBarAlignment
-        progressbarAlignment?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
+
+
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_labs)
+        if (PreferenceUtil.isUiMode == "full") {
+            addPreferencesFromResource(R.xml.pref_labs)
+        }else {
+            addPreferencesFromResource(R.xml.pref_labs_lite)
+        }
     }
 }

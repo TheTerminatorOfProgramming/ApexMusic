@@ -44,8 +44,8 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
         setupToolbar()
         setPermissionDeniedMessage(getString(R.string.permission_bluetooth_denied))
 
-        if (ApexUtil.isTablet) {
-            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+        requestedOrientation = if (ApexUtil.isTablet) {
+            if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
                 if (ApexUtil.isLandscape) {
@@ -54,6 +54,8 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
+        }else {
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
 
@@ -61,8 +63,8 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
         super.onResume()
         setNavigationBarColorPreOreo(surfaceColor())
 
-        if (ApexUtil.isTablet) {
-            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+        requestedOrientation = if (ApexUtil.isTablet) {
+            if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
                 if (ApexUtil.isLandscape) {
@@ -71,6 +73,8 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
+        }else {
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
 
@@ -93,8 +97,8 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
             R.id.otherSettingsFragment -> R.string.others
             R.id.personalizeSettingsFragment -> R.string.personalize
             R.id.themeSettingsFragment -> R.string.general_settings_title
+            R.id.backup_fragment -> R.string.backup_restore_title
             R.id.aboutActivity -> R.string.action_about
-            R.id.labsSettingsFragment -> R.string.pref_header_labs
             else -> R.id.action_settings
         }
         return getString(idRes)
@@ -113,7 +117,7 @@ class SettingsActivity : AbsBaseActivity(), ColorCallback, OnThemeChangedListene
 
     override fun invoke(dialog: MaterialDialog, color: Int) {
         ThemeStore.editTheme(this).accentColor(color).commit()
-        DynamicShortcutManager(this).updateDynamicShortcuts()
+        DynamicShortcutManager(applicationContext).updateDynamicShortcuts()
         restart()
     }
 

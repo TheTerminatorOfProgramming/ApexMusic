@@ -57,11 +57,17 @@ class AppWidgetFull : BaseAppWidget() {
         appWidgetView = if (VersionUtils.hasS()) {
             if (PreferenceUtil.widgetColors) {
                 RemoteViews(context.packageName, R.layout.app_widget_full_day_night)
-            } else {
+            } else if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
+            }else {
                 RemoteViews(context.packageName, R.layout.app_widget_full)
             }
         } else {
-            RemoteViews(context.packageName, R.layout.app_widget_full)
+            if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
+            }else {
+                RemoteViews(context.packageName, R.layout.app_widget_full)
+            }
         }
 
         appWidgetView.setViewVisibility(
@@ -134,11 +140,17 @@ class AppWidgetFull : BaseAppWidget() {
         appWidgetView = if (VersionUtils.hasS()) {
             if (PreferenceUtil.widgetColors) {
                 RemoteViews(service.packageName, R.layout.app_widget_full_day_night)
-            } else {
+            } else if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
+            }else {
                 RemoteViews(service.packageName, R.layout.app_widget_full)
             }
         } else {
-            RemoteViews(service.packageName, R.layout.app_widget_full)
+            if (PreferenceUtil.widgetTransparency) {
+                RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
+            }else {
+                RemoteViews(service.packageName, R.layout.app_widget_full)
+            }
         }
 
         val isPlaying = service.isPlaying
@@ -262,10 +274,9 @@ class AppWidgetFull : BaseAppWidget() {
 
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        var pendingIntent =
-            PendingIntent.getActivity(
-                context, 0, action, PendingIntent.FLAG_IMMUTABLE
-            )
+        var pendingIntent = PendingIntent.getActivity(
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE
+        )
         views.setOnClickPendingIntent(R.id.clickable_area, pendingIntent)
 
         // Previous track

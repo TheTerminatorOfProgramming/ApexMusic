@@ -20,6 +20,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.text.parseAsHtml
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI

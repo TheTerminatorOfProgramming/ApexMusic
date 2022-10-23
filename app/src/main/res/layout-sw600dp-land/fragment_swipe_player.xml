@@ -82,7 +82,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
-        android:name="com.ttop.app.apex.ui.fragments.player.swipe.SwipePlaybackControlsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.plain.swipe.SwipePlaybackControlsFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/playerToolbar"

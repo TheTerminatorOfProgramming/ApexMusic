@@ -37,7 +37,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.slider.Slider
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
 import com.ttop.app.apex.R
@@ -73,7 +72,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     private var volumeFragment: VolumeFragment? = null
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
-    private var recyclerViewSwipeManager: RecyclerViewSwipeManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
     private var playingQueueAdapter: PlayingQueueAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -494,21 +492,17 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()
-        recyclerViewSwipeManager = RecyclerViewSwipeManager()
 
         val animator = DraggableItemAnimator()
         animator.supportsChangeAnimations = false
         wrappedAdapter =
             recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
-        wrappedAdapter =
-            recyclerViewSwipeManager?.createWrappedAdapter(wrappedAdapter) as RecyclerView.Adapter<*>
         binding.recyclerView.apply {
             layoutManager = linearLayoutManager
             adapter = wrappedAdapter
             itemAnimator = animator
             recyclerViewTouchActionGuardManager?.attachRecyclerView(this)
             recyclerViewDragDropManager?.attachRecyclerView(this)
-            recyclerViewSwipeManager?.attachRecyclerView(this)
         }
 
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
@@ -520,11 +514,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         if (recyclerViewDragDropManager != null) {
             recyclerViewDragDropManager?.release()
             recyclerViewDragDropManager = null
-        }
-
-        if (recyclerViewSwipeManager != null) {
-            recyclerViewSwipeManager?.release()
-            recyclerViewSwipeManager = null
         }
 
         WrapperAdapterUtils.releaseAll(wrappedAdapter)

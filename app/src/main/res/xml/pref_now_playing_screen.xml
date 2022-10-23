@@ -31,22 +31,6 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
-        android:key="synced_lyrics"
-        android:layout="@layout/list_item_view_switch"
-        android:title="@string/pref_title_synced_lyrics"
-        android:summary="@string/pref_summary_synced_lyrics"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-        android:defaultValue="0"
-        android:entries="@array/pref_lyrics_type_entries"
-        android:entryValues="@array/pref_lyrics_type_values"
-        android:key="lyrics_type"
-        android:layout="@layout/list_item_view"
-        android:title="@string/pref_title_lyrics_type"
-        android:dependency="synced_lyrics"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
         android:key="screen_on_lyrics"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_keep_screen_on_summary"
@@ -64,6 +48,14 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_swipe_anywhere_now_playing"
         android:title="@string/pref_title_swipe_anywhere_now_playing" />
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:layout="@layout/list_item_view_switch"
+        app:defaultValue="false"
+        app:icon="@drawable/ic_expand_less"
+        app:key="expand_now_playing_panel"
+        app:summary="@string/pref_summary_expand_now_playing_panel"
+        app:title="@string/pref_title_expand_now_playing_panel" />
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
@@ -94,64 +86,39 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_controls">
+        android:title="@string/pref_header_lyrics">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="lyrics"
             android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:key="swipe_to_dismiss"
-            app:summary="@string/pref_summary_swipe_to_dismiss"
-            app:title="@string/pref_title_swipe_to_dismiss" />
+            android:summary="@string/pref_summary_show_lyrics"
+            android:title="@string/pref_title_show_lyrics" />
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="synced_lyrics"
             android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_play_arrow"
-            app:key="toggle_add_controls"
-            app:summary="@string/pref_summary_extra_controls"
-            app:title="@string/pref_title_extra_controls" />
+            android:title="@string/pref_title_synced_lyrics"
+            android:summary="@string/pref_summary_synced_lyrics"
+            android:dependency="lyrics"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_gesture"
-            app:key="toggle_mini_swipe"
-            app:summary="@string/pref_summary_swipe_gestures"
-            app:title="@string/pref_title_swipe_gestures" />
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_lyrics_type_entries"
+            android:entryValues="@array/pref_lyrics_type_values"
+            android:key="lyrics_type"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_lyrics_type"
+            android:dependency="synced_lyrics"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_skip_next"
-            app:key="toggle_autoplay"
-            app:summary="@string/pref_summary_auto_play"
-            app:title="@string/pref_title_auto_play" />
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_volume_up"
-            app:key="toggle_volume"
-            app:summary="@string/pref_summary_toggle_volume"
-            app:title="@string/pref_title_toggle_volume" />
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_expand_less"
-            app:key="expand_now_playing_panel"
-            app:summary="@string/pref_summary_expand_now_playing_panel"
-            app:title="@string/pref_title_expand_now_playing_panel" />
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
-            android:defaultValue="12"
-            android:key="new_blur_amount"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="25"
-            android:summary="@string/pref_blur_amount_summary"
-            android:title="@string/pref_blur_amount_title"
-            app:ateKey_pref_unit="px"
-            app:icon="@drawable/ic_blur_on"
-            app:showSeekBarValue="true" />
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="both"
+            android:entries="@array/pref_embed_lyrics_entries"
+            android:entryValues="@array/pref_embed_lyrics_values"
+            android:key="embed_lyrics"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_embed_lyrics_view"
+            android:dependency="lyrics"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

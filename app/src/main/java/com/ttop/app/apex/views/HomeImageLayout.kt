@@ -27,7 +27,11 @@ class HomeImageLayout @JvmOverloads constructor(
             userImageBinding = UserImageLayoutBinding.inflate(LayoutInflater.from(context), this, true)
         }
 
-        if (!PreferenceUtil.isUserName){
+        if (PreferenceUtil.isUiMode == "full") {
+            if (!PreferenceUtil.isUserName){
+                visibility = View.GONE
+            }
+        }else {
             visibility = View.GONE
         }
     }

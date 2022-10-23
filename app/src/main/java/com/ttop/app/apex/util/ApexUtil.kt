@@ -13,39 +13,27 @@
  */
 package com.ttop.app.apex.util
 
-import android.app.Activity
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
-import android.content.Context.POWER_SERVICE
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.OutOfQuotaPolicy
-import androidx.work.WorkManager
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
-import com.ttop.app.apex.service.MusicServiceWorker
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.DecimalFormat
 import java.util.*
-
 
 object ApexUtil {
     fun formatValue(numValue: Float): String {
@@ -165,19 +153,15 @@ object ApexUtil {
         return builder.build()
     }
 
-    fun startForegroundService(context: Context) {
-        val request = OneTimeWorkRequestBuilder<MusicServiceWorker>()
-            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-            .build()
-
-        WorkManager.getInstance(context).enqueue(request)
-    }
-
     @RequiresApi(Build.VERSION_CODES.S)
     fun hasBatteryPermission(): Boolean {
         val packageName = getContext().packageName
         val pm = getContext().getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager
         return pm.isIgnoringBatteryOptimizations(packageName)
+    }
+
+    fun hasAudioPermission(): Boolean {
+        return Settings.System.canWrite(getContext())
     }
 
     fun disableBatteryOptimization() {
@@ -186,6 +170,7 @@ object ApexUtil {
 
         intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
         intent.data = Uri.parse("package:$packageName")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         getContext().startActivity(intent)
     }
 }

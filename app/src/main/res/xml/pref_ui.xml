@@ -89,19 +89,6 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/window">
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="toggle_full_screen"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_toggle_full_screen"
-            android:title="@string/pref_title_toggle_full_screen"
-            app:icon="@drawable/ic_cellphone" />
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
-        android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_lockscreen">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -119,11 +106,16 @@
             android:summary="@string/pref_summary_blurred_album_art"
             android:title="@string/pref_title_blurred_album_art" />
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="lock_screen"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_lock_screen"
-            android:title="@string/pref_title_lock_screen" />
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="12"
+            android:key="new_blur_amount"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="25"
+            android:summary="@string/pref_blur_amount_summary"
+            android:title="@string/pref_blur_amount_title"
+            app:ateKey_pref_unit="px"
+            app:icon="@drawable/ic_blur_on"
+            app:showSeekBarValue="true"
+            android:dependency="blurred_album_art"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

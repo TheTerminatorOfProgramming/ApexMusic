@@ -65,13 +65,13 @@ import com.ttop.app.apex.providers.SongPlayCountStore
 import com.ttop.app.apex.service.notification.PlayingNotification
 import com.ttop.app.apex.service.notification.PlayingNotificationClassic
 import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
-import com.ttop.app.apex.service.notification.PlayingNotificationImpl33
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.ui.activities.LockScreenActivity
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
@@ -93,8 +93,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import org.koin.java.KoinJavaComponent.get
 import java.util.*
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import com.ttop.app.apex.util.PreferenceUtil
 
 
 /**
@@ -383,6 +381,13 @@ class MusicService : MediaBrowserServiceCompat(),
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_DESTROYED"))
     }
 
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        val restartServiceIntent = Intent(applicationContext, this.javaClass)
+        restartServiceIntent.setPackage(packageName)
+        startService(restartServiceIntent)
+        super.onTaskRemoved(rootIntent)
+    }
+
     private fun acquireWakeLock() {
         wakeLock?.acquire(30000)
     }
@@ -577,16 +582,10 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun initNotification() {
-        if (!isClassicNotification) {
-            if (VersionUtils.hasOreo()) {
-                playingNotification =
-                    PlayingNotificationImpl24.from(this, notificationManager!!, mediaSession!!)
-            } else if (VersionUtils.hasT()) {
-                playingNotification =
-                    PlayingNotificationImpl33.from(this, notificationManager!!, mediaSession!!)
-            }
+        playingNotification = if (!isClassicNotification) {
+            PlayingNotificationImpl24.from(this, notificationManager!!, mediaSession!!)
         } else {
-            playingNotification = PlayingNotificationClassic.from(this, notificationManager!!)
+            PlayingNotificationClassic.from(this, notificationManager!!)
         }
     }
 
@@ -713,26 +712,37 @@ class MusicService : MediaBrowserServiceCompat(),
             serviceScope.launch {
                 restoreQueuesAndPositionIfNecessary()
                 when (intent.action) {
-                    ACTION_TOGGLE_PAUSE -> if (isPlaying) {
-                        pause()
-                    } else {
-                        play()
+                    ACTION_TOGGLE_PAUSE ->  {
+                        if (isPlaying) {
+                            pause()
+                        } else {
+                            play()
+                        }
                     }
                     ACTION_PAUSE -> pause()
                     ACTION_PLAY -> play()
                     ACTION_PLAY_PLAYLIST -> playFromPlaylist(intent)
                     ACTION_REWIND -> {
-                        if (PreferenceUtil.isAutoplay) {
-                            MusicPlayerRemote.playPreviousSong()
+                        if (VersionUtils.hasT()) {
+                            playPreviousSongAuto(true, isPlaying)
                         }else {
-                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                            if (PreferenceUtil.isAutoplay) {
+                                MusicPlayerRemote.playPreviousSong()
+                            }else {
+                                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                            }
                         }
                     }
                     ACTION_SKIP -> {
-                        if (PreferenceUtil.isAutoplay) {
-                            MusicPlayerRemote.playNextSong()
+                        if (VersionUtils.hasT()) {
+                            playNextSongAuto(true, isPlaying)
                         }else {
-                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                            MusicPlayerRemote.playNextSong()
+                            if (PreferenceUtil.isAutoplay) {
+                                MusicPlayerRemote.playNextSong()
+                            }else {
+                                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                            }
                         }
                     }
                     ACTION_STOP, ACTION_QUIT -> {
@@ -741,7 +751,13 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
                     ACTION_PENDING_QUIT -> pendingQuit = true
                     TOGGLE_FAVORITE -> toggleFavorite()
-                    UPDATE_NOTIFY -> MusicPlayerRemote.updateNotification()
+                    UPDATE_NOTIFY -> {
+                        if (VersionUtils.hasT()) {
+                            updateMediaSessionPlaybackState()
+                        }else {
+                            updatePlaybackControls()
+                        }
+                    }
                 }
             }
         }
@@ -773,6 +789,7 @@ class MusicService : MediaBrowserServiceCompat(),
 
     override fun onTrackWentToNext() {
         if (pendingQuit || repeatMode == REPEAT_MODE_NONE && isLastTrack) {
+            playbackManager.setNextDataSource(null)
             pause(false)
             seek(0)
             if (pendingQuit) {
@@ -927,7 +944,11 @@ class MusicService : MediaBrowserServiceCompat(),
 
     fun quit() {
         pause()
-        stopForeground(true)
+        if (VersionUtils.hasT()) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
+        }else {
+            stopForeground(true)
+        }
         isForeground = false
         notificationManager?.cancel(PlayingNotification.NOTIFICATION_ID)
 
@@ -1086,7 +1107,9 @@ class MusicService : MediaBrowserServiceCompat(),
                 songProgressMillis.toLong(),
                 playbackSpeed
             )
-        setCustomAction(stateBuilder)
+        if (!VersionUtils.hasT()) {
+            setCustomAction(stateBuilder)
+        }
         mediaSession?.setPlaybackState(stateBuilder.build())
     }
 
@@ -1102,6 +1125,10 @@ class MusicService : MediaBrowserServiceCompat(),
                 updateNotification()
                 rebuildMetaData()
             }
+        }
+
+        if (VersionUtils.hasT()) {
+            updateMediaSessionPlaybackState()
         }
     }
 
@@ -1263,7 +1290,11 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun stopForegroundAndNotification() {
-        stopForeground(true)
+        if (VersionUtils.hasT()) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
+        }else {
+            stopForeground(true)
+        }
         notificationManager?.cancel(PlayingNotification.NOTIFICATION_ID)
         isForeground = false
     }
@@ -1427,18 +1458,19 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun setCustomAction(stateBuilder: PlaybackStateCompat.Builder) {
-        var repeatIcon = R.drawable.ic_repeat // REPEAT_MODE_NONE
-        if (repeatMode == REPEAT_MODE_THIS) {
-            repeatIcon = R.drawable.ic_repeat_one
-        } else if (repeatMode == REPEAT_MODE_ALL) {
-            repeatIcon = R.drawable.ic_repeat_white_circle
-        }
-        stateBuilder.addCustomAction(
-            PlaybackStateCompat.CustomAction.Builder(
-                CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+            var repeatIcon = R.drawable.ic_repeat // REPEAT_MODE_NONE
+            if (repeatMode == REPEAT_MODE_THIS) {
+                repeatIcon = R.drawable.ic_repeat_one
+            } else if (repeatMode == REPEAT_MODE_ALL) {
+                repeatIcon = R.drawable.ic_repeat_white_circle
+            }
+            stateBuilder.addCustomAction(
+                PlaybackStateCompat.CustomAction.Builder(
+                    CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                )
+                    .build()
             )
-                .build()
-        )
+
         val shuffleIcon =
             if (getShuffleMode() == SHUFFLE_MODE_NONE) R.drawable.ic_shuffle_off_circled else R.drawable.ic_shuffle_on_circled
         stateBuilder.addCustomAction(
@@ -1447,6 +1479,17 @@ class MusicService : MediaBrowserServiceCompat(),
             )
                 .build()
         )
+    }
+
+    private fun isFavorite(): Boolean {
+        var fav = false
+        isCurrentFavorite { isFavorite ->
+            fav = isFavorite
+            playingNotification?.updateFavorite(isFavorite)
+            updatePlaybackControls()
+            updateMediaSessionPlaybackState()
+        }
+        return fav
     }
 
     private fun setupMediaSession() {

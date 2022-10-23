@@ -78,6 +78,8 @@ class WhatsNewFragment : BottomSheetDialogFragment() {
                 "<h1>Unable to load</h1><p>" + e.localizedMessage + "</p>", "text/html", "UTF-8"
             )
         }
+
+
         setChangelogRead(requireContext())
     }
 

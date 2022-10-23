@@ -14,8 +14,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.ttop.app.apex"
-        versionCode 220
-        versionName '2.2.0'
+        versionCode 230
+        versionName '2.3.0'
     }
     signingConfigs {
         release {
@@ -156,6 +156,7 @@ dependencies {
     implementation 'com.github.dhaval2404:imagepicker:2.1'
     implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
     implementation 'cat.ereza:customactivityoncrash:2.4.0'
-    implementation 'me.tankery.lib:circularSeekBar:1.4.0'
+    implementation 'me.tankery.lib:circularSeekBar:1.4.1'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'com.github.AppIntro:AppIntro:6.2.0'
 }

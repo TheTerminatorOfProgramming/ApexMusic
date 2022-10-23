@@ -8,7 +8,6 @@ import androidx.annotation.ChecksSdkIntAtLeast
  */
 
 object VersionUtils {
-
     /**
      * @return true if device is running API >= 26
      */

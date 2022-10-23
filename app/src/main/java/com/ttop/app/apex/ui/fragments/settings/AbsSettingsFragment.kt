@@ -107,8 +107,8 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
     }
 
     fun autoRotate() {
-        if (ApexUtil.isTablet) {
-            activity?.requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+        activity?.requestedOrientation = if (ApexUtil.isTablet) {
+            if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
                 if (ApexUtil.isLandscape) {
@@ -117,6 +117,8 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
+        }else {
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
 }

@@ -33,6 +33,7 @@ import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.values
+import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
@@ -76,16 +77,28 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
             .inflate(R.layout.preference_dialog_now_playing_screen, null)
         val viewPager = view.findViewById<ViewPager>(R.id.now_playing_screen_view_pager)
             ?: throw  IllegalStateException("Dialog view must contain a ViewPager with id 'now_playing_screen_view_pager'")
-        viewPager.adapter = NowPlayingScreenAdapter(requireContext())
-        viewPager.addOnPageChangeListener(this)
-        viewPager.pageMargin = ViewUtil.convertDpToPixel(32f, resources).toInt()
-        viewPager.currentItem = PreferenceUtil.nowPlayingScreen.ordinal
+        if (PreferenceUtil.isUiMode == "full") {
+            viewPager.adapter = NowPlayingScreenAdapter(requireContext())
+            viewPager.addOnPageChangeListener(this)
+            viewPager.pageMargin = ViewUtil.convertDpToPixel(32f, resources).toInt()
+            viewPager.currentItem = PreferenceUtil.nowPlayingScreen.ordinal
+        }else {
+            viewPager.adapter = NowPlayingScreenLiteAdapter(requireContext())
+            viewPager.addOnPageChangeListener(this)
+            viewPager.pageMargin = ViewUtil.convertDpToPixel(32f, resources).toInt()
+            viewPager.currentItem = PreferenceUtil.nowPlayingScreenLite.ordinal
+        }
 
         return materialDialog(R.string.pref_title_now_playing_screen_appearance)
             .setCancelable(false)
             .setPositiveButton(R.string.set) { _, _ ->
-                val nowPlayingScreen = values()[viewPagerPosition]
-                PreferenceUtil.nowPlayingScreen = nowPlayingScreen
+                if (PreferenceUtil.isUiMode == "full") {
+                    val nowPlayingScreen = values()[viewPagerPosition]
+                    PreferenceUtil.nowPlayingScreen = nowPlayingScreen
+                }else {
+                    val nowPlayingScreenLite = NowPlayingScreenLite.values()[viewPagerPosition]
+                    PreferenceUtil.nowPlayingScreenLite = nowPlayingScreenLite
+                }
             }
             .setView(view)
             .create()
@@ -129,5 +142,38 @@ private class NowPlayingScreenAdapter(private val context: Context) : PagerAdapt
 
     override fun getPageTitle(position: Int): CharSequence {
         return context.getString(values()[position].titleRes)
+    }
+}
+
+private class NowPlayingScreenLiteAdapter(private val context: Context) : PagerAdapter() {
+
+    override fun instantiateItem(collection: ViewGroup, position: Int): Any {
+        val nowPlayingScreenLite = NowPlayingScreenLite.values()[position]
+
+        val inflater = LayoutInflater.from(context)
+        val binding = PreferenceNowPlayingScreenItemBinding.inflate(inflater, collection, true)
+        Glide.with(context).load(nowPlayingScreenLite.drawableResId).into(binding.image)
+        binding.title.setText(nowPlayingScreenLite.titleRes)
+        return binding.root
+    }
+
+    override fun destroyItem(
+        collection: ViewGroup,
+        position: Int,
+        view: Any
+    ) {
+        collection.removeView(view as View)
+    }
+
+    override fun getCount(): Int {
+        return NowPlayingScreenLite.values().size
+    }
+
+    override fun isViewFromObject(view: View, instance: Any): Boolean {
+        return view === instance
+    }
+
+    override fun getPageTitle(position: Int): CharSequence {
+        return context.getString(NowPlayingScreenLite.values()[position].titleRes)
     }
 }

@@ -34,6 +34,7 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -107,7 +108,11 @@ class AlbumCoverPagerAdapter(
             val view = inflater.inflate(getLayoutWithPlayerTheme(), container, false)
             view.setOnClickListener {
                 if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
-                    showLyricsDialog()
+                    if (PreferenceUtil.isLyrics) {
+                        if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "both") {
+                            showLyricsDialog()
+                        }
+                    }
                 }
             }
             return view
@@ -135,13 +140,30 @@ class AlbumCoverPagerAdapter(
         }
 
         private fun getLayoutWithPlayerTheme(): Int {
-            return when (PreferenceUtil.nowPlayingScreen) {
-                Card, Fit, Tiny, Classic, Gradient, Full -> R.layout.fragment_album_full_cover
-                Peek -> R.layout.fragment_peek_album_cover
-                else -> {
-                    if (PreferenceUtil.isCarouselEffect) {
-                        R.layout.fragment_album_carousel_cover
-                    } else {
+            return if (PreferenceUtil.isUiMode == "full") {
+                when (PreferenceUtil.nowPlayingScreen) {
+                    Card, Fit, Tiny, Classic, Gradient, Full -> R.layout.fragment_album_full_cover
+                    Peek -> R.layout.fragment_peek_album_cover
+                    else -> {
+                        if (PreferenceUtil.isCarouselEffect) {
+                            R.layout.fragment_album_carousel_cover
+                        } else {
+                            when (PreferenceUtil.albumCoverStyle) {
+                                AlbumCoverStyle.Normal -> R.layout.fragment_album_cover
+                                AlbumCoverStyle.Flat -> R.layout.fragment_album_flat_cover
+                                AlbumCoverStyle.Circle -> R.layout.fragment_album_circle_cover
+                                AlbumCoverStyle.Card -> R.layout.fragment_album_card_cover
+                                AlbumCoverStyle.Full -> R.layout.fragment_album_full_cover
+                                AlbumCoverStyle.FullCard -> R.layout.fragment_album_full_card_cover
+                            }
+                        }
+                    }
+                }
+            } else {
+                when (PreferenceUtil.nowPlayingScreenLite) {
+                    NowPlayingScreenLite.Classic -> R.layout.fragment_album_full_cover
+                    NowPlayingScreenLite.Peek -> R.layout.fragment_peek_album_cover
+                    else -> {
                         when (PreferenceUtil.albumCoverStyle) {
                             AlbumCoverStyle.Normal -> R.layout.fragment_album_cover
                             AlbumCoverStyle.Flat -> R.layout.fragment_album_flat_cover

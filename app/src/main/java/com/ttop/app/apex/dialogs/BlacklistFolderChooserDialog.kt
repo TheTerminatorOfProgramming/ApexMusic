@@ -63,7 +63,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                     positiveButton(res = android.R.string.ok)
                 }
             }
-        }else{
+        }else {
             if (ActivityCompat.checkSelfPermission(
                     requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
                 )

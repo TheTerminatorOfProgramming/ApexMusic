@@ -51,6 +51,7 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.PreferenceUtil.userName
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -252,10 +253,18 @@ class UserInfoFragment : Fragment() {
             val appDir = requireContext().filesDir
             val file = File(appDir, fileName)
             var successful: Boolean
-            file.outputStream().buffered().use {
-                successful = ImageUtil.resizeBitmap(bitmap, 2048)
-                    .compress(Bitmap.CompressFormat.WEBP, 100, it)
+            if (VersionUtils.hasR()) {
+                file.outputStream().buffered().use {
+                    successful = ImageUtil.resizeBitmap(bitmap, 2048)
+                        .compress(Bitmap.CompressFormat.WEBP_LOSSLESS, 100, it)
+                }
+            }else {
+                file.outputStream().buffered().use {
+                    successful = ImageUtil.resizeBitmap(bitmap, 2048)
+                        .compress(Bitmap.CompressFormat.WEBP, 100, it)
+                }
             }
+
             if (successful) {
                 withContext(Dispatchers.Main) {
                     showToast(R.string.message_updated)

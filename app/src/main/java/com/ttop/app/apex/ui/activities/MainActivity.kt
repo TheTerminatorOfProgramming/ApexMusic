@@ -41,6 +41,7 @@ import com.ttop.app.apex.ui.activities.base.AbsCastActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
@@ -61,21 +62,13 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         PreferenceUtil.shouldRecreate = false
 
         setupNavigationController()
-        if (!hasPermissions()) {
-            findNavController(R.id.fragment_container).navigate(R.id.permissionFragment)
-        }
 
         WhatsNewFragment.showChangeLog(this)
 
-        if (!PreferenceUtil.checkPreferences("SHUFFLE_MODE")) {
-            MusicPlayerRemote.setShuffleMode(1)
-        }
-        PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
-
         PreferenceUtil.isSamsungSoundPluginInstalled = checkSamsungSoundPlugin()
 
-        if (ApexUtil.isTablet) {
-            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+        requestedOrientation = if (ApexUtil.isTablet) {
+            if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
                 if (ApexUtil.isLandscape) {
@@ -84,6 +77,8 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
+        }else {
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
 
@@ -187,8 +182,19 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
             postRecreate()
         }
 
-        if (ApexUtil.isTablet) {
-            requestedOrientation = if (PreferenceUtil.isAutoRotate) {
+        if (PreferenceUtil.shouldRecreateTabs) {
+            PreferenceUtil.shouldRecreateTabs = false
+            refreshTabs()
+            val intent = intent
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+
+        requestedOrientation = if (ApexUtil.isTablet) {
+            if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
                 if (ApexUtil.isLandscape) {
@@ -197,6 +203,8 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
+        }else {
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
 

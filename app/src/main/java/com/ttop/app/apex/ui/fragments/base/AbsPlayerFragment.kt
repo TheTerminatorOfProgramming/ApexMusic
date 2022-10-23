@@ -28,6 +28,7 @@ import android.widget.RelativeLayout
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -51,6 +52,7 @@ import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
@@ -101,6 +103,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 return true
             }
             R.id.action_share -> {
@@ -263,7 +266,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Main) {
-                val icon =  if (animate) {
+                val icon = if (animate) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -314,31 +317,56 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     @SuppressLint("ClickableViewAccessibility")
     override fun onResume() {
         super.onResume()
-        val nps = PreferenceUtil.nowPlayingScreen
+        if (PreferenceUtil.isUiMode == "full") {
+            val nps = PreferenceUtil.nowPlayingScreen
 
-        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
-            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-        } else {
-            playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                isChecked = PreferenceUtil.showLyrics
-                showLyricsIcon(this)
-            }
-        }
-
-        if (nps == NowPlayingScreen.Peek){
-            playerToolbar()?.menu?.removeItem(R.id.now_playing)
-        }else{
-            playerToolbar()?.menu?.removeItem(R.id.action_queue)
-        }
-
-        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe || nps == NowPlayingScreen.Flat || nps == NowPlayingScreen.Full
-            || nps == NowPlayingScreen.Material || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Normal ||
-            nps == NowPlayingScreen.Simple|| nps == NowPlayingScreen.Circle|| nps == NowPlayingScreen.Blur) {
-            if (ApexUtil.isTablet) {
-                if (PreferenceUtil.queueShowAlways) {
-                    playerToolbar()?.menu?.removeItem(R.id.now_playing)
+            if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
+                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+            } else {
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
                 }
             }
+
+            if (nps == NowPlayingScreen.Peek){
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+            }else{
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+            }
+
+            if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe || nps == NowPlayingScreen.Flat || nps == NowPlayingScreen.Full
+                || nps == NowPlayingScreen.Material || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Normal ||
+                nps == NowPlayingScreen.Simple|| nps == NowPlayingScreen.Circle|| nps == NowPlayingScreen.Blur) {
+                if (ApexUtil.isTablet) {
+                    if (PreferenceUtil.queueShowAlways) {
+                        playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                    }
+                }
+            }
+            if (!PreferenceUtil.isLyrics) {
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
+            }else {
+                if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "none") {
+                    playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
+                }
+            }
+        }else {
+            val npsl = PreferenceUtil.nowPlayingScreenLite
+
+            if (npsl == NowPlayingScreenLite.Peek) {
+                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+            } else {
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+            }
+
+            playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
         }
 
         if (!PreferenceUtil.syncedLyrics) {

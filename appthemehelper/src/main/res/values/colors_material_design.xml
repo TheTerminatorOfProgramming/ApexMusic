@@ -41,6 +41,5 @@
     <color name="md_deep_orange_A400">#FF3D00</color>
     <color name="md_light_green_A400">#76FF03</color>
 
-    <color name="default_color">#FF5252</color>
-    <color name="labs_color">#8fa832</color>
+    <color name="default_color">#1DE9B6</color>
 </resources>

@@ -1,57 +1,98 @@
 package com.ttop.app.apex.ui.activities
 
+import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.text.parseAsHtml
-import com.heinrichreimersoftware.materialintro.app.IntroActivity
-import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
+import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
+import com.github.appintro.AppIntro
+import com.github.appintro.AppIntro2
+import com.github.appintro.AppIntroFragment
+import com.github.appintro.AppIntroPageTransformerType
 import com.ttop.app.apex.R
+import com.ttop.app.apex.ui.fragments.intro.*
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 
-class AppIntroActivity: IntroActivity() {
+class AppIntroActivity: AppIntro2() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isButtonCtaVisible = true
-        isButtonNextVisible = false
-        isButtonBackVisible = false
-        buttonCtaTintMode = BUTTON_CTA_TINT_MODE_TEXT
-        buttonCtaLabel = "Get Started"
 
-        val appName =
-            getString(
-                R.string.message_welcome,
-                "Apex Music"
-            )
-                .parseAsHtml()
-        addSlide(
-            SimpleSlide.Builder()
-                .title(R.string.app_name)
-                .description(appName)
-                .image(R.drawable.icon_intro)
-                .background(R.color.md_blue_500)
-                .backgroundDark(R.color.md_blue_A400)
-                .layout(R.layout.fragment_simple_slide_large_image)
-                .build()
-        )
-        addSlide(
-            SimpleSlide.Builder()
-                .title("Bluetooth Autoplay")
-                .description("Bluetooth Autoplay will work only if the app is open or in the recents app list")
-                .image(R.drawable.ic_intro_bluetooth)
-                .background(R.color.md_deep_purple_500)
-                .backgroundDark(R.color.md_deep_purple_A400)
-                .layout(R.layout.fragment_simple_slide_large_image)
-                .build()
-        )
-        addSlide(
-            SimpleSlide.Builder()
-                .title("WhiteList")
-                .description("The Whitelist Option will Use any folder that starts with \"Music\" at the start")
-                .image(R.drawable.ic_intro_filter_list)
-                .background(R.color.md_red_500)
-                .backgroundDark(R.color.md_red_A400)
-                .layout(R.layout.fragment_simple_slide_large_image)
-                .build()
-        )
+        //MAIN SLIDE
+        addSlide(MainSlideFragment.newInstance(R.layout.fragment_main_intro))
+        //SD CARD SLIDE
+        addSlide(StorageSlideFragment.newInstance(R.layout.fragment_storage_intro))
+        if (VersionUtils.hasS()) {
+            //BLUETOOTH SLIDE
+            addSlide(BluetoothSlideFragment.newInstance(R.layout.fragment_bluetooth_intro))
+        }
+        if (VersionUtils.hasT()) {
+            //NOTIFICATION SLIDE
+            addSlide(NotificationSlideFragment.newInstance(R.layout.fragment_notification_intro))
+        }
+        if (VersionUtils.hasS()) {
+            //BATTERY OPTIMIZATION SLIDE
+            addSlide(BatterySlideFragment.newInstance(R.layout.fragment_battery_intro))
+        }
+        //RINGTONE SLIDE
+        addSlide(RingtoneSlideFragment.newInstance(R.layout.fragment_ringtone_intro))
+        //BLUETOOTH AUTOPLAY SLIDE
+        addSlide(BluetoothAutoPlaySlideFragment.newInstance(R.layout.fragment_bluetooth_autoplay_intro))
+        //WHITELIST SLIDE
+        addSlide(WhitelistSlideFragment.newInstance(R.layout.fragment_whitelist_intro))
+        //BACKUP RESTORE SLIDE
+        addSlide(BackupSlideFragment.newInstance(R.layout.fragment_backup_intro))
+        //SHUFFLE SLIDE
+        addSlide(ShuffleSlideFragment.newInstance(R.layout.fragment_shuffle_intro))
+        //APP MODE SLIDE
+        addSlide(AppModeSlideFragment.newInstance(R.layout.fragment_app_mode_intro))
+
+        // Here we ask for permissions
+
+        //SD Storage Access
+        if (VersionUtils.hasT()) {
+            askForPermissions(
+                permissions = arrayOf(Manifest.permission.READ_MEDIA_AUDIO ),
+                slideNumber = 2,
+                required = true)
+        }else {
+            askForPermissions(
+                permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                slideNumber = 2,
+                required = true)
+        }
+        //Bluetooth
+        if (VersionUtils.hasS()) {
+            askForPermissions(
+                permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
+                slideNumber = 3,
+                required = true)
+        }
+        //Notification
+        if (VersionUtils.hasT()) {
+            askForPermissions(
+                permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                slideNumber = 4,
+                required = false)
+        }
+
+
+        isWizardMode = true
+        isSystemBackButtonLocked = true
+        setImmersiveMode()
+        setStatusBarColorRes(R.color.md_black_1000)
+        setProgressIndicator()
+    }
+
+    public override fun onDonePressed(currentFragment: Fragment?) {
+        super.onDonePressed(currentFragment)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
+        PreferenceUtil.hasIntroShown = true
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

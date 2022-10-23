@@ -16,6 +16,8 @@ package com.ttop.app.apex.ui.fragments.settings
 
 import android.Manifest.permission.BLUETOOTH_CONNECT
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.media.audiofx.AudioEffect
@@ -51,6 +53,11 @@ class AudioSettings : AbsSettingsFragment() {
         eqPreference?.setOnPreferenceClickListener {
             NavigationUtil.openEqualizer(requireActivity())
             true
+        }
+
+        val pause: TwoStatePreference? = findPreference(PAUSE_ON_ZERO_VOLUME)
+        pause?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
         val reduce: TwoStatePreference? = findPreference(AUDIO_DUCKING)
@@ -97,8 +104,9 @@ class AudioSettings : AbsSettingsFragment() {
         }
 
         val bluetooth_device : ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
+        val bluetoothManager = context?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
 
-        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        val mBluetoothAdapter = bluetoothManager.adapter
         val address = ArrayList<String>()
         val name = ArrayList<String>()
 
@@ -134,10 +142,14 @@ class AudioSettings : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (PreferenceUtil.isSamsungSoundPluginInstalled) {
-            addPreferencesFromResource(R.xml.pref_audio_samsung)
+        if(PreferenceUtil.isUiMode == "full") {
+            if (PreferenceUtil.isSamsungSoundPluginInstalled) {
+                addPreferencesFromResource(R.xml.pref_audio_samsung)
+            }else {
+                addPreferencesFromResource(R.xml.pref_audio)
+            }
         }else {
-            addPreferencesFromResource(R.xml.pref_audio)
+            addPreferencesFromResource(R.xml.pref_audio_lite)
         }
     }
 }

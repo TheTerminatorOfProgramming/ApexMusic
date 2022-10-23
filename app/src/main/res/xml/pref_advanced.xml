@@ -49,6 +49,22 @@
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
+            android:key="keep_screen_on"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_keep_screen_on_summary"
+            android:title="@string/pref_keep_screen_on_title"
+            app:icon="@drawable/ic_settings_brigntness" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="toggle_full_screen"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_toggle_full_screen"
+            android:title="@string/pref_title_toggle_full_screen"
+            app:icon="@drawable/ic_cellphone" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
             android:key="auto_rotate"
             android:icon="@drawable/ic_screen_rotation"
             android:layout="@layout/list_item_view_switch"

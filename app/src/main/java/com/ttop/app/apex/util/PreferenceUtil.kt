@@ -23,6 +23,7 @@ import com.ttop.app.apex.transform.*
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.TopAppBarLayout
@@ -38,7 +39,17 @@ object PreferenceUtil {
         CategoryInfo(CategoryInfo.Category.Songs, true),
         CategoryInfo(CategoryInfo.Category.Albums, true),
         CategoryInfo(CategoryInfo.Category.Artists, true),
-        CategoryInfo(CategoryInfo.Category.Playlists, true),
+        CategoryInfo(CategoryInfo.Category.Playlists, false),
+        CategoryInfo(CategoryInfo.Category.Genres, false),
+        CategoryInfo(CategoryInfo.Category.Folder, true),
+        CategoryInfo(CategoryInfo.Category.Search, false)
+    )
+
+    val defaultCategoriesLite = listOf(
+        CategoryInfo(CategoryInfo.Category.Songs, true),
+        CategoryInfo(CategoryInfo.Category.Albums, true),
+        CategoryInfo(CategoryInfo.Category.Artists, true),
+        CategoryInfo(CategoryInfo.Category.Playlists, false),
         CategoryInfo(CategoryInfo.Category.Genres, false),
         CategoryInfo(CategoryInfo.Category.Folder, false),
         CategoryInfo(CategoryInfo.Category.Search, false)
@@ -49,15 +60,28 @@ object PreferenceUtil {
             val gson = Gson()
             val collectionType = object : TypeToken<List<CategoryInfo>>() {}.type
 
-            val data = sharedPreferences.getStringOrDefault(
-                LIBRARY_CATEGORIES,
-                gson.toJson(defaultCategories, collectionType)
-            )
-            return try {
-                Gson().fromJson(data, collectionType)
-            } catch (e: JsonSyntaxException) {
-                e.printStackTrace()
-                return defaultCategories
+            if (isUiMode == "full") {
+                val data = sharedPreferences.getStringOrDefault(
+                    LIBRARY_CATEGORIES,
+                    gson.toJson(defaultCategories, collectionType)
+                )
+                return try {
+                    Gson().fromJson(data, collectionType)
+                } catch (e: JsonSyntaxException) {
+                    e.printStackTrace()
+                    return defaultCategories
+                }
+            }else {
+                val data = sharedPreferences.getStringOrDefault(
+                    LIBRARY_CATEGORIES,
+                    gson.toJson(defaultCategoriesLite, collectionType)
+                )
+                return try {
+                    Gson().fromJson(data, collectionType)
+                } catch (e: JsonSyntaxException) {
+                    e.printStackTrace()
+                    return defaultCategoriesLite
+                }
             }
         }
         set(value) {
@@ -345,7 +369,6 @@ object PreferenceUtil {
             "always" -> true
             "only_wifi" -> {
                 val connectivityManager = context.getSystemService<ConnectivityManager>()
-
                 val network = connectivityManager?.activeNetwork
                 val capabilities = connectivityManager?.getNetworkCapabilities(network)
                 capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
@@ -657,13 +680,30 @@ object PreferenceUtil {
                     return nowPlayingScreen
                 }
             }
-            return NowPlayingScreen.Adaptive
+            return NowPlayingScreen.Classic
         }
         set(value) = sharedPreferences.edit {
             putInt(NOW_PLAYING_SCREEN_ID, value.id)
             // Also set a cover theme for that now playing
             value.defaultCoverTheme?.let { coverTheme -> albumCoverStyle = coverTheme }
         }
+
+    var nowPlayingScreenLite: NowPlayingScreenLite
+        get() {
+            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 1)
+            for (nowPlayingScreenLite in NowPlayingScreenLite.values()) {
+                if (nowPlayingScreenLite.id == id) {
+                    return nowPlayingScreenLite
+                }
+            }
+            return NowPlayingScreenLite.Normal
+        }
+        set(value) = sharedPreferences.edit {
+            putInt(NOW_PLAYING_SCREEN_ID, value.id)
+            // Also set a cover theme for that now playing
+            value.defaultCoverTheme?.let { coverTheme -> albumCoverStyle = coverTheme }
+        }
+
 
     val albumCoverTransform: ViewPager.PageTransformer
         get() {
@@ -827,6 +867,13 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(SHOULD_RECREATE, value)}
 
+    var shouldRecreateTabs
+        get() = sharedPreferences.getBoolean(
+            SHOULD_RECREATE_TABS, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(SHOULD_RECREATE_TABS, value)}
+
     val isUserName
         get() = sharedPreferences.getBoolean(
             TOGGLE_USER_NAME, false
@@ -856,11 +903,10 @@ object PreferenceUtil {
         )
 
     var widgetTransparency
-        get() = sharedPreferences.getInt(
-            WIDGET_TRANSPERENCY, 0
-        )
+        get() = sharedPreferences.getBoolean(
+            WIDGET_TRANSPERENCY, false)
         set(value) = sharedPreferences.edit {
-            putInt(WIDGET_TRANSPERENCY, value)}
+            putBoolean(WIDGET_TRANSPERENCY, value)}
 
     var widgetColors
         get() = sharedPreferences.getBoolean(
@@ -942,6 +988,25 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(AUTO_ROTATE, value)}
+
+    var isUiMode
+        get() = sharedPreferences.getString(UI_MODE, "full")
+
+        set(value) = sharedPreferences.edit {
+            putString(UI_MODE, value)}
+
+    var isEmbedMode
+        get() = sharedPreferences.getString(EMBED_LYRICS, "both")
+
+        set(value) = sharedPreferences.edit {
+            putString(EMBED_LYRICS, value)}
+
+    var isLyrics
+        get() = sharedPreferences.getBoolean(LYRICS, false)
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(LYRICS, value)}
+
 }
 
 enum class CoverLyricsType {

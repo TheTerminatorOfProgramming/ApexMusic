@@ -206,10 +206,9 @@ class AppWidgetBig : BaseAppWidget() {
 
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        var pendingIntent =
-            PendingIntent.getActivity(
-                context, 0, action, PendingIntent.FLAG_IMMUTABLE
-            )
+        var pendingIntent = PendingIntent.getActivity(
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE
+        )
         views.setOnClickPendingIntent(R.id.clickable_area, pendingIntent)
 
         // Previous track

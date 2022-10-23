@@ -22,7 +22,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.support.v4.media.session.MediaSessionCompat
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.bumptech.glide.request.target.CustomTarget
@@ -205,13 +207,14 @@ class PlayingNotificationImpl24(
     }
 
     companion object {
-
         fun from(
             context: MusicService,
             notificationManager: NotificationManager,
             mediaSession: MediaSessionCompat,
         ): PlayingNotification {
-            createNotificationChannel(context, notificationManager)
+            if (VersionUtils.hasOreo()) {
+                createNotificationChannel(context, notificationManager)
+            }
             return PlayingNotificationImpl24(context, mediaSession.sessionToken)
         }
     }

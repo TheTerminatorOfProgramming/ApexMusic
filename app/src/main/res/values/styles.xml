@@ -296,6 +296,11 @@
         <item name="android:fontFamily">@font/pencil_regular</item>
     </style>
 
+    <style name="OppoThemeOverlay">
+        <item name="fontFamily">@font/oppo_sans</item>
+        <item name="android:fontFamily">@font/oppo_sans</item>
+    </style>
+
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton
@@ -310,6 +315,10 @@
 
     <style name="Theme.AppWidget" parent="" >
         <item name="colorSurface">#ff000000</item>
+    </style>
+
+    <style name="Theme.AppWidget.Transparent" parent="" >
+        <item name="colorSurface">#00ffffff</item>
     </style>
 
     <style name="ShapeAppearance.Material3.Circle" parent="">

@@ -25,13 +25,6 @@ import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 class PersonalizeSettingsFragment : AbsSettingsFragment() {
 
     override fun invalidateSettings() {
-        val toggleFullScreen: TwoStatePreference? = findPreference(TOGGLE_FULL_SCREEN)
-        toggleFullScreen?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            restartActivity()
-            true
-        }
-
         val user: TwoStatePreference? = findPreference(TOGGLE_USER_NAME)
         user?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -71,15 +64,14 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         blur?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
-
-        val fullscreenControls: TwoStatePreference? = findPreference(LOCK_SCREEN)
-        fullscreenControls?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_ui)
+        if (PreferenceUtil.isUiMode == "full") {
+            addPreferencesFromResource(R.xml.pref_ui)
+        }else {
+            addPreferencesFromResource(R.xml.pref_ui_lite)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
