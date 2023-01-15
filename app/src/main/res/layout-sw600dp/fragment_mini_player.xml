@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
-            app:cardCornerRadius="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/drag_view"
             app:layout_constraintTop_toTopOf="parent">

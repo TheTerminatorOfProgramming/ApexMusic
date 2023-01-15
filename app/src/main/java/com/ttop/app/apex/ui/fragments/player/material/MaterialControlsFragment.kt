@@ -110,6 +110,7 @@ class MaterialControlsFragment :
 
     override fun onRepeatModeChanged() {
         updateRepeatState()
+
     }
 
     override fun onShuffleModeChanged() {

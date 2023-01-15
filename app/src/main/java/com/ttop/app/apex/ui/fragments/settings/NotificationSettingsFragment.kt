@@ -19,6 +19,7 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
@@ -105,6 +106,13 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             transparent.isChecked = newValue as Boolean
             appWidgetClassic.notifyThemeChange(musicService)
             appWidgetFull.notifyThemeChange(musicService)
+            false
+        }
+
+        val image: SeekBarPreference? = findPreference(WIDGET_IMAGE)
+        image?.setOnPreferenceChangeListener { _, newValue ->
+            image.value = newValue as Int
+            appWidgetClassic.notifyThemeChange(musicService)
             false
         }
     }

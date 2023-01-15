@@ -117,7 +117,7 @@ class AppWidgetBig : BaseAppWidget() {
             appWidgetView.setTextViewText(R.id.title, song.title)
             appWidgetView.setTextViewText(
                 R.id.text,
-                getSongArtistAndAlbum(song)
+                getSongArtist(song)
             )
         }
 

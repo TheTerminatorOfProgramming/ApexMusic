@@ -126,18 +126,6 @@
         <item>oppo</item>
     </string-array>
 
-    <string-array name="pref_font_list_lite_titles">
-        <item>@string/font_default_name</item>
-        <item>@string/font_manrope_name</item>
-        <item>@string/font_square_dot_name</item>
-    </string-array>
-
-    <string-array name="pref_font_list_lite_values">
-        <item>default</item>
-        <item>manrope</item>
-        <item>square_dot</item>
-    </string-array>
-
     <string-array name="pref_home_grid_style_list_titles">
         <item>@string/circular</item>
         <item>@string/card_color_style</item>

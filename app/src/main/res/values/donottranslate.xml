@@ -18,4 +18,6 @@
     <string name="app_widget_circle_name">@string/circle</string>
     <string name="widgetScreen" translatable="false">widgetScreen</string>
 
+
+    <string name="download_policy">always</string>
 </resources>

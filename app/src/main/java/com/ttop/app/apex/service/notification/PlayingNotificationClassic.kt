@@ -88,8 +88,8 @@ class PlayingNotificationClassic(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
         val deleteIntent = buildPendingIntent(context, ACTION_QUIT, null)
 
         setSmallIcon(R.drawable.audio_wave_64px)

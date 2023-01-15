@@ -52,15 +52,13 @@ import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.interfaces.IMainActivityFragmentCallbacks
 import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener
 import com.ttop.app.apex.misc.WrappedAsyncTaskLoader
+import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.ApexColorUtil
-import com.ttop.app.apex.util.FileUtil
+import com.ttop.app.apex.util.*
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
 import com.ttop.app.apex.util.ThemedFastScroller.create
-import com.ttop.app.apex.util.getExternalStorageDirectory
-import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import com.ttop.app.apex.views.BreadCrumbLayout.Crumb
 import com.ttop.app.apex.views.BreadCrumbLayout.SelectionCallback
 import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
@@ -349,6 +347,9 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 toolbar
             )
         )
+        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
+            menu.removeItem(R.id.action_settings)
+        }
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
@@ -373,7 +374,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
             }
             R.id.action_settings -> {
                 findNavController().navigate(
-                    R.id.settingsActivity,
+                    R.id.settings_fragment,
                     null,
                     navOptions
                 )

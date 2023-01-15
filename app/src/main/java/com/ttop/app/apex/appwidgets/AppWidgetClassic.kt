@@ -20,11 +20,13 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.RemoteViews
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -77,28 +79,82 @@ class AppWidgetClassic : BaseAppWidget() {
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
-        val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
-        appWidgetView.setImageViewBitmap(
-            R.id.button_next,
+        if (PreferenceUtil.widgetColors) {
+            when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, false)
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_next,
+                        context.getTintedDrawable(
+                            R.drawable.ic_skip_next_outline,
+                            secondaryColor
+                        ).toBitmap()
+                    )
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_prev,
+                        context.getTintedDrawable(
+                            R.drawable.ic_skip_previous_outline,
+                            secondaryColor
+                        ).toBitmap()
+                    )
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_play_pause,
+                        context.getTintedDrawable(
+                            R.drawable.ic_play_arrow_outline_small,
+                            secondaryColor
+                        ).toBitmap()
+                    )
+                }
+                Configuration.UI_MODE_NIGHT_NO,
+                Configuration.UI_MODE_NIGHT_UNDEFINED-> {
+                    val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_next,
+                        context.getTintedDrawable(
+                            R.drawable.ic_skip_next_outline,
+                            secondaryColor
+                        ).toBitmap()
+                    )
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_prev,
+                        context.getTintedDrawable(
+                            R.drawable.ic_skip_previous_outline,
+                            secondaryColor
+                        ).toBitmap()
+                    )
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_play_pause,
+                        context.getTintedDrawable(
+                            R.drawable.ic_play_arrow_outline_small,
+                            secondaryColor
+                        ).toBitmap()
+                    )
+                }
+            }
+        }else{
+            val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
+            appWidgetView.setImageViewBitmap(
+                R.id.button_next,
                 context.getTintedDrawable(
                     R.drawable.ic_skip_next_outline,
                     secondaryColor
                 ).toBitmap()
-        )
-        appWidgetView.setImageViewBitmap(
-            R.id.button_prev,
+            )
+            appWidgetView.setImageViewBitmap(
+                R.id.button_prev,
                 context.getTintedDrawable(
                     R.drawable.ic_skip_previous_outline,
                     secondaryColor
                 ).toBitmap()
-        )
-        appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause,
+            )
+            appWidgetView.setImageViewBitmap(
+                R.id.button_toggle_play_pause,
                 context.getTintedDrawable(
                     R.drawable.ic_play_arrow_outline_small,
                     secondaryColor
                 ).toBitmap()
-        )
+            )
+        }
 
         linkButtons(context, appWidgetView)
 
@@ -146,7 +202,7 @@ class AppWidgetClassic : BaseAppWidget() {
         } else {
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE)
             appWidgetView.setTextViewText(R.id.title, song.title)
-            appWidgetView.setTextViewText(R.id.text, getSongArtistAndAlbum(song))
+            appWidgetView.setTextViewText(R.id.text, getSongArtist(song))
         }
 
         // Set correct drawable for pause state
@@ -189,10 +245,6 @@ class AppWidgetClassic : BaseAppWidget() {
         if (imageSize == 0) {
             imageSize =
                 service.resources.getDimensionPixelSize(R.dimen.app_widget_card_image_size)
-        }
-        if (cardRadius == 0f) {
-            cardRadius =
-                DensityUtil.dip2px(service, 15F).toFloat()
         }
 
         // Load the album cover async and push the update on completion
@@ -252,10 +304,10 @@ class AppWidgetClassic : BaseAppWidget() {
                             image,
                             imageSize,
                             imageSize,
-                            cardRadius,
-                            cardRadius,
-                            cardRadius,
-                            cardRadius
+                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat(),
+                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat(),
+                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat(),
+                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat()
                         )
                         appWidgetView.setImageViewBitmap(R.id.image, roundedBitmap)
 
@@ -302,7 +354,6 @@ class AppWidgetClassic : BaseAppWidget() {
 
         private var mInstance: AppWidgetClassic? = null
         private var imageSize = 0
-        private var cardRadius = 0F
 
         val instance: AppWidgetClassic
             @Synchronized get() {

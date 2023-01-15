@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.library
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -31,9 +32,11 @@ import com.ttop.app.apex.databinding.FragmentLibraryBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
@@ -103,12 +106,20 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
         )
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
+
+        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
+            menu.removeItem(R.id.action_settings)
+        }
+
+        if (!ApexUtil.isTablet) {
+            menu.removeItem(R.id.action_refresh)
+        }
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> findNavController().navigate(
-                R.id.settingsActivity,
+                R.id.settings_fragment,
                 null,
                 navOptions
             )
@@ -120,6 +131,10 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
                 childFragmentManager,
                 "ShowCreatePlaylistDialog"
             )
+
+            R.id.action_refresh -> {
+                activity?.recreate()
+            }
         }
         return false
     }

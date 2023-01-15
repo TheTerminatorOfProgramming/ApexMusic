@@ -12,9 +12,11 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/app_widget_classic_image_size"
-        android:layout_height="@dimen/app_widget_classic_image_size"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/app_widget_background"
         android:scaleType="centerCrop"
         tools:src="@tools:sample/backgrounds/scenic[6]" />
@@ -22,7 +24,9 @@
     <RelativeLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:id="@+id/media_actions"
@@ -32,9 +36,7 @@
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
             android:orientation="horizontal"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp">
+            android:layout_marginEnd="20dp">
 
             <ImageButton
                 android:id="@+id/button_prev"
@@ -51,6 +53,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
+                android:scaleType="fitCenter"
                 tools:src="@drawable/ic_play_arrow_outline_small"
                 tools:tint="@color/ate_secondary_text_dark" />
 
@@ -82,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewSubtitle1"
+                android:textAppearance="@style/TextViewSubtitle3"
                 android:textColor="@color/md_white_1000"
                 tools:text="Title" />
 
@@ -93,7 +96,7 @@
                 android:gravity="center_vertical"
                 android:paddingTop="4dp"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewNormal"
+                android:textAppearance="@style/TextViewNormal3"
                 android:textColor="@color/md_white_1000"
                 tools:text="Text" />
         </LinearLayout>

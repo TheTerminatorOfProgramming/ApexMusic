@@ -33,8 +33,10 @@ import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.input.input
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMainSettingsBinding
+import com.ttop.app.apex.extensions.applyToolbar
 import com.ttop.app.apex.extensions.drawAboveSystemBarsWithPadding
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
 import com.ttop.app.apex.ui.fragments.backup.BackupFragment
@@ -53,15 +55,17 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
             when (view.id) {
                 R.id.generalSettings -> R.id.action_mainSettingsFragment_to_themeSettingsFragment
                 R.id.audioSettings -> R.id.action_mainSettingsFragment_to_audioSettings
-                R.id.personalizeSettings -> R.id.action_mainSettingsFragment_to_personalizeSettingsFragment
                 R.id.imageSettings -> R.id.action_mainSettingsFragment_to_imageSettingFragment
+                R.id.personalizeSettings -> R.id.action_mainSettingsFragment_to_personalizeSettingsFragment
                 R.id.notificationSettings -> R.id.action_mainSettingsFragment_to_notificationSettingsFragment
                 R.id.otherSettings -> R.id.action_mainSettingsFragment_to_otherSettingsFragment
                 R.id.aboutSettings -> R.id.action_mainSettingsFragment_to_aboutActivity
                 R.id.nowPlayingSettings -> R.id.action_mainSettingsFragment_to_nowPlayingSettingsFragment
+                R.id.backup_restore_settings -> R.id.action_mainSettingsFragment_to_backupFragment
                 else -> R.id.action_mainSettingsFragment_to_themeSettingsFragment
             }
         )
+
     }
 
     fun showCreateBackupDialog() {
@@ -128,9 +132,11 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
         binding.audioSettings.setOnClickListener(this)
         binding.nowPlayingSettings.setOnClickListener(this)
         binding.personalizeSettings.setOnClickListener(this)
-        binding.imageSettings.setOnClickListener(this)
         binding.notificationSettings.setOnClickListener(this)
         binding.otherSettings.setOnClickListener(this)
+        binding.imageSettings.setOnClickListener(this)
+        binding.backupRestoreSettings.setOnClickListener(this)
+        /*
         binding.backupRestoreSettings.setOnClickListener {
             val builder = AlertDialog.Builder(context)
 
@@ -150,7 +156,7 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
             val alert = builder.create()
             alert.show()
             alert.withCenteredButtons()
-        }
+        }*/
         binding.aboutSettings.setOnClickListener(this)
 
         binding.container.drawAboveSystemBarsWithPadding()

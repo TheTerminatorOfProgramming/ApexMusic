@@ -20,9 +20,11 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.util.TypedValue
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import androidx.cardview.widget.CardView
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import com.ttop.app.apex.R
@@ -48,7 +50,6 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private var _binding: FragmentMiniPlayerBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressViewUpdateHelper: MusicProgressViewUpdateHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         progressViewUpdateHelper = MusicProgressViewUpdateHelper(this)
@@ -76,6 +77,9 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMiniPlayerBinding.bind(view)
+
+        binding.imageTextContainer.radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, PreferenceUtil.miniImage.toFloat(), context?.resources?.displayMetrics)
+
         if (PreferenceUtil.progressBarStyle){
             if (PreferenceUtil.progressBarAlignment){
                 binding.progressBar.visibility = View.GONE

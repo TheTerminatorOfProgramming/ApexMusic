@@ -66,11 +66,7 @@ class LibraryPreferenceDialog : DialogFragment() {
             .setNeutralButton(
                 R.string.reset_action
             ) { _, _ ->
-                if (PreferenceUtil.isUiMode == "full") {
-                    updateCategories(PreferenceUtil.defaultCategories)
-                }else {
-                    updateCategories(PreferenceUtil.defaultCategoriesLite)
-                }
+                updateCategories(PreferenceUtil.defaultCategories)
             }
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(R.string.done) { _, _ ->
@@ -86,16 +82,9 @@ class LibraryPreferenceDialog : DialogFragment() {
 
     private fun updateCategories(categories: List<CategoryInfo>) {
         if (getSelected(categories) == 0) return
-        if (PreferenceUtil.isUiMode == "full") {
-            if (getSelected(categories) > 5) {
-                showToast(R.string.message_limit_tabs)
-                return
-            }
-        }else {
-            if (getSelected(categories) > 4) {
-                showToast(R.string.message_limit_lite_tabs)
-                return
-            }
+        if (getSelected(categories) > 5) {
+            showToast(R.string.message_limit_tabs)
+            return
         }
 
         PreferenceUtil.libraryCategory = categories

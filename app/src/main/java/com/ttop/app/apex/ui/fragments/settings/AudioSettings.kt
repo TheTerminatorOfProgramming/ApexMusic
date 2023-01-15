@@ -23,6 +23,7 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.media.audiofx.AudioEffect
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -142,14 +143,16 @@ class AudioSettings : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if(PreferenceUtil.isUiMode == "full") {
-            if (PreferenceUtil.isSamsungSoundPluginInstalled) {
-                addPreferencesFromResource(R.xml.pref_audio_samsung)
-            }else {
-                addPreferencesFromResource(R.xml.pref_audio)
-            }
+        if (PreferenceUtil.isSamsungSoundPluginInstalled) {
+            addPreferencesFromResource(R.xml.pref_audio_samsung)
         }else {
-            addPreferencesFromResource(R.xml.pref_audio_lite)
+            addPreferencesFromResource(R.xml.pref_audio)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val preference: Preference? = findPreference(AUTO_DOWNLOAD_IMAGES_POLICY)
+        preference?.let { setSummary(it) }
     }
 }

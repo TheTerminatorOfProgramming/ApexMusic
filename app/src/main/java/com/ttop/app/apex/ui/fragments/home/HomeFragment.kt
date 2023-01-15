@@ -40,9 +40,11 @@ import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
+import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.userName
@@ -210,6 +212,14 @@ class HomeFragment :
         )
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
+
+        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
+            menu.removeItem(R.id.action_settings)
+        }
+
+        if (!ApexUtil.isTablet) {
+            menu.removeItem(R.id.action_refresh)
+        }
     }
 
     override fun scrollToTop() {
@@ -298,7 +308,7 @@ class HomeFragment :
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> findNavController().navigate(
-                R.id.settingsActivity,
+                R.id.settings_fragment,
                 null,
                 navOptions
             )
@@ -310,6 +320,10 @@ class HomeFragment :
                 childFragmentManager,
                 "ShowCreatePlaylistDialog"
             )
+
+            R.id.action_refresh -> {
+                activity?.recreate()
+            }
         }
         return false
     }

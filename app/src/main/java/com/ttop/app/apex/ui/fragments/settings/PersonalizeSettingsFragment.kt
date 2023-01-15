@@ -17,6 +17,7 @@ package com.ttop.app.apex.ui.fragments.settings
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
+import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.util.PreferenceUtil
@@ -67,11 +68,7 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (PreferenceUtil.isUiMode == "full") {
-            addPreferencesFromResource(R.xml.pref_ui)
-        }else {
-            addPreferencesFromResource(R.xml.pref_ui_lite)
-        }
+        addPreferencesFromResource(R.xml.pref_ui)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

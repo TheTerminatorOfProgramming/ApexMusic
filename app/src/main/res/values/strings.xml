@@ -33,6 +33,7 @@
     <string name="action_play_pause">Play/Pause</string>
     <string name="action_previous">Previous</string>
     <string name="action_queue">Show/Hide Playing Queue</string>
+    <string name="action_refresh">Refresh</string>
     <string name="action_remove_from_favorites">Remove from favorites</string>
     <string name="action_remove_from_playing_queue">Remove from playing queue</string>
     <string name="action_remove_from_playlist">Remove from playlist</string>
@@ -270,7 +271,6 @@
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Permission error</string>
     <string name="message_backup_create_success">Backup created successfully.</string>
-    <string name="message_limit_lite_tabs">Not more than 4 items</string>
     <string name="message_limit_tabs">Not more than 5 items</string>
     <string name="message_pro_feature">%s is a Pro feature.</string>
     <string name="message_restore_success">Restore completed successfully.</string>
@@ -393,6 +393,7 @@
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
     <string name="pref_summary_lock_screen">Use Apex Music\'s custom lockscreen controls</string>
     <string name="pref_summary_manage_audio_focus">Always play audio in background regardless of anything else being played</string>
+    <string name="pref_summary_mini_image_roundness">Change mini player image corner radius</string>
     <string name="pref_summary_open_source_licences">License details for open source software</string>
     <string name="pref_summary_pause_history">When enabled, newly played songs won\'t show in history</string>
     <string name="pref_summary_permissions_edit">Modify permissions relating to this app</string>
@@ -417,6 +418,7 @@
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
     <string name="pref_summary_widget_day_night">Use android 12 day/night widget theme</string>
+    <string name="pref_summary_widget_image_roundness">Change classic widget image roundness</string>
     <string name="pref_summary_widget_transparent">Make classic and full widgets transparent</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
     <string name="pref_title_album_artists_only">Navigate by Album Artist</string>
@@ -457,6 +459,7 @@
     <string name="pref_title_lyrics_screen_on">Keep screen on when showing lyrics</string>
     <string name="pref_title_lyrics_type">Lyrics type</string>
     <string name="pref_title_manage_audio_focus">Always play</string>
+    <string name="pref_title_mini_image_roundness">Mini player image radius</string>
     <string name="pref_title_now_playing_screen_appearance">Now playing theme</string>
     <string name="pref_title_open_source_licences">Open source licences</string>
     <string name="pref_title_pause_history">Pause history</string>
@@ -483,6 +486,7 @@
     <string name="pref_title_wallpaper_accent">Wallpaper accent color</string>
     <string name="pref_title_whitelist">Whitelist music</string>
     <string name="pref_title_widget_day_night">Widget day/night</string>
+    <string name="pref_title_widget_image_roundness">Widget image shape</string>
     <string name="pref_title_widget_transparent">Transparent widgets</string>
     <string name="pro">Pro</string>
     <string name="pro_summary">Black theme, Now playing themes, Carousel effect and more..</string>

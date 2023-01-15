@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
-        android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_ui">
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="full"
-            android:entries="@array/pref_ui_mode_list_titles"
-            android:entryValues="@array/pref_ui_mode_list_values"
-            android:key="ui_mode"
-            android:layout="@layout/list_item_view"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            android:title="@string/pref_title_ui_mode"
-            app:icon="@drawable/ic_account" />
-
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
@@ -130,6 +114,15 @@
             app:key="toggle_mini_swipe"
             app:summary="@string/pref_summary_swipe_gestures"
             app:title="@string/pref_title_swipe_gestures" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="6"
+            android:key="mini_image"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="20"
+            android:summary="@string/pref_summary_mini_image_roundness"
+            android:title="@string/pref_title_mini_image_roundness"
+            app:showSeekBarValue="true" />
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"

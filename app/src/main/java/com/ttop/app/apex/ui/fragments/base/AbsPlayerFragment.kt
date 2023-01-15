@@ -317,56 +317,38 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     @SuppressLint("ClickableViewAccessibility")
     override fun onResume() {
         super.onResume()
-        if (PreferenceUtil.isUiMode == "full") {
-            val nps = PreferenceUtil.nowPlayingScreen
+        val nps = PreferenceUtil.nowPlayingScreen
 
-            if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
-                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-            } else {
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
+        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
+            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+        } else {
+            playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                isChecked = PreferenceUtil.showLyrics
+                showLyricsIcon(this)
+            }
+        }
+
+        if (nps == NowPlayingScreen.Peek){
+            playerToolbar()?.menu?.removeItem(R.id.now_playing)
+        }else{
+            playerToolbar()?.menu?.removeItem(R.id.action_queue)
+        }
+
+        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe || nps == NowPlayingScreen.Flat || nps == NowPlayingScreen.Full
+            || nps == NowPlayingScreen.Material || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Normal ||
+            nps == NowPlayingScreen.Simple|| nps == NowPlayingScreen.Circle|| nps == NowPlayingScreen.Blur) {
+            if (ApexUtil.isTablet) {
+                if (PreferenceUtil.queueShowAlways) {
+                    playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 }
             }
-
-            if (nps == NowPlayingScreen.Peek){
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-            }else{
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
-            }
-
-            if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe || nps == NowPlayingScreen.Flat || nps == NowPlayingScreen.Full
-                || nps == NowPlayingScreen.Material || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Normal ||
-                nps == NowPlayingScreen.Simple|| nps == NowPlayingScreen.Circle|| nps == NowPlayingScreen.Blur) {
-                if (ApexUtil.isTablet) {
-                    if (PreferenceUtil.queueShowAlways) {
-                        playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                    }
-                }
-            }
-            if (!PreferenceUtil.isLyrics) {
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
-            }else {
-                if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "none") {
-                    playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
-                }
-            }
-        }else {
-            val npsl = PreferenceUtil.nowPlayingScreenLite
-
-            if (npsl == NowPlayingScreenLite.Peek) {
-                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-            } else {
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
-            }
-
+        }
+        if (!PreferenceUtil.isLyrics) {
             playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
+        }else {
+            if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "none") {
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
+            }
         }
 
         if (!PreferenceUtil.syncedLyrics) {

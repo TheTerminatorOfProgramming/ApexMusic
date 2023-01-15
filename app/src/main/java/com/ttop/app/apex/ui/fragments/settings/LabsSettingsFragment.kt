@@ -26,6 +26,7 @@ import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
+import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
@@ -46,10 +47,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (PreferenceUtil.isUiMode == "full") {
-            addPreferencesFromResource(R.xml.pref_labs)
-        }else {
-            addPreferencesFromResource(R.xml.pref_labs_lite)
-        }
+        addPreferencesFromResource(R.xml.pref_labs)
     }
 }

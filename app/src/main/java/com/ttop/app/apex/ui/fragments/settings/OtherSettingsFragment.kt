@@ -67,11 +67,7 @@ class OtherSettingsFragment : AbsSettingsFragment(),
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if(PreferenceUtil.isUiMode == "full") {
-            addPreferencesFromResource(R.xml.pref_advanced)
-        }else {
-            addPreferencesFromResource(R.xml.pref_advanced_lite)
-        }
+        addPreferencesFromResource(R.xml.pref_advanced)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

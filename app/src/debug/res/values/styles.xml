@@ -64,6 +64,16 @@
         <item name="fontFamily">@font/sans</item>
     </style>
 
+    <style name="TextViewSubtitle3" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/sans</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewNormal3" parent="">
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/sans</item>
+    </style>
+
     <style name="AppTextAppearance.MaterialAlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textAppearance">@style/TextViewButton</item>
         <item name="fontFamily">@font/sans</item>

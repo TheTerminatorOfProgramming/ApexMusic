@@ -108,5 +108,4 @@
             app:showSeekBarValue="true"
             android:dependency="bt_volume"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-
 </androidx.preference.PreferenceScreen>

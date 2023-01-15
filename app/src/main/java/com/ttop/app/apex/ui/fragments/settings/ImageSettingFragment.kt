@@ -15,12 +15,9 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.os.Bundle
-import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
-import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.AUTO_DOWNLOAD_IMAGES_POLICY
-import com.ttop.app.apex.IGNORE_MEDIA_STORE_ARTWORK
 import com.ttop.app.apex.R
 
 /**
@@ -32,14 +29,7 @@ class ImageSettingFragment : AbsSettingsFragment() {
         val autoDownloadImagesPolicy: Preference = findPreference(AUTO_DOWNLOAD_IMAGES_POLICY)!!
         setSummary(autoDownloadImagesPolicy)
         autoDownloadImagesPolicy.setOnPreferenceChangeListener { _, o ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             setSummary(autoDownloadImagesPolicy, o)
-            true
-        }
-
-        val autoDownloadArtwork: TwoStatePreference? = findPreference(IGNORE_MEDIA_STORE_ARTWORK)!!
-        autoDownloadArtwork?.setOnPreferenceChangeListener { _, o ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
     }

@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.core.content.edit
 import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.color.colorChooser
 import com.google.android.material.color.DynamicColors
@@ -48,96 +49,6 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 class ThemeSettingsFragment : AbsSettingsFragment() {
     @SuppressLint("CheckResult")
     override fun invalidateSettings() {
-        val uiMode: Preference? = findPreference(UI_MODE)
-        uiMode?.let {
-            setSummary(it)
-            it.setOnPreferenceChangeListener { _, newValue ->
-                setSummary(it, newValue)
-                val packageManager: PackageManager? = context?.packageManager
-                if (newValue == "full") {
-                    context?.let {
-                        ComponentName(
-                            it,
-                            AppWidgetBig::class.java
-                        )
-                    }?.let {
-                        packageManager!!.setComponentEnabledSetting(
-                            it,
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                    }
-
-                    context?.let {
-                        ComponentName(
-                            it,
-                            AppWidgetCircle::class.java
-                        )
-                    }?.let {
-                        packageManager!!.setComponentEnabledSetting(
-                            it,
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                    }
-
-                    context?.let {
-                        ComponentName(
-                            it,
-                            AppWidgetFullCircle::class.java
-                        )
-                    }?.let {
-                        packageManager!!.setComponentEnabledSetting(
-                            it,
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                    }
-                }else {
-                    context?.let {
-                        ComponentName(
-                            it,
-                            AppWidgetBig::class.java
-                        )
-                    }?.let {
-                        packageManager!!.setComponentEnabledSetting(
-                            it,
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                    }
-
-                    context?.let {
-                        ComponentName(
-                            it,
-                            AppWidgetCircle::class.java
-                        )
-                    }?.let {
-                        packageManager!!.setComponentEnabledSetting(
-                            it,
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                    }
-
-                    context?.let {
-                        ComponentName(
-                            it,
-                            AppWidgetFullCircle::class.java
-                        )
-                    }?.let {
-                        packageManager!!.setComponentEnabledSetting(
-                            it,
-                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP
-                        )
-                    }
-                }
-                restartActivity()
-                true
-            }
-        }
-
         val generalTheme: Preference? = findPreference(GENERAL_THEME)
         generalTheme?.let {
             setSummary(it)
@@ -229,11 +140,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
         adaptiveColor?.isEnabled =
-            if (PreferenceUtil.isUiMode == "full") {
-                PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)
-            }else {
-                PreferenceUtil.nowPlayingScreenLite in listOf(NowPlayingScreenLite.Normal, NowPlayingScreenLite.Flat)
-            }
+            PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)
         adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
@@ -280,10 +187,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (PreferenceUtil.isUiMode == "full") {
-            addPreferencesFromResource(R.xml.pref_general)
-        }else {
-            addPreferencesFromResource(R.xml.pref_general_lite)
-        }
+        addPreferencesFromResource(R.xml.pref_general)
     }
 }

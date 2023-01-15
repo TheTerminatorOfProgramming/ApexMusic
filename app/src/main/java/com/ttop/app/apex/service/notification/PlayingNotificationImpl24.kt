@@ -64,8 +64,7 @@ class PlayingNotificationImpl24(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         val serviceName = ComponentName(context, MusicService::class.java)
         val intent = Intent(ACTION_QUIT)

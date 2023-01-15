@@ -23,6 +23,7 @@ import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.findNavController
+import androidx.preference.Preference
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialFadeThrough
 import com.ttop.app.apex.R
@@ -31,7 +32,10 @@ import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dip
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.interfaces.IScrollHelper
+import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller.create
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
@@ -195,12 +199,19 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             menu,
             ATHToolbarActivity.getToolbarBackgroundColor(toolbar)
         )
+        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
+            menu.removeItem(R.id.action_settings)
+        }
+
+        if (!ApexUtil.isTablet) {
+            menu.removeItem(R.id.action_refresh)
+        }
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> findNavController().navigate(
-                R.id.settingsActivity,
+                R.id.settings_fragment,
                 null,
                 navOptions
             )
@@ -212,6 +223,10 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
                 childFragmentManager,
                 "ShowCreatePlaylistDialog"
             )
+
+            R.id.action_refresh -> {
+                activity?.recreate()
+            }
         }
         return false
     }

@@ -140,14 +140,8 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         }
     }
 
-    protected fun getSongArtistAndAlbum(song: Song): String {
-        val builder = StringBuilder()
-        builder.append(song.artistName)
-        if (song.artistName.isNotEmpty() && song.albumName.isNotEmpty()) {
-            builder.append(" • ")
-        }
-        builder.append(song.albumName)
-        return builder.toString()
+    protected fun getSongArtist(song: Song): String {
+        return song.artistName
     }
 
     companion object {

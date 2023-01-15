@@ -34,6 +34,7 @@ import androidx.fragment.app.commit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+import com.google.android.material.navigationrail.NavigationRailView
 import com.ttop.app.apex.*
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
 import com.ttop.app.apex.extensions.*
@@ -127,6 +128,11 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         if ((PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) || !PreferenceUtil.isScreenOnEnabled) {
                             keepScreenOn(false)
                         }
+
+                        if (PreferenceUtil.isWidgetPanel && ApexUtil.isTablet) {
+                            PreferenceUtil.isWidgetPanel = false
+                            postRecreate()
+                        }
                     }
                     STATE_SETTLING, STATE_DRAGGING -> {
                         if (fromNotification) {
@@ -214,14 +220,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     override fun onResume() {
         super.onResume()
         PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
-        if (PreferenceUtil.isUiMode == "full") {
-            if (nowPlayingScreen != PreferenceUtil.nowPlayingScreen) {
-                postRecreate()
-            }
-        }else{
-            if (nowPlayingScreenLite != PreferenceUtil.nowPlayingScreenLite) {
-                postRecreate()
-            }
+        if (nowPlayingScreen != PreferenceUtil.nowPlayingScreen) {
+            postRecreate()
         }
 
         if (bottomSheetBehavior.state == STATE_EXPANDED) {
@@ -245,24 +245,13 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             }
             NOW_PLAYING_SCREEN_ID -> {
                 chooseFragmentForTheme()
-                if (PreferenceUtil.isUiMode == "full") {
-                    binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
-                        height = if (nowPlayingScreen != Peek) {
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                        } else {
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        }
-                        onServiceConnected()
+                binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
+                    height = if (nowPlayingScreen != Peek) {
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    } else {
+                        ViewGroup.LayoutParams.WRAP_CONTENT
                     }
-                }else {
-                    binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
-                        height = if (nowPlayingScreenLite != NowPlayingScreenLite.Peek) {
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                        } else {
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        }
-                        onServiceConnected()
-                    }
+                    onServiceConnected()
                 }
             }
             ALBUM_COVER_TRANSFORM, CAROUSEL_EFFECT,
@@ -275,16 +264,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 playerFragment.addSwipeDetector()
             }
             ADAPTIVE_COLOR_APP -> {
-                if (PreferenceUtil.isUiMode == "full") {
-                    if (PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)) {
-                        chooseFragmentForTheme()
-                        onServiceConnected()
-                    }
-                }else {
-                    if (PreferenceUtil.nowPlayingScreenLite in listOf(NowPlayingScreenLite.Normal, NowPlayingScreenLite.Flat)) {
-                        chooseFragmentForTheme()
-                        onServiceConnected()
-                    }
+                if (PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)) {
+                    chooseFragmentForTheme()
+                    onServiceConnected()
                 }
             }
             LIBRARY_CATEGORIES -> {
@@ -324,15 +306,14 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
-            UI_MODE -> {
-                refreshTabs()
-                recreate()
-            }
             EMBED_LYRICS -> {
                 recreate()
             }
             SHOW_UPDATE -> {
                 MusicPlayerRemote.updateNotification()
+            }
+            MINI_IMAGE -> {
+                miniPlayerFragment?.activity?.recreate()
             }
         }
     }
@@ -394,17 +375,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 binding.slidingPanel.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                if (PreferenceUtil.isUiMode == "full") {
-                    if (nowPlayingScreen != Peek) {
-                        binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
-                            height = ViewGroup.LayoutParams.MATCH_PARENT
-                        }
-                    }
-                }else {
-                    if (nowPlayingScreenLite != NowPlayingScreenLite.Peek) {
-                        binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
-                            height = ViewGroup.LayoutParams.MATCH_PARENT
-                        }
+                if (nowPlayingScreen != Peek) {
+                    binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
+                        height = ViewGroup.LayoutParams.MATCH_PARENT
                     }
                 }
 
@@ -462,37 +435,28 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             navigationBarColor = surfaceColor()
             setTaskDescColor(paletteColor)
             val isColorLight = paletteColor.isColorLight
-            if (PreferenceUtil.isUiMode == "full") {
-                if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreen == Normal || nowPlayingScreen == Flat || nowPlayingScreen == Material)) {
-                    setLightNavigationBar(true)
-                    setLightStatusBar(isColorLight)
-                } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur || nowPlayingScreen == BlurCard) {
-                    animateNavigationBarColor(Color.BLACK)
-                    navigationBarColor = Color.BLACK
-                    setLightStatusBar(false)
-                    setLightNavigationBar(true)
-                } else if (nowPlayingScreen == Color || nowPlayingScreen == Tiny || nowPlayingScreen == Gradient) {
-                    animateNavigationBarColor(paletteColor)
-                    navigationBarColor = paletteColor
-                    setLightNavigationBar(isColorLight)
-                    setLightStatusBar(isColorLight)
-                } else if (nowPlayingScreen == Full) {
-                    animateNavigationBarColor(paletteColor)
-                    navigationBarColor = paletteColor
-                    setLightNavigationBar(isColorLight)
-                    setLightStatusBar(false)
-                } else if (nowPlayingScreen == Classic) {
-                    setLightStatusBar(false)
-                } else if (nowPlayingScreen == Fit) {
-                    setLightStatusBar(false)
-                }
-            }else {
-                if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreenLite == NowPlayingScreenLite.Normal || nowPlayingScreenLite == NowPlayingScreenLite.Flat)) {
-                    setLightNavigationBar(true)
-                    setLightStatusBar(isColorLight)
-                } else if (nowPlayingScreenLite == NowPlayingScreenLite.Classic) {
-                    setLightStatusBar(false)
-                }
+            if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreen == Normal || nowPlayingScreen == Flat || nowPlayingScreen == Material)) {
+                setLightNavigationBar(true)
+                setLightStatusBar(isColorLight)
+            } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur || nowPlayingScreen == BlurCard) {
+                animateNavigationBarColor(Color.BLACK)
+                navigationBarColor = Color.BLACK
+                setLightStatusBar(false)
+                setLightNavigationBar(true)
+            } else if (nowPlayingScreen == Color || nowPlayingScreen == Tiny || nowPlayingScreen == Gradient) {
+                animateNavigationBarColor(paletteColor)
+                navigationBarColor = paletteColor
+                setLightNavigationBar(isColorLight)
+                setLightStatusBar(isColorLight)
+            } else if (nowPlayingScreen == Full) {
+                animateNavigationBarColor(paletteColor)
+                navigationBarColor = paletteColor
+                setLightNavigationBar(isColorLight)
+                setLightStatusBar(false)
+            } else if (nowPlayingScreen == Classic) {
+                setLightStatusBar(false)
+            } else if (nowPlayingScreen == Fit) {
+                setLightStatusBar(false)
             }
         }
     }
@@ -614,50 +578,32 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     }
 
     private fun chooseFragmentForTheme() {
-        if (PreferenceUtil.isUiMode == "full") {
-            nowPlayingScreen = PreferenceUtil.nowPlayingScreen
+        nowPlayingScreen = PreferenceUtil.nowPlayingScreen
 
-            val fragment: AbsPlayerFragment = when (nowPlayingScreen) {
-                Blur -> BlurPlayerFragment()
-                Adaptive -> AdaptiveFragment()
-                Normal -> PlayerFragment()
-                Card -> CardFragment()
-                BlurCard -> CardBlurFragment()
-                Fit -> FitFragment()
-                Flat -> FlatPlayerFragment()
-                Full -> FullPlayerFragment()
-                Plain -> PlainPlayerFragment()
-                Simple -> SimplePlayerFragment()
-                Material -> MaterialFragment()
-                Color -> ColorFragment()
-                Gradient -> GradientPlayerFragment()
-                Tiny -> TinyPlayerFragment()
-                Peek -> PeekPlayerFragment()
-                Circle -> CirclePlayerFragment()
-                Classic -> ClassicPlayerFragment()
-                MD3 -> MD3PlayerFragment()
-                Swipe -> SwipePlayerFragment()
-                else -> PlayerFragment()
-            } // must extend AbsPlayerFragment
-            supportFragmentManager.commit(allowStateLoss = true) {
-                replace(R.id.playerFragmentContainer, fragment)
-            }
-        }else {
-            nowPlayingScreenLite = PreferenceUtil.nowPlayingScreenLite
-
-            val fragment: AbsPlayerFragment = when (nowPlayingScreenLite) {
-                NowPlayingScreenLite.Normal -> PlayerFragment()
-                NowPlayingScreenLite.Flat -> FlatPlayerFragment()
-                NowPlayingScreenLite.Simple -> SimplePlayerFragment()
-                NowPlayingScreenLite.Peek -> PeekPlayerFragment()
-                NowPlayingScreenLite.Classic -> ClassicPlayerFragment()
-                NowPlayingScreenLite.MD3 -> MD3PlayerFragment()
-                NowPlayingScreenLite.Swipe -> SwipePlayerFragment()
-                else -> PlayerFragment()
-            } // must extend AbsPlayerFragment
-            supportFragmentManager.commit(allowStateLoss = true) {
-                replace(R.id.playerFragmentContainer, fragment)
-            }
+        val fragment: AbsPlayerFragment = when (nowPlayingScreen) {
+            Blur -> BlurPlayerFragment()
+            Adaptive -> AdaptiveFragment()
+            Normal -> PlayerFragment()
+            Card -> CardFragment()
+            BlurCard -> CardBlurFragment()
+            Fit -> FitFragment()
+            Flat -> FlatPlayerFragment()
+            Full -> FullPlayerFragment()
+            Plain -> PlainPlayerFragment()
+            Simple -> SimplePlayerFragment()
+            Material -> MaterialFragment()
+            Color -> ColorFragment()
+            Gradient -> GradientPlayerFragment()
+            Tiny -> TinyPlayerFragment()
+            Peek -> PeekPlayerFragment()
+            Circle -> CirclePlayerFragment()
+            Classic -> ClassicPlayerFragment()
+            MD3 -> MD3PlayerFragment()
+            Swipe -> SwipePlayerFragment()
+            else -> PlayerFragment()
+        } // must extend AbsPlayerFragment
+        supportFragmentManager.commit(allowStateLoss = true) {
+            replace(R.id.playerFragmentContainer, fragment)
         }
         supportFragmentManager.executePendingTransactions()
         playerFragment = whichFragment(R.id.playerFragmentContainer)

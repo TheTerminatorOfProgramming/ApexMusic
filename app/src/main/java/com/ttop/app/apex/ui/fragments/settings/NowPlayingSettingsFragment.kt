@@ -21,6 +21,7 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.PreferenceUtil
 
 /**
@@ -74,11 +75,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
-        val nowPlaying: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
-        nowPlaying?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
         val queueShowAlways: TwoStatePreference? = findPreference(QUEUE_SHOW_ALWAYS)
         queueShowAlways?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -92,14 +88,15 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         showlyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
+
+        val expand: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
+        expand?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (PreferenceUtil.isUiMode == "full") {
-            addPreferencesFromResource(R.xml.pref_now_playing_screen)
-        }else {
-            addPreferencesFromResource(R.xml.pref_now_playing_screen_lite)
-        }
+        addPreferencesFromResource(R.xml.pref_now_playing_screen)
     }
 
     private fun updateAlbumCoverStyleSummary() {
@@ -109,11 +106,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
     private fun updateNowPlayingScreenSummary() {
         val preference: Preference? = findPreference(NOW_PLAYING_SCREEN_ID)
-        if (PreferenceUtil.isUiMode == "full") {
-            preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
-        }else {
-            preference?.setSummary(PreferenceUtil.nowPlayingScreenLite.titleRes)
-        }
+        preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

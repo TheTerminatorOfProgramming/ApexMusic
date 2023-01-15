@@ -58,6 +58,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.APP_MUSIC" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
@@ -121,7 +122,6 @@
                 <data android:mimeType="vnd.android.cursor.dir/audio" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ttop.app.apex.ui.activities.SettingsActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity" />
         <activity android:name="com.ttop.app.apex.ui.activities.LicenseActivity" />

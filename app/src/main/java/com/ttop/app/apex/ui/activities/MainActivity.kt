@@ -22,6 +22,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
@@ -138,7 +140,13 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
                     setBottomNavVisibility(visible = true, animate = true)
                 }
                 R.id.playing_queue_fragment -> {
-                    setBottomNavVisibility(visible = false, hideBottomSheet = true)
+                    setBottomNavVisibility(visible = true, hideBottomSheet = true)
+                }
+                R.id.action_settings_fragment -> {
+                    setBottomNavVisibility(
+                        visible = true,
+                        animate = true
+                    )
                 }
                 else -> setBottomNavVisibility(
                     visible = false,
@@ -161,10 +169,15 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         super.onNewIntent(intent)
         val expand = intent?.extra<Boolean>(EXPAND_PANEL)?.value ?: false
         if (expand && PreferenceUtil.isExpandPanel) {
-            fromNotification = true
-            slidingPanel.bringToFront()
-            expandPanel()
-            intent?.removeExtra(EXPAND_PANEL)
+            if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                fromNotification = true
+                if (ApexUtil.isTablet) {
+                    PreferenceUtil.isWidgetPanel = true
+                }
+                slidingPanel.bringToFront()
+                expandPanel()
+                intent?.removeExtra(EXPAND_PANEL)
+            }
         }
     }
 
@@ -206,6 +219,15 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         }else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
+    }
+
+    fun restart() {
+        val intent = intent
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        finish()
+        overridePendingTransition(0, 0)
+        startActivity(intent)
+        overridePendingTransition(0, 0)
     }
 
     override fun onServiceConnected() {

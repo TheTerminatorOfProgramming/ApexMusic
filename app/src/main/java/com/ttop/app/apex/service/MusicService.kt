@@ -69,6 +69,7 @@ import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.ui.activities.LockScreenActivity
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.MusicUtil.isFavorite
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
 import com.ttop.app.apex.util.PreferenceUtil
@@ -935,7 +936,7 @@ class MusicService : MediaBrowserServiceCompat(),
 
     fun isCurrentFavorite(completion: (isFavorite: Boolean) -> Unit) {
         serviceScope.launch(IO) {
-            val isFavorite = MusicUtil.isFavorite(currentSong)
+            val isFavorite = isFavorite(currentSong)
             withContext(Main) {
                 completion(isFavorite)
             }
@@ -1107,9 +1108,7 @@ class MusicService : MediaBrowserServiceCompat(),
                 songProgressMillis.toLong(),
                 playbackSpeed
             )
-        if (!VersionUtils.hasT()) {
-            setCustomAction(stateBuilder)
-        }
+        setCustomAction(stateBuilder)
         mediaSession?.setPlaybackState(stateBuilder.build())
     }
 
@@ -1458,18 +1457,18 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun setCustomAction(stateBuilder: PlaybackStateCompat.Builder) {
-            var repeatIcon = R.drawable.ic_repeat // REPEAT_MODE_NONE
-            if (repeatMode == REPEAT_MODE_THIS) {
-                repeatIcon = R.drawable.ic_repeat_one
-            } else if (repeatMode == REPEAT_MODE_ALL) {
-                repeatIcon = R.drawable.ic_repeat_white_circle
-            }
-            stateBuilder.addCustomAction(
-                PlaybackStateCompat.CustomAction.Builder(
-                    CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
-                )
-                    .build()
+        var repeatIcon = R.drawable.ic_repeat // REPEAT_MODE_NONE
+        if (repeatMode == REPEAT_MODE_THIS) {
+            repeatIcon = R.drawable.ic_repeat_one
+        } else if (repeatMode == REPEAT_MODE_ALL) {
+            repeatIcon = R.drawable.ic_repeat_white_circle
+        }
+        stateBuilder.addCustomAction(
+            PlaybackStateCompat.CustomAction.Builder(
+                CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
             )
+                .build()
+        )
 
         val shuffleIcon =
             if (getShuffleMode() == SHUFFLE_MODE_NONE) R.drawable.ic_shuffle_off_circled else R.drawable.ic_shuffle_on_circled

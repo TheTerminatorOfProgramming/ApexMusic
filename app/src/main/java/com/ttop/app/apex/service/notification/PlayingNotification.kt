@@ -39,7 +39,6 @@ abstract class PlayingNotification(context: Context) :
         const val NOTIFICATION_ID = 1
 
 
-        @RequiresApi(26)
         fun createNotificationChannel(
             context: Context,
             notificationManager: NotificationManager

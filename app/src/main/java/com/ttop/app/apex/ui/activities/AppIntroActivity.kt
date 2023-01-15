@@ -48,8 +48,6 @@ class AppIntroActivity: AppIntro2() {
         addSlide(BackupSlideFragment.newInstance(R.layout.fragment_backup_intro))
         //SHUFFLE SLIDE
         addSlide(ShuffleSlideFragment.newInstance(R.layout.fragment_shuffle_intro))
-        //APP MODE SLIDE
-        addSlide(AppModeSlideFragment.newInstance(R.layout.fragment_app_mode_intro))
 
         // Here we ask for permissions
 

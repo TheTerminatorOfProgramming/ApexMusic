@@ -94,7 +94,8 @@ class AppWidgetFull : BaseAppWidget() {
                     ).toBitmap()
                 )
             }
-            Configuration.UI_MODE_NIGHT_NO -> {
+            Configuration.UI_MODE_NIGHT_NO,
+            Configuration.UI_MODE_NIGHT_UNDEFINED-> {
                 appWidgetView.setImageViewBitmap(
                     R.id.button_next, context.getTintedDrawable(
                         R.drawable.ic_skip_next_outline,
@@ -112,7 +113,6 @@ class AppWidgetFull : BaseAppWidget() {
                     ).toBitmap()
                 )
             }
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> {}
         }
 
 
@@ -170,7 +170,7 @@ class AppWidgetFull : BaseAppWidget() {
             appWidgetView.setTextViewText(R.id.title, song.title)
             appWidgetView.setTextViewText(
                 R.id.text,
-                getSongArtistAndAlbum(song)
+                getSongArtist(song)
             )
         }
 

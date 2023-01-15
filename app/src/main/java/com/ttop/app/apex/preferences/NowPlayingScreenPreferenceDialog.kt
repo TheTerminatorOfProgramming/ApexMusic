@@ -77,28 +77,16 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
             .inflate(R.layout.preference_dialog_now_playing_screen, null)
         val viewPager = view.findViewById<ViewPager>(R.id.now_playing_screen_view_pager)
             ?: throw  IllegalStateException("Dialog view must contain a ViewPager with id 'now_playing_screen_view_pager'")
-        if (PreferenceUtil.isUiMode == "full") {
-            viewPager.adapter = NowPlayingScreenAdapter(requireContext())
-            viewPager.addOnPageChangeListener(this)
-            viewPager.pageMargin = ViewUtil.convertDpToPixel(32f, resources).toInt()
-            viewPager.currentItem = PreferenceUtil.nowPlayingScreen.ordinal
-        }else {
-            viewPager.adapter = NowPlayingScreenLiteAdapter(requireContext())
-            viewPager.addOnPageChangeListener(this)
-            viewPager.pageMargin = ViewUtil.convertDpToPixel(32f, resources).toInt()
-            viewPager.currentItem = PreferenceUtil.nowPlayingScreenLite.ordinal
-        }
+        viewPager.adapter = NowPlayingScreenAdapter(requireContext())
+        viewPager.addOnPageChangeListener(this)
+        viewPager.pageMargin = ViewUtil.convertDpToPixel(32f, resources).toInt()
+        viewPager.currentItem = PreferenceUtil.nowPlayingScreen.ordinal
 
         return materialDialog(R.string.pref_title_now_playing_screen_appearance)
             .setCancelable(false)
             .setPositiveButton(R.string.set) { _, _ ->
-                if (PreferenceUtil.isUiMode == "full") {
-                    val nowPlayingScreen = values()[viewPagerPosition]
-                    PreferenceUtil.nowPlayingScreen = nowPlayingScreen
-                }else {
-                    val nowPlayingScreenLite = NowPlayingScreenLite.values()[viewPagerPosition]
-                    PreferenceUtil.nowPlayingScreenLite = nowPlayingScreenLite
-                }
+                val nowPlayingScreen = values()[viewPagerPosition]
+                PreferenceUtil.nowPlayingScreen = nowPlayingScreen
             }
             .setView(view)
             .create()

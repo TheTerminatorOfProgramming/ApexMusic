@@ -68,74 +68,14 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardOther.version.setSummary(getAppVersion())
         binding.aboutContent.cardOther.retroVersion.setSummary(getRetroMusicVersion())
-        getAppMode()?.let { it ->
-            binding.aboutContent.cardOther.appMode.setSummary(it)
-            if (PreferenceUtil.isUiMode == "lite") {
-                binding.aboutContent.cardOther.appMode.setOnClickListener {
-                    val packageManager: PackageManager? = context?.packageManager
-                    if (count == 0) {
-                        startTimer()
-                    }
 
-                    if (count == 3) {
-                        if (PreferenceUtil.isUiMode == "full") {
-                            showToast("App Mode: Full Already Activated")
-                        } else {
-                            PreferenceUtil.isUiMode = "full"
-                            showToast("App Mode: Full Activated")
-                            context?.let {
-                                ComponentName(
-                                    it,
-                                    AppWidgetBig::class.java
-                                )
-                            }?.let {
-                                packageManager!!.setComponentEnabledSetting(
-                                    it,
-                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                                    PackageManager.DONT_KILL_APP
-                                )
-                            }
 
-                            context?.let {
-                                ComponentName(
-                                    it,
-                                    AppWidgetCircle::class.java
-                                )
-                            }?.let {
-                                packageManager!!.setComponentEnabledSetting(
-                                    it,
-                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                                    PackageManager.DONT_KILL_APP
-                                )
-                            }
+        setUpView()
+        loadContributors()
 
-                            context?.let {
-                                ComponentName(
-                                    it,
-                                    AppWidgetFullCircle::class.java
-                                )
-                            }?.let {
-                                packageManager!!.setComponentEnabledSetting(
-                                    it,
-                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                                    PackageManager.DONT_KILL_APP
-                                )
-                            }
-                            PreferenceUtil.shouldRecreate = true
-                            activity?.recreate()
-                        }
-
-                    }
-                    count += 1
-                }
-            }
-            setUpView()
-            loadContributors()
-
-            binding.aboutContent.root.applyInsetter {
-                type(navigationBars = true) {
-                    padding(vertical = true)
-                }
+        binding.aboutContent.root.applyInsetter {
+            type(navigationBars = true) {
+                padding(vertical = true)
             }
         }
     }
@@ -208,10 +148,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
     private fun getRetroMusicVersion(): String {
         return "6.0.2 BETA"
-    }
-
-    private fun getAppMode(): String? {
-        return PreferenceUtil.isUiMode?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
 
     private fun shareApp() {

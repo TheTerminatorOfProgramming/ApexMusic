@@ -115,6 +115,8 @@
         android:name="com.ttop.app.apex.ui.fragments.settings.PersonalizeSettingsFragment"
         android:label="Personalize" />
 
+
+
     <fragment
         android:id="@+id/themeSettingsFragment"
         android:name="com.ttop.app.apex.ui.fragments.settings.ThemeSettingsFragment"

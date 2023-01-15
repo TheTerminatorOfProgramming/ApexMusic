@@ -219,7 +219,7 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
             }
             R.id.action_go_to_album -> {
                 //Hide Bottom Bar First, else Bottom Sheet doesn't collapse fully
-                mainActivity.setBottomNavVisibility(false)
+                //mainActivity.setBottomNavVisibility(false)
                 mainActivity.collapsePanel()
                 requireActivity().findNavController(R.id.fragment_container).navigate(
                     R.id.albumDetailsFragment,

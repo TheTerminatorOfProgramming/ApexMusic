@@ -86,6 +86,12 @@
         <menu></menu>
     </item>
     <item
+        android:orderInCategory="9"
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_refresh"
+        android:title="@string/action_refresh"
+        app:showAsAction="never" />
+    <item
         android:orderInCategory="10"
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings"

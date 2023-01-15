@@ -51,5 +51,5 @@
         android:minHeight="@dimen/bottom_nav_height"
         app:itemHorizontalTranslationEnabled="false"
         app:menu="@menu/bottom_navigation_main"
-        tools:viewBindingType="com.google.android.material.navigation.NavigationBarView"/>
+        tools:viewBindingType="com.google.android.material.navigation.NavigationBarView" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

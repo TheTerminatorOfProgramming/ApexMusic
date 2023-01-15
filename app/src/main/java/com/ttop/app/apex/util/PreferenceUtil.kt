@@ -42,7 +42,8 @@ object PreferenceUtil {
         CategoryInfo(CategoryInfo.Category.Playlists, false),
         CategoryInfo(CategoryInfo.Category.Genres, false),
         CategoryInfo(CategoryInfo.Category.Folder, true),
-        CategoryInfo(CategoryInfo.Category.Search, false)
+        CategoryInfo(CategoryInfo.Category.Search, false),
+        CategoryInfo(CategoryInfo.Category.Settings,false)
     )
 
     val defaultCategoriesLite = listOf(
@@ -59,29 +60,15 @@ object PreferenceUtil {
         get() {
             val gson = Gson()
             val collectionType = object : TypeToken<List<CategoryInfo>>() {}.type
-
-            if (isUiMode == "full") {
-                val data = sharedPreferences.getStringOrDefault(
-                    LIBRARY_CATEGORIES,
-                    gson.toJson(defaultCategories, collectionType)
-                )
-                return try {
-                    Gson().fromJson(data, collectionType)
-                } catch (e: JsonSyntaxException) {
-                    e.printStackTrace()
-                    return defaultCategories
-                }
-            }else {
-                val data = sharedPreferences.getStringOrDefault(
-                    LIBRARY_CATEGORIES,
-                    gson.toJson(defaultCategoriesLite, collectionType)
-                )
-                return try {
-                    Gson().fromJson(data, collectionType)
-                } catch (e: JsonSyntaxException) {
-                    e.printStackTrace()
-                    return defaultCategoriesLite
-                }
+            val data = sharedPreferences.getStringOrDefault(
+                LIBRARY_CATEGORIES,
+                gson.toJson(defaultCategories, collectionType)
+            )
+            return try {
+                Gson().fromJson(data, collectionType)
+            } catch (e: JsonSyntaxException) {
+                e.printStackTrace()
+                return defaultCategories
             }
         }
         set(value) {
@@ -277,8 +264,6 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(SLEEP_TIMER_FINISH_SONG, value)
         }
-
-    val isExpandPanel get() = sharedPreferences.getBoolean(EXPAND_NOW_PLAYING_PANEL, false)
 
     val isHeadsetPlugged
         get() = sharedPreferences.getBoolean(
@@ -989,12 +974,6 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(AUTO_ROTATE, value)}
 
-    var isUiMode
-        get() = sharedPreferences.getString(UI_MODE, "full")
-
-        set(value) = sharedPreferences.edit {
-            putString(UI_MODE, value)}
-
     var isEmbedMode
         get() = sharedPreferences.getString(EMBED_LYRICS, "both")
 
@@ -1007,6 +986,22 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(LYRICS, value)}
 
+    val widgetImage
+        get() = sharedPreferences
+            .getInt(WIDGET_IMAGE, 10)
+
+    var isWidgetPanel
+        get() = sharedPreferences.getBoolean(WIDGET_PANEL, false)
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(WIDGET_PANEL, value)}
+
+    val isExpandPanel
+        get() = sharedPreferences.getBoolean(EXPAND_NOW_PLAYING_PANEL, false)
+
+    val miniImage
+        get() = sharedPreferences
+            .getInt(MINI_IMAGE, 6)
 }
 
 enum class CoverLyricsType {

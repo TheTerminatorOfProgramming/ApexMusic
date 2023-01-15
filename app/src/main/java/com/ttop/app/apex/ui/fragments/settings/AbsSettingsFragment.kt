@@ -26,6 +26,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.dip
+import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.preferences.*
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil

@@ -50,5 +50,14 @@
             android:summary="@string/pref_summary_widget_transparent"
             android:title="@string/pref_title_widget_transparent"
             android:dependency="widget_colors"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="10"
+            android:key="widget_image"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="30"
+            android:summary="@string/pref_summary_widget_image_roundness"
+            android:title="@string/pref_title_widget_image_roundness"
+            app:showSeekBarValue="true" />
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

@@ -131,43 +131,29 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
 
     private fun setupViewPager() {
         binding.viewPager.addOnPageChangeListener(this)
-        if (PreferenceUtil.isUiMode == "full"){
-            val nps = PreferenceUtil.nowPlayingScreen
+        val nps = PreferenceUtil.nowPlayingScreen
 
-            if (nps == Full || nps == Classic || nps == Fit || nps == Gradient) {
-                binding.viewPager.offscreenPageLimit = 2
-            } else if (PreferenceUtil.isCarouselEffect) {
-                val metrics = resources.displayMetrics
-                val ratio = metrics.heightPixels.toFloat() / metrics.widthPixels.toFloat()
-                binding.viewPager.clipToPadding = false
-                val padding =
-                    if (ratio >= 1.777f) {
-                        40
-                    } else {
-                        100
-                    }
-                binding.viewPager.setPadding(padding, 0, padding, 0)
-                binding.viewPager.pageMargin = 0
-                binding.viewPager.setPageTransformer(false, CarousalPagerTransformer(requireContext()))
-            } else {
-                binding.viewPager.offscreenPageLimit = 2
-                binding.viewPager.setPageTransformer(
-                    true,
-                    PreferenceUtil.albumCoverTransform
-                )
-            }
-        }else {
-            val npsl = PreferenceUtil.nowPlayingScreenLite
-
-            if (npsl == NowPlayingScreenLite.Classic) {
-                binding.viewPager.offscreenPageLimit = 2
-            } else {
-                binding.viewPager.offscreenPageLimit = 2
-                binding.viewPager.setPageTransformer(
-                    true,
-                    PreferenceUtil.albumCoverTransform
-                )
-            }
+        if (nps == Full || nps == Classic || nps == Fit || nps == Gradient) {
+            binding.viewPager.offscreenPageLimit = 2
+        } else if (PreferenceUtil.isCarouselEffect) {
+            val metrics = resources.displayMetrics
+            val ratio = metrics.heightPixels.toFloat() / metrics.widthPixels.toFloat()
+            binding.viewPager.clipToPadding = false
+            val padding =
+                if (ratio >= 1.777f) {
+                    40
+                } else {
+                    100
+                }
+            binding.viewPager.setPadding(padding, 0, padding, 0)
+            binding.viewPager.pageMargin = 0
+            binding.viewPager.setPageTransformer(false, CarousalPagerTransformer(requireContext()))
+        } else {
+            binding.viewPager.offscreenPageLimit = 2
+            binding.viewPager.setPageTransformer(
+                true,
+                PreferenceUtil.albumCoverTransform
+            )
         }
     }
 
@@ -249,30 +235,16 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private fun maybeInitLyrics() {
-        if (PreferenceUtil.isUiMode == "full") {
-            val nps = PreferenceUtil.nowPlayingScreen
-            // Don't show lyrics container for below conditions
-            if (lyricViewNpsList.contains(nps) && PreferenceUtil.showLyrics) {
-                showLyrics(true)
-                if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
-                    progressViewUpdateHelper?.start()
-                }
-            } else {
-                showLyrics(false)
-                progressViewUpdateHelper?.stop()
+        val nps = PreferenceUtil.nowPlayingScreen
+        // Don't show lyrics container for below conditions
+        if (lyricViewNpsList.contains(nps) && PreferenceUtil.showLyrics) {
+            showLyrics(true)
+            if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
+                progressViewUpdateHelper?.start()
             }
-        }else {
-            val npsl = PreferenceUtil.nowPlayingScreenLite
-            // Don't show lyrics container for below conditions
-            if (lyricViewNpsLiteList.contains(npsl) && PreferenceUtil.showLyrics) {
-                showLyrics(true)
-                if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
-                    progressViewUpdateHelper?.start()
-                }
-            } else {
-                showLyrics(false)
-                progressViewUpdateHelper?.stop()
-            }
+        } else {
+            showLyrics(false)
+            progressViewUpdateHelper?.stop()
         }
     }
 
