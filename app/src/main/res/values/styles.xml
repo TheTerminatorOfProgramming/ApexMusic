@@ -120,6 +120,16 @@
 
     <style name="TextViewOverline" parent="TextAppearance.MaterialComponents.Overline" />
 
+    <style name="TextViewSubtitle3" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/sans</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewNormal3" parent="">
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/sans</item>
+    </style>
+
     <style name="TopCornerCardView">
         <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerFamilyTopRight">rounded</item>
