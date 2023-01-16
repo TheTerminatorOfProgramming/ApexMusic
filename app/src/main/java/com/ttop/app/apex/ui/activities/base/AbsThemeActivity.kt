@@ -93,10 +93,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.PencilThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "oppo") {
-            setTheme(R.style.OppoThemeOverlay)
-        }
-
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
         }

@@ -306,11 +306,6 @@
         <item name="android:fontFamily">@font/pencil_regular</item>
     </style>
 
-    <style name="OppoThemeOverlay">
-        <item name="fontFamily">@font/oppo_sans</item>
-        <item name="android:fontFamily">@font/oppo_sans</item>
-    </style>
-
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton
