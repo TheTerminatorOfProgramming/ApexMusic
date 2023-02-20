@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.activities.tageditor
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -23,10 +24,16 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.transition.Transition
@@ -38,21 +45,25 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.repository.SongRepository
+import com.ttop.app.apex.ui.fragments.search.clearText
 import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.xeinebiu.lyrics_finder.LyricsFinder
+import kotlinx.coroutines.launch
 import org.jaudiotagger.tag.FieldKey
 import org.koin.android.ext.android.inject
 import java.util.*
+
 
 class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ActivitySongTagEditorBinding =
         ActivitySongTagEditorBinding::inflate
 
-
+    private val lyricsFinder = LyricsFinder()
     private val songRepository by inject<SongRepository>()
 
     private var albumArtBitmap: Bitmap? = null
@@ -64,6 +75,73 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
         setSupportActionBar(binding.toolbar)
         binding.appBarLayout?.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_find_lyrics, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_find_lyrics -> {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Find Lyrics")
+                builder.setMessage("Use lyrics search terms form id3 tags or enter manually?")
+
+                builder.setPositiveButton(R.string.manually) { _, _ ->
+                    showdialog()
+                }
+
+                builder.setNegativeButton(R.string.id3_tags) { _, _ ->
+                    val query = binding.songText.text.toString() + " " + binding.artistText.text.toString()
+
+                    lifecycleScope.launch {
+                        binding.lyricsText.clearText()
+                        val lyrics = lyricsFinder.find(query)
+                        var modifiedLyrics = lyrics.toString()
+                        modifiedLyrics = modifiedLyrics.replace("\\[.+\\]\\s?".toRegex(), "\n").trim()
+                        modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n\n").trim()
+                        modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n").trim()
+                        binding.lyricsText.setText(modifiedLyrics)
+                    }
+                }
+                builder.show()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun showdialog(){
+        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Title")
+
+// Set up the input
+        val input = EditText(this)
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.hint = "Enter Text"
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+// Set up the buttons
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            // Here you get get input text from the Edittext
+            val m_Text = input.text.toString()
+
+            lifecycleScope.launch {
+                binding.lyricsText.clearText()
+                val lyrics = lyricsFinder.find(m_Text)
+                var modifiedLyrics = lyrics.toString()
+                modifiedLyrics = modifiedLyrics.replace("\\[.+\\]\\s?".toRegex(), "\n").trim()
+                modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n\n").trim()
+                modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n").trim()
+                binding.lyricsText.setText(modifiedLyrics)
+            }
+        })
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+        builder.show()
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -159,4 +159,5 @@ dependencies {
     implementation 'me.tankery.lib:circularSeekBar:1.4.1'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
+    implementation 'com.github.xeinebiu:android_lyrics_finder:1.2.0'
 }
