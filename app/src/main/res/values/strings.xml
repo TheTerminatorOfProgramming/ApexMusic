@@ -188,6 +188,7 @@
     <string name="faq">FAQ</string>
     <string name="favorites">Favorites</string>
     <string name="file_already_exists">File already exists</string>
+    <string name="find_lyrics">Find lyrics</string>
     <string name="finish_last_song">Finish last song</string>
     <string name="fit">Fit</string>
     <string name="flat">Flat</string>
@@ -203,6 +204,7 @@
     <string name="font_manrope_name">Manrope</string>
     <string name="font_oppo_name">Oppo Sans</string>
     <string name="font_pencil_name">Pencil</string>
+    <string name="font_samsung_sans_name">Samsung Sharp Sans</string>
     <string name="font_sans_name">Google Sans</string>
     <string name="free">Free</string>
     <string name="full">Full</string>
@@ -230,6 +232,7 @@
     <string name="history_undo_button">Undo</string>
     <string name="home">Home</string>
     <string name="horizontal_flip">Horizontal flip</string>
+    <string name="id3_tags">ID3 Tags</string>
     <string name="image">Image</string>
     <string name="image_gradient">Gradient image</string>
     <string name="image_settings_summary">Change artist image download settings</string>
@@ -265,6 +268,7 @@
     <string name="loading_products">Loading products…</string>
     <string name="login">Login</string>
     <string name="lyrics">Lyrics</string>
+    <string name="manually">Manually</string>
     <string name="material">Material</string>
     <string name="menu">Lyrics Page</string>
     <string name="md3" translatable="false">MD3</string>
@@ -360,7 +364,9 @@
     <string name="pref_header_notification">Notification</string>
     <string name="pref_header_playlists">Playlists</string>
     <string name="pref_header_ui">User Experience</string>
-    <string name="pref_header_widgets">Widgets</string>
+    <string name="pref_header_widgets">Widgets General</string>
+    <string name="pref_header_widgets_classic">Classic widget</string>
+    <string name="pref_header_widgets_full">Full widget</string>
     <string name="pref_keep_pause_on_zero_volume_summary">Pauses the song when the volume decreases to zero and starts playing back when the volume level rises. Also works outside the app</string>
     <string name="pref_keep_pause_on_zero_volume_title">Pause on zero</string>
     <string name="pref_keep_screen_on_summary">Keep in mind that enabling this feature may affect battery life</string>
@@ -417,8 +423,11 @@
     <string name="pref_summary_user_name">Show or hide user name on the home page</string>
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
+    <string name="pref_summary_widget_classic_shape">Show the Image on the classic widget as a circle instead of a square</string>
     <string name="pref_summary_widget_day_night">Use android 12 day/night widget theme</string>
-    <string name="pref_summary_widget_image_roundness">Change classic widget image roundness</string>
+    <string name="pref_summary_widget_full_shape">Show the Image on the full widget as a circle instead of a square</string>
+    <string name="pref_summary_widget_image_curve">Change classic widget corners curve</string>
+    <string name="pref_summary_widget_image_full_curve">Change full widget corners curve</string>
     <string name="pref_summary_widget_transparent">Make classic and full widgets transparent</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
     <string name="pref_title_album_artists_only">Navigate by Album Artist</string>
@@ -485,8 +494,11 @@
     <string name="pref_title_user_name">User name</string>
     <string name="pref_title_wallpaper_accent">Wallpaper accent color</string>
     <string name="pref_title_whitelist">Whitelist music</string>
+    <string name="pref_title_widget_classic_shape">Classic widget image shape</string>
     <string name="pref_title_widget_day_night">Widget day/night</string>
-    <string name="pref_title_widget_image_roundness">Widget image shape</string>
+    <string name="pref_title_widget_full_shape">Full widget image shape</string>
+    <string name="pref_title_widget_image_curve">Classic widget image curve</string>
+    <string name="pref_title_widget_image_full_curve">Full widget image curve</string>
     <string name="pref_title_widget_transparent">Transparent widgets</string>
     <string name="pro">Pro</string>
     <string name="pro_summary">Black theme, Now playing themes, Carousel effect and more..</string>
@@ -538,6 +550,7 @@
     <string name="scanned_files">Scanned %1$d of %2$d files.</string>
     <string name="scrobbles_label">Scrobbles</string>
     <string name="select_all">Select all</string>
+    <string name="select_path">Choose Path</string>
     <string name="selected">Selected</string>
     <string name="set">Set</string>
     <string name="set_artist_image">Set artist image</string>

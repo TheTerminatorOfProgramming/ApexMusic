@@ -93,6 +93,10 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.PencilThemeOverlay)
         }
 
+        if (PreferenceUtil.isCustomFont == "samsung") {
+            setTheme(R.style.SamsungThemeOverlay)
+        }
+
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
         }

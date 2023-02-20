@@ -65,6 +65,11 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         blur?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
+
+        val lockScreen: TwoStatePreference? = findPreference(LOCK_SCREEN)
+        lockScreen?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

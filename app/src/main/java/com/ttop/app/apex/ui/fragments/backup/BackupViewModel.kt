@@ -1,6 +1,7 @@
 package com.ttop.app.apex.ui.fragments.backup
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +21,7 @@ class BackupViewModel : ViewModel() {
     val backupsLiveData: LiveData<List<File>> = backupsMutableLiveData
 
     fun loadBackups() {
-        BackupHelper.getBackupRoot().listFiles { _, name ->
+        BackupHelper.getBackupRoot()?.listFiles { _, name ->
             return@listFiles name.endsWith(BackupHelper.BACKUP_EXTENSION)
         }?.toList()?.let {
             backupsMutableLiveData.value = it

@@ -115,6 +115,29 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             appWidgetClassic.notifyThemeChange(musicService)
             false
         }
+
+        val imageFull: SeekBarPreference? = findPreference(WIDGET_IMAGE_FULL)
+        imageFull?.setOnPreferenceChangeListener { _, newValue ->
+            imageFull.value = newValue as Int
+            appWidgetFull.notifyThemeChange(musicService)
+            false
+        }
+
+        val classicShape: TwoStatePreference? = findPreference(CLASSIC_SHAPE)
+        classicShape?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            classicShape.isChecked = newValue as Boolean
+            appWidgetClassic.notifyThemeChange(musicService)
+            false
+        }
+
+        val fullShape: TwoStatePreference? = findPreference(FULL_SHAPE)
+        fullShape?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            fullShape.isChecked = newValue as Boolean
+            appWidgetFull.notifyThemeChange(musicService)
+            false
+        }
     }
 
     override fun onResume() {

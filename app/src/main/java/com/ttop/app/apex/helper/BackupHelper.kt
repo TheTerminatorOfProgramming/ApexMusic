@@ -2,6 +2,7 @@ package com.ttop.app.apex.helper
 
 import android.content.Context
 import android.os.Environment
+import android.widget.Toast
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
@@ -11,6 +12,7 @@ import com.ttop.app.apex.extensions.zipOutputStream
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.Repository
 import com.ttop.app.apex.repository.SongRepository
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,6 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
+import kotlin.coroutines.coroutineContext
 
 object BackupHelper : KoinComponent {
     private val repository by inject<Repository>()
@@ -33,6 +36,7 @@ object BackupHelper : KoinComponent {
         if (backupFile.parentFile?.exists() != true) {
             backupFile.parentFile?.mkdirs()
         }
+
         val zipItems = mutableListOf<ZipItem>()
         zipItems.addAll(getPlaylistZipItems(context))
         zipItems.addAll(getSettingsZipItems(context))
@@ -248,6 +252,7 @@ object BackupHelper : KoinComponent {
     }
 
     fun getBackupRoot(): File {
+
         return File(
             getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
             "Apex/Backups"

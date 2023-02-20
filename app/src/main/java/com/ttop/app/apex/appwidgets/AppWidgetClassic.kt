@@ -15,8 +15,6 @@
 package com.ttop.app.apex.appwidgets
 
 import android.app.PendingIntent
-import android.appwidget.AppWidgetManager
-import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -24,9 +22,8 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.RelativeLayout
 import android.widget.RemoteViews
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -34,7 +31,6 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
-import com.ttop.app.apex.extensions.colorBackground
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
@@ -182,13 +178,13 @@ class AppWidgetClassic : BaseAppWidget() {
                 RemoteViews(service.packageName, R.layout.app_widget_classic_day_night)
             } else if (PreferenceUtil.widgetTransparency) {
                 RemoteViews(service.packageName, R.layout.app_widget_classic_transparent)
-            }else {
+            } else {
                 RemoteViews(service.packageName, R.layout.app_widget_classic)
             }
         } else {
             if (PreferenceUtil.widgetTransparency) {
                 RemoteViews(service.packageName, R.layout.app_widget_classic_transparent)
-            }else {
+            } else {
                 RemoteViews(service.packageName, R.layout.app_widget_classic)
             }
         }
@@ -210,26 +206,26 @@ class AppWidgetClassic : BaseAppWidget() {
             if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
-                service.getTintedDrawable(
-                    playPauseRes,
-                    MaterialValueHelper.getSecondaryTextColor(service, true)
-                ).toBitmap()
+            service.getTintedDrawable(
+                playPauseRes,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
         )
 
         // Set prev/next button drawables
         appWidgetView.setImageViewBitmap(
             R.id.button_next,
             service.getTintedDrawable(
-                    R.drawable.ic_skip_next_outline,
-                    MaterialValueHelper.getSecondaryTextColor(service, true)
-                ).toBitmap()
+                R.drawable.ic_skip_next_outline,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev,
-                service.getTintedDrawable(
-                    R.drawable.ic_skip_previous_outline,
-                    MaterialValueHelper.getSecondaryTextColor(service, true)
-                ).toBitmap()
+            service.getTintedDrawable(
+                R.drawable.ic_skip_previous_outline,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
@@ -252,68 +248,133 @@ class AppWidgetClassic : BaseAppWidget() {
             if (target != null) {
                 Glide.with(service).clear(target)
             }
-            target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
-                .load(ApexGlideExtension.getSongModel(song))
-                .centerCrop()
-                .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
-                    override fun onResourceReady(
-                        resource: BitmapPaletteWrapper,
-                        transition: Transition<in BitmapPaletteWrapper>?
-                    ) {
-                        val palette = resource.palette
-                        update(
-                            resource.bitmap, palette.getVibrantColor(
-                                palette.getMutedColor(
-                                    MaterialValueHelper.getSecondaryTextColor(
-                                        service, true
+
+            if (PreferenceUtil.isClassicCircle) {
+                target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
+                    .load(ApexGlideExtension.getSongModel(song))
+                    .placeholder(R.drawable.default_audio_art)
+                    .error(R.drawable.default_audio_art)
+                    .circleCrop()
+                    .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+                        override fun onResourceReady(
+                            resource: BitmapPaletteWrapper,
+                            transition: Transition<in BitmapPaletteWrapper>?
+                        ) {
+                            val palette = resource.palette
+                            update(
+                                resource.bitmap, palette.getVibrantColor(
+                                    palette.getMutedColor(
+                                        MaterialValueHelper.getSecondaryTextColor(
+                                            service, true
+                                        )
                                     )
                                 )
                             )
-                        )
-                    }
+                        }
 
-                    override fun onLoadFailed(errorDrawable: Drawable?) {
-                        super.onLoadFailed(errorDrawable)
-                        update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
-                    }
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
+                            super.onLoadFailed(errorDrawable)
+                            update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
+                        }
 
-                    private fun update(bitmap: Bitmap?, color: Int) {
-                        // Set correct drawable for pause state
-                        appWidgetView.setImageViewBitmap(
-                            R.id.button_toggle_play_pause,
-                            service.getTintedDrawable(
+                        private fun update(bitmap: Bitmap?, color: Int) {
+                            // Set correct drawable for pause state
+                            appWidgetView.setImageViewBitmap(
+                                R.id.button_toggle_play_pause,
+                                service.getTintedDrawable(
                                     playPauseRes, color
                                 ).toBitmap()
-                        )
+                            )
 
-                        // Set prev/next button drawables
-                        appWidgetView.setImageViewBitmap(
-                            R.id.button_next,
+                            // Set prev/next button drawables
+                            appWidgetView.setImageViewBitmap(
+                                R.id.button_next,
                                 service.getTintedDrawable(
                                     R.drawable.ic_skip_next_outline, color
                                 ).toBitmap()
-                        )
-                        appWidgetView.setImageViewBitmap(
-                            R.id.button_prev, service.getTintedDrawable(
-                                R.drawable.ic_skip_previous_outline, color
+                            )
+                            appWidgetView.setImageViewBitmap(
+                                R.id.button_prev, service.getTintedDrawable(
+                                    R.drawable.ic_skip_previous_outline, color
                                 ).toBitmap()
-                        )
+                            )
 
-                        val image = getAlbumArtDrawable(service.resources, bitmap)
-                        val roundedBitmap = createRoundedBitmap(
-                            image,
-                            imageSize,
-                            imageSize,
-                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat(),
-                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat(),
-                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat(),
-                            DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat()).toFloat()
-                        )
-                        appWidgetView.setImageViewBitmap(R.id.image, roundedBitmap)
+                            if (bitmap == null) {
+                                createDefaultCircle(service, appWidgetView, appWidgetIds, playPauseRes)
+                            }else {
+                                appWidgetView.setImageViewBitmap(R.id.image, bitmap)
+                                pushUpdate(service, appWidgetIds, appWidgetView)
+                            }
+                        }
+                    })
+            } else {
+                target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
+                    .load(ApexGlideExtension.getSongModel(song))
+                    .centerCrop()
+                    .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+                        override fun onResourceReady(
+                            resource: BitmapPaletteWrapper,
+                            transition: Transition<in BitmapPaletteWrapper>?
+                        ) {
+                            val palette = resource.palette
+                            update(
+                                resource.bitmap, palette.getVibrantColor(
+                                    palette.getMutedColor(
+                                        MaterialValueHelper.getSecondaryTextColor(
+                                            service, true
+                                        )
+                                    )
+                                )
+                            )
+                        }
 
-                        pushUpdate(service, appWidgetIds, appWidgetView)
-                    }
-                })
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
+                            super.onLoadFailed(errorDrawable)
+                            update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
+                        }
+
+                        private fun update(bitmap: Bitmap?, color: Int) {
+                            // Set correct drawable for pause state
+                            appWidgetView.setImageViewBitmap(
+                                R.id.button_toggle_play_pause,
+                                service.getTintedDrawable(
+                                    playPauseRes, color
+                                ).toBitmap()
+                            )
+
+                            // Set prev/next button drawables
+                            appWidgetView.setImageViewBitmap(
+                                R.id.button_next,
+                                service.getTintedDrawable(
+                                    R.drawable.ic_skip_next_outline, color
+                                ).toBitmap()
+                            )
+                            appWidgetView.setImageViewBitmap(
+                                R.id.button_prev, service.getTintedDrawable(
+                                    R.drawable.ic_skip_previous_outline, color
+                                ).toBitmap()
+                            )
+
+                            val image = getAlbumArtDrawable(service.resources, bitmap)
+                            val roundedBitmap = createRoundedBitmap(
+                                image,
+                                imageSize,
+                                imageSize,
+                                DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                    .toFloat(),
+                                DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                    .toFloat(),
+                                DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                    .toFloat(),
+                                DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                    .toFloat()
+                            )
+                            appWidgetView.setImageViewBitmap(R.id.image, roundedBitmap)
+
+                            pushUpdate(service, appWidgetIds, appWidgetView)
+                        }
+                    })
+            }
         }
     }
 
@@ -347,6 +408,63 @@ class AppWidgetClassic : BaseAppWidget() {
         // Next track
         pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
         views.setOnClickPendingIntent(R.id.button_next, pendingIntent)
+    }
+
+    private fun createDefaultCircle(service: MusicService,appWidgetView: RemoteViews, appWidgetIds: IntArray?, playPauseRes: Int) {
+        val song = service.currentSong
+
+        target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
+            .load(R.drawable.default_audio_art)
+            .circleCrop()
+            .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+                override fun onResourceReady(
+                    resource: BitmapPaletteWrapper,
+                    transition: Transition<in BitmapPaletteWrapper>?
+                ) {
+                    val palette = resource.palette
+                    update(
+                        resource.bitmap, palette.getVibrantColor(
+                            palette.getMutedColor(
+                                MaterialValueHelper.getSecondaryTextColor(
+                                    service, true
+                                )
+                            )
+                        )
+                    )
+                }
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    super.onLoadFailed(errorDrawable)
+                    update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
+                }
+
+                private fun update(bitmap: Bitmap?, color: Int) {
+                    // Set correct drawable for pause state
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_play_pause,
+                        service.getTintedDrawable(
+                            playPauseRes, color
+                        ).toBitmap()
+                    )
+
+                    // Set prev/next button drawables
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_next,
+                        service.getTintedDrawable(
+                            R.drawable.ic_skip_next_outline, color
+                        ).toBitmap()
+                    )
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_prev, service.getTintedDrawable(
+                            R.drawable.ic_skip_previous_outline, color
+                        ).toBitmap()
+                    )
+
+                    appWidgetView.setImageViewBitmap(R.id.image, bitmap)
+
+                    pushUpdate(service, appWidgetIds, appWidgetView)
+                }
+            })
     }
     companion object {
 

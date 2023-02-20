@@ -50,14 +50,47 @@
             android:summary="@string/pref_summary_widget_transparent"
             android:title="@string/pref_title_widget_transparent"
             android:dependency="widget_colors"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_widgets_classic">
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="classic_shape"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_widget_classic_shape"
+            android:title="@string/pref_title_widget_classic_shape"
+            android:disableDependentsState="true" />
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
             android:defaultValue="10"
             android:key="widget_image"
             android:layout="@layout/list_item_view_seekbar"
-            android:max="30"
-            android:summary="@string/pref_summary_widget_image_roundness"
-            android:title="@string/pref_title_widget_image_roundness"
-            app:showSeekBarValue="true" />
+            android:max="20"
+            android:summary="@string/pref_summary_widget_image_curve"
+            android:title="@string/pref_title_widget_image_curve"
+            app:showSeekBarValue="true"
+            app:dependency="classic_shape"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_widgets_full">
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="full_shape"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_widget_full_shape"
+            android:title="@string/pref_title_widget_full_shape"
+            android:disableDependentsState="true" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="50"
+            android:key="widget_image_full"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="70"
+            android:summary="@string/pref_summary_widget_image_full_curve"
+            android:title="@string/pref_title_widget_image_full_curve"
+            app:showSeekBarValue="true"
+            app:dependency="full_shape"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

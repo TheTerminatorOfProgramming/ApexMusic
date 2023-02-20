@@ -25,6 +25,7 @@ import android.content.res.Configuration
 import android.content.res.Configuration.*
 import android.database.ContentObserver
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.os.*
@@ -34,7 +35,9 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.text.InputType
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
@@ -43,10 +46,12 @@ import androidx.preference.PreferenceManager
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.*
 import com.ttop.app.apex.auto.AutoMediaIDHelper
 import com.ttop.app.apex.auto.AutoMusicProvider
+import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.toMediaSessionQueue
 import com.ttop.app.apex.extensions.uri
@@ -68,7 +73,6 @@ import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.ui.activities.LockScreenActivity
-import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.MusicUtil.isFavorite
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
@@ -713,7 +717,7 @@ class MusicService : MediaBrowserServiceCompat(),
             serviceScope.launch {
                 restoreQueuesAndPositionIfNecessary()
                 when (intent.action) {
-                    ACTION_TOGGLE_PAUSE ->  {
+                    ACTION_TOGGLE_PAUSE -> {
                         if (isPlaying) {
                             pause()
                         } else {
@@ -726,10 +730,10 @@ class MusicService : MediaBrowserServiceCompat(),
                     ACTION_REWIND -> {
                         if (VersionUtils.hasT()) {
                             playPreviousSongAuto(true, isPlaying)
-                        }else {
+                        } else {
                             if (PreferenceUtil.isAutoplay) {
                                 MusicPlayerRemote.playPreviousSong()
-                            }else {
+                            } else {
                                 MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                             }
                         }
@@ -737,11 +741,11 @@ class MusicService : MediaBrowserServiceCompat(),
                     ACTION_SKIP -> {
                         if (VersionUtils.hasT()) {
                             playNextSongAuto(true, isPlaying)
-                        }else {
+                        } else {
                             MusicPlayerRemote.playNextSong()
                             if (PreferenceUtil.isAutoplay) {
                                 MusicPlayerRemote.playNextSong()
-                            }else {
+                            } else {
                                 MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                             }
                         }
@@ -755,9 +759,12 @@ class MusicService : MediaBrowserServiceCompat(),
                     UPDATE_NOTIFY -> {
                         if (VersionUtils.hasT()) {
                             updateMediaSessionPlaybackState()
-                        }else {
+                        } else {
                             updatePlaybackControls()
                         }
+                    }
+                    PLAYBACK_SPEED -> {
+
                     }
                 }
             }
@@ -1160,7 +1167,7 @@ class MusicService : MediaBrowserServiceCompat(),
             .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, null)
             .putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, playingQueue.size.toLong())
 
-        if (isAlbumArtOnLockScreen && VersionUtils.hasQ()) {
+        if (isAlbumArtOnLockScreen && VersionUtils.hasQ() || VersionUtils.hasT()) {
             // val screenSize: Point = RetroUtil.getScreenSize(this)
             val request = GlideApp.with(this)
                 .asBitmap()
@@ -1552,6 +1559,7 @@ class MusicService : MediaBrowserServiceCompat(),
         const val TOGGLE_SHUFFLE = "$APEX_MUSIC_PACKAGE_NAME.toggleshuffle"
         const val TOGGLE_FAVORITE = "$APEX_MUSIC_PACKAGE_NAME.togglefavorite"
         const val UPDATE_NOTIFY = "$APEX_MUSIC_PACKAGE_NAME.updatenotify"
+        const val PLAYBACK_SPEED = "$APEX_MUSIC_PACKAGE_NAME.playbackspeed"
         const val SAVED_POSITION = "POSITION"
         const val SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK"
         const val SAVED_SHUFFLE_MODE = "SHUFFLE_MODE"
@@ -1561,6 +1569,7 @@ class MusicService : MediaBrowserServiceCompat(),
         const val REPEAT_MODE_NONE = 0
         const val REPEAT_MODE_ALL = 1
         const val REPEAT_MODE_THIS = 2
+
         private const val MEDIA_SESSION_ACTIONS = (PlaybackStateCompat.ACTION_PLAY
                 or PlaybackStateCompat.ACTION_PAUSE
                 or PlaybackStateCompat.ACTION_PLAY_PAUSE

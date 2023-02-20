@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
@@ -23,13 +24,13 @@ class WhitelistSlideFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val description: String = "The Whitelist Option will Use any folder that starts with \"Music\" at the start"
+        val description = "The Whitelist Option will Use any folder that starts with \"Music\" at the start"
 
         desc = view.findViewById(R.id.description) as TextView
 
         desc?.text = description
 
-        view.setBackgroundColor(resources.getColor(R.color.md_teal_A400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
         fun newInstance(fragmentRingtoneIntro: Int): WhitelistSlideFragment {

@@ -990,6 +990,10 @@ object PreferenceUtil {
         get() = sharedPreferences
             .getInt(WIDGET_IMAGE, 10)
 
+    val widgetImageFull
+        get() = sharedPreferences
+            .getInt(WIDGET_IMAGE_FULL, 50)
+
     var isWidgetPanel
         get() = sharedPreferences.getBoolean(WIDGET_PANEL, false)
 
@@ -1002,6 +1006,12 @@ object PreferenceUtil {
     val miniImage
         get() = sharedPreferences
             .getInt(MINI_IMAGE, 6)
+
+    val isClassicCircle
+        get() = sharedPreferences.getBoolean(CLASSIC_SHAPE, true)
+
+    val isFullCircle
+        get() = sharedPreferences.getBoolean(FULL_SHAPE, true)
 }
 
 enum class CoverLyricsType {

@@ -45,6 +45,7 @@ import com.ttop.app.apex.adapter.StorageClickListener
 import com.ttop.app.apex.databinding.FragmentFolderBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote.openQueue
+import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.ICabCallback
 import com.ttop.app.apex.interfaces.ICabHolder
@@ -187,8 +188,9 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                                 fileComparator
                             ) { songs ->
                                 if (songs.isNotEmpty()) {
-                                    SongsMenuHelper.handleMenuClick(
-                                        requireActivity(), songs, itemId
+                                    val song = songs.first()
+                                    SongMenuHelper.handleMenuClick(
+                                        requireActivity(), song, itemId
                                     )
                                 }
                             }

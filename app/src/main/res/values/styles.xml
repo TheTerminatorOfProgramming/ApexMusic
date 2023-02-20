@@ -306,6 +306,11 @@
         <item name="android:fontFamily">@font/pencil_regular</item>
     </style>
 
+    <style name="SamsungThemeOverlay">
+        <item name="fontFamily">@font/samsung_sharp_sans</item>
+        <item name="android:fontFamily">@font/samsung_sharp_sans</item>
+    </style>
+
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton
@@ -334,5 +339,10 @@
         <item name="labelBehavior">gone</item>
         <item name="thumbRadius">6dp</item>
         <item name="haloRadius">18dp</item>
+    </style>
+
+    <style name="circleImageView1" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

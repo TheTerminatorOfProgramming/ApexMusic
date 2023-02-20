@@ -15,8 +15,6 @@
 package com.ttop.app.apex.ui.fragments.about
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -36,17 +34,11 @@ import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.ContributorAdapter
-import com.ttop.app.apex.appwidgets.AppWidgetBig
-import com.ttop.app.apex.appwidgets.AppWidgetCircle
-import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
@@ -95,7 +87,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardApexInfo.appGithub.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.appShare.setOnClickListener(this)
-        //binding.aboutContent.cardApexInfo.websiteLink.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.websiteLink.setOnClickListener(this)
 
         binding.aboutContent.cardOther.changelog.setOnClickListener(this)
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
@@ -113,11 +105,18 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         when (view.id) {
             R.id.appGithub -> openUrl(Constants.GITHUB_PROJECT)
             R.id.appShare -> shareApp()
+            R.id.websiteLink -> goToWebPage()
             R.id.changelog -> NavigationUtil.gotoWhatNews(requireActivity())
             R.id.openSource -> NavigationUtil.goToOpenSource(requireActivity())
             R.id.permissions_edit -> goToPermissions()
             R.id.battery_permission_title -> ApexUtil.disableBatteryOptimization()
         }
+    }
+
+    fun goToWebPage() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("https://theterminatorofprogramming.github.io/")
+        startActivity(intent)
     }
 
     private fun getAppVersion(): String {

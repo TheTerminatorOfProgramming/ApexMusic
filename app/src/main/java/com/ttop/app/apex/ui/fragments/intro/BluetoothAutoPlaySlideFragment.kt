@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
@@ -21,7 +22,7 @@ class BluetoothAutoPlaySlideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(resources.getColor(R.color.md_cyan_400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
         fun newInstance(fragmentRingtoneIntro: Int): BluetoothAutoPlaySlideFragment {

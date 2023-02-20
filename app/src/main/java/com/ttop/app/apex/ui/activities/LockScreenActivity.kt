@@ -98,27 +98,12 @@ class LockScreenActivity : AbsMusicServiceActivity() {
     private fun lockScreenInit() {
         if (VersionUtils.hasOreoMR1()) {
             setShowWhenLocked(true)
-            //setTurnScreenOn(true)
         } else {
             window.addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                //          or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
             )
         }
     }
-
-    /*private fun lockScreenInit() {
-        if (VersionUtils.hasOreoMR1()) {
-            setShowWhenLocked(true)
-            val keyguardManager = getSystemService<KeyguardManager>()
-            keyguardManager?.requestDismissKeyguard(this, null)
-        } else {
-            this.window.addFlags(
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-            )
-        }
-    }*/
 
     override fun onPlayingMetaChanged() {
         super.onPlayingMetaChanged()

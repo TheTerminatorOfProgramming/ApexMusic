@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
@@ -29,7 +30,7 @@ class BackupSlideFragment : Fragment() {
 
         desc?.text = description
 
-        view.setBackgroundColor(resources.getColor(R.color.md_indigo_A400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
         fun newInstance(fragmentRingtoneIntro: Int): BackupSlideFragment {

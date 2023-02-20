@@ -2,7 +2,9 @@ package com.ttop.app.apex.ui.fragments.backup
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,15 +26,18 @@ import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
 import com.ttop.app.apex.util.Share
+import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import java.util.*
+
 
 class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupClickedListener {
 
     private val backupViewModel by viewModels<BackupViewModel>()
     private var backupAdapter: BackupAdapter? = null
-
+    private var defaultPath = "/storage/emulated/0/Download/Apex/Backups"
     private var _binding: FragmentBackupBinding? = null
     private val binding get() = _binding!!
 
@@ -57,6 +62,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                 }
             }
         }
+
         binding.createBackup.accentOutlineColor()
         binding.restoreBackup.accentColor()
         binding.createBackup.setOnClickListener {
@@ -65,6 +71,23 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         binding.restoreBackup.setOnClickListener {
             openFilePicker.launch(arrayOf("application/octet-stream"))
         }
+
+        binding.backupPath.setOnClickListener {
+            openFolder()
+        }
+
+        binding.backupPath.text = getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+    }
+
+    private fun openFolder() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.setDataAndType(
+            Uri.parse(
+                getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
+                        + File.separator + "Apex" + File.separator + "Backup" + File.separator
+            ), "file/*"
+        )
+        startActivityForResult(intent, 9999)
     }
 
     private fun initAdapter() {

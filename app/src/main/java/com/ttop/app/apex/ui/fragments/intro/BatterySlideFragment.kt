@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
@@ -31,7 +32,7 @@ class BatterySlideFragment : Fragment(), SlidePolicy {
            ApexUtil.disableBatteryOptimization()
         }
 
-        view.setBackgroundColor(resources.getColor(R.color.md_deep_orange_A400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
 
     override val isPolicyRespected: Boolean
