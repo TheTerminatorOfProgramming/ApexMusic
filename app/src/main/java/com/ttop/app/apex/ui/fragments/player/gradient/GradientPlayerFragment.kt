@@ -151,7 +151,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         binding.playbackControlsFragment.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.playbackControlsFragment.text.setOnClickListener {
+        binding.playbackControlsFragment.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
         ViewCompat.setOnApplyWindowInsetsListener(
@@ -227,7 +227,8 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         lastDisabledPlaybackControlsColor = ColorUtil.withAlpha(color.primaryTextColor, 0.3f)
 
         binding.playbackControlsFragment.title.setTextColor(lastPlaybackControlsColor)
-        binding.playbackControlsFragment.text.setTextColor(lastDisabledPlaybackControlsColor)
+        binding.playbackControlsFragment.album.setTextColor(lastDisabledPlaybackControlsColor)
+        binding.playbackControlsFragment.artist.setTextColor(lastDisabledPlaybackControlsColor)
         binding.playbackControlsFragment.playPauseButton.setColorFilter(
             lastPlaybackControlsColor,
             PorterDuff.Mode.SRC_IN
@@ -277,7 +278,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Dispatchers.Main) {
-                val icon = if (animate) {
+                val icon = if (animate && VersionUtils.hasMarshmallow()) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -345,7 +346,8 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.playbackControlsFragment.title.text = song.title
-        binding.playbackControlsFragment.text.text = song.artistName
+        binding.playbackControlsFragment.album.text = song.albumName
+        binding.playbackControlsFragment.artist.text = song.artistName
         updateLabel()
         if (PreferenceUtil.isSongInfo) {
             binding.playbackControlsFragment.songInfo.text = getSongInfo(song)
@@ -362,7 +364,8 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         setUpShuffleButton()
         setUpProgressSlider()
         binding.playbackControlsFragment.title.isSelected = true
-        binding.playbackControlsFragment.text.isSelected = true
+        binding.playbackControlsFragment.album.isSelected = true
+        binding.playbackControlsFragment.artist.isSelected = true
     }
 
     private fun updatePlayPauseDrawableState() {

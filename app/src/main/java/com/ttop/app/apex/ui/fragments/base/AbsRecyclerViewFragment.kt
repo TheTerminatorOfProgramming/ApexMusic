@@ -27,6 +27,7 @@ import androidx.preference.Preference
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialFadeThrough
 import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.databinding.FragmentMainRecyclerBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
@@ -239,5 +240,10 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (adapter as? AbsMultiSelectAdapter<*, *>)?.actionMode?.finish()
     }
 }

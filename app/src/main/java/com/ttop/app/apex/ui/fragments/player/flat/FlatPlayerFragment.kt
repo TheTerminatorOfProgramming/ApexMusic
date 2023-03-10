@@ -301,7 +301,7 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
     override fun toolbarIconColor(): Int {
         val isLight = ColorUtil.isColorLight(paletteColor)
         return if (PreferenceUtil.isAdaptiveColor)
-            MaterialValueHelper.getPrimaryTextColor(requireContext(), isLight)
+            MaterialValueHelper.getSecondaryTextColor(requireContext(), isLight)
         else
             colorControlNormal()
     }

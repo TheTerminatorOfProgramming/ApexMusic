@@ -44,7 +44,6 @@ import com.ttop.app.apex.ui.activities.AppIntroActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
-import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.adaptive.AdaptiveFragment
@@ -64,13 +63,10 @@ import com.ttop.app.apex.ui.fragments.player.normal.PlayerFragment
 import com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.plain.PlainPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.simple.SimplePlayerFragment
-import com.ttop.app.apex.ui.fragments.player.plain.swipe.SwipePlayerFragment
+import com.ttop.app.apex.ui.fragments.player.swipe.SwipePlayerFragment
 import com.ttop.app.apex.ui.fragments.player.tiny.TinyPlayerFragment
 import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
-import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ViewUtil
-import com.ttop.app.apex.util.logD
+import com.ttop.app.apex.util.*
 import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -87,7 +83,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private lateinit var playerFragment: AbsPlayerFragment
     private var miniPlayerFragment: MiniPlayerFragment? = null
     private var nowPlayingScreen: NowPlayingScreen? = null
-    private var nowPlayingScreenLite: NowPlayingScreenLite? = null
     private var taskColor: Int = 0
     private var paletteColor: Int = Color.WHITE
     private var navigationBarColor = 0
@@ -166,7 +161,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 )
                 finish()
             }else {
-                if(!PreferenceUtil.hasIntroShown) {
+                if(!IntroPrefs(applicationContext).hasIntroShown) {
                     startActivity(
                         Intent(
                             this@AbsSlidingMusicPanelActivity,
@@ -177,7 +172,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 }
             }
         }else {
-            if(!PreferenceUtil.hasIntroShown) {
+            if(!IntroPrefs(applicationContext).hasIntroShown) {
                 startActivity(
                     Intent(
                         this@AbsSlidingMusicPanelActivity,
@@ -264,7 +259,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 playerFragment.addSwipeDetector()
             }
             ADAPTIVE_COLOR_APP -> {
-                if (PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)) {
+                if (PreferenceUtil.nowPlayingScreen in listOf(Adaptive, Card, Classic, Color, Fit, Flat, Full, Gradient, Normal, Peek, Plain, Simple, Swipe)) {
                     chooseFragmentForTheme()
                     onServiceConnected()
                 }

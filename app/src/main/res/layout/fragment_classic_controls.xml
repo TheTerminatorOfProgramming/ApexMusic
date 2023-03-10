@@ -46,8 +46,8 @@
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/progressSlider"
-            style="@style/MusicProgressSlider"
             android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_toLeftOf="@id/songTotalTime"
             android:layout_toRightOf="@id/songCurrentProgress"
             android:paddingVertical="@dimen/seekbar_padding"
@@ -137,9 +137,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:ellipsize="end"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:gravity="center"
-        android:maxLines="2"
         android:paddingHorizontal="16dp"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp"

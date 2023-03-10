@@ -14,6 +14,7 @@ import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 class RingtoneSlideFragment : Fragment() {
 
@@ -30,7 +31,7 @@ class RingtoneSlideFragment : Fragment() {
         ringtone = view.findViewById(R.id.permission_ringtone) as Button
 
         ringtone.setOnClickListener {
-            if (!ApexUtil.hasAudioPermission()) {
+            if (!ApexUtil.hasAudioPermission() && VersionUtils.hasMarshmallow()) {
                 val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
                 intent.data = ("package:" + requireContext().packageName).toUri()
                 startActivity(intent)

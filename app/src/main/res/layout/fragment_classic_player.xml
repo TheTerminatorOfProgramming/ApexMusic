@@ -94,14 +94,31 @@
                 tools:text="@tools:sample/lorem[5]" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text"
+                android:id="@+id/album"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:clickable="true"
-                android:ellipsize="end"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
                 android:focusable="true"
-                android:maxLines="1"
+                android:textAppearance="@style/TextViewBody1"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="@tools:sample/full_names[0]" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
                 android:textAppearance="@style/TextViewBody1"
                 android:textColor="?android:attr/textColorSecondary"
                 tools:text="@tools:sample/full_names[0]" />

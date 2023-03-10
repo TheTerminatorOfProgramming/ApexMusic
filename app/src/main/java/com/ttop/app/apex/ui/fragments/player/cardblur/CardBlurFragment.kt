@@ -75,7 +75,8 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
         ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
 
         binding.title.setTextColor(Color.WHITE)
-        binding.text.setTextColor(Color.WHITE)
+        binding.album?.setTextColor(Color.WHITE)
+        binding.artist?.setTextColor(Color.WHITE)
     }
 
     override fun toggleFavorite(song: Song) {
@@ -95,6 +96,10 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
         setUpSubFragments()
         setUpPlayerToolbar()
         binding.playerToolbar.drawAboveSystemBars()
+
+        binding.title.isSelected = true
+        binding.album?.isSelected = true
+        binding.artist?.isSelected = true
     }
 
     private fun setUpSubFragments() {
@@ -132,7 +137,8 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
         val song = MusicPlayerRemote.currentSong
         binding.run {
             title.text = song.title
-            text.text = song.artistName
+            album?.text = song.albumName
+            artist?.text = song.artistName
         }
     }
 

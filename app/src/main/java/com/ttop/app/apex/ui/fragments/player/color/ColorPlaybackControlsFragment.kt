@@ -73,11 +73,12 @@ class ColorPlaybackControlsFragment :
 
         setUpPlayPauseFab()
         binding.title.isSelected = true
-        binding.text.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
     }
@@ -85,11 +86,13 @@ class ColorPlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }
@@ -125,7 +128,8 @@ class ColorPlaybackControlsFragment :
         binding.progressSlider.applyColor(color.primaryTextColor)
 
         binding.title.setTextColor(color.primaryTextColor)
-        binding.text.setTextColor(color.secondaryTextColor)
+        binding.album.setTextColor(color.secondaryTextColor)
+        binding.artist.setTextColor(color.secondaryTextColor)
         binding.songInfo.setTextColor(color.secondaryTextColor)
         binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
         binding.songTotalTime.setTextColor(color.secondaryTextColor)

@@ -21,15 +21,13 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.R
 import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 
 abstract class AbsOffsetSongAdapter(
     activity: FragmentActivity,
     dataSet: MutableList<Song>,
-    @LayoutRes itemLayoutRes: Int,
-    ICabHolder: ICabHolder?
-) : SongAdapter(activity, dataSet, itemLayoutRes, ICabHolder) {
+    @LayoutRes itemLayoutRes: Int
+) : SongAdapter(activity, dataSet, itemLayoutRes) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongAdapter.ViewHolder {
         if (viewType == OFFSET_ITEM) {

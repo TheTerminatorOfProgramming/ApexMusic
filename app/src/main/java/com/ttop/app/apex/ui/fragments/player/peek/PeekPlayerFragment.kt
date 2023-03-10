@@ -19,9 +19,11 @@ import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.TypedValue
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
@@ -50,6 +52,7 @@ import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
@@ -59,6 +62,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
+
 
 /**
  * Created by hemanths on 2019-10-03.
@@ -227,21 +231,25 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         setUpSubFragments()
         setupRecyclerView()
         binding.title.isSelected = true
+        binding.album?.isSelected = true
+        binding.artist?.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist?.setOnClickListener {
             goToArtist(requireActivity())
         }
         binding.root.drawAboveSystemBarsWithPadding()
 
-        if (PreferenceUtil.isQueueHiddenPeek){
+        if (ApexUtil.isLandscape && !ApexUtil.isTablet){
             binding.playerQueueSheet.visibility = View.GONE
-        }else{
-            binding.playerQueueSheet.visibility = View.VISIBLE
+        }else {
+            if (PreferenceUtil.isQueueHiddenPeek){
+                binding.playerQueueSheet.visibility = View.GONE
+            }else{
+                binding.playerQueueSheet.visibility = View.VISIBLE
+            }
         }
-
-
     }
 
     private fun setUpSubFragments() {
@@ -313,18 +321,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         return BottomSheetBehavior.from(binding.playerQueueSheet)
     }
 
-    private fun setupPanel() {
-        if (!binding.playerContainer.isLaidOut || binding.playerContainer.isLayoutRequested) {
-            binding.playerContainer.addOnLayoutChangeListener(this)
-            return
-        }
-        val height = binding.playerContainer.height
-        val width = binding.playerContainer.width
-        val finalHeight = height - width
-        val panel = getQueuePanel()
-        panel.peekHeight = finalHeight
-    }
-
     override fun onQueueChanged() {
         super.onQueueChanged()
         updateQueue()
@@ -357,13 +353,19 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album?.text = song.albumName
+        binding.artist?.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
+
+            binding.artist?.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,ApexUtil.DpToMargin(10)) }
+
         } else {
             binding.songInfo.hide()
+            binding.artist?.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,0) }
         }
     }
 

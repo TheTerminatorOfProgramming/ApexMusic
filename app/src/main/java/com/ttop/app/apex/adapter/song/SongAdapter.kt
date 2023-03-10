@@ -36,8 +36,6 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
@@ -53,13 +51,11 @@ open class SongAdapter(
     override val activity: FragmentActivity,
     var dataSet: MutableList<Song>,
     protected var itemLayoutRes: Int,
-    ICabHolder: ICabHolder?,
     showSectionName: Boolean = true
 ) : AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song>(
     activity,
-    ICabHolder,
     R.menu.menu_media_selection
-), ICabCallback, PopupTextProvider {
+), PopupTextProvider {
 
     private var showSectionName = true
 

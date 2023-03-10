@@ -123,7 +123,7 @@ class LockScreenControlsFragment :
         }
 
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
-            color.primaryTextColor
+            color.secondaryTextColor
         } else {
             textColorSecondary()
         }.ripAlpha()

@@ -34,7 +34,7 @@ class MainSlideFragment : Fragment() {
 
         desc = view.findViewById(R.id.description) as TextView
 
-        desc?.text = "Hello there! Welcome to Apex Music"
+        desc?.text = appName
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }

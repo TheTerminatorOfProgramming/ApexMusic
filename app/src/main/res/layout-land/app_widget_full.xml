@@ -47,6 +47,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp"
+                android:textAlignment="center"
                 tools:text="Title" />
 
             <TextView
@@ -54,10 +55,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="?android:attr/textColorSecondary"
+                android:textAlignment="center"
                 tools:text="Text" />
         </LinearLayout>
 

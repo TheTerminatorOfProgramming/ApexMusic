@@ -121,10 +121,13 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
 
         setupViews()
         binding.title.isSelected = true
+        binding.album?.isSelected = true
+        binding.artist?.isSelected = true
+
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist?.setOnClickListener {
             goToArtist(requireActivity())
         }
         binding.songInfo.drawAboveSystemBars()
@@ -468,11 +471,13 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album?.text = song.albumName
+        binding.artist?.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }

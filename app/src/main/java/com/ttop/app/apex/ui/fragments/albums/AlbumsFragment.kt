@@ -16,35 +16,26 @@ package com.ttop.app.apex.ui.fragments.albums
 
 import android.os.Bundle
 import android.view.*
-import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.album.AlbumAdapter
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
-import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.AlbumSortOrder
 import com.ttop.app.apex.interfaces.IAlbumClickListener
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
-import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
 class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager>(),
-    IAlbumClickListener, ICabHolder {
+    IAlbumClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,12 +44,6 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
                 adapter?.swapDataSet(it)
             else
                 adapter?.swapDataSet(listOf())
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (!handleBackPress()) {
-                remove()
-                requireActivity().onBackPressed()
-            }
         }
     }
 
@@ -92,7 +77,6 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             requireActivity(),
             dataSet,
             itemLayoutResAlbum(),
-            this,
             this
         )
     }
@@ -348,41 +332,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
 
     override fun onPause() {
         super.onPause()
-        if (cab.isActive()) {
-            cab.destroy()
-        }
-    }
-
-    private fun handleBackPress(): Boolean {
-        cab?.let {
-            if (it.isActive()) {
-                it.destroy()
-                return true
-            }
-        }
-        return false
-    }
-
-    private var cab: AttachedCab? = null
-
-    override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
-        cab?.let {
-            if (it.isActive()) {
-                it.destroy()
-            }
-        }
-        cab = createCab(R.id.toolbar_container) {
-            menu(menuRes)
-            closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
-            slideDown()
-            onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
-            onSelection {
-                callback.onCabItemClicked(it)
-            }
-            onDestroy { callback.onCabFinished(it) }
-        }
-        return cab as AttachedCab
+        adapter?.actionMode?.finish()
     }
 
     override fun loadGridSizeTablet(): Int {

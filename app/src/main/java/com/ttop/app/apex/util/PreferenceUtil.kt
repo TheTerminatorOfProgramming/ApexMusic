@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.view.View
+import android.widget.TextView
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.content.res.use
@@ -15,15 +17,17 @@ import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.ttop.app.apex.*
+import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.extensions.getIntRes
 import com.ttop.app.apex.extensions.getStringOrDefault
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.*
 import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.transform.*
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.TopAppBarLayout
@@ -33,6 +37,8 @@ import java.io.File
 
 object PreferenceUtil {
     private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.getContext())
+
+    var editor = sharedPreferences.edit()
 
     val defaultCategories = listOf(
         CategoryInfo(CategoryInfo.Category.Home, true),
@@ -44,16 +50,6 @@ object PreferenceUtil {
         CategoryInfo(CategoryInfo.Category.Folder, true),
         CategoryInfo(CategoryInfo.Category.Search, false),
         CategoryInfo(CategoryInfo.Category.Settings,false)
-    )
-
-    val defaultCategoriesLite = listOf(
-        CategoryInfo(CategoryInfo.Category.Songs, true),
-        CategoryInfo(CategoryInfo.Category.Albums, true),
-        CategoryInfo(CategoryInfo.Category.Artists, true),
-        CategoryInfo(CategoryInfo.Category.Playlists, false),
-        CategoryInfo(CategoryInfo.Category.Genres, false),
-        CategoryInfo(CategoryInfo.Category.Folder, false),
-        CategoryInfo(CategoryInfo.Category.Search, false)
     )
 
     var libraryCategory: List<CategoryInfo>
@@ -272,7 +268,7 @@ object PreferenceUtil {
 
     val isAlbumArtOnLockScreen
         get() = sharedPreferences.getBoolean(
-            ALBUM_ART_ON_LOCK_SCREEN, false
+            ALBUM_ART_ON_LOCK_SCREEN, true
         )
 
     val isAudioDucking
@@ -354,9 +350,14 @@ object PreferenceUtil {
             "always" -> true
             "only_wifi" -> {
                 val connectivityManager = context.getSystemService<ConnectivityManager>()
-                val network = connectivityManager?.activeNetwork
-                val capabilities = connectivityManager?.getNetworkCapabilities(network)
-                capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                if (VersionUtils.hasMarshmallow()) {
+                    val network = connectivityManager?.activeNetwork
+                    val capabilities = connectivityManager?.getNetworkCapabilities(network)
+                    capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                } else {
+                    val netInfo = connectivityManager?.activeNetworkInfo
+                    netInfo != null && netInfo.type == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting
+                }
             }
             "never" -> false
             else -> false
@@ -673,23 +674,6 @@ object PreferenceUtil {
             value.defaultCoverTheme?.let { coverTheme -> albumCoverStyle = coverTheme }
         }
 
-    var nowPlayingScreenLite: NowPlayingScreenLite
-        get() {
-            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 1)
-            for (nowPlayingScreenLite in NowPlayingScreenLite.values()) {
-                if (nowPlayingScreenLite.id == id) {
-                    return nowPlayingScreenLite
-                }
-            }
-            return NowPlayingScreenLite.Normal
-        }
-        set(value) = sharedPreferences.edit {
-            putInt(NOW_PLAYING_SCREEN_ID, value.id)
-            // Also set a cover theme for that now playing
-            value.defaultCoverTheme?.let { coverTheme -> albumCoverStyle = coverTheme }
-        }
-
-
     val albumCoverTransform: ViewPager.PageTransformer
         get() {
             val style = sharedPreferences.getStringOrDefault(
@@ -927,13 +911,13 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(IS_QUEUE_HIDDEN, value)}
 
-    var hasIntroShown
+    /*var hasIntroShown
         get() = sharedPreferences.getBoolean(
             INTRO_SHOWN, false
         )
 
         set(value) = sharedPreferences.edit {
-            putBoolean(INTRO_SHOWN, value)}
+            putBoolean(INTRO_SHOWN, value)}*/
 
     var isBluetoothVolume
         get() = sharedPreferences.getBoolean(
@@ -1012,6 +996,26 @@ object PreferenceUtil {
 
     val isFullCircle
         get() = sharedPreferences.getBoolean(FULL_SHAPE, true)
+
+    var textAlignment
+        get() = sharedPreferences.getString(
+            TEXT_ALIGNMENT, "left"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(TEXT_ALIGNMENT, value)}
+
+    var isDevModeEnabled
+        get() = sharedPreferences.getBoolean(DEV_MODE, false)
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(DEV_MODE, value)}
+
+    var isAppInstalledFromGooglePlay
+        get() = sharedPreferences.getBoolean(INSTALL_MODE, true)
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(INSTALL_MODE, value)}
 }
 
 enum class CoverLyricsType {

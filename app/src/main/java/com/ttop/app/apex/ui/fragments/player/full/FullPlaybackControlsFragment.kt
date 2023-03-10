@@ -91,10 +91,12 @@ class FullPlaybackControlsFragment :
         binding.songTotalTime.setTextColor(Color.WHITE)
         binding.songCurrentProgress.setTextColor(Color.WHITE)
         binding.title.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
     }
@@ -125,7 +127,8 @@ class FullPlaybackControlsFragment :
         volumeFragment?.setTintableColor(color.primaryTextColor)
         binding.progressSlider.applyColor(color.primaryTextColor)
         binding.title.setTextColor(color.primaryTextColor)
-        binding.text.setTextColor(color.secondaryTextColor)
+        binding.album.setTextColor(color.secondaryTextColor)
+        binding.artist.setTextColor(color.secondaryTextColor)
         binding.songInfo.setTextColor(color.secondaryTextColor)
         binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
         binding.songTotalTime.setTextColor(color.secondaryTextColor)
@@ -148,11 +151,14 @@ class FullPlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
+
         updateIsFavorite()
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }
@@ -226,7 +232,7 @@ class FullPlaybackControlsFragment :
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Dispatchers.Main) {
-                val icon = if (animate) {
+                val icon = if (animate && VersionUtils.hasMarshmallow()) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border

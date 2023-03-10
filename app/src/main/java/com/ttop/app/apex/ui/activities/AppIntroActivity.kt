@@ -13,6 +13,7 @@ import com.github.appintro.AppIntroPageTransformerType
 import com.ttop.app.apex.R
 import com.ttop.app.apex.ui.fragments.intro.*
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -38,14 +39,12 @@ class AppIntroActivity: AppIntro2() {
             //BATTERY OPTIMIZATION SLIDE
             addSlide(BatterySlideFragment.newInstance(R.layout.fragment_battery_intro))
         }
-        //RINGTONE SLIDE
-        addSlide(RingtoneSlideFragment.newInstance(R.layout.fragment_ringtone_intro))
+        if (VersionUtils.hasMarshmallow()) {
+            //RINGTONE SLIDE
+            addSlide(RingtoneSlideFragment.newInstance(R.layout.fragment_ringtone_intro))
+        }
         //BLUETOOTH AUTOPLAY SLIDE
         addSlide(BluetoothAutoPlaySlideFragment.newInstance(R.layout.fragment_bluetooth_autoplay_intro))
-        //WHITELIST SLIDE
-        addSlide(WhitelistSlideFragment.newInstance(R.layout.fragment_whitelist_intro))
-        //BACKUP RESTORE SLIDE
-        addSlide(BackupSlideFragment.newInstance(R.layout.fragment_backup_intro))
         //SHUFFLE SLIDE
         addSlide(ShuffleSlideFragment.newInstance(R.layout.fragment_shuffle_intro))
 
@@ -54,7 +53,7 @@ class AppIntroActivity: AppIntro2() {
         //SD Storage Access
         if (VersionUtils.hasT()) {
             askForPermissions(
-                permissions = arrayOf(Manifest.permission.READ_MEDIA_AUDIO ),
+                permissions = arrayOf(Manifest.permission.READ_MEDIA_AUDIO),
                 slideNumber = 2,
                 required = true)
         }else {
@@ -82,14 +81,13 @@ class AppIntroActivity: AppIntro2() {
         isWizardMode = true
         isSystemBackButtonLocked = true
         setImmersiveMode()
-        setStatusBarColorRes(R.color.md_black_1000)
         setProgressIndicator()
     }
 
     public override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
         PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
-        PreferenceUtil.hasIntroShown = true
+        IntroPrefs(applicationContext).hasIntroShown = true
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }

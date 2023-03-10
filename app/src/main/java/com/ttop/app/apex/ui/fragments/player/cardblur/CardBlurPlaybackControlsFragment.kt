@@ -119,6 +119,7 @@ class CardBlurPlaybackControlsFragment :
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }

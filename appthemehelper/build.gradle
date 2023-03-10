@@ -2,10 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 android {
     compileSdk 33
+    //compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
         minSdk 21
         targetSdk 33
+        //targetSdkPreview = "UpsideDownCake"
+
     }
     buildTypes {
         release {

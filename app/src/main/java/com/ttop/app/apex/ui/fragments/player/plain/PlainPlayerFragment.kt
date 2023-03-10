@@ -89,7 +89,8 @@ class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
     }
 
     private fun setupRecyclerView() {
@@ -161,11 +162,12 @@ class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
         setUpPlayerToolbar()
         setupRecyclerView()
         binding.title.isSelected = true
-        binding.text.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
         playerToolbar().drawAboveSystemBars()

@@ -24,6 +24,8 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RemoteViews
+import android.widget.SeekBar
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
@@ -32,6 +34,7 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
+import com.ttop.app.apex.databinding.FragmentCardPlayerPlaybackControlsBinding
 import com.ttop.app.apex.extensions.albumArtUri
 import com.ttop.app.apex.extensions.getSongInfo
 import com.ttop.app.apex.extensions.getTintedDrawable
@@ -54,7 +57,12 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 
 class AppWidgetFull : BaseAppWidget() {
     private var target: Target<BitmapPaletteWrapper>? = null // for cancellation
-
+    private var _binding: AppWidgetFull? = null
+    private val binding get() = _binding!!
+    val title: TextView
+        get() = binding.title
+    val text: TextView
+        get() = binding.text
     /**
      * Initialize given widgets to default state, where we launch Music on default click and hide
      * actions if service not running.
@@ -64,22 +72,58 @@ class AppWidgetFull : BaseAppWidget() {
 
         appWidgetView = if (VersionUtils.hasS()) {
             if (PreferenceUtil.widgetColors) {
-                RemoteViews(context.packageName, R.layout.app_widget_full_day_night)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left)
+                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_day_night)
+                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right)
+                    else -> {
+                        RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left)
+                    }
+                }
             } else if (PreferenceUtil.widgetTransparency) {
-                RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
+                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
+                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right)
+                    else -> {
+                        RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
+                    }
+                }
             }else {
-                RemoteViews(context.packageName, R.layout.app_widget_full)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_left)
+                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full)
+                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_right)
+                    else -> {
+                        RemoteViews(context.packageName, R.layout.app_widget_full_left)
+                    }
+                }
             }
         } else {
             if (PreferenceUtil.widgetTransparency) {
-                RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
+                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
+                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right)
+                    else -> {
+                        RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
+                    }
+                }
             }else {
-                RemoteViews(context.packageName, R.layout.app_widget_full)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_left)
+                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full)
+                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_right)
+                    else -> {
+                        RemoteViews(context.packageName, R.layout.app_widget_full_left)
+                    }
+                }
             }
         }
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
+
         if (PreferenceUtil.widgetColors) {
             when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
                 Configuration.UI_MODE_NIGHT_YES -> {
@@ -180,17 +224,52 @@ class AppWidgetFull : BaseAppWidget() {
 
         appWidgetView = if (VersionUtils.hasS()) {
             if (PreferenceUtil.widgetColors) {
-                RemoteViews(service.packageName, R.layout.app_widget_full_day_night)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left)
+                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_day_night)
+                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right)
+                    else -> {
+                        RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left)
+                    }
+                }
             } else if (PreferenceUtil.widgetTransparency) {
-                RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
+                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
+                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right)
+                    else -> {
+                        RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
+                    }
+                }
             }else {
-                RemoteViews(service.packageName, R.layout.app_widget_full)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_left)
+                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full)
+                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_right)
+                    else -> {
+                        RemoteViews(service.packageName, R.layout.app_widget_full_left)
+                    }
+                }
             }
         } else {
             if (PreferenceUtil.widgetTransparency) {
-                RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
+                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
+                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right)
+                    else -> {
+                        RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
+                    }
+                }
             }else {
-                RemoteViews(service.packageName, R.layout.app_widget_full)
+                when(PreferenceUtil.textAlignment){
+                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_left)
+                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full)
+                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_right)
+                    else -> {
+                        RemoteViews(service.packageName, R.layout.app_widget_full_left)
+                    }
+                }
             }
         }
 
@@ -420,7 +499,9 @@ class AppWidgetFull : BaseAppWidget() {
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         var pendingIntent = PendingIntent.getActivity(
-            context, 0, action, PendingIntent.FLAG_IMMUTABLE
+            context, 0, action, if (VersionUtils.hasMarshmallow())
+                PendingIntent.FLAG_IMMUTABLE
+            else 0
         )
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
 

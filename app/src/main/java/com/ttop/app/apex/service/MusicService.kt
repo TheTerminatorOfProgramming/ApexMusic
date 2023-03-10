@@ -1167,21 +1167,22 @@ class MusicService : MediaBrowserServiceCompat(),
             .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, null)
             .putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, playingQueue.size.toLong())
 
-        if (isAlbumArtOnLockScreen && VersionUtils.hasQ() || VersionUtils.hasT()) {
-            // val screenSize: Point = RetroUtil.getScreenSize(this)
-            val request = GlideApp.with(this)
-                .asBitmap()
-                .songCoverOptions(song)
-                .load(getSongModel(song))
-                .transition(getDefaultTransition())
-
-            if (isBlurredAlbumArt && VersionUtils.hasQ()) {
-                request.transform(BlurTransformation.Builder(this@MusicService).build())
-            }
-            request.into(object :
-                CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+        // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
+        GlideApp.with(this)
+            .asBitmap()
+            .songCoverOptions(song)
+            .load(getSongModel(song))
+            .transition(getDefaultTransition())
+            .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
+                    metaData.putBitmap(
+                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                        BitmapFactory.decodeResource(
+                            resources,
+                            R.drawable.default_audio_art
+                        )
+                    )
                     mediaSession?.setMetadata(metaData.build())
                     onCompletion()
                 }
@@ -1200,10 +1201,50 @@ class MusicService : MediaBrowserServiceCompat(),
 
                 override fun onLoadCleared(placeholder: Drawable?) {}
             })
-        } else {
-            mediaSession?.setMetadata(metaData.build())
-            onCompletion()
+
+    /*if (isAlbumArtOnLockScreen && VersionUtils.hasQ() || VersionUtils.hasT()) {
+        // val screenSize: Point = RetroUtil.getScreenSize(this)
+        val request = GlideApp.with(this)
+            .asBitmap()
+            .songCoverOptions(song)
+            .load(getSongModel(song))
+
+        if (isBlurredAlbumArt && VersionUtils.hasQ()) {
+            request.transform(BlurTransformation.Builder(this@MusicService).build())
         }
+        request.into(object :
+            CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                super.onLoadFailed(errorDrawable)
+                metaData.putBitmap(
+                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                    BitmapFactory.decodeResource(
+                        resources,
+                        R.drawable.default_audio_art
+                    )
+                )
+                mediaSession?.setMetadata(metaData.build())
+                onCompletion()
+            }
+
+            override fun onResourceReady(
+                resource: Bitmap,
+                transition: Transition<in Bitmap?>?,
+            ) {
+                metaData.putBitmap(
+                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                    resource
+                )
+                mediaSession?.setMetadata(metaData.build())
+                onCompletion()
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {}
+        })
+    } else {
+        mediaSession?.setMetadata(metaData.build())
+        onCompletion()
+    }*/
     }
 
     private fun handleChangeInternal(what: String) {
@@ -1508,7 +1549,7 @@ class MusicService : MediaBrowserServiceCompat(),
         mediaButtonIntent.component = mediaButtonReceiverComponentName
         val mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(
             applicationContext, 0, mediaButtonIntent,
-            PendingIntent.FLAG_IMMUTABLE
+            if (VersionUtils.hasMarshmallow()) PendingIntent.FLAG_IMMUTABLE else 0
         )
         mediaSession = MediaSessionCompat(
             this,

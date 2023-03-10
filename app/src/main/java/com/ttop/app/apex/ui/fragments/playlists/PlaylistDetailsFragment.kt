@@ -12,10 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
@@ -30,19 +26,15 @@ import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.db.toSongs
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.ThemedFastScroller
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 
-class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_detail),
-    ICabHolder {
+class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_detail) {
     private val arguments by navArgs<PlaylistDetailsFragmentArgs>()
     private val viewModel by viewModel<PlaylistDetailsViewModel> {
         parametersOf(arguments.extraPlaylist)
@@ -95,8 +87,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             playlist.playlistEntity,
             requireActivity(),
             ArrayList(),
-            R.layout.item_queue,
-            this
+            R.layout.item_queue
         )
 
         val dragDropManager = RecyclerViewDragDropManager()
@@ -164,27 +155,5 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private var cab: AttachedCab? = null
-
-    override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
-        cab?.let {
-            if (it.isActive()) {
-                it.destroy()
-            }
-        }
-        cab = createCab(R.id.toolbar_container) {
-            menu(menuRes)
-            closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
-            slideDown()
-            onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
-            onSelection {
-                callback.onCabItemClicked(it)
-            }
-            onDestroy { callback.onCabFinished(it) }
-        }
-        return cab as AttachedCab
     }
 }

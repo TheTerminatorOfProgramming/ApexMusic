@@ -88,7 +88,10 @@ class PlayingNotificationClassic(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                PendingIntent.FLAG_UPDATE_CURRENT or if (VersionUtils.hasMarshmallow())
+                    PendingIntent.FLAG_IMMUTABLE
+                else 0
+            )
 
         val deleteIntent = buildPendingIntent(context, ACTION_QUIT, null)
 
@@ -257,7 +260,9 @@ class PlayingNotificationClassic(
         val intent = Intent(action)
         intent.component = serviceName
         return PendingIntent.getService(
-            context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+            context, 0, intent, if (VersionUtils.hasMarshmallow())
+                PendingIntent.FLAG_IMMUTABLE
+            else 0
         )
     }
 

@@ -33,6 +33,7 @@ import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 
 class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
@@ -107,7 +108,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
 
     override fun invoke(dialog: MaterialDialog, color: Int) {
         ThemeStore.editTheme(requireContext()).accentColor(color).commit()
-        DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+        if (VersionUtils.hasNougatMR())
+            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
         activity?.recreate()
     }
 

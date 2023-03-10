@@ -31,10 +31,6 @@ import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
 import com.ttop.app.apex.R
@@ -43,12 +39,13 @@ import com.ttop.app.apex.adapter.Storage
 import com.ttop.app.apex.adapter.StorageAdapter
 import com.ttop.app.apex.adapter.StorageClickListener
 import com.ttop.app.apex.databinding.FragmentFolderBinding
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.dip
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.textColorPrimary
+import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.helper.MusicPlayerRemote.openQueue
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.interfaces.IMainActivityFragmentCallbacks
 import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener
@@ -75,7 +72,7 @@ import java.lang.ref.WeakReference
 import java.util.*
 
 class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
-    IMainActivityFragmentCallbacks, ICabHolder, SelectionCallback, ICallbacks,
+    IMainActivityFragmentCallbacks, SelectionCallback, ICallbacks,
     LoaderManager.LoaderCallbacks<List<File>>, StorageClickListener {
     private var _binding: FragmentFolderBinding? = null
     private val binding get() = _binding!!
@@ -84,7 +81,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     private var adapter: SongFileAdapter? = null
     private var storageAdapter: StorageAdapter? = null
-    private var cab: AttachedCab? = null
     private val fileComparator = Comparator { lhs: File, rhs: File ->
         if (lhs.isDirectory && !rhs.isDirectory) {
             return@Comparator -1
@@ -148,16 +144,10 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     override fun onPause() {
         super.onPause()
         saveScrollPosition()
-        if (cab.isActive()) {
-            cab.destroy()
-        }
+        adapter?.actionMode?.finish()
     }
 
     override fun handleBackPress(): Boolean {
-        if (cab != null && cab!!.isActive()) {
-            cab?.destroy()
-            return true
-        }
         if (binding.breadCrumbs.popHistory()) {
             setCrumb(binding.breadCrumbs.lastHistory(), false)
             return true
@@ -391,24 +381,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         checkForMargins()
     }
 
-    override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
-        if (cab != null && cab!!.isActive()) {
-            cab?.destroy()
-        }
-        cab = createCab(R.id.toolbar_container) {
-            menu(menuRes)
-            closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
-            slideDown()
-            onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
-            onSelection {
-                callback.onCabItemClicked(it)
-            }
-            onDestroy { callback.onCabFinished(it) }
-        }
-        return cab as AttachedCab
-    }
-
     private fun checkForMargins() {
         if (mainActivity.isBottomNavVisible) {
             binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -596,7 +568,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     private fun switchToFileAdapter() {
-        adapter = SongFileAdapter(mainActivity, LinkedList(), R.layout.item_list, this, this)
+        adapter = SongFileAdapter(mainActivity, LinkedList(), R.layout.item_list, this)
         adapter!!.registerAdapterDataObserver(
             object : RecyclerView.AdapterDataObserver() {
                 override fun onChanged() {

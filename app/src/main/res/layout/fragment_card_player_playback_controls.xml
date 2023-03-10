@@ -28,7 +28,6 @@
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/progressSlider"
-            style="@style/MusicProgressSlider"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -105,7 +104,21 @@
                 tools:text="@tools:sample/lorem/random" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text"
+                android:id="@+id/album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:freezesText="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textStyle="bold"
+                tools:text="@tools:sample/lorem/random" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -123,8 +136,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:ellipsize="end"
-                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
                 android:paddingTop="4dp"
                 android:textSize="12sp"
                 tools:text="@tools:sample/lorem/random" />

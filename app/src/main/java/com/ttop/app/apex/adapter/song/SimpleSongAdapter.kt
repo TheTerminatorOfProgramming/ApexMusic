@@ -17,16 +17,14 @@ package com.ttop.app.apex.adapter.song
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 
 class SimpleSongAdapter(
     context: FragmentActivity,
     songs: ArrayList<Song>,
-    layoutRes: Int,
-    ICabHolder: ICabHolder?
-) : SongAdapter(context, songs, layoutRes, ICabHolder) {
+    layoutRes: Int
+) : SongAdapter(context, songs, layoutRes) {
 
     override fun swapDataSet(dataSet: List<Song>) {
         this.dataSet = dataSet.toMutableList()

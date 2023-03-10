@@ -41,7 +41,6 @@ import com.ttop.app.apex.model.lyrics.Lyrics
 import com.ttop.app.apex.transform.CarousalPagerTransformer
 import com.ttop.app.apex.transform.ParallaxPagerTransformer
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
-import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.CoverLyricsType
@@ -308,16 +307,6 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
             Blur -> setLRCViewColors(Color.WHITE, ColorUtil.withAlpha(Color.WHITE, 0.5f))
             else -> setLRCViewColors(primaryColor, secondaryColor)
         }
-
-        when (PreferenceUtil.nowPlayingScreenLite) {
-            NowPlayingScreenLite.Flat, NowPlayingScreenLite.Normal -> if (PreferenceUtil.isAdaptiveColor) {
-                setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
-            } else {
-                setLRCViewColors(primaryColor, secondaryColor)
-            }
-            NowPlayingScreenLite.Classic -> setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
-            else -> setLRCViewColors(primaryColor, secondaryColor)
-        }
     }
 
     fun setCallbacks(listener: Callbacks) {
@@ -337,7 +326,4 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
 
     private val lyricViewNpsList =
         listOf(Blur, Classic, Color, Flat, Material, MD3, Normal, Plain, Simple)
-
-    private val lyricViewNpsLiteList =
-        listOf(NowPlayingScreenLite.Classic, NowPlayingScreenLite.Flat, NowPlayingScreenLite.MD3, NowPlayingScreenLite.Normal, NowPlayingScreenLite.Simple)
 }

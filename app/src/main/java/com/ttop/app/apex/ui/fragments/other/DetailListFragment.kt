@@ -29,10 +29,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
@@ -43,20 +39,16 @@ import com.ttop.app.apex.adapter.song.ShuffleButtonSongAdapter
 import com.ttop.app.apex.adapter.song.SongAdapter
 import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
 import com.ttop.app.apex.db.toSong
-import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.interfaces.IAlbumClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ApexUtil
 
 
 class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_detail),
-    IArtistClickListener, IAlbumClickListener, ICabHolder {
+    IArtistClickListener, IAlbumClickListener {
     private val args by navArgs<DetailListFragmentArgs>()
     private var _binding: FragmentPlaylistDetailBinding? = null
     private val binding get() = _binding!!
@@ -104,12 +96,6 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
 
         binding.appBarLayout.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (!handleBackPress()) {
-                remove()
-                findNavController().navigateUp()
-            }
-        }
     }
 
     private fun lastAddedSongs() {
@@ -117,7 +103,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
         val songAdapter = ShuffleButtonSongAdapter(
             requireActivity(),
             mutableListOf(),
-            R.layout.item_list, this
+            R.layout.item_list
         )
         binding.recyclerView.apply {
             adapter = songAdapter
@@ -134,7 +120,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
         val songAdapter = ShuffleButtonSongAdapter(
             requireActivity(),
             mutableListOf(),
-            R.layout.item_list, this
+            R.layout.item_list
         )
         binding.recyclerView.apply {
             adapter = songAdapter
@@ -151,7 +137,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
         val songAdapter = ShuffleButtonSongAdapter(
             requireActivity(),
             mutableListOf(),
-            R.layout.item_list, this
+            R.layout.item_list
         )
         binding.recyclerView.apply {
             adapter = songAdapter
@@ -170,7 +156,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
         val songAdapter = SongAdapter(
             requireActivity(),
             mutableListOf(),
-            R.layout.item_list, this
+            R.layout.item_list
         )
         binding.recyclerView.apply {
             adapter = songAdapter
@@ -211,14 +197,14 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
         requireActivity(),
         artists,
         R.layout.item_grid_circle,
-        this, this@DetailListFragment
+        this
     )
 
     private fun albumAdapter(albums: List<Album>): AlbumAdapter = AlbumAdapter(
         requireActivity(),
         albums,
         R.layout.item_grid,
-        this, this@DetailListFragment
+        this
     )
 
     private fun linearLayoutManager(): LinearLayoutManager =
@@ -258,38 +244,6 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private var cab: AttachedCab? = null
-
-    private fun handleBackPress(): Boolean {
-        cab?.let {
-            if (it.isActive()) {
-                it.destroy()
-                return true
-            }
-        }
-        return false
-    }
-
-    override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
-        cab?.let {
-            if (it.isActive()) {
-                it.destroy()
-            }
-        }
-        cab = createCab(R.id.toolbar_container) {
-            menu(menuRes)
-            closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
-            slideDown()
-            onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
-            onSelection {
-                callback.onCabItemClicked(it)
-            }
-            onDestroy { callback.onCabFinished(it) }
-        }
-        return cab as AttachedCab
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {

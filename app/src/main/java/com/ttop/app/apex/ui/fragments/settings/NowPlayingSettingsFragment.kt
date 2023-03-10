@@ -84,8 +84,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val showlyrics: TwoStatePreference? = findPreference(LYRICS)
-        showlyrics?.setOnPreferenceChangeListener { _, _ ->
+        val showLyrics: TwoStatePreference? = findPreference(LYRICS)
+        showLyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 

@@ -46,18 +46,20 @@
             tools:textColor="@color/md_black_1000" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text"
+            android:id="@+id/album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.75"
             android:clickable="true"
-            android:ellipsize="end"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
             android:focusable="true"
             android:gravity="center"
-            android:maxLines="1"
             android:paddingTop="6dp"
             android:textColor="@color/md_white_1000"
-            app:layout_constraintBottom_toTopOf="@+id/progressSlider"
+            app:layout_constraintBottom_toTopOf="@+id/artist"
             app:layout_constraintEnd_toStartOf="@+id/playerMenu"
             app:layout_constraintStart_toEndOf="@+id/songFavourite"
             app:layout_constraintTop_toBottomOf="@+id/title"
@@ -65,6 +67,27 @@
             tools:text="@tools:sample/lorem/random"
             tools:textColor="@color/md_black_1000" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.75"
+            android:clickable="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintBottom_toTopOf="@+id/progressSlider"
+            app:layout_constraintEnd_toStartOf="@+id/playerMenu"
+            app:layout_constraintStart_toEndOf="@+id/songFavourite"
+            app:layout_constraintTop_toBottomOf="@+id/text"
+            tools:layout_editor_absoluteX="48dp"
+            tools:text="@tools:sample/lorem/random"
+            tools:textColor="@color/md_black_1000" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -179,9 +202,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:ellipsize="end"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:gravity="center"
-        android:maxLines="1"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"

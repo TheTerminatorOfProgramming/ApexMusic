@@ -94,7 +94,11 @@ fun AppCompatActivity.setDrawBehindSystemBars() {
         }
     } else {
         setNavigationBarColorPreOreo(surfaceColor())
-        setStatusBarColor(Color.TRANSPARENT)
+        if (VersionUtils.hasMarshmallow()) {
+            setStatusBarColor(Color.TRANSPARENT)
+        } else {
+            setStatusBarColor(Color.BLACK)
+        }
     }
 }
 
@@ -122,14 +126,16 @@ fun AppCompatActivity.setTaskDescriptionColorAuto() {
 
 @Suppress("Deprecation")
 fun AppCompatActivity.setLightStatusBar(enabled: Boolean) {
-    val decorView = window.decorView
-    val systemUiVisibility = decorView.systemUiVisibility
-    if (enabled) {
-        decorView.systemUiVisibility =
-            systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    } else {
-        decorView.systemUiVisibility =
-            systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+    if (VersionUtils.hasMarshmallow()) {
+        val decorView = window.decorView
+        val systemUiVisibility = decorView.systemUiVisibility
+        if (enabled) {
+            decorView.systemUiVisibility =
+                systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            decorView.systemUiVisibility =
+                systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+        }
     }
 }
 
@@ -173,9 +179,19 @@ fun AppCompatActivity.setLightNavigationBarAuto(bgColor: Int) {
 fun AppCompatActivity.setStatusBarColor(color: Int) {
     val statusBar = window.decorView.rootView.findViewById<View>(R.id.status_bar)
     if (statusBar != null) {
-        statusBar.setBackgroundColor(color)
+        when {
+            VersionUtils.hasMarshmallow() -> statusBar.setBackgroundColor(color)
+            else -> statusBar.setBackgroundColor(
+                ColorUtil.darkenColor(
+                    color
+                )
+            )
+        }
     } else {
-        window.statusBarColor = color
+        when {
+            VersionUtils.hasMarshmallow() -> window.statusBarColor = color
+            else -> window.statusBarColor = ColorUtil.darkenColor(color)
+        }
     }
     setLightStatusBarAuto(surfaceColor())
 }

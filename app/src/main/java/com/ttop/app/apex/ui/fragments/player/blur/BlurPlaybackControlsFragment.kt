@@ -86,6 +86,7 @@ class BlurPlaybackControlsFragment :
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.show()
             binding.songInfo.text = getSongInfo(song)
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }

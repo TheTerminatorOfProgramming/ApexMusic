@@ -15,7 +15,6 @@
         android:background="@color/twenty_percent_black_overlay"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/songCurrentProgress"
             android:layout_width="wrap_content"
@@ -33,7 +32,6 @@
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/progressSlider"
-            style="@style/MusicProgressSlider"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toStartOf="@id/songTotalTime"
@@ -61,7 +59,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="false"
-        app:layout_constraintBottom_toTopOf="@+id/text"
+        app:layout_constraintBottom_toTopOf="@+id/album"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressContainer">
@@ -87,14 +85,38 @@
     </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text"
+        android:id="@+id/album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
-        android:ellipsize="end"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:gravity="center"
-        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:textAppearance="@style/TextViewBody1"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintBottom_toTopOf="@+id/artist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleContainer"
+        tools:text="@tools:sample/lorem/random" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:gravity="center"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
@@ -112,9 +134,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
-        android:ellipsize="end"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:gravity="center"
-        android:maxLines="1"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textColor="?android:attr/textColorSecondary"
@@ -122,7 +146,7 @@
         app:layout_constraintBottom_toTopOf="@+id/playPauseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"
+        app:layout_constraintTop_toBottomOf="@+id/artist"
         tools:text="@tools:sample/lorem/random" />
 
     <androidx.appcompat.widget.AppCompatImageButton

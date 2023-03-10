@@ -92,5 +92,15 @@
             android:title="@string/pref_title_widget_image_full_curve"
             app:showSeekBarValue="true"
             app:dependency="full_shape"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:key="text_alignment"
+            android:defaultValue="left"
+            android:layout="@layout/list_item_view"
+            android:entries="@array/pref_full_widget_text_alignment_list_titles"
+            android:entryValues="@array/pref_full_widget_text_alignment_list_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_full_widget_text_alignment"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

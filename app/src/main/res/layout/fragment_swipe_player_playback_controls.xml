@@ -67,14 +67,14 @@
         android:textAppearance="@style/TextViewHeadline6"
         android:textColor="?android:attr/textColorPrimary"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/text"
+        app:layout_constraintBottom_toTopOf="@+id/album"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressSlider"
         tools:text="@tools:sample/lorem/random" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text"
+        android:id="@+id/album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
@@ -89,26 +89,50 @@
         android:singleLine="true"
         android:textAppearance="@style/TextViewBody1"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toTopOf="@+id/songInfo"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
         tools:text="@tools:sample/full_names" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textAppearance="@style/TextViewBody1"
+        android:textColor="?android:attr/textColorSecondary"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/album"
+        tools:text="@tools:sample/full_names" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:paddingHorizontal="16dp"
         android:paddingBottom="8dp"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/playPauseButton"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"
+        app:layout_constraintTop_toBottomOf="@+id/artist"
         tools:text="@tools:sample/full_names" />
 
     <androidx.appcompat.widget.AppCompatImageButton

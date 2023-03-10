@@ -30,7 +30,6 @@ import com.ttop.app.apex.dialogs.RemoveSongFromPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentOutlineColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import kotlinx.coroutines.Dispatchers
@@ -42,8 +41,7 @@ class OrderablePlaylistSongAdapter(
     activity: FragmentActivity,
     dataSet: MutableList<Song>,
     itemLayoutRes: Int,
-    ICabHolder: ICabHolder?,
-) : AbsOffsetSongAdapter(activity, dataSet, itemLayoutRes, ICabHolder),
+) : AbsOffsetSongAdapter(activity, dataSet, itemLayoutRes),
     DraggableItemAdapter<OrderablePlaylistSongAdapter.ViewHolder> {
 
     val libraryViewModel: LibraryViewModel by activity.viewModel()

@@ -52,7 +52,6 @@ import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
@@ -209,6 +208,22 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 showToast(genre)
                 return true
             }
+            R.id.action_fast_forward -> {
+                if (MusicPlayerRemote.songDurationMillis - MusicPlayerRemote.songProgressMillis > 10000){
+                    MusicPlayerRemote.pauseSong()
+                    MusicPlayerRemote.seekTo(MusicPlayerRemote.songProgressMillis + 10000)
+                    MusicPlayerRemote.resumePlaying()
+                }
+                return true
+            }
+            R.id.action_rewind -> {
+                if (MusicPlayerRemote.songProgressMillis > 10000){
+                    MusicPlayerRemote.pauseSong()
+                    MusicPlayerRemote.seekTo(MusicPlayerRemote.songProgressMillis - 10000)
+                    MusicPlayerRemote.resumePlaying()
+                }
+                return true
+            }
         }
         return false
     }
@@ -266,7 +281,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Main) {
-                val icon = if (animate) {
+                val icon = if (animate && VersionUtils.hasMarshmallow()) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -311,7 +326,8 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         playerAlbumCoverFragment = whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment?.setCallbacks(this)
 
-        view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
+        if (VersionUtils.hasMarshmallow())
+            view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -330,6 +346,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
         if (nps == NowPlayingScreen.Peek){
             playerToolbar()?.menu?.removeItem(R.id.now_playing)
+            if (ApexUtil.isLandscape && !ApexUtil.isTablet){
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+            }
         }else{
             playerToolbar()?.menu?.removeItem(R.id.action_queue)
         }
@@ -353,6 +372,11 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
         if (!PreferenceUtil.syncedLyrics) {
             playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+        }
+
+        if (nps != NowPlayingScreen.Tiny){
+            playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+            playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
         }
     }
 

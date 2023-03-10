@@ -221,7 +221,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         }
     }
 
-    fun restart() {
+    public fun restart() {
         val intent = intent
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         finish()

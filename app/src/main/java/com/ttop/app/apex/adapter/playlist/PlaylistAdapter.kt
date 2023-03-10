@@ -15,6 +15,7 @@
 package com.ttop.app.apex.adapter.playlist
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -35,22 +36,21 @@ import com.ttop.app.apex.glide.playlistPreview.PlaylistPreview
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.interfaces.IPlaylistClickListener
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.ATHUtil
+import com.ttop.app.appthemehelper.util.TintHelper
 import me.zhanghai.android.fastscroll.PopupTextProvider
 
 class PlaylistAdapter(
     override val activity: FragmentActivity,
     var dataSet: List<PlaylistWithSongs>,
     private var itemLayoutRes: Int,
-    ICabHolder: ICabHolder?,
     private val listener: IPlaylistClickListener
 ) : AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, PlaylistWithSongs>(
     activity,
-    ICabHolder,
     R.menu.menu_playlists_selection
 ), PopupTextProvider {
 
@@ -72,7 +72,7 @@ class PlaylistAdapter(
         return createViewHolder(view)
     }
 
-    fun createViewHolder(view: View): ViewHolder {
+    private fun createViewHolder(view: View): ViewHolder {
         return ViewHolder(view)
     }
 
@@ -101,16 +101,24 @@ class PlaylistAdapter(
         holder.title?.text = getPlaylistTitle(playlist.playlistEntity)
         holder.text?.text = getPlaylistText(playlist)
         holder.menu?.isGone = isChecked(playlist)
-        GlideApp.with(activity)
-            .load(
-                if (itemLayoutRes == R.layout.item_list) {
-                    holder.image?.setPadding(activity.dipToPix(8F).toInt())
-                    R.drawable.ic_playlist_play
-                } else PlaylistPreview(playlist)
-            )
-            .playlistOptions()
-            .into(holder.image!!)
+        if (itemLayoutRes == R.layout.item_list) {
+            holder.image?.setPadding(activity.dipToPix(8F).toInt())
+            holder.image?.setImageDrawable(getIconRes())
+        } else {
+            GlideApp.with(activity)
+                .load(
+                    PlaylistPreview(playlist)
+                )
+                .playlistOptions()
+                .into(holder.image!!)
+        }
     }
+
+    private fun getIconRes(): Drawable = TintHelper.createTintedDrawable(
+        activity,
+        R.drawable.ic_playlist_play,
+        ATHUtil.resolveColor(activity, R.attr.colorControlNormal)
+    )
 
     override fun getItemCount(): Int {
         return dataSet.size

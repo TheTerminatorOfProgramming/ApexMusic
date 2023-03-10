@@ -80,7 +80,7 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
     override fun setColor(color: MediaNotificationProcessor) {
         val controlsColor =
             if (PreferenceUtil.isAdaptiveColor) {
-                color.primaryTextColor
+                color.secondaryTextColor
             } else {
                 ThemeStore.accentColor(requireContext())
             }

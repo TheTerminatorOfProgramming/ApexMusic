@@ -22,7 +22,6 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentOutlineColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -30,9 +29,8 @@ import com.ttop.app.apex.util.PreferenceUtil
 class ShuffleButtonSongAdapter(
     activity: FragmentActivity,
     dataSet: MutableList<Song>,
-    itemLayoutRes: Int,
-    ICabHolder: ICabHolder?
-) : AbsOffsetSongAdapter(activity, dataSet, itemLayoutRes, ICabHolder) {
+    itemLayoutRes: Int
+) : AbsOffsetSongAdapter(activity, dataSet, itemLayoutRes) {
 
 
     override fun createViewHolder(view: View): SongAdapter.ViewHolder {

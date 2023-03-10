@@ -44,10 +44,6 @@
         <item name="titleMarginStart">16dp</item>
     </style>
 
-    <style name="mcab_theme" parent="@style/ThemeOverlay.MaterialComponents.Light">
-        <item name="android:actionOverflowButtonStyle">@style/mcab_overflow_style</item>
-    </style>
-
     <style name="mcab_overflow_style" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="srcCompat">@drawable/ic_more_vert</item>
         <item name="android:tint">?colorSurface</item>
@@ -261,11 +257,6 @@
         <item name="background">@color/transparent</item>
     </style>
 
-    <style name="ManropeThemeOverlay">
-        <item name="fontFamily">@font/manrope</item>
-        <item name="android:fontFamily">@font/manrope</item>
-    </style>
-
     <style name="SansThemeOverlay">
         <item name="fontFamily">@font/sans</item>
         <item name="android:fontFamily">@font/sans</item>
@@ -276,29 +267,9 @@
         <item name="android:fontFamily">@font/barlow</item>
     </style>
 
-    <style name="JosefinSansThemeOverlay">
-        <item name="fontFamily">@font/josefinsans</item>
-        <item name="android:fontFamily">@font/josefinsans</item>
-    </style>
-
     <style name="JuraThemeOverlay">
         <item name="fontFamily">@font/jura</item>
         <item name="android:fontFamily">@font/jura</item>
-    </style>
-
-    <style name="CaveatThemeOverlay">
-        <item name="fontFamily">@font/caveat</item>
-        <item name="android:fontFamily">@font/caveat</item>
-    </style>
-
-    <style name="SquareDotThemeOverlay">
-        <item name="fontFamily">@font/square_dot</item>
-        <item name="android:fontFamily">@font/square_dot</item>
-    </style>
-
-    <style name="RoundDotThemeOverlay">
-        <item name="fontFamily">@font/round_dot</item>
-        <item name="android:fontFamily">@font/round_dot</item>
     </style>
 
     <style name="PencilThemeOverlay">
@@ -323,7 +294,7 @@
         </item>
     </style>
 
-    <style name="Theme.AppWidget" parent="" >
+    <style name="Theme.AppWidget" parent="">
         <item name="colorSurface">#ff000000</item>
     </style>
 
@@ -339,6 +310,10 @@
         <item name="labelBehavior">gone</item>
         <item name="thumbRadius">6dp</item>
         <item name="haloRadius">18dp</item>
+    </style>
+
+    <style name="Widget.Apex.Slider.NoLabel" parent="Widget.Material3.Slider">
+        <item name="labelBehavior">gone</item>
     </style>
 
     <style name="circleImageView1" parent="">

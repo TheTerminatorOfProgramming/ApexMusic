@@ -30,7 +30,6 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
@@ -42,11 +41,9 @@ open class AlbumAdapter(
     override val activity: FragmentActivity,
     var dataSet: List<Album>,
     var itemLayoutRes: Int,
-    iCabHolder: ICabHolder?,
     val listener: IAlbumClickListener?
 ) : AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album>(
     activity,
-    iCabHolder,
     R.menu.menu_media_selection
 ), PopupTextProvider {
 

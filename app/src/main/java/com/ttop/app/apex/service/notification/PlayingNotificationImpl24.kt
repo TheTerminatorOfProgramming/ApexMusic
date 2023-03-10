@@ -64,7 +64,10 @@ class PlayingNotificationImpl24(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                PendingIntent.FLAG_UPDATE_CURRENT or if (VersionUtils.hasMarshmallow())
+                    PendingIntent.FLAG_IMMUTABLE
+                else 0
+            )
 
         val serviceName = ComponentName(context, MusicService::class.java)
         val intent = Intent(ACTION_QUIT)
@@ -73,7 +76,9 @@ class PlayingNotificationImpl24(
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or (if (VersionUtils.hasMarshmallow())
+                PendingIntent.FLAG_IMMUTABLE
+            else 0)
         )
         val toggleFavoriteOrUpdate = buildFavoriteUpdateAction(false)
         val playPauseAction = buildPlayAction(true)
@@ -201,7 +206,8 @@ class PlayingNotificationImpl24(
         intent.component = serviceName
         return PendingIntent.getService(
             context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or
-                    PendingIntent.FLAG_IMMUTABLE
+                    if (VersionUtils.hasMarshmallow()) PendingIntent.FLAG_IMMUTABLE
+                    else 0
         )
     }
 

@@ -78,7 +78,26 @@
             tools:text="@tools:sample/lorem/random" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text"
+            android:id="@+id/album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingHorizontal="16dp"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textAppearance="@style/TextViewSubtitle2"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constrainedWidth="true"
+            tools:text="@tools:sample/full_names" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -101,8 +120,10 @@
         android:id="@+id/songInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
         android:paddingHorizontal="16dp"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp"

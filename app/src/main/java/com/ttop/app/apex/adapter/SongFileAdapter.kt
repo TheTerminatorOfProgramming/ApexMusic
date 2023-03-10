@@ -30,7 +30,6 @@ import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.appthemehelper.util.ATHUtil
@@ -44,10 +43,9 @@ class SongFileAdapter(
     override val activity: AppCompatActivity,
     private var dataSet: List<File>,
     private val itemLayoutRes: Int,
-    private val iCallbacks: ICallbacks?,
-    iCabHolder: ICabHolder?,
+    private val iCallbacks: ICallbacks?
 ) : AbsMultiSelectAdapter<SongFileAdapter.ViewHolder, File>(
-    activity, iCabHolder, R.menu.menu_media_selection
+    activity, R.menu.menu_media_selection
 ), PopupTextProvider {
 
     init {

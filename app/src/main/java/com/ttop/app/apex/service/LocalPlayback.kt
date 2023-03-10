@@ -131,8 +131,10 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                     .build()
             )
-            player.playbackParams =
-                PlaybackParams().setSpeed(playbackSpeed).setPitch(playbackPitch)
+
+            if (VersionUtils.hasMarshmallow())
+                player.playbackParams =
+                    PlaybackParams().setSpeed(playbackSpeed).setPitch(playbackPitch)
 
             player.setOnPreparedListener {
                 player.setOnPreparedListener(null)

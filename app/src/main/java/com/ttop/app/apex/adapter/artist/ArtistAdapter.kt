@@ -33,7 +33,6 @@ import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumArtistClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
@@ -45,11 +44,10 @@ class ArtistAdapter(
     override val activity: FragmentActivity,
     var dataSet: List<Artist>,
     var itemLayoutRes: Int,
-    val ICabHolder: ICabHolder?,
     val IArtistClickListener: IArtistClickListener,
     val IAlbumArtistClickListener: IAlbumArtistClickListener? = null
 ) : AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist>(
-    activity, ICabHolder, R.menu.menu_media_selection
+    activity, R.menu.menu_media_selection
 ), PopupTextProvider {
 
     var albumArtistsOnly = false

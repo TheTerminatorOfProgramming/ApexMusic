@@ -2,52 +2,58 @@ package com.ttop.app.apex.adapter.base
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.MenuRes
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.surfaceColor
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
-import com.ttop.app.apex.util.ApexColorUtil
+import com.ttop.app.apex.databinding.NumberRollViewBinding
+import com.ttop.app.apex.views.NumberRollView
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
-    open val activity: FragmentActivity, private val ICabHolder: ICabHolder?, @MenuRes menuRes: Int
-) : RecyclerView.Adapter<V>(), ICabCallback {
-    private var cab: AttachedCab? = null
+    open val activity: FragmentActivity, @MenuRes menuRes: Int,
+) : RecyclerView.Adapter<V>(), ActionMode.Callback {
+    var actionMode: ActionMode? = null
     private val checked: MutableList<I>
     private var menuRes: Int
-    override fun onCabCreated(cab: AttachedCab, menu: Menu): Boolean {
-        activity.window.statusBarColor =
-            ApexColorUtil.shiftBackgroundColor(activity.surfaceColor())
+
+    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+        val inflater = mode?.menuInflater
+        inflater?.inflate(menuRes, menu)
         return true
     }
 
-    override fun onCabFinished(cab: AttachedCab): Boolean {
-        clearChecked()
-        activity.window.statusBarColor = Color.TRANSPARENT
-        return true
+    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+        return false
     }
 
-    override fun onCabItemClicked(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_multi_select_adapter_check_all) {
+    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_multi_select_adapter_check_all) {
             checkAll()
         } else {
-            onMultipleItemAction(item, ArrayList(checked))
-            cab?.destroy()
+            onMultipleItemAction(item!!, ArrayList(checked))
+            actionMode?.finish()
             clearChecked()
         }
         return true
     }
 
+    override fun onDestroyActionMode(mode: ActionMode?) {
+        clearChecked()
+        activity.window.statusBarColor = when {
+            VersionUtils.hasMarshmallow() -> Color.TRANSPARENT
+            else -> Color.BLACK
+        }
+        actionMode = null
+        onBackPressedCallback.remove()
+    }
+
     private fun checkAll() {
-        if (ICabHolder != null) {
+        if (actionMode != null) {
             checked.clear()
             for (i in 0 until itemCount) {
                 val identifier = getIdentifier(i)
@@ -69,7 +75,7 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
     }
 
     protected val isInQuickSelectMode: Boolean
-        get() = cab != null && cab!!.isActive()
+        get() = actionMode != null
 
     protected abstract fun onMultipleItemAction(menuItem: MenuItem, selection: List<I>)
     protected fun setMultiSelectMenuRes(@MenuRes menuRes: Int) {
@@ -77,16 +83,13 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
     }
 
     protected fun toggleChecked(position: Int): Boolean {
-        if (ICabHolder != null) {
-            val identifier = getIdentifier(position) ?: return false
-            if (!checked.remove(identifier)) {
-                checked.add(identifier)
-            }
-            notifyItemChanged(position)
-            updateCab()
-            return true
+        val identifier = getIdentifier(position) ?: return false
+        if (!checked.remove(identifier)) {
+            checked.add(identifier)
         }
-        return false
+        notifyItemChanged(position)
+        updateCab()
+        return true
     }
 
     private fun clearChecked() {
@@ -94,23 +97,21 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
         notifyDataSetChanged()
     }
 
-    @SuppressLint("StringFormatInvalid", "StringFormatMatches")
     private fun updateCab() {
-        if (ICabHolder != null) {
-            if (cab == null || !cab!!.isActive()) {
-                cab = ICabHolder.openCab(menuRes, this)
+        if (actionMode == null) {
+            actionMode = activity.startActionMode(this)?.apply {
+                customView = NumberRollViewBinding.inflate(activity.layoutInflater).root
             }
-            val size = checked.size
-            when {
-                size <= 0 -> {
-                    cab?.destroy()
-                }
-                size == 1 -> {
-                    cab?.title(literal = getName(checked[0]))
-                }
-                else -> {
-                    cab?.title(literal = activity.getString(R.string.x_selected, size))
-                }
+            activity.onBackPressedDispatcher.addCallback(onBackPressedCallback)
+        }
+        val size = checked.size
+        when {
+            size <= 0 -> {
+                actionMode?.finish()
+            }
+            else -> {
+                actionMode?.customView?.findViewById<NumberRollView>(R.id.selection_mode_number)
+                    ?.setNumber(size, true)
             }
         }
     }
@@ -118,5 +119,14 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
     init {
         checked = ArrayList()
         this.menuRes = menuRes
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (actionMode != null) {
+                actionMode?.finish()
+                remove()
+            }
+        }
     }
 }

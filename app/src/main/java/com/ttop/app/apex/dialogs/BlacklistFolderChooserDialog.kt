@@ -63,17 +63,16 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                     positiveButton(res = android.R.string.ok)
                 }
             }
-        }else {
-            if (ActivityCompat.checkSelfPermission(
-                    requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                return materialDialog().show {
-                    title(res = R.string.md_error_label)
-                    message(res = R.string.md_storage_perm_error)
-                    positiveButton(res = android.R.string.ok)
-                }
+        }else if (VersionUtils.hasMarshmallow()
+            && ActivityCompat.checkSelfPermission(
+                requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            return materialDialog().show {
+                title(res = R.string.md_error_label)
+                message(res = R.string.md_storage_perm_error)
+                positiveButton(res = android.R.string.ok)
             }
         }
 

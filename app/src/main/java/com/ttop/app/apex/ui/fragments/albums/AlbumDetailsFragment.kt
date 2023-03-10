@@ -32,10 +32,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
-import com.afollestad.materialcab.attached.AttachedCab
-import com.afollestad.materialcab.attached.destroy
-import com.afollestad.materialcab.attached.isActive
-import com.afollestad.materialcab.createCab
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
@@ -58,8 +54,6 @@ import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_DURA
 import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_TRACK_LIST
 import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_Z_A
 import com.ttop.app.apex.interfaces.IAlbumClickListener
-import com.ttop.app.apex.interfaces.ICabCallback
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.network.Result
@@ -80,7 +74,7 @@ import org.koin.core.parameter.parametersOf
 import java.text.Collator
 
 class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_details),
-    IAlbumClickListener, ICabHolder {
+    IAlbumClickListener {
 
     private var _binding: FragmentAlbumDetailsBinding? = null
     private val binding get() = _binding!!
@@ -170,12 +164,6 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (!handleBackPress()) {
-                remove()
-                requireActivity().onBackPressed()
-            }
-        }
         binding.appBarLayout?.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
     }
@@ -189,8 +177,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         simpleSongAdapter = SimpleSongAdapter(
             requireActivity() as AppCompatActivity,
             ArrayList(),
-            R.layout.item_song,
-            this
+            R.layout.item_song
         )
         binding.fragmentAlbumContent.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -264,7 +251,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             String.format(getString(R.string.label_more_from), album.artistName)
 
         val albumAdapter =
-            HorizontalAlbumAdapter(requireActivity() as AppCompatActivity, albums, this, this)
+            HorizontalAlbumAdapter(requireActivity() as AppCompatActivity, albums, this)
         binding.fragmentAlbumContent.moreRecyclerView.layoutManager = GridLayoutManager(
             requireContext(),
             1,
@@ -450,38 +437,6 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         }
         album = album.copy(songs = songs)
         simpleSongAdapter.swapDataSet(album.songs)
-    }
-
-    private fun handleBackPress(): Boolean {
-        cab?.let {
-            if (it.isActive()) {
-                it.destroy()
-                return true
-            }
-        }
-        return false
-    }
-
-    private var cab: AttachedCab? = null
-
-    override fun openCab(menuRes: Int, callback: ICabCallback): AttachedCab {
-        cab?.let {
-            if (it.isActive()) {
-                it.destroy()
-            }
-        }
-        cab = createCab(R.id.toolbar_container) {
-            menu(menuRes)
-            closeDrawable(R.drawable.ic_close)
-            backgroundColor(literal = ApexColorUtil.shiftBackgroundColor(surfaceColor()))
-            slideDown()
-            onCreate { cab, menu -> callback.onCabCreated(cab, menu) }
-            onSelection {
-                callback.onCabItemClicked(it)
-            }
-            onDestroy { callback.onCabFinished(it) }
-        }
-        return cab as AttachedCab
     }
 
     override fun onDestroyView() {

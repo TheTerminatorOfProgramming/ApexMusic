@@ -70,11 +70,12 @@ class MaterialControlsFragment :
         _binding = FragmentMaterialPlaybackControlsBinding.bind(view)
         setUpPlayPauseFab()
         binding.title.isSelected = true
-        binding.text.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
     }
@@ -82,11 +83,13 @@ class MaterialControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album.text = getSongInfo(song)
+        binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }
@@ -138,7 +141,8 @@ class MaterialControlsFragment :
             textColorSecondary()
         }.ripAlpha()
 
-        binding.text.setTextColor(colorFinal)
+        binding.album.setTextColor(colorFinal)
+        binding.artist.setTextColor(colorFinal)
         binding.progressSlider.applyColor(colorFinal)
 
         volumeFragment?.setTintable(colorFinal)

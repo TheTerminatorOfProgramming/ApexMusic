@@ -22,7 +22,6 @@ import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.HorizontalAdapterHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
-import com.ttop.app.apex.interfaces.ICabHolder
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -30,10 +29,9 @@ import com.ttop.app.apex.util.color.MediaNotificationProcessor
 class HorizontalAlbumAdapter(
     activity: FragmentActivity,
     dataSet: List<Album>,
-    ICabHolder: ICabHolder?,
     albumClickListener: IAlbumClickListener
 ) : AlbumAdapter(
-    activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, ICabHolder, albumClickListener
+    activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, albumClickListener
 ) {
 
     override fun createViewHolder(view: View, viewType: Int): ViewHolder {

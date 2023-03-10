@@ -15,6 +15,7 @@
 package com.ttop.app.apex.ui.fragments.about
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -30,15 +31,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
@@ -51,9 +57,27 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
-    private var cTimer: CountDownTimer? = null
     private var count: Int = 0
+    private val timer = object: CountDownTimer(5000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {}
 
+        override fun onFinish() {
+            if (count==10){
+                PreferenceUtil.isDevModeEnabled = true
+                showToast("Developer Mode On!")
+            }
+
+            count =0
+
+            if (!PreferenceUtil.isDevModeEnabled) {
+                binding.aboutContent.cardOther.devMode.visibility = View.GONE
+                binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
+            } else {
+                binding.aboutContent.cardOther.devMode.visibility = View.VISIBLE
+                binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.on) as String)
+            }
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAboutBinding.bind(view)
@@ -70,16 +94,21 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 padding(vertical = true)
             }
         }
-    }
 
-    fun startTimer() {
-        cTimer = object : CountDownTimer(15000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {}
-            override fun onFinish() {
-                count = 0
-            }
+        if (!PreferenceUtil.isDevModeEnabled) {
+            binding.aboutContent.cardOther.devMode.visibility = View.GONE
+            binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
+        } else {
+            binding.aboutContent.cardOther.devMode.visibility = View.VISIBLE
+            binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.on) as String)
         }
-        (cTimer as CountDownTimer).start()
+        PreferenceUtil.isAppInstalledFromGooglePlay = getInstallerPackageName().contains("com.android.vending")
+
+        if (PreferenceUtil.isAppInstalledFromGooglePlay){
+            binding.aboutContent.cardOther.update.visibility = View.GONE
+        }else {
+            binding.aboutContent.cardOther.update.visibility = View.VISIBLE
+        }
     }
 
     private fun setUpView() {
@@ -99,6 +128,9 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         }
         binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
+        binding.aboutContent.cardOther.version.setOnClickListener(this)
+        binding.aboutContent.cardOther.devMode.setOnClickListener(this)
+        binding.aboutContent.cardOther.update.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -110,6 +142,59 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.openSource -> NavigationUtil.goToOpenSource(requireActivity())
             R.id.permissions_edit -> goToPermissions()
             R.id.battery_permission_title -> ApexUtil.disableBatteryOptimization()
+            R.id.version -> {
+                if (!PreferenceUtil.isDevModeEnabled) {
+                    if (count == 0) {
+                        count +=1
+                        timer.start()
+                    }else {
+                        if (count < 10) {
+                            count +=1
+                        }else {
+                            timer.cancel()
+                            showToast("Developer Mode On!")
+                            PreferenceUtil.isDevModeEnabled = true
+                            count = 0
+
+                        }
+                    }
+                }else {
+                    showToast("Developer mode already turned on!")
+                }
+
+                if (!PreferenceUtil.isDevModeEnabled) {
+                    binding.aboutContent.cardOther.devMode.visibility = View.GONE
+                    binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
+                } else {
+                    binding.aboutContent.cardOther.devMode.visibility = View.VISIBLE
+                    binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.on) as String)
+                }
+            }
+            R.id.devMode -> {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Developer Mode")
+                builder.setMessage("Turn off Developer Mode?")
+
+                builder.setPositiveButton(android.R.string.yes) { _, _ ->
+                    PreferenceUtil.isDevModeEnabled = false
+
+                    binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
+
+                    binding.aboutContent.cardOther.devMode.visibility = View.GONE
+                }
+
+                builder.setNegativeButton(android.R.string.no) { _, _ ->
+                }
+                builder.show()
+            }
+            R.id.update -> {
+                val appUpdater = AppUpdater(activity)
+                    .setUpdateFrom(UpdateFrom.GITHUB)
+                    .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
+                    .setDisplay(Display.DIALOG)
+                    .showAppUpdated(true)
+                appUpdater.start()
+            }
         }
     }
 
@@ -120,12 +205,12 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun getAppVersion(): String {
+        val c = Calendar.getInstance().time
+        val df = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        val formattedDate = df.format(c)
+        val tf = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
+        val formattedTime = tf.format(c)
         if (BuildConfig.BUILD_TYPE.equals("beta") || BuildConfig.DEBUG) {
-            val c = Calendar.getInstance().time
-            val df = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-            val formattedDate = df.format(c)
-            val tf = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
-            val formattedTime = tf.format(c)
             try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
@@ -136,7 +221,13 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             }
         } else {
             try {
-                return requireContext().packageManager.getPackageInfo(requireContext().packageName, 0).versionName
+                val versionName = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0).versionName
+
+                return if (versionName.contains("Preview")){
+                    versionName + " " + formattedDate + "_" + formattedTime
+                }else {
+                    versionName
+                }
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
@@ -146,7 +237,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun getRetroMusicVersion(): String {
-        return "6.0.2 BETA"
+        return "6.0.4 BETA"
     }
 
     private fun shareApp() {
@@ -220,6 +311,14 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             "Disabled"
         } else {
             "Enabled"
+        }
+    }
+
+    private fun getInstallerPackageName(): String {
+        return if (VersionUtils.hasR()){
+            requireContext().packageManager.getInstallSourceInfo(requireContext().packageName).installingPackageName.toString()
+        }else {
+            requireContext().packageManager.getInstallerPackageName(requireContext().packageName).toString()
         }
     }
 

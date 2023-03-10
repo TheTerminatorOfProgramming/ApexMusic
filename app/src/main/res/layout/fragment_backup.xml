@@ -6,7 +6,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/create_backup"
-        style="@style/Widget.Material3.Button.OutlinedButton"
+        style="@style/Widget.Material3.Button.Icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -15,14 +15,12 @@
         android:paddingVertical="10dp"
         android:text="@string/create_new_backup"
         android:textAppearance="@style/TextViewButton"
-        android:textColor="?android:attr/textColorPrimary"
-        app:backgroundTint="?attr/colorSurface"
         app:icon="@drawable/ic_backup"
         app:iconGravity="start"
         app:layout_constraintEnd_toStartOf="@+id/restore_backup"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pathLabel" />
+        app:layout_constraintTop_toBottomOf="@id/reset_to_default" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/restore_backup"
@@ -85,4 +83,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/pathLabel" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reset_to_default"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingVertical="10dp"
+        android:text="@string/reset_to_default"
+        android:textAppearance="@style/TextViewButton"
+        android:textColor="?android:attr/textColorPrimary"
+        app:backgroundTint="?attr/colorSurface"
+        app:icon="@drawable/ic_refresh"
+        app:iconGravity="start"
+        app:layout_constraintEnd_toStartOf="@+id/restore_backup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pathLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

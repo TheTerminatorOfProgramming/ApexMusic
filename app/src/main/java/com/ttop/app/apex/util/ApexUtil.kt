@@ -17,25 +17,36 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
+import android.text.TextUtils
+import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
+import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
+import java.text.Collator
 import java.text.DecimalFormat
 import java.util.*
 
+
 object ApexUtil {
+    private val collator = Collator.getInstance()
+
     fun formatValue(numValue: Float): String {
         var value = numValue
         val arr = arrayOf("", "K", "M", "B", "T", "P", "E")
@@ -128,31 +139,6 @@ object ApexUtil {
         return ""
     }
 
-    fun createForegroundInfo(notificationId: Int, notificationChannelId: String): Notification {
-        //CREATE NOTIFICATION
-        val builder = NotificationCompat.Builder(getContext(), notificationChannelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Foreground Notification")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setOngoing(true)
-
-        //CREATE CHANNEL
-        val name = "Foreground Notification"
-        val descriptionText = "Foreground Service Notification"
-        val importance = NotificationManager.IMPORTANCE_LOW
-        val mChannel = NotificationChannel(notificationChannelId, name, importance).apply {
-            description = descriptionText
-            setShowBadge(false)
-        }
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        val notificationManager =
-            getContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(mChannel)
-
-        return builder.build()
-    }
-
     @RequiresApi(Build.VERSION_CODES.S)
     fun hasBatteryPermission(): Boolean {
         val packageName = getContext().packageName
@@ -172,5 +158,61 @@ object ApexUtil {
         intent.data = Uri.parse("package:$packageName")
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         getContext().startActivity(intent)
+    }
+
+    fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
+        if (view.layoutParams is ViewGroup.MarginLayoutParams) {
+            val p = view.layoutParams as ViewGroup.MarginLayoutParams
+            p.setMargins(left, top, right, bottom)
+            view.requestLayout()
+        }
+    }
+
+    fun DpToMargin(dp: Int): Int {
+        val marginInDp = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), getContext().resources
+                .displayMetrics
+        ).toInt()
+
+        return marginInDp
+    }
+
+    fun compareIgnoreAccent(s1: String?, s2: String?): Int {
+        // Null-proof comparison
+        if (s1 == null) {
+            return if (s2 == null) 0 else -1
+        } else if (s2 == null) {
+            return 1
+        }
+        return collator.compare(s1, s2)
+    }
+
+    fun getNameWithoutArticle(title: String?): String {
+        if (TextUtils.isEmpty(title)) {
+            return ""
+        }
+        var strippedTitle = title!!.trim { it <= ' ' }
+        val articles = java.util.List.of(
+            "a ", "an ", "the ",  // English ones
+            "l'", "le ", "la ", "les " // French ones
+        )
+        val lowerCaseTitle = strippedTitle.lowercase(Locale.getDefault())
+        for (article in articles) {
+            if (lowerCaseTitle.startsWith(article)) {
+                strippedTitle = strippedTitle.substring(article.length)
+                break
+            }
+        }
+        return strippedTitle
+    }
+
+    fun resetToDefault(context: Context, name: String): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context.deleteSharedPreferences(name)
+        } else {
+            context.getSharedPreferences(name, MODE_PRIVATE).edit().clear().apply()
+            val dir = File(context.applicationInfo.dataDir, "shared_prefs")
+            File(dir, "$name.xml").delete()
+        }
     }
 }

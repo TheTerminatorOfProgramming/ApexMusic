@@ -32,7 +32,6 @@ import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
-import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
 import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
@@ -56,7 +55,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 setSummary(it, newValue)
                 ThemeStore.markChanged(requireContext())
 
-                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                if (VersionUtils.hasNougatMR()) {
+                    DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                }
                 restartActivity()
                 true
             }
@@ -74,7 +75,8 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                     subColors = ACCENT_COLORS_SUB, allowCustomArgb = true
                 ) { _, color ->
                     ThemeStore.editTheme(requireContext()).accentColor(color).commit()
-                    DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                    if (VersionUtils.hasNougatMR())
+                        DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                     restartActivity()
                 }
             }
@@ -85,8 +87,10 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         blackTheme?.setOnPreferenceChangeListener { _, _ ->
             ThemeStore.markChanged(requireContext())
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
-            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+            if (VersionUtils.hasNougatMR()) {
+                requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
+                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+            }
             restartActivity()
             true
         }
@@ -104,12 +108,15 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         }
 
         val colorAppShortcuts: TwoStatePreference? = findPreference(SHOULD_COLOR_APP_SHORTCUTS)
-        colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
-        colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
-            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-            true
+        if (!VersionUtils.hasNougatMR()) {
+            colorAppShortcuts?.isVisible = false
+        } else {
+            colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
+            colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
+                PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
+                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                true
+            }
         }
 
         val materialYou: ATESwitchPreference? = findPreference(MATERIAL_YOU)
@@ -140,7 +147,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
         adaptiveColor?.isEnabled =
-            PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)
+            PreferenceUtil.nowPlayingScreen in listOf(Adaptive, Card, Classic, Color, Fit, Flat, Full, Gradient, Normal, Peek, Plain, Simple, Swipe)
         adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }

@@ -69,6 +69,7 @@ class AdaptivePlaybackControlsFragment :
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }
@@ -121,7 +122,7 @@ class AdaptivePlaybackControlsFragment :
         updatePlayPauseColor()
 
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
-            color.primaryTextColor
+            color.secondaryTextColor
         } else {
             accentColor()
         }.ripAlpha()

@@ -52,6 +52,14 @@
         android:title="@string/action_go_to_genre"
         android:visible="false" />
     <item
+        android:id="@+id/action_rewind"
+        android:orderInCategory="5"
+        android:title="@string/action_rewind" />
+    <item
+        android:id="@+id/action_fast_forward"
+        android:orderInCategory="5"
+        android:title="@string/action_fast_forward" />
+    <item
         android:id="@+id/action_add_to_playlist"
         android:orderInCategory="5"
         android:title="@string/action_add_to_playlist" />

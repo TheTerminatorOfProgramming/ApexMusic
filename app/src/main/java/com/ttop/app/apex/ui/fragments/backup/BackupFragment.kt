@@ -3,11 +3,14 @@ package com.ttop.app.apex.ui.fragments.backup
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -17,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import code.ttop.app.apex.adapter.backup.BackupAdapter
 import com.afollestad.materialdialogs.input.input
+import com.jakewharton.processphoenix.ProcessPhoenix
+import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentBackupBinding
 import com.ttop.app.apex.extensions.accentColor
@@ -25,11 +30,15 @@ import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
+import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.Share
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import java.nio.file.Files
 import java.util.*
 
 
@@ -63,8 +72,9 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             }
         }
 
-        binding.createBackup.accentOutlineColor()
+        binding.createBackup.accentColor()
         binding.restoreBackup.accentColor()
+        binding.resetToDefault.accentOutlineColor()
         binding.createBackup.setOnClickListener {
             showCreateBackupDialog()
         }
@@ -77,6 +87,45 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         }
 
         binding.backupPath.text = getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+
+        if (PreferenceUtil.isDevModeEnabled){
+            binding.resetToDefault.visibility = View.VISIBLE
+        }else {
+            binding.resetToDefault.visibility = View.GONE
+        }
+
+        binding.resetToDefault.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Reset Settings")
+            builder.setMessage("Reset Settings to Default?\nApp Will Restart!")
+
+            builder.setPositiveButton(android.R.string.yes) { _, _ ->
+                val id = BuildConfig.APPLICATION_ID
+                val path = "/data/data/$id/shared_prefs"
+                val file = File(path)
+                if (VersionUtils.hasOreo()) {
+                    deleteDirectory(file)
+                }
+
+                ProcessPhoenix.triggerRebirth(requireActivity())
+            }
+
+            builder.setNegativeButton(android.R.string.no) { _, _ ->
+            }
+            builder.show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun deleteDirectory(directory: File) {
+       Files.walk(directory.toPath())
+       .filter { Files.isRegularFile(it) }
+        .map { it.toFile() }
+        .forEach {
+            if (it.name != "IntroPrefs.xml"){
+                it.delete()
+            }
+        }
     }
 
     private fun openFolder() {

@@ -156,7 +156,7 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
     }
@@ -187,11 +187,13 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.playerControlsContainer.songInfo.text = getSongInfo(song)
             binding.playerControlsContainer.songInfo.show()
+            binding.playerControlsContainer.songInfo.isSelected = true
         } else {
             binding.playerControlsContainer.songInfo.hide()
         }

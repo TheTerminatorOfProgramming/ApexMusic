@@ -67,11 +67,13 @@ class CardPlaybackControlsFragment :
         _binding = FragmentCardPlayerPlaybackControlsBinding.bind(view)
         setUpPlayPauseFab()
         binding.title.isSelected = true
-        binding.text.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
+
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
     }
@@ -79,11 +81,13 @@ class CardPlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }
@@ -132,7 +136,7 @@ class CardPlaybackControlsFragment :
         updateProgressTextColor()
 
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
-            color.primaryTextColor
+            color.secondaryTextColor
         } else {
             accentColor().ripAlpha()
         }

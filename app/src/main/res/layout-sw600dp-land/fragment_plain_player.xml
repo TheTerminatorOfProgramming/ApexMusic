@@ -62,7 +62,18 @@
             tools:text="Title" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text"
+            android:id="@+id/album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            tools:text="Text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"

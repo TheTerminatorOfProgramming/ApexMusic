@@ -20,10 +20,12 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.widget.Toast
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
@@ -32,6 +34,8 @@ import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -137,6 +141,13 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             fullShape.isChecked = newValue as Boolean
             appWidgetFull.notifyThemeChange(musicService)
             false
+        }
+
+        val textAlignment: Preference? = findPreference(TEXT_ALIGNMENT)
+        textAlignment?.setOnPreferenceChangeListener { _, newValue ->
+            PreferenceUtil.textAlignment = newValue as String
+            appWidgetFull.notifyThemeChange(musicService)
+            true
         }
     }
 

@@ -123,7 +123,9 @@ abstract class BaseAppWidget : AppWidgetProvider() {
             PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         } else {
             PendingIntent.getService(
-                context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+                context, 0, intent, if (VersionUtils.hasMarshmallow())
+                    PendingIntent.FLAG_IMMUTABLE
+                else 0
             )
         }
     }

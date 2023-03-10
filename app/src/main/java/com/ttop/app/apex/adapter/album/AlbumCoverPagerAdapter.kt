@@ -15,9 +15,10 @@
 package com.ttop.app.apex.adapter.album
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.GestureDetector.SimpleOnGestureListener
+import android.view.View.OnClickListener
+import android.view.View.OnTouchListener
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.GlideApp
@@ -34,7 +36,6 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
-import com.ttop.app.apex.ui.fragments.NowPlayingScreenLite
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -105,16 +106,22 @@ class AlbumCoverPagerAdapter(
             container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
+
+
             val view = inflater.inflate(getLayoutWithPlayerTheme(), container, false)
-            view.setOnClickListener {
-                if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
-                    if (PreferenceUtil.isLyrics) {
-                        if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "both") {
-                            showLyricsDialog()
+
+            view.setOnClickListener(object : DoubleClickListener() {
+                override fun onDoubleClick(v: View?) {
+                    if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
+                        if (PreferenceUtil.isLyrics) {
+                            if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "both") {
+                                showLyricsDialog()
+                            }
                         }
                     }
                 }
-            }
+            })
+
             return view
         }
 
@@ -203,6 +210,27 @@ class AlbumCoverPagerAdapter(
         interface ColorReceiver {
             fun onColorReady(color: MediaNotificationProcessor, request: Int)
         }
+
+
+            // Abstract class defining methods to check Double Click where Time Delay
+            // between the two clicks is set to 300 ms
+            abstract class DoubleClickListener : View.OnClickListener {
+                var lastClickTime: Long = 0
+                override fun onClick(v: View?) {
+                    val clickTime = System.currentTimeMillis()
+                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
+                        onDoubleClick(v)
+                    }
+                    lastClickTime = clickTime
+                }
+
+                abstract fun onDoubleClick(v: View?)
+
+                companion object {
+                    private const val DOUBLE_CLICK_TIME_DELTA: Long = 200 //milliseconds
+                }
+            }
+
 
         companion object {
 

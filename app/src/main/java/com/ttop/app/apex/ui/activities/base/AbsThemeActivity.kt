@@ -57,10 +57,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setDefaultNightMode(getNightMode())
         }
 
-        if (PreferenceUtil.isCustomFont == "manrope") {
-            setTheme(R.style.ManropeThemeOverlay)
-        }
-
         if (PreferenceUtil.isCustomFont == "sans") {
             setTheme(R.style.SansThemeOverlay)
         }
@@ -69,24 +65,8 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.BarlowThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "jose") {
-            setTheme(R.style.JosefinSansThemeOverlay)
-        }
-
         if (PreferenceUtil.isCustomFont == "jura") {
             setTheme(R.style.JuraThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "caveat") {
-            setTheme(R.style.CaveatThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "square_dot") {
-            setTheme(R.style.SquareDotThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "round_dot") {
-            setTheme(R.style.RoundDotThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {

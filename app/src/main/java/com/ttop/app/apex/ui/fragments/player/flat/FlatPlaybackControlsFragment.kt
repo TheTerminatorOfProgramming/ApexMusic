@@ -68,11 +68,13 @@ class FlatPlaybackControlsFragment :
         _binding = FragmentFlatPlayerPlaybackControlsBinding.bind(view)
         binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
         binding.title.isSelected = true
-        binding.text.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
+
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
     }
@@ -107,7 +109,7 @@ class FlatPlaybackControlsFragment :
         }
 
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
-            color.primaryTextColor
+            color.secondaryTextColor
         } else {
             accentColor().ripAlpha()
         }
@@ -131,8 +133,10 @@ class FlatPlaybackControlsFragment :
 
         binding.title.setBackgroundColor(color)
         binding.title.setTextColor(colorPrimary)
-        binding.text.setBackgroundColor(darkColor)
-        binding.text.setTextColor(colorSecondary)
+        binding.album.setBackgroundColor(darkColor)
+        binding.album.setTextColor(colorSecondary)
+        binding.artist.setBackgroundColor(darkColor)
+        binding.artist.setTextColor(colorSecondary)
         binding.songInfo.setBackgroundColor(darkColor)
         binding.songInfo.setTextColor(colorSecondary)
     }
@@ -164,10 +168,13 @@ class FlatPlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
+
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
             binding.songInfo.show()
+            binding.songInfo.isSelected = true
         } else {
             binding.songInfo.hide()
         }

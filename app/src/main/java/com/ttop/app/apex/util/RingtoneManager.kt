@@ -53,8 +53,10 @@ object RingtoneManager {
     }
 
     fun requiresDialog(context: Context): Boolean {
-        if (!Settings.System.canWrite(context)) {
-            return true
+        if (VersionUtils.hasMarshmallow()) {
+            if (!Settings.System.canWrite(context)) {
+                return true
+            }
         }
         return false
     }

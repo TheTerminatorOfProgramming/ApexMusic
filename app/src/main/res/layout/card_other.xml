@@ -55,6 +55,8 @@
             app:listItemSummary="@string/pref_summary_open_source_licences"
             app:listItemTitle="@string/pref_title_open_source_licences" />
 
+
+
         <com.ttop.app.apex.views.ListItemView
             android:id="@+id/version"
             android:layout_width="0dp"
@@ -80,5 +82,31 @@
             app:listItemIcon="@drawable/ic_info_outline"
             app:listItemSummary="@string/pref_summary_open_source_licences"
             app:listItemTitle="@string/retro_version" />
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/devMode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/retroVersion"
+            app:listItemIcon="@drawable/ic_code"
+            app:listItemSummary="@string/off"
+            app:listItemTitle="@string/developer_mode" />
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/update"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/devMode"
+            app:listItemIcon="@drawable/ic_system_update"
+            app:listItemSummary="@string/pref_summary_update_app"
+            app:listItemTitle="@string/update_app" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
