@@ -13,14 +13,8 @@
  */
 package com.ttop.app.apex.util
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.Uri
@@ -32,11 +26,8 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
 import com.ttop.app.apex.App.Companion.getContext
-import com.ttop.app.apex.R
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import java.io.File
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.Collator
@@ -204,15 +195,5 @@ object ApexUtil {
             }
         }
         return strippedTitle
-    }
-
-    fun resetToDefault(context: Context, name: String): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            context.deleteSharedPreferences(name)
-        } else {
-            context.getSharedPreferences(name, MODE_PRIVATE).edit().clear().apply()
-            val dir = File(context.applicationInfo.dataDir, "shared_prefs")
-            File(dir, "$name.xml").delete()
-        }
     }
 }

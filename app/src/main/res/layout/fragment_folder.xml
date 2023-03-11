@@ -33,7 +33,7 @@
             app:layout_collapseMode="pin" />
     </com.ttop.app.apex.views.TopAppBarLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,6 +60,6 @@
             android:textAppearance="@style/TextViewHeadline5"
             android:textColor="?android:attr/textColorSecondary"
             tools:visibility="visible" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

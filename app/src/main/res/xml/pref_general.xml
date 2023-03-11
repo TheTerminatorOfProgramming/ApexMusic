@@ -74,6 +74,13 @@
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
+            android:key="extended_accent"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_extended_accent"
+            android:title="@string/pref_title_extended_accent" />
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
             android:key="adaptive_color_app"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_colored_app"

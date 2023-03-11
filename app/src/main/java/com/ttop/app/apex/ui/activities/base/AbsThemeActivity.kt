@@ -77,6 +77,14 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.SamsungThemeOverlay)
         }
 
+        if (PreferenceUtil.isCustomFont == "ostrich") {
+            setTheme(R.style.OstrichThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "capture") {
+            setTheme(R.style.CaptureThemeOverlay)
+        }
+
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
         }

@@ -199,8 +199,10 @@
     <string name="folders">Folders</string>
     <string name="follow_system">Follow system</string>
     <string name="font_barlow_name">Barlow</string>
+    <string name="font_capture_name">Capture It</string>
     <string name="font_default_name">Default</string>
     <string name="font_jura_name">Jura</string>
+    <string name="font_ostrich_name">Ostrich</string>
     <string name="font_pencil_name">Pencil</string>
     <string name="font_samsung_sans_name">Samsung Sharp Sans</string>
     <string name="font_sans_name">Google Sans</string>
@@ -392,6 +394,7 @@
     <string name="pref_summary_cross_fade">Duration to crossfade between songs</string>
     <string name="pref_summary_desaturated_color">As per Material Design guide lines in dark mode colors should be desaturated</string>
     <string name="pref_summary_expand_now_playing_panel">Clicking on the notification will show now playing screen instead of the home screen</string>
+    <string name="pref_summary_extended_accent">Apply the accent color to the header text</string>
     <string name="pref_summary_extra_controls">Add extra controls for mini player</string>
     <string name="pref_summary_extra_song_info">Show extra Song information, such as file format, bitrate and frequency</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
@@ -458,6 +461,7 @@
     <string name="pref_title_desaturated_color">Desaturated color</string>
     <string name="pref_title_embed_lyrics_view">Embedded lyrics view type</string>
     <string name="pref_title_expand_now_playing_panel">Show now playing screen</string>
+    <string name="pref_title_extended_accent">Extended Accent</string>
     <string name="pref_title_extra_controls">Extra controls</string>
     <string name="pref_title_extra_song_info">Song info</string>
     <string name="pref_title_full_widget_text_alignment">Text alignment</string>

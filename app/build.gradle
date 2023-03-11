@@ -6,18 +6,16 @@ apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdk 33
-    //compileSdkPreview = "UpsideDownCake"
 
     defaultConfig {
         minSdk 23
         targetSdk 33
-        //targetSdkPreview = "UpsideDownCake"
 
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.ttop.app.apex"
-        versionCode 262
-        versionName '2.6.0 Preview'
+        versionCode 263
+        versionName '2.6.0'
     }
     signingConfigs {
         release {
@@ -38,6 +36,9 @@ android {
         debug {
             applicationIdSuffix '.beta'
             versionNameSuffix ' BETA'
+        }
+        preview {
+            versionNameSuffix ' Preview'
         }
     }
 

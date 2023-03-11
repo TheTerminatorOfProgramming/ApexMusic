@@ -389,21 +389,21 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         }
     }
 
-    private fun checkIsEmpty() {
+    /*private fun checkIsEmpty() {
         if (_binding != null) {
             binding.emptyEmoji.text = getEmojiByUnicode(0x1F631)
             binding.empty.isVisible = adapter?.itemCount == 0
         }
-    }
+    }*/
 
     private val activeCrumb: Crumb?
         get() = if (_binding != null) {
             if (binding.breadCrumbs.size() > 0) binding.breadCrumbs.getCrumb(binding.breadCrumbs.activeIndex) else null
         } else null
 
-    private fun getEmojiByUnicode(unicode: Int): String {
+    /*private fun getEmojiByUnicode(unicode: Int): String {
         return String(Character.toChars(unicode))
-    }
+    }*/
 
     private fun saveScrollPosition() {
         val crumb = activeCrumb
@@ -569,15 +569,15 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     private fun switchToFileAdapter() {
         adapter = SongFileAdapter(mainActivity, LinkedList(), R.layout.item_list, this)
-        adapter!!.registerAdapterDataObserver(
+        /*adapter!!.registerAdapterDataObserver(
             object : RecyclerView.AdapterDataObserver() {
                 override fun onChanged() {
                     super.onChanged()
                     checkIsEmpty()
                 }
-            })
+            })*/
         binding.recyclerView.adapter = adapter
-        checkIsEmpty()
+        //checkIsEmpty()
     }
 
     private fun switchToStorageAdapter() {

@@ -180,14 +180,21 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val progressbar: TwoStatePreference? = findPreference(PROGRESS_BAR_STYLE)
         progressbar?.isChecked = PreferenceUtil.progressBarStyle
-        progressbar?.setOnPreferenceChangeListener { _, newValue ->
+        progressbar?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
 
         val progressbarAlignment: TwoStatePreference? = findPreference(PROGRESS_BAR_ALIGNMENT)
         progressbarAlignment?.isChecked = PreferenceUtil.progressBarAlignment
-        progressbarAlignment?.setOnPreferenceChangeListener { _, newValue ->
+        progressbarAlignment?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val extendedAccent: TwoStatePreference? = findPreference(EXTENDED_ACCENT)
+        extendedAccent?.isChecked = PreferenceUtil.isExtendedAccent
+        extendedAccent?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }

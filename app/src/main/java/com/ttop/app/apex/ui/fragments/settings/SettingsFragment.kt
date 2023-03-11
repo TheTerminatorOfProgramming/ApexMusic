@@ -27,6 +27,7 @@ import com.afollestad.materialdialogs.color.ColorCallback
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.databinding.FragmentSettingsBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.findNavController
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.activities.MainActivity
@@ -47,6 +48,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
         navController.addOnDestinationChangedListener { _, _, _ ->
             binding.toolbar.title =
                 navController.currentDestination?.let { getStringFromDestination(it) }
+            if (PreferenceUtil.isExtendedAccent){
+                binding.toolbar.setTitleTextColor(requireContext().accentColor())
+            }
             if (binding.toolbar.title == "Settings") {
                 if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
                     if (!mainActivity.navigationView.isVisible) {

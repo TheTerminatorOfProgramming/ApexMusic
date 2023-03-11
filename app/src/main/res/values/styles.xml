@@ -282,6 +282,16 @@
         <item name="android:fontFamily">@font/samsung_sharp_sans</item>
     </style>
 
+    <style name="OstrichThemeOverlay">
+        <item name="fontFamily">@font/ostrich_regular</item>
+        <item name="android:fontFamily">@font/ostrich_regular</item>
+    </style>
+
+    <style name="CaptureThemeOverlay">
+        <item name="fontFamily">@font/capture_it_regular</item>
+        <item name="android:fontFamily">@font/capture_it_regular</item>
+    </style>
+
     <style name="CircleFABOverlay">
         <item name="floatingActionButtonStyle">
             @style/Widget.MaterialComponents.FloatingActionButton

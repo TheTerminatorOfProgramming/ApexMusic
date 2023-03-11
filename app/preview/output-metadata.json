@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.ttop.app.apex",
+  "variantName": "preview",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 262,
+      "versionName": "2.6.0 Preview",
+      "outputFile": "app-preview.apk"
+    }
+  ],
+  "elementType": "File"
+}

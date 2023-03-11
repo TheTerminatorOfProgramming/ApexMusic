@@ -1016,6 +1016,9 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(INSTALL_MODE, value)}
+
+    val isExtendedAccent
+        get() = sharedPreferences.getBoolean(EXTENDED_ACCENT, false)
 }
 
 enum class CoverLyricsType {

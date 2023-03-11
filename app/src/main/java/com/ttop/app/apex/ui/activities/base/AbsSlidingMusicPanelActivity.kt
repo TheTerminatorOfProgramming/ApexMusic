@@ -274,7 +274,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             TOGGLE_USER_NAME,
             TOGGLE_FULL_SCREEN,
             PROGRESS_BAR_ALIGNMENT,
-            PROGRESS_BAR_STYLE -> {
+            PROGRESS_BAR_STYLE,
+            EXTENDED_ACCENT-> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {
