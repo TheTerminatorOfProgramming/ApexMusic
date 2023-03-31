@@ -34,7 +34,9 @@ import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.extensions.isSystemDarkModeEnabled
 import com.ttop.app.apex.extensions.toBitmap
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
@@ -106,7 +108,7 @@ class PlayingNotificationClassic(
         setOngoing(true)
         val bigNotificationImageSize = context.resources
             .getDimensionPixelSize(R.dimen.notification_big_image_size)
-        GlideApp.with(context).asBitmapPalette().songCoverOptions(song)
+        Glide.with(context).asBitmapPalette().songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))
             .centerCrop()
             .into(object : CustomTarget<BitmapPaletteWrapper>(

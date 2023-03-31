@@ -42,7 +42,8 @@ import com.ttop.app.apex.databinding.FragmentFullBinding
 import com.ttop.app.apex.dialogs.*
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
@@ -87,7 +88,7 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
 
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
-            setNavigationOnClickListener { requireActivity().onBackPressed() }
+            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
         }
     }
 
@@ -338,7 +339,7 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
         libraryViewModel.artist(MusicPlayerRemote.currentSong.artistId)
             .observe(viewLifecycleOwner) { artist ->
                 if (artist.id != -1L) {
-                    GlideApp.with(requireActivity())
+                    Glide.with(requireActivity())
                         .load(ApexGlideExtension.getArtistModel(artist))
                         .artistImageOptions(artist)
                         .into(binding.artistImage)

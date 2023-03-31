@@ -14,10 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
-import com.ttop.app.apex.appwidgets.AppWidgetBig
-import com.ttop.app.apex.appwidgets.AppWidgetCircle
-import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.util.PreferenceUtil
 
@@ -54,7 +50,7 @@ class ShuffleSlideFragment : Fragment() {
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
-        fun newInstance(fragmentRingtoneIntro: Int): ShuffleSlideFragment {
+        fun newInstance(): ShuffleSlideFragment {
             return ShuffleSlideFragment()
         }
     }

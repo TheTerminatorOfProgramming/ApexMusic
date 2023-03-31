@@ -15,21 +15,14 @@
         android:background="?attr/colorSurface"
         app:defaultNavHost="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:navGraph="@navigation/settings_graph" />
+        app:navGraph="@navigation/settings_graph"
+        android:layout_marginBottom="75dp"/>
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.ttop.app.apex.views.TopAppBarLayout
         android:id="@+id/appBarLayout"
+        style="?appBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:titleTextAppearance="@style/ToolbarTextAppearanceNormal"
-            tools:title="@string/action_settings"
-            app:titleCentered="true"/>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:fitsSystemWindows="true"
+        android:theme="@style/CenteredCheckBoxTheme" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

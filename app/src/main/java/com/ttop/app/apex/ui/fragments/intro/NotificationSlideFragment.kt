@@ -26,7 +26,7 @@ class NotificationSlideFragment : Fragment() {
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
-        fun newInstance(fragmentRingtoneIntro: Int): NotificationSlideFragment {
+        fun newInstance(): NotificationSlideFragment {
             return NotificationSlideFragment()
         }
     }

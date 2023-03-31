@@ -13,8 +13,11 @@
  */
 package com.ttop.app.apex.util
 
+import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.Uri
@@ -27,6 +30,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.ttop.app.apex.App.Companion.getContext
+import com.ttop.app.apex.appwidgets.AppWidgetFull
+import com.ttop.app.apex.appwidgets.AppWidgetSquare
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import java.net.InetAddress
 import java.net.NetworkInterface

@@ -24,9 +24,10 @@ import android.util.TypedValue
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import androidx.cardview.widget.CardView
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMiniPlayerBinding
 import com.ttop.app.apex.extensions.accentColor
@@ -34,7 +35,7 @@ import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
@@ -42,6 +43,7 @@ import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlin.math.abs
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
@@ -58,17 +60,25 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onClick(view: View) {
         when (view.id) {
             R.id.actionNext ->  {
-                if (PreferenceUtil.isAutoplay) {
+                if (VersionUtils.hasT()) {
                     MusicPlayerRemote.playNextSong()
                 }else {
-                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                    if (PreferenceUtil.isAutoplay) {
+                        MusicPlayerRemote.playNextSong()
+                    } else {
+                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                    }
                 }
             }
             R.id.actionPrevious ->  {
-                if (PreferenceUtil.isAutoplay) {
+                if (VersionUtils.hasT()) {
                     MusicPlayerRemote.playPreviousSong()
                 }else {
-                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                    if (PreferenceUtil.isAutoplay) {
+                        MusicPlayerRemote.playPreviousSong()
+                    }else {
+                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                    }
                 }
             }
         }
@@ -158,11 +168,21 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     private fun updateSongCover() {
         val song = MusicPlayerRemote.currentSong
-        GlideApp.with(requireContext())
-            .load(ApexGlideExtension.getSongModel(song))
-            .transition(ApexGlideExtension.getDefaultTransition())
-            .songCoverOptions(song)
-            .into(binding.image)
+
+        if (PreferenceUtil.isMiniPlayerCircle) {
+            Glide.with(requireContext())
+                .load(ApexGlideExtension.getSongModel(song))
+                .circleCrop()
+                .transition(ApexGlideExtension.getDefaultTransition())
+                .songCoverOptions(song)
+                .into(binding.image)
+        }else {
+            Glide.with(requireContext())
+                .load(ApexGlideExtension.getSongModel(song))
+                .transition(ApexGlideExtension.getDefaultTransition())
+                .songCoverOptions(song)
+                .into(binding.image)
+        }
     }
 
     override fun onServiceConnected() {
@@ -222,17 +242,25 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                     if (PreferenceUtil.isSwipe) {
                         if (abs(velocityX) > abs(velocityY)) {
                             if (velocityX < 0) {
-                                if (PreferenceUtil.isAutoplay) {
+                                if (VersionUtils.hasT()) {
                                     MusicPlayerRemote.playNextSong()
                                 }else {
-                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                    if (PreferenceUtil.isAutoplay) {
+                                        MusicPlayerRemote.playNextSong()
+                                    } else {
+                                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                    }
                                 }
                                 return true
                             } else if (velocityX > 0) {
-                                if (PreferenceUtil.isAutoplay) {
+                                if (VersionUtils.hasT()) {
                                     MusicPlayerRemote.playPreviousSong()
                                 }else {
-                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                    if (PreferenceUtil.isAutoplay) {
+                                        MusicPlayerRemote.playPreviousSong()
+                                    }else {
+                                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                    }
                                 }
                                 return true
                             }

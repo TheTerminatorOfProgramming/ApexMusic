@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 262,
-      "versionName": "2.6.0 Preview",
+      "versionCode": 270,
+      "versionName": "2.7.0 Preview",
       "outputFile": "app-preview.apk"
     }
   ],

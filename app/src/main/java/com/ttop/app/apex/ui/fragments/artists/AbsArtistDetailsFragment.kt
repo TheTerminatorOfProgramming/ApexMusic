@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.os.bundleOf
@@ -32,7 +33,9 @@ import com.ttop.app.apex.databinding.FragmentArtistDetailsBinding
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.SingleColorTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
@@ -207,7 +210,7 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
     }
 
     private fun loadArtistImage(artist: Artist) {
-        GlideApp.with(requireContext()).asBitmapPalette().artistImageOptions(artist)
+        Glide.with(requireContext()).asBitmapPalette().artistImageOptions(artist)
             .load(ApexGlideExtension.getArtistModel(artist))
             .dontAnimate()
             .into(object : SingleColorTarget(binding.image) {
@@ -262,13 +265,8 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
                 return true
             }
             R.id.action_set_artist_image -> {
-                val intent = Intent(Intent.ACTION_GET_CONTENT)
-                intent.type = "image/*"
                 selectImageLauncher.launch(
-                    Intent.createChooser(
-                        intent,
-                        getString(R.string.pick_from_local_storage)
-                    )
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
                 return true
             }
@@ -334,14 +332,11 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
     }
 
     private val selectImageLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.data?.let {
-                    lifecycleScope.launch {
-                        CustomArtistImageUtil.getInstance(requireContext())
-                            .setCustomArtistImage(artist, it)
-                    }
-
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            lifecycleScope.launch {
+                if (uri != null) {
+                    CustomArtistImageUtil.getInstance(requireContext())
+                        .setCustomArtistImage(artist, uri)
                 }
             }
         }

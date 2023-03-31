@@ -63,6 +63,44 @@
 
 <body>
 <div>
+    <h5>March 31st, 2023</h5>
+    <h2>v2.7.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added album name to drive mode</li>
+        <li>Updated retro music base version from 6.0.4 beta to 6.0.5 production</li>
+        <li>Minor redesign in playlist details screen</li>
+        <li>Changed the behaviour of the next and previous buttons</li>
+        <li>Removed the extended accent option</li>
+        <li>Migrate to photo picker to select images</li>
+        <li>Remove blurred album art on lockscreen feature for Android 11+</li>
+        <li>Added Android 13 per-app language preference compatibility with the existing language chooser</li>
+        <li>Added tablet drive mode with extra controls</li>
+        <li>Added option to be able to make mini player album image circular</li>
+        <li>Reduced the number of widgets available to use from 5 to 3 (classic, full and circle)</li>
+        <li></li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Playback speed issue</li>
+        <li>Added workaround for ForegroundServiceDidNotStartInTimeException</li>
+        <li>Fixed playlist image loading</li>
+        <li>Fixed blurry album art in Android 13</li>
+        <li>Minor bug fixes and improvements</li>
+        <li>Adjust the cross-fade duration according to the Global animator speed</li>
+        <li>Fixed cross-fade not working when the app was cleared from background</li>
+        <li>Fixed corrupting of files when writing tags to unsupported files</li>
+        <li>Fixed playlist reordering crash</li>
+        <li>Fix incorrect color of top app bar in Home tab in landscape mode</li>
+        <li>Fix activity recreate logic when downloading split language apk</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google</li>
+        <li>When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the miniplayer</li>
+    </ul>
+</div>
+<div>
     <h5>March 11, 2023</h5>
     <h2>v2.6.0</h2>
     <h3>What's New</h3>
@@ -76,8 +114,8 @@
         <li>Changed card & classic now playing screen seekbar style</li>
         <li>Fixed not showing in android auto issue</li>
         <li>Added option to change full widget text alignment</li>
-        <li>Added developer mode (Hint to activate: think samsung developer mode)</li>
-        <li>Added option to reset the settings to default. this can be found in backup and restore after developer mode has been activated</li>
+        <li>Added developer options (Hint to activate: think samsung developer options)</li>
+        <li>Added option to reset the settings to default. this can be found in backup and restore after developer options has been activated</li>
         <li>Probable fix to notification issue that has persisted since v1.0.0</li>
         <li>Changed lyrics dialog to be shown with a double tap instead of a single tap on the album cover</li>
         <li>Reduced the size of the app</li>
@@ -85,7 +123,6 @@
         <li>Updated to latest retro music base version</li>
         <li>Removed Material cab and replaced with android's action mode</li>
         <li>Added in-app updates for downloading from github when app is not installed from the play store</li>
-        <li>Changed the header text to bold and the color to the accent color</li>
         <li>Added an option to have the header text the same color as the accent</li>
         <li>Added some new fonts</li>
     </ul>

@@ -22,6 +22,7 @@ import android.webkit.MimeTypeMap
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.BundleCompat
 import androidx.core.text.parseAsHtml
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
@@ -48,6 +49,7 @@ import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.interfaces.IMainActivityFragmentCallbacks
+import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener
 import com.ttop.app.apex.misc.WrappedAsyncTaskLoader
 import com.ttop.app.apex.model.CategoryInfo
@@ -57,6 +59,7 @@ import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.*
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
 import com.ttop.app.apex.util.ThemedFastScroller.create
+import com.ttop.app.apex.views.BreadCrumbLayout
 import com.ttop.app.apex.views.BreadCrumbLayout.Crumb
 import com.ttop.app.apex.views.BreadCrumbLayout.SelectionCallback
 import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
@@ -73,7 +76,7 @@ import java.util.*
 
 class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     IMainActivityFragmentCallbacks, SelectionCallback, ICallbacks,
-    LoaderManager.LoaderCallbacks<List<File>>, StorageClickListener {
+    LoaderManager.LoaderCallbacks<List<File>>, StorageClickListener, IScrollHelper {
     private var _binding: FragmentFolderBinding? = null
     private val binding get() = _binding!!
 
@@ -112,21 +115,10 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 override fun handleOnBackPressed() {
                     if (!handleBackPress()) {
                         remove()
-                        requireActivity().onBackPressed()
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
                     }
                 }
             })
-    }
-
-    private fun setUpTitle() {
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_search, null, navOptions)
-        }
-        binding.appBarLayout.title = resources.getString(R.string.folders)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null) {
             switchToFileAdapter()
             setCrumb(
@@ -136,9 +128,29 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 true
             )
         } else {
-            binding.breadCrumbs.restoreFromStateWrapper(savedInstanceState.getParcelable(CRUMBS))
+            binding.breadCrumbs.restoreFromStateWrapper(
+                BundleCompat.getParcelable(
+                    savedInstanceState,
+                    CRUMBS,
+                    BreadCrumbLayout.SavedStateWrapper::class.java
+                )
+            )
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (_binding != null) {
+            outState.putParcelable(CRUMBS, binding.breadCrumbs.stateWrapper)
+        }
+    }
+
+    private fun setUpTitle() {
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigate(R.id.action_search, null, navOptions)
+        }
+        binding.appBarLayout.title = resources.getString(R.string.folders)
     }
 
     override fun onPause() {
@@ -178,19 +190,20 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                                 fileComparator
                             ) { songs ->
                                 if (songs.isNotEmpty()) {
-                                    val song = songs.first()
-                                    SongMenuHelper.handleMenuClick(
-                                        requireActivity(), song, itemId
+                                    SongsMenuHelper.handleMenuClick(
+                                        requireActivity(), songs, itemId
                                     )
                                 }
                             }
                         }
                         return@setOnMenuItemClickListener true
                     }
+
                     R.id.action_add_to_blacklist -> {
                         BlacklistStore.getInstance(requireContext()).addPath(file)
                         return@setOnMenuItemClickListener true
                     }
+
                     R.id.action_set_as_start_directory -> {
                         startDirectory = file
                         showToast(
@@ -198,6 +211,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                         )
                         return@setOnMenuItemClickListener true
                     }
+
                     R.id.action_scan -> {
                         lifecycleScope.launch {
                             listPaths(file, AUDIO_FILE_FILTER) { paths -> scanPaths(paths) }
@@ -220,14 +234,16 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                                 fileComparator
                             ) { songs ->
                                 if (songs.isNotEmpty()) {
-                                    SongsMenuHelper.handleMenuClick(
-                                        requireActivity(), songs, itemId
+                                    val song = songs.first()
+                                    SongMenuHelper.handleMenuClick(
+                                        requireActivity(), song, itemId
                                     )
                                 }
                             }
                         }
                         return@setOnMenuItemClickListener true
                     }
+
                     R.id.action_scan -> {
                         lifecycleScope.launch {
                             listPaths(file, AUDIO_FILE_FILTER) { paths -> scanPaths(paths) }
@@ -339,9 +355,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 toolbar
             )
         )
-        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-            menu.removeItem(R.id.action_settings)
-        }
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
@@ -355,6 +368,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 )
                 return true
             }
+
             R.id.action_scan -> {
                 val crumb = activeCrumb
                 if (crumb != null) {
@@ -364,6 +378,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 }
                 return true
             }
+
             R.id.action_settings -> {
                 findNavController().navigate(
                     R.id.settings_fragment,
@@ -389,29 +404,27 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         }
     }
 
-    /*private fun checkIsEmpty() {
+    private fun checkIsEmpty() {
         if (_binding != null) {
             binding.emptyEmoji.text = getEmojiByUnicode(0x1F631)
             binding.empty.isVisible = adapter?.itemCount == 0
         }
-    }*/
+    }
 
     private val activeCrumb: Crumb?
         get() = if (_binding != null) {
             if (binding.breadCrumbs.size() > 0) binding.breadCrumbs.getCrumb(binding.breadCrumbs.activeIndex) else null
         } else null
 
-    /*private fun getEmojiByUnicode(unicode: Int): String {
+    private fun getEmojiByUnicode(unicode: Int): String {
         return String(Character.toChars(unicode))
-    }*/
+    }
 
     private fun saveScrollPosition() {
-        val crumb = activeCrumb
-        if (crumb != null) {
-            crumb.scrollPosition =
-                (binding.recyclerView.layoutManager as LinearLayoutManager?)!!.findFirstVisibleItemPosition()
-        }
+        activeCrumb?.scrollPosition =
+            (binding.recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
     }
+
 
     private fun scanPaths(toBeScanned: Array<String?>) {
         if (activity == null) {
@@ -462,7 +475,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     private fun setUpRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         create(
             binding.recyclerView
         )
@@ -472,8 +485,8 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         adapter?.swapDataSet(files)
         val crumb = activeCrumb
         if (crumb != null) {
-            (binding.recyclerView.layoutManager as LinearLayoutManager?)
-                ?.scrollToPositionWithOffset(crumb.scrollPosition, 0)
+            (binding.recyclerView.layoutManager as LinearLayoutManager)
+                .scrollToPositionWithOffset(crumb.scrollPosition, 0)
         }
     }
 
@@ -537,7 +550,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         }
     }
 
-    suspend fun listSongs(
+    private suspend fun listSongs(
         context: Context,
         files: List<File?>,
         fileFilter: FileFilter,
@@ -567,17 +580,22 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         )
     }
 
+    override fun scrollToTop() {
+        binding.recyclerView.scrollToPosition(0)
+        binding.appBarLayout.setExpanded(true, true)
+    }
+
     private fun switchToFileAdapter() {
         adapter = SongFileAdapter(mainActivity, LinkedList(), R.layout.item_list, this)
-        /*adapter!!.registerAdapterDataObserver(
+        adapter!!.registerAdapterDataObserver(
             object : RecyclerView.AdapterDataObserver() {
                 override fun onChanged() {
                     super.onChanged()
                     checkIsEmpty()
                 }
-            })*/
+            })
         binding.recyclerView.adapter = adapter
-        //checkIsEmpty()
+        checkIsEmpty()
     }
 
     private fun switchToStorageAdapter() {

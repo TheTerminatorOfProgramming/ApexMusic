@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.Apex.Base.Adaptive" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Light</item>
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
@@ -16,7 +16,7 @@
     </style>
 
     <style name="Theme.Apex.Base" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
@@ -39,7 +39,7 @@
         <item name="colorSurface">@color/blackColorSurface</item>
         <item name="android:windowBackground">?colorSurface</item>
         <item name="colorOnBackground">@color/blackColorSurface</item>
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
         <item name="popupMenuStyle">@style/MaterialPopupMenuStyle</item>
         <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
         <item name="elevationOverlayColor">@color/elevationOverlayDark</item>
@@ -50,7 +50,7 @@
     <style name="Theme.Apex.Base.Light" parent="Theme.Material3.Light.NoActionBar">
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Light</item>
         <item name="android:windowBackground">?colorSurface</item>
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
         <item name="materialAlertDialogTheme">@style/MaterialAlertDialogTheme</item>

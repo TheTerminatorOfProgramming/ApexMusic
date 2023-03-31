@@ -15,21 +15,14 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.annotation.SuppressLint
-import android.content.ComponentName
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.core.content.edit
 import androidx.preference.Preference
-import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.color.colorChooser
-import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
-import com.ttop.app.apex.appwidgets.AppWidgetBig
-import com.ttop.app.apex.appwidgets.AppWidgetCircle
-import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.util.PreferenceUtil
@@ -192,9 +185,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val extendedAccent: TwoStatePreference? = findPreference(EXTENDED_ACCENT)
-        extendedAccent?.isChecked = PreferenceUtil.isExtendedAccent
-        extendedAccent?.setOnPreferenceChangeListener { _, _ ->
+        val miniplayerImage: TwoStatePreference? = findPreference(MINIPLAYER_IMAGE)
+        miniplayerImage?.isChecked = PreferenceUtil.isMiniPlayerCircle
+        miniplayerImage?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
@@ -202,5 +195,8 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_general)
+
+        val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)
+        wallpaperAccent?.isVisible = VersionUtils.hasOreoMR1() && !VersionUtils.hasS()
     }
 }

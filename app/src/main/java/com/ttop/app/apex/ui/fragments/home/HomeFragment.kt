@@ -37,7 +37,10 @@ import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.profileBannerOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.userProfileOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.CategoryInfo
@@ -89,9 +92,6 @@ class HomeFragment :
         colorButtons()
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-        binding.appBarLayout.statusBarForeground =
-            MaterialShapeDrawable.createWithElevationOverlay(requireContext())
-        binding.toolbar.drawNextToNavbar()
         view.doOnLayout {
             adjustPlaylistButtons()
         }
@@ -166,18 +166,19 @@ class HomeFragment :
             findNavController().navigate(R.id.action_search, null, navOptions)
         }
         val hexColor = String.format("#%06X", 0xFFFFFF and accentColor())
-        val appName = "Apex <span  style='color:$hexColor';>Music</span>".parseAsHtml()
-        binding.appNameText.text = appName
+        val appName = "Apex <font color=$hexColor>Music</font>".parseAsHtml()
+        binding.appBarLayout.title = appName
+
     }
 
     private fun loadProfile() {
         binding.bannerImage?.let {
-            GlideApp.with(requireContext())
+            Glide.with(requireContext())
                 .load(ApexGlideExtension.getBannerModel())
                 .profileBannerOptions(ApexGlideExtension.getBannerModel())
                 .into(it)
         }
-        GlideApp.with(requireActivity())
+        Glide.with(requireActivity())
             .load(ApexGlideExtension.getUserModel())
             .userProfileOptions(ApexGlideExtension.getUserModel(), requireContext())
             .into(binding.userImage)
@@ -288,7 +289,7 @@ class HomeFragment :
                 MusicPlayerRemote.moveSong(1, 0)
                 MusicPlayerRemote.playSongAt(0)
             }
-            GlideApp.with(this)
+            Glide.with(this)
                 .load(ApexGlideExtension.getSongModel(songs[index]))
                 .songCoverOptions(songs[index])
                 .into(imageView)

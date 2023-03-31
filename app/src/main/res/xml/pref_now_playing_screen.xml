@@ -6,7 +6,8 @@
         android:key="now_playing_screen_id"
         android:layout="@layout/list_item_view"
         android:title="@string/pref_title_now_playing_screen_appearance"
-        app:icon="@drawable/ic_play_circle_filled" />
+        app:icon="@drawable/ic_play_circle_filled"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
@@ -14,40 +15,46 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_queue_show_always"
         android:title="@string/pref_title_queue_show_always"
-        app:isPreferenceVisible="@bool/queue_show_always"/>
+        app:isPreferenceVisible="@bool/queue_show_always"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="extra_song_info"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_extra_song_info"
-        android:title="@string/pref_title_extra_song_info" />
+        android:title="@string/pref_title_extra_song_info"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="snowfall"
         android:layout="@layout/list_item_view_switch_no_title"
-        android:title="@string/pref_snow_fall_title" />
+        android:title="@string/pref_snow_fall_title"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="screen_on_lyrics"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_keep_screen_on_summary"
-        android:title="@string/pref_title_lyrics_screen_on" />
+        android:title="@string/pref_title_lyrics_screen_on"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="circle_play_button"
         android:layout="@layout/list_item_view_switch_no_title"
-        android:title="@string/pref_title_circle_button" />
+        android:title="@string/pref_title_circle_button"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="true"
         android:key="swipe_anywhere_now_playing"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_swipe_anywhere_now_playing"
-        android:title="@string/pref_title_swipe_anywhere_now_playing" />
+        android:title="@string/pref_title_swipe_anywhere_now_playing"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:layout="@layout/list_item_view_switch"
@@ -55,17 +62,20 @@
         app:icon="@drawable/ic_expand_less"
         app:key="expand_now_playing_panel"
         app:summary="@string/pref_summary_expand_now_playing_panel"
-        app:title="@string/pref_title_expand_now_playing_panel" />
+        app:title="@string/pref_title_expand_now_playing_panel"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_album">
+        android:title="@string/pref_header_album"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.apex.preferences.AlbumCoverStylePreference
             android:key="album_cover_style_id"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_album_cover_style"
-            app:icon="@drawable/ic_image" />
+            app:icon="@drawable/ic_image"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="0"
@@ -73,7 +83,8 @@
             android:entryValues="@array/pref_album_cover_transform_values"
             android:key="album_cover_transform"
             android:layout="@layout/list_item_view"
-            android:title="@string/pref_title_album_cover_transform" />
+            android:title="@string/pref_title_album_cover_transform"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
@@ -81,19 +92,22 @@
             app:icon="@drawable/ic_view_carousel"
             app:key="carousel_effect"
             app:summary="@string/pref_summary_carousel_effect"
-            app:title="@string/pref_title_toggle_carousel_effect" />
+            app:title="@string/pref_title_toggle_carousel_effect"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_lyrics">
+        android:title="@string/pref_header_lyrics"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="lyrics"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_show_lyrics"
-            android:title="@string/pref_title_show_lyrics" />
+            android:title="@string/pref_title_show_lyrics"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -101,7 +115,8 @@
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_synced_lyrics"
             android:summary="@string/pref_summary_synced_lyrics"
-            android:dependency="lyrics"/>
+            android:dependency="lyrics"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="0"
@@ -110,7 +125,8 @@
             android:key="lyrics_type"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_lyrics_type"
-            android:dependency="synced_lyrics"/>
+            android:dependency="synced_lyrics"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="both"
@@ -119,6 +135,7 @@
             android:key="embed_lyrics"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_embed_lyrics_view"
-            android:dependency="lyrics"/>
+            android:dependency="lyrics"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

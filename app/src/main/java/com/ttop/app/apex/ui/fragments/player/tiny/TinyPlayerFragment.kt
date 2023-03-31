@@ -159,7 +159,7 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressed() }
+            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
             setOnMenuItemClickListener(this@TinyPlayerFragment)
         }
     }
@@ -231,17 +231,25 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
                 ): Boolean {
                     if (abs(velocityX) > abs(velocityY)) {
                         if (velocityX < 0) {
-                            if (PreferenceUtil.isAutoplay) {
+                            if (VersionUtils.hasT()) {
                                 MusicPlayerRemote.playNextSong()
                             }else {
-                                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                if (PreferenceUtil.isAutoplay) {
+                                    MusicPlayerRemote.playNextSong()
+                                } else {
+                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                }
                             }
                             return true
                         } else if (velocityX > 0) {
-                            if (PreferenceUtil.isAutoplay) {
+                            if (VersionUtils.hasT()) {
                                 MusicPlayerRemote.playPreviousSong()
                             }else {
-                                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                if (PreferenceUtil.isAutoplay) {
+                                    MusicPlayerRemote.playPreviousSong()
+                                }else {
+                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                }
                             }
                             return true
                         }

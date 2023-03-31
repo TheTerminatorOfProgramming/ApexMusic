@@ -25,7 +25,7 @@ class BluetoothSlideFragment : Fragment() {
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
-        fun newInstance(fragmentRingtoneIntro: Int): BluetoothSlideFragment {
+        fun newInstance(): BluetoothSlideFragment {
             return BluetoothSlideFragment()
         }
     }

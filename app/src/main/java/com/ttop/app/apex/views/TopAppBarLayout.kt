@@ -9,7 +9,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.updateLayoutParams
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.shape.MaterialShapeDrawable
+import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.CollapsingAppbarLayoutBinding
 import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
 import com.ttop.app.apex.extensions.accentColor
@@ -54,36 +56,34 @@ class TopAppBarLayout @JvmOverloads constructor(
         }
     }
 
-    val toolbar: Toolbar
+    val toolbar: MaterialToolbar
         get() = if (mode == AppBarMode.COLLAPSING) {
             collapsingAppbarBinding?.toolbar!!
         } else {
             simpleAppbarBinding?.toolbar!!
         }
 
-    var title: String
+    var title: CharSequence
         get() = if (mode == AppBarMode.COLLAPSING) {
             collapsingAppbarBinding?.collapsingToolbarLayout?.title.toString()
         } else {
-            simpleAppbarBinding?.appNameText?.text.toString()
+            simpleAppbarBinding?.toolbar?.title.toString()
         }
         set(value) {
             if (mode == AppBarMode.COLLAPSING) {
                 collapsingAppbarBinding?.collapsingToolbarLayout?.title = value
                 if (PreferenceUtil.isExtendedAccent) {
-                    collapsingAppbarBinding?.collapsingToolbarLayout?.setCollapsedTitleTextColor(
-                        context.accentColor()
-                    )
-                    collapsingAppbarBinding?.collapsingToolbarLayout?.setExpandedTitleColor(context.accentColor())
+                    if (!value.contains("Apex")) {
+                        collapsingAppbarBinding?.collapsingToolbarLayout?.setCollapsedTitleTextColor(
+                            context.accentColor()
+                        )
+                        collapsingAppbarBinding?.collapsingToolbarLayout?.setExpandedTitleColor(
+                            context.accentColor()
+                        )
+                    }
                 }
-                collapsingAppbarBinding?.collapsingToolbarLayout?.setCollapsedTitleTypeface(Typeface.DEFAULT_BOLD)
-                collapsingAppbarBinding?.collapsingToolbarLayout?.setExpandedTitleTypeface(Typeface.DEFAULT_BOLD)
             } else {
-                simpleAppbarBinding?.appNameText?.text = value
-                if (PreferenceUtil.isExtendedAccent) {
-                    simpleAppbarBinding?.appNameText?.setTextColor(context.accentColor())
-                }
-                simpleAppbarBinding?.appNameText?.setTypeface(Typeface.DEFAULT_BOLD)
+                simpleAppbarBinding?.toolbar?.title = value
             }
         }
 

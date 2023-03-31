@@ -45,7 +45,9 @@ import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
@@ -117,7 +119,7 @@ class LockScreenActivity : AbsMusicServiceActivity() {
 
     private fun updateSongs() {
         val song = MusicPlayerRemote.currentSong
-        GlideApp.with(this)
+        Glide.with(this)
             .asBitmapPalette()
             .songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))

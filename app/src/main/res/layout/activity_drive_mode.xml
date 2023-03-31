@@ -159,19 +159,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:maxLines="3"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textAppearance="@style/TextViewHeadline4"
             android:textColor="@color/md_white_1000"
             android:textStyle="bold"
             tools:text="@tools:sample/lorem/random" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/songText"
+            android:id="@+id/album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:maxLines="3"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textAppearance="@style/TextViewHeadline5"
+            android:textColor="@color/md_grey_200"
+            tools:text="@tools:sample/lorem/random" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textAppearance="@style/TextViewHeadline5"
             android:textColor="@color/md_grey_200"
             tools:text="@tools:sample/lorem/random" />

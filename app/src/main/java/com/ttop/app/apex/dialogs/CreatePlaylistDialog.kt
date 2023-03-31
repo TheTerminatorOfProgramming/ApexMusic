@@ -29,12 +29,13 @@ import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CreatePlaylistDialog : DialogFragment() {
     private var _binding: DialogPlaylistBinding? = null
     private val binding get() = _binding!!
-    private val libraryViewModel by sharedViewModel<LibraryViewModel>()
+    private val libraryViewModel by activityViewModel<LibraryViewModel>()
 
     companion object {
         fun create(song: Song): CreatePlaylistDialog {

@@ -29,11 +29,12 @@ import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class RenamePlaylistDialog : DialogFragment() {
 
-    private val libraryViewModel by sharedViewModel<LibraryViewModel>()
+    private val libraryViewModel by activityViewModel<LibraryViewModel>()
 
     companion object {
         fun create(playlistEntity: PlaylistEntity): RenamePlaylistDialog {

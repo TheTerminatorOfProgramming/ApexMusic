@@ -22,6 +22,7 @@ import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.PreferenceUtil
 
 /**
@@ -30,7 +31,6 @@ import com.ttop.app.apex.util.PreferenceUtil
 
 class NowPlayingSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
-
     override fun invalidateSettings() {
         updateNowPlayingScreenSummary()
         updateAlbumCoverStyleSummary()
@@ -109,6 +109,18 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
     }
 
+    private fun updateAlbumCoverStyle() {
+        val preference: Preference? = findPreference(ALBUM_COVER_STYLE)
+        when (PreferenceUtil.nowPlayingScreen) {
+            NowPlayingScreen.Card,   NowPlayingScreen.Fit,   NowPlayingScreen.Tiny,   NowPlayingScreen.Classic,  NowPlayingScreen.Gradient,   NowPlayingScreen.Full -> {
+                preference?.isEnabled = false
+            }
+            else -> {
+                preference?.isEnabled = true
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
@@ -118,6 +130,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             setSummary(albumPrefs, newValue)
             true
         }
+        updateAlbumCoverStyle()
     }
 
     override fun onDestroyView() {
@@ -127,7 +140,10 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
-            NOW_PLAYING_SCREEN_ID -> updateNowPlayingScreenSummary()
+            NOW_PLAYING_SCREEN_ID -> {
+                updateNowPlayingScreenSummary()
+                updateAlbumCoverStyle()
+            }
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
         }

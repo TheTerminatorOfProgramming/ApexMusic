@@ -1,9 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_labs_restore_widgets"
+        app:allowDividerBelow="false">
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="restore_legacy_widgets"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_restore_removed_widgets"
+        android:title="@string/pref_title_restore_removed_widgets"
+        app:allowDividerBelow="false"/>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="restore_big_widget"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_restore_big_widget"
+        android:title="@string/pref_title_restore_big_widget"
+        app:dependency="restore_legacy_widgets"
+        app:allowDividerBelow="false"/>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="restore_full_circle_widget"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_restore_full_circle_widget"
+        android:title="@string/pref_title_restore_full_circle_widget"
+        app:dependency="restore_legacy_widgets"
+        app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_labs_square_widget"
+        app:allowDividerBelow="false">
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="use_new_widget"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_use_new_widget"
+        android:title="@string/pref_title_use_new_widget"
+        app:allowDividerBelow="false"/>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="square_widget_text"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_square_widget_text"
+        android:title="@string/pref_title_square_widget_text"
+        app:dependency="use_new_widget"
+        app:allowDividerBelow="false"/>
 
-
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="square_widget_colored"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_square_widget_colored"
+        android:title="@string/pref_title_square_widget_colored"
+        app:dependency="use_new_widget"
+        app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_labs_other_options"
+        app:allowDividerBelow="false">
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="extended_accent"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_extended_accent"
+        android:title="@string/pref_title_extended_accent"
+        app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

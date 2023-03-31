@@ -44,7 +44,7 @@ class BatterySlideFragment : Fragment(), SlidePolicy {
     }
 
     companion object {
-        fun newInstance(fragmentBatteryIntro: Int): BatterySlideFragment {
+        fun newInstance(): BatterySlideFragment {
             return BatterySlideFragment()
         }
     }

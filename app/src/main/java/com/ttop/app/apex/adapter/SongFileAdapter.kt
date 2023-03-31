@@ -28,7 +28,7 @@ import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.util.MusicUtil
@@ -109,7 +109,7 @@ class SongFileAdapter(
             )
         } else {
             val error = activity.getTintedDrawable(R.drawable.ic_file_music, iconColor)
-            GlideApp.with(activity)
+            Glide.with(activity)
                 .load(AudioFileCover(file.path))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(error)

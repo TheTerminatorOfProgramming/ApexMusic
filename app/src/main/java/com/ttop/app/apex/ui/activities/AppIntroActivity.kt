@@ -24,29 +24,29 @@ class AppIntroActivity: AppIntro2() {
         super.onCreate(savedInstanceState)
 
         //MAIN SLIDE
-        addSlide(MainSlideFragment.newInstance(R.layout.fragment_main_intro))
+        addSlide(MainSlideFragment.newInstance())
         //SD CARD SLIDE
-        addSlide(StorageSlideFragment.newInstance(R.layout.fragment_storage_intro))
+        addSlide(StorageSlideFragment.newInstance())
         if (VersionUtils.hasS()) {
             //BLUETOOTH SLIDE
-            addSlide(BluetoothSlideFragment.newInstance(R.layout.fragment_bluetooth_intro))
+            addSlide(BluetoothSlideFragment.newInstance())
         }
         if (VersionUtils.hasT()) {
             //NOTIFICATION SLIDE
-            addSlide(NotificationSlideFragment.newInstance(R.layout.fragment_notification_intro))
+            addSlide(NotificationSlideFragment.newInstance())
         }
         if (VersionUtils.hasS()) {
             //BATTERY OPTIMIZATION SLIDE
-            addSlide(BatterySlideFragment.newInstance(R.layout.fragment_battery_intro))
+            addSlide(BatterySlideFragment.newInstance())
         }
         if (VersionUtils.hasMarshmallow()) {
             //RINGTONE SLIDE
-            addSlide(RingtoneSlideFragment.newInstance(R.layout.fragment_ringtone_intro))
+            addSlide(RingtoneSlideFragment.newInstance())
         }
         //BLUETOOTH AUTOPLAY SLIDE
-        addSlide(BluetoothAutoPlaySlideFragment.newInstance(R.layout.fragment_bluetooth_autoplay_intro))
+        addSlide(BluetoothAutoPlaySlideFragment.newInstance())
         //SHUFFLE SLIDE
-        addSlide(ShuffleSlideFragment.newInstance(R.layout.fragment_shuffle_intro))
+        addSlide(ShuffleSlideFragment.newInstance())
 
         // Here we ask for permissions
 

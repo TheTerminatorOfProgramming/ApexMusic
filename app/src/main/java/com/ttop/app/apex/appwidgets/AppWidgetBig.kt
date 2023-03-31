@@ -31,7 +31,6 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
@@ -160,7 +159,7 @@ class AppWidgetBig : BaseAppWidget() {
             if (target != null) {
                 Glide.with(service).clear(target)
             }
-            target = GlideApp.with(appContext)
+            target = Glide.with(appContext)
                 .asBitmap()
                 //.checkIgnoreMediaStore()
                 .load(ApexGlideExtension.getSongModel(song))

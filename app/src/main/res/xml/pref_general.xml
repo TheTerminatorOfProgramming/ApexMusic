@@ -4,7 +4,8 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_general">
+        android:title="@string/pref_header_general"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="auto"
@@ -15,12 +16,14 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_general_theme"
-            app:icon="@drawable/ic_color_lens" />
+            app:icon="@drawable/ic_color_lens"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:key="black_theme"
             android:layout="@layout/list_item_view_switch_no_title"
-            android:title="@string/black_theme_name" />
+            android:title="@string/black_theme_name"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="@bool/md3_enabled"
@@ -28,7 +31,8 @@
             android:key="material_you"
             android:layout="@layout/list_item_view_switch_no_title"
             android:title="@string/pref_title_md3"
-            app:isPreferenceVisible="@bool/md3_available" />
+            app:isPreferenceVisible="@bool/md3_available"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="default"
@@ -38,22 +42,24 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:layout="@layout/list_item_view"
-            android:title="@string/pref_title_custom_font" />
+            android:title="@string/pref_title_custom_font"
+            app:allowDividerBelow="false"/>
 
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:key="category_color"
         android:layout="@layout/preference_category_title"
-        android:title="@string/colors">
+        android:title="@string/colors"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="@bool/wallpaper_accent_enabled"
+            android:defaultValue="false"
             android:key="wallpaper_accent"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_wallpaper_accent"
             android:title="@string/pref_title_wallpaper_accent"
-            app:isPreferenceVisible="@bool/wallpaper_accent_visible" />
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:dependency="material_you"
@@ -62,7 +68,8 @@
             android:persistent="false"
             android:summary="@string/accent_color_desc"
             android:title="@string/accent_color"
-            app:icon="@drawable/ic_colorize" />
+            app:icon="@drawable/ic_colorize"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -70,21 +77,16 @@
             android:key="desaturated_color"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_desaturated_color"
-            android:title="@string/pref_title_desaturated_color" />
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="extended_accent"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_extended_accent"
-            android:title="@string/pref_title_extended_accent" />
+            android:title="@string/pref_title_desaturated_color"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="adaptive_color_app"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_colored_app"
-            android:title="@string/pref_title_colored_app" />
+            android:title="@string/pref_title_colored_app"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -92,19 +94,22 @@
             android:key="should_color_app_shortcuts"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_colored_app_shortcuts"
-            android:title="@string/pref_title_app_shortcuts" />
+            android:title="@string/pref_title_app_shortcuts"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_controls">
+        android:title="@string/pref_header_controls"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
             app:defaultValue="false"
             app:key="swipe_to_dismiss"
             app:summary="@string/pref_summary_swipe_to_dismiss"
-            app:title="@string/pref_title_swipe_to_dismiss" />
+            app:title="@string/pref_title_swipe_to_dismiss"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
@@ -112,15 +117,8 @@
             app:icon="@drawable/ic_play_arrow"
             app:key="toggle_add_controls"
             app:summary="@string/pref_summary_extra_controls"
-            app:title="@string/pref_title_extra_controls" />
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_gesture"
-            app:key="toggle_mini_swipe"
-            app:summary="@string/pref_summary_swipe_gestures"
-            app:title="@string/pref_title_swipe_gestures" />
+            app:title="@string/pref_title_extra_controls"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
             android:defaultValue="6"
@@ -129,7 +127,27 @@
             android:max="20"
             android:summary="@string/pref_summary_mini_image_roundness"
             android:title="@string/pref_title_mini_image_roundness"
-            app:showSeekBarValue="true" />
+            app:showSeekBarValue="true"
+            app:dependency="miniplayer_image"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            android:defaultValue="false"
+            android:key="miniplayer_image"
+            android:summary="@string/pref_summary_mini_player_image"
+            android:title="@string/pref_title_mini_player_image"
+            android:disableDependentsState="true"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_gesture"
+            app:key="toggle_mini_swipe"
+            app:summary="@string/pref_summary_swipe_gestures"
+            app:title="@string/pref_title_swipe_gestures"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
@@ -137,7 +155,8 @@
             app:key="progress_bar_style"
             app:summary="@string/pref_summary_progress_bar_style"
             app:title="@string/pref_title_progress_bar_style"
-            android:icon="@drawable/ic_progress"/>
+            android:icon="@drawable/ic_progress"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
@@ -146,7 +165,8 @@
             app:summary="@string/pref_summary_progress_bar_alignment"
             app:title="@string/pref_title_progress_bar_alignment"
             android:icon="@drawable/ic_vertical_align_top"
-            android:dependency="progress_bar_style"/>
+            android:dependency="progress_bar_style"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
@@ -155,7 +175,8 @@
             app:key="toggle_autoplay"
             app:summary="@string/pref_summary_auto_play"
             app:title="@string/pref_title_auto_play"
-            app:isPreferenceVisible="@bool/next_prev_behaviour"/>
+            app:isPreferenceVisible="@bool/next_prev_behaviour"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
@@ -163,6 +184,7 @@
             app:icon="@drawable/ic_volume_up"
             app:key="toggle_volume"
             app:summary="@string/pref_summary_toggle_volume"
-            app:title="@string/pref_title_toggle_volume" />
+            app:title="@string/pref_title_toggle_volume"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

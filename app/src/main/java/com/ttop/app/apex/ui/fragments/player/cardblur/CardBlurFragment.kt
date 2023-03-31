@@ -21,12 +21,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.PreferenceManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentCardBlurPlayerBinding
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.glide.*
+import com.ttop.app.apex.glide.ApexGlideExtension.simpleSongCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
@@ -49,7 +52,7 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
 
     private var _binding: FragmentCardBlurPlayerBinding? = null
     private val binding get() = _binding!!
-    private var lastRequest: GlideRequest<Drawable>? = null
+    private var lastRequest: RequestBuilder<Drawable>? = null
 
     override fun onShow() {
         playbackControlsFragment.show()
@@ -75,8 +78,8 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
         ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
 
         binding.title.setTextColor(Color.WHITE)
-        binding.album?.setTextColor(Color.WHITE)
-        binding.artist?.setTextColor(Color.WHITE)
+        binding.album.setTextColor(Color.WHITE)
+        binding.artist.setTextColor(Color.WHITE)
     }
 
     override fun toggleFavorite(song: Song) {
@@ -98,8 +101,8 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
         binding.playerToolbar.drawAboveSystemBars()
 
         binding.title.isSelected = true
-        binding.album?.isSelected = true
-        binding.artist?.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
     }
 
     private fun setUpSubFragments() {
@@ -113,7 +116,7 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressed() }
+            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
             setTitleTextColor(Color.WHITE)
             setSubtitleTextColor(Color.WHITE)
             ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
@@ -137,14 +140,14 @@ class CardBlurFragment : AbsPlayerFragment(R.layout.fragment_card_blur_player),
         val song = MusicPlayerRemote.currentSong
         binding.run {
             title.text = song.title
-            album?.text = song.albumName
-            artist?.text = song.artistName
+            album.text = song.albumName
+            artist.text = song.artistName
         }
     }
 
     private fun updateBlur() {
         // https://github.com/bumptech/glide/issues/527#issuecomment-148840717
-        GlideApp.with(this)
+        Glide.with(this)
             .load(ApexGlideExtension.getSongModel(MusicPlayerRemote.currentSong))
             .simpleSongCoverOptions(MusicPlayerRemote.currentSong)
             .transform(

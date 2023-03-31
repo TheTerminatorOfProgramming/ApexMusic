@@ -37,13 +37,16 @@ import com.ttop.app.apex.service.MusicService.Companion.EXTRA_APP_WIDGET_NAME
 import com.ttop.app.apex.service.MusicService.Companion.FAVORITE_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.META_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.PLAY_STATE_CHANGED
+import com.ttop.app.apex.service.MusicService.Companion.SAVED_POSITION_IN_TRACK
 import com.ttop.app.appthemehelper.util.VersionUtils
+import java.util.*
 
 abstract class BaseAppWidget : AppWidgetProvider() {
     val musicService = MusicPlayerRemote.musicService
     /**
      * {@inheritDoc}
      */
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
@@ -72,7 +75,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
      */
     fun notifyChange(service: MusicService, what: String) {
         if (hasInstances(service)) {
-            if (META_CHANGED == what || PLAY_STATE_CHANGED == what || FAVORITE_STATE_CHANGED == what) {
+            if (META_CHANGED == what || PLAY_STATE_CHANGED == what || FAVORITE_STATE_CHANGED == what || SAVED_POSITION_IN_TRACK == what) {
                 performUpdate(service, null)
             }
         }

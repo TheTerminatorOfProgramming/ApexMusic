@@ -30,7 +30,9 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
@@ -149,7 +151,7 @@ class AlbumCoverPagerAdapter(
         private fun getLayoutWithPlayerTheme(): Int {
             return when (PreferenceUtil.nowPlayingScreen) {
                 Card, Fit, Tiny, Classic, Gradient, Full -> R.layout.fragment_album_full_cover
-                Peek -> R.layout.fragment_peek_album_cover
+                //Peek -> R.layout.fragment_peek_album_cover
                 else -> {
                     if (PreferenceUtil.isCarouselEffect) {
                         R.layout.fragment_album_carousel_cover
@@ -178,7 +180,7 @@ class AlbumCoverPagerAdapter(
         }
 
         private fun loadAlbumCover(albumCover: ImageView) {
-            GlideApp.with(this).asBitmapPalette().songCoverOptions(song)
+            Glide.with(this).asBitmapPalette().songCoverOptions(song)
                 //.checkIgnoreMediaStore()
                 .load(ApexGlideExtension.getSongModel(song))
                 .dontAnimate()

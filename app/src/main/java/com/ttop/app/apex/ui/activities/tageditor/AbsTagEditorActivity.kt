@@ -29,6 +29,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
@@ -47,6 +48,7 @@ import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
 import com.ttop.app.apex.ui.activities.saf.SAFGuideActivity
 import com.ttop.app.apex.util.SAFUtil
 import com.ttop.app.apex.util.logD
+import com.ttop.app.apex.util.logE
 import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -99,7 +101,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.ALBUM_ARTIST)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -108,7 +111,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.TITLE)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -116,7 +120,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.COMPOSER)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -125,7 +130,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.ALBUM)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -134,7 +140,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.ARTIST)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -143,7 +150,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.ALBUM_ARTIST)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -152,7 +160,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.GENRE)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -161,7 +170,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.YEAR)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -170,7 +180,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.TRACK)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -179,7 +190,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.DISC_NO)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -188,7 +200,8 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         get() {
             return try {
                 getAudioFile(songPaths!![0]).tagOrCreateAndSetDefault.getFirst(FieldKey.LYRICS)
-            } catch (ignored: Exception) {
+            } catch (e: Exception) {
+                logE(e)
                 null
             }
         }
@@ -209,6 +222,11 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
             } catch (ignored: Exception) {
                 return null
             }
+        }
+
+    private val pickArtworkImage =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            loadImageFromFile(uri)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -251,14 +269,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
     }
 
     private fun startImagePicker() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startActivityForResult(
-            Intent.createChooser(
-                intent,
-                getString(R.string.pick_from_local_storage)
-            ), REQUEST_CODE_SELECT_IMAGE
-        )
+        pickArtworkImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     protected abstract fun loadCurrentImage()
@@ -306,7 +317,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                super.onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
                 return true
             }
         }
@@ -359,9 +370,11 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
                         artworkInfo
                     )
                 )
-                val pendingIntent = MediaStore.createWriteRequest(contentResolver, getSongUris())
-
-                launcher.launch(IntentSenderRequest.Builder(pendingIntent).build())
+                if (cacheFiles.isNotEmpty()) {
+                    val pendingIntent =
+                        MediaStore.createWriteRequest(contentResolver, getSongUris())
+                    launcher.launch(IntentSenderRequest.Builder(pendingIntent).build())
+                }
             } else {
                 TagWriter.writeTagsToFiles(
                     this@AbsTagEditorActivity, AudioTagInfo(
@@ -399,36 +412,14 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         }
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intent)
-        when (requestCode) {
-            REQUEST_CODE_SELECT_IMAGE -> if (resultCode == Activity.RESULT_OK) {
-                intent?.data?.let {
-                    loadImageFromFile(it)
-                }
-            }
-            SAFGuideActivity.REQUEST_CODE_SAF_GUIDE -> {
-                SAFUtil.openTreePicker(this)
-            }
-            SAFUtil.REQUEST_SAF_PICK_TREE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    SAFUtil.saveTreeUri(this, intent)
-                    writeTags(savedSongPaths)
-                }
-            }
-            SAFUtil.REQUEST_SAF_PICK_FILE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    writeTags(Collections.singletonList(currentSongPath + SAFUtil.SEPARATOR + intent!!.dataString))
-                }
-            }
-        }
-    }
-
+    private lateinit var audioFile: AudioFile
 
     private fun getAudioFile(path: String): AudioFile {
         return try {
-            AudioFileIO.read(File(path))
+            if (!this::audioFile.isInitialized) {
+                audioFile = AudioFileIO.read(File(path))
+            }
+            audioFile
         } catch (e: Exception) {
             Log.e(TAG, "Could not read audio file $path", e)
             AudioFile()

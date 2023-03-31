@@ -25,7 +25,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ttop.app.apex.App
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.model.Artist
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
@@ -45,7 +45,7 @@ class CustomArtistImageUtil private constructor(context: Context) {
         val context = App.getContext()
         withContext(IO) {
             runCatching {
-                GlideApp.with(context)
+                Glide.with(context)
                     .asBitmap()
                     .load(uri)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)

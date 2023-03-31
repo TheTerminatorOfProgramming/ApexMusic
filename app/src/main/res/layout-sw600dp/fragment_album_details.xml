@@ -14,18 +14,12 @@
         android:fitsSystemWindows="true"
         app:liftOnScroll="true">
 
-        <FrameLayout
-            android:id="@+id/toolbar_container"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/ic_keyboard_backspace_black" />
-        </FrameLayout>
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_arrow_back" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -45,12 +39,13 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/albumCoverContainer"
-                android:layout_width="500dp"
-                android:layout_height="500dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 app:cardCornerRadius="@dimen/m3_card_large_radius"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

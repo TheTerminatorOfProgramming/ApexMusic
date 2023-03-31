@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.EXTRA_PLAYLIST
+import com.ttop.app.apex.EXTRA_PLAYLIST_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.playlist.PlaylistAdapter
 import com.ttop.app.apex.db.PlaylistWithSongs
@@ -76,12 +77,12 @@ class PlaylistsFragment :
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
-        gridSizeItem.subMenu?.let { setupGridSizeMenu(it) }
+        setupGridSizeMenu(gridSizeItem.subMenu!!)
         menu.removeItem(R.id.action_layout_type)
         menu.add(0, R.id.action_add_to_playlist, 0, R.string.new_playlist_title)
         menu.add(0, R.id.action_import_playlist, 0, R.string.import_playlist)
         menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
-        menu.findItem(R.id.action_sort_order).subMenu?.let { setUpSortOrderMenu(it) }
+        setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu!!)
         MenuCompat.setGroupDividerEnabled(menu, true)
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
@@ -244,7 +245,7 @@ class PlaylistsFragment :
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         findNavController().navigate(
             R.id.playlistDetailsFragment,
-            bundleOf(EXTRA_PLAYLIST to playlistWithSongs)
+            bundleOf(EXTRA_PLAYLIST_ID to playlistWithSongs.playlistEntity.playListId)
         )
     }
 

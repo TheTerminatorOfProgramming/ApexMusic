@@ -61,11 +61,6 @@ class AudioSettings : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
-        val reduce: TwoStatePreference? = findPreference(AUDIO_DUCKING)
-        reduce?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
         val manageAudio: TwoStatePreference? = findPreference(MANAGE_AUDIO_FOCUS)
         manageAudio?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -99,12 +94,12 @@ class AudioSettings : AbsSettingsFragment() {
             }
         }
 
-        val specific_device : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
-        specific_device?.setOnPreferenceChangeListener { _, _ ->
+        val specificDevice : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
+        specificDevice?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
-        val bluetooth_device : ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
+        val bluetoothDevice : ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
         val bluetoothManager = context?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
 
         val mBluetoothAdapter = bluetoothManager.adapter
@@ -125,11 +120,11 @@ class AudioSettings : AbsSettingsFragment() {
             }
         }
 
-        bluetooth_device?.entries = name.toTypedArray()
-        bluetooth_device?.entryValues = address.toTypedArray()
+        bluetoothDevice?.entries = name.toTypedArray()
+        bluetoothDevice?.entryValues = address.toTypedArray()
 
-        val bt_volume: TwoStatePreference? = findPreference(BT_VOLUME)
-        bt_volume?.setOnPreferenceChangeListener { _, _ ->
+        val btVolume: TwoStatePreference? = findPreference(BT_VOLUME)
+        btVolume?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
     }

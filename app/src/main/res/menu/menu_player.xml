@@ -27,11 +27,20 @@
         android:orderInCategory="3"
         android:title="@string/now_playing_queue"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_queue"
+        android:orderInCategory="3"
+        android:title="@string/action_queue"
+        android:icon="@drawable/ic_queue_music"
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/action_playback_speed"
         android:icon="@drawable/ic_playback_speed"
         android:orderInCategory="4"
-        android:title="@string/playback_speed"/>
+        android:title="@string/playback_speed"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_go_to_drive_mode"
         android:icon="@drawable/ic_drive_eta"
@@ -97,10 +106,4 @@
         android:id="@+id/action_delete_from_device"
         android:orderInCategory="14"
         android:title="@string/action_delete_from_device" />
-    <item
-        android:id="@+id/action_queue"
-        android:orderInCategory="14"
-        android:title="@string/action_delete_from_device"
-        android:icon="@drawable/ic_queue_music"
-        app:showAsAction="always"/>
 </menu>

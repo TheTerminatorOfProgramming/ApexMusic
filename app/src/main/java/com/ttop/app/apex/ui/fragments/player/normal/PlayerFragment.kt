@@ -339,7 +339,7 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.inflateMenu(R.menu.menu_player)
         //binding.playerToolbar.menu.setUpWithIcons()
-        binding.playerToolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.playerToolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher}
         binding.playerToolbar.setOnMenuItemClickListener(this)
 
         ToolbarContentTintHelper.colorizeToolbar(

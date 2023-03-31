@@ -51,8 +51,9 @@ import com.ttop.app.apex.databinding.FragmentCirclePlayerBinding
 import com.ttop.app.apex.dialogs.*
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
-import com.ttop.app.apex.glide.GlideRequest
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.ttop.app.apex.glide.ApexGlideExtension.simpleSongCoverOptions
 import com.ttop.app.apex.glide.crossfadeListener
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
@@ -105,9 +106,8 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     private val binding get() = _binding!!
 
     private var rotateAnimator: ObjectAnimator? = null
-    private var lastRequest: GlideRequest<Drawable>? = null
+    private var lastRequest: RequestBuilder<Drawable>? = null
 
-    private var progressAnimator: ObjectAnimator? = null
     var isSeeking = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -296,7 +296,7 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressed() }
+            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
             setOnMenuItemClickListener(this@CirclePlayerFragment)
             ToolbarContentTintHelper.colorizeToolbar(
                 this,
@@ -481,11 +481,11 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
         } else {
             binding.songInfo.hide()
         }
-        GlideApp.with(this)
+        Glide.with(this)
             .load(ApexGlideExtension.getSongModel(MusicPlayerRemote.currentSong))
             .simpleSongCoverOptions(MusicPlayerRemote.currentSong)
             .thumbnail(lastRequest)
-            .error(GlideApp.with(this).load(R.drawable.default_audio_art).fitCenter())
+            .error(Glide.with(this).load(R.drawable.default_audio_art).fitCenter())
             .fitCenter().also {
                 lastRequest = it.clone()
                 it.crossfadeListener()

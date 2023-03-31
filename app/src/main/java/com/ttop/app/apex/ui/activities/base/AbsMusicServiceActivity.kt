@@ -18,6 +18,7 @@ import android.Manifest
 import android.content.*
 import android.os.Bundle
 import android.os.IBinder
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.toPlayCount
@@ -97,7 +98,7 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
             filter.addAction(MEDIA_STORE_CHANGED)
             filter.addAction(FAVORITE_STATE_CHANGED)
 
-            registerReceiver(musicStateReceiver, filter)
+            ContextCompat.registerReceiver(this, musicStateReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
 
             receiverRegistered = true
         }
@@ -191,19 +192,20 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
     }
 
     override fun getPermissionsToRequest(): Array<String> {
-        return if (VersionUtils.hasT()) {
-            mutableListOf(Manifest.permission.READ_MEDIA_AUDIO).toTypedArray()
-        }else{
-            mutableListOf(Manifest.permission.READ_EXTERNAL_STORAGE).apply {
-                if (!VersionUtils.hasR()) {
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                }
-
-                if (VersionUtils.hasS()) {
-                    add(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                }
-            }.toTypedArray()
-        }
+        return mutableListOf<String>().apply {
+            if (VersionUtils.hasT()) {
+                add(Manifest.permission.READ_MEDIA_AUDIO)
+                add(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+            if (!VersionUtils.hasR()) {
+                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+            if (VersionUtils.hasS()) {
+                add(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+            }
+        }.toTypedArray()
     }
 
     private class MusicStateReceiver(activity: AbsMusicServiceActivity) : BroadcastReceiver() {

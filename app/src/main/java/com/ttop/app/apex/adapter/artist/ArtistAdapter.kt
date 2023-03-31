@@ -29,7 +29,9 @@ import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumArtistClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
@@ -110,7 +112,7 @@ class ArtistAdapter(
         if (holder.image == null) {
             return
         }
-        GlideApp.with(activity)
+        Glide.with(activity)
             .asBitmapPalette()
             .load(ApexGlideExtension.getArtistModel(artist))
             .artistImageOptions(artist)

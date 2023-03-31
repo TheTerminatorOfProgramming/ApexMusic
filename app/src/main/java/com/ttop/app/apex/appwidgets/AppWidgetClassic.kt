@@ -23,7 +23,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RemoteViews
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -33,7 +32,8 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
@@ -250,7 +250,7 @@ class AppWidgetClassic : BaseAppWidget() {
             }
 
             if (PreferenceUtil.isClassicCircle) {
-                target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
+                target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
                     .load(ApexGlideExtension.getSongModel(song))
                     .placeholder(R.drawable.default_audio_art)
                     .error(R.drawable.default_audio_art)
@@ -308,7 +308,7 @@ class AppWidgetClassic : BaseAppWidget() {
                         }
                     })
             } else {
-                target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
+                target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
                     .load(ApexGlideExtension.getSongModel(song))
                     .centerCrop()
                     .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
@@ -415,7 +415,7 @@ class AppWidgetClassic : BaseAppWidget() {
     private fun createDefaultCircle(service: MusicService,appWidgetView: RemoteViews, appWidgetIds: IntArray?, playPauseRes: Int) {
         val song = service.currentSong
 
-        target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
+        target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
             .load(R.drawable.default_audio_art)
             .circleCrop()
             .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {

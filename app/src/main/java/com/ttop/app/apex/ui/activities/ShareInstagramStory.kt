@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.provider.MediaStore.Images.Media
 import android.view.MenuItem
 import androidx.core.net.toUri
+import androidx.core.os.BundleCompat
 import androidx.core.view.drawToBitmap
 import com.ttop.app.apex.databinding.ActivityShareInstagramBinding
 import com.ttop.app.apex.extensions.accentColor
@@ -29,7 +30,9 @@ import com.ttop.app.apex.extensions.setLightStatusBar
 import com.ttop.app.apex.extensions.setStatusBarColor
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.base.AbsThemeActivity
 import com.ttop.app.apex.util.Share
@@ -51,7 +54,7 @@ class ShareInstagramStory : AbsThemeActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -66,16 +69,15 @@ class ShareInstagramStory : AbsThemeActivity() {
         binding.toolbar.setBackgroundColor(Color.TRANSPARENT)
         setSupportActionBar(binding.toolbar)
 
-        val song = intent.extras?.getParcelable<Song>(EXTRA_SONG)
+        val song = intent.extras?.let { BundleCompat.getParcelable(it, EXTRA_SONG, Song::class.java) }
         song?.let { songFinal ->
-            GlideApp.with(this)
+            Glide.with(this)
                 .asBitmapPalette()
                 .songCoverOptions(songFinal)
                 .load(ApexGlideExtension.getSongModel(songFinal))
                 .into(object : ApexColoredTarget(binding.image) {
                     override fun onColorReady(colors: MediaNotificationProcessor) {
-                        val isColorLight = ColorUtil.isColorLight(colors.backgroundColor)
-                        setColors(isColorLight, colors.backgroundColor)
+                        setColors(colors.backgroundColor)
                     }
                 })
 
@@ -103,22 +105,7 @@ class ShareInstagramStory : AbsThemeActivity() {
             ColorStateList.valueOf(accentColor())
     }
 
-    private fun setColors(colorLight: Boolean, color: Int) {
-        setLightStatusBar(colorLight)
-        binding.toolbar.setTitleTextColor(
-            MaterialValueHelper.getPrimaryTextColor(
-                this@ShareInstagramStory,
-                colorLight
-            )
-        )
-        binding.toolbar.navigationIcon?.setTintList(
-            ColorStateList.valueOf(
-                MaterialValueHelper.getPrimaryTextColor(
-                    this@ShareInstagramStory,
-                    colorLight
-                )
-            )
-        )
+    private fun setColors(color: Int) {
         binding.mainContent.background =
             GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,

@@ -7,7 +7,8 @@
         android:layout="@layout/list_item_view"
         android:summary="@string/pref_summary_blacklist"
         android:title="@string/pref_header_blacklist"
-        app:icon="@drawable/ic_music_note_off" />
+        app:icon="@drawable/ic_music_note_off"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
@@ -15,11 +16,13 @@
         android:icon="@drawable/ic_filter_list"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_whitelist"
-        android:title="@string/pref_title_whitelist" />
+        android:title="@string/pref_title_whitelist"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_playlists">
+        android:title="@string/pref_header_playlists"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="this_month"
@@ -30,12 +33,14 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_last_added_interval"
-            app:icon="@drawable/ic_playlist_add" />
+            app:icon="@drawable/ic_playlist_add"
+            app:allowDividerBelow="false"/>
 
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_advanced">
+        android:title="@string/pref_header_advanced"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
             android:defaultValue="30"
@@ -45,7 +50,8 @@
             android:summary="@string/pref_filter_song_summary"
             android:title="@string/pref_filter_song_title"
             app:icon="@drawable/ic_filter_song"
-            app:showSeekBarValue="true" />
+            app:showSeekBarValue="true"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -53,7 +59,8 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_keep_screen_on_summary"
             android:title="@string/pref_keep_screen_on_title"
-            app:icon="@drawable/ic_settings_brigntness" />
+            app:icon="@drawable/ic_settings_brigntness"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -61,7 +68,8 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_toggle_full_screen"
             android:title="@string/pref_title_toggle_full_screen"
-            app:icon="@drawable/ic_cellphone" />
+            app:icon="@drawable/ic_cellphone"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -70,6 +78,7 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_auto_rotate"
             android:title="@string/pref_title_auto_rotate"
-            app:isPreferenceVisible="@bool/auto_rotate"/>
+            app:isPreferenceVisible="@bool/auto_rotate"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

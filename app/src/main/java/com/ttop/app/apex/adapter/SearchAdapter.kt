@@ -25,11 +25,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.*
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexGlideExtension.albumCoverOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.model.Album
@@ -89,7 +92,8 @@ class SearchAdapter(
                 val album = dataSet[position] as Album
                 holder.title?.text = album.title
                 holder.text?.text = album.artistName
-                GlideApp.with(activity).asDrawable().albumCoverOptions(album.safeGetFirstSong()).load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
+                Glide.with(activity).asDrawable().albumCoverOptions(album.safeGetFirstSong())
+                    .load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
                     .into(holder.image!!)
             }
             ARTIST -> {
@@ -97,15 +101,17 @@ class SearchAdapter(
                 val artist = dataSet[position] as Artist
                 holder.title?.text = artist.name
                 holder.text?.text = MusicUtil.getArtistInfoString(activity, artist)
-                GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
-                    ApexGlideExtension.getArtistModel(artist)).into(holder.image!!)
+                Glide.with(activity).asDrawable().artistImageOptions(artist).load(
+                    ApexGlideExtension.getArtistModel(artist)
+                ).into(holder.image!!)
             }
             SONG -> {
                 holder.imageTextContainer?.isVisible = true
                 val song = dataSet[position] as Song
                 holder.title?.text = song.title
                 holder.text?.text = song.albumName
-                GlideApp.with(activity).asDrawable().songCoverOptions(song).load(ApexGlideExtension.getSongModel(song)).into(holder.image!!)
+                Glide.with(activity).asDrawable().songCoverOptions(song)
+                    .load(ApexGlideExtension.getSongModel(song)).into(holder.image!!)
             }
             GENRE -> {
                 val genre = dataSet[position] as Genre
@@ -129,8 +135,9 @@ class SearchAdapter(
                 val artist = dataSet[position] as Artist
                 holder.title?.text = artist.name
                 holder.text?.text = MusicUtil.getArtistInfoString(activity, artist)
-                GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
-                    ApexGlideExtension.getArtistModel(artist)).into(holder.image!!)
+                Glide.with(activity).asDrawable().artistImageOptions(artist).load(
+                    ApexGlideExtension.getArtistModel(artist)
+                ).into(holder.image!!)
             }
             else -> {
                 holder.title?.text = dataSet[position].toString()
@@ -198,7 +205,7 @@ class SearchAdapter(
                 PLAYLIST -> {
                     activity.findNavController(R.id.fragment_container).navigate(
                         R.id.playlistDetailsFragment,
-                        bundleOf(EXTRA_PLAYLIST to (item as PlaylistWithSongs))
+                        bundleOf(EXTRA_PLAYLIST_ID to (item as PlaylistWithSongs).playlistEntity.playListId)
                     )
                 }
                 SONG -> {

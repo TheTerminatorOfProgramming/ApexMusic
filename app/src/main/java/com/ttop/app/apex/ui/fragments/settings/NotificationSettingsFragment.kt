@@ -55,8 +55,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
     override fun invalidateSettings() {
         val musicService: MusicService? = MusicPlayerRemote.musicService
         val appWidgetClassic: AppWidgetClassic = AppWidgetClassic.instance
-        val appWidgetCircle: AppWidgetCircle = AppWidgetCircle.instance
-        val appWidgetFullCircle: AppWidgetFullCircle = AppWidgetFullCircle.instance
         val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
 
         val classicNotification: TwoStatePreference? = findPreference(CLASSIC_NOTIFICATION)

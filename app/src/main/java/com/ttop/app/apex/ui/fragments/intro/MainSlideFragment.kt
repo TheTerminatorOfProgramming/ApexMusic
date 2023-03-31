@@ -39,7 +39,7 @@ class MainSlideFragment : Fragment() {
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
-        fun newInstance(fragmentRingtoneIntro: Int): MainSlideFragment {
+        fun newInstance(): MainSlideFragment {
             return MainSlideFragment()
         }
     }

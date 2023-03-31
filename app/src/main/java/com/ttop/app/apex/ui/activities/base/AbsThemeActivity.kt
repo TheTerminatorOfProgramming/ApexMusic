@@ -15,14 +15,13 @@
 package com.ttop.app.apex.ui.activities.base
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
-import androidx.core.os.ConfigurationCompat
-import com.ttop.app.apex.LanguageContextWrapper
+import androidx.core.os.LocaleListCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.util.PreferenceUtil
@@ -31,7 +30,6 @@ import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
-import java.util.*
 
 abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
 
@@ -90,6 +88,14 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         }
     }
 
+    private fun updateLocale() {
+        val localeCode = PreferenceUtil.languageCode
+        if (PreferenceUtil.isLocaleAutoStorageEnabled) {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(localeCode))
+            PreferenceUtil.isLocaleAutoStorageEnabled = true
+        }
+    }
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) {
@@ -124,14 +130,7 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
     }
 
     override fun attachBaseContext(newBase: Context?) {
-        val code = PreferenceUtil.languageCode
-        val locale = if (code == "auto") {
-            // Get the device default locale
-            ConfigurationCompat.getLocales(Resources.getSystem().configuration)[0]
-        } else {
-            Locale.forLanguageTag(code)
-        }
-        super.attachBaseContext(LanguageContextWrapper.wrap(newBase, locale))
+        super.attachBaseContext(newBase)
         installSplitCompat()
     }
 }

@@ -9,6 +9,7 @@ import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallSessionState
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
+import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import com.ttop.app.apex.R
 import java.util.*
 
@@ -22,7 +23,8 @@ fun FragmentActivity.installLanguageAndRecreate(code: String) {
     val manager = SplitInstallManagerFactory.create(this)
     val listener = object: SplitInstallStateUpdatedListener{
         override fun onStateUpdate(state: SplitInstallSessionState) {
-            if (state.sessionId() == mySessionId) {
+            // Restart the activity if the language is installed (sessionId is same and status is installed)
+            if (state.sessionId() == mySessionId && state.status() == SplitInstallSessionStatus.INSTALLED) {
                 recreate()
                 manager.unregisterListener(this)
             }

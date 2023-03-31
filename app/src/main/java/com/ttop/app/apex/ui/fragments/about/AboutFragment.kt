@@ -45,6 +45,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -53,7 +54,7 @@ import java.util.*
 class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
-    private val libraryViewModel by sharedViewModel<LibraryViewModel>()
+    private val libraryViewModel by activityViewModel<LibraryViewModel>()
     private var count: Int = 0
     private val timer = object: CountDownTimer(5000, 1000) {
         override fun onTick(millisUntilFinished: Long) {}
@@ -61,7 +62,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         override fun onFinish() {
             if (count==10){
                 PreferenceUtil.isDevModeEnabled = true
-                showToast("Developer Mode On!")
+                showToast("Developer Options On!")
             }
 
             count =0
@@ -149,14 +150,14 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                             count +=1
                         }else {
                             timer.cancel()
-                            showToast("Developer Mode On!")
+                            showToast("Developer Options On!")
                             PreferenceUtil.isDevModeEnabled = true
                             count = 0
 
                         }
                     }
                 }else {
-                    showToast("Developer mode already turned on!")
+                    showToast("Developer options already turned on!")
                 }
 
                 if (!PreferenceUtil.isDevModeEnabled) {
@@ -169,8 +170,8 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             }
             R.id.devMode -> {
                 val builder = AlertDialog.Builder(requireContext())
-                builder.setTitle("Developer Mode")
-                builder.setMessage("Turn off Developer Mode?")
+                builder.setTitle("Developer Options")
+                builder.setMessage("Turn off Developer Options?")
 
                 builder.setPositiveButton(android.R.string.yes) { _, _ ->
                     PreferenceUtil.isDevModeEnabled = false
@@ -231,7 +232,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun getRetroMusicVersion(): String {
-        return "6.0.4 BETA"
+        return "6.0.5 Production"
     }
 
     private fun shareApp() {

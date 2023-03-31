@@ -28,7 +28,8 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAct
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionRemoveItem
 import com.ttop.app.apex.R
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.isPlaying
 import com.ttop.app.apex.helper.MusicPlayerRemote.playNextSong
@@ -76,7 +77,7 @@ class PlayingQueueAdapter(
         if (holder.image == null) {
             return
         }
-        GlideApp.with(activity)
+        Glide.with(activity)
             .load(ApexGlideExtension.getSongModel(song))
             .songCoverOptions(song)
             .into(holder.image!!)

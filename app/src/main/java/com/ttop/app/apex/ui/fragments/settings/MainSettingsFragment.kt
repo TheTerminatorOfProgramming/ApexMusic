@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
@@ -41,6 +42,8 @@ import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
 import com.ttop.app.apex.ui.fragments.backup.BackupFragment
 import com.ttop.app.apex.ui.fragments.backup.RestoreActivity
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.views.SettingListItemView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -62,6 +65,7 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
                 R.id.aboutSettings -> R.id.action_mainSettingsFragment_to_aboutActivity
                 R.id.nowPlayingSettings -> R.id.action_mainSettingsFragment_to_nowPlayingSettingsFragment
                 R.id.backup_restore_settings -> R.id.action_mainSettingsFragment_to_backupFragment
+                R.id.labsSettings -> R.id.action_mainSettingsFragment_to_labsFragment
                 else -> R.id.action_mainSettingsFragment_to_themeSettingsFragment
             }
         )
@@ -118,16 +122,6 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val openFilePicker = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                it?.let {
-                    startActivity(Intent(context, RestoreActivity::class.java).apply {
-                        data = it
-                    })
-                }
-            }
-        }
-
         binding.generalSettings.setOnClickListener(this)
         binding.audioSettings.setOnClickListener(this)
         binding.nowPlayingSettings.setOnClickListener(this)
@@ -159,7 +153,15 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
         }*/
         binding.aboutSettings.setOnClickListener(this)
 
+        binding.labsSettings.setOnClickListener(this)
+
         binding.container.drawAboveSystemBarsWithPadding()
+
+        if (PreferenceUtil.isDevModeEnabled) {
+            binding.labsSettings.visibility = View.VISIBLE
+        }else {
+            binding.labsSettings.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

@@ -62,6 +62,18 @@
         app:srcCompat="@drawable/ic_close" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/color_circle_gradient"
+        android:backgroundTint="@color/semi_transparent"
+        android:padding="8dp"
+        app:layout_constraintEnd_toStartOf="@id/songFavourite"
+        app:layout_constraintStart_toEndOf="@id/close"
+        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:srcCompat="@drawable/ic_car" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/songFavourite"
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -151,21 +163,38 @@
             android:id="@+id/songTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
             android:gravity="center"
-            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textAppearance="@style/TextViewHeadline5"
             android:textColor="@color/md_white_1000"
             android:textStyle="bold"
             tools:text="@tools:sample/lorem/random" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/songText"
+            android:id="@+id/album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
             android:gravity="center"
-            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textAppearance="@style/TextViewHeadline6"
+            android:textColor="@color/md_grey_200"
+            tools:text="@tools:sample/lorem/random" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textAppearance="@style/TextViewHeadline6"
             android:textColor="@color/md_grey_200"
             tools:text="@tools:sample/lorem/random" />

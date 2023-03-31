@@ -49,6 +49,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -267,18 +268,26 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         }
 
         if (position < MusicPlayerRemote.position) {
-            if (PreferenceUtil.isAutoplay) {
+            if (VersionUtils.hasT()) {
                 MusicPlayerRemote.playPreviousSong()
             }else {
-                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playPreviousSong()
+                }else {
+                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                }
             }
         }
 
         if (position > MusicPlayerRemote.position) {
-            if (PreferenceUtil.isAutoplay) {
+            if (VersionUtils.hasT()) {
                 MusicPlayerRemote.playNextSong()
             }else {
-                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playNextSong()
+                } else {
+                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                }
             }
         }
     }

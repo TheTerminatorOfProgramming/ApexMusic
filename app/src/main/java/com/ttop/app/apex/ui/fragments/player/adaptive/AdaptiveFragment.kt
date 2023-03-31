@@ -60,7 +60,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressed() }
+            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
             ToolbarContentTintHelper.colorizeToolbar(this, surfaceColor(), requireActivity())
             setTitleTextColor(textColorPrimary())
             setSubtitleTextColor(textColorSecondary())

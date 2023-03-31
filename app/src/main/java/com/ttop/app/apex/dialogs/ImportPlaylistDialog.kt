@@ -21,10 +21,11 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ImportPlaylistDialog : DialogFragment() {
-    private val libraryViewModel by sharedViewModel<LibraryViewModel>()
+    private val libraryViewModel by activityViewModel<LibraryViewModel>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return materialDialog(R.string.import_playlist)

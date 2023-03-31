@@ -62,6 +62,14 @@
                 tools:text="Text" />
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/md_red_500"
+            android:padding="18dp"/>
+
         <LinearLayout
             android:id="@+id/media_action"
             android:layout_width="match_parent"

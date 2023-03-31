@@ -35,6 +35,8 @@ import androidx.navigation.navOptions
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
@@ -49,6 +51,7 @@ import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.glide.*
+import com.ttop.app.apex.glide.ApexGlideExtension.simpleSongCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
@@ -74,7 +77,7 @@ import org.koin.android.ext.android.get
 class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private var lastRequest: GlideRequest<Drawable>? = null
+    private var lastRequest: RequestBuilder<Drawable>? = null
 
     override fun playerToolbar(): Toolbar {
         return binding.playerToolbar
@@ -123,7 +126,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressed() }
+            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
             ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)
         }.setOnMenuItemClickListener(this)
     }
@@ -313,14 +316,14 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
 
     private fun updateBlur() {
         // https://github.com/bumptech/glide/issues/527#issuecomment-148840717
-        GlideApp.with(this)
+        Glide.with(this)
             .load(ApexGlideExtension.getSongModel(MusicPlayerRemote.currentSong))
             .simpleSongCoverOptions(MusicPlayerRemote.currentSong)
             .transform(
                 BlurTransformation.Builder(requireContext()).blurRadius(blurAmount.toFloat())
                     .build()
             ).thumbnail(lastRequest)
-            .error(GlideApp.with(this).load(ColorDrawable(Color.DKGRAY)).fitCenter())
+            .error(Glide.with(this).load(ColorDrawable(Color.DKGRAY)).fitCenter())
             .also {
                 lastRequest = it.clone()
                 it.crossfadeListener()

@@ -22,7 +22,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
-import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
@@ -31,7 +30,9 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
@@ -116,7 +117,7 @@ class AppWidgetFullCircle : BaseAppWidget() {
             if (target != null) {
                 Glide.with(service).clear(target)
             }
-            target = GlideApp.with(service).asBitmapPalette().songCoverOptions(song)
+            target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
                 .load(ApexGlideExtension.getSongModel(song))
                 .apply(RequestOptions.circleCropTransform())
                 .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {

@@ -41,7 +41,8 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivitySongTagEditorBinding
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.repository.SongRepository
@@ -249,7 +250,7 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
     override fun getSongUris(): List<Uri> = listOf(MusicUtil.getSongFileUri(id))
 
     override fun loadImageFromFile(selectedFile: Uri?) {
-        GlideApp.with(this@SongTagEditorActivity).asBitmapPalette().load(selectedFile)
+        Glide.with(this@SongTagEditorActivity).asBitmapPalette().load(selectedFile)
             .diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
             .into(object : ImageViewTarget<BitmapPaletteWrapper>(binding.editorImage) {
                 override fun onResourceReady(

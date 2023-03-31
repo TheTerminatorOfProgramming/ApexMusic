@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        app:title="@string/home">
+        app:title="@string/home"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="0"
@@ -14,7 +15,8 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_home_artist_grid_style"
-            app:icon="@drawable/ic_home" />
+            app:icon="@drawable/ic_home"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="true"
@@ -22,7 +24,8 @@
             android:disableDependentsState="false"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_user_name"
-            android:title="@string/pref_title_user_name" />
+            android:title="@string/pref_title_user_name"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -30,41 +33,45 @@
             android:dependency="toggle_user_name"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_home_banner"
-            android:title="@string/pref_title_home_banner" />
+            android:title="@string/pref_title_home_banner"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="true"
             android:key="toggle_suggestions"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_suggestions"
-            android:title="@string/pref_title_suggestions" />
+            android:title="@string/pref_title_suggestions"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="pause_history"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_pause_history"
-            android:title="@string/pref_title_pause_history" />
-
+            android:title="@string/pref_title_pause_history"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_library">
+        android:title="@string/pref_header_library"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.apex.preferences.LibraryPreference
             android:key="library_categories"
             android:layout="@layout/list_item_view"
             android:summary="@string/pref_summary_library_categories"
             android:title="@string/library_categories"
-            app:icon="@drawable/ic_library_music" />
+            app:icon="@drawable/ic_library_music"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="true"
             android:key="remember_last_tab"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_remember_tab"
-            android:title="@string/pref_title_remember_tab" />
+            android:title="@string/pref_title_remember_tab"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="0"
@@ -74,7 +81,8 @@
             android:layout="@layout/list_item_view"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_tab_text_mode" />
+            android:title="@string/pref_title_tab_text_mode"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="1"
@@ -84,26 +92,29 @@
             android:layout="@layout/list_item_view"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_appbar_mode" />
+            android:title="@string/pref_title_appbar_mode"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_lockscreen">
+        android:title="@string/pref_header_lockscreen"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="lock_screen"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_lock_screen"
-            android:title="@string/pref_title_lock_screen" />
+            android:title="@string/pref_title_lock_screen"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="album_art_on_lock_screen"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_album_art_on_lockscreen"
-            android:title="@string/pref_title_album_art_on_lockscreen" />
+            android:title="@string/pref_title_album_art_on_lockscreen"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
@@ -111,7 +122,8 @@
             android:key="blurred_album_art"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_blurred_album_art"
-            android:title="@string/pref_title_blurred_album_art" />
+            android:title="@string/pref_title_blurred_album_art"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
             android:defaultValue="12"
@@ -123,6 +135,7 @@
             app:ateKey_pref_unit="px"
             app:icon="@drawable/ic_blur_on"
             app:showSeekBarValue="true"
-            android:dependency="blurred_album_art"/>
+            android:dependency="blurred_album_art"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

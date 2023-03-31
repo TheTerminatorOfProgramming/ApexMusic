@@ -10,7 +10,9 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
@@ -42,14 +44,19 @@
     <application
         android:name="com.ttop.app.apex.App"
         android:allowBackup="@bool/allowBackup"
+        android:appCategory="audio"
         android:configChanges="locale|layoutDirection"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:localeConfig="@xml/locales_config"
         android:requestLegacyExternalStorage="true"
         android:restoreAnyVersion="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Apex.FollowSystem"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="UnusedAttribute">
+
         <activity
             android:name="com.ttop.app.apex.ui.activities.MainActivity"
             android:exported="true"
@@ -216,7 +223,7 @@
         </receiver>
         <receiver
             android:name="com.ttop.app.apex.appwidgets.AppWidgetBig"
-            android:enabled="true"
+            android:enabled="false"
             android:exported="true"
             android:label="@string/app_widget_big_name">
             <intent-filter>
@@ -277,10 +284,22 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_full_circle_info" />
         </receiver>
+        <receiver
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetSquare"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/app_widget_square_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_square_info" />
+        </receiver>
 
         <service
             android:name="com.ttop.app.apex.service.MusicService"
-            android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             android:label="@string/app_name">
@@ -313,6 +332,15 @@
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="com.ttop.app.apex.cast.CastOptionsProvider" />
+
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
     </application>
 
 </manifest>

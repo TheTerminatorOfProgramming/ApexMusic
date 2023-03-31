@@ -31,7 +31,8 @@ import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.db.toSongs
 import com.ttop.app.apex.extensions.dipToPix
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.playlistOptions
 import com.ttop.app.apex.glide.playlistPreview.PlaylistPreview
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
@@ -105,10 +106,9 @@ class PlaylistAdapter(
             holder.image?.setPadding(activity.dipToPix(8F).toInt())
             holder.image?.setImageDrawable(getIconRes())
         } else {
-            GlideApp.with(activity)
-                .load(
-                    PlaylistPreview(playlist)
-                )
+            Glide.with(activity)
+            Glide.with(activity)
+                .load(PlaylistPreview(playlist))
                 .playlistOptions()
                 .into(holder.image!!)
         }

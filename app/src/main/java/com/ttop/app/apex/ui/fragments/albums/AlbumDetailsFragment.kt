@@ -46,7 +46,10 @@ import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.dialogs.DeleteSongsDialog
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.albumCoverOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.SingleColorTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_A_Z
@@ -289,7 +292,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         detailsViewModel.getMoreAlbums(artist).observe(viewLifecycleOwner) {
             moreAlbums(it)
         }
-        GlideApp.with(requireContext())
+        Glide.with(requireContext())
             //.forceDownload(PreferenceUtil.isAllowedToDownloadMetadata())
             .load(
                 ApexGlideExtension.getArtistModel(
@@ -304,7 +307,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
     }
 
     private fun loadAlbumCover(album: Album) {
-        GlideApp.with(requireContext()).asBitmapPalette()
+        Glide.with(requireContext()).asBitmapPalette()
             .albumCoverOptions(album.safeGetFirstSong())
             //.checkIgnoreMediaStore()
             .load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
@@ -336,7 +339,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_album_detail, menu)
         val sortOrder = menu.findItem(R.id.action_sort_order)
-        sortOrder.subMenu?.let { setUpSortOrderMenu(it) }
+        setUpSortOrderMenu(sortOrder.subMenu!!)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
             requireContext(),
             binding.toolbar,

@@ -28,13 +28,19 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver
 import android.view.animation.PathInterpolator
 import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.core.animation.doOnEnd
 import androidx.core.view.*
 import androidx.fragment.app.commit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.*
-import com.google.android.material.navigationrail.NavigationRailView
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_DRAGGING
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_SETTLING
+import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.ttop.app.apex.*
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
 import com.ttop.app.apex.extensions.*
@@ -96,7 +102,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private val argbEvaluator: ArgbEvaluator = ArgbEvaluator()
 
     private val bottomSheetCallbackList by lazy {
-        object : BottomSheetCallback() {
+        object : BottomSheetBehavior.BottomSheetCallback() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 setMiniPlayerAlphaProgress(slideOffset)
@@ -209,6 +215,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         bottomSheetBehavior = from(binding.slidingPanel)
         bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallbackList)
         bottomSheetBehavior.isHideable = PreferenceUtil.swipeDownToDismiss
+        bottomSheetBehavior.significantVelocityThreshold = 300
         setMiniPlayerAlphaProgress(0F)
     }
 
@@ -222,6 +229,15 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         if (bottomSheetBehavior.state == STATE_EXPANDED) {
             setMiniPlayerAlphaProgress(1f)
         }
+
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!handleBackPress()) {
+                    remove()
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -308,7 +324,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             SHOW_UPDATE -> {
                 MusicPlayerRemote.updateNotification()
             }
-            MINI_IMAGE -> {
+            MINI_IMAGE,
+            MINIPLAYER_IMAGE-> {
                 miniPlayerFragment?.activity?.recreate()
             }
         }
@@ -411,10 +428,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         if (currentFragment(R.id.fragment_container) !is PlayingQueueFragment) {
             hideBottomSheet(MusicPlayerRemote.playingQueue.isEmpty())
         }
-    }
-
-    override fun onBackPressed() {
-        if (!handleBackPress()) super.onBackPressed()
     }
 
     private fun handleBackPress(): Boolean {
@@ -521,14 +534,14 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         hideBottomSheet(
             hide = hideBottomSheet,
             animate = animate,
-            isBottomNavVisible = visible  && navigationView is BottomNavigationView
+            isBottomNavVisible = visible && navigationView is BottomNavigationView
         )
     }
 
     fun hideBottomSheet(
         hide: Boolean,
         animate: Boolean = false,
-        isBottomNavVisible: Boolean = navigationView.isVisible  && navigationView is BottomNavigationView,
+        isBottomNavVisible: Boolean = navigationView.isVisible && navigationView is BottomNavigationView,
     ) {
         val heightOfBar = windowInsets.getBottomInsets() + dip(R.dimen.mini_player_height)
         val heightOfBarWithTabs = heightOfBar + dip(R.dimen.bottom_nav_height)

@@ -18,6 +18,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
@@ -27,7 +28,10 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.BlurTransformation
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
+import com.ttop.app.apex.dialogs.SleepTimerDialog
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper.Callback
@@ -38,6 +42,7 @@ import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -65,9 +70,13 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         progressViewUpdateHelper = MusicProgressViewUpdateHelper(this)
         lastPlaybackControlsColor = accentColor()
         binding.close.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
         binding.repeatButton.drawAboveSystemBars()
+
+        binding.songTitle.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
     }
 
     private fun setUpMusicControllers() {
@@ -77,6 +86,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         setUpShuffleButton()
         setUpProgressSlider()
         setupFavouriteToggle()
+        setupTabletMode()
     }
 
     private fun setupFavouriteToggle() {
@@ -133,17 +143,25 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
 
     private fun setUpPrevNext() {
         binding.nextButton.setOnClickListener {
-            if (PreferenceUtil.isAutoplay) {
+            if (VersionUtils.hasT()) {
                 MusicPlayerRemote.playNextSong()
             }else {
-                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playNextSong()
+                } else {
+                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                }
             }
         }
         binding.previousButton.setOnClickListener {
-            if (PreferenceUtil.isAutoplay) {
+            if (VersionUtils.hasT()) {
                 MusicPlayerRemote.playPreviousSong()
             }else {
-                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playPreviousSong()
+                }else {
+                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                }
             }
         }
     }
@@ -158,6 +176,16 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
 
     private fun setUpPlayPauseFab() {
         binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
+    }
+
+    private fun setupTabletMode() {
+        binding.playbackButton?.setOnClickListener{
+            PlaybackSpeedDialog.newInstance().show(supportFragmentManager, "PLAYBACK_SETTINGS")
+        }
+
+        binding.timerButton?.setOnClickListener{
+            SleepTimerDialog().show(supportFragmentManager, "SLEEP_TIMER")
+        }
     }
 
     override fun onRepeatModeChanged() {
@@ -246,9 +274,10 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         val song = MusicPlayerRemote.currentSong
 
         binding.songTitle.text = song.title
-        binding.songText.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
 
-        GlideApp.with(this)
+        Glide.with(this)
             .load(ApexGlideExtension.getSongModel(song))
             .songCoverOptions(song)
             .transform(BlurTransformation.Builder(this).build())

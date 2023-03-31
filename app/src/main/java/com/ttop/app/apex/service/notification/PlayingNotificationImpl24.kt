@@ -31,7 +31,8 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
@@ -124,7 +125,7 @@ class PlayingNotificationImpl24(
         setSubText(song.albumName)
         val bigNotificationImageSize = context.resources
             .getDimensionPixelSize(R.dimen.notification_big_image_size)
-        GlideApp.with(context)
+        Glide.with(context)
             .asBitmap()
             .songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))

@@ -41,7 +41,7 @@ class RingtoneSlideFragment : Fragment() {
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
     }
     companion object {
-        fun newInstance(fragmentRingtoneIntro: Int): RingtoneSlideFragment {
+        fun newInstance(): RingtoneSlideFragment {
             return RingtoneSlideFragment()
         }
     }

@@ -26,7 +26,9 @@ import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.albumCoverOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
@@ -110,7 +112,7 @@ open class AlbumAdapter(
             return
         }
         val song = album.safeGetFirstSong()
-        GlideApp.with(activity).asBitmapPalette().albumCoverOptions(song)
+        Glide.with(activity).asBitmapPalette().albumCoverOptions(song)
             //.checkIgnoreMediaStore()
             .load(ApexGlideExtension.getSongModel(song))
             .into(object : ApexColoredTarget(holder.image!!) {

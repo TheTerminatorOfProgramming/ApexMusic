@@ -24,6 +24,7 @@ import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
@@ -264,7 +265,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressed() }
+            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed()}
             setOnMenuItemClickListener(this@PeekPlayerFragment)
             ToolbarContentTintHelper.colorizeToolbar(
                 this,

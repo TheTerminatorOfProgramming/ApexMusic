@@ -31,7 +31,9 @@ import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
@@ -116,7 +118,7 @@ open class SongAdapter(
         if (holder.image == null) {
             return
         }
-        GlideApp.with(activity).asBitmapPalette().songCoverOptions(song)
+        Glide.with(activity).asBitmapPalette().songCoverOptions(song)
             .load(ApexGlideExtension.getSongModel(song))
             .into(object : ApexColoredTarget(holder.image!!) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {

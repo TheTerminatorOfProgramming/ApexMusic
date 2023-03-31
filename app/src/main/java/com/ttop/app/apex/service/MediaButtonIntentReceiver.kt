@@ -26,6 +26,7 @@ import android.util.Log
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.core.os.BundleCompat
 import androidx.media.session.MediaButtonReceiver
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_PAUSE
@@ -91,7 +92,7 @@ class MediaButtonIntentReceiver : MediaButtonReceiver() {
             println("Intent Action: ${intent.action}")
             val intentAction = intent.action
             if (Intent.ACTION_MEDIA_BUTTON == intentAction) {
-                val event = intent.getParcelableExtra<KeyEvent>(Intent.EXTRA_KEY_EVENT)
+                val event = intent.extras?.let { BundleCompat.getParcelable(it, Intent.EXTRA_KEY_EVENT, KeyEvent::class.java) }
                     ?: return false
 
                 val keycode = event.keyCode
@@ -162,7 +163,7 @@ class MediaButtonIntentReceiver : MediaButtonReceiver() {
                 // if no notification is displayed via startForeground()
                 // according to Play analytics this happens a lot, I suppose for example if command = PAUSE
                 context.startService(intent)
-            } catch (ignored: IllegalStateException) {
+            } catch (e: Exception) {
                 ContextCompat.startForegroundService(context, intent)
             }
         }

@@ -34,7 +34,8 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivityAlbumTagEditorBinding
 import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.model.Song
@@ -132,7 +133,7 @@ class AlbumTagEditorActivity : AbsTagEditorActivity<ActivityAlbumTagEditorBindin
     }
 
     override fun loadImageFromFile(selectedFile: Uri?) {
-        GlideApp.with(this@AlbumTagEditorActivity).asBitmapPalette().load(selectedFile)
+        Glide.with(this@AlbumTagEditorActivity).asBitmapPalette().load(selectedFile)
             .diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
             .into(object : ImageViewTarget<BitmapPaletteWrapper>(binding.editorImage) {
                 override fun onResourceReady(

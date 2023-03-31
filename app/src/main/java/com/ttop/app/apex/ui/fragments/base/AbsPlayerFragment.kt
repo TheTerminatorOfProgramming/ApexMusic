@@ -64,13 +64,14 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import kotlin.math.abs
 
 abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout),
     Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks {
 
-    val libraryViewModel: LibraryViewModel by sharedViewModel()
+    val libraryViewModel: LibraryViewModel by activityViewModel()
 
     val mainActivity: MainActivity
         get() = activity as MainActivity
@@ -428,9 +429,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             })
 
         @SuppressLint("ClickableViewAccessibility")
-        override fun onTouch(v: View, event: MotionEvent?): Boolean {
+        override fun onTouch(v: View, event: MotionEvent): Boolean {
             viewPager?.dispatchTouchEvent(event)
-            return event?.let { flingPlayBackController.onTouchEvent(it) }!!
+            return flingPlayBackController.onTouchEvent(event)
         }
     }
 

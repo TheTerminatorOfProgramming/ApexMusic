@@ -25,7 +25,9 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ItemGenreBinding
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
+import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.interfaces.IGenreClickListener
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.util.MusicUtil
@@ -68,10 +70,10 @@ class GenreAdapter(
 
     private fun loadGenreImage(genre: Genre, holder: GenreAdapter.ViewHolder) {
         val genreSong = MusicUtil.songByGenre(genre.id)
-        GlideApp.with(activity)
+        Glide.with(activity)
             .asBitmapPalette()
-            .load(ApexGlideExtension.getSongModel(genreSong))
             .songCoverOptions(genreSong)
+            .load(ApexGlideExtension.getSongModel(genreSong))
             .into(object : ApexColoredTarget(holder.binding.image) {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     setColors(holder, colors)

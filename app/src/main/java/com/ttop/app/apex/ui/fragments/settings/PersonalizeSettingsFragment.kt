@@ -22,6 +22,8 @@ import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 class PersonalizeSettingsFragment : AbsSettingsFragment() {
 
@@ -53,7 +55,7 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         }else{
             lastTab?.isEnabled = true
         }
-        lastTab?.setOnPreferenceChangeListener { _, newValue ->
+        lastTab?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
         val albumArt: TwoStatePreference? = findPreference(ALBUM_ART_ON_LOCK_SCREEN)
@@ -66,14 +68,30 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
+        val wearOs: TwoStatePreference? = findPreference(WEAR_OS)
+        wearOs?.isChecked = PreferenceUtil.isWearOs
+        wearOs?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
+
         val lockScreen: TwoStatePreference? = findPreference(LOCK_SCREEN)
         lockScreen?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
+
+        val appBarMode: ATEListPreference? = findPreference(APPBAR_MODE)
+        appBarMode?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_ui)
+        if (VersionUtils.hasR()) {
+            addPreferencesFromResource(R.xml.pref_ui_a11)
+        }else {
+            addPreferencesFromResource(R.xml.pref_ui)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

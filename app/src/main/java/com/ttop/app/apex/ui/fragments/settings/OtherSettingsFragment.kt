@@ -19,6 +19,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
@@ -26,6 +27,7 @@ import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
@@ -34,7 +36,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class OtherSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
-    private val libraryViewModel by sharedViewModel<LibraryViewModel>()
+    private val libraryViewModel by activityViewModel<LibraryViewModel>()
 
     override fun invalidateSettings() {
         val whitelist: TwoStatePreference? = findPreference(WHITELIST_MUSIC)
@@ -67,6 +69,8 @@ class OtherSettingsFragment : AbsSettingsFragment(),
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        PreferenceUtil.languageCode =
+            AppCompatDelegate.getApplicationLocales().toLanguageTags().ifEmpty { "auto" }
         addPreferencesFromResource(R.xml.pref_advanced)
     }
 

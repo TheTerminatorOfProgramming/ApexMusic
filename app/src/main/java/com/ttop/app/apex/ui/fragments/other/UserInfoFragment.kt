@@ -47,7 +47,8 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyToolbar
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.GlideApp
+import com.ttop.app.apex.glide.ApexGlideExtension.profileBannerOptions
+import com.ttop.app.apex.glide.ApexGlideExtension.userProfileOptions
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.PreferenceUtil.userName
@@ -55,6 +56,7 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 
@@ -62,7 +64,7 @@ class UserInfoFragment : Fragment() {
 
     private var _binding: FragmentUserInfoBinding? = null
     private val binding get() = _binding!!
-    private val libraryViewModel: LibraryViewModel by sharedViewModel()
+    private val libraryViewModel: LibraryViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -156,12 +158,12 @@ class UserInfoFragment : Fragment() {
 
     private fun loadProfile() {
         binding.bannerImage.let {
-            GlideApp.with(this)
+            Glide.with(this)
                 .load(ApexGlideExtension.getBannerModel())
                 .profileBannerOptions(ApexGlideExtension.getBannerModel())
                 .into(it)
         }
-        GlideApp.with(this)
+        Glide.with(this)
             .load(ApexGlideExtension.getUserModel())
             .userProfileOptions(ApexGlideExtension.getUserModel(), requireContext())
             .into(binding.userImage)

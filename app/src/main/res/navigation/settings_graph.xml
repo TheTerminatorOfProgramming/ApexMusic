@@ -83,6 +83,15 @@
             app:launchSingleTop="true"
             app:popEnterAnim="@anim/apex_fragment_close_enter"
             app:popExitAnim="@anim/apex_fragment_close_exit" />
+
+        <action
+            android:id="@+id/action_mainSettingsFragment_to_labsFragment"
+            app:destination="@id/labs_fragment"
+            app:enterAnim="@anim/apex_fragment_open_enter"
+            app:exitAnim="@anim/apex_fragment_open_exit"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/apex_fragment_close_enter"
+            app:popExitAnim="@anim/apex_fragment_close_exit" />
     </fragment>
 
     <fragment
@@ -115,8 +124,6 @@
         android:name="com.ttop.app.apex.ui.fragments.settings.PersonalizeSettingsFragment"
         android:label="Personalize" />
 
-
-
     <fragment
         android:id="@+id/themeSettingsFragment"
         android:name="com.ttop.app.apex.ui.fragments.settings.ThemeSettingsFragment"
@@ -132,4 +139,8 @@
         android:name="com.ttop.app.apex.ui.fragments.about.AboutFragment"
         android:label="About" />
 
+    <fragment
+        android:id="@+id/labs_fragment"
+        android:name="com.ttop.app.apex.ui.fragments.settings.LabsSettingsFragment"
+        android:label="Developer options" />
 </navigation>

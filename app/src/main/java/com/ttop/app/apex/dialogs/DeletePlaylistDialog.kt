@@ -27,11 +27,12 @@ import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class DeletePlaylistDialog : DialogFragment() {
 
-    private val libraryViewModel by sharedViewModel<LibraryViewModel>()
+    private val libraryViewModel by activityViewModel<LibraryViewModel>()
 
     companion object {
 
@@ -55,10 +56,13 @@ class DeletePlaylistDialog : DialogFragment() {
         //noinspection ConstantConditions
         if (playlists.size > 1) {
             title = R.string.delete_playlists_title
-            message = String.format(getString(R.string.delete_x_playlists), playlists.size).parseAsHtml()
+            message =
+                String.format(getString(R.string.delete_x_playlists), playlists.size).parseAsHtml()
         } else {
             title = R.string.delete_playlist_title
-            message = String.format(getString(R.string.delete_playlist_x), playlists[0].playlistName).parseAsHtml()
+            message =
+                String.format(getString(R.string.delete_playlist_x), playlists[0].playlistName)
+                    .parseAsHtml()
         }
 
         return materialDialog(title)

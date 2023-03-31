@@ -14,23 +14,24 @@
  */
 package com.ttop.app.apex.ui.activities
 
+import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.ttop.app.apex.DESATURATED_COLOR
-import com.ttop.app.apex.MATERIAL_YOU
-import com.ttop.app.apex.R
+import com.ttop.app.apex.*
+import com.ttop.app.apex.appwidgets.AppWidgetBig
+import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
+import com.ttop.app.apex.appwidgets.AppWidgetSquare
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SearchQueryHelper.getSongs
@@ -43,7 +44,6 @@ import com.ttop.app.apex.ui.activities.base.AbsCastActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
@@ -81,6 +81,31 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
             }
         }else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.getContext())
+        if (!sharedPreferences.contains(RESTORE_LEGACY_WIDGETS)) {
+            packageManager.setComponentEnabledSetting(
+                ComponentName(
+                    applicationContext,
+                    AppWidgetFullCircle::class.java
+                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+
+            packageManager.setComponentEnabledSetting(
+                ComponentName(
+                    applicationContext,
+                    AppWidgetBig::class.java
+                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+        }
+
+        if (!sharedPreferences.contains(USE_NEW_WIDGET)) {
+            packageManager.setComponentEnabledSetting(
+                ComponentName(
+                    applicationContext,
+                    AppWidgetSquare::class.java
+                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
         }
     }
 

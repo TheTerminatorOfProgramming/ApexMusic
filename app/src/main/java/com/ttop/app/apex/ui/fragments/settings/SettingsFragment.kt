@@ -22,8 +22,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.color.ColorCallback
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.databinding.FragmentSettingsBinding
@@ -31,6 +34,8 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.findNavController
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.ui.activities.base.AbsSlidingMusicPanelActivity
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
@@ -40,56 +45,24 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-    val mainActivity: MainActivity
-        get() = activity as MainActivity
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _binding = FragmentSettingsBinding.bind(view)
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
         val navController: NavController = findNavController(R.id.contentFrame)
-        navController.addOnDestinationChangedListener { _, _, _ ->
-            binding.toolbar.title =
-                navController.currentDestination?.let { getStringFromDestination(it) }
-            if (PreferenceUtil.isExtendedAccent){
-                binding.toolbar.setTitleTextColor(requireContext().accentColor())
-            }
-            if (binding.toolbar.title == "Settings") {
-                if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-                    if (!mainActivity.navigationView.isVisible) {
-                        binding.toolbar.navigationIcon = context?.let {
-                            AppCompatResources.getDrawable(
-                                it,
-                                R.drawable.ic_keyboard_backspace_black
-                            )
-                        }
-                    } else {
-                        binding.toolbar.navigationIcon = null
-                    }
-                } else {
-                    binding.toolbar.navigationIcon = context?.let {
-                        AppCompatResources.getDrawable(
-                            it,
-                            R.drawable.ic_keyboard_backspace_black
-                        )
-                    }
-                }
-            }else {
-                binding.toolbar.navigationIcon = context?.let {
-                    AppCompatResources.getDrawable(
-                        it,
-                        R.drawable.ic_keyboard_backspace_black
-                    )
-                }
-            }
-            binding.toolbar.setNavigationOnClickListener {
-                requireActivity().onBackPressed()
+        with (binding.appBarLayout.toolbar) {
+            setNavigationIcon(R.drawable.ic_arrow_back)
+            isTitleCentered = false
+            setNavigationOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
 
-        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-            if (!ApexUtil.isTablet) {
-                val param = binding.settingsContainer.layoutParams as ViewGroup.MarginLayoutParams
-                param.setMargins(0, 0, 0, 200)
-                binding.settingsContainer.layoutParams = param
-            }
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            binding.appBarLayout.title =
+                navController.currentDestination?.let { getStringFromDestination(it) }.toString()
         }
     }
 
@@ -105,6 +78,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
             R.id.themeSettingsFragment -> R.string.general_settings_title
             R.id.aboutActivity -> R.string.action_about
             R.id.backup_fragment -> R.string.backup_restore_title
+            R.id.labs_fragment -> R.string.labs_title
             else -> R.id.action_settings
         }
         return getString(idRes)

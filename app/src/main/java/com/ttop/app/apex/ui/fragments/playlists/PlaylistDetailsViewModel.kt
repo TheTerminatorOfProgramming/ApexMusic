@@ -22,11 +22,13 @@ import com.ttop.app.apex.repository.RealRepository
 
 class PlaylistDetailsViewModel(
     private val realRepository: RealRepository,
-    private var playlist: PlaylistWithSongs
+    private var playlistId: Long
 ) : ViewModel() {
     fun getSongs(): LiveData<List<SongEntity>> =
-        realRepository.playlistSongs(playlist.playlistEntity.playListId)
+        realRepository.playlistSongs(playlistId)
 
     fun playlistExists(): LiveData<Boolean> =
-        realRepository.checkPlaylistExists(playlist.playlistEntity.playListId)
+        realRepository.checkPlaylistExists(playlistId)
+
+    fun getPlaylist(): LiveData<PlaylistWithSongs> = realRepository.getPlaylist(playlistId)
 }

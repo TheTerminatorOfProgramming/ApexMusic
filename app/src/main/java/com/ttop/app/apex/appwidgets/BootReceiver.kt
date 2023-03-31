@@ -46,6 +46,10 @@ class BootReceiver : BroadcastReceiver() {
                 ComponentName(
                     context, AppWidgetFullCircle::class.java
                 )
+            ).isNotEmpty() || widgetManager.getAppWidgetIds(
+                ComponentName(
+                    context, AppWidgetSquare::class.java
+                )
             ).isNotEmpty()
         ) {
             val serviceIntent = Intent(context, MusicService::class.java)
