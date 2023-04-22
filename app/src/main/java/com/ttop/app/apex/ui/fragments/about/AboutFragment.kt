@@ -16,11 +16,13 @@ package com.ttop.app.apex.ui.fragments.about
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.*
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.app.ShareCompat
@@ -29,15 +31,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.AppUpdaterUtils
+import com.github.javiersantos.appupdater.AppUpdaterUtils.UpdateListener
+import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.github.javiersantos.appupdater.objects.Update
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
+import com.ttop.app.apex.extensions.appendChar
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -46,7 +55,6 @@ import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -109,6 +117,16 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.aboutContent.cardPermissions?.storagePermission?.text = checkStoragePermission()
+        binding.aboutContent.cardPermissions?.btPermission?.text = checkBtPermission()
+        if (VersionUtils.hasS()) {
+            binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
+        }
+    }
+
     private fun setUpView() {
 
 
@@ -123,7 +141,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardPermissions?.btPermission?.text = checkBtPermission()
         if (VersionUtils.hasS()) {
             binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
-
         }
         binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
         binding.aboutContent.cardOther.version.setOnClickListener(this)
@@ -143,12 +160,12 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.version -> {
                 if (!PreferenceUtil.isDevModeEnabled) {
                     if (count == 0) {
-                        count +=1
+                        count += 1
                         timer.start()
-                    }else {
+                    } else {
                         if (count < 10) {
-                            count +=1
-                        }else {
+                            count += 1
+                        } else {
                             timer.cancel()
                             showToast("Developer Options On!")
                             PreferenceUtil.isDevModeEnabled = true
@@ -156,7 +173,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
                         }
                     }
-                }else {
+                } else {
                     showToast("Developer options already turned on!")
                 }
 
@@ -186,12 +203,21 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 builder.show()
             }
             R.id.update -> {
-                val appUpdater = AppUpdater(activity)
-                    .setUpdateFrom(UpdateFrom.GITHUB)
-                    .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
-                    .setDisplay(Display.DIALOG)
-                    .showAppUpdated(true)
-                appUpdater.start()
+                if (PreferenceUtil.updateSource == "github") {
+                    ApexUtil.checkForUpdateGithub(requireContext(), true)
+                }else {
+                    when (PreferenceUtil.updateChannel) {
+                        "stable" -> {
+                            ApexUtil.checkForUpdateWebsite(requireContext(), true)
+                        }
+                        "preview" -> {
+                            ApexUtil.checkForUpdateWebsitePreview(requireContext(), true)
+                        }
+                        "beta" -> {
+                            ApexUtil.checkForUpdateWebsiteBeta(requireContext(), true)
+                        }
+                    }
+                }
             }
         }
     }
@@ -232,7 +258,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun getRetroMusicVersion(): String {
-        return "6.0.5 Production"
+        return "6.1.0 Production"
     }
 
     private fun shareApp() {
@@ -265,16 +291,16 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         return if (VersionUtils.hasT()) {
             if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_MEDIA_AUDIO) }
                 == PackageManager.PERMISSION_GRANTED) {
-                "Granted"
+                "Granted ✅"
             }else{
-                "Denied"
+                "Denied ❌"
             }
         } else {
             if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) }
                 == PackageManager.PERMISSION_GRANTED) {
-                "Granted"
+                "Granted ✅"
             }else{
-                "Denied"
+                "Denied ❌"
             }
         }
     }
@@ -283,16 +309,16 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         return if (VersionUtils.hasS()) {
             if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
                 == PackageManager.PERMISSION_GRANTED) {
-                "Granted"
+                "Granted ✅"
             }else{
-                "Denied"
+                "Denied ❌"
             }
         } else {
             if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH) }
                 == PackageManager.PERMISSION_GRANTED) {
-                "Granted"
+                "Granted ✅"
             }else{
-                "Denied"
+                "Denied ❌"
             }
         }
     }
@@ -303,9 +329,9 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         val pm = context?.getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager
 
         return if (pm.isIgnoringBatteryOptimizations(packageName)) {
-            "Disabled"
+            "Disabled ✅"
         } else {
-            "Enabled"
+            "Enabled ❌"
         }
     }
 

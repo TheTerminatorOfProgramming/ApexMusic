@@ -15,8 +15,7 @@
         android:background="?attr/colorSurface"
         app:defaultNavHost="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:navGraph="@navigation/settings_graph"
-        android:layout_marginBottom="75dp"/>
+        app:navGraph="@navigation/settings_graph"/>
 
     <com.ttop.app.apex.views.TopAppBarLayout
         android:id="@+id/appBarLayout"

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
 class ShuffleSlideFragment : Fragment() {
@@ -29,6 +30,9 @@ class ShuffleSlideFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ApexUtil.initUpdateSettings()
+
         shuffleMode = view.findViewById(R.id.shuffleMode) as SwitchCompat
 
         shuffleMode.setOnCheckedChangeListener { _, isChecked ->

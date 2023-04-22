@@ -25,7 +25,6 @@ import androidx.core.os.LocaleListCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.maybeShowAnnoyingToasts
 import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
@@ -46,7 +45,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         if (VersionUtils.hasQ()) {
             window.decorView.isForceDarkAllowed = false
         }
-        maybeShowAnnoyingToasts()
     }
 
     private fun updateTheme() {

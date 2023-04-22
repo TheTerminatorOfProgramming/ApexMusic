@@ -13,11 +13,9 @@
  */
 package com.ttop.app.apex.util
 
-import android.appwidget.AppWidgetProvider
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.Uri
@@ -25,14 +23,23 @@ import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.AppUpdaterUtils
+import com.github.javiersantos.appupdater.enums.AppUpdaterError
+import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.github.javiersantos.appupdater.objects.Update
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.ttop.app.apex.App.Companion.getContext
-import com.ttop.app.apex.appwidgets.AppWidgetFull
-import com.ttop.app.apex.appwidgets.AppWidgetSquare
-import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.BuildConfig
+import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.appendChar
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -201,5 +208,350 @@ object ApexUtil {
             }
         }
         return strippedTitle
+    }
+
+    fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
+        //Expanded
+        if (PreferenceUtil.isCustomFont == "sans") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SansThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "barlow") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "jura") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "pencil") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.PencilThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "samsung") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SamsungThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "ostrich") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.OstrichThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "capture") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaptureThemeOverlay)
+        }
+
+        //Collapsed
+        if (PreferenceUtil.isCustomFont == "sans") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SansThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "barlow") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "jura") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "pencil") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.PencilThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "samsung") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SamsungThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "ostrich") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.OstrichThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "capture") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaptureThemeOverlay)
+        }
+    }
+
+    fun checkForUpdateGithub(context: Context,showFailMessage: Boolean) {
+        val updater = AppUpdaterUtils(context)
+            .setUpdateFrom(UpdateFrom.GITHUB)
+            .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
+            .withListener(object : AppUpdaterUtils.UpdateListener {
+                override fun onSuccess(update: Update, isUpdateAvailable: Boolean?) {
+                    Log.d("Latest Version", update.latestVersion)
+                    Log.d("Latest Version Code", update.latestVersionCode.toString())
+                    Log.d("URL", update.urlToDownload.toString())
+                    Log.d(
+                        "Is update available?",
+                        java.lang.Boolean.toString(isUpdateAvailable!!)
+                    )
+
+                    val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
+                    val finalVersionNumber = finalVersionNumberString.toDouble()
+
+                    val updateVersion = update.latestVersion.toDouble()
+
+                    if (updateVersion > finalVersionNumber) {
+                        val appUpdater = AppUpdater(context)
+                            .setUpdateFrom(UpdateFrom.GITHUB)
+                            .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
+                            .setDisplay(Display.DIALOG)
+                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                            .showAppUpdated(true)
+                        appUpdater.start()
+                    }else {
+                        if (showFailMessage){
+                            context.showToast("No Updates Available!")
+                        }
+                    }
+                }
+
+                override fun onFailed(error: AppUpdaterError) {
+                    Log.d("AppUpdater Error", "Something went wrong")
+                }
+            })
+        updater.start()
+    }
+
+    fun checkForUpdateWebsite(context: Context,showFailMessage: Boolean) {
+        val updater = AppUpdaterUtils(context)
+            .setUpdateFrom(UpdateFrom.XML)
+            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version.xml")
+            .withListener(object : AppUpdaterUtils.UpdateListener {
+                override fun onSuccess(update: Update, isUpdateAvailable: Boolean?) {
+                    Log.d("Latest Version", update.latestVersion)
+                    Log.d("Latest Version Code", update.latestVersionCode.toString())
+                    Log.d("URL", update.urlToDownload.toString())
+                    Log.d(
+                        "Is update available?",
+                        java.lang.Boolean.toString(isUpdateAvailable!!)
+                    )
+
+                    val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
+                    val finalVersionNumber = finalVersionNumberString.toDouble()
+
+                    val updateVersion = update.latestVersion.toDouble()
+
+                    if (updateVersion > finalVersionNumber) {
+                        val appUpdater = AppUpdater(context)
+                            .setUpdateFrom(UpdateFrom.XML)
+                            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version.xml")
+                            .setDisplay(Display.DIALOG)
+                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                            .showAppUpdated(true)
+                        appUpdater.start()
+                    }else {
+                        if (showFailMessage){
+                            context.showToast("No Updates Available!")
+                        }
+                    }
+                }
+
+                override fun onFailed(error: AppUpdaterError) {
+                    Log.d("AppUpdater Error", "Something went wrong")
+                }
+            })
+        updater.start()
+    }
+
+    fun checkForUpdateWebsitePreview(context: Context,showFailMessage: Boolean) {
+        val updater = AppUpdaterUtils(context)
+            .setUpdateFrom(UpdateFrom.XML)
+            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_preview.xml")
+            .withListener(object : AppUpdaterUtils.UpdateListener {
+                override fun onSuccess(update: Update, isUpdateAvailable: Boolean?) {
+                    Log.d("Latest Version", update.latestVersion)
+                    Log.d("Latest Version Code", update.latestVersionCode.toString())
+                    Log.d("URL", update.urlToDownload.toString())
+                    Log.d(
+                        "Is update available?",
+                        java.lang.Boolean.toString(isUpdateAvailable!!)
+                    )
+
+                    val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
+                    val finalVersionNumber = finalVersionNumberString.toDouble()
+
+                    val updateVersion = update.latestVersion.toDouble()
+
+                    if (updateVersion > finalVersionNumber) {
+                        val appUpdater = AppUpdater(context)
+                            .setUpdateFrom(UpdateFrom.XML)
+                            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_preview.xml")
+                            .setDisplay(Display.DIALOG)
+                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " Preview is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                            .showAppUpdated(true)
+                        appUpdater.start()
+                    }else {
+                        if (showFailMessage){
+                            context.showToast("No Updates Available!")
+                        }
+                    }
+                }
+
+                override fun onFailed(error: AppUpdaterError) {
+                    Log.d("AppUpdater Error", "Something went wrong")
+                }
+            })
+        updater.start()
+    }
+
+    fun checkForUpdateWebsiteBeta(context: Context,showFailMessage: Boolean) {
+        val updater = AppUpdaterUtils(context)
+            .setUpdateFrom(UpdateFrom.XML)
+            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_beta.xml")
+            .withListener(object : AppUpdaterUtils.UpdateListener {
+                override fun onSuccess(update: Update, isUpdateAvailable: Boolean?) {
+                    Log.d("Latest Version", update.latestVersion)
+                    Log.d("Latest Version Code", update.latestVersionCode.toString())
+                    Log.d("URL", update.urlToDownload.toString())
+                    Log.d(
+                        "Is update available?",
+                        java.lang.Boolean.toString(isUpdateAvailable!!)
+                    )
+
+                    val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
+                    val finalVersionNumber = finalVersionNumberString.toDouble()
+
+                    val updateVersion = update.latestVersion.toDouble()
+
+                    if (updateVersion > finalVersionNumber) {
+                        val appUpdater = AppUpdater(context)
+                            .setUpdateFrom(UpdateFrom.XML)
+                            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_beta.xml")
+                            .setDisplay(Display.DIALOG)
+                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " BETA is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                            .showAppUpdated(true)
+                        appUpdater.start()
+                    }else {
+                        if (showFailMessage){
+                            context.showToast("No Updates Available!")
+                        }
+                    }
+                }
+
+                override fun onFailed(error: AppUpdaterError) {
+                    Log.d("AppUpdater Error", "Something went wrong")
+                }
+            })
+        updater.start()
+    }
+
+    fun updateApex(context: Context) {
+        when (PreferenceUtil.updateFrequency) {
+            "startup" -> {
+                if (!PreferenceUtil.updateChecked) {
+                    if (PreferenceUtil.updateSource == "github") {
+                        checkForUpdateGithub(context, false)
+                    }else {
+                        when (PreferenceUtil.updateChannel) {
+                            "stable" -> {
+                                checkForUpdateWebsite(context, false)
+                            }
+                            "preview" -> {
+                                checkForUpdateWebsitePreview(context, false)
+                            }
+                            "beta" -> {
+                                checkForUpdateWebsiteBeta(context, false)
+                            }
+                        }
+                    }
+
+                    PreferenceUtil.updateChecked = true
+                }
+            }
+
+            "daily" -> {
+                val cal = Calendar.getInstance()
+                val currentDayOfYear = cal[Calendar.DAY_OF_YEAR]
+
+                if (PreferenceUtil.dayOfYear != currentDayOfYear) {
+                    PreferenceUtil.dayOfYear = currentDayOfYear
+
+                    if (!PreferenceUtil.updateChecked) {
+                        if (PreferenceUtil.updateSource == "github") {
+                            checkForUpdateGithub(context, false)
+                        }else {
+                            when (PreferenceUtil.updateChannel) {
+                                "stable" -> {
+                                    checkForUpdateWebsite(context, false)
+                                }
+                                "preview" -> {
+                                    checkForUpdateWebsitePreview(context, false)
+                                }
+                                "beta" -> {
+                                    checkForUpdateWebsiteBeta(context, false)
+                                }
+                            }
+                        }
+                        PreferenceUtil.updateChecked = true
+                    }
+                }
+            }
+
+            "weekly" -> {
+                val cal = Calendar.getInstance()
+                val currentWeekOfYear = cal[Calendar.WEEK_OF_YEAR]
+
+                if (PreferenceUtil.weekOfYear != currentWeekOfYear) {
+                    PreferenceUtil.weekOfYear = currentWeekOfYear
+
+                    if (!PreferenceUtil.updateChecked) {
+                        if (PreferenceUtil.updateSource == "github") {
+                            checkForUpdateGithub(context, false)
+                        }else {
+                            when (PreferenceUtil.updateChannel) {
+                                "stable" -> {
+                                    checkForUpdateWebsite(context, false)
+                                }
+                                "preview" -> {
+                                    checkForUpdateWebsitePreview(context, false)
+                                }
+                                "beta" -> {
+                                    checkForUpdateWebsiteBeta(context, false)
+                                }
+                            }
+                        }
+                        PreferenceUtil.updateChecked = true
+                    }
+                }
+            }
+
+            "monthly" -> {
+                val cal = Calendar.getInstance()
+                val currentMonthOfYear = cal[Calendar.MONTH]
+
+                if (PreferenceUtil.monthOfYear != currentMonthOfYear) {
+                    PreferenceUtil.monthOfYear = currentMonthOfYear
+
+                    if (!PreferenceUtil.updateChecked) {
+                        if (PreferenceUtil.updateSource == "github") {
+                            checkForUpdateGithub(context, false)
+                        }else {
+                            when (PreferenceUtil.updateChannel) {
+                                "stable" -> {
+                                    checkForUpdateWebsite(context, false)
+                                }
+                                "preview" -> {
+                                    checkForUpdateWebsitePreview(context, false)
+                                }
+                                "beta" -> {
+                                    checkForUpdateWebsiteBeta(context, false)
+                                }
+                            }
+                        }
+                        PreferenceUtil.updateChecked = true
+                    }
+                }
+            }
+        }
+    }
+
+    fun initUpdateSettings() {
+        val cal = Calendar.getInstance()
+        val currentMonthOfYear = cal[Calendar.MONTH]
+        val currentWeekOfYear = cal[Calendar.WEEK_OF_YEAR]
+        val currentDayOfYear = cal[Calendar.DAY_OF_YEAR]
+
+        PreferenceUtil.monthOfYear = currentMonthOfYear
+        PreferenceUtil.weekOfYear = currentWeekOfYear
+        PreferenceUtil.dayOfYear = currentDayOfYear
     }
 }

@@ -112,11 +112,7 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
             if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
-                if (ApexUtil.isLandscape) {
-                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-                }else {
-                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                }
+                ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
         }else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED

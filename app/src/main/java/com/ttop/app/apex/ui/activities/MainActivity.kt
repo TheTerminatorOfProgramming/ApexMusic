@@ -73,11 +73,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
             if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
-                if (ApexUtil.isLandscape) {
-                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-                }else {
-                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                }
+                ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
         }else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
@@ -107,6 +103,8 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
                 ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
             )
         }
+
+        ApexUtil.updateApex(this)
     }
 
     private fun checkSamsungSoundPlugin(): Boolean {
@@ -235,11 +233,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
             if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
             }else {
-                if (ApexUtil.isLandscape) {
-                    ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-                }else {
-                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                }
+                ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
         }else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED

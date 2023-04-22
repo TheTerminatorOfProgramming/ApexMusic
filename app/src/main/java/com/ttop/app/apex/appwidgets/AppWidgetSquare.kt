@@ -86,7 +86,7 @@ class AppWidgetSquare : BaseAppWidget() {
 
         linkButtons(context, appWidgetView)
 
-        if (MusicPlayerRemote.playingQueue.isNotEmpty()){
+        /*if (MusicPlayerRemote.playingQueue.isNotEmpty()){
             if (!MusicPlayerRemote.isPlaying){
                 MusicPlayerRemote.resumePlaying()
                 MusicPlayerRemote.pauseSong()
@@ -94,7 +94,7 @@ class AppWidgetSquare : BaseAppWidget() {
                 MusicPlayerRemote.pauseSong()
                 MusicPlayerRemote.resumePlaying()
             }
-        }
+        }*/
 
         pushUpdate(context, appWidgetIds, appWidgetView)
     }

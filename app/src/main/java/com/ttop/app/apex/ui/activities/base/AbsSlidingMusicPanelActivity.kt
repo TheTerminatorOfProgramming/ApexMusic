@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.activities.base
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -24,23 +25,17 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
 import android.view.ViewTreeObserver
 import android.view.animation.PathInterpolator
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.animation.doOnEnd
 import androidx.core.view.*
 import androidx.fragment.app.commit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_DRAGGING
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_SETTLING
-import com.google.android.material.bottomsheet.BottomSheetBehavior.from
+import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.ttop.app.apex.*
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
 import com.ttop.app.apex.extensions.*
@@ -82,6 +77,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     companion object {
         val TAG: String = AbsSlidingMusicPanelActivity::class.java.simpleName
     }
+
     var fromNotification = false
     private var windowInsets: WindowInsetsCompat? = null
     protected val libraryViewModel by viewModel<LibraryViewModel>()
@@ -166,8 +162,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     )
                 )
                 finish()
-            }else {
-                if(!IntroPrefs(applicationContext).hasIntroShown) {
+            } else {
+                if (!IntroPrefs(applicationContext).hasIntroShown) {
                     startActivity(
                         Intent(
                             this@AbsSlidingMusicPanelActivity,
@@ -177,8 +173,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     finish()
                 }
             }
-        }else {
-            if(!IntroPrefs(applicationContext).hasIntroShown) {
+        } else {
+            if (!IntroPrefs(applicationContext).hasIntroShown) {
                 startActivity(
                     Intent(
                         this@AbsSlidingMusicPanelActivity,
@@ -214,7 +210,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private fun setupBottomSheet() {
         bottomSheetBehavior = from(binding.slidingPanel)
         bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallbackList)
-        bottomSheetBehavior.isHideable = PreferenceUtil.swipeDownToDismiss
+        bottomSheetBehavior.isHideable = PreferenceUtil.dismissMethod == "swipe"
         bottomSheetBehavior.significantVelocityThreshold = 300
         setMiniPlayerAlphaProgress(0F)
     }
@@ -248,8 +244,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
-            SWIPE_DOWN_DISMISS -> {
-                bottomSheetBehavior.isHideable = PreferenceUtil.swipeDownToDismiss
+            DISMISS_METHOD -> {
+                bottomSheetBehavior.isHideable = PreferenceUtil.dismissMethod == "swipe"
+                recreate()
             }
             TOGGLE_ADD_CONTROLS -> {
                 miniPlayerFragment?.setUpButtons()
@@ -275,7 +272,22 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 playerFragment.addSwipeDetector()
             }
             ADAPTIVE_COLOR_APP -> {
-                if (PreferenceUtil.nowPlayingScreen in listOf(Adaptive, Card, Classic, Color, Fit, Flat, Full, Gradient, Normal, Peek, Plain, Simple, Swipe)) {
+                if (PreferenceUtil.nowPlayingScreen in listOf(
+                        Adaptive,
+                        Card,
+                        Classic,
+                        Color,
+                        Fit,
+                        Flat,
+                        Full,
+                        Gradient,
+                        Normal,
+                        Peek,
+                        Plain,
+                        Simple,
+                        Swipe
+                    )
+                ) {
                     chooseFragmentForTheme()
                     onServiceConnected()
                 }
@@ -291,7 +303,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             TOGGLE_FULL_SCREEN,
             PROGRESS_BAR_ALIGNMENT,
             PROGRESS_BAR_STYLE,
-            EXTENDED_ACCENT-> {
+            EXTENDED_ACCENT,
+            DISMISS_FAILSAFE-> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {
@@ -307,14 +320,15 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 requestedOrientation = if (ApexUtil.isTablet) {
                     if (PreferenceUtil.isAutoRotate) {
                         ActivityInfo.SCREEN_ORIENTATION_SENSOR
-                    }else {
-                        if (ApexUtil.isLandscape) {
+                    } else {
+                        /*if (ApexUtil.isLandscape) {
                             ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
                         }else {
                             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                        }
+                        }*/
+                        ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                     }
-                }else {
+                } else {
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
@@ -325,7 +339,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 MusicPlayerRemote.updateNotification()
             }
             MINI_IMAGE,
-            MINIPLAYER_IMAGE-> {
+            MINIPLAYER_IMAGE -> {
                 miniPlayerFragment?.activity?.recreate()
             }
         }
@@ -344,10 +358,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         val alpha = 1 - progress
         miniPlayerFragment?.view?.alpha = 1 - (progress / 0.2F)
         miniPlayerFragment?.view?.isGone = alpha == 0f
-        if (!isLandscape) {
-            binding.navigationView.translationY = progress * 500
-            binding.navigationView.alpha = alpha
-        }
+        binding.navigationView.translationY = progress * 500
+        binding.navigationView.alpha = alpha
+        //if (!isLandscape) {
+       //     binding.navigationView.translationY = progress * 500
+        //    binding.navigationView.alpha = alpha
+        //}
         binding.playerFragmentContainer.alpha = (progress - 0.2F) / 0.2F
     }
 
@@ -563,8 +579,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     } else {
                         bottomSheetBehavior.peekHeight = heightOfBarWithTabs
                     }
-                    libraryViewModel.setFabMargin(this,
-                        dip(R.dimen.bottom_nav_mini_player_height))
+                    libraryViewModel.setFabMargin(
+                        this,
+                        dip(R.dimen.bottom_nav_mini_player_height)
+                    )
                 } else {
                     logD("Details")
                     if (animate) {
@@ -618,5 +636,31 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         playerFragment = whichFragment(R.id.playerFragmentContainer)
         miniPlayerFragment = whichFragment<MiniPlayerFragment>(R.id.miniPlayerFragment)
         miniPlayerFragment?.view?.setOnClickListener { expandPanel() }
+
+        if (PreferenceUtil.dismissMethod == "long_touch") {
+            miniPlayerFragment?.view?.setOnLongClickListener {
+                if (PreferenceUtil.isDismissFailsafe) {
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                        .setMessage("Do you want to clear the playing queue?")
+                        .setTitle("Alert!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes") {
+                                _: DialogInterface?, _: Int -> MusicPlayerRemote.clearQueue()
+                        }
+                        .setNegativeButton("No") {
+                                dialog: DialogInterface, _: Int -> dialog.cancel()
+                        }
+                    val alertDialog: AlertDialog = builder.create()
+
+                    alertDialog.show()
+
+                    alertDialog.withCenteredButtons()
+
+                } else {
+                    MusicPlayerRemote.clearQueue()
+                }
+                true
+            }
+        }
     }
 }

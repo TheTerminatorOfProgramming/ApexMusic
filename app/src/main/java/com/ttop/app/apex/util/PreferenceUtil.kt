@@ -828,9 +828,6 @@ object PreferenceUtil {
     val swipeAnywhereToChangeSong
         get() = sharedPreferences.getBoolean(SWIPE_ANYWHERE_NOW_PLAYING, true)
 
-    val swipeDownToDismiss
-        get() = sharedPreferences.getBoolean(SWIPE_DOWN_DISMISS, true)
-
     var tempValue
         get() = sharedPreferences.getInt(TEMP_VALUE, 0)
         set(value) = sharedPreferences.edit {
@@ -1051,6 +1048,75 @@ object PreferenceUtil {
 
     val isWearOs
         get() = sharedPreferences.getBoolean(WEAR_OS, false)
+
+    val isAction1
+        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "repeat")
+
+    val isAction2
+        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_2, "shuffle")
+
+    var dismissMethod
+        get() = sharedPreferences.getString(
+            DISMISS_METHOD, "none"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(DISMISS_METHOD, value)}
+
+    val isDismissFailsafe
+        get() = sharedPreferences.getBoolean(DISMISS_FAILSAFE, false)
+
+    val isFullBlur
+        get() = sharedPreferences.getBoolean(FULL_BLUR, false)
+
+    val isClassicBlur
+        get() = sharedPreferences.getBoolean(CLASSIC_BLUR, false)
+
+    var updateChecked
+        get() = sharedPreferences.getBoolean(
+            UPDATE_CHECKED, false
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(UPDATE_CHECKED, value)}
+
+    var updateFrequency
+        get() = sharedPreferences.getString(
+            UPDATE_FREQUENCY, "none"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(UPDATE_FREQUENCY, value)}
+
+    var weekOfYear
+        get() = sharedPreferences.getInt(
+            WEEK_OF_YEAR, 0
+        )
+
+        set(value) = sharedPreferences.edit {
+            putInt(WEEK_OF_YEAR, value)}
+
+    var monthOfYear
+        get() = sharedPreferences.getInt(
+            MONTH_OF_YEAR, 0
+        )
+
+        set(value) = sharedPreferences.edit {
+            putInt(MONTH_OF_YEAR, value)}
+
+    var dayOfYear
+        get() = sharedPreferences.getInt(
+            DAY_OF_YEAR, 0
+        )
+
+        set(value) = sharedPreferences.edit {
+            putInt(DAY_OF_YEAR, value)}
+
+    val updateSource
+        get() = sharedPreferences.getString(UPDATE_SOURCE, "github")
+
+    val updateChannel
+        get() = sharedPreferences.getString(UPDATE_CHANNEL, "stable")
 }
 
 enum class CoverLyricsType {

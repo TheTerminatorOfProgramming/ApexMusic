@@ -99,6 +99,7 @@
     <string name="backup_title">Backups</string>
     <string name="battery_summary">The app needs to disable the battery optimisation in order for the foreground service to work correctly</string>
     <string name="battery_title">Disable Battery Optimisation</string>
+    <string name="beta">Beta (Will install as separate app)</string>
     <string name="biography">Biography</string>
     <string name="black_theme_name">Jet Black</string>
     <string name="blacklist">Blacklist</string>
@@ -107,6 +108,7 @@
     <string name="both">Both</string>
     <string name="blur">Blur</string>
     <string name="blur_card">Blur Card</string>
+    <string name="blur_widget">Blur widget</string>
     <string name="bug_report_failed">Unable to send report</string>
     <string name="bug_report_failed_invalid_token">Invalid access token. Please contact the app developer.</string>
     <string name="bug_report_failed_issues_not_available">Issues are not enabled for the selected repository. Please contact the app developer.</string>
@@ -158,6 +160,7 @@
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
     <string name="custom_artist_images">Custom Artist Images</string>
     <string name="customactivityoncrash_error_activity_error_details_share">Share Crash Report</string>
+    <string name="daily">Daily</string>
     <string name="dark_theme_name">Sorta Dark</string>
     <string name="delete_playlist_title">Delete playlist</string>
     <string name="delete_playlist_x"><![CDATA[Delete the playlist <b>%1$s</b>?]]></string>
@@ -192,6 +195,7 @@
     <string name="error_share_file">Couldn\'t share file</string>
     <string name="expanded">Expanded</string>
     <string name="faq">FAQ</string>
+    <string name="favorite">Favorite</string>
     <string name="favorites">Favorites</string>
     <string name="file_already_exists">File already exists</string>
     <string name="find_lyrics">Find lyrics</string>
@@ -272,6 +276,7 @@
     <string name="lite">Lite</string>
     <string name="loading_products">Loading products…</string>
     <string name="login">Login</string>
+    <string name="long_touch">Long touch</string>
     <string name="lyrics">Lyrics</string>
     <string name="manually">Manually</string>
     <string name="material">Material</string>
@@ -285,6 +290,7 @@
     <string name="message_restore_success">Restore completed successfully.</string>
     <string name="message_updated">Updated</string>
     <string name="message_welcome"><![CDATA[Hello there! <br>Welcome to %s]]></string>
+    <string name="monthly">Monthly</string>
     <string name="my_name">Name</string>
     <string name="my_top_tracks">Most played</string>
     <string name="never">Never</string>
@@ -400,11 +406,13 @@
     <string name="pref_summary_colored_notification">"Colors the notification in the album cover\u2019s vibrant color"</string>
     <string name="pref_summary_cross_fade">Duration to crossfade between songs</string>
     <string name="pref_summary_desaturated_color">As per Material Design guide lines in dark mode colors should be desaturated</string>
+    <string name="pref_summary_dismiss_failsafe">Show a dialog to check if the user wants to dismiss the miniplayer</string>
     <string name="pref_summary_expand_now_playing_panel">Clicking on the notification will show now playing screen instead of the home screen</string>
-    <string name="pref_summary_extended_accent">Apply the accent color to the header text (only works for extended header style)</string>
+    <string name="pref_summary_extended_accent">Apply the accent color to the header text</string>
     <string name="pref_summary_extra_controls">Add extra controls for mini player</string>
     <string name="pref_summary_extra_song_info">Show extra Song information, such as file format, bitrate and frequency</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
+    <string name="pref_summary_hold_to_dismiss">Touch and hold the mini player to dismiss</string>
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
@@ -434,7 +442,6 @@
     <string name="pref_summary_swipe_gestures">Allow swipe gestures in the mini player</string>
     <string name="pref_summary_swipe_to_dismiss">Swipe down to dismiss mini player</string>
     <string name="pref_summary_synced_lyrics">Show synced lyrics</string>
-    <string name="pref_summary_toggle_full_screen">Immersive mode</string>
     <string name="pref_summary_toggle_headset">Start playing immediately after headphones are connected</string>
     <string name="pref_summary_toggle_shuffle">Shuffle mode will turn off when playing a new list of songs</string>
     <string name="pref_summary_toggle_volume">If enough space is available, show volume controls in the now playing screen</string>
@@ -444,8 +451,10 @@
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
     <string name="pref_summary_wear_os">Show the album art as the background on wear os</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
+    <string name="pref_summary_widget_classic_blur">Blur the album art on the classic widget</string>
     <string name="pref_summary_widget_classic_shape">Show the album art on the classic widget as a circle instead of a square</string>
     <string name="pref_summary_widget_day_night">Use android 12+ day/night widget theme</string>
+    <string name="pref_summary_widget_full_blur">Blur the album art on the full widget</string>
     <string name="pref_summary_widget_full_shape">Show the album art on the full widget as a circle instead of a square</string>
     <string name="pref_summary_widget_image_curve">Change classic widget corners curve</string>
     <string name="pref_summary_widget_image_full_curve">Change full widget corners curve</string>
@@ -474,6 +483,8 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Desaturated color</string>
+    <string name="pref_title_dismiss_failsafe">Dismiss Failsafe</string>
+    <string name="pref_title_dismiss_method">Miniplayer dismiss</string>
     <string name="pref_title_embed_lyrics_view">Embedded lyrics view type</string>
     <string name="pref_title_expand_now_playing_panel">Show now playing screen</string>
     <string name="pref_title_extended_accent">Extended Accent</string>
@@ -482,6 +493,7 @@
     <string name="pref_title_full_widget_text_alignment">Text alignment</string>
     <string name="pref_title_gapless_playback">Gapless playback</string>
     <string name="pref_title_general_theme">App theme</string>
+    <string name="pref_title_hold_to_dismiss">Dismiss with long press</string>
     <string name="pref_title_home_album_grid_style">Album grid</string>
     <string name="pref_title_home_artist_grid_style">Artist grid</string>
     <string name="pref_title_home_banner">Banner</string>
@@ -493,6 +505,8 @@
     <string name="pref_title_manage_audio_focus">Always play</string>
     <string name="pref_title_mini_image_roundness">Mini player image radius</string>
     <string name="pref_title_mini_player_image">Circular mini player image</string>
+    <string name="pref_title_notification_action_1">Notification Custom Action 1</string>
+    <string name="pref_title_notification_action_2">Notification Custom Action 2</string>
     <string name="pref_title_now_playing_screen_appearance">Now playing theme</string>
     <string name="pref_title_open_source_licences">Open source licences</string>
     <string name="pref_title_pause_history">Pause history</string>
@@ -516,11 +530,13 @@
     <string name="pref_title_synced_lyrics">Synced lyrics</string>
     <string name="pref_title_tab_text_mode">Tab titles mode</string>
     <string name="pref_title_toggle_carousel_effect">Carousel effect</string>
-    <string name="pref_title_toggle_full_screen">Fullscreen app</string>
     <string name="pref_title_toggle_toggle_headset">Auto-play</string>
     <string name="pref_title_toggle_toggle_shuffle">Shuffle mode</string>
     <string name="pref_title_toggle_volume">Volume controls</string>
     <string name="pref_title_ui_mode">App mode</string>
+    <string name="pref_title_update_channel">Update channel</string>
+    <string name="pref_title_update_frequency">Check for update frequency</string>
+    <string name="pref_title_update_source">Update source</string>
     <string name="pref_title_use_new_widget">Use new widget</string>
     <string name="pref_title_user_name">User name</string>
     <string name="pref_title_wallpaper_accent">Wallpaper accent color</string>
@@ -532,6 +548,7 @@
     <string name="pref_title_widget_image_curve">Classic widget album art radius</string>
     <string name="pref_title_widget_image_full_curve">Full widget album art radius</string>
     <string name="pref_title_widget_transparent">Transparent widgets</string>
+    <string name="preview">Preview</string>
     <string name="pro">Pro</string>
     <string name="pro_summary">Black theme, Now playing themes, Carousel effect and more..</string>
     <string name="profile">Profile</string>
@@ -548,6 +565,7 @@
     <string name="remove_songs_from_playlist_title">Remove songs from playlist</string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Remove <b>%1$d</b> songs from the playlist?]]></string>
     <string name="rename_playlist_title">Rename playlist</string>
+    <string name="repeat">Repeat</string>
     <string name="replace_cover">Replace Cover</string>
     <string name="report_an_issue">Report an issue</string>
     <string name="report_bug">Report bug</string>
@@ -613,8 +631,10 @@
     <string name="sort_order_z_a">Descending</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
     <string name="speech_prompt">Search your library</string>
+    <string name="stable">Stable</string>
     <string name="stack">Stack</string>
     <string name="start_play_music">Start playing music.</string>
+    <string name="startup">On Every Startup</string>
     <string name="suggestion_songs">Suggestions</string>
     <string name="support_development">Support development</string>
     <string name="swipe_to_unlock">Swipe to unlock</string>
@@ -628,6 +648,7 @@
     <string name="this_month">This month</string>
     <string name="this_week">This week</string>
     <string name="this_year">This year</string>
+    <string name="time_unit_minutes">min</string>
     <string name="tiny">Tiny</string>
     <string name="tiny_card_style">Tiny card</string>
     <string name="title">Title</string>
@@ -646,6 +667,7 @@
     <string name="up_next">Up next</string>
     <string name="update_app">Update app</string>
     <string name="update_image">Update image</string>
+    <string name="update_notify">Update Notification</string>
     <string name="updating">Updating…</string>
     <string name="user_images_description">User Images</string>
     <string name="user_name">User Name</string>
@@ -656,6 +678,7 @@
     <string name="web_search">Web search</string>
     <string name="website">Website</string>
     <string name="website_summary">Check out our Website</string>
+    <string name="weekly">Weekly</string>
     <string name="welcome">Welcome,</string>
     <string name="what_do_you_want_to_share">What do you want to share?</string>
     <string name="whats_new">What\'s New</string>

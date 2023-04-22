@@ -319,11 +319,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (PreferenceUtil.isFullScreenMode &&
-            view.findViewById<View>(R.id.status_bar) != null
-        ) {
-            view.findViewById<View>(R.id.status_bar).isVisible = false
-        }
         playerAlbumCoverFragment = whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment?.setCallbacks(this)
 
@@ -363,6 +358,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
             }
         }
+
         if (!PreferenceUtil.isLyrics) {
             playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
         }else {

@@ -14,6 +14,9 @@
  */
 package com.ttop.app.apex.extensions
 
+import android.view.Gravity
+import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.afollestad.materialdialogs.MaterialDialog
@@ -41,6 +44,29 @@ fun AlertDialog.colorButtons(): AlertDialog {
         getButton(AlertDialog.BUTTON_NEUTRAL).accentTextColor()
     }
     return this
+}
+
+fun AlertDialog.withCenteredButtons() {
+    val positive = getButton(AlertDialog.BUTTON_POSITIVE)
+    val negative = getButton(AlertDialog.BUTTON_NEGATIVE)
+
+    //Disable the material spacer view in case there is one
+    val parent = positive.parent as? LinearLayout
+    parent?.gravity = Gravity.CENTER_HORIZONTAL
+    val leftSpacer = parent?.getChildAt(1)
+    leftSpacer?.visibility = View.GONE
+
+    //Force the default buttons to center
+    val layoutParams = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    )
+
+    layoutParams.weight = 1f
+    layoutParams.gravity = Gravity.CENTER
+
+    positive.layoutParams = layoutParams
+    negative.layoutParams = layoutParams
 }
 
 fun Fragment.materialDialog(): MaterialDialog {

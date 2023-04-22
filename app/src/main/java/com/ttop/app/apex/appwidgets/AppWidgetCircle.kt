@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
@@ -33,6 +34,7 @@ import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
+import com.ttop.app.apex.glide.WidgetBlurTransform
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE

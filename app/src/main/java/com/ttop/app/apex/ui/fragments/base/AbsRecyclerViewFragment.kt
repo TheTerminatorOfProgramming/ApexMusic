@@ -68,7 +68,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         checkForMargins()
         setUpRecyclerView()
         setupToolbar()
-        binding.shuffleButton.fitsSystemWindows = PreferenceUtil.isFullScreenMode
         // Add listeners when shuffle is visible
         if (isShuffleVisible) {
             binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

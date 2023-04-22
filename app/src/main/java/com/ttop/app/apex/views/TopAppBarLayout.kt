@@ -2,19 +2,17 @@ package com.ttop.app.apex.views
 
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.updateLayoutParams
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.shape.MaterialShapeDrawable
-import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.CollapsingAppbarLayoutBinding
 import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.util.ApexUtil.updateCollapsableAppBarTitleTextAppearance
 import com.ttop.app.apex.util.PreferenceUtil
 import dev.chrisbanes.insetter.applyInsetter
 
@@ -82,8 +80,20 @@ class TopAppBarLayout @JvmOverloads constructor(
                         )
                     }
                 }
+
+                collapsingAppbarBinding?.collapsingToolbarLayout?.let {
+                    updateCollapsableAppBarTitleTextAppearance(
+                        it
+                    )
+                }
             } else {
                 simpleAppbarBinding?.toolbar?.title = value
+
+                if (PreferenceUtil.isExtendedAccent) {
+                    if (!value.contains("Apex")) {
+                        simpleAppbarBinding?.toolbar?.setTitleTextColor(context.accentColor())
+                    }
+                }
             }
         }
 

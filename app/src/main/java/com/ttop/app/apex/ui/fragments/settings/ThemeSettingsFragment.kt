@@ -155,11 +155,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
-        val swipeDismiss: TwoStatePreference? = findPreference(SWIPE_DOWN_DISMISS)
-        swipeDismiss?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
 
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
         extraControls?.setOnPreferenceChangeListener { _, _ ->
@@ -191,6 +186,30 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val extendedAccent: TwoStatePreference? = findPreference(EXTENDED_ACCENT)
+        extendedAccent?.isChecked = PreferenceUtil.isExtendedAccent
+        extendedAccent?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val dismissCheck: TwoStatePreference? = findPreference(DISMISS_FAILSAFE)
+        dismissCheck?.isChecked = PreferenceUtil.isDismissFailsafe
+        dismissCheck?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val dismissMethod: Preference? = findPreference(DISMISS_METHOD)
+        dismissMethod?.setOnPreferenceChangeListener { _, newValue ->
+            PreferenceUtil.dismissMethod = newValue as String
+
+            dismissCheck?.isEnabled = PreferenceUtil.dismissMethod != "none"
+            true
+        }
+
+
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -198,5 +217,11 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)
         wallpaperAccent?.isVisible = VersionUtils.hasOreoMR1() && !VersionUtils.hasS()
+
+        val dismissCheck: TwoStatePreference? = findPreference(DISMISS_FAILSAFE)
+        dismissCheck?.isEnabled = PreferenceUtil.dismissMethod != "none"
+
+        val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
+        blackTheme?.isEnabled = PreferenceUtil.baseTheme != "light"
     }
 }

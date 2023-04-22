@@ -117,6 +117,7 @@
             android:key="bt_custom_volume"
             android:layout="@layout/list_item_view_seekbar"
             android:max="15"
+            app:ateKey_pref_unit=""
             android:title="@string/pref_title_bluetooth_level"
             app:showSeekBarValue="true"
             android:dependency="bt_volume"

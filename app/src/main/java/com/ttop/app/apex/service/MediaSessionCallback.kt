@@ -17,7 +17,11 @@ package com.ttop.app.apex.service
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.media.session.MediaSessionCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.ttop.app.apex.auto.AutoMediaIDHelper
+import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.cycleRepeatMode
 import com.ttop.app.apex.helper.ShuffleHelper.makeShuffleList
@@ -26,9 +30,12 @@ import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Playlist
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.*
+import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
+import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.CYCLE_REPEAT
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_SHUFFLE
+import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.apex.util.logE
@@ -196,6 +203,10 @@ class MediaSessionCallback(
             }
             TOGGLE_FAVORITE -> {
                 musicService.toggleFavorite()
+                musicService.updateMediaSessionPlaybackState()
+            }
+            UPDATE_NOTIFY -> {
+                musicService.updatePlaybackControls()
             }
             else -> {
                 logE("Unsupported action: $action")

@@ -43,6 +43,7 @@
             android:positiveButtonText="@null"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_custom_font"
+            android:icon="@drawable/ic_font"
             app:allowDividerBelow="false"/>
 
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
@@ -69,6 +70,14 @@
             android:summary="@string/accent_color_desc"
             android:title="@string/accent_color"
             app:icon="@drawable/ic_colorize"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="extended_accent"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_extended_accent"
+            android:title="@string/pref_title_extended_accent"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -103,12 +112,24 @@
         android:title="@string/pref_header_controls"
         app:allowDividerBelow="false">
 
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:key="dismiss_method"
+            android:defaultValue="none"
+            android:layout="@layout/list_item_view"
+            android:entries="@array/pref_dismiss_method_list_titles"
+            android:entryValues="@array/pref_dismiss_method_list_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_dismiss_method"
+            android:icon="@drawable/ic_close"
+            app:allowDividerBelow="false"/>
+
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:key="swipe_to_dismiss"
-            app:summary="@string/pref_summary_swipe_to_dismiss"
-            app:title="@string/pref_title_swipe_to_dismiss"
+            android:defaultValue="false"
+            android:key="dismiss_failsafe"
+            android:summary="@string/pref_summary_dismiss_failsafe"
+            android:title="@string/pref_title_dismiss_failsafe"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

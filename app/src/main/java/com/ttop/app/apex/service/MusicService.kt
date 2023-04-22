@@ -36,8 +36,10 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.support.v4.media.session.PlaybackStateCompat.Builder
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
@@ -72,6 +74,8 @@ import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.ui.activities.LockScreenActivity
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.MusicUtil.isFavorite
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
@@ -123,7 +127,7 @@ class MusicService : MediaBrowserServiceCompat(),
     @JvmField
     var pendingQuit = false
 
-    val timer = Timer()
+    private val timer = Timer()
 
     private lateinit var playbackManager: PlaybackManager
 
@@ -333,9 +337,9 @@ class MusicService : MediaBrowserServiceCompat(),
         setupMediaSession()
 
         uiThreadHandler = Handler(Looper.getMainLooper())
-        ContextCompat.registerReceiver(this, widgetIntentReceiver, IntentFilter(APP_WIDGET_UPDATE), ContextCompat.RECEIVER_NOT_EXPORTED)
-        ContextCompat.registerReceiver(this, updateFavoriteReceiver, IntentFilter(FAVORITE_STATE_CHANGED), ContextCompat.RECEIVER_NOT_EXPORTED)
-        ContextCompat.registerReceiver(this, lockScreenReceiver, IntentFilter(ACTION_SCREEN_ON), ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(this, widgetIntentReceiver, IntentFilter(APP_WIDGET_UPDATE), ContextCompat.RECEIVER_EXPORTED)
+        ContextCompat.registerReceiver(this, updateFavoriteReceiver, IntentFilter(FAVORITE_STATE_CHANGED), ContextCompat.RECEIVER_EXPORTED)
+        ContextCompat.registerReceiver(this, lockScreenReceiver, IntentFilter(ACTION_SCREEN_ON), ContextCompat.RECEIVER_EXPORTED)
         //registerReceiver(lockScreenReceiver, IntentFilter(Intent.ACTION_SCREEN_ON))
         sessionToken = mediaSession?.sessionToken
         notificationManager = getSystemService()
@@ -395,7 +399,13 @@ class MusicService : MediaBrowserServiceCompat(),
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_DESTROYED"))
     }
 
+    fun getProgressTimer(): Timer {
+        return timer
+    }
+
     override fun onTaskRemoved(rootIntent: Intent?) {
+        PreferenceUtil.updateChecked = false
+
         val restartServiceIntent = Intent(applicationContext, this.javaClass)
         restartServiceIntent.setPackage(packageName)
         startService(restartServiceIntent)
@@ -547,6 +557,10 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun getShuffleMode(): Int {
         return shuffleMode
+    }
+
+    private fun getFavorite(song: Song) {
+        return
     }
 
     fun setShuffleMode(shuffleMode: Int) {
@@ -718,6 +732,10 @@ class MusicService : MediaBrowserServiceCompat(),
                 registerBluetoothDisconnected()
                 registerBluetoothRequestDisconnect()
             }
+            NOTIFICATION_ACTION_1,
+            NOTIFICATION_ACTION_2-> {
+                update()
+            }
         }
     }
 
@@ -766,16 +784,20 @@ class MusicService : MediaBrowserServiceCompat(),
                     ACTION_PENDING_QUIT -> pendingQuit = true
                     TOGGLE_FAVORITE -> toggleFavorite()
                     UPDATE_NOTIFY -> {
-                        if (VersionUtils.hasT()) {
-                            updateMediaSessionPlaybackState()
-                        } else {
-                            updatePlaybackControls()
-                        }
+                        update()
                     }
                 }
             }
         }
         return START_NOT_STICKY
+    }
+
+    fun update() {
+        if (VersionUtils.hasT()) {
+            updateMediaSessionPlaybackState()
+        } else {
+            updatePlaybackControls()
+        }
     }
 
     override fun onTrackEnded() {
@@ -1264,6 +1286,7 @@ class MusicService : MediaBrowserServiceCompat(),
             FAVORITE_STATE_CHANGED -> {
                 isCurrentFavorite { isFavorite ->
                     playingNotification?.updateFavorite(isFavorite)
+
                     startForegroundOrNotify()
                 }
             }
@@ -1415,11 +1438,11 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun registerBluetoothConnected() {
         Log.i(TAG, "registerBluetoothConnected: ")
-        ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothConnectedIntentFilter), ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothConnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
         //registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
 
         if (!bluetoothConnectedRegistered) {
-            ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothConnectedIntentFilter), ContextCompat.RECEIVER_NOT_EXPORTED)
+            ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothConnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
             //registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
             bluetoothConnectedRegistered = true
         }
@@ -1427,10 +1450,10 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun registerBluetoothDisconnected() {
         Log.i(TAG, "registerBluetoothDisconnected: ")
-        ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothDisconnectedIntentFilter), ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothDisconnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
         //registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
         if (!bluetoothDisconnectedRegistered) {
-            ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothDisconnectedIntentFilter), ContextCompat.RECEIVER_NOT_EXPORTED)
+            ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothDisconnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
             //registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
             bluetoothDisconnectedRegistered = true
         }
@@ -1438,10 +1461,10 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun registerBluetoothRequestDisconnect() {
         Log.i(TAG, "registerBluetoothRequestDisconnect: ")
-        ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothRequestDisconnectIntentFilter), ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothRequestDisconnectIntentFilter), ContextCompat.RECEIVER_EXPORTED)
         //registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
         if (!bluetoothRequestDisconnectRegistered) {
-            ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothRequestDisconnectIntentFilter), ContextCompat.RECEIVER_NOT_EXPORTED)
+            ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothRequestDisconnectIntentFilter), ContextCompat.RECEIVER_EXPORTED)
             //registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
             bluetoothRequestDisconnectRegistered = true
         }
@@ -1449,7 +1472,7 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun registerHeadsetEvents() {
         if (!headsetReceiverRegistered && isHeadsetPlugged) {
-            ContextCompat.registerReceiver(this, headsetReceiver, IntentFilter(headsetReceiverIntentFilter), ContextCompat.RECEIVER_NOT_EXPORTED)
+            ContextCompat.registerReceiver(this, headsetReceiver, IntentFilter(headsetReceiverIntentFilter), ContextCompat.RECEIVER_EXPORTED)
             //registerReceiver(headsetReceiver, headsetReceiverIntentFilter)
             headsetReceiverRegistered = true
         }
@@ -1522,38 +1545,81 @@ class MusicService : MediaBrowserServiceCompat(),
         } else if (repeatMode == REPEAT_MODE_ALL) {
             repeatIcon = R.drawable.ic_repeat_white_circle
         }
-        stateBuilder.addCustomAction(
-            PlaybackStateCompat.CustomAction.Builder(
-                CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
-            )
-                .build()
-        )
 
         val shuffleIcon =
             if (getShuffleMode() == SHUFFLE_MODE_NONE) R.drawable.ic_shuffle_off_circled else R.drawable.ic_shuffle_on_circled
-        stateBuilder.addCustomAction(
-            PlaybackStateCompat.CustomAction.Builder(
-                TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon
-            )
-                .build()
-        )
-    }
 
-    private fun isFavorite(): Boolean {
-        var fav = false
-        isCurrentFavorite { isFavorite ->
-            fav = isFavorite
-            playingNotification?.updateFavorite(isFavorite)
-            updatePlaybackControls()
-            updateMediaSessionPlaybackState()
+        val updateIcon = R.drawable.ic_update
+
+        val action1 = PreferenceUtil.isAction1
+        val action2 = PreferenceUtil.isAction2
+        if (action1 != "none") {
+            when (action1) {
+                "repeat" -> {
+                    stateBuilder.addCustomAction(
+                        PlaybackStateCompat.CustomAction.Builder(
+                            CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                        )
+                            .build()
+                    )
+                }
+                "shuffle" -> {
+                    stateBuilder.addCustomAction(
+                        PlaybackStateCompat.CustomAction.Builder(
+                            TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon
+                        )
+                            .build()
+                    )
+                }
+                "update" -> {
+                    stateBuilder.addCustomAction(
+                        PlaybackStateCompat.CustomAction.Builder(
+                            UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
+                        )
+                            .build()
+                    )
+                }
+            }
         }
-        return fav
+
+        if (action2 != "none") {
+            when(action2){
+                "repeat" -> {
+                    stateBuilder.addCustomAction(
+                        PlaybackStateCompat.CustomAction.Builder(
+                            CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                        )
+                            .build()
+                    )
+                }
+                "shuffle" -> {
+                    stateBuilder.addCustomAction(
+                        PlaybackStateCompat.CustomAction.Builder(
+                            TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon
+                        )
+                            .build()
+                    )
+                }
+                "update" -> {
+                    stateBuilder.addCustomAction(
+                        PlaybackStateCompat.CustomAction.Builder(
+                            UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
+                        )
+                            .build()
+                    )
+                }
+            }
+        }
     }
 
     fun updateWidget() {
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-                appWidgetSquare.performUpdate(this@MusicService, null)
+                if (playingQueue.isNotEmpty()) {
+                    appWidgetSquare.performUpdate(this@MusicService, null)
+                    appWidgetClassic.performUpdate(this@MusicService, null)
+                    appWidgetFull.performUpdate(this@MusicService, null)
+                }
             }
         }, 0, 1000)
     }
@@ -1601,8 +1667,7 @@ class MusicService : MediaBrowserServiceCompat(),
         const val ACTION_QUIT = "$APEX_MUSIC_PACKAGE_NAME.quitservice"
         const val ACTION_PENDING_QUIT = "$APEX_MUSIC_PACKAGE_NAME.pendingquitservice"
         const val INTENT_EXTRA_PLAYLIST = APEX_MUSIC_PACKAGE_NAME + "intentextra.playlist"
-        const val INTENT_EXTRA_SHUFFLE_MODE =
-            "$APEX_MUSIC_PACKAGE_NAME.intentextra.shufflemode"
+        const val INTENT_EXTRA_SHUFFLE_MODE = "$APEX_MUSIC_PACKAGE_NAME.intentextra.shufflemode"
         const val APP_WIDGET_UPDATE = "$APEX_MUSIC_PACKAGE_NAME.appwidgetupdate"
         const val EXTRA_APP_WIDGET_NAME = APEX_MUSIC_PACKAGE_NAME + "app_widget_name"
 

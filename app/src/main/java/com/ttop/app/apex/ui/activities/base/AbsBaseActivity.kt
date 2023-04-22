@@ -129,7 +129,9 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
                                 permissionDeniedMessage!!,
                                 Snackbar.LENGTH_SHORT
                             )
-                                .setAction(R.string.action_grant) { requestPermissions() }
+                                .setAction(R.string.action_grant) {
+                                    requestPermissions()
+                                }
                                 .setActionTextColor(accentColor()).show()
                         } else {
                             // User has deny permission and checked never show permission dialog so you can redirect to Application settings page

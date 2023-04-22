@@ -1,9 +1,9 @@
-Retro Music Player 🎵
+Apex Music🎵
 
 <b>📦 Included Features</b>
 <ul>
-    <li>Base 3 themes (Clearly White, Kinda Dark and Just Black)</li>
-    <li>Material You support on Android 12+</li>
+    <li>Base 3 themes (Bright White, Sorta Dark and Jet Black)</li>
+    <li>Material You support on Android 13+</li>
     <li>Gapless playback</li>
     <li>Crossfade playback</li>
     <li>Choose from 10+ now playing themes</li>
@@ -17,4 +17,5 @@ Retro Music Player 🎵
     <li>Create, edit and import playlists</li>
     <li>Browse and play your music by songs, albums, artists, playlists and genre</li>
     <li>Smart Auto Playlists - Recently played, most played and history</li>
+    <li>Bluetooth Autoplay</li>
 </ul>

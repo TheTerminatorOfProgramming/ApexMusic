@@ -34,11 +34,12 @@
         android:orientation="vertical"
         android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/stroke"
+        <ProgressBar
+            android:id="@+id/progress_bar"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/border" />
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/md_teal_A400"/>
 
         <LinearLayout
             android:id="@+id/media_titles"
@@ -57,9 +58,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="20sp"
                 android:textAlignment="viewEnd"
                 tools:text="Title" />
 

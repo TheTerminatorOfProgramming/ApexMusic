@@ -36,14 +36,6 @@ import com.ttop.app.apex.util.PreferenceUtil
 class LabsSettingsFragment : AbsSettingsFragment() {
 
     override fun invalidateSettings() {
-
-        val extendedAccent: TwoStatePreference? = findPreference(EXTENDED_ACCENT)
-        extendedAccent?.isChecked = PreferenceUtil.isExtendedAccent
-        extendedAccent?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val legacyWidgets: TwoStatePreference? = findPreference(RESTORE_LEGACY_WIDGETS)
         legacyWidgets?.isChecked = PreferenceUtil.isLegacyWidgets
         legacyWidgets?.setOnPreferenceChangeListener { _, newValue ->

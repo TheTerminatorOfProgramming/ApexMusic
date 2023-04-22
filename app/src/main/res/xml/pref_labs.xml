@@ -64,13 +64,19 @@
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_labs_other_options"
+        app:isPreferenceVisible="true"
         app:allowDividerBelow="false">
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="extended_accent"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_extended_accent"
-        android:title="@string/pref_title_extended_accent"
-        app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:key="update_channel"
+            android:defaultValue="stable"
+            android:layout="@layout/list_item_view"
+            android:entries="@array/pref_update_channel_list_titles"
+            android:entryValues="@array/pref_update_channel_list_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_update_channel"
+            android:icon="@drawable/ic_channel"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

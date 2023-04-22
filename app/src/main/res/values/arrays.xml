@@ -98,6 +98,34 @@
         <item>auto</item>
     </string-array>
 
+    <string-array name="pref_notification_action_1_list_titles">
+        <item>@string/repeat</item>
+        <item>@string/shuffle</item>
+        <item>@string/update_notify</item>
+        <item>@string/none</item>
+    </string-array>
+
+    <string-array name="pref_notification_action_1_list_values">
+        <item>repeat</item>
+        <item>shuffle</item>
+        <item>update</item>
+        <item>none</item>
+    </string-array>
+
+    <string-array name="pref_notification_action_2_list_titles">
+        <item>@string/repeat</item>
+        <item>@string/shuffle</item>
+        <item>@string/update_notify</item>
+        <item>@string/none</item>
+    </string-array>
+
+    <string-array name="pref_notification_action_2_list_values">
+        <item>repeat</item>
+        <item>shuffle</item>
+        <item>update</item>
+        <item>none</item>
+    </string-array>
+
     <string-array name="pref_full_widget_text_alignment_list_titles">
         <item>@string/left</item>
         <item>@string/center</item>
@@ -108,6 +136,56 @@
         <item>left</item>
         <item>center</item>
         <item>right</item>
+    </string-array>
+
+    <string-array name="pref_dismiss_method_list_titles">
+        <item>@string/swipe</item>
+        <item>@string/long_touch</item>
+        <item>@string/none</item>
+    </string-array>
+
+    <string-array name="pref_dismiss_method_list_values">
+        <item>swipe</item>
+        <item>long_touch</item>
+        <item>none</item>
+    </string-array>
+
+    <string-array name="pref_update_frequency_list_titles">
+        <item>@string/none</item>
+        <item>@string/startup</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/monthly</item>
+    </string-array>
+
+    <string-array name="pref_update_frequency_list_values">
+        <item>none</item>
+        <item>startup</item>
+        <item>daily</item>
+        <item>weekly</item>
+        <item>monthly</item>
+    </string-array>
+
+    <string-array name="pref_update_source_list_titles">
+        <item>@string/git_hub</item>
+        <item>@string/website</item>
+    </string-array>
+
+    <string-array name="pref_update_source_list_values">
+        <item>github</item>
+        <item>website</item>
+    </string-array>
+
+    <string-array name="pref_update_channel_list_titles">
+        <item>@string/stable</item>
+        <item>@string/preview</item>
+        <item>@string/beta</item>
+    </string-array>
+
+    <string-array name="pref_update_channel_list_values">
+        <item>stable</item>
+        <item>preview</item>
+        <item>beta</item>
     </string-array>
 
     <string-array name="pref_font_list_titles">

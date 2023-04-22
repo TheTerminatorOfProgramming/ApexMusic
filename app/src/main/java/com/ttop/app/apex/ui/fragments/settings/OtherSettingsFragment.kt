@@ -59,13 +59,6 @@ class OtherSettingsFragment : AbsSettingsFragment(),
         keepScreenOn?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
-
-        val toggleFullScreen: TwoStatePreference? = findPreference(TOGGLE_FULL_SCREEN)
-        toggleFullScreen?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            restartActivity()
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

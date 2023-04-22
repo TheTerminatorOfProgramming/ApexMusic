@@ -232,12 +232,12 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         setUpSubFragments()
         setupRecyclerView()
         binding.title.isSelected = true
-        binding.album?.isSelected = true
-        binding.artist?.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.artist?.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
         binding.root.drawAboveSystemBarsWithPadding()

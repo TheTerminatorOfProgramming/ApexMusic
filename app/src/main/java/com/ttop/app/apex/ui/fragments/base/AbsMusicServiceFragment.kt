@@ -24,7 +24,6 @@ import androidx.navigation.navOptions
 import com.ttop.app.apex.R
 import com.ttop.app.apex.interfaces.IMusicServiceEventListener
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
-import com.ttop.app.apex.util.maybeShowAnnoyingToasts
 
 /**
  * Created by hemanths on 18/08/17.
@@ -66,7 +65,6 @@ open class AbsMusicServiceFragment(@LayoutRes layout: Int) : Fragment(layout),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         serviceActivity?.addMusicServiceEventListener(this)
-        maybeShowAnnoyingToasts()
     }
 
     @CallSuper

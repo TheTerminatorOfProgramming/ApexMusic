@@ -59,12 +59,14 @@
                     android:elevation="20dp" />
             </FrameLayout>
 
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/playbackControlsFragment"
                 android:name="com.ttop.app.apex.ui.fragments.player.adaptive.AdaptivePlaybackControlsFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 tools:layout="@layout/fragment_adaptive_player_playback_controls" />
 
         </LinearLayout>

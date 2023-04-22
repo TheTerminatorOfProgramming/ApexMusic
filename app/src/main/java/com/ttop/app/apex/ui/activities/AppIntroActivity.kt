@@ -11,10 +11,10 @@ import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.hideStatusBar
+import com.ttop.app.apex.extensions.setDrawBehindSystemBars
 import com.ttop.app.apex.ui.fragments.intro.*
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 
@@ -22,18 +22,17 @@ class AppIntroActivity: AppIntro2() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //MAIN SLIDE
         addSlide(MainSlideFragment.newInstance())
+        if (VersionUtils.hasT()) {
+            //NOTIFICATION SLIDE
+            addSlide(NotificationSlideFragment.newInstance())
+        }
         //SD CARD SLIDE
         addSlide(StorageSlideFragment.newInstance())
         if (VersionUtils.hasS()) {
             //BLUETOOTH SLIDE
             addSlide(BluetoothSlideFragment.newInstance())
-        }
-        if (VersionUtils.hasT()) {
-            //NOTIFICATION SLIDE
-            addSlide(NotificationSlideFragment.newInstance())
         }
         if (VersionUtils.hasS()) {
             //BATTERY OPTIMIZATION SLIDE
@@ -50,31 +49,31 @@ class AppIntroActivity: AppIntro2() {
 
         // Here we ask for permissions
 
+        //Notification
+        if (VersionUtils.hasT()) {
+            askForPermissions(
+                permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                slideNumber = 2,
+                required = false)
+        }
         //SD Storage Access
         if (VersionUtils.hasT()) {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_MEDIA_AUDIO),
-                slideNumber = 2,
+                slideNumber = 3,
                 required = true)
         }else {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                slideNumber = 2,
+                slideNumber = 3,
                 required = true)
         }
         //Bluetooth
         if (VersionUtils.hasS()) {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                slideNumber = 3,
-                required = true)
-        }
-        //Notification
-        if (VersionUtils.hasT()) {
-            askForPermissions(
-                permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                 slideNumber = 4,
-                required = false)
+                required = true)
         }
 
 

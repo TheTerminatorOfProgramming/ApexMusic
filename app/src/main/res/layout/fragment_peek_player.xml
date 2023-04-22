@@ -112,7 +112,7 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAppearance="@style/TextViewSubtitle1"
-            app:layout_constraintBottom_toTopOf="@+id/text"
+            app:layout_constraintBottom_toTopOf="@+id/album"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
             app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
@@ -153,7 +153,7 @@
             app:layout_constraintBottom_toTopOf="@+id/songInfo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/text"
+            app:layout_constraintTop_toBottomOf="@+id/album"
             tools:text="@tools:sample/lorem" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -174,7 +174,7 @@
             app:layout_constraintBottom_toBottomOf="@id/playerAlbumCoverFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/text"
+            app:layout_constraintTop_toBottomOf="@+id/artist"
             tools:text="@tools:sample/lorem/random" />
 
         <androidx.fragment.app.FragmentContainerView

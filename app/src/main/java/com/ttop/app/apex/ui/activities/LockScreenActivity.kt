@@ -17,30 +17,15 @@ package com.ttop.app.apex.ui.activities
 import android.app.KeyguardManager
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
+import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
-import androidx.navigation.navOptions
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.card.MaterialCardView
-import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
-import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
-import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.r0adkll.slidr.Slidr
 import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrListener
 import com.r0adkll.slidr.model.SlidrPosition
 import com.ttop.app.apex.R
-import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.ActivityLockScreenBinding
-import com.ttop.app.apex.extensions.hideStatusBar
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.glide.ApexColoredTarget
@@ -63,7 +48,6 @@ class LockScreenActivity : AbsMusicServiceActivity() {
         lockScreenInit()
         binding = ActivityLockScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        hideStatusBar()
         setTaskDescriptionColorAuto()
 
         val config = SlidrConfig.Builder().listener(object : SlidrListener {
@@ -76,6 +60,7 @@ class LockScreenActivity : AbsMusicServiceActivity() {
             override fun onSlideOpened() {
             }
 
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onSlideClosed(): Boolean {
                 val keyguardManager =
                     getSystemService<KeyguardManager>()

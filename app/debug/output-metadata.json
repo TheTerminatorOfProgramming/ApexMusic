@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 270,
-      "versionName": "2.7.0 BETA",
+      "versionCode": 280,
+      "versionName": "2.8.0 BETA",
       "outputFile": "app-debug.apk"
     }
   ],

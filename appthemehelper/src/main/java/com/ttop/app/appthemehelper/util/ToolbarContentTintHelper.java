@@ -337,7 +337,7 @@ public final class ToolbarContentTintHelper {
             }
 
             //Step 3: Changing the color of title and subtitle.
-            toolbarView.setTitleTextColor(ATHUtil.INSTANCE.resolveColor(activity, android.R.attr.textColorPrimary));
+            //toolbarView.setTitleTextColor(ATHUtil.INSTANCE.resolveColor(activity, android.R.attr.textColorPrimary));
             toolbarView
                     .setSubtitleTextColor(ATHUtil.INSTANCE.resolveColor(activity, android.R.attr.textColorSecondary));
 
@@ -411,7 +411,7 @@ public final class ToolbarContentTintHelper {
             menu = toolbar.getMenu();
         }
 
-        toolbar.setTitleTextColor(titleTextColor);
+        //toolbar.setTitleTextColor(titleTextColor);
         toolbar.setSubtitleTextColor(subtitleTextColor);
 
         if (toolbar.getNavigationIcon() != null) {

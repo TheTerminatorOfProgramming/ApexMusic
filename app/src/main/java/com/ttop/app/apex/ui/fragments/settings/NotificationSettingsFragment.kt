@@ -44,8 +44,8 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 class NotificationSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == CLASSIC_NOTIFICATION) {
-            if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        when (key) {
+            CLASSIC_NOTIFICATION -> {
                 findPreference<Preference>(COLORED_NOTIFICATION)?.isEnabled =
                     sharedPreferences?.getBoolean(key, false)!!
             }
@@ -146,6 +146,40 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             PreferenceUtil.textAlignment = newValue as String
             appWidgetFull.notifyThemeChange(musicService)
             true
+        }
+
+        val action1: Preference? = findPreference(NOTIFICATION_ACTION_1)
+        action1?.let {
+            setSummary(it)
+            it.setOnPreferenceChangeListener { _, newValue ->
+                setSummary(it, newValue)
+                true
+            }
+        }
+
+        val action2: Preference? = findPreference(NOTIFICATION_ACTION_2)
+        action2?.let {
+            setSummary(it)
+            it.setOnPreferenceChangeListener { _, newValue ->
+                setSummary(it, newValue)
+                true
+            }
+        }
+
+        val fullBlur: TwoStatePreference? = findPreference(FULL_BLUR)
+        fullBlur?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            fullBlur.isChecked = newValue as Boolean
+            appWidgetFull.notifyThemeChange(musicService)
+            false
+        }
+
+        val classicBlur: TwoStatePreference? = findPreference(CLASSIC_BLUR)
+        classicBlur?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            classicBlur.isChecked = newValue as Boolean
+            appWidgetClassic.notifyThemeChange(musicService)
+            false
         }
     }
 

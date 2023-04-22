@@ -177,6 +177,10 @@ object MusicPlayerRemote : KoinComponent {
         musicService?.pause()
     }
 
+    fun cancelTimer() {
+        musicService?.getProgressTimer()?.cancel()
+    }
+
     /**
      * Async
      */
