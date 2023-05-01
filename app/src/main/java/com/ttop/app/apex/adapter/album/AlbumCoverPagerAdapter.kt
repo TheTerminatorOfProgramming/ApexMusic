@@ -16,9 +16,6 @@ package com.ttop.app.apex.adapter.album
 
 import android.os.Bundle
 import android.view.*
-import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.View.OnClickListener
-import android.view.View.OnTouchListener
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -27,7 +24,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.bumptech.glide.Glide

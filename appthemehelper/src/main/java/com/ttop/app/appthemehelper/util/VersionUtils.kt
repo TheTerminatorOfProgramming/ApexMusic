@@ -66,12 +66,30 @@ object VersionUtils {
     }
 
     /**
+     * @return true if device is running API <= 29
+     */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
+    @JvmStatic
+    fun hasQorBefore(): Boolean {
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q
+    }
+
+    /**
      * @return true if device is running API >= 30
      */
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
     @JvmStatic
     fun hasR(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+    }
+
+    /**
+     * @return true if device is running API <= 30
+     */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
+    @JvmStatic
+    fun hasRorBefore(): Boolean {
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.R
     }
 
     /**

@@ -18,19 +18,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import code.ttop.app.apex.adapter.backup.BackupAdapter
+import com.ttop.app.apex.adapter.backup.BackupAdapter
 import com.afollestad.materialdialogs.input.input
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentBackupBinding
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.accentOutlineColor
-import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
-import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.Share
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
@@ -97,9 +93,9 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         binding.resetToDefault.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Reset Settings")
-            builder.setMessage("Reset Settings to Default?\nApp Will Restart!")
+            builder.setMessage("Reset Settings to Default?\nThis will reset ALL settings including Shuffle, Bluetooth Autoplay setting and more\nThis App Will Restart to Complete the Reset Process!")
 
-            builder.setPositiveButton(android.R.string.yes) { _, _ ->
+            builder.setPositiveButton(R.string.yes) { _, _ ->
                 val id = BuildConfig.APPLICATION_ID
                 val path = "/data/data/$id/shared_prefs"
                 val file = File(path)
@@ -110,9 +106,9 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                 ProcessPhoenix.triggerRebirth(requireActivity())
             }
 
-            builder.setNegativeButton(android.R.string.no) { _, _ ->
+            builder.setNegativeButton(R.string.no) { _, _ ->
             }
-            builder.show()
+            builder.show().withCenteredButtons()
         }
     }
 

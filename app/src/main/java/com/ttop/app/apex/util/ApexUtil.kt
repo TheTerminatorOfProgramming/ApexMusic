@@ -15,9 +15,13 @@ package com.ttop.app.apex.util
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
@@ -28,6 +32,9 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
+import com.dcastalia.localappupdate.DownloadApk
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -40,6 +47,7 @@ import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.appendChar
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -50,7 +58,7 @@ import java.util.*
 
 object ApexUtil {
     private val collator = Collator.getInstance()
-
+    private var a = ""
     fun formatValue(numValue: Float): String {
         var value = numValue
         val arr = arrayOf("", "K", "M", "B", "T", "P", "E")
@@ -154,6 +162,12 @@ object ApexUtil {
         return Settings.System.canWrite(getContext())
     }
 
+    fun enableAudioPermission(context: Context) {
+        val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+        intent.data = ("package:" + context.packageName).toUri()
+        context.startActivity(intent)
+    }
+
     fun disableBatteryOptimization() {
         val intent = Intent()
         val packageName: String = getContext().packageName
@@ -162,6 +176,20 @@ object ApexUtil {
         intent.data = Uri.parse("package:$packageName")
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         getContext().startActivity(intent)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun enableUnknownSources(context: Context) {
+        context.startActivity(
+            Intent(
+                Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                Uri.parse("package:" + context.packageName)
+            )
+        )
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun checkUnknownSources(context: Context): Boolean {
+        return context.packageManager.canRequestPackageInstalls()
     }
 
     fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
@@ -196,7 +224,7 @@ object ApexUtil {
             return ""
         }
         var strippedTitle = title!!.trim { it <= ' ' }
-        val articles = java.util.List.of(
+        val articles = listOf(
             "a ", "an ", "the ",  // English ones
             "l'", "le ", "la ", "les " // French ones
         )
@@ -286,20 +314,51 @@ object ApexUtil {
 
                     val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
                     val finalVersionNumber = finalVersionNumberString.toDouble()
+                    val isPreview = update.latestVersion.endsWith("-preview")
 
-                    val updateVersion = update.latestVersion.toDouble()
-
-                    if (updateVersion > finalVersionNumber) {
-                        val appUpdater = AppUpdater(context)
-                            .setUpdateFrom(UpdateFrom.GITHUB)
-                            .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
-                            .setDisplay(Display.DIALOG)
-                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
-                            .showAppUpdated(true)
-                        appUpdater.start()
+                    if (isPreview) {
+                        val updateVersionPreview = update.latestVersion.dropLast(8).toDouble()
+                        if (updateVersionPreview > finalVersionNumber) {
+                            if (PreferenceUtil.isPreviewChannel) {
+                                val appUpdater = AppUpdater(context)
+                                    .setUpdateFrom(UpdateFrom.GITHUB)
+                                    .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
+                                    .setDisplay(Display.DIALOG)
+                                    .setContentOnUpdateAvailable("Update " + update.latestVersion.replace('-', ' ') + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                                    .showAppUpdated(true)
+                                appUpdater.start()
+                            }else {
+                                if (showFailMessage){
+                                    context.showToast("No Updates Available!")
+                                }
+                            }
+                        }else {
+                            if (showFailMessage){
+                                context.showToast("No Updates Available!")
+                            }
+                        }
                     }else {
-                        if (showFailMessage){
-                            context.showToast("No Updates Available!")
+                        val updateVersion = update.latestVersion.toDouble()
+                        if (updateVersion > finalVersionNumber) {
+                            val appUpdater = AppUpdater(context)
+                                .setUpdateFrom(UpdateFrom.GITHUB)
+                                .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
+                                .setDisplay(Display.DIALOG)
+                                .setContentOnUpdateAvailable("Update " + update.latestVersion + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                                .showAppUpdated(true)
+                            appUpdater.start()
+                        } else if (BuildConfig.BUILD_TYPE.equals("preview")) {
+                            val appUpdater = AppUpdater(context)
+                                .setUpdateFrom(UpdateFrom.GITHUB)
+                                .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
+                                .setDisplay(Display.DIALOG)
+                                .setContentOnUpdateAvailable("Update " + update.latestVersion + " stable is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                                .showAppUpdated(true)
+                            appUpdater.start()
+                        }else {
+                            if (showFailMessage){
+                                context.showToast("No Updates Available!")
+                            }
                         }
                     }
                 }
@@ -331,15 +390,23 @@ object ApexUtil {
                     val updateVersion = update.latestVersion.toDouble()
 
                     if (updateVersion > finalVersionNumber) {
-                        val appUpdater = AppUpdater(context)
-                            .setUpdateFrom(UpdateFrom.XML)
-                            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version.xml")
-                            .setDisplay(Display.DIALOG)
-                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
-                            .showAppUpdated(true)
-                        appUpdater.start()
+                        val builder = AlertDialog.Builder(context)
+                            .setTitle("Update Available!")
+                            .setMessage("Update " + update.latestVersion + " is available to download!\n\n" + "Do you want to download and install this update now?")
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes) { _, _ ->
+                                val downloadApk = DownloadApk(context)
+                                // With standard fileName 'App Update.apk'
+                                   //downloadApk.startDownloadingApk(update.urlToDownload.toString())
+                                //With Custom fileName
+                                downloadApk.startDownloadingApk(update.urlToDownload.toString(),"Apex Music " + update.latestVersion + ".apk")
+                            }
+
+                            .setNegativeButton(R.string.no) { _, _ ->
+                            }
+                        builder.show().withCenteredButtons()
                     }else {
-                        if (showFailMessage){
+                        if (showFailMessage) {
                             context.showToast("No Updates Available!")
                         }
                     }
@@ -372,54 +439,21 @@ object ApexUtil {
                     val updateVersion = update.latestVersion.toDouble()
 
                     if (updateVersion > finalVersionNumber) {
-                        val appUpdater = AppUpdater(context)
-                            .setUpdateFrom(UpdateFrom.XML)
-                            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_preview.xml")
-                            .setDisplay(Display.DIALOG)
-                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " Preview is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
-                            .showAppUpdated(true)
-                        appUpdater.start()
-                    }else {
-                        if (showFailMessage){
-                            context.showToast("No Updates Available!")
-                        }
-                    }
-                }
+                        val builder = AlertDialog.Builder(context)
+                            .setTitle("Update Available!")
+                            .setMessage("Update " + update.latestVersion + " is available to download!\n\n" + "Do you want to download and install this update now?")
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes) { _, _ ->
+                                val downloadApk = DownloadApk(context)
+                                // With standard fileName 'App Update.apk'
+                                   //downloadApk.startDownloadingApk(update.urlToDownload.toString())
+                                //With Custom fileName
+                                downloadApk.startDownloadingApk(update.urlToDownload.toString(),"Apex Music " + update.latestVersion + ".apk")
+                            }
 
-                override fun onFailed(error: AppUpdaterError) {
-                    Log.d("AppUpdater Error", "Something went wrong")
-                }
-            })
-        updater.start()
-    }
-
-    fun checkForUpdateWebsiteBeta(context: Context,showFailMessage: Boolean) {
-        val updater = AppUpdaterUtils(context)
-            .setUpdateFrom(UpdateFrom.XML)
-            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_beta.xml")
-            .withListener(object : AppUpdaterUtils.UpdateListener {
-                override fun onSuccess(update: Update, isUpdateAvailable: Boolean?) {
-                    Log.d("Latest Version", update.latestVersion)
-                    Log.d("Latest Version Code", update.latestVersionCode.toString())
-                    Log.d("URL", update.urlToDownload.toString())
-                    Log.d(
-                        "Is update available?",
-                        java.lang.Boolean.toString(isUpdateAvailable!!)
-                    )
-
-                    val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
-                    val finalVersionNumber = finalVersionNumberString.toDouble()
-
-                    val updateVersion = update.latestVersion.toDouble()
-
-                    if (updateVersion > finalVersionNumber) {
-                        val appUpdater = AppUpdater(context)
-                            .setUpdateFrom(UpdateFrom.XML)
-                            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_beta.xml")
-                            .setDisplay(Display.DIALOG)
-                            .setContentOnUpdateAvailable("Update " + update.latestVersion + " BETA is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
-                            .showAppUpdated(true)
-                        appUpdater.start()
+                            .setNegativeButton(R.string.no) { _, _ ->
+                            }
+                        builder.show().withCenteredButtons()
                     }else {
                         if (showFailMessage){
                             context.showToast("No Updates Available!")
@@ -441,16 +475,10 @@ object ApexUtil {
                     if (PreferenceUtil.updateSource == "github") {
                         checkForUpdateGithub(context, false)
                     }else {
-                        when (PreferenceUtil.updateChannel) {
-                            "stable" -> {
-                                checkForUpdateWebsite(context, false)
-                            }
-                            "preview" -> {
-                                checkForUpdateWebsitePreview(context, false)
-                            }
-                            "beta" -> {
-                                checkForUpdateWebsiteBeta(context, false)
-                            }
+                        if (PreferenceUtil.isPreviewChannel) {
+                            checkForUpdateWebsitePreview(context, false)
+                        }else {
+                            checkForUpdateWebsite(context, false)
                         }
                     }
 
@@ -469,16 +497,10 @@ object ApexUtil {
                         if (PreferenceUtil.updateSource == "github") {
                             checkForUpdateGithub(context, false)
                         }else {
-                            when (PreferenceUtil.updateChannel) {
-                                "stable" -> {
-                                    checkForUpdateWebsite(context, false)
-                                }
-                                "preview" -> {
-                                    checkForUpdateWebsitePreview(context, false)
-                                }
-                                "beta" -> {
-                                    checkForUpdateWebsiteBeta(context, false)
-                                }
+                            if (PreferenceUtil.isPreviewChannel) {
+                                checkForUpdateWebsitePreview(context, false)
+                            }else {
+                                checkForUpdateWebsite(context, false)
                             }
                         }
                         PreferenceUtil.updateChecked = true
@@ -497,16 +519,10 @@ object ApexUtil {
                         if (PreferenceUtil.updateSource == "github") {
                             checkForUpdateGithub(context, false)
                         }else {
-                            when (PreferenceUtil.updateChannel) {
-                                "stable" -> {
-                                    checkForUpdateWebsite(context, false)
-                                }
-                                "preview" -> {
-                                    checkForUpdateWebsitePreview(context, false)
-                                }
-                                "beta" -> {
-                                    checkForUpdateWebsiteBeta(context, false)
-                                }
+                            if (PreferenceUtil.isPreviewChannel) {
+                                checkForUpdateWebsitePreview(context, false)
+                            }else {
+                                checkForUpdateWebsite(context, false)
                             }
                         }
                         PreferenceUtil.updateChecked = true
@@ -525,16 +541,10 @@ object ApexUtil {
                         if (PreferenceUtil.updateSource == "github") {
                             checkForUpdateGithub(context, false)
                         }else {
-                            when (PreferenceUtil.updateChannel) {
-                                "stable" -> {
-                                    checkForUpdateWebsite(context, false)
-                                }
-                                "preview" -> {
-                                    checkForUpdateWebsitePreview(context, false)
-                                }
-                                "beta" -> {
-                                    checkForUpdateWebsiteBeta(context, false)
-                                }
+                            if (PreferenceUtil.isPreviewChannel) {
+                                checkForUpdateWebsitePreview(context, false)
+                            }else {
+                                checkForUpdateWebsite(context, false)
                             }
                         }
                         PreferenceUtil.updateChecked = true
@@ -553,5 +563,50 @@ object ApexUtil {
         PreferenceUtil.monthOfYear = currentMonthOfYear
         PreferenceUtil.weekOfYear = currentWeekOfYear
         PreferenceUtil.dayOfYear = currentDayOfYear
+    }
+
+    fun searchYoutube(context:Context, title: String, artist: String) {
+        if (isNetworkAvailable(context)) {
+            if (checkYoutubeMusic(context)) {
+                if (PreferenceUtil.isYoutubeMusicSearch) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://music.youtube.com/search?q=$title+$artist"))
+                    context.startActivity(intent)
+                }else {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=$title+$artist"))
+                    context.startActivity(intent)
+                }
+            }else {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=$title+$artist"))
+                context.startActivity(intent)
+            }
+        }else {
+            context.showToast("Internet Disconnected: Unable to Perform Request!")
+        }
+    }
+
+    fun checkYoutubeMusic(context: Context): Boolean {
+        val packages: List<ApplicationInfo>
+        val pm: PackageManager = context.packageManager
+        packages = pm.getInstalledApplications(0)
+        for (packageInfo in packages) {
+            if (packageInfo.packageName == "com.google.android.apps.youtube.music")
+                return true
+        }
+        return false
+    }
+
+    fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val nw = connectivityManager.activeNetwork ?: return false
+        val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
+        return when {
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            //for other device how are able to connect with Ethernet
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            //for check internet over Bluetooth
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+            else -> false
+        }
     }
 }

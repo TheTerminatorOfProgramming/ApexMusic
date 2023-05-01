@@ -18,15 +18,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.model.Contributor
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.views.ApexShapeableImageView
 
 class ContributorAdapter(
-    private var contributors: List<Contributor>
+    private var contributors: List<Contributor>,
 ) : RecyclerView.Adapter<ContributorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -85,12 +87,20 @@ class ContributorAdapter(
         internal fun bindData(contributor: Contributor) {
             title.text = contributor.name
             text.text = contributor.summary
-            Glide.with(image.context)
-                .load(contributor.image)
-                .error(R.drawable.ic_account)
-                .placeholder(R.drawable.ic_account)
-                .dontAnimate()
-                .into(image)
+            if (PreferenceUtil.isInternetConnected) {
+                Glide.with(image.context)
+                    .load(contributor.image)
+                    .error(R.drawable.ic_account)
+                    .placeholder(R.drawable.ic_account)
+                    .dontAnimate()
+                    .into(image)
+            }else {
+                Glide.with(image.context)
+                    .load("file:///android_asset/images/${contributor.image}".toUri())
+                    .error(R.drawable.ic_account)
+                    .placeholder(R.drawable.ic_account)
+                    .into(image)
+            }
         }
     }
 }

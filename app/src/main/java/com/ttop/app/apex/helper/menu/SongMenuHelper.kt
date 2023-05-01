@@ -36,7 +36,9 @@ import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,6 +48,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import java.io.File
+import kotlin.coroutines.coroutineContext
 
 object SongMenuHelper : KoinComponent {
     const val MENU_RES = R.menu.menu_item_song
@@ -86,6 +89,10 @@ object SongMenuHelper : KoinComponent {
             }
             R.id.action_play_next -> {
                 MusicPlayerRemote.playNext(song)
+                return true
+            }
+            R.id.action_search_youtube -> {
+                ApexUtil.searchYoutube(activity, song.title, song.artistName)
                 return true
             }
             R.id.action_add_to_current_playing -> {
@@ -143,6 +150,11 @@ object SongMenuHelper : KoinComponent {
             popupMenu.inflate(menuRes)
             popupMenu.setOnMenuItemClickListener(this)
             popupMenu.show()
+
+            val menu = popupMenu.menu
+            if (!PreferenceUtil.isInternetConnected) {
+                menu.removeItem(R.id.action_search_youtube)
+            }
         }
 
         override fun onMenuItemClick(item: MenuItem): Boolean {

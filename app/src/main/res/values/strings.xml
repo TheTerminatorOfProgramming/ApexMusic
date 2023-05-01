@@ -44,6 +44,7 @@
     <string name="action_save_playing_queue">Save playing queue</string>
     <string name="action_scan">Scan</string>
     <string name="action_search">Search</string>
+    <string name="action_search_youtube">Search youtube</string>
     <string name="action_set">Start</string>
     <string name="action_set_as_ringtone">Set as ringtone</string>
     <string name="action_set_as_start_directory">Set as start directory</string>
@@ -99,8 +100,8 @@
     <string name="backup_title">Backups</string>
     <string name="battery_summary">The app needs to disable the battery optimisation in order for the foreground service to work correctly</string>
     <string name="battery_title">Disable Battery Optimisation</string>
-    <string name="beta">Beta (Will install as separate app)</string>
     <string name="biography">Biography</string>
+    <string name="black">Black</string>
     <string name="black_theme_name">Jet Black</string>
     <string name="blacklist">Blacklist</string>
     <string name="bluetooth_summary">The app needs nearby devices permission to check for bluetooth devices</string>
@@ -143,6 +144,7 @@
     <string name="clear_blacklist">Clear blacklist</string>
     <string name="clear_history">Clear History</string>
     <string name="clear_playing_queue">Clear queue</string>
+    <string name="close">Close</string>
     <string name="color">Color</string>
     <string name="colors">Colors</string>
     <string name="compact">Compact</string>
@@ -158,10 +160,12 @@
     <string name="created_playlist_x">Created playlist %1$s.</string>
     <string name="credit_title">Members and contributors </string>
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
+    <string name="custom">Custom</string>
     <string name="custom_artist_images">Custom Artist Images</string>
     <string name="customactivityoncrash_error_activity_error_details_share">Share Crash Report</string>
     <string name="daily">Daily</string>
     <string name="dark_theme_name">Sorta Dark</string>
+    <string name="default_color">Default</string>
     <string name="delete_playlist_title">Delete playlist</string>
     <string name="delete_playlist_x"><![CDATA[Delete the playlist <b>%1$s</b>?]]></string>
     <string name="delete_playlists_title">Delete playlists</string>
@@ -249,6 +253,7 @@
     <string name="instagram_page" translatable="false">Instagram</string>
     <string name="instagram_page_summary">Share your Apex Music setup to showcase on Instagram</string>
     <string name="intro_label">Introduction</string>
+    <string name="intro_summary">View the App Intro</string>
     <string name="keyboard">Keyboard</string>
     <string name="label_bit_rate">Bitrate</string>
     <string name="label_file_format">Format</string>
@@ -298,6 +303,7 @@
     <string name="new_playlist_title">New playlist</string>
     <string name="new_start_directory">%s is the new start directory.</string>
     <string name="next_song">Next Song</string>
+    <string name="no">No</string>
     <string name="no_albums">You have no albums</string>
     <string name="no_artists">You have no artists</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
@@ -371,6 +377,7 @@
     <string name="pref_header_controls">Controls</string>
     <string name="pref_header_general">Theme</string>
     <string name="pref_header_images">Images</string>
+    <string name="pref_header_labs_default_widgets">Default Widgets</string>
     <string name="pref_header_labs_other_options">Other Options</string>
     <string name="pref_header_labs_restore_widgets">Restore Legacy Widgets</string>
     <string name="pref_header_labs_square_widget">Square Widget</string>
@@ -380,6 +387,7 @@
     <string name="pref_header_notification">Notification</string>
     <string name="pref_header_playlists">Playlists</string>
     <string name="pref_header_ui">User Experience</string>
+    <string name="pref_header_update">Manual Updates (NOT using Play Store)</string>
     <string name="pref_header_widgets">Widgets General</string>
     <string name="pref_header_widgets_classic">Classic widget</string>
     <string name="pref_header_widgets_full">Full widget</string>
@@ -406,12 +414,14 @@
     <string name="pref_summary_colored_notification">"Colors the notification in the album cover\u2019s vibrant color"</string>
     <string name="pref_summary_cross_fade">Duration to crossfade between songs</string>
     <string name="pref_summary_desaturated_color">As per Material Design guide lines in dark mode colors should be desaturated</string>
+    <string name="pref_summary_disable_widgets">Disable default widgets</string>
     <string name="pref_summary_dismiss_failsafe">Show a dialog to check if the user wants to dismiss the miniplayer</string>
     <string name="pref_summary_expand_now_playing_panel">Clicking on the notification will show now playing screen instead of the home screen</string>
     <string name="pref_summary_extended_accent">Apply the accent color to the header text</string>
     <string name="pref_summary_extra_controls">Add extra controls for mini player</string>
     <string name="pref_summary_extra_song_info">Show extra Song information, such as file format, bitrate and frequency</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
+    <string name="pref_summary_headset_volume">Set a specific volume when wired earphones are connected</string>
     <string name="pref_summary_hold_to_dismiss">Touch and hold the mini player to dismiss</string>
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
@@ -446,19 +456,22 @@
     <string name="pref_summary_toggle_shuffle">Shuffle mode will turn off when playing a new list of songs</string>
     <string name="pref_summary_toggle_volume">If enough space is available, show volume controls in the now playing screen</string>
     <string name="pref_summary_update_app">Update apex music to the latest version</string>
+    <string name="pref_summary_update_channel">Get access to preview updates</string>
     <string name="pref_summary_use_new_widget">Use new square widget(this will eventually replace the full widget)</string>
     <string name="pref_summary_user_name">Show or hide user name on the home page</string>
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
-    <string name="pref_summary_wear_os">Show the album art as the background on wear os</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
     <string name="pref_summary_widget_classic_blur">Blur the album art on the classic widget</string>
     <string name="pref_summary_widget_classic_shape">Show the album art on the classic widget as a circle instead of a square</string>
+    <string name="pref_summary_widget_custom_color">Set a custom color for widgets buttons, defaults to accent color</string>
     <string name="pref_summary_widget_day_night">Use android 12+ day/night widget theme</string>
     <string name="pref_summary_widget_full_blur">Blur the album art on the full widget</string>
     <string name="pref_summary_widget_full_shape">Show the album art on the full widget as a circle instead of a square</string>
     <string name="pref_summary_widget_image_curve">Change classic widget corners curve</string>
     <string name="pref_summary_widget_image_full_curve">Change full widget corners curve</string>
+    <string name="pref_summary_widget_invert_color">Override the buttons color from black to white</string>
     <string name="pref_summary_widget_transparent">Make classic and full widgets transparent</string>
+    <string name="pref_summary_youtube_search">Use youtube music instead of youtube to search for music videos</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
     <string name="pref_title_album_artists_only">Navigate by Album Artist</string>
     <string name="pref_title_album_cover_style">Album cover theme</string>
@@ -483,6 +496,7 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Desaturated color</string>
+    <string name="pref_title_disable_widgets">Disable default widgets</string>
     <string name="pref_title_dismiss_failsafe">Dismiss Failsafe</string>
     <string name="pref_title_dismiss_method">Miniplayer dismiss</string>
     <string name="pref_title_embed_lyrics_view">Embedded lyrics view type</string>
@@ -493,6 +507,8 @@
     <string name="pref_title_full_widget_text_alignment">Text alignment</string>
     <string name="pref_title_gapless_playback">Gapless playback</string>
     <string name="pref_title_general_theme">App theme</string>
+    <string name="pref_title_headset_volume">Headset specific volume</string>
+    <string name="pref_title_headset_level">Headset volume level</string>
     <string name="pref_title_hold_to_dismiss">Dismiss with long press</string>
     <string name="pref_title_home_album_grid_style">Album grid</string>
     <string name="pref_title_home_artist_grid_style">Artist grid</string>
@@ -505,8 +521,8 @@
     <string name="pref_title_manage_audio_focus">Always play</string>
     <string name="pref_title_mini_image_roundness">Mini player image radius</string>
     <string name="pref_title_mini_player_image">Circular mini player image</string>
-    <string name="pref_title_notification_action_1">Notification Custom Action 1</string>
-    <string name="pref_title_notification_action_2">Notification Custom Action 2</string>
+    <string name="pref_title_notification_action_1">Notification custom action 1</string>
+    <string name="pref_title_notification_action_2">Notification custom action 2</string>
     <string name="pref_title_now_playing_screen_appearance">Now playing theme</string>
     <string name="pref_title_open_source_licences">Open source licences</string>
     <string name="pref_title_pause_history">Pause history</string>
@@ -534,20 +550,23 @@
     <string name="pref_title_toggle_toggle_shuffle">Shuffle mode</string>
     <string name="pref_title_toggle_volume">Volume controls</string>
     <string name="pref_title_ui_mode">App mode</string>
-    <string name="pref_title_update_channel">Update channel</string>
+    <string name="pref_title_update_channel">Show previews</string>
     <string name="pref_title_update_frequency">Check for update frequency</string>
     <string name="pref_title_update_source">Update source</string>
     <string name="pref_title_use_new_widget">Use new widget</string>
     <string name="pref_title_user_name">User name</string>
     <string name="pref_title_wallpaper_accent">Wallpaper accent color</string>
-    <string name="pref_title_wear_os">Wear OS</string>
     <string name="pref_title_whitelist">Whitelist music</string>
+    <string name="pref_title_widget_buttons_color">Widget buttons color</string>
     <string name="pref_title_widget_classic_shape">Circular album art for classic widget</string>
+    <string name="pref_title_widget_custom_color">Custom Color</string>
     <string name="pref_title_widget_day_night">Widget day/night</string>
     <string name="pref_title_widget_full_shape">Circular album art for full widget</string>
     <string name="pref_title_widget_image_curve">Classic widget album art radius</string>
     <string name="pref_title_widget_image_full_curve">Full widget album art radius</string>
+    <string name="pref_title_widget_invert_color">Invert color</string>
     <string name="pref_title_widget_transparent">Transparent widgets</string>
+    <string name="pref_title_youtube_search">Youtube search</string>
     <string name="preview">Preview</string>
     <string name="pro">Pro</string>
     <string name="pro_summary">Black theme, Now playing themes, Carousel effect and more..</string>
@@ -575,8 +594,8 @@
     <string name="restore">Restore</string>
     <string name="retro_version">RetroMusic Base Version</string>
     <string name="right">Right</string>
-    <string name="ringtone_summary">The app needs permission to access your device settings in order to set music as Ringtone</string>
-    <string name="ringtone_title">Ringtone (Optional)</string>
+    <string name="ringtone_summary">Permission to access your device settings in order to set music as Ringtone</string>
+    <string name="ringtone_title">Ringtone Permission</string>
     <string name="saf_delete_failed">File delete failed: %s</string>
     <!-- SAF -->
     <string name="saf_error_uri">Can\'t get SAF URI</string>
@@ -662,6 +681,8 @@
     <string name="translate_community">Help us translate the app to your language</string>
     <string name="twitter_page">Twitter</string>
     <string name="twitter_page_summary">Share your design with Apex Music</string>
+    <string name="unknown_sources_summary">Enable the installation of unknown sources to automatically install updates when updating from the website. If updating through Google Play this is not required</string>
+    <string name="unknown_sources_title">Unknown Sources Permission</string>
     <string name="unlabeled">Unlabeled</string>
     <string name="unplayable_file">Couldn\u2019t play this song.</string>
     <string name="up_next">Up next</string>
@@ -682,12 +703,17 @@
     <string name="welcome">Welcome,</string>
     <string name="what_do_you_want_to_share">What do you want to share?</string>
     <string name="whats_new">What\'s New</string>
+    <string name="white">White</string>
     <string name="window">Window</string>
     <string name="window_corner_edges">Rounded corners</string>
     <string name="x_has_been_set_as_ringtone">Set %1$s as your ringtone.</string>
     <string name="x_selected">%1$d selected</string>
     <string name="year">Year</string>
+    <string name="yes">Yes</string>
     <string name="you_have_to_select_at_least_one_category">You have to select at least one category.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">You will be forwarded to the issue tracker website.</string>
     <string name="your_account_data_is_only_used_for_authentication">Your account data is only used for authentication.</string>
+    <string name="title_activity_item_detail_host">ItemDetailHostActivity</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
 </resources>

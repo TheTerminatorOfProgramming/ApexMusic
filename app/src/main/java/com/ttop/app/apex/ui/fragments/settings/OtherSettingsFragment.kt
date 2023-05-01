@@ -23,6 +23,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.appwidgets.AppWidgetFull
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
 import com.ttop.app.apex.util.ApexUtil
@@ -42,6 +45,7 @@ class OtherSettingsFragment : AbsSettingsFragment(),
         val whitelist: TwoStatePreference? = findPreference(WHITELIST_MUSIC)
         whitelist?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val auto_rotate: TwoStatePreference? = findPreference(AUTO_ROTATE)
@@ -58,6 +62,13 @@ class OtherSettingsFragment : AbsSettingsFragment(),
         val keepScreenOn: TwoStatePreference? = findPreference(KEEP_SCREEN_ON)
         keepScreenOn?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val youtubeSearch: TwoStatePreference? = findPreference(YOUTUBE_SEARCH)
+        youtubeSearch?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
     }
 
@@ -65,6 +76,9 @@ class OtherSettingsFragment : AbsSettingsFragment(),
         PreferenceUtil.languageCode =
             AppCompatDelegate.getApplicationLocales().toLanguageTags().ifEmpty { "auto" }
         addPreferencesFromResource(R.xml.pref_advanced)
+
+        val youtubeSearch: TwoStatePreference? = findPreference(YOUTUBE_SEARCH)
+        youtubeSearch?.isVisible = ApexUtil.checkYoutubeMusic(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,10 +91,21 @@ class OtherSettingsFragment : AbsSettingsFragment(),
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val youtubeSearch: TwoStatePreference? = findPreference(YOUTUBE_SEARCH)
+        youtubeSearch?.isVisible = ApexUtil.checkYoutubeMusic(requireContext())
+    }
+
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
             AUTO_ROTATE -> {
                 autoRotate()
+            }
+            YOUTUBE_SEARCH -> {
+                val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
+                val musicService = MusicService()
+                appWidgetFull.notifyThemeChange(musicService)
             }
         }
     }

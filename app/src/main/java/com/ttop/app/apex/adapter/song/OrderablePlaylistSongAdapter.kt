@@ -19,7 +19,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.button.MaterialButton
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
 import com.ttop.app.apex.R
@@ -27,9 +26,6 @@ import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.db.toSongEntity
 import com.ttop.app.apex.db.toSongsEntity
 import com.ttop.app.apex.dialogs.RemoveSongFromPlaylistDialog
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.accentOutlineColor
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ViewUtil

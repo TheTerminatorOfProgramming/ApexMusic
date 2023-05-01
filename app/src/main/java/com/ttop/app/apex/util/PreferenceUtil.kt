@@ -31,6 +31,7 @@ import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.TopAppBarLayout
+import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 
@@ -84,7 +85,7 @@ object PreferenceUtil {
     ) = sharedPreferences.unregisterOnSharedPreferenceChangeListener(changeListener)
 
 
-    val baseTheme get() = sharedPreferences.getStringOrDefault(GENERAL_THEME, "auto")
+    val baseTheme get() = sharedPreferences.getString(GENERAL_THEME, "auto")
 
     fun getGeneralThemeValue(isSystemDark: Boolean): ThemeMode {
         val themeMode: String =
@@ -932,10 +933,13 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(BT_VOLUME, value)}
 
-    val bluetoothVolumeLevel
+    var bluetoothVolumeLevel
         get() = sharedPreferences.getInt(
-            BT_CUSTOM_VOLUME, 4
+            BT_CUSTOM_VOLUME, 5
         )
+
+        set(value) = sharedPreferences.edit {
+            putInt(BT_CUSTOM_VOLUME, value)}
 
     var isSamsungSoundPluginInstalled
         get() = sharedPreferences.getBoolean(
@@ -1046,9 +1050,6 @@ object PreferenceUtil {
     val coloredSquareWidget
         get() = sharedPreferences.getBoolean(SQUARE_WIDGET_COLORED, false)
 
-    val isWearOs
-        get() = sharedPreferences.getBoolean(WEAR_OS, false)
-
     val isAction1
         get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "repeat")
 
@@ -1115,8 +1116,54 @@ object PreferenceUtil {
     val updateSource
         get() = sharedPreferences.getString(UPDATE_SOURCE, "github")
 
-    val updateChannel
-        get() = sharedPreferences.getString(UPDATE_CHANNEL, "stable")
+    val isPreviewChannel
+        get() = sharedPreferences.getBoolean(UPDATE_CHANNEL, false)
+
+    val isDisableWidgets
+        get() = sharedPreferences.getBoolean(DISABLE_WIDGETS, false)
+
+    var isHeadsetVolume
+        get() = sharedPreferences.getBoolean(
+            HEADSET_VOLUME, false
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(HEADSET_VOLUME, value)}
+
+    var volumeLevel
+        get() = sharedPreferences.getInt(
+            CUSTOM_VOLUME, 5
+        )
+
+        set(value) = sharedPreferences.edit {
+            putInt(CUSTOM_VOLUME, value)}
+
+    val isYoutubeMusicSearch
+        get() = sharedPreferences.getBoolean(YOUTUBE_SEARCH, false)
+
+    var isInternetConnected
+        get() = sharedPreferences.getBoolean(
+            INTERNET_CONNECTED, true
+        )
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(INTERNET_CONNECTED, value)}
+
+    var buttonColorOnWidgets
+        get() = sharedPreferences.getStringOrDefault(
+            WIDGET_BUTTON_COLOR, "default_color"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(WIDGET_BUTTON_COLOR, value)}
+
+    var customWidgetColor
+        get() = sharedPreferences.getInt(
+            WIDGET_CUSTOM_COLOR, ThemeStore.accentColor(App.getContext())
+        )
+
+        set(value) = sharedPreferences.edit {
+            putInt(WIDGET_CUSTOM_COLOR, value)}
 }
 
 enum class CoverLyricsType {

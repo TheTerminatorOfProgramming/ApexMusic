@@ -16,13 +16,11 @@ package com.ttop.app.apex.ui.fragments.about
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.*
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.app.ShareCompat
@@ -30,23 +28,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.javiersantos.appupdater.AppUpdater
-import com.github.javiersantos.appupdater.AppUpdaterUtils
-import com.github.javiersantos.appupdater.AppUpdaterUtils.UpdateListener
-import com.github.javiersantos.appupdater.enums.AppUpdaterError
-import com.github.javiersantos.appupdater.enums.Display
-import com.github.javiersantos.appupdater.enums.UpdateFrom
-import com.github.javiersantos.appupdater.objects.Update
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
-import com.ttop.app.apex.extensions.appendChar
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.extensions.withCenteredButtons
-import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.activities.AppIntroActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -143,11 +132,23 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
         }
         binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
-        binding.aboutContent.cardOther.version.setOnClickListener(this)
+        binding.aboutContent.cardPermissions?.ringtonePermission?.setOnClickListener(this)
+        binding.aboutContent.cardPermissions?.sourcesPermission?.setOnClickListener(this)
+        binding.aboutContent.cardPermissions?.intro?.setOnClickListener(this)
+        if (!PreferenceUtil.isDevModeEnabled) {
+            binding.aboutContent.cardOther.version.setOnClickListener(this)
+        }
         binding.aboutContent.cardOther.devMode.setOnClickListener(this)
         binding.aboutContent.cardOther.update.setOnClickListener(this)
+
+        if (!VersionUtils.hasOreo()) {
+            binding.aboutContent.cardPermissions?.sourcesPermission?.visibility = View.GONE
+        }else {
+            binding.aboutContent.cardPermissions?.sourcesPermission?.visibility = View.VISIBLE
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onClick(view: View) {
         when (view.id) {
             R.id.appGithub -> openUrl(Constants.GITHUB_PROJECT)
@@ -156,21 +157,41 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.changelog -> NavigationUtil.gotoWhatNews(requireActivity())
             R.id.openSource -> NavigationUtil.goToOpenSource(requireActivity())
             R.id.permissions_edit -> goToPermissions()
+            R.id.ringtone_permission -> {
+                if (!ApexUtil.hasAudioPermission()) {
+                    ApexUtil.enableAudioPermission(requireContext())
+                }else {
+                    showToast("This Permission has been granted")
+                }
+            }
+            R.id.sources_permission -> {
+                if (VersionUtils.hasOreo() && !ApexUtil.checkUnknownSources(requireContext())) {
+                    ApexUtil.enableUnknownSources(requireContext())
+                }else {
+                    showToast("This Permission has been granted")
+                }
+            }
             R.id.battery_permission_title -> ApexUtil.disableBatteryOptimization()
+            R.id.intro -> startActivity(
+                Intent(
+                    activity,
+                    AppIntroActivity()::class.java
+                )
+            )
             R.id.version -> {
                 if (!PreferenceUtil.isDevModeEnabled) {
                     if (count == 0) {
                         count += 1
                         timer.start()
                     } else {
-                        if (count < 10) {
+                        if (count < 9) {
                             count += 1
                         } else {
                             timer.cancel()
                             showToast("Developer Options On!")
                             PreferenceUtil.isDevModeEnabled = true
                             count = 0
-
+                            binding.aboutContent.cardOther.version.isClickable = false
                         }
                     }
                 } else {
@@ -196,6 +217,8 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
 
                     binding.aboutContent.cardOther.devMode.visibility = View.GONE
+
+                    binding.aboutContent.cardOther.version.isClickable = true
                 }
 
                 builder.setNegativeButton(android.R.string.no) { _, _ ->
@@ -206,16 +229,10 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 if (PreferenceUtil.updateSource == "github") {
                     ApexUtil.checkForUpdateGithub(requireContext(), true)
                 }else {
-                    when (PreferenceUtil.updateChannel) {
-                        "stable" -> {
-                            ApexUtil.checkForUpdateWebsite(requireContext(), true)
-                        }
-                        "preview" -> {
-                            ApexUtil.checkForUpdateWebsitePreview(requireContext(), true)
-                        }
-                        "beta" -> {
-                            ApexUtil.checkForUpdateWebsiteBeta(requireContext(), true)
-                        }
+                    if (PreferenceUtil.isPreviewChannel) {
+                        ApexUtil.checkForUpdateWebsitePreview(requireContext(), false)
+                    }else {
+                        ApexUtil.checkForUpdateWebsite(requireContext(), false)
                     }
                 }
             }
@@ -286,7 +303,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         intent.data = uri
         startActivity(intent)
     }
-
     private fun checkStoragePermission(): String {
         return if (VersionUtils.hasT()) {
             if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_MEDIA_AUDIO) }
@@ -346,5 +362,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        timer.cancel()
     }
 }

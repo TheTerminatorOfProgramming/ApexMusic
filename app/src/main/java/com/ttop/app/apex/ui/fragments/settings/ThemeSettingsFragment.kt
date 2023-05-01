@@ -15,6 +15,8 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.core.content.edit
@@ -38,7 +40,8 @@ import com.ttop.app.appthemehelper.util.VersionUtils
  * @author Hemanth S (h4h13).
  */
 
-class ThemeSettingsFragment : AbsSettingsFragment() {
+class ThemeSettingsFragment : AbsSettingsFragment(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
     @SuppressLint("CheckResult")
     override fun invalidateSettings() {
         val generalTheme: Preference? = findPreference(GENERAL_THEME)
@@ -143,27 +146,32 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             PreferenceUtil.nowPlayingScreen in listOf(Adaptive, Card, Classic, Color, Fit, Flat, Full, Gradient, Normal, Peek, Plain, Simple, Swipe)
         adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val swipeGestures: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE)
         swipeGestures?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
         autoplay?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
 
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
         extraControls?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val volume: TwoStatePreference? = findPreference(TOGGLE_VOLUME)
         volume?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val progressbar: TwoStatePreference? = findPreference(PROGRESS_BAR_STYLE)
@@ -222,6 +230,52 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         dismissCheck?.isEnabled = PreferenceUtil.dismissMethod != "none"
 
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
-        blackTheme?.isEnabled = PreferenceUtil.baseTheme != "light"
+        if (PreferenceUtil.baseTheme == "auto") {
+            when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    blackTheme?.isEnabled = true
+                }
+                Configuration.UI_MODE_NIGHT_NO,
+                Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                    blackTheme?.isEnabled = false
+                }
+            }
+        }
+
+        if (PreferenceUtil.baseTheme == "dark") {
+            blackTheme?.isEnabled = true
+        }
+
+        if (PreferenceUtil.baseTheme == "light") {
+            blackTheme?.isEnabled = false
+        }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            GENERAL_THEME -> {
+                val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
+
+                when(PreferenceUtil.baseTheme) {
+                    "light" -> {
+                        blackTheme?.isEnabled = false
+                    }
+                    "dark" -> {
+                        blackTheme?.isEnabled = true
+                    }
+                    "auto" -> {
+                        when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            Configuration.UI_MODE_NIGHT_YES -> {
+                                blackTheme?.isEnabled = true
+                            }
+                            Configuration.UI_MODE_NIGHT_NO,
+                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                blackTheme?.isEnabled = false
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

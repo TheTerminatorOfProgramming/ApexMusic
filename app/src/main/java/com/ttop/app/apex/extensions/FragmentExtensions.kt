@@ -81,6 +81,14 @@ fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(requireContext(), message, duration).show()
 }
 
+fun Fragment.showToastLong(@StringRes stringRes: Int, duration: Int = Toast.LENGTH_SHORT) {
+    showToast(getString(stringRes), duration)
+}
+
+fun Fragment.showToastLong(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(requireContext(), message, duration).show()
+}
+
 fun Context.getDrawableCompat(@DrawableRes drawableRes: Int): Drawable {
     return AppCompatResources.getDrawable(this, drawableRes)!!
 }

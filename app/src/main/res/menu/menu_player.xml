@@ -47,6 +47,11 @@
         android:orderInCategory="4"
         android:title="@string/drive_mode" />
     <item
+        android:id="@+id/action_search_youtube"
+        android:icon="@drawable/ic_youtube_search"
+        android:orderInCategory="4"
+        android:title="@string/action_search_youtube" />
+    <item
         android:id="@+id/action_go_to_album"
         android:icon="@drawable/ic_album"
         android:orderInCategory="4"

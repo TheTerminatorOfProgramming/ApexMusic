@@ -29,9 +29,7 @@ import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.AppWidgetBig
-import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
-import com.ttop.app.apex.appwidgets.AppWidgetSquare
+import com.ttop.app.apex.appwidgets.*
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SearchQueryHelper.getSongs
@@ -79,6 +77,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.getContext())
+
         if (!sharedPreferences.contains(RESTORE_LEGACY_WIDGETS)) {
             packageManager.setComponentEnabledSetting(
                 ComponentName(
@@ -103,6 +102,32 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
                 ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
             )
         }
+
+        if (PreferenceUtil.isDisableWidgets) {
+            //Classic Widget
+            packageManager.setComponentEnabledSetting(
+                ComponentName(
+                    applicationContext,
+                    AppWidgetClassic::class.java
+                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            //Circle Widget
+            packageManager.setComponentEnabledSetting(
+                ComponentName(
+                    applicationContext,
+                    AppWidgetCircle::class.java
+                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            //Full Widget
+            packageManager.setComponentEnabledSetting(
+                ComponentName(
+                    applicationContext,
+                    AppWidgetFull::class.java
+                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+        }
+
+        PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
 
         ApexUtil.updateApex(this)
     }
@@ -238,15 +263,6 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         }else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
-    }
-
-    public fun restart() {
-        val intent = intent
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        finish()
-        overridePendingTransition(0, 0)
-        startActivity(intent)
-        overridePendingTransition(0, 0)
     }
 
     override fun onServiceConnected() {

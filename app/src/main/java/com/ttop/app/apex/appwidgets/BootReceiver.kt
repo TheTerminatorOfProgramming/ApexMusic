@@ -52,6 +52,7 @@ class BootReceiver : BroadcastReceiver() {
                 )
             ).isNotEmpty()
         ) {
+
             val serviceIntent = Intent(context, MusicService::class.java)
             context.startForegroundService(serviceIntent)
         }

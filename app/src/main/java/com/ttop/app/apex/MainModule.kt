@@ -5,7 +5,6 @@ import com.ttop.app.apex.auto.AutoMusicProvider
 import com.ttop.app.apex.cast.ApexWebServer
 import com.ttop.app.apex.db.ApexDatabase
 import com.ttop.app.apex.db.MIGRATION_23_24
-import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.network.provideDefaultCache
 import com.ttop.app.apex.network.provideLastFmRest

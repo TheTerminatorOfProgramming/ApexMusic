@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintVertical_weight="2"
-        android:text="@string/ringtone_title" />
+        android:text="@string/app_name" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageLayout"
@@ -33,28 +33,17 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintVertical_weight="5">
 
-        <Button
-            android:id="@+id/permission_ringtone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black_color"
-            android:textColor="@color/md_white_1000"
-            android:text="Grant Ringtone Permission"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/imageLayout" />
-
         <ImageView
             android:id="@+id/image"
             style="@style/AppIntroDefaultImage"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:src="@drawable/ic_phonelink_ring"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"
             android:scaleType="fitCenter"
             android:contentDescription="@string/app_intro_image_content_description"
             app:layout_constraintTop_toTopOf="@+id/imageLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -69,5 +58,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLayout"
         app:layout_constraintVertical_weight="3"
-        android:text="@string/ringtone_summary" />
+        tools:text="@string/permission_summary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

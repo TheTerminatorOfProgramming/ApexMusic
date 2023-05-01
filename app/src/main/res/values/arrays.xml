@@ -102,6 +102,8 @@
         <item>@string/repeat</item>
         <item>@string/shuffle</item>
         <item>@string/update_notify</item>
+        <item>@string/close</item>
+        <item>@string/clear_playing_queue</item>
         <item>@string/none</item>
     </string-array>
 
@@ -109,6 +111,8 @@
         <item>repeat</item>
         <item>shuffle</item>
         <item>update</item>
+        <item>quit</item>
+        <item>clear_queue</item>
         <item>none</item>
     </string-array>
 
@@ -116,6 +120,8 @@
         <item>@string/repeat</item>
         <item>@string/shuffle</item>
         <item>@string/update_notify</item>
+        <item>@string/close</item>
+        <item>@string/clear_playing_queue</item>
         <item>@string/none</item>
     </string-array>
 
@@ -123,6 +129,8 @@
         <item>repeat</item>
         <item>shuffle</item>
         <item>update</item>
+        <item>quit</item>
+        <item>clear_queue</item>
         <item>none</item>
     </string-array>
 
@@ -150,6 +158,22 @@
         <item>none</item>
     </string-array>
 
+    <string-array name="pref_widget_button_color_list_titles">
+        <item>@string/default_color</item>
+        <item>@string/black</item>
+        <item>@string/white</item>
+        <item>@string/accent_color</item>
+        <item>@string/custom</item>
+    </string-array>
+
+    <string-array name="pref_widget_button_color_list_values">
+        <item>default_color</item>
+        <item>black</item>
+        <item>white</item>
+        <item>accent</item>
+        <item>custom</item>
+    </string-array>
+
     <string-array name="pref_update_frequency_list_titles">
         <item>@string/none</item>
         <item>@string/startup</item>
@@ -174,18 +198,6 @@
     <string-array name="pref_update_source_list_values">
         <item>github</item>
         <item>website</item>
-    </string-array>
-
-    <string-array name="pref_update_channel_list_titles">
-        <item>@string/stable</item>
-        <item>@string/preview</item>
-        <item>@string/beta</item>
-    </string-array>
-
-    <string-array name="pref_update_channel_list_values">
-        <item>stable</item>
-        <item>preview</item>
-        <item>beta</item>
     </string-array>
 
     <string-array name="pref_font_list_titles">

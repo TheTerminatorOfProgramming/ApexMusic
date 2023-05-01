@@ -44,11 +44,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val songInfo: TwoStatePreference? = findPreference(EXTRA_SONG_INFO)
         songInfo?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val snow: TwoStatePreference? = findPreference(SNOWFALL)
         snow?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
@@ -63,16 +65,19 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
         lyricsScreenOn?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val circlePlayButton: TwoStatePreference? = findPreference(CIRCLE_PLAY_BUTTON)
         circlePlayButton?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val swipeAnywhere: TwoStatePreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING)
         swipeAnywhere?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val queueShowAlways: TwoStatePreference? = findPreference(QUEUE_SHOW_ALWAYS)
@@ -87,11 +92,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val showLyrics: TwoStatePreference? = findPreference(LYRICS)
         showLyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val expand: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
         expand?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
     }
 
@@ -146,6 +153,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             }
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
+            LYRICS -> {
+                val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
+                if (!PreferenceUtil.showLyrics){
+                    lyrics?.isChecked = false
+                }
+
+            }
         }
     }
 }

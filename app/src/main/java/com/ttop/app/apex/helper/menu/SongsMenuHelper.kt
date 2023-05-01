@@ -41,6 +41,7 @@ object SongsMenuHelper : KoinComponent {
                 MusicPlayerRemote.playNext(songs)
                 return true
             }
+
             R.id.action_add_to_current_playing -> {
                 MusicPlayerRemote.enqueue(songs)
                 return true

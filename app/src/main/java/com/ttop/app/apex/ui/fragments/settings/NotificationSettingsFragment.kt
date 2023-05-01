@@ -24,17 +24,24 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
+import com.afollestad.materialdialogs.color.colorChooser
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
+import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.ACCENT_COLORS
+import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
 import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
+import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
@@ -43,20 +50,36 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 
 class NotificationSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
+    val musicService: MusicService? = MusicPlayerRemote.musicService
+    private val appWidgetClassic: AppWidgetClassic = AppWidgetClassic.instance
+    private val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
+    private val appWidgetCircle: AppWidgetCircle = AppWidgetCircle.instance
+
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
             CLASSIC_NOTIFICATION -> {
                 findPreference<Preference>(COLORED_NOTIFICATION)?.isEnabled =
                     sharedPreferences?.getBoolean(key, false)!!
             }
+            WIDGET_BUTTON_COLOR -> {
+                val customWidgetColor: ATEColorPreference? = findPreference(WIDGET_CUSTOM_COLOR)
+                customWidgetColor?.isEnabled = PreferenceUtil.buttonColorOnWidgets == "custom"
+
+                appWidgetClassic.notifyThemeChange(musicService)
+                appWidgetFull.notifyThemeChange(musicService)
+                appWidgetCircle.notifyThemeChange(musicService)
+            }
+            WIDGET_COLORS -> {
+                val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
+                val colors: TwoStatePreference? = findPreference(WIDGET_COLORS)
+                if (colors != null) {
+                    buttonColor?.isEnabled = !colors.isChecked
+                }
+            }
         }
     }
 
     override fun invalidateSettings() {
-        val musicService: MusicService? = MusicPlayerRemote.musicService
-        val appWidgetClassic: AppWidgetClassic = AppWidgetClassic.instance
-        val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
-
         val classicNotification: TwoStatePreference? = findPreference(CLASSIC_NOTIFICATION)
         classicNotification?.apply {
             isChecked = PreferenceUtil.isClassicNotification
@@ -99,6 +122,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             colors.isChecked = newValue as Boolean
             appWidgetClassic.notifyThemeChange(musicService)
             appWidgetFull.notifyThemeChange(musicService)
+            appWidgetCircle.notifyThemeChange(musicService)
             false
         }
 
@@ -181,6 +205,36 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             appWidgetClassic.notifyThemeChange(musicService)
             false
         }
+
+        val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
+        buttonColor?.let {
+            setSummary(it)
+            it.setOnPreferenceChangeListener { _, newValue ->
+                setSummary(it, newValue)
+                true
+            }
+        }
+
+        val customWidgetColor: ATEColorPreference? = findPreference(WIDGET_CUSTOM_COLOR)
+        val accentColor = PreferenceUtil.customWidgetColor
+        customWidgetColor?.setColor(accentColor, ColorUtil.darkenColor(accentColor))
+        customWidgetColor?.setOnPreferenceClickListener {
+            materialDialog().show {
+                colorChooser(
+                    initialSelection = accentColor,
+                    showAlphaSelector = false,
+                    colors = ACCENT_COLORS,
+                    subColors = ACCENT_COLORS_SUB, allowCustomArgb = true
+                ) { _, color ->
+                    PreferenceUtil.customWidgetColor = color
+                    appWidgetClassic.notifyThemeChange(musicService)
+                    appWidgetFull.notifyThemeChange(musicService)
+                    appWidgetCircle.notifyThemeChange(musicService)
+                    restartActivity()
+                }
+            }
+            return@setOnPreferenceClickListener true
+        }
     }
 
     override fun onResume() {
@@ -195,5 +249,8 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_notification)
+
+        val customWidgetColor: ATEColorPreference? = findPreference(WIDGET_CUSTOM_COLOR)
+        customWidgetColor?.isEnabled = PreferenceUtil.buttonColorOnWidgets == "custom"
     }
 }

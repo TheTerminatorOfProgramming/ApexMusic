@@ -158,7 +158,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 startActivity(
                     Intent(
                         this@AbsSlidingMusicPanelActivity,
-                        AppIntroActivity::class.java
+                        AppIntroActivity()::class.java
                     )
                 )
                 finish()
@@ -167,7 +167,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     startActivity(
                         Intent(
                             this@AbsSlidingMusicPanelActivity,
-                            AppIntroActivity::class.java
+                            AppIntroActivity()::class.java
                         )
                     )
                     finish()
@@ -178,7 +178,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 startActivity(
                     Intent(
                         this@AbsSlidingMusicPanelActivity,
-                        AppIntroActivity::class.java
+                        AppIntroActivity()::class.java
                     )
                 )
                 finish()
@@ -304,7 +304,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             PROGRESS_BAR_ALIGNMENT,
             PROGRESS_BAR_STYLE,
             EXTENDED_ACCENT,
-            DISMISS_FAILSAFE-> {
+            DISMISS_FAILSAFE,
+            LYRICS-> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {

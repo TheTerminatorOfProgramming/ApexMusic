@@ -180,11 +180,17 @@
         style="@style/Widget.Apex.Slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/songInfo"
+        app:layout_constraintBottom_toBottomOf="@+id/songTotalTime"
         app:layout_constraintEnd_toStartOf="@id/songTotalTime"
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
-        app:layout_constraintTop_toBottomOf="@+id/volumeSeekBar"
-        />
+        app:layout_constraintTop_toTopOf="@id/songCurrentProgress" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="1dp"
+        android:orientation="vertical"
+        android:id="@+id/middle_guideline"
+        app:layout_constraintGuide_percent="0.3"
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songCurrentProgress"
@@ -195,9 +201,9 @@
         android:paddingEnd="0dp"
         android:singleLine="true"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@+id/progressSlider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/progressSlider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/middle_guideline"
+        app:layout_constraintTop_toBottomOf="@id/materialTextView3"
         tools:text="@tools:sample/date/hhmmss" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -209,17 +215,16 @@
         android:paddingEnd="16dp"
         android:singleLine="true"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@+id/progressSlider"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/progressSlider"
+        app:layout_constraintTop_toBottomOf="@id/materialTextView3"
         tools:text="@tools:sample/date/hhmmss" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songInfo"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
         android:singleLine="true"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
@@ -230,7 +235,8 @@
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/materialTextView3"
         tools:text="@tools:sample/lorem/random" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_labs_default_widgets"
+        app:allowDividerBelow="false">
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="disable_widgets"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_disable_widgets"
+        android:title="@string/pref_title_disable_widgets"
+        app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_labs_restore_widgets"
         app:allowDividerBelow="false">
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -12,7 +24,6 @@
         android:summary="@string/pref_summary_restore_removed_widgets"
         android:title="@string/pref_title_restore_removed_widgets"
         app:allowDividerBelow="false"/>
-
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="restore_big_widget"
@@ -42,7 +53,6 @@
         android:summary="@string/pref_summary_use_new_widget"
         android:title="@string/pref_title_use_new_widget"
         app:allowDividerBelow="false"/>
-
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="square_widget_text"
@@ -67,14 +77,11 @@
         app:isPreferenceVisible="true"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
             android:key="update_channel"
-            android:defaultValue="stable"
-            android:layout="@layout/list_item_view"
-            android:entries="@array/pref_update_channel_list_titles"
-            android:entryValues="@array/pref_update_channel_list_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_update_channel"
             android:title="@string/pref_title_update_channel"
             android:icon="@drawable/ic_channel"
             app:allowDividerBelow="false"/>

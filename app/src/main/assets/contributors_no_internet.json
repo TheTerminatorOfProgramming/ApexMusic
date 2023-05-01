@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Jesse Collins (TTOP)",
+    "summary": "Lead Developer",
+    "link": "https://github.com/TheTerminatorOfProgramming",
+    "image": "ttop.jpg"
+  },
+  {
+    "name": "Hemanth Savarala",
+    "summary": "Lead Developer & Designer (RetroMusic)",
+    "link": "https://github.com/h4h13",
+    "image": "hemanth.jpg"
+  },
+  {
+    "name": "Prathamesh More",
+    "summary": "Developer (RetroMusic)",
+    "link": "https://prathameshmm02.github.io",
+    "image": "prathamesh.jpg"
+  }
+]

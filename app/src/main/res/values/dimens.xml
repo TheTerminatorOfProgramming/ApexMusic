@@ -69,5 +69,11 @@
     <dimen name="seekbar_padding">16dp</dimen>
     <dimen name="cast_mini_controller_height">64dp</dimen>
     <dimen name="cast_mini_controller_image_size">48dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_width">200dp</dimen>
+    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="container_margin">8dp</dimen>
+    <dimen name="container_horizontal_margin">16dp</dimen>
 
 </resources>

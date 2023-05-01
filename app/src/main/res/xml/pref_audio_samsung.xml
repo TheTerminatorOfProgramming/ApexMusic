@@ -71,6 +71,26 @@
         app:icon="@drawable/ic_play_arrow"
         app:allowDividerBelow="false"/>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="headset_volume"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_headset_volume"
+        android:title="@string/pref_title_headset_volume"
+        android:dependency="toggle_headset"
+        app:allowDividerBelow="false"/>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+        android:defaultValue="5"
+        android:key="custom_volume"
+        android:layout="@layout/list_item_view_seekbar"
+        android:max="15"
+        app:ateKey_pref_unit=""
+        android:title="@string/pref_title_headset_level"
+        app:showSeekBarValue="true"
+        android:dependency="headset_volume"
+        app:allowDividerBelow="false"/>
+
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_bluetooth"

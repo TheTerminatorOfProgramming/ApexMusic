@@ -9,10 +9,9 @@ import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.github.appintro.SlidePolicy
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.appintro.SlidePolicy
 
 class BatterySlideFragment : Fragment(), SlidePolicy {
 
@@ -24,15 +23,22 @@ class BatterySlideFragment : Fragment(), SlidePolicy {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_battery_intro, container, false)
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         battery = view.findViewById(R.id.permission_battery) as Button
+
+        if (!ApexUtil.hasBatteryPermission()) {
+            battery.text = "Disable Battery Optimization"
+        }else {
+            battery.text = "Battery Optimization Already Disabled!"
+        }
 
         battery.setOnClickListener {
            ApexUtil.disableBatteryOptimization()
         }
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_deep_purple_400))
     }
 
     override val isPolicyRespected: Boolean

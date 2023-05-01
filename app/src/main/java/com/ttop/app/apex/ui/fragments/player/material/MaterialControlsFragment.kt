@@ -83,7 +83,7 @@ class MaterialControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album.text = getSongInfo(song)
+        binding.album.text = song.albumName
         binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {

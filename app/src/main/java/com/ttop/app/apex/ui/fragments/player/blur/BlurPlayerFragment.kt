@@ -165,6 +165,10 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
                 NavigationUtil.gotoDriveMode(requireActivity())
                 return true
             }
+            R.id.action_search_youtube -> {
+                ApexUtil.searchYoutube(requireContext(), song.title, song.artistName)
+                return true
+            }
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(song).show(childFragmentManager, "DELETE_SONGS")
                 return true

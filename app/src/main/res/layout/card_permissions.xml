@@ -120,7 +120,7 @@
             android:textSize="17sp"/>
 
         <com.ttop.app.apex.views.ListItemView
-            android:id="@+id/permissions_edit"
+            android:id="@+id/ringtone_permission"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
@@ -128,9 +128,51 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/battery_permission_title"
+            app:listItemIcon="@drawable/ic_phonelink_ring"
+            app:listItemSummary="@string/ringtone_summary"
+            app:listItemTitle="@string/ringtone_title"
+            android:layout_marginTop="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/sources_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ringtone_permission"
+            app:listItemIcon="@drawable/ic_unknown_sources"
+            app:listItemSummary="@string/unknown_sources_summary"
+            app:listItemTitle="@string/unknown_sources_title"
+            android:layout_marginTop="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/permissions_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sources_permission"
             app:listItemIcon="@drawable/ic_storage"
             app:listItemSummary="@string/pref_summary_permissions_edit"
             app:listItemTitle="@string/permission_edit"
+            android:layout_marginTop="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/intro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/permissions_edit"
+            app:listItemIcon="@drawable/ic_launch"
+            app:listItemSummary="@string/intro_summary"
+            app:listItemTitle="@string/intro_label"
             android:layout_marginTop="5dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

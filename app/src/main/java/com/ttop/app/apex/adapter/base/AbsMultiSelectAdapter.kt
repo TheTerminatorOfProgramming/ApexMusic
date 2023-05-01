@@ -1,6 +1,5 @@
 package com.ttop.app.apex.adapter.base
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.ActionMode
 import android.view.Menu

@@ -17,12 +17,7 @@ package com.ttop.app.apex.service
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.media.session.MediaSessionCompat
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.ttop.app.apex.auto.AutoMediaIDHelper
-import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.cycleRepeatMode
 import com.ttop.app.apex.helper.ShuffleHelper.makeShuffleList
 import com.ttop.app.apex.model.Album
@@ -30,9 +25,9 @@ import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Playlist
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.*
-import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
-import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
+import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
 import com.ttop.app.apex.service.MusicService.Companion.CYCLE_REPEAT
+import com.ttop.app.apex.service.MusicService.Companion.QUEUE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_SHUFFLE
 import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
@@ -196,7 +191,6 @@ class MediaSessionCallback(
                 cycleRepeatMode()
                 musicService.updateMediaSessionPlaybackState()
             }
-
             TOGGLE_SHUFFLE -> {
                 musicService.toggleShuffle()
                 musicService.updateMediaSessionPlaybackState()
@@ -208,21 +202,16 @@ class MediaSessionCallback(
             UPDATE_NOTIFY -> {
                 musicService.updatePlaybackControls()
             }
+            ACTION_QUIT -> {
+                musicService.quit()
+            }
+            QUEUE_CHANGED -> {
+                musicService.clearQueue()
+            }
             else -> {
                 logE("Unsupported action: $action")
             }
         }
-    }
-
-    private fun checkAndStartPlaying(songs: ArrayList<Song>, itemId: Long) {
-        var songIndex = MusicUtil.indexOfSongInList(songs, itemId)
-        if (songIndex == -1) {
-            songIndex = 0
-        }
-        openQueue(songs, songIndex)
-    }
-
-    private fun openQueue(songs: ArrayList<Song>, index: Int, startPlaying: Boolean = true) {
-        MusicPlayerRemote.openQueue(songs, index, startPlaying)
+        musicService.updatePlaybackControls()
     }
 }

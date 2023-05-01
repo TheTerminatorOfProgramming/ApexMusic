@@ -59,21 +59,25 @@ class AudioSettings : AbsSettingsFragment() {
         val pause: TwoStatePreference? = findPreference(PAUSE_ON_ZERO_VOLUME)
         pause?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val manageAudio: TwoStatePreference? = findPreference(MANAGE_AUDIO_FOCUS)
         manageAudio?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val gapless: TwoStatePreference? = findPreference(GAP_LESS_PLAYBACK)
         gapless?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val autoplay: TwoStatePreference? = findPreference(TOGGLE_HEADSET)
         autoplay?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val bluetoothPreference: Preference? = findPreference(BLUETOOTH_PLAYBACK)
@@ -97,6 +101,7 @@ class AudioSettings : AbsSettingsFragment() {
         val specificDevice : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
         specificDevice?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val bluetoothDevice : ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
@@ -126,6 +131,15 @@ class AudioSettings : AbsSettingsFragment() {
         val btVolume: TwoStatePreference? = findPreference(BT_VOLUME)
         btVolume?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.bluetoothVolumeLevel = 5
+            true
+        }
+
+        val headsetVolume: TwoStatePreference? = findPreference(HEADSET_VOLUME)
+        headsetVolume?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.volumeLevel = 5
+            true
         }
     }
 

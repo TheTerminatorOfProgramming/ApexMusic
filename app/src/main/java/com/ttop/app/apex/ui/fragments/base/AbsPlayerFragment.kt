@@ -114,6 +114,10 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 NavigationUtil.gotoDriveMode(requireActivity())
                 return true
             }
+            R.id.action_search_youtube -> {
+                ApexUtil.searchYoutube(requireContext(), song.title, song.artistName)
+                return true
+            }
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(song).show(childFragmentManager, "DELETE_SONGS")
                 return true
@@ -374,6 +378,10 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         if (nps != NowPlayingScreen.Tiny){
             playerToolbar()?.menu?.removeItem(R.id.action_rewind)
             playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+        }
+
+        if (!PreferenceUtil.isInternetConnected) {
+            playerToolbar()?.menu?.removeItem(R.id.action_search_youtube)
         }
     }
 

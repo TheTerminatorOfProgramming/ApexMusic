@@ -41,7 +41,6 @@
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_advanced"
         app:allowDividerBelow="false">
-
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
             android:defaultValue="30"
             android:key="filter_song"
@@ -72,6 +71,19 @@
             app:isPreferenceVisible="@bool/auto_rotate"
             app:allowDividerBelow="false"/>
 
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="youtube_search"
+            android:icon="@drawable/ic_youtube_search"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_youtube_search"
+            android:title="@string/pref_title_youtube_search"
+            app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_update"
+        app:allowDividerBelow="false">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:key="update_frequency"
             android:defaultValue="none"

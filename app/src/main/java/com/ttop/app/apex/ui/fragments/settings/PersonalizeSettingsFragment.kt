@@ -14,12 +14,14 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -31,21 +33,25 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         val user: TwoStatePreference? = findPreference(TOGGLE_USER_NAME)
         user?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val banner: TwoStatePreference? = findPreference(TOGGLE_HOME_BANNER)
         banner?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val suggestions: TwoStatePreference? = findPreference(TOGGLE_SUGGESTIONS)
         suggestions?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val pauseHistory: TwoStatePreference? = findPreference(PAUSE_HISTORY)
         pauseHistory?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val lastTab: TwoStatePreference? = findPreference(REMEMBER_LAST_TAB)
@@ -57,26 +63,24 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         }
         lastTab?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
         val albumArt: TwoStatePreference? = findPreference(ALBUM_ART_ON_LOCK_SCREEN)
         albumArt?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val blur: TwoStatePreference? = findPreference(BLURRED_ALBUM_ART)
         blur?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        }
-
-        val wearOs: TwoStatePreference? = findPreference(WEAR_OS)
-        wearOs?.isChecked = PreferenceUtil.isWearOs
-        wearOs?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val lockScreen: TwoStatePreference? = findPreference(LOCK_SCREEN)
         lockScreen?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val appBarMode: ATEListPreference? = findPreference(APPBAR_MODE)
@@ -87,9 +91,11 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (VersionUtils.hasR()) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q){
+            addPreferencesFromResource(R.xml.pref_ui_a10)
+        }else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.R){
             addPreferencesFromResource(R.xml.pref_ui_a11)
-        }else {
+        }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
             addPreferencesFromResource(R.xml.pref_ui)
         }
     }
