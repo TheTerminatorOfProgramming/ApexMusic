@@ -121,13 +121,13 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
 
         setupViews()
         binding.title.isSelected = true
-        binding.album?.isSelected = true
-        binding.artist?.isSelected = true
+        binding.album.isSelected = true
+        binding.artist.isSelected = true
 
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.artist?.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
         binding.songInfo.drawAboveSystemBars()
@@ -177,10 +177,6 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
             }
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
-                return true
-            }
-            R.id.action_search_youtube -> {
-                ApexUtil.searchYoutube(requireContext(), song.title, song.artistName)
                 return true
             }
             R.id.action_delete_from_device -> {

@@ -91,10 +91,6 @@ object SongMenuHelper : KoinComponent {
                 MusicPlayerRemote.playNext(song)
                 return true
             }
-            R.id.action_search_youtube -> {
-                ApexUtil.searchYoutube(activity, song.title, song.artistName)
-                return true
-            }
             R.id.action_add_to_current_playing -> {
                 MusicPlayerRemote.enqueue(song)
                 return true
@@ -150,11 +146,6 @@ object SongMenuHelper : KoinComponent {
             popupMenu.inflate(menuRes)
             popupMenu.setOnMenuItemClickListener(this)
             popupMenu.show()
-
-            val menu = popupMenu.menu
-            if (!PreferenceUtil.isInternetConnected) {
-                menu.removeItem(R.id.action_search_youtube)
-            }
         }
 
         override fun onMenuItemClick(item: MenuItem): Boolean {

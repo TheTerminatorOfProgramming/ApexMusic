@@ -44,7 +44,6 @@
     <string name="action_save_playing_queue">Save playing queue</string>
     <string name="action_scan">Scan</string>
     <string name="action_search">Search</string>
-    <string name="action_search_youtube">Search youtube</string>
     <string name="action_set">Start</string>
     <string name="action_set_as_ringtone">Set as ringtone</string>
     <string name="action_set_as_start_directory">Set as start directory</string>
@@ -471,7 +470,6 @@
     <string name="pref_summary_widget_image_full_curve">Change full widget corners curve</string>
     <string name="pref_summary_widget_invert_color">Override the buttons color from black to white</string>
     <string name="pref_summary_widget_transparent">Make classic and full widgets transparent</string>
-    <string name="pref_summary_youtube_search">Use youtube music instead of youtube to search for music videos</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
     <string name="pref_title_album_artists_only">Navigate by Album Artist</string>
     <string name="pref_title_album_cover_style">Album cover theme</string>
@@ -566,7 +564,6 @@
     <string name="pref_title_widget_image_full_curve">Full widget album art radius</string>
     <string name="pref_title_widget_invert_color">Invert color</string>
     <string name="pref_title_widget_transparent">Transparent widgets</string>
-    <string name="pref_title_youtube_search">Youtube search</string>
     <string name="preview">Preview</string>
     <string name="pro">Pro</string>
     <string name="pro_summary">Black theme, Now playing themes, Carousel effect and more..</string>

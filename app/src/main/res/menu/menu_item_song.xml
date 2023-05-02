@@ -6,10 +6,6 @@
         android:title="@string/action_play_next"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_search_youtube"
-        android:title="@string/action_search_youtube"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/action_add_to_current_playing"
         android:title="@string/action_add_to_playing_queue"
         app:showAsAction="never" />

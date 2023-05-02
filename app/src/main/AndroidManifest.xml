@@ -40,7 +40,6 @@
     <queries>
         <package android:name="com.android.musicfx" />
         <package android:name="com.samsung.android.soundassistant" />
-        <package android:name="com.google.android.apps.youtube.music" />
     </queries>
 
     <application

@@ -565,36 +565,6 @@ object ApexUtil {
         PreferenceUtil.dayOfYear = currentDayOfYear
     }
 
-    fun searchYoutube(context:Context, title: String, artist: String) {
-        if (isNetworkAvailable(context)) {
-            if (checkYoutubeMusic(context)) {
-                if (PreferenceUtil.isYoutubeMusicSearch) {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://music.youtube.com/search?q=$title+$artist"))
-                    context.startActivity(intent)
-                }else {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=$title+$artist"))
-                    context.startActivity(intent)
-                }
-            }else {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=$title+$artist"))
-                context.startActivity(intent)
-            }
-        }else {
-            context.showToast("Internet Disconnected: Unable to Perform Request!")
-        }
-    }
-
-    fun checkYoutubeMusic(context: Context): Boolean {
-        val packages: List<ApplicationInfo>
-        val pm: PackageManager = context.packageManager
-        packages = pm.getInstalledApplications(0)
-        for (packageInfo in packages) {
-            if (packageInfo.packageName == "com.google.android.apps.youtube.music")
-                return true
-        }
-        return false
-    }
-
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val nw = connectivityManager.activeNetwork ?: return false

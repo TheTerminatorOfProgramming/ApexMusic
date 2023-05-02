@@ -64,21 +64,12 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
-
-        val youtubeSearch: TwoStatePreference? = findPreference(YOUTUBE_SEARCH)
-        youtubeSearch?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         PreferenceUtil.languageCode =
             AppCompatDelegate.getApplicationLocales().toLanguageTags().ifEmpty { "auto" }
         addPreferencesFromResource(R.xml.pref_advanced)
-
-        val youtubeSearch: TwoStatePreference? = findPreference(YOUTUBE_SEARCH)
-        youtubeSearch?.isVisible = ApexUtil.checkYoutubeMusic(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -91,21 +82,10 @@ class OtherSettingsFragment : AbsSettingsFragment(),
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        val youtubeSearch: TwoStatePreference? = findPreference(YOUTUBE_SEARCH)
-        youtubeSearch?.isVisible = ApexUtil.checkYoutubeMusic(requireContext())
-    }
-
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
             AUTO_ROTATE -> {
                 autoRotate()
-            }
-            YOUTUBE_SEARCH -> {
-                val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
-                val musicService = MusicService()
-                appWidgetFull.notifyThemeChange(musicService)
             }
         }
     }

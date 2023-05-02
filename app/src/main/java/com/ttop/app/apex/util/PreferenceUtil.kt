@@ -1138,9 +1138,6 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putInt(CUSTOM_VOLUME, value)}
 
-    val isYoutubeMusicSearch
-        get() = sharedPreferences.getBoolean(YOUTUBE_SEARCH, false)
-
     var isInternetConnected
         get() = sharedPreferences.getBoolean(
             INTERNET_CONNECTED, true

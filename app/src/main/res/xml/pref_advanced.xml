@@ -70,15 +70,6 @@
             android:title="@string/pref_title_auto_rotate"
             app:isPreferenceVisible="@bool/auto_rotate"
             app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="youtube_search"
-            android:icon="@drawable/ic_youtube_search"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_youtube_search"
-            android:title="@string/pref_title_youtube_search"
-            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"

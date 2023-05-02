@@ -28,8 +28,6 @@ import android.widget.RelativeLayout
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
@@ -65,7 +63,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import kotlin.math.abs
 
 abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout),
@@ -112,10 +109,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
-                return true
-            }
-            R.id.action_search_youtube -> {
-                ApexUtil.searchYoutube(requireContext(), song.title, song.artistName)
                 return true
             }
             R.id.action_delete_from_device -> {
@@ -378,10 +371,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         if (nps != NowPlayingScreen.Tiny){
             playerToolbar()?.menu?.removeItem(R.id.action_rewind)
             playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-        }
-
-        if (!PreferenceUtil.isInternetConnected) {
-            playerToolbar()?.menu?.removeItem(R.id.action_search_youtube)
         }
     }
 
