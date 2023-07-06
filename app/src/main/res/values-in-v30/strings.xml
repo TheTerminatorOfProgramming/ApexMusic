@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_summary_album_art_on_lockscreen">Tampilkan seni album sebagai latar belakang pada wear os. Dapat menyebabkan masalah dengan notifikasi di beberapa perangkat.</string>
+    <string name="pref_title_album_art_on_lockscreen">Pakai OS</string>
+</resources>

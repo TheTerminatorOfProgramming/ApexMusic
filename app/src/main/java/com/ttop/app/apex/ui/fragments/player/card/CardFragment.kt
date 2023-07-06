@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.fragments.player.card
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.ttop.app.apex.R
@@ -97,7 +98,10 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+            setNavigationOnClickListener {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
             setOnMenuItemClickListener(this@CardFragment)
 
             ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)

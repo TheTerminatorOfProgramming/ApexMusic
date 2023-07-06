@@ -128,11 +128,16 @@ class WhatsNewFragment : BottomSheetDialogFragment() {
         }
 
         fun showChangeLog(activity: FragmentActivity) {
-            val pInfo = activity.packageManager.getPackageInfo(activity.packageName, 0)
-            val currentVersion = PackageInfoCompat.getLongVersionCode(pInfo)
-            if (currentVersion > lastVersion && !BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 val changelogBottomSheet = WhatsNewFragment()
                 changelogBottomSheet.show(activity.supportFragmentManager, TAG)
+            }else {
+                val pInfo = activity.packageManager.getPackageInfo(activity.packageName, 0)
+                val currentVersion = PackageInfoCompat.getLongVersionCode(pInfo)
+                if (currentVersion > lastVersion) {
+                    val changelogBottomSheet = WhatsNewFragment()
+                    changelogBottomSheet.show(activity.supportFragmentManager, TAG)
+                }
             }
         }
     }

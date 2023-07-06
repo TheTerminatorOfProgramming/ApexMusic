@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bengali">bengalí</string>
+    <string name="english">Inglés</string>
+    <string name="indonesian">indonesio</string>
+    <string name="japanese">japonés</string>
+    <string name="portuguese">portugués</string>
+    <string name="spanish">Español</string>
+    <string name="system_default">Sistema por defecto</string>
+</resources>

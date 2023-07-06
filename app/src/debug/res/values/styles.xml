@@ -112,4 +112,44 @@
         <item name="android:textSize">13sp</item>
         <item name="fontFamily">@font/sans</item>
     </style>
+
+    <style name="SansThemeOverlay">
+        <item name="fontFamily">@font/sans</item>
+        <item name="android:fontFamily">@font/sans</item>
+    </style>
+
+    <style name="BarlowThemeOverlay">
+        <item name="fontFamily">@font/barlow</item>
+        <item name="android:fontFamily">@font/barlow</item>
+    </style>
+
+    <style name="JuraThemeOverlay">
+        <item name="fontFamily">@font/jura</item>
+        <item name="android:fontFamily">@font/jura</item>
+    </style>
+
+    <style name="PencilThemeOverlay">
+        <item name="fontFamily">@font/pencil</item>
+        <item name="android:fontFamily">@font/pencil</item>
+    </style>
+
+    <style name="SamsungThemeOverlay">
+        <item name="fontFamily">@font/samsung_sharp_sans</item>
+        <item name="android:fontFamily">@font/samsung_sharp_sans</item>
+    </style>
+
+    <style name="DrexsThemeOverlay">
+        <item name="fontFamily">@font/drexs</item>
+        <item name="android:fontFamily">@font/drexs</item>
+    </style>
+
+    <style name="HermanoaltoThemeOverlay">
+        <item name="fontFamily">@font/hermanoalto_chisel</item>
+        <item name="android:fontFamily">@font/hermanoalto_chisel</item>
+    </style>
+
+    <style name="CaptureThemeOverlay">
+        <item name="fontFamily">@font/capture_it</item>
+        <item name="android:fontFamily">@font/capture_it</item>
+    </style>
 </resources>

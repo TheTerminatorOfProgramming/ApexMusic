@@ -10,39 +10,40 @@
         android:id="@+id/songCurrentProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
+        android:layout_marginStart="12dp"
         android:minWidth="40dp"
         android:singleLine="true"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@+id/progressSlider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/progressSlider"
+        app:layout_constraintStart_toStartOf="@id/progressSlider"
+        app:layout_constraintTop_toBottomOf="@id/progressSlider"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
         tools:text="@tools:sample/date/hhmmss" />
 
-    <com.google.android.material.slider.Slider
+    <SeekBar
         android:id="@+id/progressSlider"
-        style="@style/Widget.Apex.Slider"
-        android:layout_width="0dp"
+        style="@style/SquigglySlider"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="2dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/songTotalTime"
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        tools:progress="50" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songTotalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
+        android:gravity="end"
         android:minWidth="40dp"
         android:singleLine="true"
+        android:layout_marginEnd="12dp"
         android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintBottom_toBottomOf="@+id/progressSlider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/progressSlider"
+        app:layout_constraintTop_toBottomOf="@+id/progressSlider"
+        app:layout_constraintEnd_toEndOf="@+id/progressSlider"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
         tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -147,7 +148,6 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
         android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

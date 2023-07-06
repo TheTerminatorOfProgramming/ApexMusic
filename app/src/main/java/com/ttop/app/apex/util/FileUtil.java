@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ttop.app.apex.Constants;
+import com.ttop.app.apex.R;
 import com.ttop.app.apex.adapter.Storage;
 import com.ttop.app.apex.model.Song;
 import com.ttop.app.apex.repository.RealSongRepository;
@@ -270,9 +271,9 @@ public final class FileUtil {
     if (defaultPathState.equals(Environment.MEDIA_MOUNTED) || defaultPathState.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
       Storage ext = new Storage();
       if (Environment.isExternalStorageRemovable()) {
-        ext.title = "SD Card";
+        ext.title = String.valueOf(R.string.sd_card);
       } else {
-        ext.title = "Internal Storage";
+        ext.title = String.valueOf(R.string.internal_storage);;
       }
       ext.file = getExternalStorageDirectory();
       storageItems.add(ext);
@@ -306,9 +307,9 @@ public final class FileUtil {
               try {
                 Storage item = new Storage();
                 if (path.toLowerCase(Locale.ROOT).contains("sd")) {
-                  item.title = "SD Card";
+                  item.title = String.valueOf(R.string.sd_card);
                 } else {
-                  item.title = "External Storage";
+                  item.title = String.valueOf(R.string.external_storage);
                 }
                 item.file = new File(path);
                 storageItems.add(item);

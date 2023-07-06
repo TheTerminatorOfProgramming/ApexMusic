@@ -33,6 +33,7 @@ import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.values
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
@@ -108,6 +109,11 @@ private class NowPlayingScreenAdapter(private val context: Context) : PagerAdapt
         val binding = PreferenceNowPlayingScreenItemBinding.inflate(inflater, collection, true)
         Glide.with(context).load(nowPlayingScreen.drawableResId).into(binding.image)
         binding.title.setText(nowPlayingScreen.titleRes)
+        if (ApexUtil.isTablet) {
+            binding.title.textSize = 30f
+        }else {
+            binding.title.textSize = 24f
+        }
         return binding.root
     }
 

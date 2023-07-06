@@ -8,20 +8,42 @@
     android:clickable="true"
     android:focusable="true">
 
+    <View
+        android:id="@+id/colorGradientBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <include layout="@layout/shadow_statusbar_toolbar" />
 
-    <include layout="@layout/status_bar" />
+    <FrameLayout
+        android:id="@+id/statusBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/status_bar" />
+    </FrameLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyle"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/TopCornerCardView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
+        app:shapeAppearanceOverlay="@style/TabQueueTopCornerCardView"
         app:behavior_hideable="false"
-        android:layout_marginTop="24dp"
-        app:cardElevation="24dp"
+        android:backgroundTint="@color/transparent"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:peekHeight="0dp">
 
@@ -35,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="@integer/overScrollMode"
-                tools:listitem="@layout/item_list" />
+                tools:listitem="@layout/item_queue_player" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -48,7 +70,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.45"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
-        app:layout_constraintTop_toBottomOf="@id/status_bar" />
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment"/>
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
@@ -73,4 +97,10 @@
         app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="1dp"
+        android:orientation="vertical"
+        android:id="@+id/middle_guideline"
+        app:layout_constraintGuide_percent="0.5"
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

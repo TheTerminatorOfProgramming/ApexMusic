@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/windowBackground"
+    android:background="?attr/colorSurface"
     android:clickable="true"
     android:focusable="true">
 
@@ -14,23 +14,46 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include layout="@layout/shadow_statusbar_toolbar" />
+    <FrameLayout
+        android:id="@+id/statusbarToolbarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <include layout="@layout/status_bar" />
+        <include layout="@layout/shadow_statusbar_toolbar" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/statusBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/status_bar" />
+    </FrameLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyle"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/TopCornerCardView"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:shapeAppearanceOverlay="@style/TabQueueTopCornerCardView"
         app:behavior_hideable="false"
-        android:layout_marginTop="35dp"
-        app:cardElevation="24dp"
+        android:backgroundTint="@color/transparent"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:peekHeight="0dp">
 
@@ -54,10 +77,12 @@
         android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
-        app:layout_constraintTop_toBottomOf="@id/status_bar" />
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer" />
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
@@ -68,7 +93,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
-        tools:layout="@layout/fragment_player_playback_controls" />
+        tools:layout="@layout/fragment_color_player_playback_controls" />
+
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"
@@ -81,4 +107,10 @@
         app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="1dp"
+        android:orientation="vertical"
+        android:id="@+id/middle_guideline"
+        app:layout_constraintGuide_percent="0.5"
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,15 @@
     android:clickable="true"
     android:focusable="true">
 
+    <View
+        android:id="@+id/colorGradientBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <include layout="@layout/shadow_statusbar_toolbar" />
 
     <LinearLayout
@@ -32,6 +41,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:layout="@layout/fragment_album_cover" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/playerQueueSheet"
+                    style="@style/BottomSheetStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:shapeAppearanceOverlay="@style/NPSCornerCardView"
+                    app:behavior_hideable="false"
+                    android:alpha="0.8"
+                    android:backgroundTint="@color/black_color"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    android:visibility="gone"
+                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                    tools:peekHeight="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:overScrollMode="@integer/overScrollMode"
+                            tools:listitem="@layout/item_list" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
             </com.ttop.app.apex.views.HeightFitSquareLayout>
 
             <LinearLayout

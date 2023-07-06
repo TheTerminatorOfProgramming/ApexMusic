@@ -31,6 +31,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/playerQueueSheet"
+        style="@style/BottomSheetStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:shapeAppearanceOverlay="@style/NPSCornerCardView"
+        app:behavior_hideable="false"
+        android:alpha="0.8"
+        android:backgroundTint="@color/black_color"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        android:visibility="gone"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        tools:peekHeight="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="@integer/overScrollMode"
+                tools:listitem="@layout/item_list" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
         android:name="com.ttop.app.apex.ui.fragments.player.material.MaterialControlsFragment"

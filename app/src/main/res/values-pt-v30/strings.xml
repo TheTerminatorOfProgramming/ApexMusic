@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_summary_album_art_on_lockscreen">Mostre a capa do álbum como plano de fundo no wear os. Pode causar problemas com notificação em alguns dispositivos.</string>
+    <string name="pref_title_album_art_on_lockscreen">Wear OS</string>
+</resources>

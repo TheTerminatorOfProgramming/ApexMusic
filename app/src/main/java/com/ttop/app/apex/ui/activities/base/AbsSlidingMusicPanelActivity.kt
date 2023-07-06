@@ -305,7 +305,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             PROGRESS_BAR_STYLE,
             EXTENDED_ACCENT,
             DISMISS_FAILSAFE,
-            LYRICS-> {
+            LYRICS -> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {
@@ -642,8 +642,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             miniPlayerFragment?.view?.setOnLongClickListener {
                 if (PreferenceUtil.isDismissFailsafe) {
                     val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                        .setMessage("Do you want to clear the playing queue?")
-                        .setTitle("Alert!")
+                        .setMessage(R.string.clear_queue)
+                        .setTitle(R.string.alert)
                         .setCancelable(false)
                         .setPositiveButton("Yes") {
                                 _: DialogInterface?, _: Int -> MusicPlayerRemote.clearQueue()

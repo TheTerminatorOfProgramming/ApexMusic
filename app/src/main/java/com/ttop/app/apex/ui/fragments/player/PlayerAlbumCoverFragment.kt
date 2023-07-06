@@ -49,7 +49,6 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -268,26 +267,18 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         }
 
         if (position < MusicPlayerRemote.position) {
-            if (VersionUtils.hasT()) {
-                MusicPlayerRemote.playPreviousSong()
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
             }else {
-                if (PreferenceUtil.isAutoplay) {
-                    MusicPlayerRemote.playPreviousSong()
-                }else {
-                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                }
+                MusicPlayerRemote.playPreviousSong()
             }
         }
 
         if (position > MusicPlayerRemote.position) {
-            if (VersionUtils.hasT()) {
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+            } else {
                 MusicPlayerRemote.playNextSong()
-            }else {
-                if (PreferenceUtil.isAutoplay) {
-                    MusicPlayerRemote.playNextSong()
-                } else {
-                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                }
             }
         }
     }
@@ -334,5 +325,5 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private val lyricViewNpsList =
-        listOf(Blur, Classic, Color, Flat, Material, MD3, Normal, Plain, Simple)
+        listOf(Blur, Classic, Color, Flat, Material, MD3, Normal, Plain, Simple, Swipe, Fit, Adaptive, BlurCard, Card, Full, Gradient)
 }

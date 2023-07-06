@@ -44,18 +44,18 @@ class PlayingQueueAdapter(
     dataSet: MutableList<Song>,
     private var current: Int,
     itemLayoutRes: Int,
-) : SongAdapter(activity, dataSet, itemLayoutRes),
+) : SongQueueAdapter(activity, dataSet, itemLayoutRes),
     DraggableItemAdapter<PlayingQueueAdapter.ViewHolder>,
     SwipeableItemAdapter<PlayingQueueAdapter.ViewHolder>,
     PopupTextProvider {
 
     private var songToRemove: Song? = null
 
-    override fun createViewHolder(view: View): SongAdapter.ViewHolder {
+    override fun createViewHolder(view: View): SongQueueAdapter.ViewHolder {
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SongAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SongQueueAdapter.ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         val song = dataSet[position]
         holder.time?.text = MusicUtil.getReadableDurationString(song.duration)
@@ -73,7 +73,7 @@ class PlayingQueueAdapter(
         return CURRENT
     }
 
-    override fun loadAlbumCover(song: Song, holder: SongAdapter.ViewHolder) {
+    override fun loadAlbumCover(song: Song, holder: SongQueueAdapter.ViewHolder) {
         if (holder.image == null) {
             return
         }
@@ -94,7 +94,7 @@ class PlayingQueueAdapter(
         notifyDataSetChanged()
     }
 
-    private fun setAlpha(holder: SongAdapter.ViewHolder, alpha: Float) {
+    private fun setAlpha(holder: SongQueueAdapter.ViewHolder, alpha: Float) {
         holder.image?.alpha = alpha
         holder.title?.alpha = alpha
         holder.text?.alpha = alpha
@@ -139,7 +139,7 @@ class PlayingQueueAdapter(
         songToRemove = song
     }
 
-    inner class ViewHolder(itemView: View) : SongAdapter.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : SongQueueAdapter.ViewHolder(itemView) {
         @DraggableItemStateFlags
         private var mDragStateFlags: Int = 0
 

@@ -57,7 +57,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 
 class UserInfoFragment : Fragment() {
@@ -120,7 +119,7 @@ class UserInfoFragment : Fragment() {
 
     private fun showBannerImageOptions() {
         val list = requireContext().resources.getStringArray(R.array.image_settings_options)
-        MaterialAlertDialogBuilder(requireContext()).setTitle("Banner Image")
+        MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.banner_image)
             .setItems(list) { _, which ->
                 when (which) {
                     0 -> selectBannerImage()
@@ -139,7 +138,7 @@ class UserInfoFragment : Fragment() {
 
     private fun showUserImageOptions() {
         val list = requireContext().resources.getStringArray(R.array.image_settings_options)
-        MaterialAlertDialogBuilder(requireContext()).setTitle("Profile Image")
+        MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.profile_image)
             .setItems(list) { _, which ->
                 when (which) {
                     0 -> pickNewPhoto()
@@ -216,7 +215,7 @@ class UserInfoFragment : Fragment() {
                 showToast(ImagePicker.getError(data))
             }
             else -> {
-                showToast("Task Cancelled")
+                showToast(R.string.task_cancelled)
             }
         }
     }

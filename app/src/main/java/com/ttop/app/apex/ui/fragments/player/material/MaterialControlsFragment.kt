@@ -18,6 +18,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.slider.Slider
@@ -31,6 +32,7 @@ import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 
@@ -44,7 +46,7 @@ class MaterialControlsFragment :
     private var _binding: FragmentMaterialPlaybackControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: Slider
+    override val seekBar: SeekBar
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -100,6 +102,7 @@ class MaterialControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updateSong()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onPlayingMetaChanged() {
@@ -109,6 +112,7 @@ class MaterialControlsFragment :
 
     override fun onPlayStateChanged() {
         updatePlayPauseDrawableState()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onRepeatModeChanged() {

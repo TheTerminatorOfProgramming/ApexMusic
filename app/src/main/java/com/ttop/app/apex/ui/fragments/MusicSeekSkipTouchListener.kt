@@ -58,24 +58,16 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                 val endY = event.y
                 if (!wasSeeking && isAClick(startX, endX, startY, endY)) {
                     if (next) {
-                        if (VersionUtils.hasT()) {
-                            MusicPlayerRemote.playNextSong()
+                        if (PreferenceUtil.isAutoplay) {
+                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                         }else {
-                            if (PreferenceUtil.isAutoplay) {
-                                MusicPlayerRemote.playNextSong()
-                            }else {
-                                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                            }
+                            MusicPlayerRemote.playNextSong()
                         }
                     } else {
-                        if (VersionUtils.hasT()) {
-                            MusicPlayerRemote.playPreviousSong()
+                        if (PreferenceUtil.isAutoplay) {
+                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                         }else {
-                            if (PreferenceUtil.isAutoplay) {
-                                MusicPlayerRemote.playPreviousSong()
-                            }else {
-                                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                            }
+                            MusicPlayerRemote.playPreviousSong()
                         }
                     }
                 }

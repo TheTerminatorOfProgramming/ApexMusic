@@ -13,15 +13,15 @@
  */
 package com.ttop.app.apex.util
 
+import android.app.KeyguardManager
 import android.content.Context
+import android.content.Context.KEYGUARD_SERVICE
 import android.content.Intent
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
@@ -33,17 +33,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
 import androidx.core.net.toUri
 import com.dcastalia.localappupdate.DownloadApk
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.AppUpdaterUtils
+import com.ttop.app.apex.BuildConfig
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.ttop.app.apex.App.Companion.getContext
-import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.appendChar
 import com.ttop.app.apex.extensions.showToast
@@ -238,6 +243,40 @@ object ApexUtil {
         return strippedTitle
     }
 
+    fun updateSimpleAppBarTitleTextAppearance(context: Context, simpleToolbarLayout: MaterialToolbar){
+        if (PreferenceUtil.isCustomFont == "sans") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.SansThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "barlow") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "jura") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "pencil") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.PencilThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "samsung") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.SamsungThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "drexs") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.DrexsThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "hermanoalto") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.HermanoaltoThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "capture") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaptureThemeOverlay)
+        }
+    }
+
     fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
         //Expanded
         if (PreferenceUtil.isCustomFont == "sans") {
@@ -260,14 +299,17 @@ object ApexUtil {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SamsungThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "ostrich") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.OstrichThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "drexs") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.DrexsThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "hermanoalto") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.HermanoaltoThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "capture") {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaptureThemeOverlay)
         }
-
         //Collapsed
         if (PreferenceUtil.isCustomFont == "sans") {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SansThemeOverlay)
@@ -289,8 +331,12 @@ object ApexUtil {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SamsungThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "ostrich") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.OstrichThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "drexs") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.DrexsThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "hermanoalto") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.HermanoaltoThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "capture") {
@@ -314,7 +360,7 @@ object ApexUtil {
 
                     val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
                     val finalVersionNumber = finalVersionNumberString.toDouble()
-                    val isPreview = update.latestVersion.endsWith("-preview")
+                    val isPreview = update.latestVersion.contains("-preview")
 
                     if (isPreview) {
                         val updateVersionPreview = update.latestVersion.dropLast(8).toDouble()
@@ -578,5 +624,55 @@ object ApexUtil {
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
             else -> false
         }
+    }
+
+    fun Context.getCatchyUsername(): String {
+        // This will only work for English locales, I don't want to localize this
+        return if (Locale.getDefault().toLanguageTag().contains("en")) {
+            arrayOf(
+                "The Unnamed",
+                "The Unknown",
+                "The Mysterious",
+                "The Unrevealed",
+                "The Nameless",
+                "The Unspeakable",
+                "The Unmentionable",
+            ).random().apply { logD("Username $this") }
+        } else {
+            logD("username here")
+            getString(R.string.user_name)
+        }
+    }
+
+    fun checkForBiometrics(context: Context) : Boolean{
+        var canAuthenticate = true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT < 29) {
+                val keyguardManager : KeyguardManager = context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+                val packageManager : PackageManager = context.packageManager
+                if (!packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
+                    canAuthenticate = false
+                }
+                if (!keyguardManager.isKeyguardSecure) {
+                    canAuthenticate = false
+                }
+            } else if (Build.VERSION.SDK_INT == 29){
+                val biometricManager = BiometricManager.from(context)
+                if (biometricManager.canAuthenticate() != BIOMETRIC_SUCCESS){
+                    canAuthenticate = false
+                }
+            }
+            else if (Build.VERSION.SDK_INT >= 30){
+                val biometricManager = BiometricManager.from(context)
+                val authenticationTypes = BIOMETRIC_WEAK or DEVICE_CREDENTIAL
+                val authenticate = biometricManager.canAuthenticate(authenticationTypes)
+                if (authenticate != BIOMETRIC_SUCCESS) {
+                    canAuthenticate = false
+                }
+            }
+        }else{
+            canAuthenticate = false
+        }
+        return canAuthenticate
     }
 }

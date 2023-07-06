@@ -17,6 +17,7 @@ package com.ttop.app.apex.ui.fragments.player.md3
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.SeekBar
 import android.widget.TextView
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
@@ -33,6 +34,7 @@ import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
+import com.ttop.app.apex.views.SquigglyProgress
 
 class MD3PlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_md3_player_playback_controls) {
@@ -40,7 +42,7 @@ class MD3PlaybackControlsFragment :
     private var _binding: FragmentMd3PlayerPlaybackControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: Slider
+    override val seekBar: SeekBar
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -137,6 +139,7 @@ class MD3PlaybackControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updateSong()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onPlayingMetaChanged() {
@@ -145,6 +148,7 @@ class MD3PlaybackControlsFragment :
 
     override fun onPlayStateChanged() {
         updatePlayPauseDrawableState()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onRepeatModeChanged() {

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintVertical_weight="2"
-        android:text="Bluetooth Autoplay" />
+        android:text="@string/bt_autoplay" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageLayout"
@@ -58,5 +58,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLayout"
         app:layout_constraintVertical_weight="3"
-        android:text="Bluetooth Autoplay will work only if the app is open or in the recents app list" />
+        android:text="@string/bt_autoplay_summary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

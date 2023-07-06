@@ -44,11 +44,11 @@ import java.io.File
 @GlideExtension
 object ApexGlideExtension {
 
-    private const val DEFAULT_ARTIST_IMAGE =
+    private val DEFAULT_ARTIST_IMAGE =
         R.drawable.default_artist_art
-    private const val DEFAULT_SONG_IMAGE: Int = R.drawable.default_audio_art
-    private const val DEFAULT_ALBUM_IMAGE = R.drawable.default_album_art
-    private const val DEFAULT_ERROR_IMAGE_BANNER = R.drawable.material_design_default
+    private val DEFAULT_SONG_IMAGE: Int = R.drawable.default_audio_art
+    private val DEFAULT_ALBUM_IMAGE = R.drawable.default_album_art
+    private val DEFAULT_ERROR_IMAGE_BANNER = R.drawable.material_design_default
 
     private val DEFAULT_DISK_CACHE_STRATEGY_ARTIST = DiskCacheStrategy.RESOURCE
     private val DEFAULT_DISK_CACHE_STRATEGY = DiskCacheStrategy.NONE

@@ -38,6 +38,7 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -50,9 +51,23 @@ class AppWidgetSquare : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = RemoteViews(
-            context.packageName, R.layout.app_widget_square
-        )
+        var appWidgetView: RemoteViews? = null
+        appWidgetView = if(PreferenceUtil.isProgressBar) {
+            when (PreferenceUtil.progressColor) {
+                "black" -> RemoteViews(context.packageName, R.layout.app_widget_square_black)
+                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_square_blue)
+                "green" -> RemoteViews(context.packageName, R.layout.app_widget_square_green)
+                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_square_orange)
+                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_square_purple)
+                "red" -> RemoteViews(context.packageName, R.layout.app_widget_square_red)
+                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_square_teal)
+                "white" -> RemoteViews(context.packageName, R.layout.app_widget_square_white)
+                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_square_yellow)
+                else -> RemoteViews(context.packageName, R.layout.app_widget_square_teal)
+            }
+        }else {
+            RemoteViews(context.packageName, R.layout.app_widget_square_time)
+        }
 
         appWidgetView.setViewVisibility(
             R.id.title,
@@ -84,16 +99,6 @@ class AppWidgetSquare : BaseAppWidget() {
 
         linkButtons(context, appWidgetView)
 
-        /*if (MusicPlayerRemote.playingQueue.isNotEmpty()){
-            if (!MusicPlayerRemote.isPlaying){
-                MusicPlayerRemote.resumePlaying()
-                MusicPlayerRemote.pauseSong()
-            }else{
-                MusicPlayerRemote.pauseSong()
-                MusicPlayerRemote.resumePlaying()
-            }
-        }*/
-
         pushUpdate(context, appWidgetIds, appWidgetView)
     }
 
@@ -101,9 +106,23 @@ class AppWidgetSquare : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(
-            service.packageName, R.layout.app_widget_square
-        )
+        var appWidgetView: RemoteViews? = null
+        appWidgetView = if(PreferenceUtil.isProgressBar) {
+            when (PreferenceUtil.progressColor) {
+                "black" -> RemoteViews(service.packageName, R.layout.app_widget_square_black)
+                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_square_blue)
+                "green" -> RemoteViews(service.packageName, R.layout.app_widget_square_green)
+                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_square_orange)
+                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_square_purple)
+                "red" -> RemoteViews(service.packageName, R.layout.app_widget_square_red)
+                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_square_teal)
+                "white" -> RemoteViews(service.packageName, R.layout.app_widget_square_white)
+                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_square_yellow)
+                else -> RemoteViews(service.packageName, R.layout.app_widget_square_teal)
+            }
+        }else {
+            RemoteViews(service.packageName, R.layout.app_widget_square_time)
+        }
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -167,6 +186,7 @@ class AppWidgetSquare : BaseAppWidget() {
                 R.id.button_prev,
                 View.VISIBLE
             )
+            appWidgetView.setTextViewText(R.id.songText, MusicUtil.getReadableDurationString(service.songProgressMillis.toLong()) + "/" + MusicUtil.getReadableDurationString(service.songDurationMillis.toLong()))
         }
 
         val primaryColor = MaterialValueHelper.getPrimaryTextColor(service, false)
@@ -178,7 +198,7 @@ class AppWidgetSquare : BaseAppWidget() {
                 R.id.button_toggle_play_pause,
                 service.getTintedDrawable(
                     playPauseRes,
-                    service.resources.getColor(R.color.md_red_500)
+                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_red_500)
                 ).toBitmap()
             )
         }else {
@@ -213,7 +233,9 @@ class AppWidgetSquare : BaseAppWidget() {
         // Link actions buttons to intents
         linkButtons(service, appWidgetView)
 
-        appWidgetView.setProgressBar(R.id.progress_bar, service.songDurationMillis, service.songProgressMillis, false)
+        if (PreferenceUtil.isProgressBar) {
+            appWidgetView.setProgressBar(R.id.progress_bar, service.songDurationMillis, service.songProgressMillis, false)
+        }
 
         if (imageSize == 0) {
             imageSize = 250

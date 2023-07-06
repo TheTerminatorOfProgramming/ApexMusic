@@ -13,6 +13,7 @@
  */
 package com.ttop.app.apex.util
 
+import android.os.Environment
 import android.util.Log
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.model.lyrics.AbsSynchronizedLyrics
@@ -25,7 +26,7 @@ import java.io.*
  */
 object LyricUtil {
     private val lrcRootPath =
-        getExternalStorageDirectory().toString() + "/Apex/lyrics/"
+        getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/Apex/Lyrics/"
     private const val TAG = "LyricUtil"
     fun writeLrcToLoc(
         title: String, artist: String, lrcContext: String

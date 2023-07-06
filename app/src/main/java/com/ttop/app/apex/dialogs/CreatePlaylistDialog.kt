@@ -67,7 +67,7 @@ class CreatePlaylistDialog : DialogFragment() {
                 if (!TextUtils.isEmpty(playlistName)) {
                     libraryViewModel.addToPlaylist(requireContext(), playlistName, songs)
                 } else {
-                    playlistContainer.error = "Playlist name can't be empty"
+                    playlistContainer.error = getString(R.string.playlist_name_empty_cant)
                 }
             }
             .setNegativeButton(R.string.action_cancel, null)

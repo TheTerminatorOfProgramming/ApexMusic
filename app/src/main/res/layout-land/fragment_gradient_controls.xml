@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -102,26 +102,24 @@
         app:srcCompat="@drawable/ic_favorite_border"
         tools:tint="@color/md_black_1000" />
 
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songCurrentProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
+        android:layout_marginStart="12dp"
         android:minWidth="40dp"
         android:singleLine="true"
         android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressSlider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/progressSlider"
-        tools:text="@tools:sample/date/hhmmss" />
+        app:layout_constraintStart_toStartOf="@id/progressSlider"
+        app:layout_constraintTop_toBottomOf="@id/progressSlider"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
+        tools:text="@tools:sample/date/hhmmss"/>
 
     <com.google.android.material.slider.Slider
         android:id="@+id/progressSlider"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         style="@style/Widget.Apex.Slider"
         app:layout_constraintEnd_toStartOf="@id/songTotalTime"
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
@@ -133,15 +131,14 @@
         android:id="@+id/songTotalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
+        android:gravity="end"
         android:minWidth="40dp"
         android:singleLine="true"
+        android:layout_marginEnd="12dp"
         android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressSlider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/progressSlider"
+        app:layout_constraintTop_toBottomOf="@+id/progressSlider"
+        app:layout_constraintEnd_toEndOf="@+id/progressSlider"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
         tools:text="@tools:sample/date/hhmmss" />
 
 
@@ -192,6 +189,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@id/songInfo"
+        app:layout_constraintTop_toBottomOf="@+id/playPauseButton"
         tools:background="@color/md_red_400"
         tools:layout_height="52dp" />
 
@@ -209,17 +207,9 @@
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
         android:textColor="@color/md_white_1000"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@tools:sample/lorem/random"
         tools:textColor="@color/md_black_1000" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="1dp"
-        android:orientation="vertical"
-        android:id="@+id/middle_guideline"
-        app:layout_constraintGuide_percent="0.5"
-        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

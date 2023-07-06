@@ -14,8 +14,11 @@
  */
 package com.ttop.app.apex.ui.fragments.player.simple
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
@@ -52,7 +55,9 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
+import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.DrawableGradient
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,7 +80,7 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
     private var lastColor: Int = 0
     override val paletteColor: Int
         get() = lastColor
-
+    private var valueAnimator: ValueAnimator? = null
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
@@ -91,16 +96,6 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
         setUpPlayerToolbar()
         setupRecyclerView()
         playerToolbar().drawAboveSystemBars()
-
-        if (PreferenceUtil.isQueueHidden){
-            binding.playerQueueSheet?.visibility = View.GONE
-        }else{
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
-
-        if (PreferenceUtil.queueShowAlways) {
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
     }
 
     private fun setUpSubFragments() {
@@ -112,6 +107,7 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -191,30 +187,6 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
                 goToArtist(requireActivity())
                 return true
             }
-            R.id.now_playing -> {
-                if (ApexUtil.isTablet) {
-                    val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
-                        whichFragment(R.id.playerAlbumCoverFragment)
-                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
-                        PreferenceUtil.isQueueHidden = true
-                        binding.playerQueueSheet?.visibility = View.GONE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }else{
-                        PreferenceUtil.isQueueHidden = false
-                        binding.playerQueueSheet?.visibility = View.VISIBLE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }
-                }else {
-                    requireActivity().findNavController(R.id.fragment_container).navigate(
-                        R.id.playing_queue_fragment,
-                        null,
-                        navOptions { launchSingleTop = true }
-                    )
-                    mainActivity.collapsePanel()
-                }
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                return true
-            }
             R.id.action_show_lyrics -> {
                 goToLyrics(requireActivity())
                 return true
@@ -254,6 +226,15 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
                 showToast(genre)
                 return true
             }
+            R.id.action_queue -> {
+                if (!ApexUtil.isTablet) {
+                    if (binding.playerQueueSheet.visibility == View.VISIBLE){
+                        binding.playerQueueSheet.visibility = View.GONE
+                    }else{
+                        binding.playerQueueSheet.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
         return false
     }
@@ -281,6 +262,35 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
             colorControlNormal(),
             requireActivity()
         )
+
+        if (PreferenceUtil.isAdaptiveColor) {
+            colorize(color.backgroundColor)
+        }
+    }
+
+    private fun colorize(i: Int) {
+        if (valueAnimator != null) {
+            valueAnimator?.cancel()
+        }
+
+        valueAnimator = ValueAnimator.ofObject(
+            ArgbEvaluator(),
+            surfaceColor(),
+            i
+        )
+        valueAnimator?.addUpdateListener { animation ->
+            if (isAdded) {
+                val drawable = DrawableGradient(
+                    GradientDrawable.Orientation.TOP_BOTTOM,
+                    intArrayOf(
+                        animation.animatedValue as Int,
+                        surfaceColor()
+                    ), 0
+                )
+                binding.colorGradientBackground.background = drawable
+            }
+        }
+        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
     }
 
     override fun onFavoriteToggled() {
@@ -296,7 +306,10 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
 
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.inflateMenu(R.menu.menu_player)
-        binding.playerToolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed()}
+        binding.playerToolbar.setNavigationOnClickListener {
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
         binding.playerToolbar.setOnMenuItemClickListener(this)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
@@ -306,12 +319,21 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = PlayingQueueAdapter(
-            requireActivity() as AppCompatActivity,
-            MusicPlayerRemote.playingQueue.toMutableList(),
-            MusicPlayerRemote.position,
-            R.layout.item_queue_player
-        )
+        playingQueueAdapter = if (ApexUtil.isTablet){
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player_plain
+            )
+        }else {
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player
+            )
+        }
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()

@@ -454,7 +454,7 @@ public class MediaNotificationProcessor {
   public int getMightyColor() {
     boolean isDarkBg =
         ColorUtil.INSTANCE.isColorLight(
-            ATHUtil.INSTANCE.resolveColor(context, R.attr.colorSurface));
+            ATHUtil.INSTANCE.resolveColor(context, com.google.android.material.R.attr.colorSurface));
     if (isDarkBg) {
       if (isColorLight(backgroundColor)) {
         return primaryTextColor;

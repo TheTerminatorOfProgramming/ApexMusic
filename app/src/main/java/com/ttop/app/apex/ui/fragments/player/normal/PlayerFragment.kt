@@ -162,16 +162,6 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
         PreferenceManager.getDefaultSharedPreferences(requireContext())
             .registerOnSharedPreferenceChangeListener(this)
         playerToolbar().drawAboveSystemBars()
-
-        if (PreferenceUtil.isQueueHidden){
-            binding.playerQueueSheet?.visibility = View.GONE
-        }else{
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
-
-        if (PreferenceUtil.queueShowAlways) {
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
     }
 
     override fun onDestroyView() {
@@ -183,6 +173,7 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -262,30 +253,6 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
                 goToArtist(requireActivity())
                 return true
             }
-            R.id.now_playing -> {
-                if (ApexUtil.isTablet) {
-                    val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
-                        whichFragment(R.id.playerAlbumCoverFragment)
-                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
-                        PreferenceUtil.isQueueHidden = true
-                        binding.playerQueueSheet?.visibility = View.GONE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }else{
-                        PreferenceUtil.isQueueHidden = false
-                        binding.playerQueueSheet?.visibility = View.VISIBLE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }
-                }else {
-                    requireActivity().findNavController(R.id.fragment_container).navigate(
-                        R.id.playing_queue_fragment,
-                        null,
-                        navOptions { launchSingleTop = true }
-                    )
-                    mainActivity.collapsePanel()
-                }
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                return true
-            }
             R.id.action_show_lyrics -> {
                 goToLyrics(requireActivity())
                 return true
@@ -325,6 +292,15 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
                 showToast(genre)
                 return true
             }
+            R.id.action_queue -> {
+                if (!ApexUtil.isTablet) {
+                    if (binding.playerQueueSheet.visibility == View.VISIBLE){
+                        binding.playerQueueSheet.visibility = View.GONE
+                    }else{
+                        binding.playerQueueSheet.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
         return false
     }
@@ -339,7 +315,10 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.inflateMenu(R.menu.menu_player)
         //binding.playerToolbar.menu.setUpWithIcons()
-        binding.playerToolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher}
+        binding.playerToolbar.setNavigationOnClickListener {
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
         binding.playerToolbar.setOnMenuItemClickListener(this)
 
         ToolbarContentTintHelper.colorizeToolbar(
@@ -358,21 +337,30 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
     private fun startOrStopSnow(isSnowFalling: Boolean) {
         if (_binding == null) return
         if (isSnowFalling && !surfaceColor().isColorLight) {
-            binding.snowfallView.isVisible = true
-            binding.snowfallView.restartFalling()
+            binding.snowfallView?.isVisible = true
+            binding.snowfallView?.restartFalling()
         } else {
-            binding.snowfallView.isVisible = false
-            binding.snowfallView.stopFalling()
+            binding.snowfallView?.isVisible = false
+            binding.snowfallView?.stopFalling()
         }
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = PlayingQueueAdapter(
-            requireActivity() as AppCompatActivity,
-            MusicPlayerRemote.playingQueue.toMutableList(),
-            MusicPlayerRemote.position,
-            R.layout.item_queue_player
-        )
+        playingQueueAdapter = if (ApexUtil.isTablet){
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player_plain
+            )
+        }else {
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player
+            )
+        }
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()
@@ -381,11 +369,11 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
         animator.supportsChangeAnimations = false
         wrappedAdapter =
             recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
-        binding.recyclerView?.layoutManager = linearLayoutManager
-        binding.recyclerView?.adapter = wrappedAdapter
-        binding.recyclerView?.itemAnimator = animator
-        binding.recyclerView?.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
-        binding.recyclerView?.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
+        binding.recyclerView.layoutManager = linearLayoutManager
+        binding.recyclerView.adapter = wrappedAdapter
+        binding.recyclerView.itemAnimator = animator
+        binding.recyclerView.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
+        binding.recyclerView.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
 
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
@@ -401,7 +389,7 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
     }
 
     private fun resetToCurrentPosition() {
-        binding.recyclerView?.stopScroll()
+        binding.recyclerView.stopScroll()
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
 

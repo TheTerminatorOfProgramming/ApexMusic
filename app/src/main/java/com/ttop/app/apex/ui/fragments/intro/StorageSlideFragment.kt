@@ -19,7 +19,7 @@ class StorageSlideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_cyan_400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_cyan_400))
     }
     companion object {
         fun newInstance(): StorageSlideFragment {

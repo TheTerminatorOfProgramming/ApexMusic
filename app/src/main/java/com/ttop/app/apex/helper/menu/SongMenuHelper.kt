@@ -51,7 +51,7 @@ import java.io.File
 import kotlin.coroutines.coroutineContext
 
 object SongMenuHelper : KoinComponent {
-    const val MENU_RES = R.menu.menu_item_song
+    val MENU_RES = R.menu.menu_item_song
 
     fun handleMenuClick(activity: FragmentActivity, song: Song, menuItemId: Int): Boolean {
         val libraryViewModel = activity.getViewModel() as LibraryViewModel

@@ -50,6 +50,10 @@ class BootReceiver : BroadcastReceiver() {
                 ComponentName(
                     context, AppWidgetSquare::class.java
                 )
+            ).isNotEmpty()|| widgetManager.getAppWidgetIds(
+                ComponentName(
+                    context, AppWidgetQueue::class.java
+                )
             ).isNotEmpty()
         ) {
 

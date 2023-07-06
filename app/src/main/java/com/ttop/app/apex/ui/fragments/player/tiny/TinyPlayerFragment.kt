@@ -224,32 +224,24 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
                 }
 
                 override fun onFling(
-                    e1: MotionEvent,
+                    e1: MotionEvent?,
                     e2: MotionEvent,
                     velocityX: Float,
                     velocityY: Float
                 ): Boolean {
                     if (abs(velocityX) > abs(velocityY)) {
                         if (velocityX < 0) {
-                            if (VersionUtils.hasT()) {
+                            if (PreferenceUtil.isAutoplay) {
+                                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                            } else {
                                 MusicPlayerRemote.playNextSong()
-                            }else {
-                                if (PreferenceUtil.isAutoplay) {
-                                    MusicPlayerRemote.playNextSong()
-                                } else {
-                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                                }
                             }
                             return true
                         } else if (velocityX > 0) {
-                            if (VersionUtils.hasT()) {
-                                MusicPlayerRemote.playPreviousSong()
+                            if (PreferenceUtil.isAutoplay) {
+                                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                             }else {
-                                if (PreferenceUtil.isAutoplay) {
-                                    MusicPlayerRemote.playPreviousSong()
-                                }else {
-                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                                }
+                                MusicPlayerRemote.playPreviousSong()
                             }
                             return true
                         }

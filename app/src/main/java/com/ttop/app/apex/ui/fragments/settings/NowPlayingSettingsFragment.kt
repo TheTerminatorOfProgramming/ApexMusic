@@ -24,6 +24,7 @@ import com.ttop.app.apex.*
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 
 /**
  * @author Hemanth S (h4h13).
@@ -39,12 +40,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         carouselEffect?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             return@setOnPreferenceChangeListener true
-        }
-
-        val songInfo: TwoStatePreference? = findPreference(EXTRA_SONG_INFO)
-        songInfo?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
         }
 
         val snow: TwoStatePreference? = findPreference(SNOWFALL)
@@ -80,15 +75,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val queueShowAlways: TwoStatePreference? = findPreference(QUEUE_SHOW_ALWAYS)
-        queueShowAlways?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            PreferenceUtil.shouldRecreate = true
-            restartActivity()
-            true
-        }
-
         val showLyrics: TwoStatePreference? = findPreference(LYRICS)
         showLyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -97,6 +83,53 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val expand: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
         expand?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val songInfo: TwoStatePreference? = findPreference(EXTRA_SONG_INFO)
+        songInfo?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
+        autoplay?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val volume: TwoStatePreference? = findPreference(TOGGLE_VOLUME)
+        volume?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
+        adaptiveColor?.isEnabled =
+            PreferenceUtil.nowPlayingScreen in listOf(
+                NowPlayingScreen.Adaptive,
+                NowPlayingScreen.Card,
+                NowPlayingScreen.Classic,
+                NowPlayingScreen.Color,
+                NowPlayingScreen.Fit,
+                NowPlayingScreen.Flat,
+                NowPlayingScreen.Full,
+                NowPlayingScreen.Gradient,
+                NowPlayingScreen.Normal,
+                NowPlayingScreen.MD3,
+                NowPlayingScreen.Material,
+                NowPlayingScreen.Peek,
+                NowPlayingScreen.Plain,
+                NowPlayingScreen.Simple,
+                NowPlayingScreen.Swipe
+            )
+
+        if (adaptiveColor?.isEnabled == false) {
+            adaptiveColor.isChecked = false
+        }
+
+        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
@@ -114,6 +147,30 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
     private fun updateNowPlayingScreenSummary() {
         val preference: Preference? = findPreference(NOW_PLAYING_SCREEN_ID)
         preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
+
+        val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
+        adaptiveColor?.isEnabled =
+            PreferenceUtil.nowPlayingScreen in listOf(
+                NowPlayingScreen.Adaptive,
+                NowPlayingScreen.Card,
+                NowPlayingScreen.Classic,
+                NowPlayingScreen.Color,
+                NowPlayingScreen.Fit,
+                NowPlayingScreen.Flat,
+                NowPlayingScreen.Full,
+                NowPlayingScreen.Gradient,
+                NowPlayingScreen.Normal,
+                NowPlayingScreen.MD3,
+                NowPlayingScreen.Material,
+                NowPlayingScreen.Peek,
+                NowPlayingScreen.Plain,
+                NowPlayingScreen.Simple,
+                NowPlayingScreen.Swipe
+            )
+
+        if (adaptiveColor?.isEnabled == false) {
+            adaptiveColor.isChecked = false
+        }
     }
 
     private fun updateAlbumCoverStyle() {
@@ -145,7 +202,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         PreferenceUtil.unregisterOnSharedPreferenceChangedListener(this)
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         when (key) {
             NOW_PLAYING_SCREEN_ID -> {
                 updateNowPlayingScreenSummary()
@@ -158,7 +215,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 if (!PreferenceUtil.showLyrics){
                     lyrics?.isChecked = false
                 }
-
             }
         }
     }

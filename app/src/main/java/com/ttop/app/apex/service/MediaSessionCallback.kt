@@ -32,6 +32,7 @@ import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_SHUFFLE
 import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.apex.util.logE
 import org.koin.core.component.KoinComponent
@@ -85,7 +86,7 @@ class MediaSessionCallback(
                 musicService.openQueue(songs, 0, true)
             }
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SHUFFLE -> {
-                val allSongs: ArrayList<Song> = songRepository.songs() as ArrayList<Song>
+                val allSongs = songRepository.songs().toMutableList()
                 makeShuffleList(allSongs, -1)
                 musicService.openQueue(allSongs, 0, true)
             }
@@ -167,12 +168,22 @@ class MediaSessionCallback(
 
     override fun onSkipToNext() {
         super.onSkipToNext()
-        musicService.playNextSong(true)
+        val isPlaying = musicService.isPlaying
+        if (PreferenceUtil.isAutoplay) {
+            musicService.playNextSongAuto(true, isPlaying)
+        } else {
+            musicService.playNextSong(true)
+        }
     }
 
     override fun onSkipToPrevious() {
         super.onSkipToPrevious()
-        musicService.playPreviousSong(true)
+        val isPlaying = musicService.isPlaying
+        if (PreferenceUtil.isAutoplay) {
+            musicService.playPreviousSongAuto(true, isPlaying)
+        } else {
+            musicService.playPreviousSong(true)
+        }
     }
 
     override fun onStop() {

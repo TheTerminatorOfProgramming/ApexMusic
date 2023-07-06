@@ -103,6 +103,26 @@
             app:icon="@drawable/ic_buttons_color"
             app:allowDividerBelow="false"/>
 
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="show_widget_progressbar"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_replace_progressbar"
+            android:title="@string/pref_title_replace_progressbar"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="teal"
+            android:entries="@array/pref_progressbar_list_titles"
+            android:entryValues="@array/pref_progressbar_list_values"
+            android:key="progressbar_color"
+            android:layout="@layout/list_item_view"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/progressbar_color"
+            android:summary="@string/pref_summary_progress_bar_color"
+            android:dependency="show_widget_progressbar"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
@@ -179,6 +199,47 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_full_widget_text_alignment"
+            app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_widgets_queue"
+        app:allowDividerBelow="false">
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="queue_shape"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_widget_queue_shape"
+            android:title="@string/pref_title_widget_queue_shape"
+            android:disableDependentsState="true"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="10"
+            android:key="widget_queue_image"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="20"
+            android:summary="@string/pref_summary_widget_image_queue_curve"
+            android:title="@string/pref_title_widget_image_queue_curve"
+            app:showSeekBarValue="true"
+            app:dependency="queue_shape"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="queue_blur"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_widget_queue_blur"
+            android:title="@string/blur_widget"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="queue_reverse"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_queue_reverse"
+            android:title="@string/pref_title_queue_reverse"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

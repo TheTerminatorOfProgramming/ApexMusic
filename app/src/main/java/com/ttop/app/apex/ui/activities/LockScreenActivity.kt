@@ -15,33 +15,52 @@
 package com.ttop.app.apex.ui.activities
 
 import android.app.KeyguardManager
+import android.app.PendingIntent
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
+import com.bumptech.glide.Glide
 import com.r0adkll.slidr.Slidr
 import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrListener
 import com.r0adkll.slidr.model.SlidrPosition
+import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivityLockScreenBinding
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.VersionUtils
+
 
 class LockScreenActivity : AbsMusicServiceActivity() {
     private lateinit var binding: ActivityLockScreenBinding
     private var fragment: LockScreenControlsFragment? = null
+
+    val handler = Handler(Looper.getMainLooper())
+    private var isLooping = true
+    private val runnable: Runnable = Runnable {
+        if (isLooping) {
+            startLooping()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,11 +93,30 @@ class LockScreenActivity : AbsMusicServiceActivity() {
 
         fragment = whichFragment<LockScreenControlsFragment>(R.id.playback_controls_fragment)
 
-        binding.slide.apply {
-            translationY = 100f
-            alpha = 0f
-            animate().translationY(0f).alpha(1f).setDuration(1500).start()
+        if (ApexUtil.checkForBiometrics(this)) {
+            if (BuildConfig.DEBUG) {
+                showToast(R.string.biometrics)
+            }
+            if (isLooping) {
+                handler.postDelayed(runnable,1000)
+            }
         }
+
+        binding.music.setOnClickListener {
+            val i = Intent(this, MainActivity::class.java)
+            finish() //Kill the activity from which you will go to next activity
+            startActivity(i)
+        }
+    }
+
+    private fun startLooping() {
+        val keyguardManager =
+            getSystemService<KeyguardManager>()
+        if (keyguardManager?.isDeviceLocked == false) {
+            isLooping = false
+            finish()
+        }
+        handler.postDelayed(runnable, 1000)
     }
 
     @Suppress("Deprecation")
@@ -113,6 +151,7 @@ class LockScreenActivity : AbsMusicServiceActivity() {
                 override fun onColorReady(colors: MediaNotificationProcessor) {
                     fragment?.setColor(colors)
                 }
-            })
+            }
+        )
     }
 }

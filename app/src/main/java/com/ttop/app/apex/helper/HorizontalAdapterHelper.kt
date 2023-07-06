@@ -20,7 +20,7 @@ import com.ttop.app.apex.R
 
 object HorizontalAdapterHelper {
 
-    const val LAYOUT_RES = R.layout.item_image
+    val LAYOUT_RES = R.layout.item_image
 
     private const val TYPE_FIRST = 1
     private const val TYPE_MIDDLE = 2

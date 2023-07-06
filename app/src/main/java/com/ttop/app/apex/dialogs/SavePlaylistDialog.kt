@@ -71,7 +71,7 @@ class SavePlaylistDialog : DialogFragment() {
                     }
                 } catch (e: Exception) {
                     showToast(
-                        "Something went wrong : " + e.message
+                        getString(R.string.something_wrong) + " "  + e.message
                     )
                 }
             }

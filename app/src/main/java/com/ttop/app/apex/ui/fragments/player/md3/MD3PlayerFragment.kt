@@ -14,8 +14,11 @@
  */
 package com.ttop.app.apex.ui.fragments.player.md3
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
@@ -24,7 +27,10 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
 import androidx.core.os.bundleOf
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
@@ -41,6 +47,7 @@ import com.ttop.app.apex.dialogs.*
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
@@ -55,7 +62,9 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
+import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.DrawableGradient
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
@@ -70,7 +79,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
         get() = lastColor
 
     private lateinit var controlsFragment: MD3PlaybackControlsFragment
-
+    private var valueAnimator: ValueAnimator? = null
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
@@ -94,7 +103,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
     }
 
     override fun toolbarIconColor(): Int {
-        return ATHUtil.resolveColor(requireContext(), R.attr.colorControlNormal)
+        return ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
     }
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
@@ -104,9 +113,38 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            ATHUtil.resolveColor(requireContext(), R.attr.colorControlNormal),
+            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal),
             requireActivity()
         )
+
+        if (PreferenceUtil.isAdaptiveColor) {
+            colorize(color.backgroundColor)
+        }
+    }
+
+    private fun colorize(i: Int) {
+        if (valueAnimator != null) {
+            valueAnimator?.cancel()
+        }
+
+        valueAnimator = ValueAnimator.ofObject(
+            ArgbEvaluator(),
+            surfaceColor(),
+            i
+        )
+        valueAnimator?.addUpdateListener { animation ->
+            if (isAdded) {
+                val drawable = DrawableGradient(
+                    GradientDrawable.Orientation.TOP_BOTTOM,
+                    intArrayOf(
+                        animation.animatedValue as Int,
+                        surfaceColor()
+                    ), 0
+                )
+                binding.colorGradientBackground?.background = drawable
+            }
+        }
+        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
     }
 
     override fun toggleFavorite(song: Song) {
@@ -127,16 +165,6 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
         setupRecyclerView()
         setUpPlayerToolbar()
         playerToolbar().drawAboveSystemBars()
-
-        if (PreferenceUtil.isQueueHidden){
-            binding.playerQueueSheet?.visibility = View.GONE
-        }else{
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
-
-        if (PreferenceUtil.queueShowAlways) {
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
     }
 
     override fun onDestroyView() {
@@ -146,6 +174,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -225,30 +254,6 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
                 goToArtist(requireActivity())
                 return true
             }
-            R.id.now_playing -> {
-                if (ApexUtil.isTablet) {
-                    val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
-                        whichFragment(R.id.playerAlbumCoverFragment)
-                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
-                        PreferenceUtil.isQueueHidden = true
-                        binding.playerQueueSheet?.visibility = View.GONE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }else{
-                        PreferenceUtil.isQueueHidden = false
-                        binding.playerQueueSheet?.visibility = View.VISIBLE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }
-                }else {
-                    requireActivity().findNavController(R.id.fragment_container).navigate(
-                        R.id.playing_queue_fragment,
-                        null,
-                        navOptions { launchSingleTop = true }
-                    )
-                    mainActivity.collapsePanel()
-                }
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                return true
-            }
             R.id.action_show_lyrics -> {
                 goToLyrics(requireActivity())
                 return true
@@ -288,6 +293,15 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
                 showToast(genre)
                 return true
             }
+            R.id.action_queue -> {
+                if (!ApexUtil.isTablet) {
+                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
+                        binding.playerQueueSheet?.visibility = View.GONE
+                    }else{
+                        binding.playerQueueSheet?.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
         return false
     }
@@ -303,23 +317,36 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.inflateMenu(R.menu.menu_player)
         //binding.playerToolbar.menu.setUpWithIcons()
-        binding.playerToolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        binding.playerToolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_down_black)
+        binding.playerToolbar.setNavigationOnClickListener {
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
         binding.playerToolbar.setOnMenuItemClickListener(this)
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            ATHUtil.resolveColor(requireContext(), R.attr.colorControlNormal),
+            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal),
             requireActivity()
         )
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = PlayingQueueAdapter(
-            requireActivity() as AppCompatActivity,
-            MusicPlayerRemote.playingQueue.toMutableList(),
-            MusicPlayerRemote.position,
-            R.layout.item_queue_player
-        )
+        playingQueueAdapter = if (ApexUtil.isTablet){
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player_plain
+            )
+        }else {
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player
+            )
+        }
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()

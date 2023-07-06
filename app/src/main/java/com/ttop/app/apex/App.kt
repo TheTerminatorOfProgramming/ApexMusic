@@ -41,7 +41,7 @@ class App : Application() {
         // default theme
         if (!ThemeStore.isConfigured(this, 3)) {
             ThemeStore.editTheme(this)
-                .accentColorRes(R.color.default_color)
+                .accentColorRes(com.ttop.app.appthemehelper.R.color.default_color)
                 .coloredNavigationBar(true)
                 .commit()
         }

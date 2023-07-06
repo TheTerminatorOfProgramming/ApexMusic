@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.view.View
-import android.widget.TextView
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.content.res.use
@@ -17,18 +15,16 @@ import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.extensions.getIntRes
 import com.ttop.app.apex.extensions.getStringOrDefault
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.*
 import com.ttop.app.apex.model.CategoryInfo
-import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.transform.*
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
+import com.ttop.app.apex.util.ApexUtil.getCatchyUsername
 import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.TopAppBarLayout
 import com.ttop.app.appthemehelper.ThemeStore
@@ -38,8 +34,6 @@ import java.io.File
 
 object PreferenceUtil {
     private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.getContext())
-
-    var editor = sharedPreferences.edit()
 
     val defaultCategories = listOf(
         CategoryInfo(CategoryInfo.Category.Home, true),
@@ -124,7 +118,7 @@ object PreferenceUtil {
     var Fragment.userName
         get() = sharedPreferences.getString(
             USER_NAME,
-            getString(R.string.user_name)
+            requireContext().getCatchyUsername()
         )
         set(value) = sharedPreferences.edit {
             putString(USER_NAME, value)
@@ -372,13 +366,6 @@ object PreferenceUtil {
             else -> false
         }
     }
-
-
-    var lyricsOption
-        get() = sharedPreferences.getInt(LYRICS_OPTIONS, 1)
-        set(value) = sharedPreferences.edit {
-            putInt(LYRICS_OPTIONS, value)
-        }
 
     var songGridStyle: GridStyle
         get() {
@@ -781,8 +768,9 @@ object PreferenceUtil {
 
     val isCrossfadeEnabled get() = crossFadeDuration > 0
 
-    val materialYou
+    var materialYou
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, VersionUtils.hasS())
+        set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
     val isCustomFont
         get() = sharedPreferences.getString(CUSTOM_FONT, "default")
@@ -879,9 +867,9 @@ object PreferenceUtil {
 
     var widgetTransparency
         get() = sharedPreferences.getBoolean(
-            WIDGET_TRANSPERENCY, false)
+            WIDGET_TRANSPARENCY, false)
         set(value) = sharedPreferences.edit {
-            putBoolean(WIDGET_TRANSPERENCY, value)}
+            putBoolean(WIDGET_TRANSPARENCY, value)}
 
     var widgetColors
         get() = sharedPreferences.getBoolean(
@@ -903,27 +891,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(PROGRESS_BAR_ALIGNMENT, value)}
-
-    val queueShowAlways
-        get() = sharedPreferences.getBoolean(
-            QUEUE_SHOW_ALWAYS, false
-        )
-
-    var isQueueHidden
-        get() = sharedPreferences.getBoolean(
-            IS_QUEUE_HIDDEN, true
-        )
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(IS_QUEUE_HIDDEN, value)}
-
-    /*var hasIntroShown
-        get() = sharedPreferences.getBoolean(
-            INTRO_SHOWN, false
-        )
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(INTRO_SHOWN, value)}*/
 
     var isBluetoothVolume
         get() = sharedPreferences.getBoolean(
@@ -1019,12 +986,6 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(DEV_MODE, value)}
-
-    var isAppInstalledFromGooglePlay
-        get() = sharedPreferences.getBoolean(INSTALL_MODE, true)
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(INSTALL_MODE, value)}
 
     val isExtendedAccent
         get() = sharedPreferences.getBoolean(EXTENDED_ACCENT, false)
@@ -1161,6 +1122,32 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putInt(WIDGET_CUSTOM_COLOR, value)}
+
+    val isProgressBar
+        get() = sharedPreferences.getBoolean(SHOW_WIDGET_PROGRESSBAR, false)
+
+    val progressColor
+        get() = sharedPreferences.getString(PROGRESSBAR_COLOR, "teal")
+
+    val isQueueCircle
+        get() = sharedPreferences.getBoolean(QUEUE_SHAPE, false)
+
+    val widgetQueueImage
+        get() = sharedPreferences
+            .getInt(WIDGET_QUEUE_IMAGE, 10)
+
+    val isQueueBlur
+        get() = sharedPreferences.getBoolean(QUEUE_BLUR, false)
+
+    val isQueueReversed
+        get() = sharedPreferences.getBoolean(QUEUE_REVERSE, false)
+
+    var isTimerCancelled
+        get() = sharedPreferences.getBoolean(
+            "TIMER_CANCELLED", true)
+
+        set(value) = sharedPreferences.edit {
+            putBoolean("TIMER_CANCELLED", value)}
 }
 
 enum class CoverLyricsType {

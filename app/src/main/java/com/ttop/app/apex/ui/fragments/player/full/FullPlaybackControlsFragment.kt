@@ -23,6 +23,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.lifecycleScope
@@ -41,8 +42,10 @@ import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
@@ -63,7 +66,7 @@ class FullPlaybackControlsFragment :
     private var _binding: FragmentFullPlayerControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: Slider
+    override val seekBar: SeekBar
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -147,6 +150,7 @@ class FullPlaybackControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updateSong()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     private fun updateSong() {
@@ -172,6 +176,7 @@ class FullPlaybackControlsFragment :
 
     override fun onPlayStateChanged() {
         updatePlayPauseDrawableState()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     private fun updatePlayPauseDrawableState() {
@@ -201,7 +206,23 @@ class FullPlaybackControlsFragment :
             popupMenu.setOnMenuItemClickListener(this)
             popupMenu.inflate(R.menu.menu_player)
             popupMenu.menu.findItem(R.id.action_toggle_favorite).isVisible = false
-            popupMenu.menu.findItem(R.id.action_toggle_lyrics).isChecked = PreferenceUtil.showLyrics
+            if (ApexUtil.isTablet) {
+                popupMenu.menu.removeItem(R.id.action_queue)
+                popupMenu.menu.removeItem(R.id.now_playing)
+            }
+
+            if (!ApexUtil.isTablet && !ApexUtil.isLandscape) {
+                popupMenu.menu.removeItem(R.id.now_playing)
+            }
+
+            if (!ApexUtil.isTablet && ApexUtil.isLandscape) {
+                popupMenu.menu.removeItem(R.id.action_queue)
+            }
+            popupMenu.menu.removeItem(R.id.action_rewind)
+            popupMenu.menu.removeItem(R.id.action_fast_forward)
+            popupMenu.menu.findItem(R.id.action_toggle_lyrics)?.apply {
+                isChecked = PreferenceUtil.showLyrics
+            }
             popupMenu.show()
         }
     }

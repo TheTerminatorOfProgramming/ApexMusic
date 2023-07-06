@@ -44,6 +44,6 @@ enum class NowPlayingScreen constructor(
     Peek(R.string.peek, R.drawable.player_peek, 14, AlbumCoverStyle.Normal),
     Plain(R.string.plain, R.drawable.player_plain, 3, AlbumCoverStyle.Normal),
     Simple(R.string.simple, R.drawable.player_simple, 8, AlbumCoverStyle.Normal),
-    Swipe(R.string.swipe, R.drawable.player_swipe, 19, AlbumCoverStyle.Full),
+    Swipe(R.string.swipe, R.drawable.player_swipe, 19, AlbumCoverStyle.Card),
     Tiny(R.string.tiny, R.drawable.player_tiny, 7, null),
 }

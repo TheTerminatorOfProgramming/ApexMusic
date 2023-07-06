@@ -19,7 +19,7 @@ class BluetoothSlideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_teal_A400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_teal_A400))
     }
     companion object {
         fun newInstance(): BluetoothSlideFragment {

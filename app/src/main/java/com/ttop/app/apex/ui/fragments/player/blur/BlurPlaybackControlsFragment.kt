@@ -19,6 +19,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.slider.Slider
@@ -34,6 +35,7 @@ import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
@@ -43,7 +45,7 @@ class BlurPlaybackControlsFragment :
     private var _binding: FragmentBlurPlayerPlaybackControlsBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: Slider
+    override val seekBar: SeekBar
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -69,11 +71,12 @@ class BlurPlaybackControlsFragment :
         _binding = FragmentBlurPlayerPlaybackControlsBinding.bind(view)
         setUpPlayPauseFab()
         binding.title.isSelected = true
-        binding.text.isSelected = true
+        binding.artist.isSelected = true
+        binding.album.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
-        binding.text.setOnClickListener {
+        binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
     }
@@ -81,7 +84,8 @@ class BlurPlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.text.text = String.format("%s • %s", song.artistName, song.albumName)
+        binding.artist.text = song.artistName
+        binding.album.text = song.albumName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.show()
@@ -97,6 +101,7 @@ class BlurPlaybackControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updateSong()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onPlayingMetaChanged() {
@@ -106,6 +111,7 @@ class BlurPlaybackControlsFragment :
 
     override fun onPlayStateChanged() {
         updatePlayPauseDrawableState()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onRepeatModeChanged() {
@@ -119,7 +125,7 @@ class BlurPlaybackControlsFragment :
     override fun setColor(color: MediaNotificationProcessor) {
         lastPlaybackControlsColor = Color.WHITE
         lastDisabledPlaybackControlsColor =
-            ContextCompat.getColor(requireContext(), R.color.md_grey_500)
+            ContextCompat.getColor(requireContext(), com.ttop.app.appthemehelper.R.color.md_grey_500)
 
         binding.title.setTextColor(lastPlaybackControlsColor)
 
@@ -130,7 +136,8 @@ class BlurPlaybackControlsFragment :
         updateShuffleState()
         updatePrevNextColor()
 
-        binding.text.setTextColor(lastPlaybackControlsColor)
+        binding.artist.setTextColor(lastPlaybackControlsColor)
+        binding.album.setTextColor(lastPlaybackControlsColor)
         binding.songInfo.setTextColor(lastDisabledPlaybackControlsColor)
 
         binding.progressSlider.applyColor(lastPlaybackControlsColor)

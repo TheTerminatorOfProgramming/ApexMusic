@@ -34,5 +34,6 @@ class ATEPreferenceCategory @JvmOverloads constructor(
         title.setTextColor(
            ThemeStore.accentColor(context)
         )
+        title.textSize = 18f
     }
 }

@@ -46,8 +46,8 @@ public class SAFGuideActivity extends IntroActivity {
             .title(title)
             .description(R.string.saf_guide_slide1_description)
             .image(R.drawable.saf_guide_1)
-            .background(R.color.md_red_400)
-            .backgroundDark(R.color.md_red_500)
+            .background(com.ttop.app.appthemehelper.R.color.md_red_400)
+            .backgroundDark(com.ttop.app.appthemehelper.R.color.md_red_500)
             .layout(R.layout.fragment_simple_slide_large_image)
             .build());
     addSlide(
@@ -55,8 +55,8 @@ public class SAFGuideActivity extends IntroActivity {
             .title(R.string.saf_guide_slide2_title)
             .description(R.string.saf_guide_slide2_description)
             .image(R.drawable.saf_guide_2)
-            .background(R.color.md_red_400)
-            .backgroundDark(R.color.md_red_500)
+            .background(com.ttop.app.appthemehelper.R.color.md_red_400)
+            .backgroundDark(com.ttop.app.appthemehelper.R.color.md_red_500)
             .layout(R.layout.fragment_simple_slide_large_image)
             .build());
     addSlide(
@@ -64,8 +64,8 @@ public class SAFGuideActivity extends IntroActivity {
             .title(R.string.saf_guide_slide3_title)
             .description(R.string.saf_guide_slide3_description)
             .image(R.drawable.saf_guide_3)
-            .background(R.color.md_red_400)
-            .backgroundDark(R.color.md_red_500)
+            .background(com.ttop.app.appthemehelper.R.color.md_red_400)
+            .backgroundDark(com.ttop.app.appthemehelper.R.color.md_red_500)
             .layout(R.layout.fragment_simple_slide_large_image)
             .build());
   }

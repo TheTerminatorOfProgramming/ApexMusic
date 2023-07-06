@@ -19,7 +19,7 @@ class BluetoothAutoPlaySlideFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_green_500))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_green_500))
     }
     companion object {
         fun newInstance(): BluetoothAutoPlaySlideFragment {

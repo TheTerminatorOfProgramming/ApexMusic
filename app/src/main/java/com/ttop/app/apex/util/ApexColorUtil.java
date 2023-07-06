@@ -224,7 +224,7 @@ public class ApexColorUtil {
 
   public static int getMD3AccentColor(@NotNull Context context) {
     if (VersionUtils.hasS()) {
-      return ContextCompat.getColor(context, R.color.m3_accent_color);
+      return ContextCompat.getColor(context, com.ttop.app.appthemehelper.R.color.m3_accent_color);
     } else {
       return ThemeStore.Companion.accentColor(context);
     }

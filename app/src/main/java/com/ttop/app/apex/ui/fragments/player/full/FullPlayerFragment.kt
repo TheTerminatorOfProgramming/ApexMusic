@@ -88,7 +88,10 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
 
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
-            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+            binding.playerToolbar.setNavigationOnClickListener {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
         }
     }
 
@@ -102,16 +105,6 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
         setupArtist()
         binding.nextSong.isSelected = true
         binding.playbackControlsFragment.drawAboveSystemBars()
-
-        if (PreferenceUtil.isQueueHidden){
-            binding.playerQueueSheet?.visibility = View.GONE
-        }else{
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
-
-        if (PreferenceUtil.queueShowAlways) {
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
     }
 
     private fun setupArtist() {
@@ -134,6 +127,7 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -218,23 +212,23 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
                     val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
                         whichFragment(R.id.playerAlbumCoverFragment)
                     if (binding.playerQueueSheet?.visibility == View.VISIBLE){
-                        PreferenceUtil.isQueueHidden = true
                         binding.playerQueueSheet?.visibility = View.GONE
                         playerAlbumCoverFragment.updatePlayingQueue()
+                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     }else{
-                        PreferenceUtil.isQueueHidden = false
                         binding.playerQueueSheet?.visibility = View.VISIBLE
                         playerAlbumCoverFragment.updatePlayingQueue()
                     }
                 }else {
-                    requireActivity().findNavController(R.id.fragment_container).navigate(
-                        R.id.playing_queue_fragment,
-                        null,
-                        navOptions { launchSingleTop = true }
-                    )
-                    mainActivity.collapsePanel()
+                    if (ApexUtil.isLandscape) {
+                        requireActivity().findNavController(R.id.fragment_container).navigate(
+                            R.id.playing_queue_fragment,
+                            null,
+                            navOptions { launchSingleTop = true }
+                        )
+                        mainActivity.collapsePanel()
+                    }
                 }
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 return true
             }
             R.id.action_show_lyrics -> {
@@ -276,6 +270,16 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
                 showToast(genre)
                 return true
             }
+            R.id.action_queue -> {
+                if (!ApexUtil.isTablet) {
+                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
+                        binding.playerQueueSheet?.visibility = View.GONE
+                    }else{
+                        binding.playerQueueSheet?.visibility = View.VISIBLE
+                    }
+                }
+                return true
+            }
         }
         return false
     }
@@ -301,7 +305,6 @@ class FullPlayerFragment : AbsPlayerFragment(R.layout.fragment_full) {
         setColor(color)
         libraryViewModel.updateColor(color.backgroundColor)
         ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
-        binding.coverLyrics.getFragment<CoverLyricsFragment>().setColors(color)
     }
 
     override fun onFavoriteToggled() {

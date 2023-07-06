@@ -15,14 +15,12 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
             tools:layout="@layout/fragment_album_cover" />
 
         <LinearLayout
@@ -46,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                        app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
+                app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
         </LinearLayout>
 
         <include

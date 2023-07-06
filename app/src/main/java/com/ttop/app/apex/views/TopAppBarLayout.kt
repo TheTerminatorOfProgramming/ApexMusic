@@ -12,6 +12,7 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.databinding.CollapsingAppbarLayoutBinding
 import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.ApexUtil.updateCollapsableAppBarTitleTextAppearance
 import com.ttop.app.apex.util.PreferenceUtil
 import dev.chrisbanes.insetter.applyInsetter
@@ -93,6 +94,12 @@ class TopAppBarLayout @JvmOverloads constructor(
                     if (!value.contains("Apex")) {
                         simpleAppbarBinding?.toolbar?.setTitleTextColor(context.accentColor())
                     }
+                }
+
+                simpleAppbarBinding?.toolbar?.let {
+                    ApexUtil.updateSimpleAppBarTitleTextAppearance(context,
+                        it
+                    )
                 }
             }
         }

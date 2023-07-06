@@ -9,17 +9,31 @@
 
     <include layout="@layout/status_bar" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/playerAlbumCoverFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_album_full_cover" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyle"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
-        app:shapeAppearanceOverlay="@style/TopCornerCardView"
+        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
+        app:shapeAppearanceOverlay="@style/TabQueueTopCornerCardView"
         app:behavior_hideable="false"
-        app:cardElevation="24dp"
+        android:backgroundTint="@color/transparent"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         tools:peekHeight="0dp">
 
@@ -33,21 +47,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="@integer/overScrollMode"
-                tools:listitem="@layout/item_list" />
+                tools:listitem="@layout/item_queue_player" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/playerAlbumCoverFragment"
-        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_album_full_cover" />
 
     <View
         android:id="@+id/mask"
@@ -57,8 +60,10 @@
         android:backgroundTint="@color/md_red_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
@@ -151,15 +156,10 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/cover_lyrics"
-        android:name="com.ttop.app.apex.ui.fragments.player.CoverLyricsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:elevation="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/playbackControlsFragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
-        android:layout_marginStart="300dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="1dp"
+        android:orientation="vertical"
+        android:id="@+id/middle_guideline"
+        app:layout_constraintGuide_percent="0.5"
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

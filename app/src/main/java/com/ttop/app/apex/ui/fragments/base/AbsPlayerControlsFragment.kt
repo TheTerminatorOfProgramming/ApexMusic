@@ -36,6 +36,7 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.other.VolumeFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -79,12 +80,14 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     private var progressAnimator: ObjectAnimator? = null
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
-        if (seekBar == null) {
+        val nps = PreferenceUtil.nowPlayingScreen
+        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Normal || nps == NowPlayingScreen.Swipe ||
+            nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Material) {
             progressSlider?.valueTo = total.toFloat()
 
             progressSlider?.value =
                 progress.toFloat().coerceIn(progressSlider?.valueFrom, progressSlider?.valueTo)
-        } else {
+
             seekBar?.max = total
 
             if (isSeeking) {
@@ -97,6 +100,27 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                         start()
                     }
 
+            }
+        }else {
+            if (seekBar == null) {
+                progressSlider?.valueTo = total.toFloat()
+
+                progressSlider?.value =
+                    progress.toFloat().coerceIn(progressSlider?.valueFrom, progressSlider?.valueTo)
+            } else {
+                seekBar?.max = total
+
+                if (isSeeking) {
+                    seekBar?.progress = progress
+                } else {
+                    progressAnimator =
+                        ObjectAnimator.ofInt(seekBar, "progress", progress).apply {
+                            duration = SLIDER_ANIMATION_TIME
+                            interpolator = LinearInterpolator()
+                            start()
+                        }
+
+                }
             }
         }
         songTotalTime?.text = MusicUtil.getReadableDurationString(total.toLong())

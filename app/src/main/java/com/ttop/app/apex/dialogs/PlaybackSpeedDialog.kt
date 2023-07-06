@@ -1,17 +1,32 @@
 package com.ttop.app.apex.dialogs
 
+import android.app.AlarmManager
 import android.app.Dialog
+import android.app.PendingIntent
 import android.os.Bundle
+import android.os.SystemClock
+import android.view.HapticFeedbackConstants
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.getSystemService
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogPlaybackSpeedBinding
 import com.ttop.app.apex.extensions.accent
+import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.util.PreferenceUtil
 
 class PlaybackSpeedDialog : DialogFragment() {
+
+    private var positiveButton: Button? = null
+    private var negativeButton: Button? = null
+    private var dismissButton: Button? = null
+    private lateinit var dialog: AlertDialog
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = DialogPlaybackSpeedBinding.inflate(layoutInflater)
@@ -26,28 +41,52 @@ class PlaybackSpeedDialog : DialogFragment() {
         binding.playbackSpeedSlider.value = PreferenceUtil.playbackSpeed
         binding.playbackPitchSlider.value = PreferenceUtil.playbackPitch
 
-        return materialDialog(R.string.playback_settings)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.save) { _, _ ->
+        materialDialog(R.string.playback_settings).apply {
+            setPositiveButton(R.string.save) { _, _ ->
+                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 updatePlaybackAndPitch(
                     binding.playbackSpeedSlider.value,
                     binding.playbackPitchSlider.value
                 )
             }
-            .setNeutralButton(R.string.reset_action) {_, _ ->
-                updatePlaybackAndPitch(
-                    1F,
-                    1F
-                )
+
+            setNegativeButton(R.string.dismiss) {_, _ ->
+                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                dialog.dismiss()
             }
-            .setView(binding.root)
-            .create()
-            .colorButtons()
+
+            setNeutralButton(R.string.reset_action) {_, _ ->
+                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    updatePlaybackAndPitch(
+                        1F,
+                        1F
+                    )
+                }
+            setView(binding.root)
+            dialog = create()
+            dialog.colorButtons()
+            dialog.setCanceledOnTouchOutside(false)
+        }
+        return dialog
     }
 
     private fun updatePlaybackAndPitch(speed: Float, pitch: Float) {
         PreferenceUtil.playbackSpeed = speed
         PreferenceUtil.playbackPitch = pitch
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val d = dialog as AlertDialog?
+        if (d != null) {
+            positiveButton = d.getButton(Dialog.BUTTON_POSITIVE) as Button
+            negativeButton = d.getButton(Dialog.BUTTON_NEGATIVE) as Button
+            dismissButton = d.getButton(Dialog.BUTTON_NEUTRAL) as Button
+
+            positiveButton!!.accentTextColor()
+            negativeButton!!.accentTextColor()
+            dismissButton!!.accentTextColor()
+        }
     }
 
     companion object {

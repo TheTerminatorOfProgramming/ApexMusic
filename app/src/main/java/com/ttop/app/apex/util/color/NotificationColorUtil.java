@@ -62,7 +62,7 @@ public class NotificationColorUtil {
 
   private NotificationColorUtil(Context context) {
     mGrayscaleIconMaxSize =
-        context.getResources().getDimensionPixelSize(R.dimen.notification_large_icon_width);
+        context.getResources().getDimensionPixelSize(androidx.core.R.dimen.notification_large_icon_width);
   }
 
   public static NotificationColorUtil getInstance(Context context) {

@@ -49,6 +49,7 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.DensityUtil
+import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -69,51 +70,354 @@ class AppWidgetFull : BaseAppWidget() {
         var appWidgetView: RemoteViews? = null
 
         appWidgetView = if (VersionUtils.hasS()) {
-            if (PreferenceUtil.widgetColors) {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left)
-                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_day_night)
-                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right)
-                    else -> {
-                        RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left)
+            if (PreferenceUtil.isProgressBar) {
+                if (PreferenceUtil.widgetColors) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_teal)
+                            }
+                        }
                     }
-                }
-            } else if (PreferenceUtil.widgetTransparency) {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
-                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
-                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right)
-                    else -> {
-                        RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
+                } else if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
                     }
                 }
             }else {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_left)
-                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full)
-                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_right)
-                    else -> {
-                        RemoteViews(context.packageName, R.layout.app_widget_full_left)
+                if (PreferenceUtil.widgetColors) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_time)
+                        "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_time)
+                        "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_day_night_right_time)
+                        else -> {
+                            RemoteViews(context.packageName, R.layout.app_widget_full_day_night_left_time)
+                        }
+                    }
+                } else if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_time)
+                        "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_time)
+                        "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_time)
+                        else -> {
+                            RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_time)
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_left_time)
+                        "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_time)
+                        "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_right_time)
+                        else -> {
+                            RemoteViews(context.packageName, R.layout.app_widget_full_left_time)
+                        }
                     }
                 }
             }
         } else {
-            if (PreferenceUtil.widgetTransparency) {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
-                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
-                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right)
-                    else -> {
-                        RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left)
+            if (PreferenceUtil.isProgressBar) {
+                if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_right_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(context.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
                     }
                 }
             }else {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_left)
-                    "center"-> RemoteViews(context.packageName, R.layout.app_widget_full)
-                    "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_right)
-                    else -> {
-                        RemoteViews(context.packageName, R.layout.app_widget_full_left)
+                if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_time)
+                        "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_time)
+                        "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_transparent_right_time)
+                        else -> {
+                            RemoteViews(context.packageName, R.layout.app_widget_full_transparent_left_time)
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(context.packageName, R.layout.app_widget_full_left_time)
+                        "center"-> RemoteViews(context.packageName, R.layout.app_widget_full_time)
+                        "right"-> RemoteViews(context.packageName, R.layout.app_widget_full_right_time)
+                        else -> {
+                            RemoteViews(context.packageName, R.layout.app_widget_full_left_time)
+                        }
                     }
                 }
             }
@@ -201,16 +505,6 @@ class AppWidgetFull : BaseAppWidget() {
 
         linkButtons(context, appWidgetView)
 
-        if (MusicPlayerRemote.playingQueue.isNotEmpty()){
-            if (!MusicPlayerRemote.isPlaying){
-                MusicPlayerRemote.resumePlaying()
-                MusicPlayerRemote.pauseSong()
-            }else{
-                MusicPlayerRemote.pauseSong()
-                MusicPlayerRemote.resumePlaying()
-            }
-        }
-
         pushUpdate(context, appWidgetIds, appWidgetView)
     }
 
@@ -221,56 +515,358 @@ class AppWidgetFull : BaseAppWidget() {
         var appWidgetView: RemoteViews? = null
 
         appWidgetView = if (VersionUtils.hasS()) {
-            if (PreferenceUtil.widgetColors) {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left)
-                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_day_night)
-                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right)
-                    else -> {
-                        RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left)
+            if (PreferenceUtil.isProgressBar) {
+                if (PreferenceUtil.widgetColors) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_teal)
+                            }
+                        }
                     }
-                }
-            } else if (PreferenceUtil.widgetTransparency) {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
-                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
-                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right)
-                    else -> {
-                        RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
+                } else if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
                     }
                 }
             }else {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_left)
-                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full)
-                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_right)
-                    else -> {
-                        RemoteViews(service.packageName, R.layout.app_widget_full_left)
+                if (PreferenceUtil.widgetColors) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_time)
+                        "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_time)
+                        "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_day_night_right_time)
+                        else -> {
+                            RemoteViews(service.packageName, R.layout.app_widget_full_day_night_left_time)
+                        }
+                    }
+                } else if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_time)
+                        "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_time)
+                        "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_time)
+                        else -> {
+                            RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_time)
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_left_time)
+                        "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_time)
+                        "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_right_time)
+                        else -> {
+                            RemoteViews(service.packageName, R.layout.app_widget_full_left_time)
+                        }
                     }
                 }
             }
         } else {
-            if (PreferenceUtil.widgetTransparency) {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
-                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
-                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right)
-                    else -> {
-                        RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left)
+            if (PreferenceUtil.isProgressBar) {
+                if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_teal)
+                            }
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
+                        "center"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_teal)
+                            }
+                        }
+                        "right"-> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_right_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_right_teal)
+                            }
+                        }
+                        else -> {
+                            when (PreferenceUtil.progressColor) {
+                                "black" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_black)
+                                "blue" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_blue)
+                                "green" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_green)
+                                "orange" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_orange)
+                                "purple" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_purple)
+                                "red" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_red)
+                                "teal" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                                "white" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_white)
+                                "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_full_left_yellow)
+                                else -> RemoteViews(service.packageName, R.layout.app_widget_full_left_teal)
+                            }
+                        }
                     }
                 }
             }else {
-                when(PreferenceUtil.textAlignment){
-                    "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_left)
-                    "center"-> RemoteViews(service.packageName, R.layout.app_widget_full)
-                    "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_right)
-                    else -> {
-                        RemoteViews(service.packageName, R.layout.app_widget_full_left)
+                if (PreferenceUtil.widgetTransparency) {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_time)
+                        "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_time)
+                        "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_transparent_right_time)
+                        else -> {
+                            RemoteViews(service.packageName, R.layout.app_widget_full_transparent_left_time)
+                        }
+                    }
+                }else {
+                    when(PreferenceUtil.textAlignment){
+                        "left"->  RemoteViews(service.packageName, R.layout.app_widget_full_left_time)
+                        "center"-> RemoteViews(service.packageName, R.layout.app_widget_full_time)
+                        "right"-> RemoteViews(service.packageName, R.layout.app_widget_full_right_time)
+                        else -> {
+                            RemoteViews(service.packageName, R.layout.app_widget_full_left_time)
+                        }
                     }
                 }
             }
         }
-
         val isPlaying = service.isPlaying
         val song = service.currentSong
 
@@ -283,6 +879,7 @@ class AppWidgetFull : BaseAppWidget() {
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE)
             appWidgetView.setTextViewText(R.id.title, song.title)
             appWidgetView.setTextViewText(R.id.text, getSongArtist(song))
+            appWidgetView.setTextViewText(R.id.songText, MusicUtil.getReadableDurationString(service.songProgressMillis.toLong()) + "/" + MusicUtil.getReadableDurationString(service.songDurationMillis.toLong()))
         }
 
         // Set correct drawable for pause state
@@ -322,7 +919,9 @@ class AppWidgetFull : BaseAppWidget() {
         // Link actions buttons to intents
         linkButtons(service, appWidgetView)
 
-        appWidgetView.setProgressBar(R.id.progress_bar, service.songDurationMillis, service.songProgressMillis, false)
+        if (PreferenceUtil.isProgressBar) {
+            appWidgetView.setProgressBar(R.id.progress_bar, service.songDurationMillis, service.songProgressMillis, false)
+        }
 
         if (imageSize == 0) {
          imageSize = 600
@@ -371,7 +970,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_white_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -379,12 +978,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -394,7 +993,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_black_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -402,12 +1001,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -442,7 +1041,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -451,13 +1050,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -467,7 +1066,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -476,13 +1075,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -582,7 +1181,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_white_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -590,12 +1189,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -605,7 +1204,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_black_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -613,12 +1212,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -653,7 +1252,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -662,13 +1261,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -678,7 +1277,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -687,13 +1286,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -795,7 +1394,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_white_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -803,12 +1402,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -818,7 +1417,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_black_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -826,12 +1425,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -866,7 +1465,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -875,13 +1474,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -891,7 +1490,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -900,13 +1499,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -966,13 +1565,13 @@ class AppWidgetFull : BaseAppWidget() {
                                         ContextCompat.getDrawable(service, R.drawable.default_audio_art),
                                         imageSize,
                                         imageSize,
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat()
                                     )
 
@@ -984,13 +1583,13 @@ class AppWidgetFull : BaseAppWidget() {
                                         image,
                                         imageSize,
                                         imageSize,
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat()
                                     )
 
@@ -1037,7 +1636,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_white_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -1045,12 +1644,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_white_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -1060,7 +1659,7 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
-                                                    playPauseRes, service.resources.getColor(R.color.md_black_1000)
+                                                    playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -1068,12 +1667,12 @@ class AppWidgetFull : BaseAppWidget() {
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
-                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
-                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_black_1000)
+                                                    R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -1108,7 +1707,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
 
@@ -1117,13 +1716,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_black_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -1133,7 +1732,7 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_toggle_play_pause,
                                                 service.getTintedDrawable(
                                                     playPauseRes,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
 
@@ -1142,13 +1741,13 @@ class AppWidgetFull : BaseAppWidget() {
                                                 R.id.button_next,
                                                 service.getTintedDrawable(
                                                     R.drawable.ic_skip_next_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                             appWidgetView.setImageViewBitmap(
                                                 R.id.button_prev, service.getTintedDrawable(
                                                     R.drawable.ic_skip_previous_outline,
-                                                    service.resources.getColor(R.color.md_white_1000)
+                                                    service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                                 ).toBitmap()
                                             )
                                         }
@@ -1208,13 +1807,13 @@ class AppWidgetFull : BaseAppWidget() {
                                         ContextCompat.getDrawable(service, R.drawable.default_audio_art),
                                         imageSize,
                                         imageSize,
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat()
                                     )
 
@@ -1226,13 +1825,13 @@ class AppWidgetFull : BaseAppWidget() {
                                         image,
                                         imageSize,
                                         imageSize,
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat(),
-                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImage.toFloat())
+                                        DensityUtil.dip2px(service, PreferenceUtil.widgetImageFull.toFloat())
                                             .toFloat()
                                     )
 
@@ -1320,7 +1919,7 @@ class AppWidgetFull : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
-                                        playPauseRes, service.resources.getColor(R.color.md_white_1000)
+                                        playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
 
@@ -1328,12 +1927,12 @@ class AppWidgetFull : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_white_1000)
+                                        R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_white_1000)
+                                        R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -1343,7 +1942,7 @@ class AppWidgetFull : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
-                                        playPauseRes, service.resources.getColor(R.color.md_black_1000)
+                                        playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
 
@@ -1351,12 +1950,12 @@ class AppWidgetFull : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline, service.resources.getColor(R.color.md_black_1000)
+                                        R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline, service.resources.getColor(R.color.md_black_1000)
+                                        R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -1391,7 +1990,7 @@ class AppWidgetFull : BaseAppWidget() {
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
                                         playPauseRes,
-                                        service.resources.getColor(R.color.md_black_1000)
+                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
 
@@ -1400,13 +1999,13 @@ class AppWidgetFull : BaseAppWidget() {
                                     R.id.button_next,
                                     service.getTintedDrawable(
                                         R.drawable.ic_skip_next_outline,
-                                        service.resources.getColor(R.color.md_black_1000)
+                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
                                         R.drawable.ic_skip_previous_outline,
-                                        service.resources.getColor(R.color.md_black_1000)
+                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -1416,7 +2015,7 @@ class AppWidgetFull : BaseAppWidget() {
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
                                         playPauseRes,
-                                        service.resources.getColor(R.color.md_white_1000)
+                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
 
@@ -1425,13 +2024,13 @@ class AppWidgetFull : BaseAppWidget() {
                                     R.id.button_next,
                                     service.getTintedDrawable(
                                         R.drawable.ic_skip_next_outline,
-                                        service.resources.getColor(R.color.md_white_1000)
+                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
                                         R.drawable.ic_skip_previous_outline,
-                                        service.resources.getColor(R.color.md_white_1000)
+                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                             }

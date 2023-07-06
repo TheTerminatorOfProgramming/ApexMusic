@@ -19,6 +19,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.SeekBar
 import android.widget.TextView
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
@@ -29,6 +30,7 @@ import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
@@ -43,7 +45,7 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
     private var _binding: FragmentPeekControlPlayerBinding? = null
     private val binding get() = _binding!!
 
-    override val progressSlider: Slider
+    override val seekBar: SeekBar
         get() = binding.progressSlider
 
     override val shuffleButton: ImageButton
@@ -122,11 +124,15 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
     override fun onPlayStateChanged() {
         super.onPlayStateChanged()
         updatePlayPauseDrawableState()
+
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onServiceConnected() {
         super.onServiceConnected()
         updatePlayPauseDrawableState()
+
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onRepeatModeChanged() {

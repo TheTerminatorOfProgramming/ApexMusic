@@ -104,16 +104,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
         setUpPlayerToolbar()
         setupRecyclerView()
         binding.playerToolbar.drawAboveSystemBars()
-
-        if (PreferenceUtil.isQueueHidden){
-            binding.playerQueueSheet?.visibility = View.GONE
-        }else{
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
-
-        if (PreferenceUtil.queueShowAlways) {
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
     }
 
     private fun setUpSubFragments() {
@@ -126,13 +116,17 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+            binding.playerToolbar.setNavigationOnClickListener {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
             ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)
         }.setOnMenuItemClickListener(this)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -212,30 +206,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
                 goToArtist(requireActivity())
                 return true
             }
-            R.id.now_playing -> {
-                if (ApexUtil.isTablet) {
-                    val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
-                        whichFragment(R.id.playerAlbumCoverFragment)
-                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
-                        PreferenceUtil.isQueueHidden = true
-                        binding.playerQueueSheet?.visibility = View.GONE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }else{
-                        PreferenceUtil.isQueueHidden = false
-                        binding.playerQueueSheet?.visibility = View.VISIBLE
-                        playerAlbumCoverFragment.updatePlayingQueue()
-                    }
-                }else {
-                    requireActivity().findNavController(R.id.fragment_container).navigate(
-                        R.id.playing_queue_fragment,
-                        null,
-                        navOptions { launchSingleTop = true }
-                    )
-                    mainActivity.collapsePanel()
-                }
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                return true
-            }
             R.id.action_show_lyrics -> {
                 goToLyrics(requireActivity())
                 return true
@@ -274,6 +244,15 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
                 }
                 showToast(genre)
                 return true
+            }
+            R.id.action_queue -> {
+                if (!ApexUtil.isTablet) {
+                    if (binding.playerQueueSheet.visibility == View.VISIBLE){
+                        binding.playerQueueSheet.visibility = View.GONE
+                    }else{
+                        binding.playerQueueSheet.visibility = View.VISIBLE
+                    }
+                }
             }
         }
         return false

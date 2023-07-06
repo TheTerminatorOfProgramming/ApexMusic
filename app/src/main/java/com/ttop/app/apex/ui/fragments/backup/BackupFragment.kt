@@ -92,8 +92,8 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
 
         binding.resetToDefault.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Reset Settings")
-            builder.setMessage("Reset Settings to Default?\nThis will reset ALL settings including Shuffle, Bluetooth Autoplay setting and more\nThis App Will Restart to Complete the Reset Process!")
+            builder.setTitle(R.string.reset_settings)
+            builder.setMessage(R.string.reset_settings_msg)
 
             builder.setPositiveButton(R.string.yes) { _, _ ->
                 val id = BuildConfig.APPLICATION_ID

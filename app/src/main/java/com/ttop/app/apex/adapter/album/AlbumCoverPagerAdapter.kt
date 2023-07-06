@@ -14,26 +14,38 @@
  */
 package com.ttop.app.apex.adapter.album
 
+import android.app.Dialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentTextColor
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Fit
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Full
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Tiny
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -127,19 +139,19 @@ class AlbumCoverPagerAdapter(
             lifecycleScope.launch(Dispatchers.IO) {
                 val data: String? = MusicUtil.getLyrics(song)
                 withContext(Dispatchers.Main) {
-                    MaterialAlertDialogBuilder(
-                        requireContext(),
-                        R.style.ThemeOverlay_MaterialComponents_Dialog_Alert
-                    ).apply {
-                        setTitle(song.title)
-                        setMessage(if (data.isNullOrEmpty()) "No lyrics found" else data)
-                        if (PreferenceUtil.syncedLyrics){
-                            setNegativeButton(R.string.synced_lyrics) { _, _ ->
-                                goToLyrics(requireActivity())
-                            }
-                        }
-                        show()
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle(song.title)
+                    builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
+                    builder.setNegativeButton(R.string.synced_lyrics) { _, _ ->
+                        goToLyrics(requireActivity())
                     }
+                    builder.setNeutralButton(R.string.dismiss) { _, _ ->
+                        materialDialog().dismiss()
+                    }
+                    materialDialog().cancelOnTouchOutside(false)
+                    val dialog: AlertDialog = builder.show()
+                    dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
+                    dialog.getButton(Dialog.BUTTON_NEUTRAL).accentTextColor()
                 }
             }
         }

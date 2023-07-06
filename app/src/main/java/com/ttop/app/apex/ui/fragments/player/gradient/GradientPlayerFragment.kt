@@ -120,8 +120,15 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             val popupMenu = PopupMenu(requireContext(), it)
             popupMenu.setOnMenuItemClickListener(this)
             popupMenu.inflate(R.menu.menu_player)
+            popupMenu.menu.removeItem(R.id.action_queue)
+            popupMenu.menu.removeItem(R.id.now_playing)
+            popupMenu.menu.removeItem(R.id.action_rewind)
+            popupMenu.menu.removeItem(R.id.action_fast_forward)
             popupMenu.menu.findItem(R.id.action_toggle_favorite).isVisible = false
-            popupMenu.menu.findItem(R.id.action_toggle_lyrics).isChecked = PreferenceUtil.showLyrics
+            popupMenu.menu.findItem(R.id.action_toggle_lyrics)?.apply {
+                isChecked = PreferenceUtil.showLyrics
+                showLyricsIcon(this)
+            }
             popupMenu.show()
         }
     }
@@ -266,7 +273,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
-        binding.coverLyrics.getFragment<CoverLyricsFragment>().setColors(color)
     }
 
     override fun onFavoriteToggled() {

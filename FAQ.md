@@ -28,7 +28,7 @@ A ".lrc" is like a text file that contains the time-stamped lyrics for example, 
 #### STEP 3: 
 Now you have to rename the file you created in this way: <song_name> - <artist_name>.lrc or for better matching copy the <song_name> and the <artist_name> from the tag editor and then rename the file.
 ### STEP 4: 
-Now paste the LRC files to the following path: /Download/Apex/LRC/
+Now paste the LRC files to the following path: /Download/Apex/Lyrics/ OR they can also be put in the same folder as the songs.
 Here sdcard is your internal storage.
 
 ### ***Method 3:- (Requires third-party app)***

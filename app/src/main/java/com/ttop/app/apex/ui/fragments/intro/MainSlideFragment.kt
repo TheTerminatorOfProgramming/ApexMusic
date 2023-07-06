@@ -32,7 +32,7 @@ class MainSlideFragment : Fragment() {
 
         desc?.text = appName
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_red_400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_red_400))
     }
     companion object {
         fun newInstance(): MainSlideFragment {

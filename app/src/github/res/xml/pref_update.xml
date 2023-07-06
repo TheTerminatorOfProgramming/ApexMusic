@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        android:key="update_frequency"
+        android:defaultValue="none"
+        android:layout="@layout/list_item_view"
+        android:entries="@array/pref_update_frequency_list_titles"
+        android:entryValues="@array/pref_update_frequency_list_values"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_update_frequency"
+        android:icon="@drawable/ic_check_for_update"
+        app:allowDividerBelow="false"/>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        android:key="update_source"
+        android:defaultValue="github"
+        android:layout="@layout/list_item_view"
+        android:entries="@array/pref_update_source_list_titles"
+        android:entryValues="@array/pref_update_source_list_values"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_update_source"
+        android:icon="@drawable/ic_source"
+        app:allowDividerBelow="false"/>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreference
+        android:key="update_button"
+        android:layout="@layout/list_item_view_no_title"
+        android:title="@string/pref_summary_check_update"
+        android:icon="@drawable/ic_system_update_white"
+        app:allowDividerBelow="false"/>
+</androidx.preference.PreferenceScreen>

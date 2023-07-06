@@ -14,8 +14,12 @@
  */
 package com.ttop.app.apex.ui.fragments.player.peek
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
@@ -57,7 +61,10 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
+import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.DrawableGradient
+import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,6 +80,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     View.OnLayoutChangeListener {
 
     private lateinit var controlsFragment: PeekPlayerControlFragment
+    private var valueAnimator: ValueAnimator? = null
     private var lastColor: Int = 0
     private var _binding: FragmentPeekPlayerBinding? = null
     private val binding get() = _binding!!
@@ -85,6 +93,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -265,7 +274,10 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed()}
+            setNavigationOnClickListener {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
             setOnMenuItemClickListener(this@PeekPlayerFragment)
             ToolbarContentTintHelper.colorizeToolbar(
                 this,
@@ -346,6 +358,50 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         lastColor = color.primaryTextColor
         libraryViewModel.updateColor(color.primaryTextColor)
         controlsFragment.setColor(color)
+
+        ToolbarContentTintHelper.colorizeToolbar(
+            binding.playerToolbar,
+            colorControlNormal(),
+            requireActivity()
+        )
+
+        if (PreferenceUtil.isAdaptiveColor) {
+            colorize(color.backgroundColor)
+        }
+
+        val controlsColor =
+            if (PreferenceUtil.isAdaptiveColor) {
+                color.secondaryTextColor
+            } else {
+                ThemeStore.accentColor(requireContext())
+            }
+
+        binding.playerQueueSubHeader.setTextColor(controlsColor)
+    }
+
+    private fun colorize(i: Int) {
+        if (valueAnimator != null) {
+            valueAnimator?.cancel()
+        }
+
+        valueAnimator = ValueAnimator.ofObject(
+            ArgbEvaluator(),
+            surfaceColor(),
+            i
+        )
+        valueAnimator?.addUpdateListener { animation ->
+            if (isAdded) {
+                val drawable = DrawableGradient(
+                    GradientDrawable.Orientation.TOP_BOTTOM,
+                    intArrayOf(
+                        animation.animatedValue as Int,
+                        surfaceColor()
+                    ), 0
+                )
+                binding.colorGradientBackground.background = drawable
+            }
+        }
+        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
     }
 
     override fun onFavoriteToggled() {
@@ -354,19 +410,19 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album?.text = song.albumName
-        binding.artist?.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
             binding.songInfo.show()
             binding.songInfo.isSelected = true
 
-            binding.artist?.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,ApexUtil.DpToMargin(10)) }
+            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,ApexUtil.DpToMargin(10)) }
 
         } else {
             binding.songInfo.hide()
-            binding.artist?.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,0) }
+            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,0) }
         }
     }
 

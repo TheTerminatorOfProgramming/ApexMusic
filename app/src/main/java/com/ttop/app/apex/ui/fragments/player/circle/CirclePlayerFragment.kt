@@ -31,6 +31,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.getSystemService
@@ -63,6 +64,8 @@ import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
@@ -70,6 +73,7 @@ import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.*
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.apex.volume.AudioVolumeObserver
 import com.ttop.app.apex.volume.OnAudioVolumeChangedListener
 import com.ttop.app.appthemehelper.util.ColorUtil
@@ -108,7 +112,12 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     private var rotateAnimator: ObjectAnimator? = null
     private var lastRequest: RequestBuilder<Drawable>? = null
 
+    private var progressAnimator: ObjectAnimator? = null
+
     var isSeeking = false
+
+    val seekBar: SeekBar
+        get() = binding.progressSlider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,20 +142,11 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
         binding.songInfo.drawAboveSystemBars()
 
         setupRecyclerView()
-
-        if (PreferenceUtil.isQueueHidden){
-            binding.playerQueueSheet?.visibility = View.GONE
-        }else{
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
-
-        if (PreferenceUtil.queueShowAlways) {
-            binding.playerQueueSheet?.visibility = View.VISIBLE
-        }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -231,12 +231,10 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
                     val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
                         whichFragment(R.id.playerAlbumCoverFragment)
                     if (binding.playerQueueSheet?.visibility == View.VISIBLE){
-                        PreferenceUtil.isQueueHidden = true
                         binding.playerQueueSheet?.visibility = View.GONE
                         playerAlbumCoverFragment.updatePlayingQueue()
                         requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     }else{
-                        PreferenceUtil.isQueueHidden = false
                         binding.playerQueueSheet?.visibility = View.VISIBLE
                         playerAlbumCoverFragment.updatePlayingQueue()
                     }
@@ -296,7 +294,9 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+            setNavigationOnClickListener {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                requireActivity().onBackPressedDispatcher.onBackPressed() }
             setOnMenuItemClickListener(this@CirclePlayerFragment)
             ToolbarContentTintHelper.colorizeToolbar(
                 this,
@@ -408,6 +408,7 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
         } else {
             rotateAnimator?.pause()
         }
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     private fun setupRecyclerView() {
@@ -415,7 +416,7 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
             requireActivity() as AppCompatActivity,
             MusicPlayerRemote.playingQueue.toMutableList(),
             MusicPlayerRemote.position,
-            R.layout.item_queue_player
+            R.layout.item_queue_player_plain
         )
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
@@ -466,13 +467,14 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
         updatePlayPauseDrawableState()
         setupRotateAnimation()
         updateQueue()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album?.text = song.albumName
-        binding.artist?.text = song.artistName
+        binding.album.text = song.albumName
+        binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(song)
@@ -523,46 +525,61 @@ class CirclePlayerFragment : AbsPlayerFragment(R.layout.fragment_circle_player),
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress.toInt(), 0)
     }
 
+    private fun onProgressChange(value: Int, fromUser: Boolean) {
+        if (fromUser) {
+            onUpdateProgressViews(value, MusicPlayerRemote.songDurationMillis)
+        }
+    }
+
     override fun onStartTrackingTouch(seekBar: CircularSeekBar?) {
     }
 
     override fun onStopTrackingTouch(seekBar: CircularSeekBar?) {
     }
 
+    private fun onStartTrackingTouch() {
+        isSeeking = true
+        progressViewUpdateHelper.stop()
+        progressAnimator?.cancel()
+    }
+
+    private fun onStopTrackingTouch(value: Int) {
+        isSeeking = false
+        MusicPlayerRemote.seekTo(value)
+        progressViewUpdateHelper.start()
+    }
+
     private fun setUpProgressSlider() {
         binding.progressSlider.applyColor(accentColor())
-        val progressSlider = binding.progressSlider
-        progressSlider.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
-            if (fromUser) {
-                onUpdateProgressViews(
-                    value.toInt(),
-                    MusicPlayerRemote.songDurationMillis
-                )
-            }
-        })
-        progressSlider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
-            override fun onStartTrackingTouch(slider: Slider) {
-                isSeeking = true
-                progressViewUpdateHelper.stop()
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                onProgressChange(progress, fromUser)
             }
 
-            override fun onStopTrackingTouch(slider: Slider) {
-                isSeeking = false
-                MusicPlayerRemote.seekTo(slider.value.toInt())
-                progressViewUpdateHelper.start()
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                onStartTrackingTouch()
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                onStopTrackingTouch(seekBar?.progress ?: 0)
             }
         })
     }
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
-        val progressSlider = binding.progressSlider
-        progressSlider.valueTo = total.toFloat()
+        seekBar.max = total
 
-        progressSlider.valueTo = total.toFloat()
-
-        progressSlider.value =
-            progress.toFloat().coerceIn(progressSlider.valueFrom, progressSlider.valueTo)
-
+        if (isSeeking) {
+            seekBar.progress = progress
+        } else {
+            progressAnimator =
+                ObjectAnimator.ofInt(seekBar, "progress", progress).apply {
+                    duration = AbsPlayerControlsFragment.SLIDER_ANIMATION_TIME
+                    interpolator = LinearInterpolator()
+                    start()
+                }
+        }
         binding.songTotalTime.text = MusicUtil.getReadableDurationString(total.toLong())
         binding.songCurrentProgress.text = MusicUtil.getReadableDurationString(progress.toLong())
     }

@@ -11,23 +11,6 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
-        android:key="queue_show_always"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_queue_show_always"
-        android:title="@string/pref_title_queue_show_always"
-        app:isPreferenceVisible="@bool/queue_show_always"
-        app:allowDividerBelow="false"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="extra_song_info"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_extra_song_info"
-        android:title="@string/pref_title_extra_song_info"
-        app:allowDividerBelow="false"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
         android:key="snowfall"
         android:layout="@layout/list_item_view_switch_no_title"
         android:title="@string/pref_snow_fall_title"
@@ -35,10 +18,10 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
-        android:key="screen_on_lyrics"
+        android:key="adaptive_color_app"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_keep_screen_on_summary"
-        android:title="@string/pref_title_lyrics_screen_on"
+        android:summary="@string/pref_summary_colored_app"
+        android:title="@string/pref_title_colored_app"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -65,6 +48,36 @@
         app:title="@string/pref_title_expand_now_playing_panel"
         app:allowDividerBelow="false"/>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_controls"
+        app:allowDividerBelow="false">
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_skip_next"
+            app:key="toggle_autoplay"
+            app:summary="@string/pref_summary_auto_play"
+            app:title="@string/pref_title_auto_play"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_volume_up"
+            app:key="toggle_volume"
+            app:summary="@string/pref_summary_toggle_volume"
+            app:title="@string/pref_title_toggle_volume"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="extra_song_info"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_extra_song_info"
+            android:title="@string/pref_title_extra_song_info"
+            app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_album"
@@ -107,6 +120,15 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_show_lyrics"
             android:title="@string/pref_title_show_lyrics"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="screen_on_lyrics"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_keep_screen_on_summary"
+            android:title="@string/pref_title_lyrics_screen_on"
+            android:dependency="lyrics"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

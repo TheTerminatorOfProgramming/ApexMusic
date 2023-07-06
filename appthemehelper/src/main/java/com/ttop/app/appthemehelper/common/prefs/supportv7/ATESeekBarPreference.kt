@@ -5,6 +5,7 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
@@ -41,15 +42,18 @@ class ATESeekBarPreference @JvmOverloads constructor(
 
     override fun onBindViewHolder(view: PreferenceViewHolder) {
         super.onBindViewHolder(view)
-        val seekBar = view.findViewById(R.id.seekbar) as SeekBar
+        val seekBar = view.findViewById(androidx.preference.R.id.seekbar) as SeekBar
         TintHelper.setTintAuto(
             seekBar, // Set MD3 accent if MD3 is enabled or in-app accent otherwise
             ThemeStore.accentColor(context), false
         )
-        (view.findViewById(R.id.seekbar_value) as TextView).apply {
+
+        (view.findViewById(androidx.preference.R.id.seekbar_value) as TextView).apply {
             appendUnit(editableText)
-            doAfterTextChanged {
-                appendUnit(it)
+            if (unit == "") {
+                doAfterTextChanged {
+                    appendUnit(it)
+                }
             }
         }
     }

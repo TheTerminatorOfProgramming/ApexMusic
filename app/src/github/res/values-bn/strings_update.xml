@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="available_to_download">ডাউনলোড করার জন্য উপলব্ধ!</string>
+    <string name="download_agreement">এই আপডেটটি ডাউনলোড করে আপনি সর্বশেষ বৈশিষ্ট্য, উন্নতি এবং বাগ ফিক্স পাবেন!</string>
+    <string name="install_now">আপনি কি এখন এই আপডেটটি ডাউনলোড এবং ইনস্টল করতে চান?</string>
+    <string name="pref_summary_update_app">সর্বশেষ সংস্করণে এপেক্স মিউজিক আপডেট করুন</string>
+    <string name="pref_summary_update_channel">পূর্বরূপ আপডেট অ্যাক্সেস পান</string>
+    <string name="pref_title_update_channel">প্রিভিউ দেখান</string>
+    <string name="pref_title_update_frequency">আপডেট ফ্রিকোয়েন্সি জন্য পরীক্ষা করুন</string>
+    <string name="pref_title_update_source">আপডেট সোর্স</string>
+    <string name="stable_available_to_download">স্থিতিশীল ডাউনলোড করার জন্য উপলব্ধ!</string>
+    <string name="unknown_sources_summary">ওয়েবসাইট থেকে আপডেট করার সময় স্বয়ংক্রিয়ভাবে আপডেটগুলি ইনস্টল করতে অজানা উত্সগুলির ইনস্টলেশন সক্ষম করুন৷ Google Play এর মাধ্যমে আপডেট করা হলে এটির প্রয়োজন নেই</string>
+    <string name="unknown_sources_title">অজানা উত্স অনুমতি</string>
+    <string name="update">আপডেট</string>
+    <string name="update_app">অ্যাপ আপডেট করুন</string>
+    <string name="update_available">আপডেট উপলব্ধ!</string>
+    <string name="update_now">হালনাগাদ</string>
+    <string name="updates_unavailable">কোন আপডেট উপলব্ধ!</string>
+    <string name="pref_summary_check_update">হালনাগাদ এর জন্য অনুসন্ধান করুন</string>
+</resources>

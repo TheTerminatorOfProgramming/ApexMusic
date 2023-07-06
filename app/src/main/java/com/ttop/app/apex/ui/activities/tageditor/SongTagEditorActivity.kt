@@ -87,8 +87,8 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
         when (item.itemId) {
             R.id.action_find_lyrics -> {
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("Find Lyrics")
-                builder.setMessage("Use lyrics search terms form id3 tags or enter manually?")
+                builder.setTitle(R.string.find_lyrics)
+                builder.setMessage(R.string.lyrics_search_summary)
 
                 builder.setPositiveButton(R.string.manually) { _, _ ->
                     showdialog()

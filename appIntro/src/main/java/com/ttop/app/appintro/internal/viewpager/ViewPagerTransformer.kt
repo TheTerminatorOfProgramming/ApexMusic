@@ -39,7 +39,6 @@ internal class ViewPagerTransformer(
                 descriptionPF = transformType.descriptionParallaxFactor
                 transformParallax(position, page)
             }
-            else -> {}
         }
     }
 

@@ -2,6 +2,5 @@
 <resources>
     <bool name="classic_notification">false</bool>
     <bool name="full_circle">false</bool>
-    <bool name="next_prev_behaviour">false</bool>
     <bool name="actions">true</bool>
 </resources>

@@ -79,6 +79,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         item: MenuItem,
     ): Boolean {
         val song = MusicPlayerRemote.currentSong
+        //requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -328,31 +329,208 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         super.onResume()
         val nps = PreferenceUtil.nowPlayingScreen
 
-        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
-            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-        } else {
-            playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                isChecked = PreferenceUtil.showLyrics
-                showLyricsIcon(this)
+        when(nps) {
+            NowPlayingScreen.Adaptive -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
             }
-        }
-
-        if (nps == NowPlayingScreen.Peek){
-            playerToolbar()?.menu?.removeItem(R.id.now_playing)
-            if (ApexUtil.isLandscape && !ApexUtil.isTablet){
+            NowPlayingScreen.Blur -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.BlurCard -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Classic -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
             }
-        }else{
-            playerToolbar()?.menu?.removeItem(R.id.action_queue)
-        }
-
-        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Swipe || nps == NowPlayingScreen.Flat || nps == NowPlayingScreen.Full
-            || nps == NowPlayingScreen.Material || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Normal ||
-            nps == NowPlayingScreen.Simple|| nps == NowPlayingScreen.Circle|| nps == NowPlayingScreen.Blur) {
-            if (ApexUtil.isTablet) {
-                if (PreferenceUtil.queueShowAlways) {
+            NowPlayingScreen.Circle -> {
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                if (ApexUtil.isTablet) {
                     playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+            }
+            NowPlayingScreen.Card -> {
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Color -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Fit -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Flat -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Full -> {
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                    playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                }else {
+                    if (!ApexUtil.isLandscape) {
+                        playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                    }
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Gradient -> {
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.MD3 -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Material -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Normal -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Peek -> {
+                if (!ApexUtil.isTablet && ApexUtil.isLandscape){
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }else {
+                    playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+            }
+            NowPlayingScreen.Plain -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Simple -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Swipe -> {
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                if (ApexUtil.isTablet) {
+                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                }
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+                    isChecked = PreferenceUtil.showLyrics
+                    showLyricsIcon(this)
+                }
+            }
+            NowPlayingScreen.Tiny -> {
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
             }
         }
 
@@ -364,13 +542,8 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
         }
 
-        if (!PreferenceUtil.syncedLyrics) {
+        if (!PreferenceUtil.syncedLyrics && nps != NowPlayingScreen.Color) {
             playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-        }
-
-        if (nps != NowPlayingScreen.Tiny){
-            playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-            playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
         }
     }
 
@@ -380,7 +553,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     }
 
     fun showSyncedLyrics() {
-        if (!PreferenceUtil.syncedLyrics) {
+        if (!PreferenceUtil.syncedLyrics && PreferenceUtil.nowPlayingScreen != NowPlayingScreen.Color) {
             playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
         }
     }
@@ -402,8 +575,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         private var flingPlayBackController: GestureDetector = GestureDetector(
             context,
             object : GestureDetector.SimpleOnGestureListener() {
+
                 override fun onScroll(
-                    e1: MotionEvent,
+                    e1: MotionEvent?,
                     e2: MotionEvent,
                     distanceX: Float,
                     distanceY: Float

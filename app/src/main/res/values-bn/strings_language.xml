@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bengali">বাংলা</string>
+    <string name="english">ইংরেজি</string>
+    <string name="indonesian">ইন্দোনেশিয়ান</string>
+    <string name="japanese">জাপানিজ</string>
+    <string name="portuguese">পর্তুগীজ</string>
+    <string name="spanish">স্পেনীয়</string>
+    <string name="system_default">সিস্টেমের ডিফল্ট</string>
+</resources>

@@ -14,6 +14,7 @@
 package com.ttop.app.apex.service
 
 import android.annotation.SuppressLint
+import android.app.KeyguardManager
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -43,6 +44,7 @@ import android.support.v4.media.session.PlaybackStateCompat.Builder
 import android.telecom.ConnectionService
 import android.util.Log
 import android.widget.Toast
+import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
@@ -157,6 +159,7 @@ class MusicService : MediaBrowserServiceCompat(),
     private val appWidgetFull = AppWidgetFull.instance
     private val appWidgetFullCircle = AppWidgetFullCircle.instance
     private val appWidgetSquare = AppWidgetSquare.instance
+    private val appWidgetQueue = AppWidgetQueue.instance
     private val widgetIntentReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME)
@@ -181,6 +184,9 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
                     AppWidgetSquare.NAME -> {
                         appWidgetSquare.performUpdate(this@MusicService, ids)
+                    }
+                    AppWidgetQueue.NAME -> {
+                        appWidgetQueue.performUpdate(this@MusicService, ids)
                     }
                 }
             }
@@ -734,7 +740,7 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     override fun onSharedPreferenceChanged(
-        sharedPreferences: SharedPreferences, key: String,
+        sharedPreferences: SharedPreferences, key: String?,
     ) {
         when (key) {
             PLAYBACK_SPEED, PLAYBACK_PITCH -> {
@@ -794,27 +800,18 @@ class MusicService : MediaBrowserServiceCompat(),
                     ACTION_PLAY -> play()
                     ACTION_PLAY_PLAYLIST -> playFromPlaylist(intent)
                     ACTION_REWIND -> {
-                        if (VersionUtils.hasT()) {
-                            playPreviousSong(true)
+                        if (PreferenceUtil.isAutoplay) {
+                            playPreviousSongAuto(true, isPlaying)
                         } else {
-                            if (PreferenceUtil.isAutoplay) {
-                              playPreviousSong(true)
-                            } else {
-                                playPreviousSongAuto(true, isPlaying)
-                            }
+                            playPreviousSong(true)
                         }
                     }
                     ACTION_SKIP -> {
-                        if (VersionUtils.hasT()) {
+                        if (PreferenceUtil.isAutoplay) {
+                            playNextSongAuto(true, isPlaying)
+                        } else {
                             playNextSong(true)
-                        }else {
-                            if (PreferenceUtil.isAutoplay) {
-                               playNextSong(true)
-                            } else {
-                                playNextSongAuto(true, isPlaying)
-                            }
                         }
-
                     }
                     ACTION_STOP, ACTION_QUIT -> {
                         pendingQuit = false
@@ -824,6 +821,18 @@ class MusicService : MediaBrowserServiceCompat(),
                     TOGGLE_FAVORITE -> toggleFavorite()
                     UPDATE_NOTIFY -> {
                         update()
+                    }
+                    PLAY_QUEUE_1 -> {
+                        playSongAt(position + 1)
+                    }
+                    PLAY_QUEUE_2 -> {
+                        playSongAt(position + 2)
+                    }
+                    PLAY_QUEUE_3 -> {
+                        playSongAt(position + 3)
+                    }
+                    PLAY_QUEUE_4 -> {
+                        playSongAt(position + 4)
                     }
                 }
             }
@@ -1570,10 +1579,12 @@ class MusicService : MediaBrowserServiceCompat(),
             UI_MODE_NIGHT_YES -> {
                 appWidgetClassic.notifyThemeChange(this)
                 appWidgetFull.notifyThemeChange(this)
+                appWidgetQueue.notifyThemeChange(this)
             }
             UI_MODE_NIGHT_NO -> {
                 appWidgetClassic.notifyThemeChange(this)
                 appWidgetFull.notifyThemeChange(this)
+                appWidgetQueue.notifyThemeChange(this)
             }
         }
     }
@@ -1586,6 +1597,7 @@ class MusicService : MediaBrowserServiceCompat(),
         appWidgetCircle.notifyChange(this, what)
         appWidgetFullCircle.notifyChange(this, what)
         appWidgetSquare.notifyChange(this, what)
+        appWidgetQueue.notifyChange(this, what)
     }
 
     private fun setCustomAction(stateBuilder: PlaybackStateCompat.Builder) {
@@ -1709,6 +1721,7 @@ class MusicService : MediaBrowserServiceCompat(),
                     appWidgetSquare.performUpdate(this@MusicService, null)
                     appWidgetClassic.performUpdate(this@MusicService, null)
                     appWidgetFull.performUpdate(this@MusicService, null)
+                    appWidgetQueue.performUpdate(this@MusicService, null)
                 }
             }
         }, 0, 1000)
@@ -1774,6 +1787,10 @@ class MusicService : MediaBrowserServiceCompat(),
         const val TOGGLE_SHUFFLE = "$APEX_MUSIC_PACKAGE_NAME.toggleshuffle"
         const val TOGGLE_FAVORITE = "$APEX_MUSIC_PACKAGE_NAME.togglefavorite"
         const val UPDATE_NOTIFY = "$APEX_MUSIC_PACKAGE_NAME.updatenotify"
+        const val PLAY_QUEUE_1 = "$APEX_MUSIC_PACKAGE_NAME.playqueue1"
+        const val PLAY_QUEUE_2 = "$APEX_MUSIC_PACKAGE_NAME.playqueue2"
+        const val PLAY_QUEUE_3 = "$APEX_MUSIC_PACKAGE_NAME.playqueue3"
+        const val PLAY_QUEUE_4 = "$APEX_MUSIC_PACKAGE_NAME.playqueue4"
         const val SAVED_POSITION = "POSITION"
         const val SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK"
         const val SAVED_SHUFFLE_MODE = "SHUFFLE_MODE"

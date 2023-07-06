@@ -141,7 +141,6 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:paddingTop="4dp"
-                android:textSize="12sp"
                 tools:text="@tools:sample/lorem/random" />
         </LinearLayout>
     </LinearLayout>

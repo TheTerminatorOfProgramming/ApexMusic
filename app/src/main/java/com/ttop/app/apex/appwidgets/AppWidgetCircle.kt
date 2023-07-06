@@ -150,7 +150,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
-                                            playPauseRes, service.resources.getColor(R.color.md_white_1000)
+                                            playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
 
@@ -158,7 +158,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
-                                            favoriteRes, service.resources.getColor(R.color.md_white_1000)
+                                            favoriteRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
                                 }
@@ -168,7 +168,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
-                                            playPauseRes, service.resources.getColor(R.color.md_black_1000)
+                                            playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
 
@@ -176,7 +176,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
-                                            favoriteRes, service.resources.getColor(R.color.md_black_1000)
+                                            favoriteRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
                                 }
@@ -206,7 +206,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
                                             playPauseRes,
-                                            service.resources.getColor(R.color.md_black_1000)
+                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
 
@@ -215,7 +215,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
                                             favoriteRes,
-                                            service.resources.getColor(R.color.md_black_1000)
+                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
                                 }
@@ -225,7 +225,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
                                             playPauseRes,
-                                            service.resources.getColor(R.color.md_white_1000)
+                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
 
@@ -234,7 +234,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
                                             favoriteRes,
-                                            service.resources.getColor(R.color.md_white_1000)
+                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
                                 }

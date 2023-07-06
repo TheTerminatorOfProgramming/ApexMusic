@@ -62,7 +62,7 @@ class RenamePlaylistDialog : DialogFragment() {
                     libraryViewModel.renameRoomPlaylist(playlistEntity.playListId, name)
                     libraryViewModel.forceReload(ReloadType.Playlists)
                 } else {
-                    nameContainer.error = "Playlist name should'nt be empty"
+                    nameContainer.error = getString(R.string.playlist_name_empty_shouldnt)
                 }
             }
             .create()

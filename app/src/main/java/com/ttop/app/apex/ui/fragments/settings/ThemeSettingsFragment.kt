@@ -20,12 +20,14 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.core.content.edit
+import androidx.preference.DialogPreference
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.color.colorChooser
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
@@ -40,8 +42,7 @@ import com.ttop.app.appthemehelper.util.VersionUtils
  * @author Hemanth S (h4h13).
  */
 
-class ThemeSettingsFragment : AbsSettingsFragment(),
-    SharedPreferences.OnSharedPreferenceChangeListener {
+class ThemeSettingsFragment : AbsSettingsFragment() {
     @SuppressLint("CheckResult")
     override fun invalidateSettings() {
         val generalTheme: Preference? = findPreference(GENERAL_THEME)
@@ -96,7 +97,7 @@ class ThemeSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             val desaturated = value as Boolean
             ThemeStore.prefs(requireContext()).edit {
-                putBoolean("desaturated_color", desaturated)
+                putBoolean(DESATURATED_COLOR, desaturated)
             }
             PreferenceUtil.isDesaturatedColor = desaturated
             restartActivity()
@@ -109,6 +110,7 @@ class ThemeSettingsFragment : AbsSettingsFragment(),
         } else {
             colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
             colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                 true
@@ -141,35 +143,14 @@ class ThemeSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
-        adaptiveColor?.isEnabled =
-            PreferenceUtil.nowPlayingScreen in listOf(Adaptive, Card, Classic, Color, Fit, Flat, Full, Gradient, Normal, Peek, Plain, Simple, Swipe)
-        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val swipeGestures: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE)
         swipeGestures?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
 
-        val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
-        autoplay?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
         extraControls?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val volume: TwoStatePreference? = findPreference(TOGGLE_VOLUME)
-        volume?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
@@ -216,8 +197,6 @@ class ThemeSettingsFragment : AbsSettingsFragment(),
             dismissCheck?.isEnabled = PreferenceUtil.dismissMethod != "none"
             true
         }
-
-
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -248,34 +227,6 @@ class ThemeSettingsFragment : AbsSettingsFragment(),
 
         if (PreferenceUtil.baseTheme == "light") {
             blackTheme?.isEnabled = false
-        }
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        when (key) {
-            GENERAL_THEME -> {
-                val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
-
-                when(PreferenceUtil.baseTheme) {
-                    "light" -> {
-                        blackTheme?.isEnabled = false
-                    }
-                    "dark" -> {
-                        blackTheme?.isEnabled = true
-                    }
-                    "auto" -> {
-                        when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                            Configuration.UI_MODE_NIGHT_YES -> {
-                                blackTheme?.isEnabled = true
-                            }
-                            Configuration.UI_MODE_NIGHT_NO,
-                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                                blackTheme?.isEnabled = false
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

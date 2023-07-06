@@ -14,11 +14,14 @@
  */
 package com.ttop.app.apex.ui.activities
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
+import android.view.animation.LinearInterpolator
+import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
@@ -31,6 +34,7 @@ import com.ttop.app.apex.glide.BlurTransformation
 import com.bumptech.glide.Glide
 import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
 import com.ttop.app.apex.dialogs.SleepTimerDialog
+import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
@@ -40,8 +44,10 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
+import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,6 +66,12 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     private var lastDisabledPlaybackControlsColor: Int = Color.GRAY
     private lateinit var progressViewUpdateHelper: MusicProgressViewUpdateHelper
     private val repository: RealRepository by inject()
+
+    private var progressAnimator: ObjectAnimator? = null
+    var isSeeking = false
+
+    val seekBar: SeekBar
+        get() = binding.progressSlider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,15 +132,39 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     private fun setUpProgressSlider() {
-        binding.progressSlider.addOnChangeListener { _: Slider, progress: Float, fromUser: Boolean ->
-            if (fromUser) {
-                MusicPlayerRemote.seekTo(progress.toInt())
-                onUpdateProgressViews(
-                    MusicPlayerRemote.songProgressMillis,
-                    MusicPlayerRemote.songDurationMillis
-                )
+        binding.progressSlider.applyColor(accentColor())
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                onProgressChange(progress, fromUser)
             }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                onStartTrackingTouch()
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                onStopTrackingTouch(seekBar?.progress ?: 0)
+            }
+        })
+    }
+
+    private fun onProgressChange(value: Int, fromUser: Boolean) {
+        if (fromUser) {
+            onUpdateProgressViews(value, MusicPlayerRemote.songDurationMillis)
         }
+    }
+
+    private fun onStartTrackingTouch() {
+        isSeeking = true
+        progressViewUpdateHelper.stop()
+        progressAnimator?.cancel()
+    }
+
+    private fun onStopTrackingTouch(value: Int) {
+        isSeeking = false
+        MusicPlayerRemote.seekTo(value)
+        progressViewUpdateHelper.start()
     }
 
     override fun onPause() {
@@ -143,25 +179,17 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
 
     private fun setUpPrevNext() {
         binding.nextButton.setOnClickListener {
-            if (VersionUtils.hasT()) {
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+            } else {
                 MusicPlayerRemote.playNextSong()
-            }else {
-                if (PreferenceUtil.isAutoplay) {
-                    MusicPlayerRemote.playNextSong()
-                } else {
-                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                }
             }
         }
         binding.previousButton.setOnClickListener {
-            if (VersionUtils.hasT()) {
-                MusicPlayerRemote.playPreviousSong()
+            if (PreferenceUtil.isAutoplay) {
+                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
             }else {
-                if (PreferenceUtil.isAutoplay) {
-                    MusicPlayerRemote.playPreviousSong()
-                }else {
-                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                }
+                MusicPlayerRemote.playPreviousSong()
             }
         }
     }
@@ -201,6 +229,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     override fun onPlayStateChanged() {
         super.onPlayStateChanged()
         updatePlayPauseDrawableState()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     override fun onServiceConnected() {
@@ -210,6 +239,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         updateRepeatState()
         updateShuffleState()
         updateFavorite()
+        (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
     }
 
     private fun updatePlayPauseDrawableState() {
@@ -285,10 +315,20 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
-        binding.progressSlider.run {
-            valueTo = total.toFloat()
-            value = progress.toFloat().coerceIn(valueFrom, valueTo)
-        }
+            seekBar.max = total
+
+            if (isSeeking) {
+                seekBar.progress = progress
+            } else {
+                progressAnimator =
+                    ObjectAnimator.ofInt(seekBar, "progress", progress).apply {
+                        duration = AbsPlayerControlsFragment.SLIDER_ANIMATION_TIME
+                        interpolator = LinearInterpolator()
+                        start()
+                    }
+            }
+            binding.songTotalTime.text = MusicUtil.getReadableDurationString(total.toLong())
+            binding.songCurrentProgress.text = MusicUtil.getReadableDurationString(progress.toLong())
 
         binding.songTotalTime.text = MusicUtil.getReadableDurationString(total.toLong())
         binding.songCurrentProgress.text = MusicUtil.getReadableDurationString(progress.toLong())

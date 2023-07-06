@@ -14,7 +14,16 @@
         <include layout="@layout/status_bar" />
     </FrameLayout>
 
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
+        android:text="@string/app_name"
+        android:layout_gravity="center_horizontal"
+        app:cornerRadius="50dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/md_grey_800"/>
 
     <com.ttop.app.apex.views.WidthFitSquareCardView
         android:id="@+id/albumCoverContainer"
@@ -51,16 +60,4 @@
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_lock_screen_playback_controls" />
     </LinearLayout>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/slide"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fitsSystemWindows="true"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="@string/swipe_to_unlock"
-        android:textColor="?android:attr/textColorPrimary" />
 </LinearLayout>

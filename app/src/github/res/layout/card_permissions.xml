@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MaterialCardViewStroke"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/about_card_radius">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.ttop.app.appthemehelper.common.views.ATEAccentTextView
+            android:id="@+id/sb4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="?attr/listPreferredItemPaddingStart"
+            android:paddingTop="?attr/listPreferredItemPaddingStart"
+            android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+            android:paddingBottom="?attr/listPreferredItemPaddingEnd"
+            android:text="@string/permissions"
+            android:textAppearance="@style/TextViewNormal"
+            android:textColor="?colorAccent"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/storage_permission_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sb4"
+            android:text="Storage Permission: "
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="19dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/storage_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/storage_permission_title"
+            app:layout_constraintTop_toBottomOf="@id/sb4"
+            android:text="ssssssss"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bt_permission_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/storage_permission_title"
+            android:text="Bluetooth Permission: "
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="19dp"/>
+
+        <TextView
+            android:id="@+id/bt_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/bt_permission_title"
+            app:layout_constraintTop_toBottomOf="@id/storage_permission"
+            android:text="ssssssss"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/battery_permission_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bt_permission"
+            android:text="Battery Optimization: "
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="19dp"/>
+
+        <TextView
+            android:id="@+id/battery_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/battery_permission_title"
+            app:layout_constraintTop_toBottomOf="@id/bt_permission"
+            android:text="ssssssss"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/ringtone_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/battery_permission_title"
+            app:listItemIcon="@drawable/ic_phonelink_ring"
+            app:listItemSummary="@string/ringtone_summary"
+            app:listItemTitle="@string/ringtone_title"
+            android:layout_marginTop="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/sources_permission"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ringtone_permission"
+            app:listItemIcon="@drawable/ic_unknown_sources"
+            app:listItemSummary="@string/unknown_sources_summary"
+            app:listItemTitle="@string/unknown_sources_title"
+            android:layout_marginTop="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/permissions_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sources_permission"
+            app:listItemIcon="@drawable/ic_storage"
+            app:listItemSummary="@string/pref_summary_permissions_edit"
+            app:listItemTitle="@string/permission_edit"
+            android:layout_marginTop="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/intro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/permissions_edit"
+            app:listItemIcon="@drawable/ic_launch"
+            app:listItemSummary="@string/intro_summary"
+            app:listItemTitle="@string/intro_label"
+            android:layout_marginTop="5dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

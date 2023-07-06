@@ -171,7 +171,7 @@
     <LinearLayout
         android:id="@+id/titleContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/progressSlider"
         app:layout_constraintEnd_toEndOf="parent"
@@ -182,7 +182,7 @@
             android:id="@+id/songTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
@@ -197,8 +197,7 @@
             android:id="@+id/album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
@@ -212,7 +211,7 @@
             android:id="@+id/artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
@@ -223,23 +222,24 @@
             tools:text="@tools:sample/lorem/random" />
     </LinearLayout>
 
-    <com.google.android.material.slider.Slider
+    <SeekBar
         android:id="@+id/progressSlider"
+        style="@style/SquigglySlider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxHeight="3dp"
-        style="@style/Widget.Apex.Slider"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@id/songCurrentProgress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
-        tools:progress="20" />
+        tools:progress="50" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songCurrentProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:singleLine="true"
         android:textColor="@color/md_white_1000"
         app:layout_constraintBottom_toTopOf="@id/playPauseButton"
@@ -250,7 +250,7 @@
         android:id="@+id/songTotalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         android:singleLine="true"
         android:textColor="@color/md_white_1000"
         app:layout_constraintBottom_toTopOf="@id/playPauseButton"

@@ -60,25 +60,17 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onClick(view: View) {
         when (view.id) {
             R.id.actionNext ->  {
-                if (VersionUtils.hasT()) {
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                } else {
                     MusicPlayerRemote.playNextSong()
-                }else {
-                    if (PreferenceUtil.isAutoplay) {
-                        MusicPlayerRemote.playNextSong()
-                    } else {
-                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                    }
                 }
             }
             R.id.actionPrevious ->  {
-                if (VersionUtils.hasT()) {
-                    MusicPlayerRemote.playPreviousSong()
+                if (PreferenceUtil.isAutoplay) {
+                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                 }else {
-                    if (PreferenceUtil.isAutoplay) {
-                        MusicPlayerRemote.playPreviousSong()
-                    }else {
-                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                    }
+                    MusicPlayerRemote.playPreviousSong()
                 }
             }
         }
@@ -234,7 +226,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         private var flingPlayBackController = GestureDetector(context,
             object : GestureDetector.SimpleOnGestureListener() {
                 override fun onFling(
-                    e1: MotionEvent,
+                    e1: MotionEvent?,
                     e2: MotionEvent,
                     velocityX: Float,
                     velocityY: Float
@@ -242,25 +234,17 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                     if (PreferenceUtil.isSwipe) {
                         if (abs(velocityX) > abs(velocityY)) {
                             if (velocityX < 0) {
-                                if (VersionUtils.hasT()) {
+                                if (PreferenceUtil.isAutoplay) {
+                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                } else {
                                     MusicPlayerRemote.playNextSong()
-                                }else {
-                                    if (PreferenceUtil.isAutoplay) {
-                                        MusicPlayerRemote.playNextSong()
-                                    } else {
-                                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                                    }
                                 }
                                 return true
                             } else if (velocityX > 0) {
-                                if (VersionUtils.hasT()) {
-                                    MusicPlayerRemote.playPreviousSong()
+                                if (PreferenceUtil.isAutoplay) {
+                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                                 }else {
-                                    if (PreferenceUtil.isAutoplay) {
-                                        MusicPlayerRemote.playPreviousSong()
-                                    }else {
-                                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                                    }
+                                    MusicPlayerRemote.playPreviousSong()
                                 }
                                 return true
                             }

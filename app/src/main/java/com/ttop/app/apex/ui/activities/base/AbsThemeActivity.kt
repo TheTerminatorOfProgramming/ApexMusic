@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.os.LocaleListCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
@@ -35,6 +36,7 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        updateLocale()
         updateTheme()
         hideStatusBar()
         super.onCreate(savedInstanceState)
@@ -73,8 +75,12 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.SamsungThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "ostrich") {
-            setTheme(R.style.OstrichThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "drexs") {
+            setTheme(R.style.DrexsThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "hermanoalto") {
+            setTheme(R.style.HermanoaltoThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "capture") {
@@ -93,7 +99,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             PreferenceUtil.isLocaleAutoStorageEnabled = true
         }
     }
-
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) {

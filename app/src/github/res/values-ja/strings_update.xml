@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="available_to_download">がダウンロード可能です！</string>
+    <string name="download_agreement">このアップデートをダウンロードすると、最新の機能、改善点、バグ修正が得られます。</string>
+    <string name="install_now">このアップデートを今すぐダウンロードしてインストールしますか?</string>
+    <string name="pref_summary_check_update">アップデートを確認</string>
+    <string name="pref_summary_update_app">apexミュージックを最新バージョンにアップデートする</string>
+    <string name="pref_summary_update_channel">プレビューアップデートにアクセスする</string>
+    <string name="pref_title_update_channel">プレビューを表示</string>
+    <string name="pref_title_update_frequency">更新頻度を確認する</string>
+    <string name="pref_title_update_source">アップデートソース</string>
+    <string name="stable_available_to_download">安定版をダウンロードできます!</string>
+    <string name="unknown_sources_summary">不明なソースのインストールを有効にすると、Web サイトから更新するときに更新プログラムが自動的にインストールされます。 Google Play を通じて更新する場合、これは必要ありません</string>
+    <string name="unknown_sources_title">不明なソースの許可</string>
+    <string name="update">アップデート</string>
+    <string name="update_app">アプリを更新する</string>
+    <string name="update_available">アップデートが利用可能です!</string>
+    <string name="update_now">アップデート</string>
+    <string name="updates_unavailable">利用可能なアップデートはありません!</string>
+</resources>

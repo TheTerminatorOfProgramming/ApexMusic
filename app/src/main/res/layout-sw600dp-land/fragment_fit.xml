@@ -15,8 +15,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="400dp"
+            android:layout_weight="0">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/playerAlbumCoverFragment"
@@ -25,23 +25,44 @@
                 android:layout_height="match_parent"
                 tools:layout="@layout/fragment_album_full_cover" />
 
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/cover_lyrics"
-                android:name="com.ttop.app.apex.ui.fragments.player.CoverLyricsFragment"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/playerQueueSheet"
+                style="@style/BottomSheetStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="20dp"
-                android:elevation="20dp" />
+                android:layout_height="match_parent"
+                app:shapeAppearanceOverlay="@style/NPSCornerCardView"
+                app:behavior_hideable="false"
+                android:alpha="0.8"
+                android:backgroundTint="@color/black_color"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                android:visibility="gone"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                tools:peekHeight="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="@integer/overScrollMode"
+                        tools:listitem="@layout/item_list" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.fit.FitPlaybackControlsFragment"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_weight="0"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             tools:layout="@layout/fragment_gradient_controls" />
 
         <com.google.android.material.appbar.MaterialToolbar

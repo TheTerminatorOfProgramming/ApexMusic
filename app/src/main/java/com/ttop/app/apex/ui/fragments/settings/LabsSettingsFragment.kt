@@ -48,6 +48,8 @@ class LabsSettingsFragment : AbsSettingsFragment() {
 
             fullWidgetState(requireContext(), value)
 
+            queueWidgetState(requireContext(), value)
+
             true
         }
 
@@ -119,6 +121,14 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val showPreviews: TwoStatePreference? = findPreference(UPDATE_CHANNEL)
+        showPreviews?.isChecked = PreferenceUtil.isPreviewChannel
+        showPreviews?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -172,6 +182,23 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             ComponentName(
                 context,
                 AppWidgetClassic::class.java
+            ), newState, PackageManager.DONT_KILL_APP
+        )
+    }
+
+    private fun queueWidgetState(context: Context, state: Boolean) {
+        val pm: PackageManager = context.packageManager
+
+        val newState = if (state) {
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+        }else {
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        }
+
+        pm.setComponentEnabledSetting(
+            ComponentName(
+                context,
+                AppWidgetQueue::class.java
             ), newState, PackageManager.DONT_KILL_APP
         )
     }

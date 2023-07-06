@@ -20,16 +20,19 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.AppWidgetFull
+import com.ttop.app.apex.extensions.installLanguageAndRecreate
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -64,11 +67,15 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val languagePreference: ATEListPreference? = findPreference(LANGUAGE_NAME)
+        languagePreference?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
+            return@setOnPreferenceChangeListener true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        PreferenceUtil.languageCode =
-            AppCompatDelegate.getApplicationLocales().toLanguageTags().ifEmpty { "auto" }
         addPreferencesFromResource(R.xml.pref_advanced)
     }
 
@@ -80,9 +87,27 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             libraryViewModel.forceReload(HomeSections)
             true
         }
+
+        val languagePreference: Preference? = findPreference(LANGUAGE_NAME)
+        languagePreference?.setOnPreferenceChangeListener { prefs, newValue ->
+            setSummary(prefs, newValue)
+            if (newValue as? String == "auto") {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+            } else {
+                // Install the languages from Play Store first and then set the application locale
+                requireActivity().installLanguageAndRecreate(newValue.toString()) {
+                    AppCompatDelegate.setApplicationLocales(
+                        LocaleListCompat.forLanguageTags(
+                            newValue as? String
+                        )
+                    )
+                }
+            }
+            true
+        }
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(p0: SharedPreferences?, key: String?) {
         when (key) {
             AUTO_ROTATE -> {
                 autoRotate()

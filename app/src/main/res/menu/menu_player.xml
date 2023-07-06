@@ -40,7 +40,7 @@
         android:icon="@drawable/ic_playback_speed"
         android:orderInCategory="4"
         android:title="@string/playback_speed"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_go_to_drive_mode"
         android:icon="@drawable/ic_drive_eta"

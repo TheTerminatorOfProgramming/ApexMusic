@@ -28,6 +28,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -58,7 +59,6 @@ import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.other.VolumeFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
@@ -313,7 +313,6 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
 
         binding.playerContainer.setBackgroundColor(color.backgroundColor)
         binding.playerControlsContainer.songInfo.setTextColor(color.primaryTextColor)
-        binding.playerQueueSubHeader.setTextColor(color.primaryTextColor)
 
         binding.playerControlsContainer.songCurrentProgress.setTextColor(lastPlaybackControlsColor)
         binding.playerControlsContainer.songTotalTime.setTextColor(lastPlaybackControlsColor)
@@ -633,7 +632,7 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
     }
 
     private fun isLandscapeMode(): Boolean {
-        val config = resources.configuration;
+        val config = resources.configuration
 
         // Check if the device is in landscape mode
         return config.orientation == Configuration.ORIENTATION_LANDSCAPE

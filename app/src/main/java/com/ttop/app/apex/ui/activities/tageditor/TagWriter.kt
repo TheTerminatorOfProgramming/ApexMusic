@@ -35,7 +35,7 @@ class TagWriter {
         suspend fun scan(context: Context, toBeScanned: List<String?>?) {
             if (toBeScanned.isNullOrEmpty()) {
                 Log.i("scan", "scan: Empty")
-                context.showToast("Scan file from folder")
+                context.showToast(R.string.scan_from_folder)
                 return
             }
             MediaScannerConnection.scanFile(

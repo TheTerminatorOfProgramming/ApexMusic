@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black_color"
             android:textColor="@color/md_white_1000"
-            android:text="Disable Battery Optimization"
+            android:text="@string/disable_battery_optimize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/imageLayout" />

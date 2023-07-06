@@ -31,6 +31,7 @@ import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
+import com.ttop.app.apex.appwidgets.AppWidgetQueue
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -54,6 +55,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
     private val appWidgetClassic: AppWidgetClassic = AppWidgetClassic.instance
     private val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
     private val appWidgetCircle: AppWidgetCircle = AppWidgetCircle.instance
+    private val appWidgetQueue: AppWidgetQueue = AppWidgetQueue.instance
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
@@ -68,6 +70,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 appWidgetClassic.notifyThemeChange(musicService)
                 appWidgetFull.notifyThemeChange(musicService)
                 appWidgetCircle.notifyThemeChange(musicService)
+                appWidgetQueue.notifyThemeChange(musicService)
             }
             WIDGET_COLORS -> {
                 val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
@@ -75,6 +78,16 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 if (colors != null) {
                     buttonColor?.isEnabled = !colors.isChecked
                 }
+            }
+            WIDGET_CUSTOM_COLOR -> {
+                appWidgetClassic.notifyThemeChange(musicService)
+                appWidgetFull.notifyThemeChange(musicService)
+                appWidgetCircle.notifyThemeChange(musicService)
+                appWidgetQueue.notifyThemeChange(musicService)
+            }
+            PROGRESSBAR_COLOR-> {
+                appWidgetClassic.notifyThemeChange(musicService)
+                appWidgetFull.notifyThemeChange(musicService)
             }
         }
     }
@@ -123,15 +136,17 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             appWidgetClassic.notifyThemeChange(musicService)
             appWidgetFull.notifyThemeChange(musicService)
             appWidgetCircle.notifyThemeChange(musicService)
+            appWidgetQueue.notifyThemeChange(musicService)
             false
         }
 
-        val transparent: TwoStatePreference? = findPreference(WIDGET_TRANSPERENCY)
+        val transparent: TwoStatePreference? = findPreference(WIDGET_TRANSPARENCY)
         transparent?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             transparent.isChecked = newValue as Boolean
             appWidgetClassic.notifyThemeChange(musicService)
             appWidgetFull.notifyThemeChange(musicService)
+            appWidgetQueue.notifyThemeChange(musicService)
             false
         }
 
@@ -234,6 +249,54 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 }
             }
             return@setOnPreferenceClickListener true
+        }
+
+        val progressBarColor: Preference? = findPreference(PROGRESSBAR_COLOR)
+        progressBarColor?.let {
+            setSummary(it)
+            it.setOnPreferenceChangeListener { _, newValue ->
+                setSummary(it, newValue)
+                appWidgetClassic.notifyThemeChange(musicService)
+                appWidgetFull.notifyThemeChange(musicService)
+                true
+            }
+        }
+
+        val showProgressBar: TwoStatePreference? = findPreference(SHOW_WIDGET_PROGRESSBAR)
+        showProgressBar?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val queueBlur: TwoStatePreference? = findPreference(QUEUE_BLUR)
+        queueBlur?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            queueBlur.isChecked = newValue as Boolean
+            appWidgetQueue.notifyThemeChange(musicService)
+            false
+        }
+
+        val queueReverse: TwoStatePreference? = findPreference(QUEUE_REVERSE)
+        queueReverse?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            queueReverse.isChecked = newValue as Boolean
+            appWidgetQueue.notifyThemeChange(musicService)
+            false
+        }
+
+        val queueShape: TwoStatePreference? = findPreference(QUEUE_SHAPE)
+        queueShape?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            queueShape.isChecked = newValue as Boolean
+            appWidgetQueue.notifyThemeChange(musicService)
+            false
+        }
+
+        val imageQueue: SeekBarPreference? = findPreference(WIDGET_QUEUE_IMAGE)
+        imageQueue?.setOnPreferenceChangeListener { _, newValue ->
+            imageQueue.value = newValue as Int
+            appWidgetQueue.notifyThemeChange(musicService)
+            false
         }
     }
 

@@ -133,6 +133,28 @@
         <item name="cornerSizeTopRight">16dp</item>
     </style>
 
+    <style name="NPSCornerCardView">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="TabQueueTopCornerCardView">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">5dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">5dp</item>
+    </style>
+
     <style name="ClassicThemeOverLay">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">0dp</item>
@@ -273,8 +295,8 @@
     </style>
 
     <style name="PencilThemeOverlay">
-        <item name="fontFamily">@font/pencil_regular</item>
-        <item name="android:fontFamily">@font/pencil_regular</item>
+        <item name="fontFamily">@font/pencil</item>
+        <item name="android:fontFamily">@font/pencil</item>
     </style>
 
     <style name="SamsungThemeOverlay">
@@ -282,14 +304,23 @@
         <item name="android:fontFamily">@font/samsung_sharp_sans</item>
     </style>
 
-    <style name="OstrichThemeOverlay">
-        <item name="fontFamily">@font/ostrich_regular</item>
-        <item name="android:fontFamily">@font/ostrich_regular</item>
+    <style name="DrexsThemeOverlay">
+        <item name="fontFamily">@font/drexs</item>
+        <item name="android:fontFamily">@font/drexs</item>
+    </style>
+
+    <style name="HermanoaltoThemeOverlay">
+        <item name="fontFamily">@font/hermanoalto_chisel</item>
+        <item name="android:fontFamily">@font/hermanoalto_chisel</item>
     </style>
 
     <style name="CaptureThemeOverlay">
-        <item name="fontFamily">@font/capture_it_regular</item>
-        <item name="android:fontFamily">@font/capture_it_regular</item>
+        <item name="fontFamily">@font/capture_it</item>
+        <item name="android:fontFamily">@font/capture_it</item>
+    </style>
+
+    <style name="TextSize14">
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="CircleFABOverlay">
@@ -330,4 +361,14 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="Base.SquigglySlider" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:thumb">@drawable/media_seekbar_thumb</item>
+        <item name="android:progressTint">?colorPrimary</item>
+        <item name="android:thumbTint">?colorPrimary</item>
+        <item name="android:progressBackgroundTint">?android:attr/textColorTertiary</item>
+        <item name="android:clickable">true</item>
+        <item name="android:splitTrack">false</item> </style>
+
+    <style name="SquigglySlider" parent="Base.SquigglySlider"/>
 </resources>
