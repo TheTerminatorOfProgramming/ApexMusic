@@ -17,14 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.jetradarmobile.snowfall.SnowfallView
-        android:id="@+id/snowfall_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:snowflakeSpeedMax="6"
-        app:snowflakeSpeedMin="2"
-        app:snowflakesNum="75" />
-
     <include layout="@layout/shadow_statusbar_toolbar" />
 
     <FrameLayout

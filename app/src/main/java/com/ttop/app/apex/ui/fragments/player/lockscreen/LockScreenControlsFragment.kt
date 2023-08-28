@@ -75,14 +75,12 @@ class LockScreenControlsFragment :
         setUpPlayPauseFab()
         binding.title.isSelected = true
         binding.artistText.isSelected = true
-        binding.albumText.isSelected = true
     }
 
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
         binding.artistText.text = String.format("%s", song.artistName)
-        binding.albumText.text = String.format("%s", song.albumName)
     }
 
     override fun onServiceConnected() {
@@ -132,7 +130,6 @@ class LockScreenControlsFragment :
             textColorSecondary()
         }.ripAlpha()
 
-        volumeFragment?.setTintable(colorFinal)
         binding.progressSlider.applyColor(colorFinal)
 
         updateRepeatState()
@@ -141,7 +138,6 @@ class LockScreenControlsFragment :
 
         val isDark = ColorUtil.isColorLight(colorFinal)
         binding.artistText.setTextColor(colorFinal)
-        binding.albumText.setTextColor(colorFinal)
 
         TintHelper.setTintAuto(
             binding.playPauseButton,

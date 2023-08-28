@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="pref_widget_background_titles" tools:ignore="InconsistentArrays">
+        <item>@string/default_widget_background_title</item>
+        <item>@string/day_night_widget_background_title</item>
+        <item>@string/transparent_widget_background_title</item>
+    </string-array>
+
+    <string-array name="pref_widget_background_values" tools:ignore="InconsistentArrays">
+        <item>default</item>
+        <item>day_night</item>
+        <item>transparent</item>
+    </string-array>
+</resources>

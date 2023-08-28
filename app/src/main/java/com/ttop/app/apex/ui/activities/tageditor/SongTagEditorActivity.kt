@@ -116,12 +116,12 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
 
     fun showdialog(){
         val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
-        builder.setTitle("Title")
+        builder.setTitle(R.string.title)
 
 // Set up the input
         val input = EditText(this)
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.hint = "Enter Text"
+        input.hint = getString(R.string.enter_text)
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
@@ -140,7 +140,7 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
                 binding.lyricsText.setText(modifiedLyrics)
             }
         })
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        builder.setNegativeButton(R.string.action_cancel, DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
         builder.show()
     }

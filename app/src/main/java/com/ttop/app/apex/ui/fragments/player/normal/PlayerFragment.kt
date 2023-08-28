@@ -42,7 +42,6 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
-import com.ttop.app.apex.SNOWFALL
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentPlayerBinding
 import com.ttop.app.apex.dialogs.*
@@ -65,10 +64,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 
-class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
-    SharedPreferences.OnSharedPreferenceChangeListener {
+class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player) {
 
     private var lastColor: Int = 0
+    private var toolbarColor: Int =0
     override val paletteColor: Int
         get() = lastColor
 
@@ -122,22 +121,29 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
         return false
     }
 
-    override fun toolbarIconColor() = colorControlNormal()
+    override fun toolbarIconColor() = if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+        toolbarColor
+    }else {
+        colorControlNormal()
+    }
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         controlsFragment.setColor(color)
         lastColor = color.backgroundColor
+        toolbarColor = color.secondaryTextColor
         libraryViewModel.updateColor(color.backgroundColor)
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
 
         if (PreferenceUtil.isAdaptiveColor) {
             colorize(color.backgroundColor)
         }
+
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
     override fun toggleFavorite(song: Song) {
@@ -157,17 +163,12 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
         setUpSubFragments()
         setUpPlayerToolbar()
         setupRecyclerView()
-        startOrStopSnow(PreferenceUtil.isSnowFalling)
 
-        PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .registerOnSharedPreferenceChangeListener(this)
         playerToolbar().drawAboveSystemBars()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .unregisterOnSharedPreferenceChangeListener(this)
         _binding = null
     }
 
@@ -323,36 +324,47 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == SNOWFALL) {
-            startOrStopSnow(PreferenceUtil.isSnowFalling)
-        }
-    }
-
-    private fun startOrStopSnow(isSnowFalling: Boolean) {
-        if (_binding == null) return
-        if (isSnowFalling && !surfaceColor().isColorLight) {
-            binding.snowfallView?.isVisible = true
-            binding.snowfallView?.restartFalling()
-        } else {
-            binding.snowfallView?.isVisible = false
-            binding.snowfallView?.stopFalling()
-        }
-    }
-
     private fun setupRecyclerView() {
         playingQueueAdapter = if (ApexUtil.isTablet){
-            PlayingQueueAdapter(
-                requireActivity() as AppCompatActivity,
-                MusicPlayerRemote.playingQueue.toMutableList(),
-                MusicPlayerRemote.position,
-                R.layout.item_queue_player_plain
-            )
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+            }
         }else {
             PlayingQueueAdapter(
                 requireActivity() as AppCompatActivity,

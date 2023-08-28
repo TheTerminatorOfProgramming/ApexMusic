@@ -18,6 +18,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.core.content.FileProvider
+import com.ttop.app.apex.BuildConfig
 import java.io.File
 
 /**
@@ -37,7 +38,7 @@ object Share {
             type = mimeType
             putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(
                 context,
-                context.applicationContext.packageName,
+                BuildConfig.APPLICATION_ID + ".provider",
                 file
             ))
             context.startActivity(Intent.createChooser(this, null))

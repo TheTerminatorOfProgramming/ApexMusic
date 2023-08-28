@@ -13,17 +13,22 @@
  */
 package com.ttop.app.apex.util
 
+import android.Manifest
+import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Context.KEYGUARD_SERVICE
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Point
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.PowerManager
 import android.provider.Settings
 import android.text.TextUtils
@@ -37,6 +42,7 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
+import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import com.dcastalia.localappupdate.DownloadApk
 import com.github.javiersantos.appupdater.AppUpdater
@@ -51,6 +57,8 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.appendChar
+import com.ttop.app.apex.extensions.backgroundTintList
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
@@ -116,6 +124,13 @@ object ApexUtil {
     val isTablet: Boolean
         get() = (getContext().resources.configuration.smallestScreenWidthDp
                 >= 600)
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    fun isFoldable(context: Context): Boolean {
+        val pm = context.packageManager
+
+        return pm.hasSystemFeature(PackageManager.FEATURE_SENSOR_HINGE_ANGLE)
+    }
 
     fun getIpAddress(useIPv4: Boolean): String? {
         try {
@@ -275,6 +290,10 @@ object ApexUtil {
         if (PreferenceUtil.isCustomFont == "capture") {
             simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaptureThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "nothing") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.NothingThemeOverlay)
+        }
     }
 
     fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
@@ -310,6 +329,10 @@ object ApexUtil {
         if (PreferenceUtil.isCustomFont == "capture") {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaptureThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "nothing") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.NothingThemeOverlay)
+        }
         //Collapsed
         if (PreferenceUtil.isCustomFont == "sans") {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SansThemeOverlay)
@@ -341,6 +364,10 @@ object ApexUtil {
 
         if (PreferenceUtil.isCustomFont == "capture") {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaptureThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "nothing") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.NothingThemeOverlay)
         }
     }
 
@@ -443,7 +470,7 @@ object ApexUtil {
                             .setPositiveButton(R.string.yes) { _, _ ->
                                 val downloadApk = DownloadApk(context)
                                 // With standard fileName 'App Update.apk'
-                                   //downloadApk.startDownloadingApk(update.urlToDownload.toString())
+                                //downloadApk.startDownloadingApk(update.urlToDownload.toString())
                                 //With Custom fileName
                                 downloadApk.startDownloadingApk(update.urlToDownload.toString(),"Apex Music " + update.latestVersion + ".apk")
                             }
@@ -492,7 +519,7 @@ object ApexUtil {
                             .setPositiveButton(R.string.yes) { _, _ ->
                                 val downloadApk = DownloadApk(context)
                                 // With standard fileName 'App Update.apk'
-                                   //downloadApk.startDownloadingApk(update.urlToDownload.toString())
+                                //downloadApk.startDownloadingApk(update.urlToDownload.toString())
                                 //With Custom fileName
                                 downloadApk.startDownloadingApk(update.urlToDownload.toString(),"Apex Music " + update.latestVersion + ".apk")
                             }
@@ -674,5 +701,23 @@ object ApexUtil {
             canAuthenticate = false
         }
         return canAuthenticate
+    }
+
+    fun enableManageAllFiles(context: Context, activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                val uri = Uri.fromParts("package", context.packageName, null)
+                intent.data = uri
+                context.startActivity(intent)
+            }
+        } else {
+            //below android 11=======
+            activity.let { it1 ->
+                ActivityCompat.requestPermissions(
+                    it1,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100)
+            }
+        }
     }
 }

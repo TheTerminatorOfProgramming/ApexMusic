@@ -30,18 +30,15 @@ import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
-import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
-import com.ttop.app.apex.appwidgets.AppWidgetQueue
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
 import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
-import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -55,7 +52,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
     private val appWidgetClassic: AppWidgetClassic = AppWidgetClassic.instance
     private val appWidgetFull: AppWidgetFull = AppWidgetFull.instance
     private val appWidgetCircle: AppWidgetCircle = AppWidgetCircle.instance
-    private val appWidgetQueue: AppWidgetQueue = AppWidgetQueue.instance
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
@@ -70,24 +66,20 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 appWidgetClassic.notifyThemeChange(musicService)
                 appWidgetFull.notifyThemeChange(musicService)
                 appWidgetCircle.notifyThemeChange(musicService)
-                appWidgetQueue.notifyThemeChange(musicService)
-            }
-            WIDGET_COLORS -> {
-                val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
-                val colors: TwoStatePreference? = findPreference(WIDGET_COLORS)
-                if (colors != null) {
-                    buttonColor?.isEnabled = !colors.isChecked
-                }
             }
             WIDGET_CUSTOM_COLOR -> {
                 appWidgetClassic.notifyThemeChange(musicService)
                 appWidgetFull.notifyThemeChange(musicService)
                 appWidgetCircle.notifyThemeChange(musicService)
-                appWidgetQueue.notifyThemeChange(musicService)
             }
             PROGRESSBAR_COLOR-> {
                 appWidgetClassic.notifyThemeChange(musicService)
                 appWidgetFull.notifyThemeChange(musicService)
+            }
+            WIDGET_BACKGROUND -> {
+                appWidgetClassic.notifyThemeChange(musicService)
+                appWidgetFull.notifyThemeChange(musicService)
+                appWidgetCircle.notifyThemeChange(musicService)
             }
         }
     }
@@ -129,64 +121,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             false
         }
 
-        val colors: TwoStatePreference? = findPreference(WIDGET_COLORS)
-        colors?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            colors.isChecked = newValue as Boolean
-            appWidgetClassic.notifyThemeChange(musicService)
-            appWidgetFull.notifyThemeChange(musicService)
-            appWidgetCircle.notifyThemeChange(musicService)
-            appWidgetQueue.notifyThemeChange(musicService)
-            false
-        }
-
-        val transparent: TwoStatePreference? = findPreference(WIDGET_TRANSPARENCY)
-        transparent?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            transparent.isChecked = newValue as Boolean
-            appWidgetClassic.notifyThemeChange(musicService)
-            appWidgetFull.notifyThemeChange(musicService)
-            appWidgetQueue.notifyThemeChange(musicService)
-            false
-        }
-
-        val image: SeekBarPreference? = findPreference(WIDGET_IMAGE)
-        image?.setOnPreferenceChangeListener { _, newValue ->
-            image.value = newValue as Int
-            appWidgetClassic.notifyThemeChange(musicService)
-            false
-        }
-
-        val imageFull: SeekBarPreference? = findPreference(WIDGET_IMAGE_FULL)
-        imageFull?.setOnPreferenceChangeListener { _, newValue ->
-            imageFull.value = newValue as Int
-            appWidgetFull.notifyThemeChange(musicService)
-            false
-        }
-
-        val classicShape: TwoStatePreference? = findPreference(CLASSIC_SHAPE)
-        classicShape?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            classicShape.isChecked = newValue as Boolean
-            appWidgetClassic.notifyThemeChange(musicService)
-            false
-        }
-
-        val fullShape: TwoStatePreference? = findPreference(FULL_SHAPE)
-        fullShape?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            fullShape.isChecked = newValue as Boolean
-            appWidgetFull.notifyThemeChange(musicService)
-            false
-        }
-
-        val textAlignment: Preference? = findPreference(TEXT_ALIGNMENT)
-        textAlignment?.setOnPreferenceChangeListener { _, newValue ->
-            PreferenceUtil.textAlignment = newValue as String
-            appWidgetFull.notifyThemeChange(musicService)
-            true
-        }
-
         val action1: Preference? = findPreference(NOTIFICATION_ACTION_1)
         action1?.let {
             setSummary(it)
@@ -203,22 +137,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 setSummary(it, newValue)
                 true
             }
-        }
-
-        val fullBlur: TwoStatePreference? = findPreference(FULL_BLUR)
-        fullBlur?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            fullBlur.isChecked = newValue as Boolean
-            appWidgetFull.notifyThemeChange(musicService)
-            false
-        }
-
-        val classicBlur: TwoStatePreference? = findPreference(CLASSIC_BLUR)
-        classicBlur?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            classicBlur.isChecked = newValue as Boolean
-            appWidgetClassic.notifyThemeChange(musicService)
-            false
         }
 
         val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
@@ -268,35 +186,22 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val queueBlur: TwoStatePreference? = findPreference(QUEUE_BLUR)
-        queueBlur?.setOnPreferenceChangeListener { _, newValue ->
+        val disableUpdate: TwoStatePreference? = findPreference(DISABLE_UPDATE)
+        disableUpdate?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            queueBlur.isChecked = newValue as Boolean
-            appWidgetQueue.notifyThemeChange(musicService)
-            false
+
+            appWidgetClassic.notifyThemeChange(musicService)
+            appWidgetFull.notifyThemeChange(musicService)
+            true
         }
 
-        val queueReverse: TwoStatePreference? = findPreference(QUEUE_REVERSE)
-        queueReverse?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            queueReverse.isChecked = newValue as Boolean
-            appWidgetQueue.notifyThemeChange(musicService)
-            false
-        }
+        val widgetBackground: ATEListPreference? = findPreference(WIDGET_BACKGROUND)
+        widgetBackground?.setOnPreferenceChangeListener { _, newValue ->
 
-        val queueShape: TwoStatePreference? = findPreference(QUEUE_SHAPE)
-        queueShape?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            queueShape.isChecked = newValue as Boolean
-            appWidgetQueue.notifyThemeChange(musicService)
-            false
-        }
+            val value = newValue as String
 
-        val imageQueue: SeekBarPreference? = findPreference(WIDGET_QUEUE_IMAGE)
-        imageQueue?.setOnPreferenceChangeListener { _, newValue ->
-            imageQueue.value = newValue as Int
-            appWidgetQueue.notifyThemeChange(musicService)
-            false
+            buttonColor?.isEnabled = value != "day_night"
+            true
         }
     }
 
@@ -315,5 +220,8 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val customWidgetColor: ATEColorPreference? = findPreference(WIDGET_CUSTOM_COLOR)
         customWidgetColor?.isEnabled = PreferenceUtil.buttonColorOnWidgets == "custom"
+
+        val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
+        buttonColor?.isEnabled = PreferenceUtil.widgetBackground != "day_night"
     }
 }

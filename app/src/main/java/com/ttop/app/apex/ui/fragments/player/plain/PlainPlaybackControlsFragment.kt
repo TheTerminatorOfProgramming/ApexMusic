@@ -138,7 +138,7 @@ class PlainPlaybackControlsFragment :
         } else {
             accentColor()
         }
-        volumeFragment?.setTintable(colorFinal)
+
         binding.progressSlider.applyColor(colorFinal)
 
         TintHelper.setTintAuto(

@@ -82,7 +82,6 @@ class SimplePlaybackControlsFragment :
         _binding = FragmentSimpleControlsFragmentBinding.bind(view)
         setUpPlayPauseFab()
         binding.title.isSelected = true
-        binding.album.isSelected = true
         binding.artist.isSelected = true
 
         binding.title.setOnClickListener {
@@ -96,7 +95,6 @@ class SimplePlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album.text = song.albumName
         binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
@@ -158,8 +156,6 @@ class SimplePlaybackControlsFragment :
             accentColor()
         }
 
-        volumeFragment?.setTintable(colorFinal)
-
         TintHelper.setTintAuto(
             binding.playPauseButton,
             MaterialValueHelper.getPrimaryTextColor(
@@ -169,7 +165,6 @@ class SimplePlaybackControlsFragment :
             false
         )
         TintHelper.setTintAuto(binding.playPauseButton, colorFinal, true)
-        binding.album.setTextColor(colorFinal)
         binding.artist.setTextColor(colorFinal)
         updateRepeatState()
         updateShuffleState()

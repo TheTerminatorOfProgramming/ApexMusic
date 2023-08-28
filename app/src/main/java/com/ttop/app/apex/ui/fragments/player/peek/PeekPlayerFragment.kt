@@ -82,6 +82,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     private lateinit var controlsFragment: PeekPlayerControlFragment
     private var valueAnimator: ValueAnimator? = null
     private var lastColor: Int = 0
+    private var toolbarColor: Int =0
     private var _binding: FragmentPeekPlayerBinding? = null
     private val binding get() = _binding!!
 
@@ -241,7 +242,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         setUpSubFragments()
         setupRecyclerView()
         binding.title.isSelected = true
-        binding.album.isSelected = true
         binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
@@ -281,7 +281,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             setOnMenuItemClickListener(this@PeekPlayerFragment)
             ToolbarContentTintHelper.colorizeToolbar(
                 this,
-                colorControlNormal(),
+                toolbarIconColor(),
                 requireActivity()
             )
         }
@@ -349,25 +349,32 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         return false
     }
 
-    override fun toolbarIconColor() = colorControlNormal()
+    override fun toolbarIconColor() = if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+        toolbarColor
+    }else {
+        colorControlNormal()
+    }
 
     override val paletteColor: Int
         get() = lastColor
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         lastColor = color.primaryTextColor
+        toolbarColor = color.secondaryTextColor
         libraryViewModel.updateColor(color.primaryTextColor)
         controlsFragment.setColor(color)
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
 
         if (PreferenceUtil.isAdaptiveColor) {
             colorize(color.backgroundColor)
         }
+
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
 
         val controlsColor =
             if (PreferenceUtil.isAdaptiveColor) {
@@ -410,7 +417,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album.text = song.albumName
         binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {

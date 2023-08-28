@@ -41,9 +41,6 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Fit
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Full
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Tiny
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
@@ -158,8 +155,7 @@ class AlbumCoverPagerAdapter(
 
         private fun getLayoutWithPlayerTheme(): Int {
             return when (PreferenceUtil.nowPlayingScreen) {
-                Card, Fit, Tiny, Classic, Gradient, Full -> R.layout.fragment_album_full_cover
-                //Peek -> R.layout.fragment_peek_album_cover
+                Card, Tiny, Gradient -> R.layout.fragment_album_full_cover
                 else -> {
                     if (PreferenceUtil.isCarouselEffect) {
                         R.layout.fragment_album_carousel_cover

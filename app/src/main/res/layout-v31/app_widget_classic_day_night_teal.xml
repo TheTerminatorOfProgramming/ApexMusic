@@ -25,7 +25,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginTop="10dp">
 
         <LinearLayout
@@ -73,27 +73,42 @@
             android:layout_width="match_parent"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/media_actions"
+            android:layout_above="@id/media_actions"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:progressTint="@color/md_teal_A400"/>
+
+        <ImageButton
+            android:id="@+id/button_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/widget_selector"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_refresh"
+            tools:tint="@color/ate_secondary_text_dark" />
 
         <LinearLayout
             android:id="@+id/media_titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/media_actions"
+            android:layout_above="@+id/progress_bar"
             android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/button_update"
             android:orientation="vertical"
             android:paddingStart="8dp"
             android:paddingTop="4dp"
-            android:paddingEnd="8dp"
-            android:layout_marginBottom="10dp">
+            android:paddingEnd="8dp">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewSubtitle3"
@@ -103,12 +118,13 @@
             <TextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingTop="4dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewNormal3"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="?android:attr/textColorPrimary"
                 tools:text="Text" />
         </LinearLayout>
     </RelativeLayout>

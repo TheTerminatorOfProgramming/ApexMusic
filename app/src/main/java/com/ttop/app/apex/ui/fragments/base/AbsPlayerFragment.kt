@@ -280,7 +280,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Main) {
-                val icon = if (animate && VersionUtils.hasMarshmallow()) {
+                val icon = if (animate && VersionUtils.hasOreo()) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -320,7 +320,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         playerAlbumCoverFragment = whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment?.setCallbacks(this)
 
-        if (VersionUtils.hasMarshmallow())
+        if (VersionUtils.hasOreo())
             view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
     }
 
@@ -351,34 +351,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     showLyricsIcon(this)
                 }
             }
-            NowPlayingScreen.BlurCard -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
-            NowPlayingScreen.Classic -> {
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
-            NowPlayingScreen.Circle -> {
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-            }
             NowPlayingScreen.Card -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
@@ -400,35 +372,10 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     showLyricsIcon(this)
                 }
             }
-            NowPlayingScreen.Fit -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
             NowPlayingScreen.Flat -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 if (ApexUtil.isTablet) {
                     playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
-            NowPlayingScreen.Full -> {
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                    playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                }else {
-                    if (!ApexUtil.isLandscape) {
-                        playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                    }
                 }
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
@@ -447,18 +394,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
             }
             NowPlayingScreen.MD3 -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
-            NowPlayingScreen.Material -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 if (ApexUtil.isTablet) {
                     playerToolbar()?.menu?.removeItem(R.id.action_queue)
@@ -516,18 +451,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     showLyricsIcon(this)
                 }
             }
-            NowPlayingScreen.Swipe -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
             NowPlayingScreen.Tiny -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
@@ -542,7 +465,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
         }
 
-        if (!PreferenceUtil.syncedLyrics && nps != NowPlayingScreen.Color) {
+        if (!PreferenceUtil.syncedLyrics) {
             playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
         }
     }
@@ -553,20 +476,32 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     }
 
     fun showSyncedLyrics() {
-        if (!PreferenceUtil.syncedLyrics && PreferenceUtil.nowPlayingScreen != NowPlayingScreen.Color) {
+        if (!PreferenceUtil.syncedLyrics) {
             playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
         }
     }
 
     fun addSwipeDetector() {
         view?.setOnTouchListener(
-            if (PreferenceUtil.swipeAnywhereToChangeSong) {
+            if (PreferenceUtil.swipeAnywhereToChangeSong == "always") {
                 SwipeDetector(
                     requireContext(),
                     playerAlbumCoverFragment?.viewPager,
                     requireView()
                 )
-            } else null
+            } else if (PreferenceUtil.swipeAnywhereToChangeSong == "tab"){
+                if (ApexUtil.isTablet) {
+                    SwipeDetector(
+                        requireContext(),
+                        playerAlbumCoverFragment?.viewPager,
+                        requireView()
+                    )
+                }else {
+                    null
+                }
+            }else {
+                null
+            }
         )
     }
 

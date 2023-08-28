@@ -54,6 +54,7 @@ import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.*
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.DrawableGradient
+import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
@@ -77,6 +78,7 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
 
     private lateinit var controlsFragment: FlatPlaybackControlsFragment
     private var lastColor: Int = 0
+    private var toolbarColor: Int =0
     override val paletteColor: Int
         get() = lastColor
 
@@ -100,7 +102,7 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
         binding.playerToolbar.setOnMenuItemClickListener(this)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
     }
@@ -128,6 +130,8 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
         setUpSubFragments()
         setupRecyclerView()
         binding.playerToolbar.drawAboveSystemBars()
+
+        updateIsFavorite(false)
     }
 
     override fun onShow() {
@@ -278,25 +282,28 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
     }
 
     override fun toolbarIconColor(): Int {
-        val isLight = ColorUtil.isColorLight(paletteColor)
-        return if (PreferenceUtil.isAdaptiveColor)
-            MaterialValueHelper.getSecondaryTextColor(requireContext(), isLight)
-        else
-            colorControlNormal()
+        return if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+            toolbarColor
+        }else {
+            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
+        }
     }
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         lastColor = color.backgroundColor
+        toolbarColor = color.secondaryTextColor
         controlsFragment.setColor(color)
         libraryViewModel.updateColor(color.backgroundColor)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
         if (PreferenceUtil.isAdaptiveColor) {
             colorize(color.backgroundColor)
         }
+
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
     override fun onFavoriteToggled() {
@@ -312,12 +319,40 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
 
     private fun setupRecyclerView() {
         playingQueueAdapter = if (ApexUtil.isTablet){
-            PlayingQueueAdapter(
-                requireActivity() as AppCompatActivity,
-                MusicPlayerRemote.playingQueue.toMutableList(),
-                MusicPlayerRemote.position,
-                R.layout.item_queue_player_plain
-            )
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+            }
         }else {
             PlayingQueueAdapter(
                 requireActivity() as AppCompatActivity,

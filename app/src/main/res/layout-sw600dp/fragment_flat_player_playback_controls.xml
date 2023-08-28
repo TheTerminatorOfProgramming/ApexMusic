@@ -49,20 +49,21 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/songInfo"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="start"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:background="@color/md_red_500"
+                android:layout_marginTop="10dp"
+                android:letterSpacing="0.1"
+                android:gravity="center"
+                android:singleLine="true"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
-                android:padding="4dp"
                 android:scrollHorizontally="true"
-                android:singleLine="true"
+                android:padding="4dp"
                 android:textAllCaps="true"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textAppearance="@style/TextViewBody2"
+                android:textStyle="bold"
+                android:textSize="14sp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@+id/artist"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,25 +73,25 @@
                 tools:text="@tools:sample/full_names" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/album"
+                android:id="@+id/artist"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/md_red_500"
-                android:singleLine="true"
+                android:letterSpacing="0.1"
                 android:gravity="center"
+                android:singleLine="true"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
-                android:letterSpacing="0.1"
                 android:padding="4dp"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextViewBody2"
                 android:textStyle="bold"
+                android:textSize="14sp"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toTopOf="@+id/artist"
+                app:layout_constraintBottom_toTopOf="@+id/titleContainer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,38 +99,11 @@
                 tools:text="@tools:sample/full_names" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/artist"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/md_red_500"
-                android:letterSpacing="0.1"
-                android:gravity="center"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:padding="4dp"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextViewBody2"
-                android:textStyle="bold"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toTopOf="@+id/titleContainer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/album"
-                tools:text="@tools:sample/full_names" />
-
-            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/md_red_500"
                 android:clickable="true"
                 android:ellipsize="marquee"
@@ -144,6 +118,7 @@
                 android:singleLine="true"
                 android:textAllCaps="true"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 tools:text="@tools:sample/full_names" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -169,11 +144,11 @@
         android:layoutDirection="ltr"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/volumeFragmentContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleContainer"
+        app:layout_constraintTop_toBottomOf="@+id/infoContainer"
         tools:ignore="ContentDescription,UnusedAttribute"
         tools:showIn="@layout/fragment_player_playback_controls">
 
@@ -218,15 +193,4 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/volumeFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:backgroundTint="@color/md_red_400"
-        tools:layout_height="52dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

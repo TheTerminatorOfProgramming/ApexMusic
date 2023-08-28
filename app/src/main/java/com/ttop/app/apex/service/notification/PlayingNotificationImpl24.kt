@@ -65,7 +65,7 @@ class PlayingNotificationImpl24(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or if (VersionUtils.hasMarshmallow())
+                PendingIntent.FLAG_UPDATE_CURRENT or if (VersionUtils.hasOreo())
                     PendingIntent.FLAG_IMMUTABLE
                 else 0
             )
@@ -77,7 +77,7 @@ class PlayingNotificationImpl24(
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or (if (VersionUtils.hasMarshmallow())
+            PendingIntent.FLAG_UPDATE_CURRENT or (if (VersionUtils.hasOreo())
                 PendingIntent.FLAG_IMMUTABLE
             else 0)
         )
@@ -207,7 +207,7 @@ class PlayingNotificationImpl24(
         intent.component = serviceName
         return PendingIntent.getService(
             context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or
-                    if (VersionUtils.hasMarshmallow()) PendingIntent.FLAG_IMMUTABLE
+                    if (VersionUtils.hasOreo()) PendingIntent.FLAG_IMMUTABLE
                     else 0
         )
     }

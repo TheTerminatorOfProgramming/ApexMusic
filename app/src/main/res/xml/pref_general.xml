@@ -35,7 +35,7 @@
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="default"
+            android:defaultValue="nothing"
             android:key="custom_font"
             android:entries="@array/pref_font_list_titles"
             android:entryValues="@array/pref_font_list_values"
@@ -98,7 +98,21 @@
             android:title="@string/pref_title_app_shortcuts"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_language"
+        app:allowDividerBelow="false">
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="auto"
+            android:entries="@array/pref_language_names"
+            android:entryValues="@array/pref_language_codes"
+            android:key="language_name"
+            android:layout="@layout/list_item_view"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_language_name"
+            app:icon="@drawable/ic_language" />
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_mini_controls"
@@ -133,33 +147,16 @@
             app:title="@string/pref_title_extra_controls"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
-            android:defaultValue="6"
-            android:key="mini_image"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="20"
-            android:summary="@string/pref_summary_mini_image_roundness"
-            android:title="@string/pref_title_mini_image_roundness"
-            app:showSeekBarValue="true"
-            app:dependency="miniplayer_image"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            android:defaultValue="false"
-            android:key="miniplayer_image"
-            android:summary="@string/pref_summary_mini_player_image"
-            android:title="@string/pref_title_mini_player_image"
-            android:disableDependentsState="true"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_gesture"
-            app:key="toggle_mini_swipe"
-            app:summary="@string/pref_summary_swipe_gestures"
-            app:title="@string/pref_title_swipe_gestures"
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="off"
+            android:key="toggle_mini_swipe"
+            android:entries="@array/pref_swipe_gestures_titles"
+            android:entryValues="@array/pref_swipe_gestures_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_swipe_gestures"
+            android:icon="@drawable/ic_gesture"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

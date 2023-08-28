@@ -247,12 +247,49 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = PlayingQueueAdapter(
-            requireActivity() as AppCompatActivity,
-            MusicPlayerRemote.playingQueue.toMutableList(),
-            MusicPlayerRemote.position,
-            R.layout.item_queue_player
-        )
+        playingQueueAdapter = if (ApexUtil.isTablet){
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+            }
+        }else {
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player
+            )
+        }
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()
@@ -331,6 +368,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             colorControlNormal(),
             requireActivity()
         )
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
     override fun onShow() {

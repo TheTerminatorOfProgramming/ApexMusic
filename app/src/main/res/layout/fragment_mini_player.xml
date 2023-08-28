@@ -41,6 +41,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:scaleType="centerCrop"
+                android:backgroundTint="@color/transparent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic"
                 tools:visibility="visible" />
         </com.google.android.material.card.MaterialCardView>

@@ -74,6 +74,12 @@
         <item name="fontFamily">@font/sans</item>
     </style>
 
+    <style name="TextViewNormal3Bold" parent="">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/sans</item>
+    </style>
+
     <style name="AppTextAppearance.MaterialAlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textAppearance">@style/TextViewButton</item>
         <item name="fontFamily">@font/sans</item>
@@ -151,5 +157,14 @@
     <style name="CaptureThemeOverlay">
         <item name="fontFamily">@font/capture_it</item>
         <item name="android:fontFamily">@font/capture_it</item>
+    </style>
+
+    <style name="NothingThemeOverlay">
+        <item name="fontFamily">@font/nothing</item>
+        <item name="android:fontFamily">@font/nothing</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

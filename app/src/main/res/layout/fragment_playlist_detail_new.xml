@@ -40,7 +40,8 @@
                     app:layout_constraintHorizontal_weight="0.4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
+                    android:backgroundTint="@color/transparent"
+                    app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
                     tools:src="@tools:sample/avatars[0]" />
 
                 <TextView

@@ -15,16 +15,22 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -40,12 +46,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         carouselEffect?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             return@setOnPreferenceChangeListener true
-        }
-
-        val snow: TwoStatePreference? = findPreference(SNOWFALL)
-        snow?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
         }
 
         val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
@@ -65,12 +65,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val circlePlayButton: TwoStatePreference? = findPreference(CIRCLE_PLAY_BUTTON)
         circlePlayButton?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val swipeAnywhere: TwoStatePreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING)
-        swipeAnywhere?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
@@ -99,44 +93,53 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val volume: TwoStatePreference? = findPreference(TOGGLE_VOLUME)
-        volume?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
         adaptiveColor?.isEnabled =
             PreferenceUtil.nowPlayingScreen in listOf(
                 NowPlayingScreen.Adaptive,
                 NowPlayingScreen.Card,
-                NowPlayingScreen.Classic,
                 NowPlayingScreen.Color,
-                NowPlayingScreen.Fit,
                 NowPlayingScreen.Flat,
-                NowPlayingScreen.Full,
                 NowPlayingScreen.Gradient,
                 NowPlayingScreen.Normal,
                 NowPlayingScreen.MD3,
-                NowPlayingScreen.Material,
                 NowPlayingScreen.Peek,
                 NowPlayingScreen.Plain,
-                NowPlayingScreen.Simple,
-                NowPlayingScreen.Swipe
+                NowPlayingScreen.Simple
             )
 
-        if (adaptiveColor?.isEnabled == false) {
-            adaptiveColor.isChecked = false
+        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
-        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
+        val adaptiveColorExtended: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP_EXTENDED)
+        adaptiveColorExtended?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_now_playing_screen)
+        if (VersionUtils.hasR()) {
+            if (ApexUtil.isFoldable(requireContext())) {
+                addPreferencesFromResource(R.xml.pref_now_playing_screen_foldable)
+            }else {
+                addPreferencesFromResource(R.xml.pref_now_playing_screen)
+            }
+        }else {
+            addPreferencesFromResource(R.xml.pref_now_playing_screen)
+        }
+
+        val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
+        newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
+
+        val queue: ATEListPreference? = findPreference(QUEUE_STYLE)
+        if (VersionUtils.hasR()) {
+            queue?.isVisible = ApexUtil.isFoldable(requireContext()) || ApexUtil.isTablet
+        }else {
+            queue?.isVisible = false
+        }
     }
 
     private fun updateAlbumCoverStyleSummary() {
@@ -153,30 +156,28 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             PreferenceUtil.nowPlayingScreen in listOf(
                 NowPlayingScreen.Adaptive,
                 NowPlayingScreen.Card,
-                NowPlayingScreen.Classic,
                 NowPlayingScreen.Color,
-                NowPlayingScreen.Fit,
                 NowPlayingScreen.Flat,
-                NowPlayingScreen.Full,
                 NowPlayingScreen.Gradient,
                 NowPlayingScreen.Normal,
                 NowPlayingScreen.MD3,
-                NowPlayingScreen.Material,
                 NowPlayingScreen.Peek,
                 NowPlayingScreen.Plain,
-                NowPlayingScreen.Simple,
-                NowPlayingScreen.Swipe
+                NowPlayingScreen.Simple
             )
 
         if (adaptiveColor?.isEnabled == false) {
             adaptiveColor.isChecked = false
         }
+
+        val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
+        newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
     }
 
     private fun updateAlbumCoverStyle() {
         val preference: Preference? = findPreference(ALBUM_COVER_STYLE)
         when (PreferenceUtil.nowPlayingScreen) {
-            NowPlayingScreen.Card,   NowPlayingScreen.Fit,   NowPlayingScreen.Tiny,   NowPlayingScreen.Classic,  NowPlayingScreen.Gradient,   NowPlayingScreen.Full -> {
+            NowPlayingScreen.Card, NowPlayingScreen.Tiny, NowPlayingScreen.Gradient -> {
                 preference?.isEnabled = false
             }
             else -> {

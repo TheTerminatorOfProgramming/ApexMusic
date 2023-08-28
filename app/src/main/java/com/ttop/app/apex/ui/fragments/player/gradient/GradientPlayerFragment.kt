@@ -28,7 +28,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,8 +50,6 @@ import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.ui.fragments.other.VolumeFragment
-import com.ttop.app.apex.ui.fragments.player.CoverLyricsFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -69,7 +66,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     private var lastPlaybackControlsColor: Int = 0
     private var lastDisabledPlaybackControlsColor: Int = 0
     private lateinit var progressViewUpdateHelper: MusicProgressViewUpdateHelper
-    private var volumeFragment: VolumeFragment? = null
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
@@ -148,7 +144,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentGradientPlayerBinding.bind(view)
-        hideVolumeIfAvailable()
         setUpMusicControllers()
         setupPanel()
         setupRecyclerView()
@@ -234,7 +229,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         lastDisabledPlaybackControlsColor = ColorUtil.withAlpha(color.primaryTextColor, 0.3f)
 
         binding.playbackControlsFragment.title.setTextColor(lastPlaybackControlsColor)
-        binding.playbackControlsFragment.album.setTextColor(lastDisabledPlaybackControlsColor)
         binding.playbackControlsFragment.artist.setTextColor(lastDisabledPlaybackControlsColor)
         binding.playbackControlsFragment.playPauseButton.setColorFilter(
             lastPlaybackControlsColor,
@@ -266,8 +260,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         binding.nextSong.setTextColor(lastPlaybackControlsColor)
         binding.playbackControlsFragment.songInfo.setTextColor(lastDisabledPlaybackControlsColor)
 
-        volumeFragment?.setTintableColor(lastPlaybackControlsColor.ripAlpha())
-
         binding.playbackControlsFragment.progressSlider.applyColor(lastPlaybackControlsColor.ripAlpha())
 
         updateRepeatState()
@@ -284,7 +276,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Dispatchers.Main) {
-                val icon = if (animate && VersionUtils.hasMarshmallow()) {
+                val icon = if (animate && VersionUtils.hasOreo()) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -298,17 +290,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                     }
                 }
             }
-        }
-    }
-
-    private fun hideVolumeIfAvailable() {
-        if (PreferenceUtil.isVolumeVisibilityMode) {
-            childFragmentManager.commit {
-                replace(R.id.volumeFragmentContainer, VolumeFragment.newInstance())
-            }
-            childFragmentManager.executePendingTransactions()
-            volumeFragment =
-                whichFragment(R.id.volumeFragmentContainer) as VolumeFragment?
         }
     }
 
@@ -352,7 +333,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.playbackControlsFragment.title.text = song.title
-        binding.playbackControlsFragment.album.text = song.albumName
         binding.playbackControlsFragment.artist.text = song.artistName
         updateLabel()
         if (PreferenceUtil.isSongInfo) {
@@ -370,7 +350,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         setUpShuffleButton()
         setUpProgressSlider()
         binding.playbackControlsFragment.title.isSelected = true
-        binding.playbackControlsFragment.album.isSelected = true
         binding.playbackControlsFragment.artist.isSelected = true
     }
 

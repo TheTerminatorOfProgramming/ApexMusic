@@ -86,8 +86,10 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
             } else {
                 ThemeStore.accentColor(requireContext())
             }
+
+
+
         binding.progressSlider.applyColor(controlsColor)
-        volumeFragment?.setTintableColor(controlsColor)
         binding.playPauseButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)

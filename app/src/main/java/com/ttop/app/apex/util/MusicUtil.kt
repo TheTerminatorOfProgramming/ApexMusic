@@ -13,6 +13,7 @@ import androidx.core.content.FileProvider
 import androidx.core.content.contentValuesOf
 import androidx.core.net.toUri
 import androidx.fragment.app.FragmentActivity
+import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
@@ -49,7 +50,7 @@ object MusicUtil : KoinComponent {
                 Intent.EXTRA_STREAM, try {
                     FileProvider.getUriForFile(
                         context,
-                        context.applicationContext.packageName,
+                        BuildConfig.APPLICATION_ID + ".provider",
                         File(song.data)
                     )
                 } catch (e: IllegalArgumentException) {
@@ -73,7 +74,7 @@ object MusicUtil : KoinComponent {
                     try {
                         FileProvider.getUriForFile(
                             context,
-                            context.applicationContext.packageName,
+                            BuildConfig.APPLICATION_ID + ".provider",
                             File(song.data)
                         )
                     } catch (e: IllegalArgumentException) {

@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
-        app:cardCornerRadius="8dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/drag_view"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,7 +47,6 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:scaleType="centerCrop"
-            app:shapeAppearance="?shapeAppearanceCornerSmall"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
             tools:visibility="visible" />
 

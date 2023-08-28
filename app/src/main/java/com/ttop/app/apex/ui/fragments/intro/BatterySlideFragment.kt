@@ -1,23 +1,28 @@
 package com.ttop.app.apex.ui.fragments.intro
 
-import android.app.KeyguardManager
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
-import com.github.javiersantos.appupdater.objects.Version
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.appintro.SlidePolicy
 import com.ttop.app.appthemehelper.util.VersionUtils
+
 
 class BatterySlideFragment : Fragment(), SlidePolicy {
 
@@ -50,14 +55,14 @@ class BatterySlideFragment : Fragment(), SlidePolicy {
         }
 
         battery.setOnClickListener {
-           ApexUtil.disableBatteryOptimization()
+            ApexUtil.disableBatteryOptimization()
         }
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_deep_purple_400))
 
         if (VersionUtils.hasS() && !ApexUtil.hasBatteryPermission()) {
             if (isLooping) {
-                handler.postDelayed(runnable,1000)
+                handler.postDelayed(runnable,250)
             }
         }
     }
@@ -66,9 +71,9 @@ class BatterySlideFragment : Fragment(), SlidePolicy {
     private fun startLooping() {
         if (ApexUtil.hasBatteryPermission()) {
             isLooping = false
-            battery.text = "Battery Optimization Disabled"
+            battery.text = getString(R.string.battery_optimize_disabled)
         }
-        handler.postDelayed(runnable, 1000)
+        handler.postDelayed(runnable, 250)
     }
 
     override val isPolicyRespected: Boolean

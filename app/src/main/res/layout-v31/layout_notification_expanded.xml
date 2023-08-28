@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="@color/md_red_500">
 
     <RelativeLayout
@@ -11,10 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/largeIcon"
             android:layout_width="@dimen/notification_big_image_size"
             android:layout_height="@dimen/notification_big_image_size"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             android:layout_alignParentEnd="true"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars" />

@@ -15,13 +15,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/status_bar" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/status_bar" />
+        </FrameLayout>
+
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/playerToolbar"
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
@@ -33,65 +40,57 @@
             tools:subtitle="@tools:sample/full_names"
             tools:title="@tools:sample/full_names" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/playerAlbumCoverFragment"
-                    android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:layout="@layout/fragment_album_full_card_cover" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/playerQueueSheet"
-                    style="@style/BottomSheetStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:shapeAppearanceOverlay="@style/NPSCornerCardView"
-                    app:behavior_hideable="false"
-                    android:alpha="0.8"
-                    android:backgroundTint="@color/black_color"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp"
-                    android:visibility="gone"
-                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-                    tools:peekHeight="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="false"
-                        android:orientation="vertical">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:overScrollMode="@integer/overScrollMode"
-                            tools:listitem="@layout/item_list" />
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-            </FrameLayout>
+            android:layout_weight="1">
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/playbackControlsFragment"
-                android:name="com.ttop.app.apex.ui.fragments.player.adaptive.AdaptivePlaybackControlsFragment"
+                android:id="@+id/playerAlbumCoverFragment"
+                android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment_adaptive_player_playback_controls" />
+                tools:layout="@layout/fragment_album_full_card_cover" />
 
-        </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/playerQueueSheet"
+                style="@style/BottomSheetStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shapeAppearanceOverlay="@style/NPSCornerCardView"
+                app:behavior_hideable="false"
+                android:alpha="0.8"
+                android:backgroundTint="@color/black_color"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                android:visibility="gone"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                tools:peekHeight="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="@integer/overScrollMode"
+                        tools:listitem="@layout/item_list" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/playbackControlsFragment"
+            android:name="com.ttop.app.apex.ui.fragments.player.adaptive.AdaptivePlaybackControlsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            tools:layout="@layout/fragment_adaptive_player_playback_controls" />
 
     </LinearLayout>
-
 </FrameLayout>

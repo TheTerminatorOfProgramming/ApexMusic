@@ -132,7 +132,7 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
                     .build()
             )
 
-            if (VersionUtils.hasMarshmallow())
+            if (VersionUtils.hasOreo())
                 player.playbackParams =
                     PlaybackParams().setSpeed(playbackSpeed).setPitch(playbackPitch)
 

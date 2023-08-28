@@ -68,7 +68,6 @@ class FlatPlaybackControlsFragment :
         _binding = FragmentFlatPlayerPlaybackControlsBinding.bind(view)
         binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
         binding.title.isSelected = true
-        binding.album.isSelected = true
         binding.artist.isSelected = true
 
         binding.title.setOnClickListener {
@@ -114,8 +113,9 @@ class FlatPlaybackControlsFragment :
             accentColor().ripAlpha()
         }
 
+
+
         updateTextColors(colorFinal)
-        volumeFragment?.setTintable(colorFinal)
         binding.progressSlider.applyColor(colorFinal)
         updateRepeatState()
         updateShuffleState()
@@ -133,8 +133,6 @@ class FlatPlaybackControlsFragment :
 
         binding.title.setBackgroundColor(color)
         binding.title.setTextColor(colorPrimary)
-        binding.album.setBackgroundColor(darkColor)
-        binding.album.setTextColor(colorSecondary)
         binding.artist.setBackgroundColor(darkColor)
         binding.artist.setTextColor(colorSecondary)
         binding.songInfo.setBackgroundColor(darkColor)
@@ -168,7 +166,6 @@ class FlatPlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album.text = song.albumName
         binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {

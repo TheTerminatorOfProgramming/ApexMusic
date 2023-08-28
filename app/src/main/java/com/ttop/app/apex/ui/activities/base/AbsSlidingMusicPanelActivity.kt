@@ -16,7 +16,6 @@ package com.ttop.app.apex.ui.activities.base
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -29,7 +28,6 @@ import android.view.ViewTreeObserver
 import android.view.animation.PathInterpolator
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.core.animation.doOnEnd
 import androidx.core.view.*
 import androidx.fragment.app.commit
@@ -50,21 +48,14 @@ import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.adaptive.AdaptiveFragment
 import com.ttop.app.apex.ui.fragments.player.blur.BlurPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.card.CardFragment
-import com.ttop.app.apex.ui.fragments.player.cardblur.CardBlurFragment
-import com.ttop.app.apex.ui.fragments.player.circle.CirclePlayerFragment
-import com.ttop.app.apex.ui.fragments.player.classic.ClassicPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.color.ColorFragment
-import com.ttop.app.apex.ui.fragments.player.fit.FitFragment
 import com.ttop.app.apex.ui.fragments.player.flat.FlatPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.full.FullPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.gradient.GradientPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.material.MaterialFragment
 import com.ttop.app.apex.ui.fragments.player.md3.MD3PlayerFragment
 import com.ttop.app.apex.ui.fragments.player.normal.PlayerFragment
 import com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.plain.PlainPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.simple.SimplePlayerFragment
-import com.ttop.app.apex.ui.fragments.player.swipe.SwipePlayerFragment
 import com.ttop.app.apex.ui.fragments.player.tiny.TinyPlayerFragment
 import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
 import com.ttop.app.apex.util.*
@@ -195,16 +186,15 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         setupSlidingUpPanel()
         setupBottomSheet()
         updateColor()
-        if (!PreferenceUtil.materialYou) {
-            binding.slidingPanel.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
-            navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
-        }
+
+        binding.slidingPanel.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
+        navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
 
         navigationBarColor = surfaceColor()
 
-        val layoutParams = (binding.linearLayout?.layoutParams as? ViewGroup.MarginLayoutParams)
-        layoutParams?.setMargins(0, ApexUtil.statusBarHeight, 0, 0)
-        binding.linearLayout?.layoutParams = layoutParams
+        //val layoutParams = (binding.linearLayout?.layoutParams as? ViewGroup.MarginLayoutParams)
+        //layoutParams?.setMargins(0, ApexUtil.statusBarHeight, 0, 0)
+        //binding.linearLayout?.layoutParams = layoutParams
     }
 
     private fun setupBottomSheet() {
@@ -263,7 +253,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 }
             }
             ALBUM_COVER_TRANSFORM, CAROUSEL_EFFECT,
-            ALBUM_COVER_STYLE, TOGGLE_VOLUME, EXTRA_SONG_INFO, CIRCLE_PLAY_BUTTON,
+            ALBUM_COVER_STYLE, EXTRA_SONG_INFO, CIRCLE_PLAY_BUTTON,
             -> {
                 chooseFragmentForTheme()
                 onServiceConnected()
@@ -271,21 +261,30 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             SWIPE_ANYWHERE_NOW_PLAYING -> {
                 playerFragment.addSwipeDetector()
             }
-            ADAPTIVE_COLOR_APP -> {
+            ADAPTIVE_COLOR_APP-> {
                 if (PreferenceUtil.nowPlayingScreen in listOf(
                         Adaptive,
                         Card,
-                        Classic,
                         Color,
-                        Fit,
                         Flat,
-                        Full,
                         Gradient,
+                        MD3,
+                        Normal,
+                        Peek,
+                        Plain
+                    )
+                ) {
+                    chooseFragmentForTheme()
+                    onServiceConnected()
+                }
+            }
+            ADAPTIVE_COLOR_APP_EXTENDED-> {
+                if (PreferenceUtil.nowPlayingScreen in listOf(
+                        MD3,
                         Normal,
                         Peek,
                         Plain,
-                        Simple,
-                        Swipe
+                        Simple
                     )
                 ) {
                     chooseFragmentForTheme()
@@ -305,7 +304,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             PROGRESS_BAR_STYLE,
             EXTENDED_ACCENT,
             DISMISS_FAILSAFE,
-            LYRICS -> {
+            LYRICS,
+            EMBED_LYRICS,
+            QUEUE_STYLE-> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {
@@ -322,26 +323,14 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAutoRotate) {
                         ActivityInfo.SCREEN_ORIENTATION_SENSOR
                     } else {
-                        /*if (ApexUtil.isLandscape) {
-                            ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
-                        }else {
-                            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                        }*/
                         ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                     }
                 } else {
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
-            EMBED_LYRICS -> {
-                recreate()
-            }
             SHOW_UPDATE -> {
                 MusicPlayerRemote.updateNotification()
-            }
-            MINI_IMAGE,
-            MINIPLAYER_IMAGE -> {
-                miniPlayerFragment?.activity?.recreate()
             }
         }
     }
@@ -461,10 +450,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             navigationBarColor = surfaceColor()
             setTaskDescColor(paletteColor)
             val isColorLight = paletteColor.isColorLight
-            if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreen == Normal || nowPlayingScreen == Flat || nowPlayingScreen == Material)) {
+            if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreen == Normal || nowPlayingScreen == Flat)) {
                 setLightNavigationBar(true)
                 setLightStatusBar(isColorLight)
-            } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur || nowPlayingScreen == BlurCard) {
+            } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur) {
                 animateNavigationBarColor(Color.BLACK)
                 navigationBarColor = Color.BLACK
                 setLightStatusBar(false)
@@ -474,15 +463,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 navigationBarColor = paletteColor
                 setLightNavigationBar(isColorLight)
                 setLightStatusBar(isColorLight)
-            } else if (nowPlayingScreen == Full) {
-                animateNavigationBarColor(paletteColor)
-                navigationBarColor = paletteColor
-                setLightNavigationBar(isColorLight)
-                setLightStatusBar(false)
-            } else if (nowPlayingScreen == Classic) {
-                setLightStatusBar(false)
-            } else if (nowPlayingScreen == Fit) {
-                setLightStatusBar(false)
             }
         }
     }
@@ -613,21 +593,14 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             Adaptive -> AdaptiveFragment()
             Normal -> PlayerFragment()
             Card -> CardFragment()
-            BlurCard -> CardBlurFragment()
-            Fit -> FitFragment()
             Flat -> FlatPlayerFragment()
-            Full -> FullPlayerFragment()
             Plain -> PlainPlayerFragment()
-            Simple -> SimplePlayerFragment()
-            Material -> MaterialFragment()
             Color -> ColorFragment()
             Gradient -> GradientPlayerFragment()
             Tiny -> TinyPlayerFragment()
             Peek -> PeekPlayerFragment()
-            Circle -> CirclePlayerFragment()
-            Classic -> ClassicPlayerFragment()
             MD3 -> MD3PlayerFragment()
-            Swipe -> SwipePlayerFragment()
+            Simple -> SimplePlayerFragment()
             else -> PlayerFragment()
         } // must extend AbsPlayerFragment
         supportFragmentManager.commit(allowStateLoss = true) {
@@ -637,31 +610,5 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         playerFragment = whichFragment(R.id.playerFragmentContainer)
         miniPlayerFragment = whichFragment<MiniPlayerFragment>(R.id.miniPlayerFragment)
         miniPlayerFragment?.view?.setOnClickListener { expandPanel() }
-
-        if (PreferenceUtil.dismissMethod == "long_touch") {
-            miniPlayerFragment?.view?.setOnLongClickListener {
-                if (PreferenceUtil.isDismissFailsafe) {
-                    val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                        .setMessage(R.string.clear_queue)
-                        .setTitle(R.string.alert)
-                        .setCancelable(false)
-                        .setPositiveButton("Yes") {
-                                _: DialogInterface?, _: Int -> MusicPlayerRemote.clearQueue()
-                        }
-                        .setNegativeButton("No") {
-                                dialog: DialogInterface, _: Int -> dialog.cancel()
-                        }
-                    val alertDialog: AlertDialog = builder.create()
-
-                    alertDialog.show()
-
-                    alertDialog.withCenteredButtons()
-
-                } else {
-                    MusicPlayerRemote.clearQueue()
-                }
-                true
-            }
-        }
     }
 }

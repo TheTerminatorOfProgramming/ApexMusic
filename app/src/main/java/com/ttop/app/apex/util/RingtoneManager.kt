@@ -53,7 +53,7 @@ object RingtoneManager {
     }
 
     fun requiresDialog(context: Context): Boolean {
-        if (VersionUtils.hasMarshmallow()) {
+        if (VersionUtils.hasOreo()) {
             if (!Settings.System.canWrite(context)) {
                 return true
             }

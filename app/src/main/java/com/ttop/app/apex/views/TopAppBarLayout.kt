@@ -1,6 +1,7 @@
 package com.ttop.app.apex.views
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.databinding.CollapsingAppbarLayoutBinding
 import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.ApexUtil.updateCollapsableAppBarTitleTextAppearance
 import com.ttop.app.apex.util.PreferenceUtil
@@ -33,9 +35,9 @@ class TopAppBarLayout @JvmOverloads constructor(
                 CollapsingAppbarLayoutBinding.inflate(LayoutInflater.from(context), this, true)
             val isLandscape =
                 context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-            if (isLandscape) {
-                fitsSystemWindows = false
-            }
+            //if (isLandscape) {
+            //    fitsSystemWindows = false
+            //}
 
         } else {
             simpleAppbarBinding =
@@ -86,7 +88,10 @@ class TopAppBarLayout @JvmOverloads constructor(
                     updateCollapsableAppBarTitleTextAppearance(
                         it
                     )
+
+                    backgroundTintList = ColorStateList.valueOf(context.darkAccentColor())
                 }
+                collapsingAppbarBinding?.collapsingToolbarLayout?.setContentScrimColor(context.darkAccentColor())
             } else {
                 simpleAppbarBinding?.toolbar?.title = value
 
@@ -100,7 +105,11 @@ class TopAppBarLayout @JvmOverloads constructor(
                     ApexUtil.updateSimpleAppBarTitleTextAppearance(context,
                         it
                     )
+
+                    backgroundTintList = ColorStateList.valueOf(context.darkAccentColor())
                 }
+
+                setStatusBarForegroundColor(context.darkAccentColor())
             }
         }
 

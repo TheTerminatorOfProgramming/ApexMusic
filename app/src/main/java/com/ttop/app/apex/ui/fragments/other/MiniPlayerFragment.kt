@@ -16,14 +16,17 @@ package com.ttop.app.apex.ui.fragments.other
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
 import android.view.GestureDetector
+import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
@@ -34,6 +37,8 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
+import com.ttop.app.apex.extensions.whichFragment
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -80,7 +85,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMiniPlayerBinding.bind(view)
 
-        binding.imageTextContainer.radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, PreferenceUtil.miniImage.toFloat(), context?.resources?.displayMetrics)
+        binding.imageTextContainer.radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, context?.resources?.displayMetrics)
 
         if (PreferenceUtil.progressBarStyle){
             if (PreferenceUtil.progressBarAlignment){
@@ -98,7 +103,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
             binding.progressBarHorizontalBottom.visibility = View.GONE
         }
 
-        view.setOnTouchListener(FlingPlayBackController(requireContext()))
+        view.setOnTouchListener(FlingPlayBackController(requireContext(), view))
         setUpMiniPlayer()
         setUpButtons()
     }
@@ -161,20 +166,12 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private fun updateSongCover() {
         val song = MusicPlayerRemote.currentSong
 
-        if (PreferenceUtil.isMiniPlayerCircle) {
-            Glide.with(requireContext())
-                .load(ApexGlideExtension.getSongModel(song))
-                .circleCrop()
-                .transition(ApexGlideExtension.getDefaultTransition())
-                .songCoverOptions(song)
-                .into(binding.image)
-        }else {
-            Glide.with(requireContext())
-                .load(ApexGlideExtension.getSongModel(song))
-                .transition(ApexGlideExtension.getDefaultTransition())
-                .songCoverOptions(song)
-                .into(binding.image)
-        }
+        Glide.with(requireContext())
+            .load(ApexGlideExtension.getSongModel(song))
+            .circleCrop()
+            .transition(ApexGlideExtension.getDefaultTransition())
+            .songCoverOptions(song)
+            .into(binding.image)
     }
 
     override fun onServiceConnected() {
@@ -221,7 +218,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         }
     }
 
-    class FlingPlayBackController(context: Context) : View.OnTouchListener {
+    class FlingPlayBackController(context: Context, view: View) : View.OnTouchListener {
 
         private var flingPlayBackController = GestureDetector(context,
             object : GestureDetector.SimpleOnGestureListener() {
@@ -231,7 +228,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                     velocityX: Float,
                     velocityY: Float
                 ): Boolean {
-                    if (PreferenceUtil.isSwipe) {
+                    if (PreferenceUtil.isSwipe == "always") {
                         if (abs(velocityX) > abs(velocityY)) {
                             if (velocityX < 0) {
                                 if (PreferenceUtil.isAutoplay) {
@@ -250,8 +247,57 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                             }
                         }
                         return false
+                    }else if (PreferenceUtil.isSwipe == "tab") {
+                        if (ApexUtil.isTablet) {
+                            if (abs(velocityX) > abs(velocityY)) {
+                                if (velocityX < 0) {
+                                    if (PreferenceUtil.isAutoplay) {
+                                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                    } else {
+                                        MusicPlayerRemote.playNextSong()
+                                    }
+                                    return true
+                                } else if (velocityX > 0) {
+                                    if (PreferenceUtil.isAutoplay) {
+                                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                    }else {
+                                        MusicPlayerRemote.playPreviousSong()
+                                    }
+                                    return true
+                                }
+                            }
+                            return false
+                        }
                     }
                     return false
+                }
+
+                override fun onLongPress(e: MotionEvent) {
+                    if (PreferenceUtil.dismissMethod == "long_touch") {
+                        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (PreferenceUtil.isDismissFailsafe) {
+                            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                                .setMessage(R.string.clear_queue)
+                                .setTitle(R.string.alert)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.yes) { _: DialogInterface?, _: Int ->
+                                    MusicPlayerRemote.clearQueue()
+                                }
+                                .setNegativeButton(R.string.no) { dialog: DialogInterface, _: Int ->
+                                    dialog.cancel()
+                                }
+                            val alertDialog: AlertDialog = builder.create()
+
+                            alertDialog.show()
+
+                            alertDialog.withCenteredButtons()
+
+                        } else {
+                            MusicPlayerRemote.clearQueue()
+                        }
+                        true
+                    }
+                    super.onLongPress(e)
                 }
             })
 

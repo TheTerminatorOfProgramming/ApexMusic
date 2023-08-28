@@ -44,6 +44,8 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentMd3PlayerBinding
 import com.ttop.app.apex.dialogs.*
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.showToast
@@ -75,6 +77,7 @@ import org.koin.android.ext.android.get
 class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
 
     private var lastColor: Int = 0
+    private var toolbarColor: Int =0
     override val paletteColor: Int
         get() = lastColor
 
@@ -103,23 +106,29 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
     }
 
     override fun toolbarIconColor(): Int {
-        return ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
+        return if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+            toolbarColor
+        }else {
+            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
+        }
     }
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         controlsFragment.setColor(color)
         lastColor = color.backgroundColor
+        toolbarColor = color.secondaryTextColor
         libraryViewModel.updateColor(color.backgroundColor)
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal),
+            toolbarIconColor(),
             requireActivity()
         )
 
         if (PreferenceUtil.isAdaptiveColor) {
             colorize(color.backgroundColor)
         }
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
     private fun colorize(i: Int) {
@@ -326,19 +335,47 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal),
+            toolbarIconColor(),
             requireActivity()
         )
     }
 
     private fun setupRecyclerView() {
         playingQueueAdapter = if (ApexUtil.isTablet){
-            PlayingQueueAdapter(
-                requireActivity() as AppCompatActivity,
-                MusicPlayerRemote.playingQueue.toMutableList(),
-                MusicPlayerRemote.position,
-                R.layout.item_queue_player_plain
-            )
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+            }
         }else {
             PlayingQueueAdapter(
                 requireActivity() as AppCompatActivity,

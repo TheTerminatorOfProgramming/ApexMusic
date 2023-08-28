@@ -22,21 +22,22 @@
             android:orientation="horizontal"
             tools:ignore="MissingPrefix">
 
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/drag_view"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical|start"
+                android:paddingHorizontal="8dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_drag_handle"
                 app:tint="?attr/colorControlNormal"
                 tools:ignore="ContentDescription"
-                android:paddingHorizontal="8dp"
                 tools:visibility="visible" />
-
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/imageContainer"

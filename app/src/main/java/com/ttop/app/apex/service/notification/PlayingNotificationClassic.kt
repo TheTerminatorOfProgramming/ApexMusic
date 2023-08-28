@@ -90,7 +90,7 @@ class PlayingNotificationClassic(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or if (VersionUtils.hasMarshmallow())
+                PendingIntent.FLAG_UPDATE_CURRENT or if (VersionUtils.hasOreo())
                     PendingIntent.FLAG_IMMUTABLE
                 else 0
             )
@@ -262,7 +262,7 @@ class PlayingNotificationClassic(
         val intent = Intent(action)
         intent.component = serviceName
         return PendingIntent.getService(
-            context, 0, intent, if (VersionUtils.hasMarshmallow())
+            context, 0, intent, if (VersionUtils.hasOreo())
                 PendingIntent.FLAG_IMMUTABLE
             else 0
         )

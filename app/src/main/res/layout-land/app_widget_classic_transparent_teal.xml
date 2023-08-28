@@ -77,6 +77,15 @@
                 tools:src="@drawable/ic_skip_next_outline"
                 tools:tint="@color/ate_secondary_text_dark" />
 
+            <ImageButton
+                android:id="@+id/button_update"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/widget_selector"
+                tools:src="@drawable/ic_skip_next_outline"
+                tools:tint="@color/ate_secondary_text_dark" />
         </LinearLayout>
 
         <LinearLayout

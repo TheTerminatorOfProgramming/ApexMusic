@@ -65,7 +65,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
 
         setupNavigationController()
 
-        WhatsNewFragment.showChangeLog(this)
+        //WhatsNewFragment.showChangeLog(this)
 
         PreferenceUtil.isSamsungSoundPluginInstalled = checkSamsungSoundPlugin()
 
@@ -96,15 +96,6 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
             )
         }
 
-        if (!sharedPreferences.contains(USE_NEW_WIDGET)) {
-            packageManager.setComponentEnabledSetting(
-                ComponentName(
-                    applicationContext,
-                    AppWidgetSquare::class.java
-                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
-            )
-        }
-
         if (PreferenceUtil.isDisableWidgets) {
             //Classic Widget
             packageManager.setComponentEnabledSetting(
@@ -125,13 +116,6 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
                 ComponentName(
                     applicationContext,
                     AppWidgetFull::class.java
-                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
-            )
-            //Queue Widget
-            packageManager.setComponentEnabledSetting(
-                ComponentName(
-                    applicationContext,
-                    AppWidgetQueue::class.java
                 ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
             )
         }

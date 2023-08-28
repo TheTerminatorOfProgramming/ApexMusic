@@ -267,6 +267,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
         lastColor = color.backgroundColor
         libraryViewModel.updateColor(color.backgroundColor)
         ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
     override fun toggleFavorite(song: Song) {
@@ -311,12 +312,49 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = PlayingQueueAdapter(
-            requireActivity() as AppCompatActivity,
-            MusicPlayerRemote.playingQueue.toMutableList(),
-            MusicPlayerRemote.position,
-            R.layout.item_queue_player
-        )
+        playingQueueAdapter = if (ApexUtil.isTablet){
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+            }
+        }else {
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player
+            )
+        }
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()

@@ -125,6 +125,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         if (VersionUtils.hasS()) {
             binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
         }
+        binding.aboutContent.cardPermissions?.filesPermission?.text = checkFilesPermission()
         binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
         binding.aboutContent.cardPermissions?.ringtonePermission?.setOnClickListener(this)
         binding.aboutContent.cardPermissions?.sourcesPermission?.setOnClickListener(this)
@@ -238,7 +239,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + " Github Edition: Build " + formattedDate + "_" + formattedTime
+                ).versionName + " " + getString(R.string.github_edition_debug) +  " " + formattedDate + "_" + formattedTime
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
@@ -247,17 +248,17 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + " Github Edition"
+                ).versionName + " " + getString(R.string.github_edition)
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
         }
 
-        return "Unknown"
+        return getString(R.string.unknown)
     }
 
     private fun getRetroMusicVersion(): String {
-        return "6.2.0 Production"
+        return getString(R.string.retromusic_base)
     }
 
     private fun shareApp() {
@@ -341,12 +342,27 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         }
     }
 
-    private fun getInstallerPackageName(): String {
-        return if (VersionUtils.hasR()){
-            requireContext().packageManager.getInstallSourceInfo(requireContext().packageName).installingPackageName.toString()
+    private fun checkFilesPermission(): String {
+        if (VersionUtils.hasR()) {
+            return if (Environment.isExternalStorageManager()) {
+                getString(R.string.granted) + " ✅"
+            }else {
+                getString(R.string.denied) + " ❌"
+            }
+        }else if (VersionUtils.hasQ()){
+            return if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                getString(R.string.granted) + " ✅"
+            }else{
+                getString(R.string.denied) + " ❌"
+            }
         }else {
-            requireContext().packageManager.getInstallerPackageName(requireContext().packageName).toString()
+            return if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                getString(R.string.granted) + " ✅"
+            }else{
+                getString(R.string.denied) + " ❌"
+            }
         }
+
     }
 
     override fun onDestroyView() {

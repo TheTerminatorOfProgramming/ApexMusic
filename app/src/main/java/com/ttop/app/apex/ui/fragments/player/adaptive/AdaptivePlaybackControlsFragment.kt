@@ -25,6 +25,7 @@ import com.ttop.app.apex.databinding.FragmentAdaptivePlayerPlaybackControlsBindi
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
@@ -131,6 +132,8 @@ class AdaptivePlaybackControlsFragment :
             accentColor()
         }.ripAlpha()
 
+
+
         TintHelper.setTintAuto(
             binding.playPauseButton,
             MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(colorFinal)),
@@ -138,7 +141,6 @@ class AdaptivePlaybackControlsFragment :
         )
         TintHelper.setTintAuto(binding.playPauseButton, colorFinal, true)
         binding.progressSlider.applyColor(colorFinal)
-        volumeFragment?.setTintable(colorFinal)
     }
 
     private fun updatePlayPauseColor() {

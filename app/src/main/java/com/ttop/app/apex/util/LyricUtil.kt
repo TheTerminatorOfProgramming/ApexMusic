@@ -25,8 +25,7 @@ import java.io.*
  * Created by hefuyi on 2016/11/8.
  */
 object LyricUtil {
-    private val lrcRootPath =
-        getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/Apex/Lyrics/"
+    private val fileName = PreferenceUtil.backupPath
     private const val TAG = "LyricUtil"
     fun writeLrcToLoc(
         title: String, artist: String, lrcContext: String
@@ -115,7 +114,10 @@ object LyricUtil {
     }
 
     private fun getLrcPath(title: String, artist: String): String {
-        return "$lrcRootPath$title - $artist.lrc"
+        var path = fileName?.length?.minus(7)?.let { fileName.substring(0, it) }
+        path = path + File.separator + "Lyrics" + File.separator
+
+        return "$path$title - $artist.lrc"
     }
 
     private fun getLrcOriginalPath(filePath: String): String {

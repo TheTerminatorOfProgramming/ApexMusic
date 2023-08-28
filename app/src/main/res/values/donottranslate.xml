@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Apex Music</string>
+    <string name="app_name_short" translatable="false">Apex</string>
     <string name="git_hub" translatable="false">GitHub</string>
 
 
@@ -15,9 +16,24 @@
     <string name="pref_title_md3">Material You</string>
 
     <string name="sort_order_album_artist">@string/album_artist</string>
-    <string name="app_widget_circle_name">@string/circle</string>
     <string name="widgetScreen" translatable="false">widgetScreen</string>
 
 
     <string name="download_policy">always</string>
+
+    <string name="font_barlow_name">Barlow</string>
+    <string name="font_capture_name">Capture It</string>
+    <string name="font_drexs_name">Drexs</string>
+    <string name="font_hermanoalto_name">Hermanoalto</string>
+    <string name="font_jura_name">Jura</string>
+    <string name="font_nothing_name">Nothing</string>
+    <string name="font_pencil_name">Pencil</string>
+    <string name="font_samsung_sans_name">Samsung Sharp Sans</string>
+    <string name="font_sans_name">Google Sans</string>
+
+    <string name="app_widget_big_name">Big</string>
+    <string name="app_widget_classic_name">Classic</string>
+    <string name="app_widget_full_circle_name">Full Circle</string>
+    <string name="app_widget_full_name">Full</string>
+    <string name="app_widget_circle_name">Circle</string>
 </resources>

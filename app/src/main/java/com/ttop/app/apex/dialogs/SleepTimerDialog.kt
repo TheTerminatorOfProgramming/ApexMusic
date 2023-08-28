@@ -56,7 +56,6 @@ class SleepTimerDialog : DialogFragment() {
 
     private var seekArcProgress: Int = 0
     private lateinit var timerUpdater: TimerUpdater
-    private lateinit var dialog: AlertDialog
 
     private var _binding: DialogSleepTimerBinding? = null
     private val binding get() = _binding!!
@@ -69,6 +68,7 @@ class SleepTimerDialog : DialogFragment() {
     private var positiveButton: Button? = null
     private var negativeButton: Button? = null
     private var dismissButton: Button? = null
+    private lateinit var dialog: AlertDialog
 
     @SuppressLint("DefaultLocale")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -119,14 +119,14 @@ class SleepTimerDialog : DialogFragment() {
 
         materialDialog(R.string.action_sleep_timer).apply {
             timerUpdater.start()
-            setPositiveButton(R.string.reset_action) { _, _ ->
+            setPositiveButton(R.string.action_set) { _, _ ->
                 dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 PreferenceUtil.isSleepTimerFinishMusic = shouldFinishLastSong.isChecked
                 val minutes = seekArcProgress
                 val pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT)
                 val nextSleepTimerElapsedTime =
                     SystemClock.elapsedRealtime() + minutes * 60 * 1000
-               PreferenceUtil.nextSleepTimerElapsedRealTime = nextSleepTimerElapsedTime.toInt()
+                PreferenceUtil.nextSleepTimerElapsedRealTime = nextSleepTimerElapsedTime.toInt()
                 val am = requireContext().getSystemService<AlarmManager>()
                 am?.setExact(
                     AlarmManager.ELAPSED_REALTIME_WAKEUP,
@@ -168,7 +168,7 @@ class SleepTimerDialog : DialogFragment() {
                 PreferenceUtil.isTimerCancelled = true
             }
 
-            setNeutralButton("Dismiss") { _, _ ->
+            setNeutralButton(R.string.dismiss) { _, _ ->
                 dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 dialog.dismiss()
             }
@@ -185,7 +185,7 @@ class SleepTimerDialog : DialogFragment() {
 
     private fun makeTimerPendingIntent(flag: Int): PendingIntent {
         return PendingIntent.getService(
-            requireActivity(), 0, makeTimerIntent(), flag or if (VersionUtils.hasMarshmallow())
+            requireActivity(), 0, makeTimerIntent(), flag or if (VersionUtils.hasOreo())
                 PendingIntent.FLAG_IMMUTABLE
             else 0
         )
@@ -220,6 +220,10 @@ class SleepTimerDialog : DialogFragment() {
             }
 
             dismissButton!!.accentTextColor()
+
+            positiveButton!!.textSize = 13f
+            negativeButton!!.textSize = 13f
+            dismissButton!!.textSize = 13f
         }
     }
 
@@ -238,7 +242,7 @@ class SleepTimerDialog : DialogFragment() {
         }
 
         override fun onFinish() {
-            remaining.text = "Remaining:"
+            remaining.text = getString(R.string.remaining)
         }
     }
 }

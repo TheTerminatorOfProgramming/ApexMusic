@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
+import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 class MainSlideFragment : Fragment() {
 
@@ -25,14 +26,14 @@ class MainSlideFragment : Fragment() {
         val appName =
             getString(
                 R.string.message_welcome,
-                "Apex Music"
+                getString(R.string.app_name)
             ).parseAsHtml()
 
         desc = view.findViewById(R.id.description) as TextView
 
         desc?.text = appName
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_red_400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.bottomSheetColorDark))
     }
     companion object {
         fun newInstance(): MainSlideFragment {

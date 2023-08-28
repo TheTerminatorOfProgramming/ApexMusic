@@ -33,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
@@ -89,7 +90,7 @@ class ColorFragment : AbsPlayerFragment(R.layout.fragment_color_player) {
     private var _binding: FragmentColorPlayerBinding? = null
     private val binding get() = _binding!!
 
-    override fun playerToolbar(): Toolbar {
+    override fun playerToolbar(): MaterialToolbar? {
         return binding.playerToolbar
     }
 
@@ -102,20 +103,21 @@ class ColorFragment : AbsPlayerFragment(R.layout.fragment_color_player) {
         playbackControlsFragment.setColor(color)
         navigationColor = color.backgroundColor
 
-        binding.colorGradientBackground.setBackgroundColor(color.backgroundColor)
+        binding.colorGradientBackground?.setBackgroundColor(color.backgroundColor)
         val animator =
-            playbackControlsFragment.createRevealAnimator(binding.colorGradientBackground)
-        animator.doOnEnd {
+            binding.colorGradientBackground?.let { playbackControlsFragment.createRevealAnimator(it) }
+        animator?.doOnEnd {
             _binding?.root?.setBackgroundColor(color.backgroundColor)
         }
-        animator.start()
-        binding.playerToolbar.post {
+        animator?.start()
+        binding.playerToolbar?.post {
             ToolbarContentTintHelper.colorizeToolbar(
                 binding.playerToolbar,
                 color.secondaryTextColor,
                 requireActivity()
             )
         }
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
     override fun onFavoriteToggled() {
@@ -164,7 +166,9 @@ class ColorFragment : AbsPlayerFragment(R.layout.fragment_color_player) {
         val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
             whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment.setCallbacks(this)
-        playerToolbar().drawAboveSystemBars()
+        playerToolbar()?.drawAboveSystemBars()
+
+        updateIsFavorite(false)
     }
 
     private fun setUpSubFragments() {
@@ -172,7 +176,7 @@ class ColorFragment : AbsPlayerFragment(R.layout.fragment_color_player) {
     }
 
     private fun setUpPlayerToolbar() {
-        binding.playerToolbar.apply {
+        binding.playerToolbar?.apply {
             inflateMenu(R.menu.menu_player)
             setNavigationIcon(R.drawable.ic_keyboard_arrow_down_black)
             setNavigationOnClickListener {
@@ -311,10 +315,10 @@ class ColorFragment : AbsPlayerFragment(R.layout.fragment_color_player) {
             }
             R.id.action_queue -> {
                 if (!ApexUtil.isTablet) {
-                    if (binding.playerQueueSheet.visibility == View.VISIBLE){
-                        binding.playerQueueSheet.visibility = View.GONE
+                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
+                        binding.playerQueueSheet?.visibility = View.GONE
                     }else{
-                        binding.playerQueueSheet.visibility = View.VISIBLE
+                        binding.playerQueueSheet?.visibility = View.VISIBLE
                     }
                 }
             }
@@ -323,12 +327,49 @@ class ColorFragment : AbsPlayerFragment(R.layout.fragment_color_player) {
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = PlayingQueueAdapter(
-            requireActivity() as AppCompatActivity,
-            MusicPlayerRemote.playingQueue.toMutableList(),
-            MusicPlayerRemote.position,
-            R.layout.item_queue_player
-        )
+        playingQueueAdapter = if (ApexUtil.isTablet){
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+            }
+        }else {
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player
+            )
+        }
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()

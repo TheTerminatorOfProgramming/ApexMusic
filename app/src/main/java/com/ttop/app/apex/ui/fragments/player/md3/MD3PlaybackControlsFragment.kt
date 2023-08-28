@@ -75,7 +75,6 @@ class MD3PlaybackControlsFragment :
             }
         }
         binding.title.isSelected = true
-        binding.album.isSelected = true
         binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
@@ -112,7 +111,6 @@ class MD3PlaybackControlsFragment :
         binding.playPauseCard.setCardBackgroundColor(colorFinal)
 
         binding.progressSlider.applyColor(colorFinal)
-        volumeFragment?.setTintable(colorFinal)
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
@@ -122,7 +120,6 @@ class MD3PlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album.text = song.albumName
         binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
@@ -167,10 +164,10 @@ class MD3PlaybackControlsFragment :
     private fun updatePlayPauseDrawableState() {
         if (MusicPlayerRemote.isPlaying) {
             binding.playPauseButton.setImageResource(R.drawable.ic_pause_outline_small)
-            binding.playPauseCard.animateRadius(40F)
+            //binding.playPauseCard.animateRadius(40F)
         } else {
             binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow_outline_small)
-            binding.playPauseCard.animateToCircle()
+            //binding.playPauseCard.animateToCircle()
         }
     }
 

@@ -1,7 +1,9 @@
 package com.ttop.app.apex.ui.fragments.backup
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,11 +20,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.apex.adapter.backup.BackupAdapter
 import com.afollestad.materialdialogs.input.input
 import com.jakewharton.processphoenix.ProcessPhoenix
+import com.ttop.app.apex.BACKUP_PATH
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
+import com.ttop.app.apex.adapter.backup.BackupAdapter
 import com.ttop.app.apex.databinding.FragmentBackupBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.BackupHelper
@@ -38,13 +41,62 @@ import java.nio.file.Files
 import java.util.*
 
 
-class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupClickedListener {
+class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupClickedListener,SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val backupViewModel by viewModels<BackupViewModel>()
     private var backupAdapter: BackupAdapter? = null
-    private var defaultPath = "/storage/emulated/0/Download/Apex/Backups"
     private var _binding: FragmentBackupBinding? = null
     private val binding get() = _binding!!
+
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+            val data: Intent? = result.data
+
+            val uri: Uri? = data?.data
+            val file = uri?.path?.let { File(it) } //create path from uri
+
+            val split = file?.path?.split(":".toRegex())?.dropLastWhile { it.isEmpty() }
+                ?.toTypedArray() //split the path.
+
+
+            val fileType = split?.get(1)
+            val finalPath = fileType?.let { getExternalStoragePublicDirectory(it).absolutePath }
+
+            if (finalPath != null) {
+                showToast(finalPath)
+                if (finalPath.endsWith("Apex" + File.separator + "Backups")) {
+                    PreferenceUtil.backupPath = finalPath
+                }else {
+                    if (finalPath.endsWith("Apex")) {
+                        PreferenceUtil.backupPath = finalPath + File.separator + "Backups"
+                    }else{
+                        PreferenceUtil.backupPath = finalPath + File.separator + "Apex" + File.separator + "Backups"
+                    }
+                }
+
+            }
+
+            val newDir = PreferenceUtil.backupPath?.let { File(it) }
+            if (newDir != null) {
+                if (!newDir.exists()){
+                    newDir.mkdirs()
+                }
+            }
+
+            var path = PreferenceUtil.backupPath?.length?.minus(8)?.let { PreferenceUtil.backupPath!!.substring(0, it) }
+            path = path + File.separator + "Lyrics" + File.separator
+
+            val newLyricsDir = File(path)
+            if (!newLyricsDir.exists()){
+                newLyricsDir.mkdirs()
+            }
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,6 +122,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
 
         binding.createBackup.accentColor()
         binding.restoreBackup.accentColor()
+        binding.pathLabel.setTextColor(requireContext().accentColor())
         binding.resetToDefault.accentOutlineColor()
         binding.createBackup.setOnClickListener {
             showCreateBackupDialog()
@@ -79,16 +132,10 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         }
 
         binding.backupPath.setOnClickListener {
-            openFolder()
+            selectFolder()
         }
 
-        binding.backupPath.text = getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
-
-        if (PreferenceUtil.isDevModeEnabled){
-            binding.resetToDefault.visibility = View.VISIBLE
-        }else {
-            binding.resetToDefault.visibility = View.GONE
-        }
+        binding.backupPath.text = PreferenceUtil.backupPath
 
         binding.resetToDefault.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
@@ -124,15 +171,10 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         }
     }
 
-    private fun openFolder() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.setDataAndType(
-            Uri.parse(
-                getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
-                        + File.separator + "Apex" + File.separator + "Backup" + File.separator
-            ), "file/*"
-        )
-        startActivityForResult(intent, 9999)
+    private fun selectFolder() {
+        val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+        i.addCategory(Intent.CATEGORY_DEFAULT)
+        resultLauncher.launch(i)
     }
 
     private fun initAdapter() {
@@ -226,5 +268,14 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        PreferenceUtil.unregisterOnSharedPreferenceChangedListener(this)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            BACKUP_PATH -> {
+                activity?.recreate()
+            }
+        }
     }
 }

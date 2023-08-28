@@ -119,7 +119,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             arguments.extraPlaylistId,
             requireActivity(),
             ArrayList(),
-            R.layout.item_queue
+            R.layout.item_queue_playlist
         )
 
         val dragDropManager = RecyclerViewDragDropManager()

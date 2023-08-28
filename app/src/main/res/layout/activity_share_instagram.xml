@@ -43,7 +43,7 @@
                 android:layout_height="16dp"
                 app:layout_constraintStart_toStartOf="@+id/imageContainerCard"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_foreground" />
+                app:srcCompat="@drawable/app_icon" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/appName"

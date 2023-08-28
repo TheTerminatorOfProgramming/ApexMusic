@@ -44,35 +44,6 @@
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_labs_square_widget"
-        app:allowDividerBelow="false">
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="use_new_widget"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_use_new_widget"
-        android:title="@string/pref_title_use_new_widget"
-        app:allowDividerBelow="false"/>
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="square_widget_text"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_square_widget_text"
-        android:title="@string/pref_title_square_widget_text"
-        app:dependency="use_new_widget"
-        app:allowDividerBelow="false"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="square_widget_colored"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_square_widget_colored"
-        android:title="@string/pref_title_square_widget_colored"
-        app:dependency="use_new_widget"
-        app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
-        android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_labs_other_options"
         app:isPreferenceVisible="true"
         app:allowDividerBelow="false">

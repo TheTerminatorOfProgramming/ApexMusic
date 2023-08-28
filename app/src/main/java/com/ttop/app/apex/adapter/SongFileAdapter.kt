@@ -104,7 +104,7 @@ class SongFileAdapter(
             holder.imageTextContainer?.setCardBackgroundColor(
                 ATHUtil.resolveColor(
                     activity,
-                    com.google.android.material.R.attr.colorSurface
+                    R.color.transparent
                 )
             )
         } else {

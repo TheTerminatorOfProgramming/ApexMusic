@@ -132,7 +132,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         binding.viewPager.addOnPageChangeListener(this)
         val nps = PreferenceUtil.nowPlayingScreen
 
-        if (nps == Full || nps == Classic || nps == Fit || nps == Gradient) {
+        if (nps == Gradient) {
             binding.viewPager.offscreenPageLimit = 2
         } else if (PreferenceUtil.isCarouselEffect) {
             val metrics = resources.displayMetrics
@@ -298,12 +298,12 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         )
 
         when (PreferenceUtil.nowPlayingScreen) {
-            Flat, Normal, Material -> if (PreferenceUtil.isAdaptiveColor) {
+            Flat, Normal -> if (PreferenceUtil.isAdaptiveColor) {
                 setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
             } else {
                 setLRCViewColors(primaryColor, secondaryColor)
             }
-            Color, Classic -> setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
+            Color -> setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
             Blur -> setLRCViewColors(Color.WHITE, ColorUtil.withAlpha(Color.WHITE, 0.5f))
             else -> setLRCViewColors(primaryColor, secondaryColor)
         }
@@ -325,5 +325,5 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private val lyricViewNpsList =
-        listOf(Blur, Classic, Color, Flat, Material, MD3, Normal, Plain, Simple, Swipe, Fit, Adaptive, BlurCard, Card, Full, Gradient)
+        listOf(Blur, Color, Flat, MD3, Normal, Plain, Simple, Adaptive, Card, Gradient)
 }

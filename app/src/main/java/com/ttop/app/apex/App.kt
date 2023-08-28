@@ -40,14 +40,21 @@ class App : Application() {
         }
         // default theme
         if (!ThemeStore.isConfigured(this, 3)) {
-            ThemeStore.editTheme(this)
-                .accentColorRes(com.ttop.app.appthemehelper.R.color.default_color)
-                .coloredNavigationBar(true)
-                .commit()
+            if (BuildConfig.DEBUG) {
+                ThemeStore.editTheme(this)
+                    .accentColorRes(com.ttop.app.appthemehelper.R.color.default_debug_color)
+                    .coloredNavigationBar(true)
+                    .commit()
+            }else {
+                ThemeStore.editTheme(this)
+                    .accentColorRes(com.ttop.app.appthemehelper.R.color.default_color)
+                    .coloredNavigationBar(true)
+                    .commit()
+            }
         }
         wallpaperAccentManager.init()
 
-        if (VersionUtils.hasNougatMR())
+        if (VersionUtils.hasOreo())
             DynamicShortcutManager(this).initDynamicShortcuts()
 
         // setting Error activity

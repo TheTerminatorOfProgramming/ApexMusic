@@ -17,6 +17,7 @@ import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.TintHelper
 
+
 class ATESeekBarPreference @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -47,13 +48,10 @@ class ATESeekBarPreference @JvmOverloads constructor(
             seekBar, // Set MD3 accent if MD3 is enabled or in-app accent otherwise
             ThemeStore.accentColor(context), false
         )
-
         (view.findViewById(androidx.preference.R.id.seekbar_value) as TextView).apply {
             appendUnit(editableText)
-            if (unit == "") {
-                doAfterTextChanged {
-                    appendUnit(it)
-                }
+            doAfterTextChanged {
+                appendUnit(it)
             }
         }
     }

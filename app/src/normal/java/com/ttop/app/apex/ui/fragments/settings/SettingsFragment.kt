@@ -95,7 +95,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
 
     override fun invoke(dialog: MaterialDialog, color: Int) {
         ThemeStore.editTheme(requireContext()).accentColor(color).commit()
-        if (VersionUtils.hasNougatMR())
+        if (VersionUtils.hasOreo())
             DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
         activity?.recreate()
     }

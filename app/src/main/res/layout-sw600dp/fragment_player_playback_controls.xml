@@ -34,20 +34,6 @@
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
         tools:progress="50" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/songTotalTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:minWidth="40dp"
-        android:singleLine="true"
-        android:layout_marginEnd="12dp"
-        android:textColor="?android:attr/textColorSecondary"
-        app:layout_constraintTop_toBottomOf="@+id/progressSlider"
-        app:layout_constraintEnd_toEndOf="@+id/progressSlider"
-        tools:ignore="RtlHardcoded,RtlSymmetry"
-        tools:text="@tools:sample/date/hhmmss" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/infoContainer"
         android:layout_width="match_parent"
@@ -77,14 +63,14 @@
                 android:textAppearance="@style/TextViewHeadline6"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/album"
+                app:layout_constraintBottom_toTopOf="@+id/artist"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/songCurrentProgress"
                 tools:text="@tools:sample/lorem/random" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/album"
+                android:id="@+id/artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
@@ -106,28 +92,6 @@
                 tools:text="@tools:sample/full_names" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/artist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:freezesText="true"
-                android:gravity="center"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textAppearance="@style/TextViewBody1"
-                android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginTop="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/album"
-                tools:text="@tools:sample/full_names" />
-
-            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/songInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,6 +110,20 @@
                 tools:text="@tools:sample/full_names" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/songTotalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:minWidth="40dp"
+        android:singleLine="true"
+        android:layout_marginEnd="12dp"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintTop_toBottomOf="@+id/progressSlider"
+        app:layout_constraintEnd_toEndOf="@+id/progressSlider"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
+        tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/repeatButton"
@@ -183,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
-        app:layout_constraintBottom_toTopOf="@+id/volumeFragmentContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/nextButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/previousButton"
@@ -220,14 +198,5 @@
         app:srcCompat="@drawable/ic_shuffle"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
-
-    <FrameLayout
-        android:id="@+id/volumeFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:background="@color/md_red_400"
-        tools:layout_height="52dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

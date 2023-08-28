@@ -15,25 +15,29 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.annotation.SuppressLint
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import androidx.preference.DialogPreference
+import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.color.colorChooser
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
+import com.ttop.app.apex.extensions.installLanguageAndRecreate
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.extensions.resolveColor
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
 import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -52,7 +56,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 setSummary(it, newValue)
                 ThemeStore.markChanged(requireContext())
 
-                if (VersionUtils.hasNougatMR()) {
+                if (VersionUtils.hasOreo()) {
                     DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                 }
                 restartActivity()
@@ -72,7 +76,17 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                     subColors = ACCENT_COLORS_SUB, allowCustomArgb = true
                 ) { _, color ->
                     ThemeStore.editTheme(requireContext()).accentColor(color).commit()
-                    if (VersionUtils.hasNougatMR())
+                    if (VersionUtils.hasOreo())
+                        DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                    restartActivity()
+                }
+                neutralButton(res = R.string.reset_action) {
+                    if (BuildConfig.DEBUG) {
+                        ThemeStore.editTheme(requireContext()).accentColor(resources.getColor(R.color.default_debug_color)).commit()
+                    }else {
+                        ThemeStore.editTheme(requireContext()).accentColor(resources.getColor(R.color.default_color)).commit()
+                    }
+                    if (VersionUtils.hasOreo())
                         DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                     restartActivity()
                 }
@@ -84,7 +98,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         blackTheme?.setOnPreferenceChangeListener { _, _ ->
             ThemeStore.markChanged(requireContext())
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            if (VersionUtils.hasNougatMR()) {
+            if (VersionUtils.hasOreo()) {
                 requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
             }
@@ -105,7 +119,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         }
 
         val colorAppShortcuts: TwoStatePreference? = findPreference(SHOULD_COLOR_APP_SHORTCUTS)
-        if (!VersionUtils.hasNougatMR()) {
+        if (!VersionUtils.hasOreo()) {
             colorAppShortcuts?.isVisible = false
         } else {
             colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
@@ -143,12 +157,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val swipeGestures: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE)
-        swipeGestures?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
         extraControls?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -165,13 +173,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val progressbarAlignment: TwoStatePreference? = findPreference(PROGRESS_BAR_ALIGNMENT)
         progressbarAlignment?.isChecked = PreferenceUtil.progressBarAlignment
         progressbarAlignment?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val miniplayerImage: TwoStatePreference? = findPreference(MINIPLAYER_IMAGE)
-        miniplayerImage?.isChecked = PreferenceUtil.isMiniPlayerCircle
-        miniplayerImage?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
@@ -197,10 +198,46 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             dismissCheck?.isEnabled = PreferenceUtil.dismissMethod != "none"
             true
         }
+
+        val languagePreference: ATEListPreference? = findPreference(LANGUAGE_NAME)
+        languagePreference?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
+            return@setOnPreferenceChangeListener true
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val languagePreference: Preference? = findPreference(LANGUAGE_NAME)
+        languagePreference?.setOnPreferenceChangeListener { prefs, newValue ->
+            setSummary(prefs, newValue)
+            if (newValue as? String == "auto") {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+            } else {
+                // Install the languages from Play Store first and then set the application locale
+                requireActivity().installLanguageAndRecreate(newValue.toString()) {
+                    AppCompatDelegate.setApplicationLocales(
+                        LocaleListCompat.forLanguageTags(
+                            newValue as? String
+                        )
+                    )
+                }
+            }
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_general)
+        if (VersionUtils.hasR()) {
+            if (ApexUtil.isFoldable(requireContext())) {
+                addPreferencesFromResource(R.xml.pref_general_foldable)
+            }else {
+                addPreferencesFromResource(R.xml.pref_general)
+            }
+        }else {
+            addPreferencesFromResource(R.xml.pref_general)
+        }
 
         val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)
         wallpaperAccent?.isVisible = VersionUtils.hasOreoMR1() && !VersionUtils.hasS()

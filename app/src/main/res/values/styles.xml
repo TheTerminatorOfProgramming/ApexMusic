@@ -319,6 +319,11 @@
         <item name="android:fontFamily">@font/capture_it</item>
     </style>
 
+    <style name="NothingThemeOverlay">
+        <item name="fontFamily">@font/nothing</item>
+        <item name="android:fontFamily">@font/nothing</item>
+    </style>
+
     <style name="TextSize14">
         <item name="android:textSize">14sp</item>
     </style>
@@ -371,4 +376,8 @@
         <item name="android:splitTrack">false</item> </style>
 
     <style name="SquigglySlider" parent="Base.SquigglySlider"/>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

@@ -75,7 +75,6 @@ class ColorPlaybackControlsFragment :
 
         setUpPlayPauseFab()
         binding.title.isSelected = true
-        binding.album.isSelected = true
         binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
@@ -88,7 +87,6 @@ class ColorPlaybackControlsFragment :
     private fun updateSong() {
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
-        binding.album.text = song.albumName
         binding.artist.text = song.artistName
 
         if (PreferenceUtil.isSongInfo) {
@@ -132,12 +130,10 @@ class ColorPlaybackControlsFragment :
         binding.progressSlider.applyColor(color.primaryTextColor)
 
         binding.title.setTextColor(color.primaryTextColor)
-        binding.album.setTextColor(color.secondaryTextColor)
         binding.artist.setTextColor(color.secondaryTextColor)
         binding.songInfo.setTextColor(color.secondaryTextColor)
         binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
         binding.songTotalTime.setTextColor(color.secondaryTextColor)
-        volumeFragment?.setTintableColor(color.primaryTextColor)
 
         lastPlaybackControlsColor = color.secondaryTextColor
         lastDisabledPlaybackControlsColor = ColorUtil.withAlpha(color.secondaryTextColor, 0.25f)

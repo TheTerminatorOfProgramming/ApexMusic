@@ -8,22 +8,35 @@
     android:backgroundTint="?attr/colorSurface"
     android:id="@+id/app_widget_full">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_above="@id/media_actions">
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_above="@id/media_actions"
-        android:scaleType="centerInside"
-        android:layout_weight="1"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/default_album_art" />
-    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/button_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/widget_selector"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_refresh"
+            tools:tint="@color/ate_secondary_text_dark" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/default_album_art" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/media_actions"
@@ -40,9 +53,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -63,7 +77,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
                 tools:text="Text" />
 
@@ -74,11 +88,10 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
-                tools:text="2:03/5:04" />
+                tools:text="01:32/04:51" />
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/media_action"
@@ -97,7 +110,7 @@
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/ic_skip_previous_outline"
-                tools:tint="@color/ate_primary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
@@ -108,7 +121,7 @@
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/ic_play_arrow_outline_small"
-                tools:tint="@color/ate_primary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
                 android:id="@+id/button_next"
@@ -119,14 +132,8 @@
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/ic_skip_next_outline"
-                tools:tint="@color/ate_primary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
         </LinearLayout>
 
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/clickable_area"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/media_actions" />
 </RelativeLayout>

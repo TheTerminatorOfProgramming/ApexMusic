@@ -14,7 +14,6 @@
 package com.ttop.app.apex.service
 
 import android.annotation.SuppressLint
-import android.app.KeyguardManager
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -30,9 +29,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import android.os.*
 import android.os.PowerManager.WakeLock
 import android.provider.MediaStore
@@ -41,11 +37,8 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.support.v4.media.session.PlaybackStateCompat.Builder
-import android.telecom.ConnectionService
 import android.util.Log
 import android.widget.Toast
-import androidx.biometric.BiometricManager
-import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
@@ -82,7 +75,6 @@ import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.ui.activities.LockScreenActivity
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.MusicUtil.isFavorite
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
@@ -108,6 +100,9 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import org.koin.java.KoinJavaComponent.get
 import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -136,7 +131,7 @@ class MusicService : MediaBrowserServiceCompat(),
     @JvmField
     var pendingQuit = false
 
-    private val timer = Timer()
+    private val scheduler: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
 
     private lateinit var playbackManager: PlaybackManager
 
@@ -158,8 +153,6 @@ class MusicService : MediaBrowserServiceCompat(),
     private val appWidgetClassic = AppWidgetClassic.instance
     private val appWidgetFull = AppWidgetFull.instance
     private val appWidgetFullCircle = AppWidgetFullCircle.instance
-    private val appWidgetSquare = AppWidgetSquare.instance
-    private val appWidgetQueue = AppWidgetQueue.instance
     private val widgetIntentReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME)
@@ -181,12 +174,6 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
                     AppWidgetFullCircle.NAME -> {
                         appWidgetFullCircle.performUpdate(this@MusicService, ids)
-                    }
-                    AppWidgetSquare.NAME -> {
-                        appWidgetSquare.performUpdate(this@MusicService, ids)
-                    }
-                    AppWidgetQueue.NAME -> {
-                        appWidgetQueue.performUpdate(this@MusicService, ids)
                     }
                 }
             }
@@ -265,13 +252,13 @@ class MusicService : MediaBrowserServiceCompat(),
     @JvmField
     var shuffleMode = 0
     private val songPlayCountHelper = SongPlayCountHelper()
-
+    var connected = false
     private val bluetoothReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
             if (action != null) {
                 val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-                var connected = false
+
                 if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
                     if(PreferenceUtil.specificDevice){
                         if (device?.address == PreferenceUtil.bluetoothDevice){
@@ -431,9 +418,7 @@ class MusicService : MediaBrowserServiceCompat(),
             unregisterReceiver(internetReceiver)
             internetReceiverRegistered = false
         }
-
-        timer.cancel()
-
+        scheduler.shutdownNow()
         mediaSession?.isActive = false
         quit()
         releaseResources()
@@ -442,10 +427,6 @@ class MusicService : MediaBrowserServiceCompat(),
         unregisterOnSharedPreferenceChangedListener(this)
         wakeLock?.release()
         sendBroadcast(Intent("$APEX_MUSIC_PACKAGE_NAME.APEX_MUSIC_SERVICE_DESTROYED"))
-    }
-
-    fun getProgressTimer(): Timer {
-        return timer
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
@@ -822,17 +803,14 @@ class MusicService : MediaBrowserServiceCompat(),
                     UPDATE_NOTIFY -> {
                         update()
                     }
-                    PLAY_QUEUE_1 -> {
-                        playSongAt(position + 1)
-                    }
-                    PLAY_QUEUE_2 -> {
-                        playSongAt(position + 2)
-                    }
-                    PLAY_QUEUE_3 -> {
-                        playSongAt(position + 3)
-                    }
-                    PLAY_QUEUE_4 -> {
-                        playSongAt(position + 4)
+                    ACTION_UPDATE -> {
+                        appWidgetClassic.notifyThemeChange(this@MusicService)
+                        appWidgetBig.notifyThemeChange(this@MusicService)
+                        appWidgetCircle.notifyThemeChange(this@MusicService)
+                        appWidgetFull.notifyThemeChange(this@MusicService)
+                        appWidgetFullCircle.notifyThemeChange(this@MusicService)
+
+                        updateWidget()
                     }
                 }
             }
@@ -1289,6 +1267,7 @@ class MusicService : MediaBrowserServiceCompat(),
                 .asBitmap()
                 .songCoverOptions(song)
                 .load(getSongModel(song))
+                .circleCrop()
                 .transition(getDefaultTransition())
                 .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
                     override fun onLoadFailed(errorDrawable: Drawable?) {
@@ -1579,12 +1558,10 @@ class MusicService : MediaBrowserServiceCompat(),
             UI_MODE_NIGHT_YES -> {
                 appWidgetClassic.notifyThemeChange(this)
                 appWidgetFull.notifyThemeChange(this)
-                appWidgetQueue.notifyThemeChange(this)
             }
             UI_MODE_NIGHT_NO -> {
                 appWidgetClassic.notifyThemeChange(this)
                 appWidgetFull.notifyThemeChange(this)
-                appWidgetQueue.notifyThemeChange(this)
             }
         }
     }
@@ -1596,8 +1573,6 @@ class MusicService : MediaBrowserServiceCompat(),
         appWidgetFull.notifyChange(this, what)
         appWidgetCircle.notifyChange(this, what)
         appWidgetFullCircle.notifyChange(this, what)
-        appWidgetSquare.notifyChange(this, what)
-        appWidgetQueue.notifyChange(this, what)
     }
 
     private fun setCustomAction(stateBuilder: PlaybackStateCompat.Builder) {
@@ -1715,16 +1690,13 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     fun updateWidget() {
-        timer.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                if (playingQueue.isNotEmpty()) {
-                    appWidgetSquare.performUpdate(this@MusicService, null)
-                    appWidgetClassic.performUpdate(this@MusicService, null)
-                    appWidgetFull.performUpdate(this@MusicService, null)
-                    appWidgetQueue.performUpdate(this@MusicService, null)
-                }
+        val hideTimelineRunnable = Runnable {
+            if (playingQueue.isNotEmpty()) {
+                appWidgetClassic.performUpdate(this@MusicService, null)
+                appWidgetFull.performUpdate(this@MusicService, null)
             }
-        }, 0, 1000)
+        }
+        scheduler.scheduleAtFixedRate(hideTimelineRunnable, 0, 1000, TimeUnit.MILLISECONDS)
     }
 
     private fun setupMediaSession() {
@@ -1737,7 +1709,7 @@ class MusicService : MediaBrowserServiceCompat(),
         mediaButtonIntent.component = mediaButtonReceiverComponentName
         val mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(
             applicationContext, 0, mediaButtonIntent,
-            if (VersionUtils.hasMarshmallow()) PendingIntent.FLAG_IMMUTABLE else 0
+            if (VersionUtils.hasOreo()) PendingIntent.FLAG_IMMUTABLE else 0
         )
         mediaSession = MediaSessionCompat(
             this,
@@ -1787,10 +1759,7 @@ class MusicService : MediaBrowserServiceCompat(),
         const val TOGGLE_SHUFFLE = "$APEX_MUSIC_PACKAGE_NAME.toggleshuffle"
         const val TOGGLE_FAVORITE = "$APEX_MUSIC_PACKAGE_NAME.togglefavorite"
         const val UPDATE_NOTIFY = "$APEX_MUSIC_PACKAGE_NAME.updatenotify"
-        const val PLAY_QUEUE_1 = "$APEX_MUSIC_PACKAGE_NAME.playqueue1"
-        const val PLAY_QUEUE_2 = "$APEX_MUSIC_PACKAGE_NAME.playqueue2"
-        const val PLAY_QUEUE_3 = "$APEX_MUSIC_PACKAGE_NAME.playqueue3"
-        const val PLAY_QUEUE_4 = "$APEX_MUSIC_PACKAGE_NAME.playqueue4"
+        const val ACTION_UPDATE = "$APEX_MUSIC_PACKAGE_NAME.updateWidgets"
         const val SAVED_POSITION = "POSITION"
         const val SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK"
         const val SAVED_SHUFFLE_MODE = "SHUFFLE_MODE"

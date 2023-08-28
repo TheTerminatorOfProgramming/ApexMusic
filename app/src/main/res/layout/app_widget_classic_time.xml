@@ -25,7 +25,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginTop="10dp">
 
         <LinearLayout
@@ -68,10 +68,23 @@
 
         </LinearLayout>
 
+        <ImageButton
+            android:id="@+id/button_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/widget_selector"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_refresh"
+            tools:tint="@color/ate_secondary_text_dark" />
+
         <LinearLayout
             android:id="@+id/media_titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/button_update"
             android:layout_above="@+id/media_actions"
             android:layout_alignParentTop="true"
             android:orientation="vertical"
@@ -82,7 +95,8 @@
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewSubtitle3"
@@ -92,23 +106,25 @@
             <TextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewNormal3"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="?android:attr/textColorPrimary"
                 tools:text="Text" />
 
             <TextView
                 android:id="@+id/songText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewNormal3"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="?android:attr/textColorPrimary"
                 tools:text="02:54/06:34" />
         </LinearLayout>
     </RelativeLayout>

@@ -58,7 +58,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         updateIntent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY)
         context.sendBroadcast(updateIntent)
 
-        MusicPlayerRemote.updatePlaybackControls()
+        //MusicService().updatePlaybackControls()
     }
 
     override fun onEnabled(context: Context) {
@@ -66,7 +66,11 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         musicService?.let { performUpdate(it, null) }
 
         val serviceIntent = Intent(context, MusicService::class.java)
-        context.startForegroundService(serviceIntent)
+        if (VersionUtils.hasOreo()) {
+            context.startForegroundService(serviceIntent)
+        }else {
+            context.startService(serviceIntent)
+        }
     }
 
     /**
@@ -125,7 +129,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
             PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         } else {
             PendingIntent.getService(
-                context, 0, intent, if (VersionUtils.hasMarshmallow())
+                context, 0, intent, if (VersionUtils.hasOreo())
                     PendingIntent.FLAG_IMMUTABLE
                 else 0
             )

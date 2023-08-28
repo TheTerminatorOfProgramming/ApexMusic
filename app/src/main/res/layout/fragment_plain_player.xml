@@ -2,12 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/colorGradientBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:clickable="true"
     android:focusable="true">
+
+    <View
+        android:id="@+id/colorGradientBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include layout="@layout/shadow_statusbar_toolbar" />
 
@@ -33,17 +41,6 @@
             android:textStyle="bold"
             tools:ignore="MissingPrefix"
             tools:text="Title" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/album"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:ellipsize="end"
-            android:focusable="true"
-            android:maxLines="1"
-            android:paddingTop="8dp"
-            tools:text="Text" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/artist"

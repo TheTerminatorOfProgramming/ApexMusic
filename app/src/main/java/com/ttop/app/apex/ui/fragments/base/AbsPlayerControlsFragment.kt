@@ -27,17 +27,13 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.view.isVisible
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.other.VolumeFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -81,8 +77,8 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
         val nps = PreferenceUtil.nowPlayingScreen
-        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Normal || nps == NowPlayingScreen.Swipe ||
-            nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Plain || nps == NowPlayingScreen.Material) {
+        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Normal ||
+            nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Plain) {
             progressSlider?.valueTo = total.toFloat()
 
             progressSlider?.value =
@@ -204,11 +200,6 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
             .start()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        hideVolumeIfAvailable()
-    }
-
     override fun onStart() {
         super.onStart()
         setUpProgressSlider()
@@ -269,18 +260,6 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                 )
             }
         }
-    }
-
-    protected var volumeFragment: VolumeFragment? = null
-
-    private fun hideVolumeIfAvailable() {
-        if (PreferenceUtil.isVolumeVisibilityMode) {
-            childFragmentManager.commit {
-                replace<VolumeFragment>(R.id.volumeFragmentContainer)
-            }
-            childFragmentManager.executePendingTransactions()
-        }
-        volumeFragment = whichFragment(R.id.volumeFragmentContainer)
     }
 
     override fun onResume() {

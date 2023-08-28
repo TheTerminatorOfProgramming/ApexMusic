@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical">
+    android:focusable="true">
 
     <View
         android:id="@+id/colorGradientBackground"
@@ -15,12 +14,21 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toTopOf="parent" />
 
     <include layout="@layout/shadow_statusbar_toolbar" />
 
-    <include layout="@layout/status_bar" />
+    <FrameLayout
+        android:id="@+id/statusBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/status_bar" />
+    </FrameLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
@@ -29,7 +37,7 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
         app:layout_constraintEnd_toStartOf="@id/middle_guideline"
         app:shapeAppearanceOverlay="@style/TabQueueTopCornerCardView"
         app:behavior_hideable="false"
@@ -57,20 +65,21 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playerAlbumCoverFragment"
         android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintHeight_percent="0.45"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
-        app:layout_constraintTop_toBottomOf="@+id/status_bar"
-        tools:layout="@layout/fragment_album_flat_cover" />
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment"/>
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
         android:name="com.ttop.app.apex.ui.fragments.player.flat.FlatPlaybackControlsFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/playerToolbar"
+        app:layout_constraintBottom_toTopOf="@id/playerToolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
@@ -87,7 +96,6 @@
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
-
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="1dp"

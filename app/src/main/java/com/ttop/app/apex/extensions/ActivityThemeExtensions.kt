@@ -80,6 +80,27 @@ fun AppCompatActivity.hideStatusBar(fullscreen: Boolean) {
 }
 
 fun AppCompatActivity.setDrawBehindSystemBars() {
+    if (VersionUtils.hasSv2()) {
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+        window.navigationBarColor = Color.BLACK
+    }else if (VersionUtils.hasOreo()) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.navigationBarColor = Color.TRANSPARENT
+        window.statusBarColor = Color.TRANSPARENT
+        if (VersionUtils.hasQ()) {
+            window.isNavigationBarContrastEnforced = false
+        }
+    }else {
+        setNavigationBarColorPreOreo(surfaceColor())
+        if (VersionUtils.hasOreo()) {
+            setStatusBarColor(Color.TRANSPARENT)
+        } else {
+            setStatusBarColor(Color.BLACK)
+        }
+    }
+
+
+
     if (VersionUtils.hasOreo()) {
         if (VersionUtils.hasSv2()) {
             WindowCompat.setDecorFitsSystemWindows(window, true)
@@ -94,7 +115,7 @@ fun AppCompatActivity.setDrawBehindSystemBars() {
         }
     } else {
         setNavigationBarColorPreOreo(surfaceColor())
-        if (VersionUtils.hasMarshmallow()) {
+        if (VersionUtils.hasOreo()) {
             setStatusBarColor(Color.TRANSPARENT)
         } else {
             setStatusBarColor(Color.BLACK)
@@ -126,7 +147,7 @@ fun AppCompatActivity.setTaskDescriptionColorAuto() {
 
 @Suppress("Deprecation")
 fun AppCompatActivity.setLightStatusBar(enabled: Boolean) {
-    if (VersionUtils.hasMarshmallow()) {
+    if (VersionUtils.hasOreo()) {
         val decorView = window.decorView
         val systemUiVisibility = decorView.systemUiVisibility
         if (enabled) {
@@ -180,7 +201,7 @@ fun AppCompatActivity.setStatusBarColor(color: Int) {
     val statusBar = window.decorView.rootView.findViewById<View>(R.id.status_bar)
     if (statusBar != null) {
         when {
-            VersionUtils.hasMarshmallow() -> statusBar.setBackgroundColor(color)
+            VersionUtils.hasOreo() -> statusBar.setBackgroundColor(color)
             else -> statusBar.setBackgroundColor(
                 ColorUtil.darkenColor(
                     color
@@ -189,7 +210,7 @@ fun AppCompatActivity.setStatusBarColor(color: Int) {
         }
     } else {
         when {
-            VersionUtils.hasMarshmallow() -> window.statusBarColor = color
+            VersionUtils.hasOreo() -> window.statusBarColor = color
             else -> window.statusBarColor = ColorUtil.darkenColor(color)
         }
     }

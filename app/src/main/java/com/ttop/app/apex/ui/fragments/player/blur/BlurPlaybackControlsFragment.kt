@@ -72,7 +72,6 @@ class BlurPlaybackControlsFragment :
         setUpPlayPauseFab()
         binding.title.isSelected = true
         binding.artist.isSelected = true
-        binding.album.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
@@ -85,7 +84,6 @@ class BlurPlaybackControlsFragment :
         val song = MusicPlayerRemote.currentSong
         binding.title.text = song.title
         binding.artist.text = song.artistName
-        binding.album.text = song.albumName
 
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.show()
@@ -137,11 +135,9 @@ class BlurPlaybackControlsFragment :
         updatePrevNextColor()
 
         binding.artist.setTextColor(lastPlaybackControlsColor)
-        binding.album.setTextColor(lastPlaybackControlsColor)
         binding.songInfo.setTextColor(lastDisabledPlaybackControlsColor)
 
         binding.progressSlider.applyColor(lastPlaybackControlsColor)
-        volumeFragment?.setTintableColor(lastPlaybackControlsColor)
         setFabColor(lastPlaybackControlsColor)
     }
 

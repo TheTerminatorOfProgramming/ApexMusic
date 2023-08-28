@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintVertical_weight="2"
-        android:text="@string/app_name" />
+        android:text="@string/app_name_short" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageLayout"
@@ -38,7 +38,7 @@
             style="@style/AppIntroDefaultImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/app_icon"
             android:scaleType="fitCenter"
             android:contentDescription="@string/app_intro_image_content_description"
             app:layout_constraintTop_toTopOf="@+id/imageLayout"

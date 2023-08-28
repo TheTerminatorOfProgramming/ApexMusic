@@ -20,6 +20,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import com.ttop.app.apex.service.MusicService
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -46,19 +47,15 @@ class BootReceiver : BroadcastReceiver() {
                 ComponentName(
                     context, AppWidgetFullCircle::class.java
                 )
-            ).isNotEmpty() || widgetManager.getAppWidgetIds(
-                ComponentName(
-                    context, AppWidgetSquare::class.java
-                )
-            ).isNotEmpty()|| widgetManager.getAppWidgetIds(
-                ComponentName(
-                    context, AppWidgetQueue::class.java
-                )
             ).isNotEmpty()
         ) {
-
-            val serviceIntent = Intent(context, MusicService::class.java)
-            context.startForegroundService(serviceIntent)
+            if (VersionUtils.hasOreo()) {
+                val serviceIntent = Intent(context, MusicService::class.java)
+                context.startForegroundService(serviceIntent)
+            }else {
+                val serviceIntent = Intent(context, MusicService::class.java)
+                context.startService(serviceIntent)
+            }
         }
     }
 }

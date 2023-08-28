@@ -14,10 +14,13 @@
  */
 package com.ttop.app.apex.adapter.song
 
+import android.content.res.ColorStateList
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
 import com.h6ah4i.android.widget.advrecyclerview.draggable.annotation.DraggableItemStateFlags
@@ -27,17 +30,25 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAct
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionDefault
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionRemoveItem
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.isPlaying
 import com.ttop.app.apex.helper.MusicPlayerRemote.playNextSong
 import com.ttop.app.apex.helper.MusicPlayerRemote.removeFromQueue
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import me.zhanghai.android.fastscroll.PopupTextProvider
+
 
 class PlayingQueueAdapter(
     activity: FragmentActivity,
@@ -50,7 +61,7 @@ class PlayingQueueAdapter(
     PopupTextProvider {
 
     private var songToRemove: Song? = null
-
+    private var lastColor: Int = 0
     override fun createViewHolder(view: View): SongQueueAdapter.ViewHolder {
         return ViewHolder(view)
     }
@@ -61,6 +72,151 @@ class PlayingQueueAdapter(
         holder.time?.text = MusicUtil.getReadableDurationString(song.duration)
         if (holder.itemViewType == HISTORY || holder.itemViewType == CURRENT) {
             setAlpha(holder, 0.5f)
+        }
+        val imageView = holder.dragView as ImageView
+        when (PreferenceUtil.nowPlayingScreen){
+            NowPlayingScreen.Adaptive -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.Blur -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.Color -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.Flat -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.MD3 -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.Normal -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.Peek -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.Plain -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            NowPlayingScreen.Simple -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                }else {
+                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                }
+            }
+            else -> {
+                holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
+                holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+            }
         }
     }
 
@@ -137,6 +293,11 @@ class PlayingQueueAdapter(
 
     fun setSongToRemove(song: Song) {
         songToRemove = song
+    }
+
+    fun setTextColor(color: Int) {
+        lastColor = color
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : SongQueueAdapter.ViewHolder(itemView) {

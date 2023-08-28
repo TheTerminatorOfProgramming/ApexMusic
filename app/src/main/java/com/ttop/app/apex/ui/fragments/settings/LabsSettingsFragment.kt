@@ -19,12 +19,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
-import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.*
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
 
 
@@ -47,8 +44,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             circleWidgetState(requireContext(), value)
 
             fullWidgetState(requireContext(), value)
-
-            queueWidgetState(requireContext(), value)
 
             true
         }
@@ -94,41 +89,12 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val squareWidget: TwoStatePreference? = findPreference(USE_NEW_WIDGET)
-        squareWidget?.isChecked = PreferenceUtil.isSquareWidgetAvailable
-        squareWidget?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            val value = newValue as Boolean
-
-            squareWidgetState(requireContext(), value)
-            true
-        }
-
-        val squareWidgetText: TwoStatePreference? = findPreference(SQUARE_WIDGET_TEXT)
-        squareWidgetText?.isChecked = PreferenceUtil.hideSquareWidgetText
-        squareWidgetText?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            val appWidgetSquare = AppWidgetSquare.instance
-            val musicService: MusicService? = MusicPlayerRemote.musicService
-            appWidgetSquare.notifyThemeChange(musicService)
-            true
-        }
-
-        val squareWidgetColored: TwoStatePreference? = findPreference(SQUARE_WIDGET_COLORED)
-        squareWidgetColored?.isChecked = PreferenceUtil.coloredSquareWidget
-        squareWidgetColored?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val showPreviews: TwoStatePreference? = findPreference(UPDATE_CHANNEL)
         showPreviews?.isChecked = PreferenceUtil.isPreviewChannel
         showPreviews?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
-
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -186,23 +152,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
         )
     }
 
-    private fun queueWidgetState(context: Context, state: Boolean) {
-        val pm: PackageManager = context.packageManager
-
-        val newState = if (state) {
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }else {
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-        }
-
-        pm.setComponentEnabledSetting(
-            ComponentName(
-                context,
-                AppWidgetQueue::class.java
-            ), newState, PackageManager.DONT_KILL_APP
-        )
-    }
-
     private fun circleWidgetState(context: Context, state: Boolean) {
         val pm: PackageManager = context.packageManager
 
@@ -234,23 +183,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             ComponentName(
                 context,
                 AppWidgetFull::class.java
-            ), newState, PackageManager.DONT_KILL_APP
-        )
-    }
-
-    private fun squareWidgetState(context: Context, state: Boolean) {
-        val pm: PackageManager = context.packageManager
-
-        val newState = if (state) {
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-        }else {
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }
-
-        pm.setComponentEnabledSetting(
-            ComponentName(
-                context,
-                AppWidgetSquare::class.java
             ), newState, PackageManager.DONT_KILL_APP
         )
     }

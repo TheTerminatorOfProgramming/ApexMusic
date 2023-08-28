@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Environment
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.content.res.use
@@ -224,11 +225,6 @@ object PreferenceUtil {
             false
         )
 
-    val isVolumeVisibilityMode
-        get() = sharedPreferences.getBoolean(
-            TOGGLE_VOLUME, false
-        )
-
     var isInitializedBlacklist
         get() = sharedPreferences.getBoolean(
             INITIALIZED_BLACKLIST, false
@@ -353,7 +349,7 @@ object PreferenceUtil {
             "always" -> true
             "only_wifi" -> {
                 val connectivityManager = context.getSystemService<ConnectivityManager>()
-                if (VersionUtils.hasMarshmallow()) {
+                if (VersionUtils.hasOreo()) {
                     val network = connectivityManager?.activeNetwork
                     val capabilities = connectivityManager?.getNetworkCapabilities(network)
                     capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
@@ -369,7 +365,7 @@ object PreferenceUtil {
 
     var songGridStyle: GridStyle
         get() {
-            val id: Int = sharedPreferences.getInt(SONG_GRID_STYLE, 0)
+            val id: Int = sharedPreferences.getInt(SONG_GRID_STYLE, 3)
             // We can directly use "first" kotlin extension function here but
             // there maybe layout id stored in this so to avoid a crash we use
             // "firstOrNull"
@@ -383,7 +379,7 @@ object PreferenceUtil {
 
     var albumGridStyle: GridStyle
         get() {
-            val id: Int = sharedPreferences.getInt(ALBUM_GRID_STYLE, 0)
+            val id: Int = sharedPreferences.getInt(ALBUM_GRID_STYLE, 3)
             return GridStyle.values().firstOrNull { gridStyle ->
                 gridStyle.id == id
             } ?: GridStyle.Grid
@@ -462,7 +458,7 @@ object PreferenceUtil {
     val homeAlbumGridStyle: Int
         get() {
             val position = sharedPreferences.getStringOrDefault(
-                HOME_ALBUM_GRID_STYLE, "4"
+                HOME_ALBUM_GRID_STYLE, "0"
             ).toInt()
             val layoutRes = App.getContext()
                 .resources.obtainTypedArray(R.array.pref_home_grid_style_layout).use {
@@ -656,13 +652,13 @@ object PreferenceUtil {
 
     var nowPlayingScreen: NowPlayingScreen
         get() {
-            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 19)
+            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 18)
             for (nowPlayingScreen in NowPlayingScreen.values()) {
                 if (nowPlayingScreen.id == id) {
                     return nowPlayingScreen
                 }
             }
-            return NowPlayingScreen.Classic
+            return NowPlayingScreen.Normal
         }
         set(value) = sharedPreferences.edit {
             putInt(NOW_PLAYING_SCREEN_ID, value.id)
@@ -773,10 +769,7 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
     val isCustomFont
-        get() = sharedPreferences.getString(CUSTOM_FONT, "default")
-
-    val isSnowFalling
-        get() = sharedPreferences.getBoolean(SNOWFALL, false)
+        get() = sharedPreferences.getString(CUSTOM_FONT, "nothing")
 
     val lyricsType: CoverLyricsType
         get() = if (sharedPreferences.getString(LYRICS_TYPE, "0") == "0") {
@@ -814,8 +807,13 @@ object PreferenceUtil {
     val circlePlayButton
         get() = sharedPreferences.getBoolean(CIRCLE_PLAY_BUTTON, false)
 
-    val swipeAnywhereToChangeSong
-        get() = sharedPreferences.getBoolean(SWIPE_ANYWHERE_NOW_PLAYING, true)
+    var swipeAnywhereToChangeSong
+        get() = sharedPreferences.getString(
+            SWIPE_ANYWHERE_NOW_PLAYING, "off"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(SWIPE_ANYWHERE_NOW_PLAYING, value)}
 
     var tempValue
         get() = sharedPreferences.getInt(TEMP_VALUE, 0)
@@ -865,18 +863,16 @@ object PreferenceUtil {
             SHOW_UPDATE, false
         )
 
-    var widgetTransparency
-        get() = sharedPreferences.getBoolean(
-            WIDGET_TRANSPARENCY, false)
-        set(value) = sharedPreferences.edit {
-            putBoolean(WIDGET_TRANSPARENCY, value)}
-
-    var widgetColors
-        get() = sharedPreferences.getBoolean(
-            WIDGET_COLORS, false
+    var widgetBackground
+        get() = sharedPreferences.getString(
+            WIDGET_BACKGROUND, if (VersionUtils.hasS()) {
+                "day_night"
+            }else {
+                "default"
+            }
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(WIDGET_COLORS, value)}
+            putString(WIDGET_BACKGROUND, value)}
 
     var progressBarStyle
         get() = sharedPreferences.getBoolean(
@@ -916,10 +912,14 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(SAMSUNG_SOUND_PLUGIN, value)}
 
-    val isSwipe
-        get() = sharedPreferences.getBoolean(
-            TOGGLE_MINI_SWIPE, false
+
+    var isSwipe
+        get() = sharedPreferences.getString(
+            TOGGLE_MINI_SWIPE, "off"
         )
+
+        set(value) = sharedPreferences.edit {
+            putString(TOGGLE_MINI_SWIPE, value)}
 
     val isAutoplay
         get() = sharedPreferences.getBoolean(
@@ -946,14 +946,6 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(LYRICS, value)}
 
-    val widgetImage
-        get() = sharedPreferences
-            .getInt(WIDGET_IMAGE, 10)
-
-    val widgetImageFull
-        get() = sharedPreferences
-            .getInt(WIDGET_IMAGE_FULL, 50)
-
     var isWidgetPanel
         get() = sharedPreferences.getBoolean(WIDGET_PANEL, false)
 
@@ -962,24 +954,6 @@ object PreferenceUtil {
 
     val isExpandPanel
         get() = sharedPreferences.getBoolean(EXPAND_NOW_PLAYING_PANEL, false)
-
-    val miniImage
-        get() = sharedPreferences
-            .getInt(MINI_IMAGE, 6)
-
-    val isClassicCircle
-        get() = sharedPreferences.getBoolean(CLASSIC_SHAPE, true)
-
-    val isFullCircle
-        get() = sharedPreferences.getBoolean(FULL_SHAPE, true)
-
-    var textAlignment
-        get() = sharedPreferences.getString(
-            TEXT_ALIGNMENT, "left"
-        )
-
-        set(value) = sharedPreferences.edit {
-            putString(TEXT_ALIGNMENT, value)}
 
     var isDevModeEnabled
         get() = sharedPreferences.getBoolean(DEV_MODE, false)
@@ -990,9 +964,6 @@ object PreferenceUtil {
     val isExtendedAccent
         get() = sharedPreferences.getBoolean(EXTENDED_ACCENT, false)
 
-    val isMiniPlayerCircle
-        get() = sharedPreferences.getBoolean(MINIPLAYER_IMAGE, false)
-
     val isLegacyWidgets
         get() = sharedPreferences.getBoolean(RESTORE_LEGACY_WIDGETS, false)
 
@@ -1002,20 +973,11 @@ object PreferenceUtil {
     val isBigWidget
         get() = sharedPreferences.getBoolean(RESTORE_BIG_WIDGET, false)
 
-    val isSquareWidgetAvailable
-        get() = sharedPreferences.getBoolean(USE_NEW_WIDGET, false)
-
-    val hideSquareWidgetText
-        get() = sharedPreferences.getBoolean(SQUARE_WIDGET_TEXT, false)
-
-    val coloredSquareWidget
-        get() = sharedPreferences.getBoolean(SQUARE_WIDGET_COLORED, false)
-
     val isAction1
-        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "repeat")
+        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "none")
 
     val isAction2
-        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_2, "shuffle")
+        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_2, "none")
 
     var dismissMethod
         get() = sharedPreferences.getString(
@@ -1027,12 +989,6 @@ object PreferenceUtil {
 
     val isDismissFailsafe
         get() = sharedPreferences.getBoolean(DISMISS_FAILSAFE, false)
-
-    val isFullBlur
-        get() = sharedPreferences.getBoolean(FULL_BLUR, false)
-
-    val isClassicBlur
-        get() = sharedPreferences.getBoolean(CLASSIC_BLUR, false)
 
     var updateChecked
         get() = sharedPreferences.getBoolean(
@@ -1124,23 +1080,10 @@ object PreferenceUtil {
             putInt(WIDGET_CUSTOM_COLOR, value)}
 
     val isProgressBar
-        get() = sharedPreferences.getBoolean(SHOW_WIDGET_PROGRESSBAR, false)
+        get() = sharedPreferences.getBoolean(SHOW_WIDGET_PROGRESSBAR, true)
 
     val progressColor
         get() = sharedPreferences.getString(PROGRESSBAR_COLOR, "teal")
-
-    val isQueueCircle
-        get() = sharedPreferences.getBoolean(QUEUE_SHAPE, false)
-
-    val widgetQueueImage
-        get() = sharedPreferences
-            .getInt(WIDGET_QUEUE_IMAGE, 10)
-
-    val isQueueBlur
-        get() = sharedPreferences.getBoolean(QUEUE_BLUR, false)
-
-    val isQueueReversed
-        get() = sharedPreferences.getBoolean(QUEUE_REVERSE, false)
 
     var isTimerCancelled
         get() = sharedPreferences.getBoolean(
@@ -1148,6 +1091,45 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean("TIMER_CANCELLED", value)}
+
+    var launcherIcon
+        get() = sharedPreferences.getString(
+            LAUNCHER_ICON, "v3"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(LAUNCHER_ICON, value)}
+
+    val isLauncherTitleShort
+        get() = sharedPreferences.getBoolean(
+            LAUNCHER_TITLE, true
+        )
+
+    var queueStyle
+        get() = sharedPreferences.getString(
+            QUEUE_STYLE, "normal"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(QUEUE_STYLE, value)}
+
+    val isAdaptiveColorExtended
+        get() = sharedPreferences.getBoolean(
+            ADAPTIVE_COLOR_APP_EXTENDED, false
+        )
+
+    var backupPath
+        get() = sharedPreferences.getString(
+            BACKUP_PATH, getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(BACKUP_PATH, value)}
+
+    val isDisableWidgetUpdate
+        get() = sharedPreferences.getBoolean(
+            DISABLE_UPDATE, false
+        )
 }
 
 enum class CoverLyricsType {

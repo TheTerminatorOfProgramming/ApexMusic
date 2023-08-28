@@ -233,7 +233,7 @@ class PlaylistsFragment :
     }
 
     override fun loadLayoutRes(): Int {
-        return R.layout.item_grid
+        return R.layout.item_grid_circle
     }
 
     override fun saveLayoutRes(layoutRes: Int) {

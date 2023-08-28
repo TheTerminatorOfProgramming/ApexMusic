@@ -14,11 +14,9 @@
  */
 package com.ttop.app.apex.ui.fragments.player.simple
 
-import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
@@ -30,7 +28,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
@@ -55,9 +52,7 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
-import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.apex.views.DrawableGradient
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -78,9 +73,10 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
     }
 
     private var lastColor: Int = 0
+    private var toolbarColor: Int =0
     override val paletteColor: Int
         get() = lastColor
-    private var valueAnimator: ValueAnimator? = null
+
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
@@ -96,6 +92,8 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
         setUpPlayerToolbar()
         setupRecyclerView()
         playerToolbar().drawAboveSystemBars()
+
+        updateIsFavorite(false)
     }
 
     private fun setUpSubFragments() {
@@ -251,46 +249,24 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
         return false
     }
 
-    override fun toolbarIconColor() = colorControlNormal()
+    override fun toolbarIconColor() = if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+        toolbarColor
+    }else {
+        colorControlNormal()
+    }
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         lastColor = color.backgroundColor
+        toolbarColor = color.secondaryTextColor
         libraryViewModel.updateColor(color.backgroundColor)
         controlsFragment.setColor(color)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
 
-        if (PreferenceUtil.isAdaptiveColor) {
-            colorize(color.backgroundColor)
-        }
-    }
-
-    private fun colorize(i: Int) {
-        if (valueAnimator != null) {
-            valueAnimator?.cancel()
-        }
-
-        valueAnimator = ValueAnimator.ofObject(
-            ArgbEvaluator(),
-            surfaceColor(),
-            i
-        )
-        valueAnimator?.addUpdateListener { animation ->
-            if (isAdded) {
-                val drawable = DrawableGradient(
-                    GradientDrawable.Orientation.TOP_BOTTOM,
-                    intArrayOf(
-                        animation.animatedValue as Int,
-                        surfaceColor()
-                    ), 0
-                )
-                binding.colorGradientBackground.background = drawable
-            }
-        }
-        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
     override fun onFavoriteToggled() {
@@ -313,19 +289,47 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
         binding.playerToolbar.setOnMenuItemClickListener(this)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
     }
 
     private fun setupRecyclerView() {
         playingQueueAdapter = if (ApexUtil.isTablet){
-            PlayingQueueAdapter(
-                requireActivity() as AppCompatActivity,
-                MusicPlayerRemote.playingQueue.toMutableList(),
-                MusicPlayerRemote.position,
-                R.layout.item_queue_player_plain
-            )
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+            }
         }else {
             PlayingQueueAdapter(
                 requireActivity() as AppCompatActivity,

@@ -40,7 +40,11 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentPlainPlayerBinding
 import com.ttop.app.apex.dialogs.*
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.drawAboveSystemBars
+import com.ttop.app.apex.extensions.keepScreenOn
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
@@ -58,6 +62,7 @@ import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.DrawableGradient
+import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -65,14 +70,13 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 
 class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
-    override fun playerToolbar(): Toolbar {
-        return binding.playerToolbar
-    }
 
-    private lateinit var plainPlaybackControlsFragment: PlainPlaybackControlsFragment
     private var lastColor: Int = 0
+    private var toolbarColor: Int =0
     override val paletteColor: Int
         get() = lastColor
+
+    private lateinit var controlsFragment: PlainPlaybackControlsFragment
     private var valueAnimator: ValueAnimator? = null
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
@@ -83,102 +87,92 @@ class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
     private var _binding: FragmentPlainPlayerBinding? = null
     private val binding get() = _binding!!
 
-
-    override fun onPlayingMetaChanged() {
-        super.onPlayingMetaChanged()
-        updateSong()
-        updateQueuePosition()
+    override fun onShow() {
+        controlsFragment.show()
     }
 
-    private fun updateSong() {
-        val song = MusicPlayerRemote.currentSong
-        binding.title.text = song.title
-        binding.album.text = song.albumName
-        binding.artist.text = song.artistName
+    override fun onHide() {
+        controlsFragment.hide()
+        onBackPressed()
     }
 
-    private fun setupRecyclerView() {
-        playingQueueAdapter = if (ApexUtil.isTablet){
-            PlayingQueueAdapter(
-                requireActivity() as AppCompatActivity,
-                MusicPlayerRemote.playingQueue.toMutableList(),
-                MusicPlayerRemote.position,
-                R.layout.item_queue_player_plain
-            )
+    override fun onBackPressed(): Boolean {
+        return false
+    }
+
+    override fun toolbarIconColor(): Int {
+        return if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+            toolbarColor
         }else {
-            PlayingQueueAdapter(
-                requireActivity() as AppCompatActivity,
-                MusicPlayerRemote.playingQueue.toMutableList(),
-                MusicPlayerRemote.position,
-                R.layout.item_queue_player
-            )
+            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
         }
-        linearLayoutManager = LinearLayoutManager(requireContext())
-        recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
-        recyclerViewDragDropManager = RecyclerViewDragDropManager()
-
-        val animator = DraggableItemAnimator()
-        animator.supportsChangeAnimations = false
-        wrappedAdapter =
-            recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
-        binding.recyclerView?.layoutManager = linearLayoutManager
-        binding.recyclerView?.adapter = wrappedAdapter
-        binding.recyclerView?.itemAnimator = animator
-        binding.recyclerView?.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
-        binding.recyclerView?.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
-
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
 
-    private fun updateQueuePosition() {
-        playingQueueAdapter?.setCurrent(MusicPlayerRemote.position)
-        resetToCurrentPosition()
+    override fun onColorChanged(color: MediaNotificationProcessor) {
+        controlsFragment.setColor(color)
+        lastColor = color.backgroundColor
+        toolbarColor = color.secondaryTextColor
+        libraryViewModel.updateColor(color.backgroundColor)
+
+        ToolbarContentTintHelper.colorizeToolbar(
+            binding.playerToolbar,
+            toolbarIconColor(),
+            requireActivity()
+        )
+
+        if (PreferenceUtil.isAdaptiveColor) {
+            colorize(color.backgroundColor)
+            binding.title.setTextColor(color.secondaryTextColor)
+            binding.artist.setTextColor(color.secondaryTextColor)
+        }
+        playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
 
-    private fun updateQueue() {
-        playingQueueAdapter?.swapDataSet(MusicPlayerRemote.playingQueue, MusicPlayerRemote.position)
-        resetToCurrentPosition()
-    }
+    private fun colorize(i: Int) {
+        if (valueAnimator != null) {
+            valueAnimator?.cancel()
+        }
 
-    private fun resetToCurrentPosition() {
-        binding.recyclerView?.stopScroll()
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
-    }
-
-    override fun onQueueChanged() {
-        super.onQueueChanged()
-        updateQueue()
-    }
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        updateSong()
-    }
-
-    private fun setUpPlayerToolbar() {
-        binding.playerToolbar.apply {
-            inflateMenu(R.menu.menu_player)
-            setNavigationOnClickListener {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                requireActivity().onBackPressedDispatcher.onBackPressed()
+        valueAnimator = ValueAnimator.ofObject(
+            ArgbEvaluator(),
+            surfaceColor(),
+            i
+        )
+        valueAnimator?.addUpdateListener { animation ->
+            if (isAdded) {
+                val drawable = DrawableGradient(
+                    GradientDrawable.Orientation.TOP_BOTTOM,
+                    intArrayOf(
+                        animation.animatedValue as Int,
+                        surfaceColor()
+                    ), 0
+                )
+                binding.colorGradientBackground.background = drawable
             }
-            setOnMenuItemClickListener(this@PlainPlayerFragment)
-            ToolbarContentTintHelper.colorizeToolbar(
-                this,
-                colorControlNormal(),
-                requireActivity()
-            )
         }
+        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
+    }
+
+    override fun toggleFavorite(song: Song) {
+        super.toggleFavorite(song)
+        if (song.id == MusicPlayerRemote.currentSong.id) {
+            updateIsFavorite()
+        }
+    }
+
+    override fun onFavoriteToggled() {
+        toggleFavorite(MusicPlayerRemote.currentSong)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPlainPlayerBinding.bind(view)
         setUpSubFragments()
-        setUpPlayerToolbar()
         setupRecyclerView()
+        setUpPlayerToolbar()
+        playerToolbar().drawAboveSystemBars()
+
         binding.title.isSelected = true
-        binding.album.isSelected = true
         binding.artist.isSelected = true
         binding.title.setOnClickListener {
             goToAlbum(requireActivity())
@@ -186,12 +180,18 @@ class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
-        playerToolbar().drawAboveSystemBars()
+
+        updateIsFavorite(false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         val song = MusicPlayerRemote.currentSong
+        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -312,10 +312,10 @@ class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
             }
             R.id.action_queue -> {
                 if (!ApexUtil.isTablet) {
-                    if (binding.playerQueueSheet?.visibility == View.VISIBLE){
-                        binding.playerQueueSheet?.visibility = View.GONE
+                    if (binding.playerQueueSheet.visibility == View.VISIBLE){
+                        binding.playerQueueSheet.visibility = View.GONE
                     }else{
-                        binding.playerQueueSheet?.visibility = View.VISIBLE
+                        binding.playerQueueSheet.visibility = View.VISIBLE
                     }
                 }
             }
@@ -324,80 +324,137 @@ class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
     }
 
     private fun setUpSubFragments() {
-        plainPlaybackControlsFragment = whichFragment(R.id.playbackControlsFragment)
-        val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
-            whichFragment(R.id.playerAlbumCoverFragment)
+        controlsFragment =
+            childFragmentManager.findFragmentById(R.id.playbackControlsFragment) as PlainPlaybackControlsFragment
+        val playerAlbumCoverFragment =
+            childFragmentManager.findFragmentById(R.id.playerAlbumCoverFragment) as PlayerAlbumCoverFragment
         playerAlbumCoverFragment.setCallbacks(this)
     }
 
-    override fun onShow() {
-        plainPlaybackControlsFragment.show()
-    }
+    private fun setUpPlayerToolbar() {
+        binding.playerToolbar.inflateMenu(R.menu.menu_player)
+        //binding.playerToolbar.menu.setUpWithIcons()
+        binding.playerToolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_down_black)
+        binding.playerToolbar.setNavigationOnClickListener {
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+        binding.playerToolbar.setOnMenuItemClickListener(this)
 
-    override fun onHide() {
-        plainPlaybackControlsFragment.hide()
-        onBackPressed()
-    }
-
-    override fun onBackPressed(): Boolean {
-        return false
-    }
-
-    override fun toolbarIconColor() = colorControlNormal()
-
-    override fun onColorChanged(color: MediaNotificationProcessor) {
-        plainPlaybackControlsFragment.setColor(color)
-        lastColor = color.primaryTextColor
-        libraryViewModel.updateColor(color.primaryTextColor)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
-
-        if (PreferenceUtil.isAdaptiveColor) {
-            colorize(color.backgroundColor)
-        }
     }
 
-    private fun colorize(i: Int) {
-        if (valueAnimator != null) {
-            valueAnimator?.cancel()
-        }
-
-        valueAnimator = ValueAnimator.ofObject(
-            ArgbEvaluator(),
-            surfaceColor(),
-            i
-        )
-        valueAnimator?.addUpdateListener { animation ->
-            if (isAdded) {
-                val drawable = DrawableGradient(
-                    GradientDrawable.Orientation.TOP_BOTTOM,
-                    intArrayOf(
-                        animation.animatedValue as Int,
-                        surfaceColor()
-                    ), 0
-                )
-                binding.colorGradientBackground.background = drawable
+    private fun setupRecyclerView() {
+        playingQueueAdapter = if (ApexUtil.isTablet){
+            when (PreferenceUtil.queueStyle) {
+                "normal" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
+                "duo" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                }
+                "trio" -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_trio
+                    )
+                }
+                else -> {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_player_plain
+                    )
+                }
             }
+        }else {
+            PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue_player
+            )
         }
-        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
+        linearLayoutManager = LinearLayoutManager(requireContext())
+        recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
+        recyclerViewDragDropManager = RecyclerViewDragDropManager()
+
+        val animator = DraggableItemAnimator()
+        animator.supportsChangeAnimations = false
+        wrappedAdapter =
+            recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
+        binding.recyclerView.layoutManager = linearLayoutManager
+        binding.recyclerView.adapter = wrappedAdapter
+        binding.recyclerView.itemAnimator = animator
+        binding.recyclerView.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
+        binding.recyclerView.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
+
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
 
-    override fun onFavoriteToggled() {
-        toggleFavorite(MusicPlayerRemote.currentSong)
+    private fun updateSong() {
+        val song = MusicPlayerRemote.currentSong
+        binding.title.text = song.title
+        binding.artist.text = song.artistName
     }
 
-    override fun toggleFavorite(song: Song) {
-        super.toggleFavorite(song)
-        if (song.id == MusicPlayerRemote.currentSong.id) {
-            updateIsFavorite()
+    private fun updateQueuePosition() {
+        playingQueueAdapter?.setCurrent(MusicPlayerRemote.position)
+        resetToCurrentPosition()
+    }
+
+    private fun updateQueue() {
+        playingQueueAdapter?.swapDataSet(MusicPlayerRemote.playingQueue, MusicPlayerRemote.position)
+        resetToCurrentPosition()
+    }
+
+    private fun resetToCurrentPosition() {
+        binding.recyclerView.stopScroll()
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+    }
+
+    override fun onQueueChanged() {
+        super.onQueueChanged()
+        updateQueue()
+    }
+
+    override fun onServiceConnected() {
+        updateIsFavorite()
+        updateQueue()
+        updateSong()
+    }
+
+    override fun onPlayingMetaChanged() {
+        updateIsFavorite()
+        updateQueuePosition()
+        updateSong()
+    }
+
+    override fun playerToolbar(): Toolbar {
+        return binding.playerToolbar
+    }
+
+    companion object {
+
+        fun newInstance(): PlainPlayerFragment {
+            return PlainPlayerFragment()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

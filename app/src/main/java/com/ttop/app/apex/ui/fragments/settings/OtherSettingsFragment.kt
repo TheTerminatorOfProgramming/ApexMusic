@@ -67,12 +67,6 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
-
-        val languagePreference: ATEListPreference? = findPreference(LANGUAGE_NAME)
-        languagePreference?.setOnPreferenceChangeListener { _, _ ->
-            restartActivity()
-            return@setOnPreferenceChangeListener true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -85,24 +79,6 @@ class OtherSettingsFragment : AbsSettingsFragment(),
         preference?.setOnPreferenceChangeListener { lastAdded, newValue ->
             setSummary(lastAdded, newValue)
             libraryViewModel.forceReload(HomeSections)
-            true
-        }
-
-        val languagePreference: Preference? = findPreference(LANGUAGE_NAME)
-        languagePreference?.setOnPreferenceChangeListener { prefs, newValue ->
-            setSummary(prefs, newValue)
-            if (newValue as? String == "auto") {
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
-            } else {
-                // Install the languages from Play Store first and then set the application locale
-                requireActivity().installLanguageAndRecreate(newValue.toString()) {
-                    AppCompatDelegate.setApplicationLocales(
-                        LocaleListCompat.forLanguageTags(
-                            newValue as? String
-                        )
-                    )
-                }
-            }
             true
         }
     }
