@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="about_album_label">প্রায় %s</string>
     <string name="about_settings_summary">দল, সামাজিক লিঙ্ক</string>
@@ -379,7 +380,6 @@
     <string name="pref_summary_circle_button">nps থিমগুলিতে একটি বৃত্তাকার প্লে বোতাম দিয়ে ডিফল্ট গোলাকার বর্গাকার প্লে বোতামটি প্রতিস্থাপন করুন</string>
     <string name="pref_summary_classic_notification">ক্লাসিক নোটিফিকেশন ডিজাইন ব্যবহার করুন</string>
     <string name="pref_summary_colored_app">ব্যাকগ্রাউন্ড এবং কন্ট্রোল বোতামের রং এখন প্লেয়িং স্ক্রীন থেকে অ্যালবাম আর্ট অনুযায়ী পরিবর্তিত হয়</string>
-    <string name="pref_summary_colored_app_extended">টুলবারে অভিযোজিত রঙ প্রসারিত করুন</string>
     <string name="pref_summary_colored_app_shortcuts">অ্যাকসেন্ট রঙে অ্যাপ্লিকেশান শর্টকাটগুলিকে রঙ করুন৷ প্রতিবার আপনি রঙ পরিবর্তন করার সময় এটি কার্যকর করতে টগল করুন</string>
     <string name="pref_summary_colored_notification">অ্যালবামের কভারের স্পন্দনশীল রঙে বিজ্ঞপ্তিটি রঙ করে</string>
     <string name="pref_summary_cross_fade">গানের মধ্যে ক্রসফেড করার সময়কাল</string>
@@ -400,6 +400,7 @@
     <string name="pref_summary_manage_audio_focus">অন্য কিছু বাজানো নির্বিশেষে সর্বদা পটভূমিতে অডিও চালান</string>
     <string name="pref_summary_open_source_licences">ওপেন সোর্স সফ্টওয়্যারের জন্য লাইসেন্সের বিশদ বিবরণ</string>
     <string name="pref_summary_pause_history">সক্ষম হলে, নতুন বাজানো গানগুলি ইতিহাসে দেখাবে না৷</string>
+    <string name="pref_summary_player_background">একটি একক রঙের পরিবর্তে প্লেয়ার ব্যাকগ্রাউন্ড হিসাবে একটি গ্রেডিয়েন্ট ব্যবহার করুন (টেক্সট পড়তে অসুবিধা হতে পারে)</string>
     <string name="pref_summary_permissions_edit">এই অ্যাপের সাথে সম্পর্কিত অনুমতি পরিবর্তন করুন</string>
     <string name="pref_summary_progress_bar_alignment">নীচের পরিবর্তে মিনি প্লেয়ারের উপরে অনুভূমিক অগ্রগতি বার দেখান</string>
     <string name="pref_summary_progress_bar_color">ক্লাসিক &amp; সম্পূর্ণ উইজেট</string>
@@ -437,7 +438,6 @@
     <string name="pref_title_circle_button">সার্কুলার প্লে বোতাম</string>
     <string name="pref_title_classic_notification">ক্লাসিক বিজ্ঞপ্তি ডিজাইন</string>
     <string name="pref_title_colored_app">অভিযোজিত রঙ</string>
-    <string name="pref_title_colored_app_extended">বর্ধিত অভিযোজিত রঙ</string>
     <string name="pref_title_colored_notification">রঙিন বিজ্ঞপ্তি</string>
     <string name="pref_title_cross_fade">ক্রসফেড</string>
     <string name="pref_title_custom_font">হরফ</string>
@@ -469,6 +469,7 @@
     <string name="pref_title_now_playing_screen_appearance">এখন থিম চলছে</string>
     <string name="pref_title_open_source_licences">ওপেন সোর্স লাইসেন্স</string>
     <string name="pref_title_pause_history">ইতিহাস থামান</string>
+    <string name="pref_title_player_background">পটভূমির ধরন</string>
     <string name="pref_title_progress_bar_alignment">অগ্রগতি বার প্রান্তিককরণ</string>
     <string name="pref_title_progress_bar_style">অগ্রগতি বার শৈলী</string>
     <string name="pref_title_queue_style">এখন কিউ স্টাইল চলছে</string>

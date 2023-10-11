@@ -278,7 +278,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     onServiceConnected()
                 }
             }
-            ADAPTIVE_COLOR_APP_EXTENDED-> {
+            PLAYER_BACKGROUND-> {
                 if (PreferenceUtil.nowPlayingScreen in listOf(
                         MD3,
                         Normal,

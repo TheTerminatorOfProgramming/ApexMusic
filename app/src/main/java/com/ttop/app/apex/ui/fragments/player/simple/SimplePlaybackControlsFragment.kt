@@ -137,19 +137,6 @@ class SimplePlaybackControlsFragment :
     }
 
     override fun setColor(color: MediaNotificationProcessor) {
-        val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
-        if (ColorUtil.isColorLight(colorBg)) {
-            lastPlaybackControlsColor =
-                MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
-            lastDisabledPlaybackControlsColor =
-                MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
-        } else {
-            lastPlaybackControlsColor =
-                MaterialValueHelper.getPrimaryTextColor(requireContext(), false)
-            lastDisabledPlaybackControlsColor =
-                MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
-        }
-
         val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
             color.secondaryTextColor
         } else {
@@ -166,6 +153,43 @@ class SimplePlaybackControlsFragment :
         )
         TintHelper.setTintAuto(binding.playPauseButton, colorFinal, true)
         binding.artist.setTextColor(colorFinal)
+
+        if (PreferenceUtil.isAdaptiveColor) {
+            binding.title.setTextColor(colorFinal)
+            binding.songCurrentProgress.setTextColor(colorFinal)
+            binding.songInfo.setTextColor(colorFinal)
+
+            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+            if (ColorUtil.isColorLight(colorBg)) {
+                lastPlaybackControlsColor =
+                    color.secondaryTextColor
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
+            } else {
+                lastPlaybackControlsColor =
+                    color.secondaryTextColor
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
+            }
+        }else {
+            context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_white_1000)) }
+            context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_white_1000)) }
+            context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_white_1000)) }
+
+            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+            if (ColorUtil.isColorLight(colorBg)) {
+                lastPlaybackControlsColor =
+                    MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
+            } else {
+                lastPlaybackControlsColor =
+                    MaterialValueHelper.getPrimaryTextColor(requireContext(), false)
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
+            }
+        }
+
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()

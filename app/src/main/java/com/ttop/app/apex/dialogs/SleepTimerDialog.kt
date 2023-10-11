@@ -128,11 +128,21 @@ class SleepTimerDialog : DialogFragment() {
                     SystemClock.elapsedRealtime() + minutes * 60 * 1000
                 PreferenceUtil.nextSleepTimerElapsedRealTime = nextSleepTimerElapsedTime.toInt()
                 val am = requireContext().getSystemService<AlarmManager>()
-                am?.setExact(
-                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    nextSleepTimerElapsedTime,
-                    pi
-                )
+                if (VersionUtils.hasS()) {
+                    if (am?.canScheduleExactAlarms() == true) {
+                        am.setExact(
+                            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            nextSleepTimerElapsedTime,
+                            pi
+                        )
+                    }
+                }else {
+                    am?.setExact(
+                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        nextSleepTimerElapsedTime,
+                        pi
+                    )
+                }
 
                 Toast.makeText(
                     requireContext(),

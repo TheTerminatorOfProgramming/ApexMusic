@@ -282,7 +282,7 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
     }
 
     override fun toolbarIconColor(): Int {
-        return if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+        return if (PreferenceUtil.isAdaptiveColor) {
             toolbarColor
         }else {
             ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)

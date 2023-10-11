@@ -106,7 +106,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
     }
 
     override fun toolbarIconColor(): Int {
-        return if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+        return if (PreferenceUtil.isAdaptiveColor) {
             toolbarColor
         }else {
             ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
@@ -132,28 +132,34 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
     }
 
     private fun colorize(i: Int) {
-        if (valueAnimator != null) {
-            valueAnimator?.cancel()
-        }
-
-        valueAnimator = ValueAnimator.ofObject(
-            ArgbEvaluator(),
-            surfaceColor(),
-            i
-        )
-        valueAnimator?.addUpdateListener { animation ->
-            if (isAdded) {
-                val drawable = DrawableGradient(
-                    GradientDrawable.Orientation.TOP_BOTTOM,
-                    intArrayOf(
-                        animation.animatedValue as Int,
-                        surfaceColor()
-                    ), 0
-                )
-                binding.colorGradientBackground?.background = drawable
+        if (PreferenceUtil.isPlayerBackgroundType) {
+            //GRADIENT
+            if (valueAnimator != null) {
+                valueAnimator?.cancel()
             }
+
+            valueAnimator = ValueAnimator.ofObject(
+                ArgbEvaluator(),
+                surfaceColor(),
+                i
+            )
+            valueAnimator?.addUpdateListener { animation ->
+                if (isAdded) {
+                    val drawable = DrawableGradient(
+                        GradientDrawable.Orientation.TOP_BOTTOM,
+                        intArrayOf(
+                            animation.animatedValue as Int,
+                            surfaceColor()
+                        ), 0
+                    )
+                    binding.colorGradientBackground.background = drawable
+                }
+            }
+            valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
+        }else {
+            //SINGLE COLOR
+            binding.colorGradientBackground.setBackgroundColor(i)
         }
-        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
     }
 
     override fun toggleFavorite(song: Song) {

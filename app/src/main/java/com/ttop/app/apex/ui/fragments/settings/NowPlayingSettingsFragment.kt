@@ -113,8 +113,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val adaptiveColorExtended: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP_EXTENDED)
-        adaptiveColorExtended?.setOnPreferenceChangeListener { _, _ ->
+        val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
+        playerBG?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <style name="Theme.Apex.MD3.Black" parent="@style/Theme.Apex.MD3">
         <item name="colorSurface">@color/blackColorSurface</item>

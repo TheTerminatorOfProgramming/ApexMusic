@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="about_album_label">Tentang %s</string>
     <string name="about_settings_summary">Tim, tautan sosial</string>
@@ -377,7 +378,6 @@
     <string name="pref_summary_circle_button">Ganti tombol putar persegi bulat default dengan tombol putar melingkar di tema nps</string>
     <string name="pref_summary_classic_notification">Gunakan desain notifikasi klasik</string>
     <string name="pref_summary_colored_app">Warna latar belakang dan tombol kontrol berubah sesuai dengan sampul album dari layar yang sedang diputar</string>
-    <string name="pref_summary_colored_app_extended">Perluas warna adaptif ke bilah alat</string>
     <string name="pref_summary_colored_app_shortcuts">Warnai pintasan aplikasi dengan warna aksen. Setiap kali Anda mengubah warna, harap aktifkan ini agar berlaku</string>
     <string name="pref_summary_colored_notification">Warnai notifikasi dalam warna cerah sampul album</string>
     <string name="pref_summary_cross_fade">Durasi crossfade antar lagu</string>
@@ -398,6 +398,7 @@
     <string name="pref_summary_manage_audio_focus">Selalu putar audio di latar belakang apa pun yang sedang diputar</string>
     <string name="pref_summary_open_source_licences">Detail lisensi untuk perangkat lunak sumber terbuka</string>
     <string name="pref_summary_pause_history">Saat diaktifkan, lagu yang baru diputar tidak akan ditampilkan di histori</string>
+    <string name="pref_summary_player_background">Gunakan gradien sebagai latar belakang pemutar, bukan satu warna (teks mungkin sulit dibaca)</string>
     <string name="pref_summary_permissions_edit">Ubah izin yang berkaitan dengan aplikasi ini</string>
     <string name="pref_summary_progress_bar_alignment">Tampilkan bilah kemajuan horizontal di atas pemutar mini, bukan di bawah</string>
     <string name="pref_summary_progress_bar_color">Atur warna bilah kemajuan untuk mode klasik &amp; widget penuh</string>
@@ -435,7 +436,6 @@
     <string name="pref_title_circle_button">Tombol Putar Melingkar</string>
     <string name="pref_title_classic_notification">Desain Notifikasi Klasik</string>
     <string name="pref_title_colored_app">Warna Adaptif</string>
-    <string name="pref_title_colored_app_extended">Warna Adaptif yang Diperpanjang</string>
     <string name="pref_title_colored_notification">Pemberitahuan Berwarna</string>
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Fon</string>
@@ -467,6 +467,7 @@
     <string name="pref_title_now_playing_screen_appearance">Sekarang Memutar Tema</string>
     <string name="pref_title_open_source_licences">Lisensi Sumber Terbuka</string>
     <string name="pref_title_pause_history">Jeda Riwayat</string>
+    <string name="pref_title_player_background">Jenis Latar Belakang</string>
     <string name="pref_title_progress_bar_alignment">Penyelarasan Bilah Kemajuan</string>
     <string name="pref_title_progress_bar_style">Gaya Bilah Kemajuan</string>
     <string name="pref_title_queue_style">Sekarang Memutar Gaya Antrean</string>

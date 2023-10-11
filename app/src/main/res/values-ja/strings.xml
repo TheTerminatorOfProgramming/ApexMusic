@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="about_album_label">%sについて</string>
     <string name="about_settings_summary">チーム、ソーシャルリンク</string>
@@ -377,7 +378,6 @@
     <string name="pref_summary_circle_button">NPS テーマのデフォルトの丸い正方形の再生ボタンを円形の再生ボタンに置き換えます</string>
     <string name="pref_summary_classic_notification">クラシックな通知デザインを使用する</string>
     <string name="pref_summary_colored_app">再生画面のアルバムアートに合わせて背景とコントロールボタンの色が変わります</string>
-    <string name="pref_summary_colored_app_extended">アダプティブカラーをツールバーまで拡張する</string>
     <string name="pref_summary_colored_app_shortcuts">アプリのショートカットをアクセントカラーで彩ります。 色を変更するたびに、これを切り替えて有効にしてください</string>
     <string name="pref_summary_colored_notification">通知をアルバム カバーの鮮やかな色で彩ります</string>
     <string name="pref_summary_cross_fade">曲間のクロスフェードの長さ</string>
@@ -398,6 +398,7 @@
     <string name="pref_summary_manage_audio_focus">他のものが再生されているかどうかに関係なく、常にオーディオをバックグラウンドで再生します</string>
     <string name="pref_summary_open_source_licences">オープンソース ソフトウェアのライセンスの詳細</string>
     <string name="pref_summary_pause_history">有効にすると、新しく再生された曲は履歴に表示されなくなります</string>
+    <string name="pref_summary_player_background">プレーヤーの背景として単色の代わりにグラデーションを使用します (テキストが読みにくい場合があります)</string>
     <string name="pref_summary_permissions_edit">このアプリに関連する権限を変更する</string>
     <string name="pref_summary_progress_bar_alignment">ミニプレーヤーの下部ではなく上部に水平進行状況バーを表示します。</string>
     <string name="pref_summary_progress_bar_color">クラシックおよびプログレスバーの色を設定します。 フルウィジェット</string>
@@ -435,7 +436,6 @@
     <string name="pref_title_circle_button">円形の再生ボタン</string>
     <string name="pref_title_classic_notification">クラシックな通知デザイン</string>
     <string name="pref_title_colored_app">アダプティブカラー</string>
-    <string name="pref_title_colored_app_extended">拡張アダプティブカラー</string>
     <string name="pref_title_colored_notification">色付きの通知</string>
     <string name="pref_title_cross_fade">クロスフェード</string>
     <string name="pref_title_custom_font">フォント</string>
@@ -467,6 +467,7 @@
     <string name="pref_title_now_playing_screen_appearance">再生中のテーマ</string>
     <string name="pref_title_open_source_licences">オープンソースライセンス</string>
     <string name="pref_title_pause_history">履歴の一時停止</string>
+    <string name="pref_title_player_background">背景の種類</string>
     <string name="pref_title_progress_bar_alignment">プログレスバーの配置</string>
     <string name="pref_title_progress_bar_style">プログレスバーのスタイル</string>
     <string name="pref_title_queue_style">再生中のキュー スタイル</string>

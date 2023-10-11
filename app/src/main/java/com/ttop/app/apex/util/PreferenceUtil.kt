@@ -1113,9 +1113,9 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putString(QUEUE_STYLE, value)}
 
-    val isAdaptiveColorExtended
+    val isPlayerBackgroundType
         get() = sharedPreferences.getBoolean(
-            ADAPTIVE_COLOR_APP_EXTENDED, false
+            PLAYER_BACKGROUND, false
         )
 
     var backupPath

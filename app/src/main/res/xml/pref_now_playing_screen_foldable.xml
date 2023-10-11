@@ -31,10 +31,10 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
-        android:key="adaptive_color_app_extended"
+        android:key="player_background"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_colored_app_extended"
-        android:title="@string/pref_title_colored_app_extended"
+        android:summary="@string/pref_summary_player_background"
+        android:title="@string/pref_title_player_background"
         android:dependency="adaptive_color_app"
         app:allowDividerBelow="false"/>
 

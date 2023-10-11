@@ -87,24 +87,41 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
                 ThemeStore.accentColor(requireContext())
             }
 
-
-
         binding.progressSlider.applyColor(controlsColor)
         binding.playPauseButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
-        if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
-            lastPlaybackControlsColor =
-                MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
-            lastDisabledPlaybackControlsColor =
-                MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
-        } else {
-            lastPlaybackControlsColor =
-                MaterialValueHelper.getPrimaryTextColor(requireContext(), false)
-            lastDisabledPlaybackControlsColor =
-                MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
+        if (PreferenceUtil.isAdaptiveColor) {
+            if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
+                lastPlaybackControlsColor =
+                    color.secondaryTextColor
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
+            } else {
+                lastPlaybackControlsColor =
+                    color.secondaryTextColor
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
+            }
+            binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
+            binding.songTotalTime.setTextColor(color.secondaryTextColor)
+        }else {
+            if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
+                lastPlaybackControlsColor =
+                    MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
+            } else {
+                lastPlaybackControlsColor =
+                    MaterialValueHelper.getPrimaryTextColor(requireContext(), false)
+                lastDisabledPlaybackControlsColor =
+                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
+            }
+            context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_white_1000)) }
+            context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_white_1000)) }
         }
+
         updateRepeatState()
         updateShuffleState()
     }

@@ -382,7 +382,6 @@
     <string name="pref_summary_circle_button">Replace the default rounded square play button with a circular play button in nps themes</string>
     <string name="pref_summary_classic_notification">Use the classic notification design</string>
     <string name="pref_summary_colored_app">The background and control button colors change according to the album art from the now playing screen</string>
-    <string name="pref_summary_colored_app_extended">Extend the adaptive color to the toolbar</string>
     <string name="pref_summary_colored_app_shortcuts">Colors the app shortcuts in the accent color. Every time you change the color please toggle this to take effect</string>
     <string name="pref_summary_colored_notification">"Colors the notification in the album cover\u2019s vibrant color"</string>
     <string name="pref_summary_cross_fade">Duration to crossfade between songs</string>
@@ -404,6 +403,7 @@
     <string name="pref_summary_open_source_licences">License details for open source software</string>
     <string name="pref_summary_pause_history">When enabled, newly played songs won\'t show in history</string>
     <string name="pref_summary_permissions_edit">Modify permissions relating to this app</string>
+    <string name="pref_summary_player_background">Use a gradient as the player background instead of a single color (text may be hard to read)</string>
     <string name="pref_summary_progress_bar_alignment">Show the horizontal progress bar on top of mini player instead of the bottom</string>
     <string name="pref_summary_progress_bar_color">Set the progressbar color for the classic &amp; full widgets</string>
     <string name="pref_summary_progress_bar_style">Show a horizontal progress bar instead of the circle progress bar</string>
@@ -440,7 +440,6 @@
     <string name="pref_title_circle_button">Circular Play Button</string>
     <string name="pref_title_classic_notification">Classic Notification Design</string>
     <string name="pref_title_colored_app">Adaptive Color</string>
-    <string name="pref_title_colored_app_extended">Extended Adaptive Color</string>
     <string name="pref_title_colored_notification">Colored Notification</string>
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
@@ -472,6 +471,7 @@
     <string name="pref_title_now_playing_screen_appearance">Now Playing Theme</string>
     <string name="pref_title_open_source_licences">Open Source Licences</string>
     <string name="pref_title_pause_history">Pause History</string>
+    <string name="pref_title_player_background">Background Type</string>
     <string name="pref_title_progress_bar_alignment">Progress Bar Alignment</string>
     <string name="pref_title_progress_bar_style">Progress Bar Style</string>
     <string name="pref_title_queue_style">Now Playing Queue Style</string>

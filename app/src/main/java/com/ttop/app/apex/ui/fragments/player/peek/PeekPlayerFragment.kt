@@ -349,7 +349,8 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         return false
     }
 
-    override fun toolbarIconColor() = if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+    override fun toolbarIconColor() =
+        if (PreferenceUtil.isAdaptiveColor) {
         toolbarColor
     }else {
         colorControlNormal()
@@ -372,6 +373,13 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
 
         if (PreferenceUtil.isAdaptiveColor) {
             colorize(color.backgroundColor)
+            binding.title.setTextColor(color.secondaryTextColor)
+            binding.artist.setTextColor(color.secondaryTextColor)
+            binding.songInfo.setTextColor(color.secondaryTextColor)
+        }else {
+            context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_white_1000)) }
+            context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_white_1000)) }
+            context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_white_1000)) }
         }
 
         playingQueueAdapter?.setTextColor(color.secondaryTextColor)
@@ -387,28 +395,34 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     }
 
     private fun colorize(i: Int) {
-        if (valueAnimator != null) {
-            valueAnimator?.cancel()
-        }
-
-        valueAnimator = ValueAnimator.ofObject(
-            ArgbEvaluator(),
-            surfaceColor(),
-            i
-        )
-        valueAnimator?.addUpdateListener { animation ->
-            if (isAdded) {
-                val drawable = DrawableGradient(
-                    GradientDrawable.Orientation.TOP_BOTTOM,
-                    intArrayOf(
-                        animation.animatedValue as Int,
-                        surfaceColor()
-                    ), 0
-                )
-                binding.colorGradientBackground.background = drawable
+        if (PreferenceUtil.isPlayerBackgroundType) {
+            //GRADIENT
+            if (valueAnimator != null) {
+                valueAnimator?.cancel()
             }
+
+            valueAnimator = ValueAnimator.ofObject(
+                ArgbEvaluator(),
+                surfaceColor(),
+                i
+            )
+            valueAnimator?.addUpdateListener { animation ->
+                if (isAdded) {
+                    val drawable = DrawableGradient(
+                        GradientDrawable.Orientation.TOP_BOTTOM,
+                        intArrayOf(
+                            animation.animatedValue as Int,
+                            surfaceColor()
+                        ), 0
+                    )
+                    binding.colorGradientBackground.background = drawable
+                }
+            }
+            valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
+        }else {
+            //SINGLE COLOR
+            binding.colorGradientBackground.setBackgroundColor(i)
         }
-        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
     }
 
     override fun onFavoriteToggled() {

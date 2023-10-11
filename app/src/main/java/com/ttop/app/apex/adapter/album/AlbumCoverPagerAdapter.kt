@@ -139,9 +139,12 @@ class AlbumCoverPagerAdapter(
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle(song.title)
                     builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
-                    builder.setNegativeButton(R.string.synced_lyrics) { _, _ ->
-                        goToLyrics(requireActivity())
+                    if (PreferenceUtil.syncedLyrics) {
+                        builder.setNegativeButton(R.string.synced_lyrics) { _, _ ->
+                            goToLyrics(requireActivity())
+                        }
                     }
+
                     builder.setNeutralButton(R.string.dismiss) { _, _ ->
                         materialDialog().dismiss()
                     }

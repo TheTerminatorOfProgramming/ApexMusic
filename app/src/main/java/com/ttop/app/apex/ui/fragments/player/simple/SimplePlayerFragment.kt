@@ -249,7 +249,8 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
         return false
     }
 
-    override fun toolbarIconColor() = if (PreferenceUtil.isAdaptiveColorExtended && PreferenceUtil.isAdaptiveColor) {
+    override fun toolbarIconColor() =
+        if (PreferenceUtil.isAdaptiveColor) {
         toolbarColor
     }else {
         colorControlNormal()
