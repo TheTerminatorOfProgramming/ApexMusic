@@ -103,7 +103,7 @@ class PlaylistAdapter(
         holder.title?.text = getPlaylistTitle(playlist.playlistEntity)
         holder.text?.text = getPlaylistText(playlist)
         holder.menu?.isGone = isChecked(playlist)
-        if (itemLayoutRes == R.layout.item_list) {
+        if (itemLayoutRes == R.layout.item_list_playlist) {
             holder.image?.setPadding(activity.dipToPix(8F).toInt())
             holder.image?.setImageDrawable(getIconRes())
         } else {

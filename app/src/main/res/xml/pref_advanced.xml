@@ -11,7 +11,7 @@
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="whitelist_music"
         android:icon="@drawable/ic_filter_list"
         android:layout="@layout/list_item_view_switch"

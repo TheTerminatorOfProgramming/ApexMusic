@@ -266,7 +266,7 @@
     <string name="md_error_label">ত্রুটি</string>
     <string name="md_storage_perm_error">অনুমতি ত্রুটি</string>
     <string name="message_backup_create_success">ব্যাকআপ সফলভাবে তৈরি করা হয়েছে।</string>
-    <string name="message_limit_tabs">5টির বেশি আইটেম নয়</string>
+    <string name="message_limit_tabs">9 টির বেশি আইটেম অনুমোদিত নয়</string>
     <string name="message_restore_success">পুনরুদ্ধার সফলভাবে সম্পন্ন হয়েছে।</string>
     <string name="message_updated">আপডেট করা হয়েছে</string>
     <string name="message_welcome"><![CDATA[হ্যালো সেখানে! <br>%s এ স্বাগতম]]></string>
@@ -376,6 +376,7 @@
     <string name="pref_summary_bluetooth_playback">ব্লুটুথ ডিভাইসের সাথে সংযুক্ত হওয়ার সাথে সাথেই বাজানো শুরু করুন</string>
     <string name="pref_summary_bluetooth_volume">ব্লুটুথ অটোপ্লে সংযুক্ত হলে একটি নির্দিষ্ট ভলিউম সেট করুন</string>
     <string name="pref_summary_blurred_album_art">লকস্ক্রিন এবং wearOS মিডিয়া নিয়ন্ত্রণে অ্যালবামের কভারটি ঝাপসা করুন৷ তৃতীয় পক্ষের অ্যাপস এবং উইজেটগুলির সাথে সমস্যা সৃষ্টি করতে পারে</string>
+    <string name="pref_summary_bold_font">বোল্ড ফন্ট ব্যবহার করুন যদি নির্বাচিত ফন্ট এটি সমর্থন করে</string>
     <string name="pref_summary_carousel_effect">এখন বাজানো স্ক্রিনে অ্যালবাম শিল্পের জন্য ক্যারোজেল প্রভাব। মনে রাখবেন যে কার্ড এবং ব্লার কার্ড থিম কাজ করবে না</string>
     <string name="pref_summary_circle_button">nps থিমগুলিতে একটি বৃত্তাকার প্লে বোতাম দিয়ে ডিফল্ট গোলাকার বর্গাকার প্লে বোতামটি প্রতিস্থাপন করুন</string>
     <string name="pref_summary_classic_notification">ক্লাসিক নোটিফিকেশন ডিজাইন ব্যবহার করুন</string>
@@ -435,6 +436,7 @@
     <string name="pref_title_bluetooth_playback">ব্লুটুথ প্লেব্যাক</string>
     <string name="pref_title_bluetooth_volume">ব্লুটুথ ভলিউম</string>
     <string name="pref_title_blurred_album_art">ব্লার অ্যালবাম কভার</string>
+    <string name="pref_title_bold_font">মোটা অক্ষরে</string>
     <string name="pref_title_circle_button">সার্কুলার প্লে বোতাম</string>
     <string name="pref_title_classic_notification">ক্লাসিক বিজ্ঞপ্তি ডিজাইন</string>
     <string name="pref_title_colored_app">অভিযোজিত রঙ</string>
@@ -469,7 +471,7 @@
     <string name="pref_title_now_playing_screen_appearance">এখন থিম চলছে</string>
     <string name="pref_title_open_source_licences">ওপেন সোর্স লাইসেন্স</string>
     <string name="pref_title_pause_history">ইতিহাস থামান</string>
-    <string name="pref_title_player_background">পটভূমির ধরন</string>
+    <string name="pref_title_player_background">গ্রেডিয়েন্ট ব্যাকগ্রাউন্ড</string>
     <string name="pref_title_progress_bar_alignment">অগ্রগতি বার প্রান্তিককরণ</string>
     <string name="pref_title_progress_bar_style">অগ্রগতি বার শৈলী</string>
     <string name="pref_title_queue_style">এখন কিউ স্টাইল চলছে</string>

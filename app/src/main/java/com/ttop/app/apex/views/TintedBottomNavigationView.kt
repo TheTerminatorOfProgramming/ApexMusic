@@ -60,4 +60,8 @@ class TintedBottomNavigationView @JvmOverloads constructor(
             }
         }
     }
+
+    override fun getMaxItemCount(): Int {
+        return 9
+    }
 }

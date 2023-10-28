@@ -195,7 +195,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         dismissMethod?.setOnPreferenceChangeListener { _, newValue ->
             PreferenceUtil.dismissMethod = newValue as String
 
-            dismissCheck?.isEnabled = PreferenceUtil.dismissMethod != "none"
+            dismissCheck?.isEnabled = PreferenceUtil.dismissMethod == "long_touch"
             true
         }
 
@@ -203,6 +203,15 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         languagePreference?.setOnPreferenceChangeListener { _, _ ->
             restartActivity()
             return@setOnPreferenceChangeListener true
+        }
+
+        val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
+        customFontBold?.isChecked = PreferenceUtil.isCustomFontBold
+        customFontBold?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.shouldRecreate = true
+            restartActivity()
+            true
         }
     }
 
@@ -243,7 +252,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         wallpaperAccent?.isVisible = VersionUtils.hasOreoMR1() && !VersionUtils.hasS()
 
         val dismissCheck: TwoStatePreference? = findPreference(DISMISS_FAILSAFE)
-        dismissCheck?.isEnabled = PreferenceUtil.dismissMethod != "none"
+        dismissCheck?.isEnabled = PreferenceUtil.dismissMethod == "long_touch"
 
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
         if (PreferenceUtil.baseTheme == "auto") {

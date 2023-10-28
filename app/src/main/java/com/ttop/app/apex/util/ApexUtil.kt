@@ -260,54 +260,86 @@ object ApexUtil {
 
     fun updateSimpleAppBarTitleTextAppearance(context: Context, simpleToolbarLayout: MaterialToolbar){
         if (PreferenceUtil.isCustomFont == "sans") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.SansThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.SansBoldThemeOverlay)
+            } else {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.SansThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "barlow") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowBoldThemeOverlay)
+            } else {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraBoldThemeOverlay)
+            } else {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.PencilThemeOverlay)
+           simpleToolbarLayout.setTitleTextAppearance(context, R.style.PencilThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "samsung") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.SamsungThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.SamsungBoldThemeOverlay)
+            } else {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.SamsungThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "drexs") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.DrexsThemeOverlay)
+           simpleToolbarLayout.setTitleTextAppearance(context, R.style.DrexsThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "hermanoalto") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.HermanoaltoThemeOverlay)
+           simpleToolbarLayout.setTitleTextAppearance(context, R.style.HermanoaltoThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "capture") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaptureThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "oneui") {
+            if (PreferenceUtil.isCustomFontBold) {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.OneUiBoldThemeOverlay)
+            } else {
+               simpleToolbarLayout.setTitleTextAppearance(context, R.style.OneUiThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "nothing") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.NothingThemeOverlay)
+           simpleToolbarLayout.setTitleTextAppearance(context, R.style.NothingThemeOverlay)
         }
     }
 
     fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
         //Expanded
         if (PreferenceUtil.isCustomFont == "sans") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SansThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SansBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SansThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "barlow") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
@@ -315,7 +347,11 @@ object ApexUtil {
         }
 
         if (PreferenceUtil.isCustomFont == "samsung") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SamsungThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SamsungBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SamsungThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "drexs") {
@@ -326,8 +362,12 @@ object ApexUtil {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.HermanoaltoThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "capture") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaptureThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "oneui") {
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.OneUiBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.OneUiThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "nothing") {
@@ -335,15 +375,27 @@ object ApexUtil {
         }
         //Collapsed
         if (PreferenceUtil.isCustomFont == "sans") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SansThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SansBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SansThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "barlow") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
@@ -351,7 +403,11 @@ object ApexUtil {
         }
 
         if (PreferenceUtil.isCustomFont == "samsung") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SamsungThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SamsungBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SamsungThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "drexs") {
@@ -362,8 +418,12 @@ object ApexUtil {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.HermanoaltoThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "capture") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaptureThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "oneui") {
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.OneUiBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.OneUiThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "nothing") {

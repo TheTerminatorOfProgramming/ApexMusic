@@ -31,6 +31,8 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     private val isLandscape: Boolean
         get() = ApexUtil.isLandscape
 
+    private val isTablet: Boolean
+        get() = ApexUtil.isTablet
     val maxGridSize: Int
         get() = if (isLandscape) {
             resources.getInteger(R.integer.max_columns_land)
@@ -68,9 +70,14 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     }
 
     private val maxGridSizeForList: Int
-        get() = if (isLandscape) {
-            resources.getInteger(R.integer.default_list_columns_land)
-        } else resources.getInteger(R.integer.default_list_columns)
+        get() = if (isTablet) {
+            2
+        }else {
+            if (isLandscape) {
+                resources.getInteger(R.integer.default_list_columns_land)
+            } else 1
+        }
+
 
     fun getGridSize(): Int {
         if (gridSize == 0) {

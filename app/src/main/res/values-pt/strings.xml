@@ -266,7 +266,7 @@
     <string name="md_error_label">Erro</string>
     <string name="md_storage_perm_error">erro de permissão</string>
     <string name="message_backup_create_success">Backup criado com sucesso.</string>
-    <string name="message_limit_tabs">Não mais de 5 itens</string>
+    <string name="message_limit_tabs">Não são permitidas mais de 9 guias</string>
     <string name="message_restore_success">Restauração concluída com sucesso.</string>
     <string name="message_updated">Atualizada</string>
     <string name="message_welcome"><![CDATA[Olá! <br>Bem-vindo a %s]]></string>
@@ -376,6 +376,7 @@
     <string name="pref_summary_bluetooth_playback">Comece a jogar assim que conectado ao dispositivo bluetooth</string>
     <string name="pref_summary_bluetooth_volume">Defina um volume específico quando a reprodução automática do bluetooth estiver conectada</string>
     <string name="pref_summary_blurred_album_art">Desfoque a capa do álbum na tela de bloqueio e use os controles de mídia do OS. Pode causar problemas com aplicativos e widgets de terceiros</string>
+    <string name="pref_summary_bold_font">Use fonte em negrito se a fonte selecionada suportar</string>
     <string name="pref_summary_carousel_effect">Efeito carrossel para a capa do álbum na tela de reprodução. Observe que os temas Card e Blur Card não funcionarão</string>
     <string name="pref_summary_circle_button">Substitua o botão de reprodução quadrado arredondado padrão por um botão de reprodução circular nos temas nps</string>
     <string name="pref_summary_classic_notification">Use o design de notificação clássico</string>
@@ -435,6 +436,7 @@
     <string name="pref_title_bluetooth_playback">Reprodução Bluetooth</string>
     <string name="pref_title_bluetooth_volume">Volume Bluetooth</string>
     <string name="pref_title_blurred_album_art">Blur Capa do Álbum</string>
+    <string name="pref_title_bold_font">Negrito</string>
     <string name="pref_title_circle_button">Botão Reproduzir Circular</string>
     <string name="pref_title_classic_notification">Design clássico de notificação</string>
     <string name="pref_title_colored_app">Cor adaptável</string>
@@ -469,7 +471,7 @@
     <string name="pref_title_now_playing_screen_appearance">Tocando agora o tema</string>
     <string name="pref_title_open_source_licences">Licenças de código aberto</string>
     <string name="pref_title_pause_history">Pausar histórico</string>
-    <string name="pref_title_player_background">Tipo de plano de fundo</string>
+    <string name="pref_title_player_background">Fundo gradiente</string>
     <string name="pref_title_progress_bar_alignment">Alinhamento da Barra de Progresso</string>
     <string name="pref_title_progress_bar_style">Estilo da barra de progresso</string>
     <string name="pref_title_queue_style">Agora jogando estilo de fila</string>

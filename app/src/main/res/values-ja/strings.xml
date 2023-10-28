@@ -264,7 +264,7 @@
     <string name="md_error_label">エラー</string>
     <string name="md_storage_perm_error">許可エラー</string>
     <string name="message_backup_create_success">バックアップが正常に作成されました。</string>
-    <string name="message_limit_tabs">5項目以下</string>
+    <string name="message_limit_tabs">9 個を超えるアイテムは許可されません</string>
     <string name="message_restore_success">復元が正常に完了しました。</string>
     <string name="message_updated">更新しました</string>
     <string name="message_welcome"><![CDATA[こんにちは！ <br>%s へようこそ]]></string>
@@ -374,6 +374,7 @@
     <string name="pref_summary_bluetooth_playback">Bluetoothデバイスに接続するとすぐに再生を開始します</string>
     <string name="pref_summary_bluetooth_volume">Bluetooth 自動再生が接続されているときに特定の音量を設定する</string>
     <string name="pref_summary_blurred_album_art">ロック画面とwearOSメディアコントロールのアルバムカバーをぼかします。 サードパーティのアプリやウィジェットで問題が発生する可能性がある</string>
+    <string name="pref_summary_bold_font">選択したフォントが太字フォントをサポートしている場合は太字フォントを使用します</string>
     <string name="pref_summary_carousel_effect">再生中の画面のアルバム アートのカルーセル効果。 Card テーマと Blur Card テーマは機能しないことに注意してください</string>
     <string name="pref_summary_circle_button">NPS テーマのデフォルトの丸い正方形の再生ボタンを円形の再生ボタンに置き換えます</string>
     <string name="pref_summary_classic_notification">クラシックな通知デザインを使用する</string>
@@ -433,6 +434,7 @@
     <string name="pref_title_bluetooth_playback">Bluetooth再生</string>
     <string name="pref_title_bluetooth_volume">Bluetooth 音量</string>
     <string name="pref_title_blurred_album_art">ブラーアルバムカバー</string>
+    <string name="pref_title_bold_font">太字フォント</string>
     <string name="pref_title_circle_button">円形の再生ボタン</string>
     <string name="pref_title_classic_notification">クラシックな通知デザイン</string>
     <string name="pref_title_colored_app">アダプティブカラー</string>
@@ -467,7 +469,7 @@
     <string name="pref_title_now_playing_screen_appearance">再生中のテーマ</string>
     <string name="pref_title_open_source_licences">オープンソースライセンス</string>
     <string name="pref_title_pause_history">履歴の一時停止</string>
-    <string name="pref_title_player_background">背景の種類</string>
+    <string name="pref_title_player_background">グラデーションの背景</string>
     <string name="pref_title_progress_bar_alignment">プログレスバーの配置</string>
     <string name="pref_title_progress_bar_style">プログレスバーのスタイル</string>
     <string name="pref_title_queue_style">再生中のキュー スタイル</string>

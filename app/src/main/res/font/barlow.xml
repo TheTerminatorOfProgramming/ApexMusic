@@ -4,9 +4,9 @@
         android:font="@font/barlow_regular"
         android:fontWeight="400" />
     <font
-        android:font="@font/barlow_medium"
+        android:font="@font/barlow_regular"
         android:fontWeight="600" />
     <font
-        android:font="@font/barlow_bold"
+        android:font="@font/barlow_regular"
         android:fontWeight="700" />
 </font-family>

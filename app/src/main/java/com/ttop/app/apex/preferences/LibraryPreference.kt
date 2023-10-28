@@ -82,7 +82,7 @@ class LibraryPreferenceDialog : DialogFragment() {
 
     private fun updateCategories(categories: List<CategoryInfo>) {
         if (getSelected(categories) == 0) return
-        if (getSelected(categories) > 5) {
+        if (getSelected(categories) > 9) {
             showToast(R.string.message_limit_tabs)
             return
         }

@@ -266,7 +266,7 @@
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">error de permiso</string>
     <string name="message_backup_create_success">Copia de seguridad creada con éxito.</string>
-    <string name="message_limit_tabs">No más de 5 artículos</string>
+    <string name="message_limit_tabs">No se permiten más de 9 artículos.</string>
     <string name="message_restore_success">Restauración completada con éxito.</string>
     <string name="message_updated">Actualizado</string>
     <string name="message_welcome"><![CDATA[¡Hola! <br>Bienvenido a %s]]></string>
@@ -376,6 +376,7 @@
     <string name="pref_summary_bluetooth_playback">Comience a jugar tan pronto como se conecte al dispositivo bluetooth</string>
     <string name="pref_summary_bluetooth_volume">Establezca un volumen específico cuando la reproducción automática de bluetooth esté conectada</string>
     <string name="pref_summary_blurred_album_art">Desenfoca la portada del álbum en la pantalla de bloqueo y los controles multimedia de WearOS. Puede causar problemas con aplicaciones y widgets de terceros</string>
+    <string name="pref_summary_bold_font">Utilice fuente en negrita si la fuente seleccionada lo admite</string>
     <string name="pref_summary_carousel_effect">Efecto carrusel para la carátula del álbum en la pantalla de reproducción. Tenga en cuenta que los temas Tarjeta y Tarjeta de desenfoque no funcionarán</string>
     <string name="pref_summary_circle_button">Reemplace el botón de reproducción cuadrado redondeado predeterminado con un botón de reproducción circular en temas nps</string>
     <string name="pref_summary_classic_notification">Usa el diseño de notificación clásico</string>
@@ -435,6 +436,7 @@
     <string name="pref_title_bluetooth_playback">Reproducción Bluetooth</string>
     <string name="pref_title_bluetooth_volume">Volumen Bluetooth</string>
     <string name="pref_title_blurred_album_art">Portada del álbum desenfocado</string>
+    <string name="pref_title_bold_font">Negrita</string>
     <string name="pref_title_circle_button">Botón de reproducción circular</string>
     <string name="pref_title_classic_notification">Diseño de notificación clásico</string>
     <string name="pref_title_colored_app">Color adaptativo</string>
@@ -469,7 +471,7 @@
     <string name="pref_title_now_playing_screen_appearance">Ahora suena el tema</string>
     <string name="pref_title_open_source_licences">Licencias de código abierto</string>
     <string name="pref_title_pause_history">Pausar historial</string>
-    <string name="pref_title_player_background">Tipo de fondo</string>
+    <string name="pref_title_player_background">Fondo degradado</string>
     <string name="pref_title_progress_bar_alignment">Alineación de la barra de progreso</string>
     <string name="pref_title_progress_bar_style">Estilo de barra de progreso</string>
     <string name="pref_title_queue_style">Estilo de cola de reproducción en curso</string>

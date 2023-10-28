@@ -25,7 +25,6 @@ import com.ttop.app.apex.db.toPlayCount
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IMusicServiceEventListener
 import com.ttop.app.apex.repository.RealRepository
-import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.FAVORITE_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.MEDIA_STORE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.META_CHANGED
@@ -98,7 +97,7 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
             filter.addAction(MEDIA_STORE_CHANGED)
             filter.addAction(FAVORITE_STATE_CHANGED)
 
-            ContextCompat.registerReceiver(this, musicStateReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+            ContextCompat.registerReceiver(this, musicStateReceiver, filter, ContextCompat.RECEIVER_EXPORTED)
 
             receiverRegistered = true
         }

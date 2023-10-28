@@ -756,7 +756,7 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit { putInt(LAST_USED_TAB, value) }
 
     val isWhiteList: Boolean
-        get() = sharedPreferences.getBoolean(WHITELIST_MUSIC, false)
+        get() = sharedPreferences.getBoolean(WHITELIST_MUSIC, true)
 
     val crossFadeDuration
         get() = sharedPreferences
@@ -1130,6 +1130,17 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             DISABLE_UPDATE, false
         )
+
+    val isCustomFontBold
+        get() = sharedPreferences.getBoolean(CUSTOM_FONT_BOLD, false)
+
+    var navigationItemsCount
+        get() = sharedPreferences.getInt(
+            NAVIGATION_ITEMS_COUNT, 5
+        )
+
+        set(value) = sharedPreferences.edit {
+            putInt(NAVIGATION_ITEMS_COUNT, value)}
 }
 
 enum class CoverLyricsType {

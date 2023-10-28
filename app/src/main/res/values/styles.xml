@@ -314,14 +314,39 @@
         <item name="android:fontFamily">@font/hermanoalto_chisel</item>
     </style>
 
-    <style name="CaptureThemeOverlay">
-        <item name="fontFamily">@font/capture_it</item>
-        <item name="android:fontFamily">@font/capture_it</item>
-    </style>
-
     <style name="NothingThemeOverlay">
         <item name="fontFamily">@font/nothing</item>
         <item name="android:fontFamily">@font/nothing</item>
+    </style>
+
+    <style name="OneUiThemeOverlay">
+        <item name="fontFamily">@font/oneui_sans</item>
+        <item name="android:fontFamily">@font/sans</item>
+    </style>
+
+    <style name="SansBoldThemeOverlay">
+        <item name="fontFamily">@font/sans_bold</item>
+        <item name="android:fontFamily">@font/sans_bold</item>
+    </style>
+
+    <style name="BarlowBoldThemeOverlay">
+        <item name="fontFamily">@font/barlow_bold_font</item>
+        <item name="android:fontFamily">@font/barlow_bold_font</item>
+    </style>
+
+    <style name="JuraBoldThemeOverlay">
+        <item name="fontFamily">@font/jura_bold_font</item>
+        <item name="android:fontFamily">@font/jura_bold_font</item>
+    </style>
+
+    <style name="SamsungBoldThemeOverlay">
+        <item name="fontFamily">@font/samsung_sharp_sans_bold</item>
+        <item name="android:fontFamily">@font/samsung_sharp_sans_bold</item>
+    </style>
+
+    <style name="OneUiBoldThemeOverlay">
+        <item name="fontFamily">@font/oneui_sans_bold_font</item>
+        <item name="android:fontFamily">@font/oneui_sans_bold_font</item>
     </style>
 
     <style name="TextSize14">

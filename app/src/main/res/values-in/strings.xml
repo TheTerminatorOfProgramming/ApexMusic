@@ -264,7 +264,7 @@
     <string name="md_error_label">Kesalahan</string>
     <string name="md_storage_perm_error">Kesalahan izin</string>
     <string name="message_backup_create_success">Cadangan berhasil dibuat.</string>
-    <string name="message_limit_tabs">Tidak lebih dari 5 item</string>
+    <string name="message_limit_tabs">Tidak lebih dari 9 item diperbolehkan</string>
     <string name="message_restore_success">Pemulihan berhasil diselesaikan.</string>
     <string name="message_updated">Diperbarui</string>
     <string name="message_welcome"><![CDATA[Halo! <br>Selamat datang di %s]]></string>
@@ -374,6 +374,7 @@
     <string name="pref_summary_bluetooth_playback">Mulai mainkan segera setelah terhubung ke perangkat bluetooth</string>
     <string name="pref_summary_bluetooth_volume">Tetapkan volume tertentu saat bluetooth autoplay terhubung</string>
     <string name="pref_summary_blurred_album_art">Buramkan sampul album di layar kunci dan kontrol media wearOS. Dapat menyebabkan masalah dengan aplikasi dan widget pihak ketiga</string>
+    <string name="pref_summary_bold_font">Gunakan font tebal jika font yang dipilih mendukungnya</string>
     <string name="pref_summary_carousel_effect">Efek carousel untuk seni album di layar yang sedang diputar. Perhatikan bahwa tema Card dan Blur Card tidak akan berfungsi</string>
     <string name="pref_summary_circle_button">Ganti tombol putar persegi bulat default dengan tombol putar melingkar di tema nps</string>
     <string name="pref_summary_classic_notification">Gunakan desain notifikasi klasik</string>
@@ -433,6 +434,7 @@
     <string name="pref_title_bluetooth_playback">Pemutaran Bluetooth</string>
     <string name="pref_title_bluetooth_volume">Volume Bluetooth</string>
     <string name="pref_title_blurred_album_art">Sampul Album Blur</string>
+    <string name="pref_title_bold_font">Huruf tebal</string>
     <string name="pref_title_circle_button">Tombol Putar Melingkar</string>
     <string name="pref_title_classic_notification">Desain Notifikasi Klasik</string>
     <string name="pref_title_colored_app">Warna Adaptif</string>
@@ -467,7 +469,7 @@
     <string name="pref_title_now_playing_screen_appearance">Sekarang Memutar Tema</string>
     <string name="pref_title_open_source_licences">Lisensi Sumber Terbuka</string>
     <string name="pref_title_pause_history">Jeda Riwayat</string>
-    <string name="pref_title_player_background">Jenis Latar Belakang</string>
+    <string name="pref_title_player_background">Latar Belakang Gradien</string>
     <string name="pref_title_progress_bar_alignment">Penyelarasan Bilah Kemajuan</string>
     <string name="pref_title_progress_bar_style">Gaya Bilah Kemajuan</string>
     <string name="pref_title_queue_style">Sekarang Memutar Gaya Antrean</string>

@@ -21,18 +21,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_save_playlist"
-        android:icon="@drawable/ic_save"
-        android:title="@string/save_playlists_title"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_delete_playlist"
-        android:icon="@drawable/ic_delete"
-        android:title="@string/delete_playlists_title"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@id/action_multi_select_adapter_check_all"
         android:icon="@drawable/ic_select_all"
         android:title="@string/select_all"

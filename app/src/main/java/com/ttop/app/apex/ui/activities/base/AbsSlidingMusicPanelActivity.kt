@@ -609,6 +609,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         supportFragmentManager.executePendingTransactions()
         playerFragment = whichFragment(R.id.playerFragmentContainer)
         miniPlayerFragment = whichFragment<MiniPlayerFragment>(R.id.miniPlayerFragment)
-        miniPlayerFragment?.view?.setOnClickListener { expandPanel() }
+        //miniPlayerFragment?.view?.setOnClickListener { expandPanel() }
     }
 }

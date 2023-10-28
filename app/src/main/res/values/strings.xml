@@ -268,7 +268,7 @@
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Permission error</string>
     <string name="message_backup_create_success">Backup created successfully.</string>
-    <string name="message_limit_tabs">Not more than 5 items</string>
+    <string name="message_limit_tabs">No more than 9 tabs allowed</string>
     <string name="message_restore_success">Restore completed successfully.</string>
     <string name="message_updated">Updated</string>
     <string name="message_welcome"><![CDATA[Hello there! <br>Welcome to %s]]></string>
@@ -378,6 +378,7 @@
     <string name="pref_summary_bluetooth_playback">Start playing as soon as connected to bluetooth device</string>
     <string name="pref_summary_bluetooth_volume">Set a specific volume when bluetooth autoplay is connected</string>
     <string name="pref_summary_blurred_album_art">Blur the album cover on the lockscreen and wearOS media controls. Can cause problems with third party apps and widgets</string>
+    <string name="pref_summary_bold_font">Use bold font if selected font supports it</string>
     <string name="pref_summary_carousel_effect">Carousel effect for the album art in the now playing screen. Note that Card and Blur Card themes won\'t work</string>
     <string name="pref_summary_circle_button">Replace the default rounded square play button with a circular play button in nps themes</string>
     <string name="pref_summary_classic_notification">Use the classic notification design</string>
@@ -437,6 +438,7 @@
     <string name="pref_title_bluetooth_playback">Bluetooth Playback</string>
     <string name="pref_title_bluetooth_volume">Bluetooth Volume</string>
     <string name="pref_title_blurred_album_art">Blur Album Cover</string>
+    <string name="pref_title_bold_font">Bold Font</string>
     <string name="pref_title_circle_button">Circular Play Button</string>
     <string name="pref_title_classic_notification">Classic Notification Design</string>
     <string name="pref_title_colored_app">Adaptive Color</string>
@@ -471,7 +473,7 @@
     <string name="pref_title_now_playing_screen_appearance">Now Playing Theme</string>
     <string name="pref_title_open_source_licences">Open Source Licences</string>
     <string name="pref_title_pause_history">Pause History</string>
-    <string name="pref_title_player_background">Background Type</string>
+    <string name="pref_title_player_background">Gradient Background</string>
     <string name="pref_title_progress_bar_alignment">Progress Bar Alignment</string>
     <string name="pref_title_progress_bar_style">Progress Bar Style</string>
     <string name="pref_title_queue_style">Now Playing Queue Style</string>

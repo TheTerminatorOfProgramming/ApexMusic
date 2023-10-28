@@ -56,15 +56,27 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         }
 
         if (PreferenceUtil.isCustomFont == "sans") {
-            setTheme(R.style.SansThemeOverlay)
+           if (PreferenceUtil.isCustomFontBold) {
+               setTheme(R.style.SansBoldThemeOverlay)
+           } else {
+               setTheme(R.style.SansThemeOverlay)
+           }
         }
 
         if (PreferenceUtil.isCustomFont == "barlow") {
-            setTheme(R.style.BarlowThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                setTheme(R.style.BarlowBoldThemeOverlay)
+            } else {
+                setTheme(R.style.BarlowThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            setTheme(R.style.JuraThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                setTheme(R.style.JuraBoldThemeOverlay)
+            } else {
+                setTheme(R.style.JuraThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
@@ -72,7 +84,11 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         }
 
         if (PreferenceUtil.isCustomFont == "samsung") {
-            setTheme(R.style.SamsungThemeOverlay)
+            if (PreferenceUtil.isCustomFontBold) {
+                setTheme(R.style.SamsungBoldThemeOverlay)
+            } else {
+                setTheme(R.style.SamsungThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "drexs") {
@@ -83,8 +99,12 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.HermanoaltoThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "capture") {
-            setTheme(R.style.CaptureThemeOverlay)
+        if (PreferenceUtil.isCustomFont == "oneui") {
+            if (PreferenceUtil.isCustomFontBold) {
+                setTheme(R.style.OneUiBoldThemeOverlay)
+            } else {
+                setTheme(R.style.OneUiThemeOverlay)
+            }
         }
 
         if (PreferenceUtil.isCustomFont == "nothing") {

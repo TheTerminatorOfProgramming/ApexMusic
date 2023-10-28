@@ -44,6 +44,7 @@ import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -57,6 +58,8 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private var _binding: FragmentMiniPlayerBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressViewUpdateHelper: MusicProgressViewUpdateHelper
+    val mainActivity: MainActivity
+        get() = activity as MainActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         progressViewUpdateHelper = MusicProgressViewUpdateHelper(this)
@@ -103,7 +106,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
             binding.progressBarHorizontalBottom.visibility = View.GONE
         }
 
-        view.setOnTouchListener(FlingPlayBackController(requireContext(), view))
+        view.setOnTouchListener(FlingPlayBackController(requireContext(), view, mainActivity))
         setUpMiniPlayer()
         setUpButtons()
     }
@@ -218,7 +221,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         }
     }
 
-    class FlingPlayBackController(context: Context, view: View) : View.OnTouchListener {
+    class FlingPlayBackController(context: Context, view: View, activity: MainActivity) : View.OnTouchListener {
 
         private var flingPlayBackController = GestureDetector(context,
             object : GestureDetector.SimpleOnGestureListener() {
@@ -270,6 +273,11 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                         }
                     }
                     return false
+                }
+
+                override fun onSingleTapUp(e: MotionEvent): Boolean {
+                    activity.expandPanel()
+                    return super.onSingleTapUp(e)
                 }
 
                 override fun onLongPress(e: MotionEvent) {

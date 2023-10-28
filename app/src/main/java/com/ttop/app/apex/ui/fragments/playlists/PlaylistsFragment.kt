@@ -29,6 +29,7 @@ import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.interfaces.IPlaylistClickListener
+import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.util.ApexUtil
@@ -81,7 +82,9 @@ class PlaylistsFragment :
         menu.removeItem(R.id.action_layout_type)
         menu.add(0, R.id.action_add_to_playlist, 0, R.string.new_playlist_title)
         menu.add(0, R.id.action_import_playlist, 0, R.string.import_playlist)
-        menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, false))) {
+            menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+        }
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu!!)
         MenuCompat.setGroupDividerEnabled(menu, true)
         //Setting up cast button
@@ -109,7 +112,20 @@ class PlaylistsFragment :
             7 -> gridSizeMenu.findItem(R.id.action_grid_size_7).isChecked = true
             8 -> gridSizeMenu.findItem(R.id.action_grid_size_8).isChecked = true
         }
-        val gridSize = if (ApexUtil.isLandscape) 4 else 2
+        val gridSize = if (ApexUtil.isTablet) {
+            if (ApexUtil.isLandscape) {
+                6
+            }else {
+                4
+            }
+        }else {
+            if (ApexUtil.isLandscape) {
+                4
+            }else {
+                2
+            }
+        }
+
         if (gridSize < 8) {
             gridSizeMenu.findItem(R.id.action_grid_size_8).isVisible = false
         }
@@ -233,7 +249,7 @@ class PlaylistsFragment :
     }
 
     override fun loadLayoutRes(): Int {
-        return R.layout.item_grid_circle
+        return R.layout.item_grid_playlist
     }
 
     override fun saveLayoutRes(layoutRes: Int) {
@@ -250,7 +266,7 @@ class PlaylistsFragment :
     }
 
     override fun loadGridSizeTablet(): Int {
-        return PreferenceUtil.playlistGridSizeTablet;
+        return PreferenceUtil.playlistGridSizeTablet
     }
 
     override fun saveGridSizeTablet(gridColumns: Int) {

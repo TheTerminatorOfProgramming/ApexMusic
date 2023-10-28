@@ -148,8 +148,9 @@ class AlbumCoverPagerAdapter(
                     builder.setNeutralButton(R.string.dismiss) { _, _ ->
                         materialDialog().dismiss()
                     }
-                    materialDialog().cancelOnTouchOutside(false)
+
                     val dialog: AlertDialog = builder.show()
+                    dialog.setCanceledOnTouchOutside(false)
                     dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
                     dialog.getButton(Dialog.BUTTON_NEUTRAL).accentTextColor()
                 }

@@ -18,11 +18,9 @@ import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialSharedAxis
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
-import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.OrderablePlaylistSongAdapter
-import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
 import com.ttop.app.apex.databinding.FragmentPlaylistDetailNewBinding
 import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.db.toSongs
@@ -119,7 +117,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             arguments.extraPlaylistId,
             requireActivity(),
             ArrayList(),
-            R.layout.item_queue_playlist
+            R.layout.item_queue
         )
 
         val dragDropManager = RecyclerViewDragDropManager()
