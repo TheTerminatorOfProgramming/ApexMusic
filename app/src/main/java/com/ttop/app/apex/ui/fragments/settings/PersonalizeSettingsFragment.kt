@@ -88,6 +88,13 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             restartActivity()
             true
         }
+
+        val showScrollbar: TwoStatePreference? = findPreference(SHOW_SCROLLBAR)
+        showScrollbar?.isChecked = PreferenceUtil.isShowScrollbar
+        showScrollbar?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

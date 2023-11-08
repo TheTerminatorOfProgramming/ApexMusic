@@ -38,6 +38,7 @@
     <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
     <string name="action_remove_from_playlist">Eliminar de la lista de reproducción</string>
     <string name="action_rename">Rebautizar</string>
+    <string name="action_reorder">Alternar reordenar</string>
     <string name="action_rewind">Rebobinar 10s</string>
     <string name="action_save_playing_queue">Guardar cola de reproducción</string>
     <string name="action_scan">Escanear</string>
@@ -267,6 +268,7 @@
     <string name="md_storage_perm_error">error de permiso</string>
     <string name="message_backup_create_success">Copia de seguridad creada con éxito.</string>
     <string name="message_limit_tabs">No se permiten más de 9 artículos.</string>
+    <string name="message_limit_tabs_limit">No se permiten más de 5 artículos.</string>
     <string name="message_restore_success">Restauración completada con éxito.</string>
     <string name="message_updated">Actualizado</string>
     <string name="message_welcome"><![CDATA[¡Hola! <br>Bienvenido a %s]]></string>

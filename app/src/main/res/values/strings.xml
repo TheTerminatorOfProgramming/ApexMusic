@@ -38,6 +38,7 @@
     <string name="action_remove_from_playing_queue">Remove from playing queue</string>
     <string name="action_remove_from_playlist">Remove from playlist</string>
     <string name="action_rename">Rename</string>
+    <string name="action_reorder">Toggle reorder</string>
     <string name="action_rewind">Rewind 10s</string>
     <string name="action_save_playing_queue">Save playing queue</string>
     <string name="action_scan">Scan</string>
@@ -269,6 +270,7 @@
     <string name="md_storage_perm_error">Permission error</string>
     <string name="message_backup_create_success">Backup created successfully.</string>
     <string name="message_limit_tabs">No more than 9 tabs allowed</string>
+    <string name="message_limit_tabs_limit">No more than 5 tabs allowed</string>
     <string name="message_restore_success">Restore completed successfully.</string>
     <string name="message_updated">Updated</string>
     <string name="message_welcome"><![CDATA[Hello there! <br>Welcome to %s]]></string>
@@ -399,6 +401,7 @@
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
+    <string name="pref_summary_limit_categories">Limit number of library categories able to be selected from 9 to 5</string>
     <string name="pref_summary_lock_screen">Use Apex Music\'s custom lockscreen controls</string>
     <string name="pref_summary_manage_audio_focus">Always play audio in background regardless of anything else being played</string>
     <string name="pref_summary_open_source_licences">License details for open source software</string>
@@ -414,6 +417,7 @@
     <string name="pref_summary_restore_full_circle_widget">Restore full circle widget</string>
     <string name="pref_summary_restore_removed_widgets">Restore removed widgets</string>
     <string name="pref_summary_show_lyrics">Show synced or embedded lyrics</string>
+    <string name="pref_summary_show_scrollbar">Show scrollbar in user interface</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
     <string name="pref_summary_specific_device">Allow only a specific bluetooth device to autoplay music</string>
     <string name="pref_summary_suggestions">Show new music mix on homescreen</string>
@@ -464,6 +468,7 @@
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store Covers</string>
     <string name="pref_title_last_added_interval">Last Added Playlist Interval</string>
     <string name="pref_title_launcher_icon">Launcher Icon</string>
+    <string name="pref_title_limit_categories">Limit Library Categories</string>
     <string name="pref_title_lock_screen">Fullscreen Controls</string>
     <string name="pref_title_lyrics_screen_on">Keep Screen On When Showing Lyrics</string>
     <string name="pref_title_lyrics_type">Synced Lyrics Cover Type</string>
@@ -483,6 +488,7 @@
     <string name="pref_title_restore_full_circle_widget">Full Circle Widget</string>
     <string name="pref_title_restore_removed_widgets">Restore Widgets</string>
     <string name="pref_title_show_lyrics">Show Lyrics</string>
+    <string name="pref_title_show_scrollbar">Show Scrollbar</string>
     <string name="pref_title_show_update">Show Update</string>
     <string name="pref_title_specific_device">Specific Device</string>
     <string name="pref_title_suggestions">Show Suggestions</string>

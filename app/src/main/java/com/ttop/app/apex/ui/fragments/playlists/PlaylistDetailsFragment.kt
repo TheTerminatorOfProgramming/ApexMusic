@@ -34,6 +34,7 @@ import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -130,7 +131,9 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DraggableItemAnimator()
             dragDropManager.attachRecyclerView(this)
-            ThemedFastScroller.create(this)
+            if (PreferenceUtil.isShowScrollbar) {
+                ThemedFastScroller.create(this)
+            }
         }
         playlistSongAdapter.registerAdapterDataObserver(object :
             RecyclerView.AdapterDataObserver() {

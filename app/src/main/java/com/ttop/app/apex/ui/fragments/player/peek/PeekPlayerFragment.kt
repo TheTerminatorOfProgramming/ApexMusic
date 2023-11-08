@@ -18,17 +18,13 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.TypedValue
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup.MarginLayoutParams
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
@@ -65,6 +61,8 @@ import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.DrawableGradient
 import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.ATHUtil
+import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -125,6 +123,16 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             }
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
+                return true
+            }
+            R.id.action_reorder -> {
+                if (binding.playerQueueSheet.visibility == View.VISIBLE) {
+                    if (playingQueueAdapter?.getButtonsActivate() == true) {
+                        playingQueueAdapter?.setButtonsActivate(false)
+                    }else {
+                        playingQueueAdapter?.setButtonsActivate(true)
+                    }
+                }
                 return true
             }
             R.id.action_delete_from_device -> {
@@ -377,9 +385,16 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             binding.artist.setTextColor(color.secondaryTextColor)
             binding.songInfo.setTextColor(color.secondaryTextColor)
         }else {
-            context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_white_1000)) }
-            context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_white_1000)) }
-            context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_white_1000)) }
+            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+            if (ColorUtil.isColorLight(colorBg)) {
+                context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_black_1000)) }
+                context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_black_1000)) }
+                context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_black_1000)) }
+            }else {
+                context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_white_1000)) }
+                context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_white_1000)) }
+                context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_white_1000)) }
+            }
         }
 
         playingQueueAdapter?.setTextColor(color.secondaryTextColor)

@@ -476,9 +476,11 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     private fun setUpRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        create(
-            binding.recyclerView
-        )
+        if (PreferenceUtil.isShowScrollbar) {
+            create(
+                binding.recyclerView
+            )
+        }
     }
 
     private fun updateAdapter(files: List<File>) {

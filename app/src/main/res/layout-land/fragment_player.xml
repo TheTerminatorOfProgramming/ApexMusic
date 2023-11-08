@@ -39,7 +39,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/playerQueueSheet"
-                    style="@style/BottomSheetStyle"
+                    style="@style/BottomSheetStyleQueue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:shapeAppearanceOverlay="@style/NPSCornerCardView"

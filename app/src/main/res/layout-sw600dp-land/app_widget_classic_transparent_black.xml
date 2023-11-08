@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="2dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:id="@+id/media_actions"
@@ -36,7 +36,8 @@
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
             android:orientation="horizontal"
-            android:layout_marginEnd="20dp">
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="10dp">
 
             <ImageButton
                 android:id="@+id/button_prev"
@@ -44,6 +45,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
+                android:scaleType="fitStart"
                 tools:src="@drawable/ic_skip_previous_outline"
                 tools:tint="@color/ate_secondary_text_dark" />
 
@@ -63,6 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
+                android:scaleType="fitEnd"
                 tools:src="@drawable/ic_skip_next_outline"
                 tools:tint="@color/ate_secondary_text_dark" />
 
@@ -74,11 +77,20 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_height="wrap_content"
             android:layout_above="@id/media_actions"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
             android:progressTint="@color/md_black_1000"/>
+
+        <ImageButton
+            android:id="@+id/button_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/widget_selector"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_refresh"
+            tools:tint="@color/ate_secondary_text_dark" />
 
         <LinearLayout
             android:id="@+id/media_titles"
@@ -86,8 +98,9 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/progress_bar"
             android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/button_update"
             android:orientation="vertical"
-            android:paddingStart="8dp"
+            android:paddingStart="0dp"
             android:paddingTop="4dp"
             android:paddingEnd="8dp">
 
@@ -96,10 +109,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewSubtitle3"
                 android:textColor="@color/md_white_1000"
+                android:textAlignment="center"
                 tools:text="Title" />
 
             <TextView
@@ -107,11 +120,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingTop="4dp"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewNormal3"
+                android:textAppearance="@style/TextViewSubtitle3"
                 android:textColor="@color/md_white_1000"
+                android:textAlignment="center"
                 tools:text="Text" />
         </LinearLayout>
     </RelativeLayout>

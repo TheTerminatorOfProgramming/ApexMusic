@@ -33,6 +33,7 @@ import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ATHUtil
+import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
 
@@ -118,8 +119,15 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
                 lastDisabledPlaybackControlsColor =
                     MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
             }
-            context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_white_1000)) }
-            context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_white_1000)) }
+
+            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+            if (ColorUtil.isColorLight(colorBg)) {
+                context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_black_1000)) }
+                context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_black_1000)) }
+            }else {
+                context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_white_1000)) }
+                context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_white_1000)) }
+            }
         }
 
         updateRepeatState()

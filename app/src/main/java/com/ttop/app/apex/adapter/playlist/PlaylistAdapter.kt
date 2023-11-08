@@ -86,7 +86,7 @@ class PlaylistAdapter(
         return MusicUtil.getPlaylistInfoString(activity, playlist.songs.toSongs())
     }
 
-    override fun getPopupText(position: Int): String {
+    override fun getPopupText(view: View, position: Int): String {
         val sectionName: String = when (PreferenceUtil.playlistSortOrder) {
             PlaylistSortOrder.PLAYLIST_A_Z, PlaylistSortOrder.PLAYLIST_Z_A -> dataSet[position].playlistEntity.playlistName
             PlaylistSortOrder.PLAYLIST_SONG_COUNT, PlaylistSortOrder.PLAYLIST_SONG_COUNT_DESC -> dataSet[position].songs.size.toString()

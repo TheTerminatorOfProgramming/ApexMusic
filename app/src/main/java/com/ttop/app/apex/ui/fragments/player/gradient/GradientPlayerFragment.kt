@@ -164,6 +164,16 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             insets
         }
         binding.playbackControlsFragment.root.drawAboveSystemBars()
+
+        binding.queueIcon.setOnClickListener {
+            if (binding.playerQueueSheet.visibility == View.VISIBLE) {
+                if (playingQueueAdapter?.getButtonsActivate() == true) {
+                    playingQueueAdapter?.setButtonsActivate(false)
+                }else {
+                    playingQueueAdapter?.setButtonsActivate(true)
+                }
+            }
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")

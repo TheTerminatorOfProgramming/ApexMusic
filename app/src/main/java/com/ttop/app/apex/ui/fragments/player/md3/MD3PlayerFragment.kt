@@ -30,6 +30,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -220,6 +221,16 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
             }
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
+                return true
+            }
+            R.id.action_reorder -> {
+                if (binding.playerQueueSheet.visibility == View.VISIBLE) {
+                    if (playingQueueAdapter?.getButtonsActivate() == true) {
+                        playingQueueAdapter?.setButtonsActivate(false)
+                    }else {
+                        playingQueueAdapter?.setButtonsActivate(true)
+                    }
+                }
                 return true
             }
             R.id.action_delete_from_device -> {

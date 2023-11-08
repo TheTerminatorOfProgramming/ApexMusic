@@ -201,13 +201,19 @@
         <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
     </style>
 
-    <style name="BottomSheetStyle" parent="Widget.Material3.BottomSheet">
+    <style name="BottomSheetStyleQueue" parent="Widget.Material3.BottomSheet">
         <item name="paddingBottomSystemWindowInsets">false</item>
         <item name="android:maxWidth">@empty</item>
         <item name="shapeAppearance">?attr/shapeAppearanceCornerMedium</item>
     </style>
 
-    <style name="BottomSheetStyleLand" parent="Widget.Material3.BottomSheet">
+    <style name="BottomSheetStyleRounded" parent="Widget.Material3.BottomSheet">
+        <item name="paddingBottomSystemWindowInsets">false</item>
+        <item name="android:maxWidth">@empty</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceCornerMedium</item>
+    </style>
+
+    <style name="BottomSheetStyleFlat" parent="Widget.Material3.BottomSheet">
         <item name="paddingBottomSystemWindowInsets">false</item>
         <item name="android:maxWidth">@empty</item>
         <item name="shapeAppearance">?attr/shapeAppearanceOverlay</item>

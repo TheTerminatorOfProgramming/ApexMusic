@@ -38,6 +38,7 @@
     <string name="action_remove_from_playing_queue">বাজানো সারি থেকে সরান</string>
     <string name="action_remove_from_playlist">প্লেলিস্ট থেকে সরান</string>
     <string name="action_rename">নাম পরিবর্তন করুন</string>
+    <string name="action_reorder">রি-অর্ডার টগল করুন</string>
     <string name="action_rewind">10 সেকেন্ড রিওয়াইন্ড করুন</string>
     <string name="action_save_playing_queue">খেলার সারি সংরক্ষণ করুন</string>
     <string name="action_scan">স্ক্যান</string>
@@ -267,6 +268,7 @@
     <string name="md_storage_perm_error">অনুমতি ত্রুটি</string>
     <string name="message_backup_create_success">ব্যাকআপ সফলভাবে তৈরি করা হয়েছে।</string>
     <string name="message_limit_tabs">9 টির বেশি আইটেম অনুমোদিত নয়</string>
+    <string name="message_limit_tabs_limit">5 টির বেশি আইটেম অনুমোদিত নয়</string>
     <string name="message_restore_success">পুনরুদ্ধার সফলভাবে সম্পন্ন হয়েছে।</string>
     <string name="message_updated">আপডেট করা হয়েছে</string>
     <string name="message_welcome"><![CDATA[হ্যালো সেখানে! <br>%s এ স্বাগতম]]></string>

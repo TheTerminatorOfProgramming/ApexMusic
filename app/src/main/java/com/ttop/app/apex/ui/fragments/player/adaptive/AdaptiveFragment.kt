@@ -25,6 +25,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -147,6 +148,16 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             }
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
+                return true
+            }
+            R.id.action_reorder -> {
+                if (binding.playerQueueSheet.visibility == View.VISIBLE) {
+                    if (playingQueueAdapter?.getButtonsActivate() == true) {
+                        playingQueueAdapter?.setButtonsActivate(false)
+                    }else {
+                        playingQueueAdapter?.setButtonsActivate(true)
+                    }
+                }
                 return true
             }
             R.id.action_delete_from_device -> {

@@ -36,7 +36,7 @@
 
     <FrameLayout
         android:id="@+id/slidingPanel"
-        style="@style/BottomSheetStyleLand"
+        style="@style/BottomSheetStyleFlat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:behavior_hideable="true"

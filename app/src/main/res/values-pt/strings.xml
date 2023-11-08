@@ -38,6 +38,7 @@
     <string name="action_remove_from_playing_queue">Remover da fila de reprodução</string>
     <string name="action_remove_from_playlist">Remover da lista de reprodução</string>
     <string name="action_rename">Renomear</string>
+    <string name="action_reorder">Alternar reordenar</string>
     <string name="action_rewind">Rebobinar 10s</string>
     <string name="action_save_playing_queue">Salvar fila de reprodução</string>
     <string name="action_scan">Varredura</string>
@@ -267,6 +268,7 @@
     <string name="md_storage_perm_error">erro de permissão</string>
     <string name="message_backup_create_success">Backup criado com sucesso.</string>
     <string name="message_limit_tabs">Não são permitidas mais de 9 guias</string>
+    <string name="message_limit_tabs_limit">Não são permitidas mais de 5 guias</string>
     <string name="message_restore_success">Restauração concluída com sucesso.</string>
     <string name="message_updated">Atualizada</string>
     <string name="message_welcome"><![CDATA[Olá! <br>Bem-vindo a %s]]></string>

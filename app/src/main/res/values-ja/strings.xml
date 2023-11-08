@@ -38,6 +38,7 @@
     <string name="action_remove_from_playing_queue">再生キューから削除</string>
     <string name="action_remove_from_playlist">プレイリストから削除</string>
     <string name="action_rename">名前の変更</string>
+    <string name="action_reorder">並べ替えの切り替え</string>
     <string name="action_rewind">10秒巻き戻し</string>
     <string name="action_save_playing_queue">再生キューを保存する</string>
     <string name="action_scan">スキャン</string>
@@ -265,6 +266,7 @@
     <string name="md_storage_perm_error">許可エラー</string>
     <string name="message_backup_create_success">バックアップが正常に作成されました。</string>
     <string name="message_limit_tabs">9 個を超えるアイテムは許可されません</string>
+    <string name="message_limit_tabs_limit">5 個を超えるアイテムは許可されません</string>
     <string name="message_restore_success">復元が正常に完了しました。</string>
     <string name="message_updated">更新しました</string>
     <string name="message_welcome"><![CDATA[こんにちは！ <br>%s へようこそ]]></string>

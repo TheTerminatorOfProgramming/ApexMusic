@@ -95,6 +95,13 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val limitCategories: TwoStatePreference? = findPreference(LIMIT_CATEGORIES)
+        limitCategories?.isChecked = PreferenceUtil.isLimitCategories
+        limitCategories?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

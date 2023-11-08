@@ -138,6 +138,16 @@ class SimplePlayerFragment : AbsPlayerFragment(R.layout.fragment_simple_player) 
                 NavigationUtil.gotoDriveMode(requireActivity())
                 return true
             }
+            R.id.action_reorder -> {
+                if (binding.playerQueueSheet.visibility == View.VISIBLE) {
+                    if (playingQueueAdapter?.getButtonsActivate() == true) {
+                        playingQueueAdapter?.setButtonsActivate(false)
+                    }else {
+                        playingQueueAdapter?.setButtonsActivate(true)
+                    }
+                }
+                return true
+            }
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(song).show(childFragmentManager, "DELETE_SONGS")
                 return true

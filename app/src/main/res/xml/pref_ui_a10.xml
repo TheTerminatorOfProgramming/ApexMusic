@@ -105,6 +105,14 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_appbar_mode"
             app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="show_scrollbar"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_show_scrollbar"
+            android:title="@string/pref_title_show_scrollbar"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"

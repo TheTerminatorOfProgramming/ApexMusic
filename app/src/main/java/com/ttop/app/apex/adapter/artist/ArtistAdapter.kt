@@ -151,7 +151,7 @@ class ArtistAdapter(
         return songs
     }
 
-    override fun getPopupText(position: Int): String {
+    override fun getPopupText(view: View, position: Int): String {
         return getSectionName(position)
     }
 

@@ -1134,13 +1134,15 @@ object PreferenceUtil {
     val isCustomFontBold
         get() = sharedPreferences.getBoolean(CUSTOM_FONT_BOLD, false)
 
-    var navigationItemsCount
-        get() = sharedPreferences.getInt(
-            NAVIGATION_ITEMS_COUNT, 5
+    val isLimitCategories
+        get() = sharedPreferences.getBoolean(
+            LIMIT_CATEGORIES, true
         )
 
-        set(value) = sharedPreferences.edit {
-            putInt(NAVIGATION_ITEMS_COUNT, value)}
+    val isShowScrollbar
+        get() = sharedPreferences.getBoolean(
+            SHOW_SCROLLBAR, true
+        )
 }
 
 enum class CoverLyricsType {

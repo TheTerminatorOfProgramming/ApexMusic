@@ -229,11 +229,21 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 e.printStackTrace()
             }
         } else {
-            try {
+            //Preview
+            /*try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
                 ).versionName + " Google Play Edition"
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+            }*/
+            //Release Candidate
+            try {
+                return requireContext().packageManager.getPackageInfo(
+                    requireContext().packageName,
+                    0
+                ).versionName + " Google Play Edition Release Candidate 01"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }

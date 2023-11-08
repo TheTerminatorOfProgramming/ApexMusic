@@ -235,6 +235,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         val tf = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
         val formattedTime = tf.format(c)
         if (BuildConfig.BUILD_TYPE.equals("beta") || BuildConfig.DEBUG) {
+            //BETA
             try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
@@ -244,11 +245,21 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 e.printStackTrace()
             }
         } else {
-            try {
+            //Preview
+            /*try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
                 ).versionName + " " + getString(R.string.github_edition)
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+            }*/
+            //Release Candidate
+            try {
+                return requireContext().packageManager.getPackageInfo(
+                    requireContext().packageName,
+                    0
+                ).versionName + " " + getString(R.string.github_edition) + " Release Candidate 01"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }

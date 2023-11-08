@@ -45,6 +45,10 @@ class TintedNavigationRailView @JvmOverloads constructor(
     }
 
     override fun getMaxItemCount(): Int {
-        return 9
+        return if (PreferenceUtil.isLimitCategories) {
+            5
+        }else {
+            9
+        }
     }
 }

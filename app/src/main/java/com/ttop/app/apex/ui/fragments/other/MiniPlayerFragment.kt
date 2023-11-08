@@ -26,18 +26,17 @@ import android.view.GestureDetector
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMiniPlayerBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
-import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
@@ -49,7 +48,6 @@ import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlin.math.abs
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
@@ -88,7 +86,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMiniPlayerBinding.bind(view)
 
-        binding.imageTextContainer.radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, context?.resources?.displayMetrics)
+        //binding.imageTextContainer.radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, context?.resources?.displayMetrics)
 
         if (PreferenceUtil.progressBarStyle){
             if (PreferenceUtil.progressBarAlignment){
@@ -171,10 +169,9 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
         Glide.with(requireContext())
             .load(ApexGlideExtension.getSongModel(song))
-            .circleCrop()
             .transition(ApexGlideExtension.getDefaultTransition())
             .songCoverOptions(song)
-            .into(binding.image)
+            .into(binding.image as ImageView)
     }
 
     override fun onServiceConnected() {

@@ -24,7 +24,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
-        style="@style/BottomSheetStyle"
+        style="@style/BottomSheetStyleQueue"
         android:layout_width="match_parent"
         android:layout_height="375dp"
         app:cardCornerRadius="0dp"

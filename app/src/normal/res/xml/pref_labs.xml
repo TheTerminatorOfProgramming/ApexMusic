@@ -42,4 +42,19 @@
         app:dependency="restore_legacy_widgets"
         app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_labs_other_options"
+        app:isPreferenceVisible="true"
+        app:allowDividerBelow="false">
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="limit_categories"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_limit_categories"
+            android:title="@string/pref_title_limit_categories"
+            android:icon="@drawable/ic_library_add"
+            app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

@@ -110,9 +110,9 @@ private class NowPlayingScreenAdapter(private val context: Context) : PagerAdapt
         Glide.with(context).load(nowPlayingScreen.drawableResId).into(binding.image)
         binding.title.setText(nowPlayingScreen.titleRes)
         if (ApexUtil.isTablet) {
-            binding.title.textSize = 30f
+            binding.title.textSize = 28f
         }else {
-            binding.title.textSize = 24f
+            binding.title.textSize = 22f
         }
         return binding.root
     }

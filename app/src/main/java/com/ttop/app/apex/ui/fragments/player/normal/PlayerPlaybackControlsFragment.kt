@@ -114,11 +114,6 @@ class PlayerPlaybackControlsFragment :
                 ColorStateList.valueOf(color.secondaryTextColor)
         } else {
             binding.progressSlider.applyColor(colorFinal)
-            context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_white_1000)) }
-            context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_white_1000)) }
-            context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_white_1000)) }
-            context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_white_1000)) }
-            context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_white_1000)) }
 
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {
@@ -126,11 +121,23 @@ class PlayerPlaybackControlsFragment :
                     MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
                 lastDisabledPlaybackControlsColor =
                     MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
+
+                context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_black_1000)) }
+                context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_black_1000)) }
+                context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_black_1000)) }
+                context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_black_1000)) }
+                context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_black_1000)) }
             } else {
                 lastPlaybackControlsColor =
                     MaterialValueHelper.getPrimaryTextColor(requireContext(), false)
                 lastDisabledPlaybackControlsColor =
                     MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
+
+                context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_white_1000)) }
+                context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_white_1000)) }
+                context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_white_1000)) }
+                context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_white_1000)) }
+                context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_white_1000)) }
             }
 
             TintHelper.setTintAuto(

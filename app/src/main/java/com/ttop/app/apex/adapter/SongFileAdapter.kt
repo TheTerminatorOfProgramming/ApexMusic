@@ -137,7 +137,7 @@ class SongFileAdapter(
         iCallbacks.onMultipleItemAction(menuItem, selection as ArrayList<File>)
     }
 
-    override fun getPopupText(position: Int): String {
+    override fun getPopupText(view: View, position: Int): String {
         return if (position >= dataSet.lastIndex) "" else getSectionName(position)
     }
 

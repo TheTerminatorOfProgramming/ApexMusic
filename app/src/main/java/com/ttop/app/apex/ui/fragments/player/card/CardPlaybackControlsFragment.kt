@@ -171,9 +171,14 @@ class CardPlaybackControlsFragment :
     }
 
     private fun updateProgressTextColor() {
-        val color = MaterialValueHelper.getPrimaryTextColor(context, false)
-        binding.songTotalTime.setTextColor(color)
-        binding.songCurrentProgress.setTextColor(color)
+        val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+        if (ColorUtil.isColorLight(colorBg)) {
+            binding.songTotalTime.setTextColor(resources.getColor(R.color.md_black_1000))
+            binding.songCurrentProgress.setTextColor(resources.getColor(R.color.md_black_1000))
+        }else {
+            binding.songTotalTime.setTextColor(resources.getColor(R.color.md_white_1000))
+            binding.songCurrentProgress.setTextColor(resources.getColor(R.color.md_white_1000))
+        }
     }
 
     public override fun show() {}
