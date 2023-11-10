@@ -329,6 +329,8 @@
     <string name="personalize_settings_summary">Personalize sua biblioteca e tela de bloqueio</string>
     <string name="pick_from_local_storage">Escolha no armazenamento local</string>
     <string name="plain">Simples</string>
+    <string name="play_store_edition">Edição da Play Store</string>
+    <string name="play_store_edition_debug">Edição da Play Store: Construir</string>
     <string name="playlist_name_empty_cant">O nome da lista de reprodução não pode estar vazio</string>
     <string name="playlist_name_empty_shouldnt">O nome da lista de reprodução não deve estar vazio</string>
     <string name="playback_pitch">Tom</string>
@@ -378,10 +380,11 @@
     <string name="pref_summary_bluetooth_playback">Comece a jogar assim que conectado ao dispositivo bluetooth</string>
     <string name="pref_summary_bluetooth_volume">Defina um volume específico quando a reprodução automática do bluetooth estiver conectada</string>
     <string name="pref_summary_blurred_album_art">Desfoque a capa do álbum na tela de bloqueio e use os controles de mídia do OS. Pode causar problemas com aplicativos e widgets de terceiros</string>
-    <string name="pref_summary_bold_font">Use fonte em negrito se a fonte selecionada suportar</string>
+    <string name="pref_summary_bold_font">Negrito a fonte selecionada</string>
     <string name="pref_summary_carousel_effect">Efeito carrossel para a capa do álbum na tela de reprodução. Observe que os temas Card e Blur Card não funcionarão</string>
     <string name="pref_summary_circle_button">Substitua o botão de reprodução quadrado arredondado padrão por um botão de reprodução circular nos temas nps</string>
     <string name="pref_summary_classic_notification">Use o design de notificação clássico</string>
+    <string name="pref_summary_color_animate">Aplique uma animação ao mudar de música na fila de reprodução</string>
     <string name="pref_summary_colored_app">As cores do plano de fundo e dos botões de controle mudam de acordo com a capa do álbum na tela de reprodução</string>
     <string name="pref_summary_colored_app_shortcuts">Colore os atalhos do aplicativo na cor de destaque. Toda vez que você alterar a cor, alterne isso para entrar em vigor</string>
     <string name="pref_summary_colored_notification">Colore a notificação na cor vibrante da capa do álbum</string>
@@ -392,6 +395,7 @@
     <string name="pref_summary_expand_now_playing_panel">Clicar na notificação mostrará agora a tela de reprodução em vez da tela inicial</string>
     <string name="pref_summary_extended_accent">Aplique a cor de destaque ao texto do cabeçalho</string>
     <string name="pref_summary_extra_controls">Adicione controles extras para mini player</string>
+    <string name="pref_summary_extra_controls_foldable">Adicione controles extras para o mini player na tela externa</string>
     <string name="pref_summary_extra_song_info">Mostrar informações extras da música, como formato de arquivo, taxa de bits e frequência</string>
     <string name="pref_summary_font_size">Defina o tamanho da fonte</string>
     <string name="pref_summary_gapless_playback">Pode causar problemas de reprodução em alguns dispositivos.</string>
@@ -441,6 +445,7 @@
     <string name="pref_title_bold_font">Negrito</string>
     <string name="pref_title_circle_button">Botão Reproduzir Circular</string>
     <string name="pref_title_classic_notification">Design clássico de notificação</string>
+    <string name="pref_title_color_animate">Animação colorida</string>
     <string name="pref_title_colored_app">Cor adaptável</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_cross_fade">Crossfade</string>
@@ -476,7 +481,8 @@
     <string name="pref_title_player_background">Fundo gradiente</string>
     <string name="pref_title_progress_bar_alignment">Alinhamento da Barra de Progresso</string>
     <string name="pref_title_progress_bar_style">Estilo da barra de progresso</string>
-    <string name="pref_title_queue_style">Agora jogando estilo de fila</string>
+    <string name="pref_title_queue_style">Em reprodução no estilo fila (retrato)</string>
+    <string name="pref_title_queue_style_land">Em reprodução no estilo fila (paisagem)</string>
     <string name="pref_title_remember_tab">Lembrar última guia</string>
     <string name="pref_title_replace_progressbar">Mostrar barra de progresso</string>
     <string name="pref_title_restore_big_widget">Grande Widget</string>

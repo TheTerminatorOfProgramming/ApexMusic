@@ -146,20 +146,11 @@
             android:title="@string/pref_title_dismiss_failsafe"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:icon="@drawable/ic_play_arrow"
-            app:key="toggle_add_controls"
-            app:summary="@string/pref_summary_extra_controls_foldable"
-            app:title="@string/pref_title_extra_controls"
-            app:allowDividerBelow="false"/>
-
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="off"
             android:key="toggle_mini_swipe"
-            android:entries="@array/pref_swipe_gestures_foldable_titles"
-            android:entryValues="@array/pref_swipe_gestures_foldable_values"
+            android:entries="@array/pref_swipe_gestures_tab_titles"
+            android:entryValues="@array/pref_swipe_gestures_tab_values"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:layout="@layout/list_item_view"

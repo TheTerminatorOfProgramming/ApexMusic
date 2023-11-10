@@ -57,8 +57,8 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
         android:defaultValue="duo"
-        android:entries="@array/pref_queue_style_foldable_titles"
-        android:entryValues="@array/pref_queue_style_foldable_values"
+        android:entries="@array/pref_queue_style_tab_titles"
+        android:entryValues="@array/pref_queue_style_tab_values"
         android:key="queue_style"
         android:layout="@layout/list_item_view"
         android:title="@string/pref_title_queue_style"
@@ -76,8 +76,8 @@
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
         android:defaultValue="off"
         android:key="swipe_anywhere_now_playing"
-        android:entries="@array/pref_swipe_anywhere_foldable_titles"
-        android:entryValues="@array/pref_swipe_anywhere_foldable_values"
+        android:entries="@array/pref_swipe_anywhere_tab_titles"
+        android:entryValues="@array/pref_swipe_anywhere_tab_values"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:layout="@layout/list_item_view"

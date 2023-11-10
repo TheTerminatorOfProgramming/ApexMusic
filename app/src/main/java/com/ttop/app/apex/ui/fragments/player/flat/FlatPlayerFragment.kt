@@ -27,6 +27,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.animation.doOnEnd
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -309,8 +310,18 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
             toolbarIconColor(),
             requireActivity()
         )
+
         if (PreferenceUtil.isAdaptiveColor) {
             colorize(color.backgroundColor)
+
+            if (PreferenceUtil.isColorAnimate) {
+                val animator =
+                    binding.colorGradientBackground?.let { controlsFragment.createRevealAnimator(it) }
+                animator?.doOnEnd {
+                    _binding?.root?.setBackgroundColor(color.backgroundColor)
+                }
+                animator?.start()
+            }
         }
 
         playingQueueAdapter?.setTextColor(color.secondaryTextColor)
@@ -328,39 +339,76 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = if (ApexUtil.isTablet){
-            when (PreferenceUtil.queueStyle) {
-                "normal" -> {
-                    PlayingQueueAdapter(
-                        requireActivity() as AppCompatActivity,
-                        MusicPlayerRemote.playingQueue.toMutableList(),
-                        MusicPlayerRemote.position,
-                        R.layout.item_queue_player_plain
-                    )
+        playingQueueAdapter = if (ApexUtil.isTablet) {
+            if(ApexUtil.isLandscape) {
+                when (PreferenceUtil.queueStyleLand) {
+                    "normal" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
+                    "duo" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_duo
+                        )
+                    }
+                    "trio" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_trio
+                        )
+                    }
+                    else -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
                 }
-                "duo" -> {
-                    PlayingQueueAdapter(
-                        requireActivity() as AppCompatActivity,
-                        MusicPlayerRemote.playingQueue.toMutableList(),
-                        MusicPlayerRemote.position,
-                        R.layout.item_queue_duo
-                    )
-                }
-                "trio" -> {
-                    PlayingQueueAdapter(
-                        requireActivity() as AppCompatActivity,
-                        MusicPlayerRemote.playingQueue.toMutableList(),
-                        MusicPlayerRemote.position,
-                        R.layout.item_queue_trio
-                    )
-                }
-                else -> {
-                    PlayingQueueAdapter(
-                        requireActivity() as AppCompatActivity,
-                        MusicPlayerRemote.playingQueue.toMutableList(),
-                        MusicPlayerRemote.position,
-                        R.layout.item_queue_player_plain
-                    )
+            }else {
+                when (PreferenceUtil.queueStyle) {
+                    "normal" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
+                    "duo" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_duo
+                        )
+                    }
+                    "trio" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_trio
+                        )
+                    }
+                    else -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
                 }
             }
         }else {

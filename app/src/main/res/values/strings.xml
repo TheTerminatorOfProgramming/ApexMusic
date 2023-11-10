@@ -331,6 +331,8 @@
     <string name="personalize_settings_summary">Customize your library and lockscreen</string>
     <string name="pick_from_local_storage">Pick from local storage</string>
     <string name="plain">Plain</string>
+    <string name="play_store_edition">Play Store Edition</string>
+    <string name="play_store_edition_debug">Play Store Edition: Build</string>
     <string name="playlist_name_empty_cant">Playlist name can\'t be empty</string>
     <string name="playlist_name_empty_shouldnt">Playlist name should\'nt be empty</string>
     <string name="playback_pitch">Pitch</string>
@@ -380,10 +382,11 @@
     <string name="pref_summary_bluetooth_playback">Start playing as soon as connected to bluetooth device</string>
     <string name="pref_summary_bluetooth_volume">Set a specific volume when bluetooth autoplay is connected</string>
     <string name="pref_summary_blurred_album_art">Blur the album cover on the lockscreen and wearOS media controls. Can cause problems with third party apps and widgets</string>
-    <string name="pref_summary_bold_font">Use bold font if selected font supports it</string>
+    <string name="pref_summary_bold_font">Bold the selected font</string>
     <string name="pref_summary_carousel_effect">Carousel effect for the album art in the now playing screen. Note that Card and Blur Card themes won\'t work</string>
     <string name="pref_summary_circle_button">Replace the default rounded square play button with a circular play button in nps themes</string>
     <string name="pref_summary_classic_notification">Use the classic notification design</string>
+    <string name="pref_summary_color_animate">Apply an animation when changing song in the playing queue</string>
     <string name="pref_summary_colored_app">The background and control button colors change according to the album art from the now playing screen</string>
     <string name="pref_summary_colored_app_shortcuts">Colors the app shortcuts in the accent color. Every time you change the color please toggle this to take effect</string>
     <string name="pref_summary_colored_notification">"Colors the notification in the album cover\u2019s vibrant color"</string>
@@ -394,6 +397,7 @@
     <string name="pref_summary_expand_now_playing_panel">Clicking on the notification will show now playing screen instead of the home screen</string>
     <string name="pref_summary_extended_accent">Apply the accent color to the header text</string>
     <string name="pref_summary_extra_controls">Add extra controls for mini player</string>
+    <string name="pref_summary_extra_controls_foldable">Add extra controls for mini player on cover display</string>
     <string name="pref_summary_extra_song_info">Show extra Song information, such as file format, bitrate and frequency</string>
     <string name="pref_summary_font_size">Set the font size</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
@@ -445,6 +449,7 @@
     <string name="pref_title_bold_font">Bold Font</string>
     <string name="pref_title_circle_button">Circular Play Button</string>
     <string name="pref_title_classic_notification">Classic Notification Design</string>
+    <string name="pref_title_color_animate">Color Animation</string>
     <string name="pref_title_colored_app">Adaptive Color</string>
     <string name="pref_title_colored_notification">Colored Notification</string>
     <string name="pref_title_cross_fade">Crossfade</string>
@@ -481,7 +486,8 @@
     <string name="pref_title_player_background">Gradient Background</string>
     <string name="pref_title_progress_bar_alignment">Progress Bar Alignment</string>
     <string name="pref_title_progress_bar_style">Progress Bar Style</string>
-    <string name="pref_title_queue_style">Now Playing Queue Style</string>
+    <string name="pref_title_queue_style">Now Playing Queue Style (Portrait)</string>
+    <string name="pref_title_queue_style_land">Now Playing Queue Style (Landscape)</string>
     <string name="pref_title_remember_tab">Remember Last Tab</string>
     <string name="pref_title_replace_progressbar">Show Progress Bar</string>
     <string name="pref_title_restore_big_widget">Big Widget</string>

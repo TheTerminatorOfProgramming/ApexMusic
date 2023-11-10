@@ -278,7 +278,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     onServiceConnected()
                 }
             }
-            PLAYER_BACKGROUND-> {
+            PLAYER_BACKGROUND,
+            COLOR_ANIMATE-> {
                 if (PreferenceUtil.nowPlayingScreen in listOf(
                         MD3,
                         Normal,
@@ -306,7 +307,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             DISMISS_FAILSAFE,
             LYRICS,
             EMBED_LYRICS,
-            QUEUE_STYLE-> {
+            QUEUE_STYLE,
+            QUEUE_STYLE_LAND,
+            LIMIT_CATEGORIES -> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {

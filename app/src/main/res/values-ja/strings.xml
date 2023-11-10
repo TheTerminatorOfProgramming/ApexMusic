@@ -327,6 +327,8 @@
     <string name="personalize_settings_summary">ライブラリとロック画面をカスタマイズする</string>
     <string name="pick_from_local_storage">ローカル ストレージから選択する</string>
     <string name="plain">無地</string>
+    <string name="play_store_edition">Playストア版</string>
+    <string name="play_store_edition_debug">Play ストア エディション: ビルド</string>
     <string name="playlist_name_empty_cant">プレイリスト名を空にすることはできません</string>
     <string name="playlist_name_empty_shouldnt">プレイリスト名を空にすることはできません</string>
     <string name="playback_pitch">ピッチ</string>
@@ -376,10 +378,11 @@
     <string name="pref_summary_bluetooth_playback">Bluetoothデバイスに接続するとすぐに再生を開始します</string>
     <string name="pref_summary_bluetooth_volume">Bluetooth 自動再生が接続されているときに特定の音量を設定する</string>
     <string name="pref_summary_blurred_album_art">ロック画面とwearOSメディアコントロールのアルバムカバーをぼかします。 サードパーティのアプリやウィジェットで問題が発生する可能性がある</string>
-    <string name="pref_summary_bold_font">選択したフォントが太字フォントをサポートしている場合は太字フォントを使用します</string>
+    <string name="pref_summary_bold_font">選択したフォントを太字にします</string>
     <string name="pref_summary_carousel_effect">再生中の画面のアルバム アートのカルーセル効果。 Card テーマと Blur Card テーマは機能しないことに注意してください</string>
     <string name="pref_summary_circle_button">NPS テーマのデフォルトの丸い正方形の再生ボタンを円形の再生ボタンに置き換えます</string>
     <string name="pref_summary_classic_notification">クラシックな通知デザインを使用する</string>
+    <string name="pref_summary_color_animate">再生キュー内の曲を変更するときにアニメーションを適用する</string>
     <string name="pref_summary_colored_app">再生画面のアルバムアートに合わせて背景とコントロールボタンの色が変わります</string>
     <string name="pref_summary_colored_app_shortcuts">アプリのショートカットをアクセントカラーで彩ります。 色を変更するたびに、これを切り替えて有効にしてください</string>
     <string name="pref_summary_colored_notification">通知をアルバム カバーの鮮やかな色で彩ります</string>
@@ -390,6 +393,7 @@
     <string name="pref_summary_expand_now_playing_panel">通知をクリックすると、ホーム画面の代わりに再生中の画面が表示されます</string>
     <string name="pref_summary_extended_accent">ヘッダーテキストにアクセントカラーを適用する</string>
     <string name="pref_summary_extra_controls">ミニプレーヤーに追加のコントロールを追加する</string>
+    <string name="pref_summary_extra_controls_foldable">Add extra controls for mini player on cover display</string>
     <string name="pref_summary_extra_song_info">ファイル形式、ビットレート、周波数などの追加の曲情報を表示します</string>
     <string name="pref_summary_font_size">フォントサイズを設定する</string>
     <string name="pref_summary_gapless_playback">一部のデバイスでは再生の問題が発生する可能性があります。</string>
@@ -439,6 +443,7 @@
     <string name="pref_title_bold_font">太字フォント</string>
     <string name="pref_title_circle_button">円形の再生ボタン</string>
     <string name="pref_title_classic_notification">クラシックな通知デザイン</string>
+    <string name="pref_title_color_animate">カラーアニメーション</string>
     <string name="pref_title_colored_app">アダプティブカラー</string>
     <string name="pref_title_colored_notification">色付きの通知</string>
     <string name="pref_title_cross_fade">クロスフェード</string>
@@ -474,7 +479,8 @@
     <string name="pref_title_player_background">グラデーションの背景</string>
     <string name="pref_title_progress_bar_alignment">プログレスバーの配置</string>
     <string name="pref_title_progress_bar_style">プログレスバーのスタイル</string>
-    <string name="pref_title_queue_style">再生中のキュー スタイル</string>
+    <string name="pref_title_queue_style">再生中のキュー スタイル (縦)</string>
+    <string name="pref_title_queue_style_land">再生中のキュー スタイル (横)</string>
     <string name="pref_title_remember_tab">最後のタブを記憶する</string>
     <string name="pref_title_replace_progressbar">プログレスバーを表示</string>
     <string name="pref_title_restore_big_widget">大きなウィジェット</string>

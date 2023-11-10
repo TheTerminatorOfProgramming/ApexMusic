@@ -85,6 +85,24 @@ class PlayerPlaybackControlsFragment :
         }
     }
 
+    fun createRevealAnimator(view: View): Animator {
+        val location = IntArray(2)
+        binding.playPauseButton.getLocationOnScreen(location)
+        val x = (location[0] + binding.playPauseButton.measuredWidth / 2)
+        val y = (location[1] + binding.playPauseButton.measuredHeight / 2)
+        val endRadius = sqrt((x * x + y * y).toFloat())
+        val startRadius =
+            binding.playPauseButton.measuredWidth.coerceAtMost(binding.playPauseButton.measuredHeight)
+        return ViewAnimationUtils.createCircularReveal(
+            view, x, y, startRadius.toFloat(),
+            endRadius
+        ).apply {
+            duration = 300
+            interpolator = AccelerateInterpolator()
+        }
+
+    }
+
     override fun setColor(color: MediaNotificationProcessor) {
         val colorFinal = accentColor().ripAlpha()
 

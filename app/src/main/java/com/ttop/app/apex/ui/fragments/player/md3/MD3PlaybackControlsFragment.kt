@@ -14,8 +14,11 @@
  */
 package com.ttop.app.apex.ui.fragments.player.md3
 
+import android.animation.Animator
 import android.os.Bundle
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
@@ -34,6 +37,7 @@ import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
 import com.ttop.app.apex.views.SquigglyProgress
+import kotlin.math.sqrt
 
 class MD3PlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_md3_player_playback_controls) {
@@ -81,6 +85,24 @@ class MD3PlaybackControlsFragment :
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
+    }
+
+    fun createRevealAnimator(view: View): Animator {
+        val location = IntArray(2)
+        binding.playPauseButton.getLocationOnScreen(location)
+        val x = (location[0] + binding.playPauseButton.measuredWidth / 2)
+        val y = (location[1] + binding.playPauseButton.measuredHeight / 2)
+        val endRadius = sqrt((x * x + y * y).toFloat())
+        val startRadius =
+            binding.playPauseButton.measuredWidth.coerceAtMost(binding.playPauseButton.measuredHeight)
+        return ViewAnimationUtils.createCircularReveal(
+            view, x, y, startRadius.toFloat(),
+            endRadius
+        ).apply {
+            duration = 300
+            interpolator = AccelerateInterpolator()
+        }
+
     }
 
     override fun setColor(color: MediaNotificationProcessor) {

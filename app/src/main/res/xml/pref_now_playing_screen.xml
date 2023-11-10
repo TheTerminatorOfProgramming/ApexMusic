@@ -40,19 +40,19 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
+        android:key="color_animate"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_color_animate"
+        android:title="@string/pref_title_color_animate"
+        android:dependency="adaptive_color_app"
+        app:allowDividerBelow="false"/>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
         android:key="circle_play_button"
         android:layout="@layout/list_item_view_switch"
         android:title="@string/pref_title_circle_button"
         android:summary="@string/pref_summary_circle_button"
-        app:allowDividerBelow="false"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-        android:defaultValue="normal"
-        android:entries="@array/pref_queue_style_titles"
-        android:entryValues="@array/pref_queue_style_values"
-        android:key="queue_style"
-        android:layout="@layout/list_item_view"
-        android:title="@string/pref_title_queue_style"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference

@@ -14,8 +14,11 @@
  */
 package com.ttop.app.apex.ui.fragments.player.flat
 
+import android.animation.Animator
 import android.os.Bundle
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -35,6 +38,7 @@ import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
+import kotlin.math.sqrt
 
 class FlatPlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_flat_player_playback_controls), Callback {
@@ -76,6 +80,24 @@ class FlatPlaybackControlsFragment :
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
         }
+    }
+
+    fun createRevealAnimator(view: View): Animator {
+        val location = IntArray(2)
+        binding.playPauseButton.getLocationOnScreen(location)
+        val x = (location[0] + binding.playPauseButton.measuredWidth / 2)
+        val y = (location[1] + binding.playPauseButton.measuredHeight / 2)
+        val endRadius = sqrt((x * x + y * y).toFloat())
+        val startRadius =
+            binding.playPauseButton.measuredWidth.coerceAtMost(binding.playPauseButton.measuredHeight)
+        return ViewAnimationUtils.createCircularReveal(
+            view, x, y, startRadius.toFloat(),
+            endRadius
+        ).apply {
+            duration = 300
+            interpolator = AccelerateInterpolator()
+        }
+
     }
 
     public override fun show() {

@@ -224,7 +224,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + " Google Play Edition: Build " + formattedDate + "_" + formattedTime
+                ).versionName + " " + getString(R.string.play_store_edition_debug) +  " " + formattedDate + "_" + formattedTime
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
@@ -243,7 +243,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + " Google Play Edition Release Candidate 01"
+                ).versionName + " " + getString(R.string.play_store_edition) + " Release Candidate 02"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }

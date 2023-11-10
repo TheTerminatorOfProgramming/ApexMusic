@@ -14,9 +14,12 @@
  */
 package com.ttop.app.apex.ui.fragments.player.plain
 
+import android.animation.Animator
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -35,6 +38,7 @@ import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
+import kotlin.math.sqrt
 
 /**
  * @author Hemanth S (h4h13).
@@ -70,6 +74,24 @@ class PlainPlaybackControlsFragment :
     override fun onPlayStateChanged() {
         updatePlayPauseDrawableState()
         (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
+    }
+
+    fun createRevealAnimator(view: View): Animator {
+        val location = IntArray(2)
+        binding.playPauseButton.getLocationOnScreen(location)
+        val x = (location[0] + binding.playPauseButton.measuredWidth / 2)
+        val y = (location[1] + binding.playPauseButton.measuredHeight / 2)
+        val endRadius = sqrt((x * x + y * y).toFloat())
+        val startRadius =
+            binding.playPauseButton.measuredWidth.coerceAtMost(binding.playPauseButton.measuredHeight)
+        return ViewAnimationUtils.createCircularReveal(
+            view, x, y, startRadius.toFloat(),
+            endRadius
+        ).apply {
+            duration = 300
+            interpolator = AccelerateInterpolator()
+        }
+
     }
 
     override fun onRepeatModeChanged() {

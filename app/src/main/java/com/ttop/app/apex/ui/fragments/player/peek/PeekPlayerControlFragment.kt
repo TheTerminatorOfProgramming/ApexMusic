@@ -14,10 +14,13 @@
  */
 package com.ttop.app.apex.ui.fragments.player.peek
 
+import android.animation.Animator
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
@@ -36,6 +39,7 @@ import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.TintHelper
+import kotlin.math.sqrt
 
 /**
  * Created by hemanths on 2019-10-04.
@@ -79,6 +83,24 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
     override fun show() {}
 
     override fun hide() {}
+
+    fun createRevealAnimator(view: View): Animator {
+        val location = IntArray(2)
+        binding.playPauseButton.getLocationOnScreen(location)
+        val x = (location[0] + binding.playPauseButton.measuredWidth / 2)
+        val y = (location[1] + binding.playPauseButton.measuredHeight / 2)
+        val endRadius = sqrt((x * x + y * y).toFloat())
+        val startRadius =
+            binding.playPauseButton.measuredWidth.coerceAtMost(binding.playPauseButton.measuredHeight)
+        return ViewAnimationUtils.createCircularReveal(
+            view, x, y, startRadius.toFloat(),
+            endRadius
+        ).apply {
+            duration = 200
+            interpolator = AccelerateInterpolator()
+        }
+
+    }
 
     override fun setColor(color: MediaNotificationProcessor) {
         val controlsColor =

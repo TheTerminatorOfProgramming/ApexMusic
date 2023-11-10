@@ -118,12 +118,21 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
+        colorAnimate?.isChecked = PreferenceUtil.isColorAnimate
+        colorAnimate?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (VersionUtils.hasR()) {
             if (ApexUtil.isFoldable(requireContext())) {
                 addPreferencesFromResource(R.xml.pref_now_playing_screen_foldable)
+            }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
+                addPreferencesFromResource(R.xml.pref_now_playing_screen_tablet)
             }else {
                 addPreferencesFromResource(R.xml.pref_now_playing_screen)
             }
@@ -133,13 +142,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
         newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
-
-        val queue: ATEListPreference? = findPreference(QUEUE_STYLE)
-        if (VersionUtils.hasR()) {
-            queue?.isVisible = ApexUtil.isFoldable(requireContext()) || ApexUtil.isTablet
-        }else {
-            queue?.isVisible = false
-        }
     }
 
     private fun updateAlbumCoverStyleSummary() {

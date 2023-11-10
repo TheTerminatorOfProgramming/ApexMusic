@@ -259,7 +259,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + " " + getString(R.string.github_edition) + " Release Candidate 01"
+                ).versionName + " " + getString(R.string.github_edition) + " Release Candidate 02"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }

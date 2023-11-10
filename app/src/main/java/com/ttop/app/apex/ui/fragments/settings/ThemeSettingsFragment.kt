@@ -30,6 +30,7 @@ import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.extensions.installLanguageAndRecreate
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.resolveColor
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -149,9 +150,27 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val customFont: Preference? = findPreference(CUSTOM_FONT)
-        customFont?.setOnPreferenceChangeListener { _, _ ->
 
+        val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
+        customFontBold?.isChecked = PreferenceUtil.isCustomFontBold
+        customFontBold?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.shouldRecreate = true
+            restartActivity()
+            true
+        }
+
+        val customFont: Preference? = findPreference(CUSTOM_FONT)
+        customFont?.setOnPreferenceChangeListener { _, newValue ->
+            when (newValue as String){
+                "default", "drexs", "hermanoalto", "nothing", "pencil" -> {
+                    customFontBold?.isChecked = false
+                    customFontBold?.isEnabled = false
+                }
+                "barlow", "sans", "jura", "oneui", "samsung" -> {
+                    customFontBold?.isEnabled = true
+                }
+            }
             PreferenceUtil.shouldRecreate = true
             restartActivity()
             true
@@ -204,15 +223,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             restartActivity()
             return@setOnPreferenceChangeListener true
         }
-
-        val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
-        customFontBold?.isChecked = PreferenceUtil.isCustomFontBold
-        customFontBold?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.shouldRecreate = true
-            restartActivity()
-            true
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -241,11 +251,24 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         if (VersionUtils.hasR()) {
             if (ApexUtil.isFoldable(requireContext())) {
                 addPreferencesFromResource(R.xml.pref_general_foldable)
+            }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
+                addPreferencesFromResource(R.xml.pref_general_tablet)
             }else {
                 addPreferencesFromResource(R.xml.pref_general)
             }
         }else {
             addPreferencesFromResource(R.xml.pref_general)
+        }
+
+        val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
+        when (PreferenceUtil.isCustomFont){
+            "default", "drexs", "hermanoalto", "nothing", "pencil" -> {
+                customFontBold?.isChecked = false
+                customFontBold?.isEnabled = false
+            }
+            "barlow", "sans", "jura", "oneui", "samsung" -> {
+                customFontBold?.isEnabled = true
+            }
         }
 
         val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)

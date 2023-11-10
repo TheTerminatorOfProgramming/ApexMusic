@@ -27,6 +27,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.animation.doOnEnd
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -384,6 +385,15 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             binding.title.setTextColor(color.secondaryTextColor)
             binding.artist.setTextColor(color.secondaryTextColor)
             binding.songInfo.setTextColor(color.secondaryTextColor)
+
+            if (PreferenceUtil.isColorAnimate) {
+                val animator =
+                    binding.colorGradientBackground?.let { controlsFragment.createRevealAnimator(it) }
+                animator?.doOnEnd {
+                    _binding?.root?.setBackgroundColor(color.backgroundColor)
+                }
+                animator?.start()
+            }
         }else {
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {

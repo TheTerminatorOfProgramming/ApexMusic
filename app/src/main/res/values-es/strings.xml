@@ -329,6 +329,8 @@
     <string name="personalize_settings_summary">Personaliza tu biblioteca y pantalla de bloqueo</string>
     <string name="pick_from_local_storage">Elegir del almacenamiento local</string>
     <string name="plain">Plano</string>
+    <string name="play_store_edition">Edición de Play Store</string>
+    <string name="play_store_edition_debug">Edición de Play Store: compilación</string>
     <string name="playlist_name_empty_cant">El nombre de la lista de reproducción no puede estar vacío</string>
     <string name="playlist_name_empty_shouldnt">El nombre de la lista de reproducción no debe estar vacío</string>
     <string name="playback_pitch">Paso</string>
@@ -378,10 +380,11 @@
     <string name="pref_summary_bluetooth_playback">Comience a jugar tan pronto como se conecte al dispositivo bluetooth</string>
     <string name="pref_summary_bluetooth_volume">Establezca un volumen específico cuando la reproducción automática de bluetooth esté conectada</string>
     <string name="pref_summary_blurred_album_art">Desenfoca la portada del álbum en la pantalla de bloqueo y los controles multimedia de WearOS. Puede causar problemas con aplicaciones y widgets de terceros</string>
-    <string name="pref_summary_bold_font">Utilice fuente en negrita si la fuente seleccionada lo admite</string>
+    <string name="pref_summary_bold_font">Negrita la fuente seleccionada</string>
     <string name="pref_summary_carousel_effect">Efecto carrusel para la carátula del álbum en la pantalla de reproducción. Tenga en cuenta que los temas Tarjeta y Tarjeta de desenfoque no funcionarán</string>
     <string name="pref_summary_circle_button">Reemplace el botón de reproducción cuadrado redondeado predeterminado con un botón de reproducción circular en temas nps</string>
     <string name="pref_summary_classic_notification">Usa el diseño de notificación clásico</string>
+    <string name="pref_summary_color_animate">Aplicar una animación al cambiar de canción en la cola de reproducción.</string>
     <string name="pref_summary_colored_app">Los colores de fondo y de los botones de control cambian según la carátula del álbum de la pantalla de reproducción actual.</string>
     <string name="pref_summary_colored_app_shortcuts">Colorea los accesos directos de la aplicación en el color de acento. Cada vez que cambie el color, alterne esto para que surta efecto</string>
     <string name="pref_summary_colored_notification">Colorea la notificación en la portada del álbum\u2019s color vibrante</string>
@@ -392,6 +395,7 @@
     <string name="pref_summary_expand_now_playing_panel">Al hacer clic en la notificación, se mostrará la pantalla de reproducción en lugar de la pantalla de inicio.</string>
     <string name="pref_summary_extended_accent">Aplicar el color de acento al texto del encabezado.</string>
     <string name="pref_summary_extra_controls">Agregue controles adicionales para el mini reproductor</string>
+    <string name="pref_summary_extra_controls_foldable">Agregue controles adicionales para el mini reproductor en la pantalla de la portada</string>
     <string name="pref_summary_extra_song_info">Mostrar información adicional de la canción, como formato de archivo, tasa de bits y frecuencia</string>
     <string name="pref_summary_font_size">Establecer el tamaño de fuente</string>
     <string name="pref_summary_gapless_playback">Puede causar problemas de reproducción en algunos dispositivos.</string>
@@ -405,7 +409,7 @@
     <string name="pref_summary_pause_history">Cuando está habilitado, las canciones recién reproducidas no se mostrarán en el historial</string>
     <string name="pref_summary_permissions_edit">Modificar permisos relacionados con esta aplicación</string>
     <string name="pref_summary_player_background">Utilice un degradado como fondo del reproductor en lugar de un solo color (el texto puede ser difícil de leer)</string>
-   <string name="pref_summary_progress_bar_alignment">Mostrar la barra de progreso horizontal en la parte superior del minirreproductor en lugar de la parte inferior</string>
+    <string name="pref_summary_progress_bar_alignment">Mostrar la barra de progreso horizontal en la parte superior del minirreproductor en lugar de la parte inferior</string>
     <string name="pref_summary_progress_bar_color">Establezca el color de la barra de progreso para el clásico &amp; widgets completos</string>
     <string name="pref_summary_progress_bar_style">Mostrar una barra de progreso horizontal en lugar de la barra de progreso circular</string>
     <string name="pref_summary_remember_tab">Navegar a la última pestaña utilizada en el inicio</string>
@@ -441,6 +445,7 @@
     <string name="pref_title_bold_font">Negrita</string>
     <string name="pref_title_circle_button">Botón de reproducción circular</string>
     <string name="pref_title_classic_notification">Diseño de notificación clásico</string>
+    <string name="pref_title_color_animate">Animación en color</string>
     <string name="pref_title_colored_app">Color adaptativo</string>
     <string name="pref_title_colored_notification">Notificación de color</string>
     <string name="pref_title_cross_fade">Fundido cruzado</string>
@@ -476,7 +481,8 @@
     <string name="pref_title_player_background">Fondo degradado</string>
     <string name="pref_title_progress_bar_alignment">Alineación de la barra de progreso</string>
     <string name="pref_title_progress_bar_style">Estilo de barra de progreso</string>
-    <string name="pref_title_queue_style">Estilo de cola de reproducción en curso</string>
+    <string name="pref_title_queue_style">Estilo de cola de reproducción en curso (vertical)</string>
+    <string name="pref_title_queue_style_land">Estilo de cola de reproducción en curso (apaisado)</string>
     <string name="pref_title_remember_tab">Recordar última pestaña</string>
     <string name="pref_title_replace_progressbar">Mostrar barra de progreso</string>
     <string name="pref_title_restore_big_widget">Gran widget</string>

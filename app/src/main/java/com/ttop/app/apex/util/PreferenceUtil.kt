@@ -1107,7 +1107,15 @@ object PreferenceUtil {
 
     var queueStyle
         get() = sharedPreferences.getString(
-            QUEUE_STYLE, "normal"
+            QUEUE_STYLE, "duo"
+        )
+
+        set(value) = sharedPreferences.edit {
+            putString(QUEUE_STYLE, value)}
+
+    var queueStyleLand
+        get() = sharedPreferences.getString(
+            QUEUE_STYLE_LAND, "trio"
         )
 
         set(value) = sharedPreferences.edit {
@@ -1142,6 +1150,11 @@ object PreferenceUtil {
     val isShowScrollbar
         get() = sharedPreferences.getBoolean(
             SHOW_SCROLLBAR, true
+        )
+
+    val isColorAnimate
+        get() = sharedPreferences.getBoolean(
+            COLOR_ANIMATE, false
         )
 }
 

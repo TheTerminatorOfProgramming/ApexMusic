@@ -86,8 +86,6 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMiniPlayerBinding.bind(view)
 
-        //binding.imageTextContainer.radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, context?.resources?.displayMetrics)
-
         if (PreferenceUtil.progressBarStyle){
             if (PreferenceUtil.progressBarAlignment){
                 binding.progressBar.visibility = View.GONE

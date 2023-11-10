@@ -403,6 +403,10 @@ class PlayingQueueAdapter(
         if (PreferenceUtil.queueStyle == "trio") {
             holder.text2?.alpha = alpha
         }
+
+        if(PreferenceUtil.queueStyleLand == "trio") {
+            holder.text2?.alpha = alpha
+        }
         holder.paletteColorContainer?.alpha = alpha
         holder.dragView?.alpha = alpha
         holder.menu?.alpha = alpha
