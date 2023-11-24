@@ -38,6 +38,7 @@ import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.activities.AppIntroActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
+import com.ttop.app.apex.ui.utils.GithubUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -159,8 +160,8 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 }
             }
             R.id.sources_permission -> {
-                if (VersionUtils.hasOreo() && !ApexUtil.checkUnknownSources(requireContext())) {
-                    ApexUtil.enableUnknownSources(requireContext())
+                if (VersionUtils.hasOreo() && !GithubUtils.checkUnknownSources(requireContext())) {
+                    GithubUtils.enableUnknownSources(requireContext())
                 }else {
                     showToast(R.string.permission_granted)
                 }
@@ -246,23 +247,23 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             }
         } else {
             //Preview
-            /*try {
+            try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
                 ).versionName + " " + getString(R.string.github_edition)
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-            }*/
+            }
             //Release Candidate
-            try {
+            /*try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
                 ).versionName + " " + getString(R.string.github_edition) + " Release Candidate 02"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-            }
+            }*/
         }
 
         return getString(R.string.unknown)

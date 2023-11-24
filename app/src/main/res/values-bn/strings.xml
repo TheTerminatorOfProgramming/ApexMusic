@@ -121,7 +121,6 @@
     <string name="clear_playing_queue">সাফ সারি</string>
     <string name="clear_queue">আপনি কি খেলার সারি সাফ করতে চান?</string>
     <string name="close">বন্ধ</string>
-    <string name="color">রঙ</string>
     <string name="color_black">কালো</string>
     <string name="color_blue">নীল</string>
     <string name="color_green">সবুজ</string>
@@ -349,6 +348,7 @@
     <string name="pref_header_advanced">উন্নত</string>
     <string name="pref_header_album">অ্যালবাম শৈলী</string>
     <string name="pref_header_audio">শ্রুতি</string>
+    <string name="pref_header_auto">অ্যান্ড্রয়েড অটো</string>
     <string name="pref_header_blacklist">কালো তালিকা</string>
     <string name="pref_header_bluetooth">ব্লুটুথ</string>
     <string name="pref_header_controls">নিয়ন্ত্রণ করে</string>
@@ -424,6 +424,7 @@
     <string name="pref_summary_synced_lyrics">অ্যালবামের কভারে সিঙ্ক করা গানগুলি প্রদর্শন করুন৷</string>
     <string name="pref_summary_toggle_headset">হেডফোন সংযুক্ত হওয়ার সাথে সাথেই বাজানো শুরু করুন</string>
     <string name="pref_summary_use_new_widget">নতুন বর্গাকার উইজেট ব্যবহার করুন (এটি অবশেষে সম্পূর্ণ উইজেট প্রতিস্থাপন করবে)</string>
+    <string name="pref_summary_use_notification_actions_for_auto">অ্যানড্রয়েড অটো অ্যাকশন হিসেবে বিজ্ঞপ্তি অ্যাকশন ব্যবহার করুন</string>
     <string name="pref_summary_user_name">হোম পেজে ব্যবহারকারীর নাম দেখান বা লুকান</string>
     <string name="pref_summary_wallpaper_accent">ওয়ালপেপার থেকে অ্যাকসেন্ট রঙ বের করুন</string>
     <string name="pref_summary_whitelist">শুধুমাত্র /মিউজিক ফোল্ডার থেকে সঙ্গীত দেখান</string>
@@ -434,6 +435,8 @@
     <string name="pref_title_app_shortcuts">রঙিন অ্যাপ শর্টকাট</string>
     <string name="pref_title_appbar_mode">হেডার স্টাইল</string>
     <string name="pref_title_audio_fade">ফেইড অডিও</string>
+    <string name="pref_title_auto_action_1">অ্যান্ড্রয়েড অটো অ্যাকশন বাম</string>
+    <string name="pref_title_auto_action_2">অ্যান্ড্রয়েড অটো অ্যাকশন রাইট</string>
     <string name="pref_title_auto_download_artist_images">স্বয়ংক্রিয়-ডাউনলোড শিল্পীর ছবি</string>
     <string name="pref_title_auto_play">প্লে স্টেট রাখুন</string>
     <string name="pref_title_auto_rotate">স্ক্রিন ঘূর্ণন</string>
@@ -499,6 +502,7 @@
     <string name="pref_title_toggle_carousel_effect">ক্যারোজেল প্রভাব</string>
     <string name="pref_title_toggle_headset">তারযুক্ত হেডসেট প্লেব্যাক</string>
     <string name="pref_title_use_new_widget">নতুন উইজেট ব্যবহার করুন</string>
+    <string name="pref_title_use_notification_actions_for_auto">বিজ্ঞপ্তি অ্যাকশন ব্যবহার করুন</string>
     <string name="pref_title_user_name">ব্যবহারকারীর নাম</string>
     <string name="pref_title_wallpaper_accent">ওয়ালপেপার অ্যাকসেন্ট রঙ</string>
     <string name="pref_title_whitelist">হোয়াইটলিস্ট সঙ্গীত</string>

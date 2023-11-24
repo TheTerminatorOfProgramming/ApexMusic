@@ -265,7 +265,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 if (PreferenceUtil.nowPlayingScreen in listOf(
                         Adaptive,
                         Card,
-                        Color,
                         Flat,
                         Gradient,
                         MD3,
@@ -461,7 +460,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 navigationBarColor = Color.BLACK
                 setLightStatusBar(false)
                 setLightNavigationBar(true)
-            } else if (nowPlayingScreen == Color || nowPlayingScreen == Tiny || nowPlayingScreen == Gradient) {
+            } else if (nowPlayingScreen == Tiny || nowPlayingScreen == Gradient) {
                 animateNavigationBarColor(paletteColor)
                 navigationBarColor = paletteColor
                 setLightNavigationBar(isColorLight)
@@ -599,7 +598,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             Card -> CardFragment()
             Flat -> FlatPlayerFragment()
             Plain -> PlainPlayerFragment()
-            Color -> ColorFragment()
             Gradient -> GradientPlayerFragment()
             Tiny -> TinyPlayerFragment()
             Peek -> PeekPlayerFragment()

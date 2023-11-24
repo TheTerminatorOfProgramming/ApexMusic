@@ -132,13 +132,6 @@ class PlayingQueueAdapter(
                     imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
                 }
             }
-            NowPlayingScreen.Color -> {
-                holder.title?.setTextColor(lastColor) //PreferenceUtil.
-                holder.text?.setTextColor(lastColor)
-                holder.text2?.setTextColor(lastColor)
-                holder.menu?.setColorFilter(lastColor)
-                imageView.setColorFilter(lastColor)
-            }
             NowPlayingScreen.Flat -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     holder.title?.setTextColor(lastColor) //PreferenceUtil.

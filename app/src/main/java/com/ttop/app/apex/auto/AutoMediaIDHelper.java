@@ -25,6 +25,7 @@ public class AutoMediaIDHelper {
     public static final String MEDIA_ID_EMPTY_ROOT = "__EMPTY_ROOT__";
     public static final String MEDIA_ID_ROOT = "__ROOT__";
     public static final String MEDIA_ID_MUSICS_BY_SEARCH = "__BY_SEARCH__";  // TODO
+    public static final String MEDIA_ID_MUSICS_BY_SONGS = "__BY_SONGS__";
     public static final String MEDIA_ID_MUSICS_BY_HISTORY = "__BY_HISTORY__";
     public static final String MEDIA_ID_MUSICS_BY_TOP_TRACKS = "__BY_TOP_TRACKS__";
     public static final String MEDIA_ID_MUSICS_BY_SUGGESTIONS = "__BY_SUGGESTIONS__";

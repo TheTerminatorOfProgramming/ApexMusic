@@ -49,12 +49,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
         _binding = FragmentSettingsBinding.bind(view)
         setupToolbar()
         if (ApexUtil.isTablet) {
-            ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.DpToMargin(0))
+            ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.dpToMargin(0))
         }else {
             if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-                ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.DpToMargin(80))
+                ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.dpToMargin(80))
             }else {
-                ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.DpToMargin(0))
+                ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.dpToMargin(0))
             }
         }
     }

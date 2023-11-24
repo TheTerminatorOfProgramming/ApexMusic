@@ -1,7 +1,5 @@
 package com.ttop.app.apex.ui.fragments.intro
 
-import android.content.ComponentName
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
@@ -12,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
 import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
 class ShuffleSlideFragment : Fragment() {
@@ -27,8 +24,6 @@ class ShuffleSlideFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ApexUtil.initUpdateSettings()
 
         shuffleMode = view.findViewById(R.id.shuffleMode) as SwitchCompat
 

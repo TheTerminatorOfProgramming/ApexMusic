@@ -13,7 +13,7 @@
     </queries>
 
     <application
-        android:name=".App"
+        android:name="com.ttop.app.apex.App"
         android:allowBackup="@bool/allowBackup"
         android:appCategory="audio"
         android:configChanges="locale|layoutDirection"
@@ -28,7 +28,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute" >
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="com.ttop.app.apex.ui.activities.MainActivity"
             android:exported="true"
             android:launchMode="singleTop" >
             <intent-filter>
@@ -101,21 +101,21 @@
                 <data android:mimeType="vnd.android.cursor.dir/audio" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.tageditor.AlbumTagEditorActivity" />
-        <activity android:name=".ui.activities.tageditor.SongTagEditorActivity" />
-        <activity android:name=".ui.activities.LicenseActivity" />
-        <activity android:name=".ui.activities.ShareInstagramStory" />
-        <activity android:name=".ui.activities.DriveModeActivity" />
+        <activity android:name="com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity" />
+        <activity android:name="com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity" />
+        <activity android:name="com.ttop.app.apex.ui.activities.LicenseActivity" />
+        <activity android:name="com.ttop.app.apex.ui.activities.ShareInstagramStory" />
+        <activity android:name="com.ttop.app.apex.ui.activities.DriveModeActivity" />
         <activity
-            android:name=".ui.activities.AppIntroActivity"
+            android:name="com.ttop.app.apex.ui.activities.AppIntroActivity"
             android:label="@string/intro_label"
             android:noHistory="true" />
         <activity
-            android:name=".ui.activities.LockScreenActivity"
+            android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
             android:launchMode="singleTask"
             android:showOnLockScreen="true" />
         <activity
-            android:name=".ui.fragments.backup.RestoreActivity"
+            android:name="com.ttop.app.apex.ui.fragments.backup.RestoreActivity"
             android:excludeFromRecents="false"
             android:exported="true"
             android:label="@string/restore"
@@ -150,14 +150,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".appshortcuts.AppShortcutLauncherActivity"
+            android:name="com.ttop.app.apex.appshortcuts.AppShortcutLauncherActivity"
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".ui.activities.saf.SAFGuideActivity"
+            android:name="com.ttop.app.apex.ui.activities.saf.SAFGuideActivity"
             android:theme="@style/Theme.Intro" />
         <activity
-            android:name=".ui.activities.ErrorActivity"
+            android:name="com.ttop.app.apex.ui.activities.ErrorActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="cat.ereza.customactivityoncrash.RESTART" />
@@ -181,7 +181,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".appwidgets.BootReceiver"
+            android:name="com.ttop.app.apex.appwidgets.BootReceiver"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -189,7 +189,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetBig"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetBig"
             android:enabled="false"
             android:exported="true"
             android:label="@string/app_widget_big_name" >
@@ -202,7 +202,7 @@
                 android:resource="@xml/app_widget_big_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetClassic"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetClassic"
             android:exported="true"
             android:label="@string/app_widget_classic_name" >
             <intent-filter>
@@ -214,7 +214,7 @@
                 android:resource="@xml/app_widget_classic_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetFull"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetFull"
             android:exported="true"
             android:label="@string/app_widget_full_name" >
             <intent-filter>
@@ -226,7 +226,7 @@
                 android:resource="@xml/app_widget_full_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetCircle"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetCircle"
             android:enabled="true"
             android:exported="true"
             android:label="@string/app_widget_circle_name" >
@@ -239,7 +239,7 @@
                 android:resource="@xml/app_widget_circle_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetFullCircle"
+            android:name="com.ttop.app.apex.appwidgets.AppWidgetFullCircle"
             android:enabled="true"
             android:exported="true"
             android:label="@string/app_widget_full_circle_name" >
@@ -253,7 +253,7 @@
         </receiver>
 
         <service
-            android:name=".service.MusicService"
+            android:name="com.ttop.app.apex.service.MusicService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             android:label="@string/app_name_short" >

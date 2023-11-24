@@ -121,7 +121,6 @@
     <string name="clear_playing_queue">Borrar cola</string>
     <string name="clear_queue">¿Quieres borrar la cola de reproducción?</string>
     <string name="close">Cerca</string>
-    <string name="color">Color</string>
     <string name="color_black">Negro</string>
     <string name="color_blue">Azul</string>
     <string name="color_green">Verde</string>
@@ -349,6 +348,7 @@
     <string name="pref_header_advanced">Avanzado</string>
     <string name="pref_header_album">Estilo de álbum</string>
     <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_auto">Android Auto</string>
     <string name="pref_header_blacklist">Lista negra</string>
     <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Control S</string>
@@ -424,6 +424,7 @@
     <string name="pref_summary_synced_lyrics">Mostrar letras sincronizadas sobre la portada del álbum</string>
     <string name="pref_summary_toggle_headset">Comience a jugar inmediatamente después de conectar los auriculares</string>
     <string name="pref_summary_use_new_widget">Use un nuevo widget cuadrado (esto eventualmente reemplazará el widget completo)</string>
+    <string name="pref_summary_use_notification_actions_for_auto">Utilice acciones de notificación como acciones automáticas de Android</string>
     <string name="pref_summary_user_name">Mostrar u ocultar el nombre de usuario en la página de inicio</string>
     <string name="pref_summary_wallpaper_accent">Extraiga el color de acento del fondo de pantalla</string>
     <string name="pref_summary_whitelist">Mostrar solo música de /Carpeta de música</string>
@@ -434,6 +435,8 @@
     <string name="pref_title_app_shortcuts">Atajos de aplicaciones de colores</string>
     <string name="pref_title_appbar_mode">Estilo de encabezado</string>
     <string name="pref_title_audio_fade">Desvanecer audio</string>
+    <string name="pref_title_auto_action_1">Acción automática de Android izquierda</string>
+    <string name="pref_title_auto_action_2">Derecho de acción automática de Android</string>
     <string name="pref_title_auto_download_artist_images">Descarga automática de imágenes de artistas</string>
     <string name="pref_title_auto_play">Mantener el estado de reproducción</string>
     <string name="pref_title_auto_rotate">Rotacion de pantalla</string>
@@ -499,6 +502,7 @@
     <string name="pref_title_toggle_carousel_effect">Efecto carrusel</string>
     <string name="pref_title_toggle_headset">Reproducción de auriculares con cable</string>
     <string name="pref_title_use_new_widget">Usar nuevo widget</string>
+    <string name="pref_title_use_notification_actions_for_auto">Usar acciones de notificación</string>
     <string name="pref_title_user_name">Nombre de usuario</string>
     <string name="pref_title_wallpaper_accent">Color de acento de papel tapiz</string>
     <string name="pref_title_whitelist">Lista blanca de música</string>

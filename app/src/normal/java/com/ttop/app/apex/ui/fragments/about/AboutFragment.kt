@@ -230,23 +230,23 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             }
         } else {
             //Preview
-            /*try {
+            try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
                 ).versionName + " Google Play Edition"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-            }*/
+            }
             //Release Candidate
-            try {
+            /*try {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
                 ).versionName + " " + getString(R.string.play_store_edition) + " Release Candidate 02"
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
-            }
+            }*/
         }
 
         return "Unknown"

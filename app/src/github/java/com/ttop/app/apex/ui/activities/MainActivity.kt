@@ -39,6 +39,7 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.PlaylistSongsLoader
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsCastActivity
+import com.ttop.app.apex.ui.utils.GithubUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
@@ -121,7 +122,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
 
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
 
-        ApexUtil.updateApex(this)
+        GithubUtils.updateApex(this)
     }
 
     private fun checkSamsungSoundPlugin(): Boolean {

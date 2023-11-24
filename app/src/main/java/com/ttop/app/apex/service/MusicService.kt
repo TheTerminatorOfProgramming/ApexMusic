@@ -257,7 +257,12 @@ class MusicService : MediaBrowserServiceCompat(),
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
             if (action != null) {
-                val device: BluetoothDevice? = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+
+                val device: BluetoothDevice? = if (VersionUtils.hasT()) {
+                    intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE, BluetoothDevice::class.java)
+                } else {
+                    intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+                }
 
                 if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
                     if(PreferenceUtil.specificDevice){
@@ -366,7 +371,6 @@ class MusicService : MediaBrowserServiceCompat(),
         ContextCompat.registerReceiver(this, widgetIntentReceiver, IntentFilter(APP_WIDGET_UPDATE), ContextCompat.RECEIVER_EXPORTED)
         ContextCompat.registerReceiver(this, updateFavoriteReceiver, IntentFilter(FAVORITE_STATE_CHANGED), ContextCompat.RECEIVER_EXPORTED)
         ContextCompat.registerReceiver(this, lockScreenReceiver, IntentFilter(ACTION_SCREEN_ON), ContextCompat.RECEIVER_EXPORTED)
-        //registerReceiver(lockScreenReceiver, IntentFilter(Intent.ACTION_SCREEN_ON))
         sessionToken = mediaSession?.sessionToken
         notificationManager = getSystemService()
         initNotification()
@@ -396,6 +400,7 @@ class MusicService : MediaBrowserServiceCompat(),
         mMusicProvider.setMusicService(this)
         storage = PersistentStorage.getInstance(this)
         updateWidget()
+        AutoConnectionDetector(this).registerCarConnectionReceiver()
     }
 
     override fun onDestroy() {
@@ -418,6 +423,7 @@ class MusicService : MediaBrowserServiceCompat(),
             unregisterReceiver(internetReceiver)
             internetReceiverRegistered = false
         }
+        AutoConnectionDetector(this).unRegisterCarConnectionReceiver()
         scheduler.shutdownNow()
         mediaSession?.isActive = false
         quit()
@@ -583,10 +589,6 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun getShuffleMode(): Int {
         return shuffleMode
-    }
-
-    private fun getFavorite(song: Song) {
-        return
     }
 
     fun setShuffleMode(shuffleMode: Int) {
@@ -759,7 +761,11 @@ class MusicService : MediaBrowserServiceCompat(),
                 registerBluetoothRequestDisconnect()
             }
             NOTIFICATION_ACTION_1,
-            NOTIFICATION_ACTION_2-> {
+            NOTIFICATION_ACTION_2,
+            CAR_CONNECTED,
+            AUTO_ACTION_1,
+            AUTO_ACTION_2,
+            USE_NOTI_ACTIONS_AUTO-> {
                 update()
             }
         }
@@ -963,7 +969,7 @@ class MusicService : MediaBrowserServiceCompat(),
         }
     }
 
-    fun playSongAtImpl(position: Int, play: Boolean) {
+    private fun playSongAtImpl(position: Int, play: Boolean) {
         openTrackAndPrepareNextAt(position) { success ->
             if (success) {
                 if (play){
@@ -1169,7 +1175,7 @@ class MusicService : MediaBrowserServiceCompat(),
         mediaSession?.setPlaybackState(stateBuilder.build())
     }
 
-    fun rebuildMetaData(){
+    private fun rebuildMetaData(){
         playingNotification?.updateMetadata(currentSong) { startForegroundOrNotify() }
     }
 
@@ -1437,7 +1443,12 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun playFromPlaylist(intent: Intent) {
-        val playlist: AbsSmartPlaylist? = intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST)
+        val playlist: AbsSmartPlaylist? = if (VersionUtils.hasT()) {
+            intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST, AbsSmartPlaylist::class.java)
+        } else {
+            intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST)
+        }
+
         val shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode())
         if (playlist != null) {
             val playlistSongs = playlist.songs()
@@ -1468,11 +1479,9 @@ class MusicService : MediaBrowserServiceCompat(),
     private fun registerBluetoothConnected() {
         Log.i(TAG, "registerBluetoothConnected: ")
         ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothConnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-        //registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
 
         if (!bluetoothConnectedRegistered) {
             ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothConnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-            //registerReceiver(bluetoothReceiver, bluetoothConnectedIntentFilter)
             bluetoothConnectedRegistered = true
         }
     }
@@ -1480,10 +1489,8 @@ class MusicService : MediaBrowserServiceCompat(),
     private fun registerBluetoothDisconnected() {
         Log.i(TAG, "registerBluetoothDisconnected: ")
         ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothDisconnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-        //registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
         if (!bluetoothDisconnectedRegistered) {
             ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothDisconnectedIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-            //registerReceiver(bluetoothReceiver, bluetoothDisconnectedIntentFilter)
             bluetoothDisconnectedRegistered = true
         }
     }
@@ -1491,10 +1498,8 @@ class MusicService : MediaBrowserServiceCompat(),
     private fun registerBluetoothRequestDisconnect() {
         Log.i(TAG, "registerBluetoothRequestDisconnect: ")
         ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothRequestDisconnectIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-        //registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
         if (!bluetoothRequestDisconnectRegistered) {
             ContextCompat.registerReceiver(this, bluetoothReceiver, IntentFilter(bluetoothRequestDisconnectIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-            //registerReceiver(bluetoothReceiver, bluetoothRequestDisconnectIntentFilter)
             bluetoothRequestDisconnectRegistered = true
         }
     }
@@ -1502,7 +1507,6 @@ class MusicService : MediaBrowserServiceCompat(),
     private fun registerHeadsetEvents() {
         if (!headsetReceiverRegistered && isHeadsetPlugged) {
             ContextCompat.registerReceiver(this, headsetReceiver, IntentFilter(headsetReceiverIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-            //registerReceiver(headsetReceiver, headsetReceiverIntentFilter)
             headsetReceiverRegistered = true
         }
     }
@@ -1510,7 +1514,6 @@ class MusicService : MediaBrowserServiceCompat(),
     private fun registerInternetEvents() {
         if (!internetReceiverRegistered) {
             ContextCompat.registerReceiver(this, internetReceiver, IntentFilter(internetReceiverIntentFilter), ContextCompat.RECEIVER_EXPORTED)
-            //registerReceiver(headsetReceiver, headsetReceiverIntentFilter)
             internetReceiverRegistered = true
         }
     }
@@ -1575,7 +1578,7 @@ class MusicService : MediaBrowserServiceCompat(),
         appWidgetFullCircle.notifyChange(this, what)
     }
 
-    private fun setCustomAction(stateBuilder: PlaybackStateCompat.Builder) {
+    private fun setCustomAction(stateBuilder: Builder) {
         var repeatIcon = R.drawable.ic_repeat // REPEAT_MODE_NONE
         if (repeatMode == REPEAT_MODE_THIS) {
             repeatIcon = R.drawable.ic_repeat_one
@@ -1592,98 +1595,271 @@ class MusicService : MediaBrowserServiceCompat(),
 
         val clearIcon = R.drawable.ic_clear_all
 
-        val fwdIcon = R.drawable.ic_fast_forward
-
-        val bwdicon = R.drawable.ic_rewind
-
         val action1 = PreferenceUtil.isAction1
         val action2 = PreferenceUtil.isAction2
-        if (action1 != "none") {
-            when (action1) {
-                "repeat" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
-                        )
-                            .build()
-                    )
+
+        val autoAction1 = PreferenceUtil.isAutoAction1
+        val autoAction2 = PreferenceUtil.isAutoAction2
+
+        if (PreferenceUtil.isCarConnected) {
+            if (PreferenceUtil.isNotificationActionsOnAuto){
+                    if (action1 != "none") {
+                        when (action1) {
+                            "repeat" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "shuffle" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        TOGGLE_SHUFFLE,
+                                        getString(R.string.action_toggle_shuffle),
+                                        shuffleIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "update" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "quit" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        ACTION_QUIT, getString(R.string.close), quitIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "clear_queue" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        QUEUE_CHANGED,
+                                        getString(R.string.action_clear_playing_queue),
+                                        clearIcon
+                                    )
+                                        .build()
+                                )
+                            }
+                        }
+                    }
+
+                    if (action2 != "none") {
+                        when (action2) {
+                            "repeat" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "shuffle" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        TOGGLE_SHUFFLE,
+                                        getString(R.string.action_toggle_shuffle),
+                                        shuffleIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "update" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "quit" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        ACTION_QUIT, getString(R.string.close), quitIcon
+                                    )
+                                        .build()
+                                )
+                            }
+
+                            "clear_queue" -> {
+                                stateBuilder.addCustomAction(
+                                    PlaybackStateCompat.CustomAction.Builder(
+                                        QUEUE_CHANGED,
+                                        getString(R.string.action_clear_playing_queue),
+                                        clearIcon
+                                    )
+                                        .build()
+                                )
+                            }
+                        }
+                    }
+                }else {
+                if (autoAction1 != "none") {
+                    when (autoAction1) {
+                        "repeat" -> {
+                            stateBuilder.addCustomAction(
+                                PlaybackStateCompat.CustomAction.Builder(
+                                    CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                                )
+                                    .build()
+                            )
+                        }
+
+                        "shuffle" -> {
+                            stateBuilder.addCustomAction(
+                                PlaybackStateCompat.CustomAction.Builder(
+                                    TOGGLE_SHUFFLE,
+                                    getString(R.string.action_toggle_shuffle),
+                                    shuffleIcon
+                                )
+                                    .build()
+                            )
+                        }
+                    }
                 }
-                "shuffle" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon
-                        )
-                            .build()
-                    )
-                }
-                "update" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
-                        )
-                            .build()
-                    )
-                }
-                "quit" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            ACTION_QUIT, getString(R.string.close), quitIcon
-                        )
-                            .build()
-                    )
-                }
-                "clear_queue" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            QUEUE_CHANGED, getString(R.string.action_clear_playing_queue), clearIcon
-                        )
-                            .build()
-                    )
+                if (autoAction2 != "none") {
+                    when (autoAction2) {
+                        "repeat" -> {
+                            stateBuilder.addCustomAction(
+                                PlaybackStateCompat.CustomAction.Builder(
+                                    CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                                )
+                                    .build()
+                            )
+                        }
+
+                        "shuffle" -> {
+                            stateBuilder.addCustomAction(
+                                PlaybackStateCompat.CustomAction.Builder(
+                                    TOGGLE_SHUFFLE,
+                                    getString(R.string.action_toggle_shuffle),
+                                    shuffleIcon
+                                )
+                                    .build()
+                            )
+                        }
+                    }
                 }
             }
-        }
+        } else {
+            if (action1 != "none") {
+                when (action1) {
+                    "repeat" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                            )
+                                .build()
+                        )
+                    }
 
-        if (action2 != "none") {
-            when(action2){
-                "repeat" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                    "shuffle" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                TOGGLE_SHUFFLE,
+                                getString(R.string.action_toggle_shuffle),
+                                shuffleIcon
+                            )
+                                .build()
                         )
-                            .build()
-                    )
+                    }
+
+                    "update" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
+                            )
+                                .build()
+                        )
+                    }
+
+                    "quit" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                ACTION_QUIT, getString(R.string.close), quitIcon
+                            )
+                                .build()
+                        )
+                    }
+
+                    "clear_queue" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                QUEUE_CHANGED,
+                                getString(R.string.action_clear_playing_queue),
+                                clearIcon
+                            )
+                                .build()
+                        )
+                    }
                 }
-                "shuffle" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon
+            }
+
+            if (action2 != "none") {
+                when (action2) {
+                    "repeat" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon
+                            )
+                                .build()
                         )
-                            .build()
-                    )
-                }
-                "update" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
+                    }
+
+                    "shuffle" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                TOGGLE_SHUFFLE,
+                                getString(R.string.action_toggle_shuffle),
+                                shuffleIcon
+                            )
+                                .build()
                         )
-                            .build()
-                    )
-                }
-                "quit" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            ACTION_QUIT, getString(R.string.close), quitIcon
+                    }
+
+                    "update" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                UPDATE_NOTIFY, getString(R.string.action_update), updateIcon
+                            )
+                                .build()
                         )
-                            .build()
-                    )
-                }
-                "clear_queue" -> {
-                    stateBuilder.addCustomAction(
-                        PlaybackStateCompat.CustomAction.Builder(
-                            QUEUE_CHANGED, getString(R.string.action_clear_playing_queue), clearIcon
+                    }
+
+                    "quit" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                ACTION_QUIT, getString(R.string.close), quitIcon
+                            )
+                                .build()
                         )
-                            .build()
-                    )
+                    }
+
+                    "clear_queue" -> {
+                        stateBuilder.addCustomAction(
+                            PlaybackStateCompat.CustomAction.Builder(
+                                QUEUE_CHANGED,
+                                getString(R.string.action_clear_playing_queue),
+                                clearIcon
+                            )
+                                .build()
+                        )
+                    }
                 }
             }
         }

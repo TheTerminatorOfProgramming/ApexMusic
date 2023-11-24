@@ -1156,6 +1156,24 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             COLOR_ANIMATE, false
         )
+
+    var isCarConnected
+        get() = sharedPreferences.getBoolean(
+            CAR_CONNECTED, false)
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(CAR_CONNECTED, value)}
+
+    val isAutoAction1
+        get() = sharedPreferences.getStringOrDefault(AUTO_ACTION_1, "none")
+
+    val isAutoAction2
+        get() = sharedPreferences.getStringOrDefault(AUTO_ACTION_2, "none")
+
+    val isNotificationActionsOnAuto
+        get() = sharedPreferences.getBoolean(
+            USE_NOTI_ACTIONS_AUTO, true
+        )
 }
 
 enum class CoverLyricsType {

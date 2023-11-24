@@ -360,18 +360,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     showLyricsIcon(this)
                 }
             }
-            NowPlayingScreen.Color -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
             NowPlayingScreen.Flat -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 if (ApexUtil.isTablet) {

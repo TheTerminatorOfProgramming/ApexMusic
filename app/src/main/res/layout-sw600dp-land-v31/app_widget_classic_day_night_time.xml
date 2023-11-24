@@ -87,7 +87,6 @@
             android:id="@+id/media_titles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/progress_bar"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@id/button_update"
             android:orientation="vertical"

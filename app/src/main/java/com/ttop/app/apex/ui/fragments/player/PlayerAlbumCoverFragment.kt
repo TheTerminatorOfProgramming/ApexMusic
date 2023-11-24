@@ -303,7 +303,6 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
             } else {
                 setLRCViewColors(primaryColor, secondaryColor)
             }
-            Color -> setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
             Blur -> setLRCViewColors(Color.WHITE, ColorUtil.withAlpha(Color.WHITE, 0.5f))
             else -> setLRCViewColors(primaryColor, secondaryColor)
         }
@@ -325,5 +324,5 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private val lyricViewNpsList =
-        listOf(Blur, Color, Flat, MD3, Normal, Plain, Simple, Adaptive, Card, Gradient)
+        listOf(Blur, Flat, MD3, Normal, Plain, Simple, Adaptive, Card, Gradient)
 }

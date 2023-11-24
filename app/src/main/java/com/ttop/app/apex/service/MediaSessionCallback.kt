@@ -60,6 +60,15 @@ class MediaSessionCallback(
         val itemId = musicId?.toLong() ?: -1
         val songs: ArrayList<Song> = ArrayList()
         when (val category = AutoMediaIDHelper.extractCategory(mediaId)) {
+            AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SONGS-> {
+                val allSongs = songRepository.songs().toMutableList()
+                var songIndex = MusicUtil.indexOfSongInList(allSongs, itemId)
+                if (songIndex == -1) {
+                    songIndex = 0
+                }
+                musicService.openQueue(allSongs, songIndex, true)
+                musicService.play()
+            }
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM -> {
                 val album: Album = albumRepository.album(itemId)
                 songs.addAll(album.songs)

@@ -3,6 +3,7 @@ package com.ttop.app.apex.ui.fragments.settings
 import android.os.Bundle
 import androidx.preference.Preference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.ui.utils.GithubUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
@@ -12,12 +13,12 @@ class UpdateSettingsFragment : AbsSettingsFragment() {
         val update: Preference? = findPreference("update_button")
         update?.setOnPreferenceClickListener {
             if (PreferenceUtil.updateSource == "github") {
-                ApexUtil.checkForUpdateGithub(requireContext(), true)
+                GithubUtils.checkForUpdateGithub(requireContext(), true)
             }else {
                 if (PreferenceUtil.isPreviewChannel) {
-                    ApexUtil.checkForUpdateWebsitePreview(requireContext(), false)
+                    GithubUtils.checkForUpdateWebsitePreview(requireContext(), false)
                 }else {
-                    ApexUtil.checkForUpdateWebsite(requireContext(), false)
+                    GithubUtils.checkForUpdateWebsite(requireContext(), false)
                 }
             }
             true

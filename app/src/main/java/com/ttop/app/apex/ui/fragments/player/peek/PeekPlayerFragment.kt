@@ -463,11 +463,11 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             binding.songInfo.show()
             binding.songInfo.isSelected = true
 
-            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,ApexUtil.DpToMargin(10)) }
+            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.dpToMargin(8),0,0,ApexUtil.dpToMargin(10)) }
 
         } else {
             binding.songInfo.hide()
-            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.DpToMargin(8),0,0,0) }
+            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.dpToMargin(8),0,0,0) }
         }
     }
 

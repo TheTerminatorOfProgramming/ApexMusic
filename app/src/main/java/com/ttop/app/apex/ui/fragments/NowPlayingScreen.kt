@@ -30,7 +30,6 @@ enum class NowPlayingScreen constructor(
     Adaptive(R.string.adaptive, R.drawable.player_adaptive, 10, AlbumCoverStyle.FullCard),
     Blur(R.string.blur, R.drawable.player_blur, 4, AlbumCoverStyle.Normal),
     Card(R.string.card, R.drawable.player_card, 6, AlbumCoverStyle.Full),
-    Color(R.string.color, R.drawable.player_color, 5, AlbumCoverStyle.Normal),
     Flat(R.string.flat, R.drawable.player_flat, 1, AlbumCoverStyle.Flat),
     Gradient(R.string.gradient, R.drawable.player_gradient, 17, AlbumCoverStyle.Full),
     MD3(R.string.md3, R.drawable.player_md3, 18, AlbumCoverStyle.Normal),

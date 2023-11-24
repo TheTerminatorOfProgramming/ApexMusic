@@ -123,7 +123,6 @@
     <string name="clear_playing_queue">Clear queue</string>
     <string name="clear_queue">Do you want to clear the playing queue?</string>
     <string name="close">Close</string>
-    <string name="color">Color</string>
     <string name="color_black">Black</string>
     <string name="color_blue">Blue</string>
     <string name="color_green">Green</string>
@@ -351,6 +350,7 @@
     <string name="pref_header_advanced">Advanced</string>
     <string name="pref_header_album">Album style</string>
     <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_auto">Android Auto</string>
     <string name="pref_header_blacklist">Blacklist</string>
     <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Controls</string>
@@ -428,6 +428,7 @@
     <string name="pref_summary_synced_lyrics">Display synced lyrics over album cover</string>
     <string name="pref_summary_toggle_headset">Start playing immediately after headphones are connected</string>
     <string name="pref_summary_use_new_widget">Use new square widget(this will eventually replace the full widget)</string>
+    <string name="pref_summary_use_notification_actions_for_auto">Use notification actions as android auto actions</string>
     <string name="pref_summary_user_name">Show or hide user name on the home page</string>
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
@@ -438,6 +439,8 @@
     <string name="pref_title_app_shortcuts">Colored App Shortcuts</string>
     <string name="pref_title_appbar_mode">Header Style</string>
     <string name="pref_title_audio_fade">Fade Audio</string>
+    <string name="pref_title_auto_action_1">Android Auto Action Left</string>
+    <string name="pref_title_auto_action_2">Android Auto Action Right</string>
     <string name="pref_title_auto_download_artist_images">Auto-Download Artist Images</string>
     <string name="pref_title_auto_play">Keep Play State</string>
     <string name="pref_title_auto_rotate">Screen Rotation</string>
@@ -505,6 +508,7 @@
     <string name="pref_title_toggle_carousel_effect">Carousel Effect</string>
     <string name="pref_title_toggle_headset">Wired Headset Playback</string>
     <string name="pref_title_use_new_widget">Use New Widget</string>
+    <string name="pref_title_use_notification_actions_for_auto">Use Notification Actions</string>
     <string name="pref_title_user_name">User Name</string>
     <string name="pref_title_wallpaper_accent">Wallpaper Accent Color</string>
     <string name="pref_title_whitelist">Whitelist Music</string>

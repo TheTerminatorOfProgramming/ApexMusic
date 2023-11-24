@@ -116,6 +116,16 @@ class AutoMusicProvider(
                             )
                         }
                     }
+            AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SONGS -> for (song in songsRepository.songs()) {
+                mediaItems.add(
+                    AutoMediaItem.with(mContext)
+                        .asPlayable()
+                        .path(mediaId, song.id)
+                        .title(song.title)
+                        .icon(MusicUtil.getMediaStoreAlbumCoverUri(song.albumId))
+                        .build()
+                )
+            }
             else -> {
                 getPlaylistChildren(mediaId, mediaItems)
             }
@@ -154,6 +164,16 @@ class AutoMusicProvider(
         libraryCategories.forEach {
             if (it.visible) {
                 when (it.category) {
+                    CategoryInfo.Category.Songs -> {
+                        mediaItems.add(
+                            AutoMediaItem.with(mContext)
+                                .asBrowsable()
+                                .path(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SONGS)
+                                .gridLayout(false)
+                                .icon(R.drawable.asld_music_note)
+                                .title(resources.getString(R.string.songs)).build()
+                        )
+                    }
                     CategoryInfo.Category.Albums -> {
                         mediaItems.add(
                             AutoMediaItem.with(mContext)

@@ -121,7 +121,6 @@
     <string name="clear_playing_queue">Limpar fila</string>
     <string name="clear_queue">Deseja limpar a fila de reprodução?</string>
     <string name="close">Fechar</string>
-    <string name="color">Cor</string>
     <string name="color_black">Preto</string>
     <string name="color_blue">Azul</string>
     <string name="color_green">Verde</string>
@@ -349,6 +348,7 @@
     <string name="pref_header_advanced">Avançado</string>
     <string name="pref_header_album">Estilo do álbum</string>
     <string name="pref_header_audio">áudio</string>
+    <string name="pref_header_auto">Android Automático</string>
     <string name="pref_header_blacklist">Lista negra</string>
     <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Controles</string>
@@ -424,6 +424,7 @@
     <string name="pref_summary_synced_lyrics">Exibir letras sincronizadas sobre a capa do álbum</string>
     <string name="pref_summary_toggle_headset">Comece a tocar imediatamente após os fones de ouvido serem conectados</string>
     <string name="pref_summary_use_new_widget">Use o novo widget quadrado (isso eventualmente substituirá o widget completo)</string>
+    <string name="pref_summary_use_notification_actions_for_auto">Use ações de notificação como ações automáticas do Android</string>
     <string name="pref_summary_user_name">Mostrar ou ocultar o nome de usuário na página inicial</string>
     <string name="pref_summary_wallpaper_accent">Extraia a cor de destaque do papel de parede</string>
     <string name="pref_summary_whitelist">Mostrar apenas músicas da pasta /Music</string>
@@ -434,6 +435,8 @@
     <string name="pref_title_app_shortcuts">Atalhos de aplicativos coloridos</string>
     <string name="pref_title_appbar_mode">Estilo de Cabeçalho</string>
     <string name="pref_title_audio_fade">Atenuar o áudio</string>
+    <string name="pref_title_auto_action_1">Ação do Android Auto restante</string>
+    <string name="pref_title_auto_action_2">Ação automática do Android certa</string>
     <string name="pref_title_auto_download_artist_images">Download automático de imagens de artistas</string>
     <string name="pref_title_auto_play">Manter estado de jogo</string>
     <string name="pref_title_auto_rotate">Rotação da tela</string>
@@ -499,6 +502,7 @@
     <string name="pref_title_toggle_carousel_effect">Efeito carrossel</string>
     <string name="pref_title_toggle_headset">Reprodução de fone de ouvido com fio</string>
     <string name="pref_title_use_new_widget">Usar Novo Widget</string>
+    <string name="pref_title_use_notification_actions_for_auto">Use ações de notificação</string>
     <string name="pref_title_user_name">Nome de usuário</string>
     <string name="pref_title_wallpaper_accent">Cor de destaque do papel de parede</string>
     <string name="pref_title_whitelist">Música da lista de permissões</string>
