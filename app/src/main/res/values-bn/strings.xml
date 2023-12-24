@@ -205,7 +205,10 @@
     <string name="genre">ধারা</string>
     <string name="genres">জেনারস</string>
     <string name="github_edition">Github সংস্করণ</string>
+    <string name="github_edition_beta">Github সংস্করণ: বিটা</string>
     <string name="github_edition_debug">Github সংস্করণ: নির্মাণ</string>
+    <string name="github_edition_preview">Github সংস্করণ: পূর্বরূপ</string>
+    <string name="github_edition_release">Github সংস্করণ: স্থিতিশীল</string>
     <string name="github_summary">GitHub এ প্রকল্পটি ফোর্ক করুন</string>
     <string name="gradient">গ্রেডিয়েন্ট</string>
     <string name="granted">মঞ্জুর</string>
@@ -329,7 +332,10 @@
     <string name="pick_from_local_storage">স্থানীয় স্টোরেজ থেকে চয়ন করুন</string>
     <string name="plain">সমতল</string>
     <string name="play_store_edition">প্লে স্টোর সংস্করণ</string>
+    <string name="play_store_edition_beta">প্লে স্টোর সংস্করণ: বিটা</string>
     <string name="play_store_edition_debug">প্লে স্টোর সংস্করণ: তৈরি করুন</string>
+    <string name="play_store_edition_preview">প্লে স্টোর সংস্করণ: পূর্বরূপ</string>
+    <string name="play_store_edition_release">প্লে স্টোর সংস্করণ: স্থিতিশীল</string>
     <string name="playlist_name_empty_cant">প্লেলিস্টের নাম খালি রাখা যাবে না</string>
     <string name="playlist_name_empty_shouldnt">প্লেলিস্টের নাম খালি থাকা উচিত নয়</string>
     <string name="playback_pitch">পিচ</string>
@@ -363,9 +369,10 @@
     <string name="pref_header_library">লাইব্রেরি</string>
     <string name="pref_header_lockscreen">লকস্ক্রিন &amp; WearOS</string>
     <string name="pref_header_lyrics">গানের কথা</string>
-    <string name="pref_header_mini_controls">মিনি প্লেয়ার</string>
+    <string name="pref_header_mini_controls">মছোট প্লেয়ার</string>
     <string name="pref_header_notification">বিজ্ঞপ্তি</string>
     <string name="pref_header_playlists">প্লেলিস্ট</string>
+    <string name="pref_header_search">অনুসন্ধান</string>
     <string name="pref_header_widgets">উইজেট</string>
     <string name="pref_keep_pause_on_zero_volume_summary">ভলিউম শূন্যে কমে গেলে গানটিকে বিরতি দেয় এবং ভলিউম স্তর বেড়ে গেলে আবার বাজানো শুরু করে৷ অ্যাপের বাইরেও কাজ করে</string>
     <string name="pref_keep_pause_on_zero_volume_title">পজ অন জিরো</string>
@@ -417,6 +424,8 @@
     <string name="pref_summary_restore_big_widget">বড় উইজেট পুনরুদ্ধার করুন</string>
     <string name="pref_summary_restore_full_circle_widget">পূর্ণ বৃত্ত উইজেট পুনরুদ্ধার করুন</string>
     <string name="pref_summary_restore_removed_widgets">সরানো উইজেটগুলি পুনরুদ্ধার করুন</string>
+    <string name="pref_summary_search_action">বিদ্যমান প্লেলিস্টে যোগ করার পরিবর্তে একটি নতুন এলোমেলো প্লেলিস্ট তৈরি করুন৷</string>
+    <string name="pref_summary_search_icon">অনুসন্ধান আইকনটিকে ভয়েস অনুসন্ধান আইকনে সেট করুন এবং টুলবার থেকে স্বয়ংক্রিয়ভাবে ভয়েস অনুসন্ধান শুরু করুন৷৷</string>
     <string name="pref_summary_show_lyrics">সিঙ্ক করা বা এমবেড করা গান দেখান</string>
     <string name="pref_summary_show_update">প্লেব্যাক বিজ্ঞপ্তিতে আপডেট দিয়ে প্রিয় প্রতিস্থাপন করুন</string>
     <string name="pref_summary_specific_device">শুধুমাত্র একটি নির্দিষ্ট ব্লুটুথ ডিভাইসকে সঙ্গীত অটোপ্লে করার অনুমতি দিন</string>
@@ -426,6 +435,7 @@
     <string name="pref_summary_use_new_widget">নতুন বর্গাকার উইজেট ব্যবহার করুন (এটি অবশেষে সম্পূর্ণ উইজেট প্রতিস্থাপন করবে)</string>
     <string name="pref_summary_use_notification_actions_for_auto">অ্যানড্রয়েড অটো অ্যাকশন হিসেবে বিজ্ঞপ্তি অ্যাকশন ব্যবহার করুন</string>
     <string name="pref_summary_user_name">হোম পেজে ব্যবহারকারীর নাম দেখান বা লুকান</string>
+    <string name="pref_summary_volume_controls">প্লেব্যাক নিয়ন্ত্রণে ভলিউম নিয়ন্ত্রণ সক্ষম করুন</string>
     <string name="pref_summary_wallpaper_accent">ওয়ালপেপার থেকে অ্যাকসেন্ট রঙ বের করুন</string>
     <string name="pref_summary_whitelist">শুধুমাত্র /মিউজিক ফোল্ডার থেকে সঙ্গীত দেখান</string>
     <string name="pref_summary_widget_custom_color">উইজেট বোতামের জন্য একটি কাস্টম রঙ সেট করুন, অ্যাকসেন্ট রঙে ডিফল্ট</string>
@@ -456,7 +466,7 @@
     <string name="pref_title_desaturated_color">ডিস্যাচুরেটেড কালার</string>
     <string name="pref_title_disable_widgets">ডিফল্ট উইজেট অক্ষম করুন</string>
     <string name="pref_title_dismiss_failsafe">ফেইলসেফ খারিজ করুন</string>
-    <string name="pref_title_dismiss_method">মিনি প্লেয়ার খারিজ</string>
+    <string name="pref_title_dismiss_method">ছোট খেলোয়াড় বরখাস্ত</string>
     <string name="pref_title_embed_lyrics_view">এমবেডেড লিরিক্স ভিউ টাইপ</string>
     <string name="pref_title_expand_now_playing_panel">এখন বাজানো স্ক্রীন দেখান</string>
     <string name="pref_title_extended_accent">এক্সটেন্ডেড অ্যাকসেন্ট</string>
@@ -491,6 +501,8 @@
     <string name="pref_title_restore_big_widget">বড় উইজেট</string>
     <string name="pref_title_restore_full_circle_widget">সম্পূর্ণ সার্কেল উইজেট</string>
     <string name="pref_title_restore_removed_widgets">উইজেট পুনরুদ্ধার করুন</string>
+    <string name="pref_title_search_action">অনুসন্ধান কর্ম</string>
+    <string name="pref_title_search_icon">সার্চ আইকন</string>
     <string name="pref_title_show_lyrics">লিরিক্স দেখান</string>
     <string name="pref_title_show_update">আপডেট দেখান</string>
     <string name="pref_title_specific_device">নির্দিষ্ট ডিভাইস</string>
@@ -504,6 +516,7 @@
     <string name="pref_title_use_new_widget">নতুন উইজেট ব্যবহার করুন</string>
     <string name="pref_title_use_notification_actions_for_auto">বিজ্ঞপ্তি অ্যাকশন ব্যবহার করুন</string>
     <string name="pref_title_user_name">ব্যবহারকারীর নাম</string>
+    <string name="pref_title_volume_controls">ভলিউম কন্ট্রোল</string>
     <string name="pref_title_wallpaper_accent">ওয়ালপেপার অ্যাকসেন্ট রঙ</string>
     <string name="pref_title_whitelist">হোয়াইটলিস্ট সঙ্গীত</string>
     <string name="pref_title_widget_background">উইজেট পটভূমি</string>

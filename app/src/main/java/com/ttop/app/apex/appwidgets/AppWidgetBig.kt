@@ -58,7 +58,7 @@ class AppWidgetBig : BaseAppWidget() {
             R.id.media_titles,
             View.INVISIBLE
         )
-        appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
+        appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
         appWidgetView.setImageViewBitmap(
             R.id.button_next, context.getTintedDrawable(
                 R.drawable.ic_skip_next_outline,
@@ -170,7 +170,7 @@ class AppWidgetBig : BaseAppWidget() {
                         if (bitmap == null) {
                             appWidgetView.setImageViewResource(
                                 R.id.image,
-                                R.drawable.default_audio_art
+                                R.drawable.default_album_art_round
                             )
                         } else {
                             appWidgetView.setImageViewBitmap(R.id.image, bitmap)

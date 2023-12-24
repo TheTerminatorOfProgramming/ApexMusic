@@ -14,6 +14,7 @@ import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.utils.GithubUtils
+import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 
 class ShuffleSlideFragment : Fragment() {
@@ -32,6 +33,10 @@ class ShuffleSlideFragment : Fragment() {
 
         shuffleMode = view.findViewById(R.id.shuffleMode) as SwitchCompat
 
+        shuffleMode.isChecked = IntroPrefs(requireContext()).isShuffle
+
+        shuffleMode.isEnabled = !IntroPrefs(requireContext()).hasIntroSlidesShown
+
         shuffleMode.setOnCheckedChangeListener { _, isChecked ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
 
@@ -45,6 +50,7 @@ class ShuffleSlideFragment : Fragment() {
                 }
             }
 
+            IntroPrefs(requireContext()).isShuffle = isChecked
             PreferenceUtil.shouldRecreate = true
         }
 

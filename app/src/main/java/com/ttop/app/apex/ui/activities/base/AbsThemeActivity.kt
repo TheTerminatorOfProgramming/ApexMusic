@@ -55,14 +55,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setDefaultNightMode(getNightMode())
         }
 
-        if (PreferenceUtil.isCustomFont == "sans") {
-           if (PreferenceUtil.isCustomFontBold) {
-               setTheme(R.style.SansBoldThemeOverlay)
-           } else {
-               setTheme(R.style.SansThemeOverlay)
-           }
-        }
-
         if (PreferenceUtil.isCustomFont == "barlow") {
             if (PreferenceUtil.isCustomFontBold) {
                 setTheme(R.style.BarlowBoldThemeOverlay)
@@ -83,14 +75,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.PencilThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "samsung") {
-            if (PreferenceUtil.isCustomFontBold) {
-                setTheme(R.style.SamsungBoldThemeOverlay)
-            } else {
-                setTheme(R.style.SamsungThemeOverlay)
-            }
-        }
-
         if (PreferenceUtil.isCustomFont == "drexs") {
             setTheme(R.style.DrexsThemeOverlay)
         }
@@ -99,16 +83,24 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.HermanoaltoThemeOverlay)
         }
 
-        if (PreferenceUtil.isCustomFont == "oneui") {
-            if (PreferenceUtil.isCustomFontBold) {
-                setTheme(R.style.OneUiBoldThemeOverlay)
-            } else {
-                setTheme(R.style.OneUiThemeOverlay)
-            }
-        }
-
         if (PreferenceUtil.isCustomFont == "nothing") {
             setTheme(R.style.NothingThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "beckman") {
+            setTheme(R.style.BeckmanThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "hiatus") {
+            setTheme(R.style.HiatusThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "apex") {
+            setTheme(R.style.ApexThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "binjay") {
+            setTheme(R.style.BinjayThemeOverlay)
         }
 
         if (PreferenceUtil.circlePlayButton) {

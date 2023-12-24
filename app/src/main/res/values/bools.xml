@@ -9,4 +9,5 @@
     <bool name="auto_rotate">false</bool>
     <bool name="classic_notification">true</bool>
     <bool name="actions">false</bool>
+    <bool name="auto_actions">false</bool>
 </resources>

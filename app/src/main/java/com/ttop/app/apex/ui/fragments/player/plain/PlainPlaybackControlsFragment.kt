@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.fragments.player.plain
 
 import android.animation.Animator
 import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -64,6 +65,12 @@ class PlainPlaybackControlsFragment :
 
     override val previousButton: ImageButton
         get() = binding.previousButton
+
+    override val volUp: ImageButton
+        get() = binding.volUpButton
+
+    override val volDown: ImageButton
+        get() = binding.volDownButton
 
     override val songTotalTime: TextView
         get() = binding.songTotalTime
@@ -119,10 +126,10 @@ class PlainPlaybackControlsFragment :
     private fun updateSong() {
         if (PreferenceUtil.isSongInfo) {
             binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
-            binding.songInfo.show()
+            binding.songInfo.see()
             binding.songInfo.isSelected = true
         } else {
-            binding.songInfo.hide()
+            binding.songInfo.goAway()
         }
     }
 
@@ -130,6 +137,14 @@ class PlainPlaybackControlsFragment :
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPlainControlsFragmentBinding.bind(view)
         setUpPlayPauseFab()
+
+        if (!PreferenceUtil.isVolumeControls) {
+            volUp.visibility = View.GONE
+            volDown.visibility = View.GONE
+        }else {
+            volUp.visibility = View.VISIBLE
+            volDown.visibility = View.VISIBLE
+        }
     }
 
     private fun setUpPlayPauseFab() {
@@ -206,6 +221,9 @@ class PlainPlaybackControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
+
+        volUp.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
+        volDown.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
     public override fun show() {

@@ -47,6 +47,38 @@
         tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/volUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/roundSelector"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="@+id/previousButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="@id/previousButton"
+        app:layout_constraintTop_toBottomOf="@+id/songCurrentProgress"
+        app:layout_constraintBottom_toTopOf="@id/playPauseButton"
+        app:srcCompat="@drawable/ic_add"
+        tools:ignore="MissingPrefix"
+        tools:tint="@color/md_black_1000" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/volDownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/roundSelector"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="@+id/nextButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="@id/nextButton"
+        app:layout_constraintTop_toBottomOf="@+id/songCurrentProgress"
+        app:layout_constraintBottom_toTopOf="@id/playPauseButton"
+        app:srcCompat="@drawable/ic_minus"
+        tools:ignore="MissingPrefix"
+        tools:tint="@color/md_black_1000" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/repeatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -139,4 +171,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@tools:sample/lorem/random" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

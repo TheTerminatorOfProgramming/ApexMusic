@@ -37,7 +37,10 @@ import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.darkerColor
 import com.ttop.app.apex.extensions.getTintedDrawable
+import com.ttop.app.apex.extensions.lightColor
+import com.ttop.app.apex.extensions.lighterColor
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
@@ -54,6 +57,7 @@ import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.DensityUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -197,7 +201,7 @@ class AppWidgetClassic : BaseAppWidget() {
         }
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
-        appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
+        appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
         if (PreferenceUtil.widgetBackground == "day_night") {
             when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
                 Configuration.UI_MODE_NIGHT_YES -> {
@@ -488,8 +492,8 @@ class AppWidgetClassic : BaseAppWidget() {
             }
                 target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
                     .load(ApexGlideExtension.getSongModel(song))
-                    .placeholder(R.drawable.default_audio_art)
-                    .error(R.drawable.default_audio_art)
+                    .placeholder(R.drawable.default_album_art_round)
+                    .error(R.drawable.default_album_art_round)
                     .circleCrop()
                     .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                         override fun onResourceReady(
@@ -734,7 +738,7 @@ class AppWidgetClassic : BaseAppWidget() {
         val song = service.currentSong
 
         target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
-            .load(R.drawable.default_audio_art)
+            .load(R.drawable.default_album_art_round)
             .circleCrop()
             .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                 override fun onResourceReady(

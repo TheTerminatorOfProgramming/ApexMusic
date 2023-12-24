@@ -203,7 +203,10 @@
     <string name="genre">Genre</string>
     <string name="genres">Genre</string>
     <string name="github_edition">Edisi Github</string>
+    <string name="github_edition_beta">Edisi Github: Beta</string>
     <string name="github_edition_debug">Edisi Github: Bangun</string>
+    <string name="github_edition_preview">Edisi Github: Pratinjau</string>
+    <string name="github_edition_release">Edisi Github: Stabil</string>
     <string name="github_summary">Garpu proyek di GitHub</string>
     <string name="gradient">Gradien</string>
     <string name="granted">Diberikan</string>
@@ -327,7 +330,10 @@
     <string name="pick_from_local_storage">Pilih dari penyimpanan lokal</string>
     <string name="plain">Polos</string>
     <string name="play_store_edition">Edisi Play Store</string>
+    <string name="play_store_edition_beta">Edisi Play Store: Beta</string>
     <string name="play_store_edition_debug">Edisi Play Store: Bangun</string>
+    <string name="play_store_edition_preview">Edisi Play Store: Pratinjau</string>
+    <string name="play_store_edition_release">Edisi Play Store: Stabil</string>
     <string name="playlist_name_empty_cant">Nama daftar putar tidak boleh kosong</string>
     <string name="playlist_name_empty_shouldnt">Nama daftar putar tidak boleh kosong</string>
     <string name="playback_pitch">Melempar</string>
@@ -361,9 +367,10 @@
     <string name="pref_header_library">Perpustakaan</string>
     <string name="pref_header_lockscreen">Layar kunci &amp; WearOS</string>
     <string name="pref_header_lyrics">Lirik</string>
-    <string name="pref_header_mini_controls">MiniPlayer</string>
+    <string name="pref_header_mini_controls">Pemain Kecil</string>
     <string name="pref_header_notification">Pemberitahuan</string>
     <string name="pref_header_playlists">Daftar putar</string>
+    <string name="pref_header_search">mencari</string>
     <string name="pref_header_widgets">Widget</string>
     <string name="pref_keep_pause_on_zero_volume_summary">Jeda lagu saat volume turun ke nol dan mulai diputar ulang saat level volume naik. Juga berfungsi di luar aplikasi</string>
     <string name="pref_keep_pause_on_zero_volume_title">Jeda Di Nol</string>
@@ -415,6 +422,8 @@
     <string name="pref_summary_restore_big_widget">Kembalikan widget besar</string>
     <string name="pref_summary_restore_full_circle_widget">Pulihkan widget lingkaran penuh</string>
     <string name="pref_summary_restore_removed_widgets">Pulihkan widget yang dihapus</string>
+    <string name="pref_summary_search_action">Buat daftar putar baru yang diacak alih-alih menambahkan ke daftar putar yang sudah adat</string>
+    <string name="pref_summary_search_icon">Atur ikon pencarian ke ikon pencarian suara dan mulai pencarian suara secara otomatis dari toolbar</string>
     <string name="pref_summary_show_lyrics">Tampilkan lirik yang disinkronkan atau disematkan</string>
     <string name="pref_summary_show_update">Ganti favorit dengan pembaruan di notifikasi pemutaran</string>
     <string name="pref_summary_specific_device">Izinkan hanya perangkat bluetooth tertentu untuk memutar musik secara otomatis</string>
@@ -424,6 +433,7 @@
     <string name="pref_summary_use_new_widget">Gunakan widget persegi baru (ini pada akhirnya akan menggantikan widget lengkap)</string>
     <string name="pref_summary_use_notification_actions_for_auto">Gunakan tindakan notifikasi sebagai tindakan otomatis Android</string>
     <string name="pref_summary_user_name">Tampilkan atau sembunyikan nama pengguna di halaman beranda</string>
+    <string name="pref_summary_volume_controls">Aktifkan kontrol volume di kontrol pemutaran</string>
     <string name="pref_summary_wallpaper_accent">Ekstrak warna aksen dari wallpaper</string>
     <string name="pref_summary_whitelist">Hanya tampilkan musik dari /Folder Musik</string>
     <string name="pref_summary_widget_custom_color">Tetapkan warna khusus untuk tombol widget, default ke warna aksen</string>
@@ -454,7 +464,7 @@
     <string name="pref_title_desaturated_color">Warna Desaturasi</string>
     <string name="pref_title_disable_widgets">Nonaktifkan Widget Default</string>
     <string name="pref_title_dismiss_failsafe">Tutup Failsafe</string>
-    <string name="pref_title_dismiss_method">MiniPlayer Tutup</string>
+    <string name="pref_title_dismiss_method">Pemberhentian Pemain Kecil</string>
     <string name="pref_title_embed_lyrics_view">Jenis Tampilan Lirik Tersemat</string>
     <string name="pref_title_expand_now_playing_panel">Tampilkan Layar Sedang Diputar</string>
     <string name="pref_title_extended_accent">Aksen yang Diperpanjang</string>
@@ -489,6 +499,8 @@
     <string name="pref_title_restore_big_widget">Widget Besar</string>
     <string name="pref_title_restore_full_circle_widget">Widget Lingkaran Penuh</string>
     <string name="pref_title_restore_removed_widgets">Kembalikan Widget</string>
+    <string name="pref_title_search_action">Tindakan Pencarian</string>
+    <string name="pref_title_search_icon">Ikon Pencarian</string>
     <string name="pref_title_show_lyrics">Tampilkan Lirik</string>
     <string name="pref_title_show_update">Tampilkan Pembaruan</string>
     <string name="pref_title_specific_device">Perangkat Tertentu</string>
@@ -502,6 +514,7 @@
     <string name="pref_title_use_new_widget">Gunakan Widget Baru</string>
     <string name="pref_title_use_notification_actions_for_auto">Gunakan Tindakan Pemberitahuan</string>
     <string name="pref_title_user_name">Nama belakang</string>
+    <string name="pref_title_volume_controls">Kontrol Volume</string>
     <string name="pref_title_wallpaper_accent">Warna Aksen Wallpaper</string>
     <string name="pref_title_whitelist">Musik Daftar Putih</string>
     <string name="pref_title_widget_background">Latar Belakang Widget</string>

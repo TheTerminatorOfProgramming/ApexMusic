@@ -170,7 +170,7 @@
             android:layout_marginTop="5dp"/>
 
         <com.ttop.app.apex.views.ListItemView
-            android:id="@+id/permissions_edit"
+            android:id="@+id/all_files_permission"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
@@ -178,6 +178,20 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sources_permission"
+            app:listItemIcon="@drawable/ic_file"
+            app:listItemSummary="@string/all_files_summary"
+            app:listItemTitle="@string/all_files_title"
+            android:layout_marginTop="5dp"/>
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/permissions_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/all_files_permission"
             app:listItemIcon="@drawable/ic_storage"
             app:listItemSummary="@string/pref_summary_permissions_edit"
             app:listItemTitle="@string/permission_edit"

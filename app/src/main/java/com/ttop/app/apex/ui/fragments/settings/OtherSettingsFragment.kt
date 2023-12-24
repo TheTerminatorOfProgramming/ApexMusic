@@ -67,6 +67,24 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val useNotiActionsAuto: TwoStatePreference? = findPreference(USE_NOTI_ACTIONS_AUTO)
+        useNotiActionsAuto?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val searchAction: TwoStatePreference? = findPreference(SEARCH_ACTION)
+        searchAction?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val searchIconNavigation: TwoStatePreference? = findPreference(SEARCH_ICON_NAVIGATION)
+        searchIconNavigation?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

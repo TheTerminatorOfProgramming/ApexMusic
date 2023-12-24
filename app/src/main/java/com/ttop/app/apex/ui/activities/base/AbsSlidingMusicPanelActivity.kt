@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.activities.base
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -35,10 +36,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.ttop.app.apex.*
+import com.ttop.app.apex.appwidgets.AppWidgetClassic
+import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.AppIntroActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
@@ -48,7 +52,6 @@ import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.adaptive.AdaptiveFragment
 import com.ttop.app.apex.ui.fragments.player.blur.BlurPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.card.CardFragment
-import com.ttop.app.apex.ui.fragments.player.color.ColorFragment
 import com.ttop.app.apex.ui.fragments.player.flat.FlatPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.gradient.GradientPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.md3.MD3PlayerFragment
@@ -154,7 +157,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 )
                 finish()
             } else {
-                if (!IntroPrefs(applicationContext).hasIntroShown) {
+                if (!IntroPrefs(applicationContext).hasIntroSlidesShown) {
                     startActivity(
                         Intent(
                             this@AbsSlidingMusicPanelActivity,
@@ -165,7 +168,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 }
             }
         } else {
-            if (!IntroPrefs(applicationContext).hasIntroShown) {
+            if (!IntroPrefs(applicationContext).hasIntroSlidesShown) {
                 startActivity(
                     Intent(
                         this@AbsSlidingMusicPanelActivity,
@@ -191,10 +194,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
 
         navigationBarColor = surfaceColor()
-
-        //val layoutParams = (binding.linearLayout?.layoutParams as? ViewGroup.MarginLayoutParams)
-        //layoutParams?.setMargins(0, ApexUtil.statusBarHeight, 0, 0)
-        //binding.linearLayout?.layoutParams = layoutParams
     }
 
     private fun setupBottomSheet() {
@@ -261,36 +260,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             SWIPE_ANYWHERE_NOW_PLAYING -> {
                 playerFragment.addSwipeDetector()
             }
-            ADAPTIVE_COLOR_APP-> {
-                if (PreferenceUtil.nowPlayingScreen in listOf(
-                        Adaptive,
-                        Card,
-                        Flat,
-                        Gradient,
-                        MD3,
-                        Normal,
-                        Peek,
-                        Plain
-                    )
-                ) {
-                    chooseFragmentForTheme()
-                    onServiceConnected()
-                }
-            }
-            PLAYER_BACKGROUND,
-            COLOR_ANIMATE-> {
-                if (PreferenceUtil.nowPlayingScreen in listOf(
-                        MD3,
-                        Normal,
-                        Peek,
-                        Plain,
-                        Simple
-                    )
-                ) {
-                    chooseFragmentForTheme()
-                    onServiceConnected()
-                }
-            }
             LIBRARY_CATEGORIES -> {
                 updateTabs()
                 refreshTabs()
@@ -308,7 +277,11 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             EMBED_LYRICS,
             QUEUE_STYLE,
             QUEUE_STYLE_LAND,
-            LIMIT_CATEGORIES -> {
+            LIMIT_CATEGORIES,
+            VOLUME_CONTROLS,
+            PLAYER_BACKGROUND,
+            COLOR_ANIMATE,
+            ADAPTIVE_COLOR_APP -> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {

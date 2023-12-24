@@ -207,7 +207,10 @@
     <string name="genre">Genre</string>
     <string name="genres">Genres</string>
     <string name="github_edition">Github Edition</string>
+    <string name="github_edition_beta">Github Edition: Beta</string>
     <string name="github_edition_debug">Github Edition: Build</string>
+    <string name="github_edition_preview">Github Edition: Preview</string>
+    <string name="github_edition_release">Github Edition: Stable</string>
     <string name="github_summary">Fork the project on GitHub</string>
     <string name="gradient">Gradient</string>
     <string name="granted">Granted</string>
@@ -331,7 +334,10 @@
     <string name="pick_from_local_storage">Pick from local storage</string>
     <string name="plain">Plain</string>
     <string name="play_store_edition">Play Store Edition</string>
+    <string name="play_store_edition_beta">Play Store Edition: Beta</string>
     <string name="play_store_edition_debug">Play Store Edition: Build</string>
+    <string name="play_store_edition_preview">Play Store Edition: Preview</string>
+    <string name="play_store_edition_release">Play Store Edition: Stable</string>
     <string name="playlist_name_empty_cant">Playlist name can\'t be empty</string>
     <string name="playlist_name_empty_shouldnt">Playlist name should\'nt be empty</string>
     <string name="playback_pitch">Pitch</string>
@@ -368,6 +374,7 @@
     <string name="pref_header_mini_controls">MiniPlayer</string>
     <string name="pref_header_notification">Notification</string>
     <string name="pref_header_playlists">Playlists</string>
+    <string name="pref_header_search">Search</string>
     <string name="pref_header_widgets">Widgets</string>
     <string name="pref_keep_pause_on_zero_volume_summary">Pauses the song when the volume decreases to zero and starts playing back when the volume level rises. Also works outside the app</string>
     <string name="pref_keep_pause_on_zero_volume_title">Pause On Zero</string>
@@ -420,6 +427,8 @@
     <string name="pref_summary_restore_big_widget">Restore big widget</string>
     <string name="pref_summary_restore_full_circle_widget">Restore full circle widget</string>
     <string name="pref_summary_restore_removed_widgets">Restore removed widgets</string>
+    <string name="pref_summary_search_action">Create a new shuffled playlist instead of adding to existing playlist</string>
+    <string name="pref_summary_search_icon">Set the search icon to the voice search icon and auto start voice search from toolbar</string>
     <string name="pref_summary_show_lyrics">Show synced or embedded lyrics</string>
     <string name="pref_summary_show_scrollbar">Show scrollbar in user interface</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
@@ -430,6 +439,7 @@
     <string name="pref_summary_use_new_widget">Use new square widget(this will eventually replace the full widget)</string>
     <string name="pref_summary_use_notification_actions_for_auto">Use notification actions as android auto actions</string>
     <string name="pref_summary_user_name">Show or hide user name on the home page</string>
+    <string name="pref_summary_volume_controls">Enable volume controls in the playback controls</string>
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
     <string name="pref_summary_widget_custom_color">Set a custom color for widgets buttons, defaults to accent color</string>
@@ -496,6 +506,8 @@
     <string name="pref_title_restore_big_widget">Big Widget</string>
     <string name="pref_title_restore_full_circle_widget">Full Circle Widget</string>
     <string name="pref_title_restore_removed_widgets">Restore Widgets</string>
+    <string name="pref_title_search_action">Search Action</string>
+    <string name="pref_title_search_icon">Search Icon</string>
     <string name="pref_title_show_lyrics">Show Lyrics</string>
     <string name="pref_title_show_scrollbar">Show Scrollbar</string>
     <string name="pref_title_show_update">Show Update</string>
@@ -510,6 +522,7 @@
     <string name="pref_title_use_new_widget">Use New Widget</string>
     <string name="pref_title_use_notification_actions_for_auto">Use Notification Actions</string>
     <string name="pref_title_user_name">User Name</string>
+    <string name="pref_title_volume_controls">Volume Controls</string>
     <string name="pref_title_wallpaper_accent">Wallpaper Accent Color</string>
     <string name="pref_title_whitelist">Whitelist Music</string>
     <string name="pref_title_widget_background">Widgets Background</string>

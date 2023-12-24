@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="all_files_summary">Izinkan akses ke semua file di perangkat ke musik apex. Izin ini diperlukan untuk mendeteksi cadangan apex secara otomatis</string>
+    <string name="all_files_title">Izin Kelola Semua File</string>
     <string name="available_to_download">tersedia untuk diunduh!</string>
     <string name="download_agreement">Dengan mengunduh pembaruan ini, Anda akan mendapatkan fitur terbaru, peningkatan, dan perbaikan bug!</string>
     <string name="install_now">Apakah Anda ingin mengunduh dan memasang pemutakhiran ini sekarang?</string>

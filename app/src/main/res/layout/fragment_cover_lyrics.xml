@@ -22,7 +22,6 @@
         android:gravity="center"
         android:shadowColor="@color/md_black_1000"
         android:shadowRadius="10"
-        android:fontFamily="@font/sans"
         android:textSize="30sp"
         android:textColor="@color/md_white_1000"
         android:visibility="gone"
@@ -36,7 +35,6 @@
         android:gravity="center"
         android:shadowColor="@color/md_black_1000"
         android:shadowRadius="10"
-        android:fontFamily="@font/sans"
         android:textSize="30sp"
         android:textColor="@color/md_white_1000"
         tools:text="@tools:sample/full_names[5]" />

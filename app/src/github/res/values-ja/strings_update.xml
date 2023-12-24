@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="all_files_summary">apex music へのデバイス上のすべてのファイルへのアクセスを許可します。 この権限は、apex バックアップを自動検出するために必要です</string>
+    <string name="all_files_title">すべてのファイルの管理権限</string>
     <string name="available_to_download">がダウンロード可能です！</string>
     <string name="download_agreement">このアップデートをダウンロードすると、最新の機能、改善点、バグ修正が得られます。</string>
     <string name="install_now">このアップデートを今すぐダウンロードしてインストールしますか?</string>

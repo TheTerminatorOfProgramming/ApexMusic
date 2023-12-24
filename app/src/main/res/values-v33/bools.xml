@@ -3,4 +3,5 @@
     <bool name="classic_notification">false</bool>
     <bool name="full_circle">false</bool>
     <bool name="actions">true</bool>
+    <bool name="auto_actions">true</bool>
 </resources>

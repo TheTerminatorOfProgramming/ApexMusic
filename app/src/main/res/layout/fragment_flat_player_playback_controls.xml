@@ -152,44 +152,81 @@
         tools:ignore="ContentDescription,UnusedAttribute"
         tools:showIn="@layout/fragment_player_playback_controls">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/playPauseButton"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_centerVertical="true"
-            android:background="?colorAccent"
-            android:padding="12dp"
-            android:scaleType="fitCenter"
-            tools:ignore="MissingPrefix"
-            tools:src="@drawable/ic_pause" />
-
         <LinearLayout
             android:id="@+id/resh"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="8dp">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/repeatButton"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:background="?attr/roundSelector"
-                android:padding="22dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_repeat"
-                tools:ignore="MissingPrefix" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/shuffleButton"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:background="?attr/roundSelector"
-                android:padding="22dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_shuffle"
-                tools:ignore="MissingPrefix" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/playPauseButton"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_centerVertical="true"
+                    android:background="?colorAccent"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@id/repeatButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/repeatButton"
+                    tools:ignore="MissingPrefix"
+                    tools:src="@drawable/ic_pause" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/repeatButton"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="?attr/roundSelector"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/shuffleButton"
+                    app:srcCompat="@drawable/ic_repeat"
+                    tools:ignore="MissingPrefix" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/shuffleButton"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="?attr/roundSelector"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_shuffle"
+                    tools:ignore="MissingPrefix" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/volUpButton"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="?attr/roundSelector"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/repeatButton"
+                    app:layout_constraintEnd_toStartOf="@id/volDownButton"
+                    app:srcCompat="@drawable/ic_add"
+                    tools:ignore="MissingPrefix" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/volDownButton"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="?attr/roundSelector"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/shuffleButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_minus"
+                    tools:ignore="MissingPrefix" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
     </RelativeLayout>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="all_files_summary">Permitir el acceso a todos los archivos del dispositivo a Apex Music. Este permiso es necesario para detectar automáticamente las copias de seguridad de Apex.</string>
+    <string name="all_files_title">Administrar todos los permisos de archivos</string>
     <string name="available_to_download">está disponible para descargar!</string>
     <string name="download_agreement">¡Al descargar esta actualización, obtendrá las últimas funciones, mejoras y correcciones de errores!</string>
     <string name="install_now">¿Desea descargar e instalar esta actualización ahora?</string>

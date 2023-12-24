@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.fragments.player.simple
 
 import android.animation.Animator
 import android.content.res.Configuration
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -62,6 +63,12 @@ class SimplePlaybackControlsFragment :
 
     override val previousButton: ImageButton
         get() = binding.previousButton
+
+    override val volUp: ImageButton
+        get() = binding.volUpButton
+
+    override val volDown: ImageButton
+        get() = binding.volDownButton
 
     override fun onPlayStateChanged() {
         updatePlayPauseDrawableState()
@@ -112,6 +119,14 @@ class SimplePlaybackControlsFragment :
         }
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
+        }
+
+        if (!PreferenceUtil.isVolumeControls) {
+            volUp.visibility = View.GONE
+            volDown.visibility = View.GONE
+        }else {
+            volUp.visibility = View.VISIBLE
+            volDown.visibility = View.VISIBLE
         }
     }
 
@@ -220,6 +235,9 @@ class SimplePlaybackControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
+
+        volUp.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
+        volDown.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
     private fun setUpPlayPauseFab() {

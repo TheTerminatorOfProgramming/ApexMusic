@@ -32,6 +32,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentLibraryBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
+import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
@@ -58,12 +59,14 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
         mainActivity.setBottomNavVisibility(true)
         mainActivity.setSupportActionBar(binding.toolbar)
         mainActivity.supportActionBar?.title = null
+        binding.toolbar.navigationIcon = if (PreferenceUtil.isVoiceSearch) {
+            getDrawableCompat(R.drawable.ic_voice)
+        }else {
+            getDrawableCompat(R.drawable.ic_search)
+        }
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(
-                R.id.action_search,
-                null,
-                navOptions
-            )
+            PreferenceUtil.isSearchFromNavigation = true
+            findNavController().navigate(R.id.action_search, null, navOptions)
         }
         setupNavigationController()
         setupTitle()

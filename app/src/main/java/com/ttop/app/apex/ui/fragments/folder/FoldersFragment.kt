@@ -41,6 +41,7 @@ import com.ttop.app.apex.adapter.StorageAdapter
 import com.ttop.app.apex.adapter.StorageClickListener
 import com.ttop.app.apex.databinding.FragmentFolderBinding
 import com.ttop.app.apex.extensions.dip
+import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
@@ -147,7 +148,13 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     private fun setUpTitle() {
+        toolbar.navigationIcon = if (PreferenceUtil.isVoiceSearch) {
+            getDrawableCompat(R.drawable.ic_voice)
+        }else {
+            getDrawableCompat(R.drawable.ic_search)
+        }
         toolbar.setNavigationOnClickListener {
+            PreferenceUtil.isSearchFromNavigation = true
             findNavController().navigate(R.id.action_search, null, navOptions)
         }
         binding.appBarLayout.title = resources.getString(R.string.folders)

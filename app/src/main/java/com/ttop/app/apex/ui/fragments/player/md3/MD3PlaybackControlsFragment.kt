@@ -15,6 +15,8 @@
 package com.ttop.app.apex.ui.fragments.player.md3
 
 import android.animation.Animator
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -22,6 +24,8 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMd3PlayerPlaybackControlsBinding
 import com.ttop.app.apex.extensions.*
@@ -60,6 +64,12 @@ class MD3PlaybackControlsFragment :
     override val previousButton: ImageButton
         get() = binding.previousButton
 
+    override val volUp: ImageButton
+        get() = binding.volUpButton
+
+    override val volDown: ImageButton
+        get() = binding.volDownButton
+
     override val songTotalTime: TextView
         get() = binding.songTotalTime
 
@@ -84,6 +94,14 @@ class MD3PlaybackControlsFragment :
         }
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
+        }
+
+        if (!PreferenceUtil.isVolumeControls) {
+            volUp.visibility = View.GONE
+            volDown.visibility = View.GONE
+        }else {
+            volUp.visibility = View.VISIBLE
+            volDown.visibility = View.VISIBLE
         }
     }
 
@@ -173,6 +191,9 @@ class MD3PlaybackControlsFragment :
         updateShuffleState()
         updatePrevNextColor()
         updatePlayPauseDrawableState()
+
+        volUp.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
+        volDown.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
     private fun updateSong() {

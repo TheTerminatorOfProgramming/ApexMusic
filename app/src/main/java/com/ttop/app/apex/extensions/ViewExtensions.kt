@@ -60,6 +60,14 @@ fun View.hide() {
     isVisible = false
 }
 
+fun View.see() {
+    visibility = View.VISIBLE
+}
+
+fun View.goAway() {
+    visibility = View.GONE
+}
+
 fun View.hidden() {
     isInvisible = true
 }

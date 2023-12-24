@@ -33,9 +33,14 @@
             android:title="@string/pref_title_md3"
             app:isPreferenceVisible="@bool/md3_available"
             app:allowDividerBelow="false"/>
-
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:key="fonts"
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_title_custom_font"
+        app:allowDividerBelow="false">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="nothing"
+            android:defaultValue="apex"
             android:key="custom_font"
             android:entries="@array/pref_font_list_titles"
             android:entryValues="@array/pref_font_list_values"

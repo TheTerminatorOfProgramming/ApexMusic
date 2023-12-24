@@ -19,13 +19,17 @@ import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.animation.doOnEnd
@@ -55,6 +59,7 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.*
 import com.ttop.app.apex.util.color.MediaNotificationProcessor

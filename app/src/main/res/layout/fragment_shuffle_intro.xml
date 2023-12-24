@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintVertical_weight="2"
-        android:text="Shuffle Mode" />
+        android:text="@string/shuffle" />
 
     <RelativeLayout
         android:id="@+id/imageLayout"

@@ -60,6 +60,7 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil

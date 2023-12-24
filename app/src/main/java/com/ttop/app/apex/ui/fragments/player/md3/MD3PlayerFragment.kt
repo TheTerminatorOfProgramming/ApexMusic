@@ -18,24 +18,24 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.Guideline
 import androidx.core.animation.doOnEnd
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
@@ -46,13 +46,10 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentMd3PlayerBinding
 import com.ttop.app.apex.dialogs.*
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.surfaceColor
-import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
@@ -61,6 +58,7 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -76,6 +74,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
 
+
 class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
 
     private var lastColor: Int = 0
@@ -90,7 +89,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
     private var playingQueueAdapter: PlayingQueueAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
-
+    private var miniPlayerFragment: MiniPlayerFragment? = null
     private var _binding: FragmentMd3PlayerBinding? = null
     private val binding get() = _binding!!
 
@@ -141,6 +140,21 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
         }
 
         playingQueueAdapter?.setTextColor(color.secondaryTextColor)
+
+        /*
+        //Foreground
+        val hexColor = Integer.toHexString(color.secondaryTextColor)
+        val finalHexColor = hexColor.substring(2)
+
+        PreferenceUtil.miniPlayerColorCode = "#$finalHexColor"
+
+        //Background Color
+        val hexColorBg = Integer.toHexString(color.backgroundColor)
+        val finalHexColorBg = hexColorBg.substring(2)
+
+        val fragment: Fragment? = requireFragmentManager().findFragmentById(R.id.miniPlayerFragment)
+        fragment?.view?.setBackgroundColor(Color.parseColor("#$finalHexColorBg"))
+         */
     }
 
     private fun colorize(i: Int) {
@@ -353,6 +367,7 @@ class MD3PlayerFragment : AbsPlayerFragment(R.layout.fragment_md3_player) {
 
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.inflateMenu(R.menu.menu_player)
+
         //binding.playerToolbar.menu.setUpWithIcons()
         binding.playerToolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_down_black)
         binding.playerToolbar.setNavigationOnClickListener {

@@ -116,6 +116,11 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
         }
         binding.appBarLayout.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
+
+        if (PreferenceUtil.isVoiceSearch && PreferenceUtil.isSearchFromNavigation) {
+            startMicSearch()
+            PreferenceUtil.isSearchFromNavigation = false
+        }
     }
 
     private fun setupChips() {

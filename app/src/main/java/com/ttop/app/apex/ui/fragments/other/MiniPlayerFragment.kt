@@ -18,6 +18,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -36,7 +37,6 @@ import com.ttop.app.apex.databinding.FragmentMiniPlayerBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.textColorPrimary
-import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
@@ -45,6 +45,7 @@ import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
+import com.ttop.app.apex.ui.fragments.player.normal.PlayerFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
@@ -56,6 +57,9 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private var _binding: FragmentMiniPlayerBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressViewUpdateHelper: MusicProgressViewUpdateHelper
+
+    private var titleColor: Int = 0
+
     val mainActivity: MainActivity
         get() = activity as MainActivity
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,6 +111,10 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         setUpButtons()
     }
 
+    fun setTitleTextColor(color: Int) {
+        titleColor = color
+    }
+
     fun setUpButtons() {
         if (ApexUtil.isTablet) {
             binding.actionNext.show()
@@ -140,22 +148,29 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     }
 
     private fun updateSongTitle() {
-
         val song = MusicPlayerRemote.currentSong
 
         val builder = SpannableStringBuilder()
 
         val title = song.title.toSpannable()
-        title.setSpan(ForegroundColorSpan(textColorPrimary()), 0, title.length, 0)
-
         val text = song.artistName.toSpannable()
-        text.setSpan(ForegroundColorSpan(textColorSecondary()), 0, text.length, 0)
+
+        title.setSpan(ForegroundColorSpan(textColorPrimary()), 0, title.length, 0)
+        text.setSpan(ForegroundColorSpan(textColorPrimary()), 0, text.length, 0)
+
+        /*if (PreferenceUtil.isMiniPlayerTextColored && PreferenceUtil.isAdaptiveColor) {
+            title.setSpan(ForegroundColorSpan(Color.parseColor(PreferenceUtil.miniPlayerColorCode)), 0, title.length, 0)
+            text.setSpan(ForegroundColorSpan(Color.parseColor(PreferenceUtil.miniPlayerColorCode)), 0, text.length, 0)
+        }else {
+            title.setSpan(ForegroundColorSpan(textColorPrimary()), 0, title.length, 0)
+            text.setSpan(ForegroundColorSpan(textColorPrimary()), 0, text.length, 0)
+        }*/
 
         builder.append(title).append(" • ").append(text)
 
         binding.miniPlayerTitle.isSelected = true
         binding.miniPlayerTitle.text = builder
-
+        //binding.miniPlayerTitle.setTextColor(Color.parseColor(PreferenceUtil.miniPlayerColorCode))
 //        binding.title.isSelected = true
 //        binding.title.text = song.title
 //        binding.text.isSelected = true

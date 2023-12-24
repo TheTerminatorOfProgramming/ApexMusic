@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Normal -->
+    <style name="BarlowThemeOverlay">
+        <item name="fontFamily">@font/barlow</item>
+        <item name="android:fontFamily">@font/barlow</item>
+    </style>
+
+    <style name="JuraThemeOverlay">
+        <item name="fontFamily">@font/jura</item>
+        <item name="android:fontFamily">@font/jura</item>
+    </style>
+
+    <style name="PencilThemeOverlay">
+        <item name="fontFamily">@font/pencil</item>
+        <item name="android:fontFamily">@font/pencil</item>
+    </style>
+
+    <style name="DrexsThemeOverlay">
+        <item name="fontFamily">@font/drexs</item>
+        <item name="android:fontFamily">@font/drexs</item>
+    </style>
+
+    <style name="HermanoaltoThemeOverlay">
+        <item name="fontFamily">@font/hermanoalto_chisel</item>
+        <item name="android:fontFamily">@font/hermanoalto_chisel</item>
+    </style>
+
+    <style name="NothingThemeOverlay">
+        <item name="fontFamily">@font/nothing</item>
+        <item name="android:fontFamily">@font/nothing</item>
+    </style>
+
+    <style name="BeckmanThemeOverlay">
+        <item name="fontFamily">@font/beckman</item>
+        <item name="android:fontFamily">@font/beckman</item>
+    </style>
+
+    <style name="BinjayThemeOverlay">
+        <item name="fontFamily">@font/binjay</item>
+        <item name="android:fontFamily">@font/binjay</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="HiatusThemeOverlay">
+        <item name="fontFamily">@font/hiatus</item>
+        <item name="android:fontFamily">@font/hiatus</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BinjayTitleThemeOverlay">
+        <item name="fontFamily">@font/binjay</item>
+        <item name="android:fontFamily">@font/binjay</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="HiatusTitleThemeOverlay">
+        <item name="fontFamily">@font/hiatus</item>
+        <item name="android:fontFamily">@font/hiatus</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="ApexThemeOverlay">
+        <item name="fontFamily">@font/apex</item>
+        <item name="android:fontFamily">@font/apex</item>
+    </style>
+    <!-- Bold -->
+    <style name="BarlowBoldThemeOverlay">
+        <item name="fontFamily">@font/barlow_bold</item>
+        <item name="android:fontFamily">@font/barlow_bold</item>
+    </style>
+
+    <style name="JuraBoldThemeOverlay">
+        <item name="fontFamily">@font/jura_bold_font</item>
+        <item name="android:fontFamily">@font/jura_bold_font</item>
+    </style>
+</resources>

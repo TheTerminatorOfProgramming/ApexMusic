@@ -93,6 +93,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
+        val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
+        colorAnimate?.isChecked = PreferenceUtil.isColorAnimate
+        colorAnimate?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
         val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
         adaptiveColor?.isEnabled =
             PreferenceUtil.nowPlayingScreen in listOf(
@@ -107,8 +114,15 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 NowPlayingScreen.Simple
             )
 
-        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
+        adaptiveColor?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            /*val value = newValue as Boolean
+
+            if (!value) {
+                colorAnimate?.isChecked = false
+            }*/
+
             true
         }
 
@@ -118,9 +132,9 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
-        colorAnimate?.isChecked = PreferenceUtil.isColorAnimate
-        colorAnimate?.setOnPreferenceChangeListener { _, _ ->
+        val volumeControls: TwoStatePreference? = findPreference(VOLUME_CONTROLS)
+        volumeControls?.isChecked = PreferenceUtil.isVolumeControls
+        volumeControls?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }

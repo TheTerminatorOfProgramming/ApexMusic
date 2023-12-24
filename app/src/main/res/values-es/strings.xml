@@ -205,7 +205,10 @@
     <string name="genre">Género</string>
     <string name="genres">Géneros</string>
     <string name="github_edition">Edición Github</string>
-    <string name="github_edition_debug">Edición de Github: compilación</string>
+    <string name="github_edition_beta">Edición Github: Beta</string>
+    <string name="github_edition_debug">Edición Github: compilación</string>
+    <string name="github_edition_preview">Edición Github: Vista previa</string>
+    <string name="github_edition_release">Edición Github: estable</string>
     <string name="github_summary">Bifurcar el proyecto en GitHub</string>
     <string name="gradient">Degradado</string>
     <string name="granted">Otorgada</string>
@@ -329,7 +332,10 @@
     <string name="pick_from_local_storage">Elegir del almacenamiento local</string>
     <string name="plain">Plano</string>
     <string name="play_store_edition">Edición de Play Store</string>
+    <string name="play_store_edition_beta">Edición de Play Store: Beta</string>
     <string name="play_store_edition_debug">Edición de Play Store: compilación</string>
+    <string name="play_store_edition_preview">Edición Play Store: vista previa</string>
+    <string name="play_store_edition_release">Edición Play Store: estable</string>
     <string name="playlist_name_empty_cant">El nombre de la lista de reproducción no puede estar vacío</string>
     <string name="playlist_name_empty_shouldnt">El nombre de la lista de reproducción no debe estar vacío</string>
     <string name="playback_pitch">Paso</string>
@@ -363,9 +369,10 @@
     <string name="pref_header_library">Biblioteca</string>
     <string name="pref_header_lockscreen">Pantalla de bloqueo y Wear OS</string>
     <string name="pref_header_lyrics">Letra</string>
-    <string name="pref_header_mini_controls">minijugador</string>
+    <string name="pref_header_mini_controls">Minijugador</string>
     <string name="pref_header_notification">Notificación</string>
     <string name="pref_header_playlists">listas de reproducción</string>
+    <string name="pref_header_search">buscar</string>
     <string name="pref_header_widgets">Widgets</string>
     <string name="pref_keep_pause_on_zero_volume_summary">Hace una pausa en la canción cuando el volumen desciende a cero y comienza a reproducirla cuando sube el nivel de volumen. También funciona fuera de la aplicación.</string>
     <string name="pref_keep_pause_on_zero_volume_title">Pausa en cero</string>
@@ -417,6 +424,8 @@
     <string name="pref_summary_restore_big_widget">Restaurar widget grande</string>
     <string name="pref_summary_restore_full_circle_widget">Restaurar widget de círculo completo</string>
     <string name="pref_summary_restore_removed_widgets">Restaurar widgets eliminados</string>
+    <string name="pref_summary_search_action">Cree una nueva lista de reproducción aleatoria en lugar de agregarla a una lista de reproducción existente</string>
+    <string name="pref_summary_search_icon">Configure el ícono de búsqueda en el ícono de búsqueda por voz e inicie automáticamente la búsqueda por voz desde la barra de herramientas</string>
     <string name="pref_summary_show_lyrics">Mostrar letras sincronizadas o incrustadas</string>
     <string name="pref_summary_show_update">Reemplazar favorito con actualización en la notificación de reproducción</string>
     <string name="pref_summary_specific_device">Permitir que solo un dispositivo bluetooth específico reproduzca música automáticamente</string>
@@ -426,6 +435,7 @@
     <string name="pref_summary_use_new_widget">Use un nuevo widget cuadrado (esto eventualmente reemplazará el widget completo)</string>
     <string name="pref_summary_use_notification_actions_for_auto">Utilice acciones de notificación como acciones automáticas de Android</string>
     <string name="pref_summary_user_name">Mostrar u ocultar el nombre de usuario en la página de inicio</string>
+    <string name="pref_summary_volume_controls">Habilite los controles de volumen en los controles de reproducción</string>
     <string name="pref_summary_wallpaper_accent">Extraiga el color de acento del fondo de pantalla</string>
     <string name="pref_summary_whitelist">Mostrar solo música de /Carpeta de música</string>
     <string name="pref_summary_widget_custom_color">Establezca un color personalizado para los botones de los widgets, el valor predeterminado es el color de énfasis</string>
@@ -491,6 +501,8 @@
     <string name="pref_title_restore_big_widget">Gran widget</string>
     <string name="pref_title_restore_full_circle_widget">Widget de círculo completo</string>
     <string name="pref_title_restore_removed_widgets">Restaurar widgets</string>
+    <string name="pref_title_search_action">Acción de búsqueda</string>
+    <string name="pref_title_search_icon">Icono de búsqueda</string>
     <string name="pref_title_show_lyrics">Mostrar letras</string>
     <string name="pref_title_show_update">Mostrar actualización</string>
     <string name="pref_title_specific_device">Dispositivo específico</string>
@@ -504,6 +516,7 @@
     <string name="pref_title_use_new_widget">Usar nuevo widget</string>
     <string name="pref_title_use_notification_actions_for_auto">Usar acciones de notificación</string>
     <string name="pref_title_user_name">Nombre de usuario</string>
+    <string name="pref_title_volume_controls">Controles de volumen</string>
     <string name="pref_title_wallpaper_accent">Color de acento de papel tapiz</string>
     <string name="pref_title_whitelist">Lista blanca de música</string>
     <string name="pref_title_widget_background">Fondo de widgets</string>

@@ -81,11 +81,11 @@ fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(requireContext(), message, duration).show()
 }
 
-fun Fragment.showToastLong(@StringRes stringRes: Int, duration: Int = Toast.LENGTH_SHORT) {
+fun Fragment.showToastLong(@StringRes stringRes: Int, duration: Int = Toast.LENGTH_LONG) {
     showToast(getString(stringRes), duration)
 }
 
-fun Fragment.showToastLong(message: String, duration: Int = Toast.LENGTH_SHORT) {
+fun Fragment.showToastLong(message: String, duration: Int = Toast.LENGTH_LONG) {
     Toast.makeText(requireContext(), message, duration).show()
 }
 

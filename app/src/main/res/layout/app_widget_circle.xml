@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/default_audio_art"
+        android:src="@drawable/default_album_art_round"
         tools:src="@tools:sample/backgrounds/scenic[0]" />
 
     <ImageButton

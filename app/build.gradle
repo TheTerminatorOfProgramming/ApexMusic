@@ -15,8 +15,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.ttop.app.apex"
-        versionCode 310
-        versionName '3.1.0'
+        versionCode 320
+        versionName '3.2.0'
     }
     signingConfigs {
         release {
@@ -45,7 +45,7 @@ android {
 
     flavorDimensions = ["version"]
     productFlavors {
-        normal {
+        playstore {
             dimension "version"
         }
         github {
@@ -175,4 +175,6 @@ dependencies {
     githubImplementation 'com.github.javiersantos:AppUpdater:2.7'
     githubImplementation 'com.github.Piashsarker:AndroidAppUpdateLibrary:1.0.4'
     implementation 'androidx.car.app:app:1.4.0-rc01'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
+    implementation 'com.github.arcadefire:nice-spinner:1.4.5'
 }

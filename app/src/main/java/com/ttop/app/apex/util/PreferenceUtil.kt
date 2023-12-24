@@ -769,7 +769,7 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
     val isCustomFont
-        get() = sharedPreferences.getString(CUSTOM_FONT, "nothing")
+        get() = sharedPreferences.getString(CUSTOM_FONT, "apex")
 
     val lyricsType: CoverLyricsType
         get() = if (sharedPreferences.getString(LYRICS_TYPE, "0") == "0") {
@@ -1173,6 +1173,28 @@ object PreferenceUtil {
     val isNotificationActionsOnAuto
         get() = sharedPreferences.getBoolean(
             USE_NOTI_ACTIONS_AUTO, true
+        )
+
+    val searchActionShuffle
+        get() = sharedPreferences.getBoolean(
+            SEARCH_ACTION, false
+        )
+
+    val isVoiceSearch
+        get() = sharedPreferences.getBoolean(
+            SEARCH_ICON_NAVIGATION, false
+        )
+
+    var isSearchFromNavigation
+        get() = sharedPreferences.getBoolean(
+            SEARCH_FROM_NAVIGATION, false)
+
+        set(value) = sharedPreferences.edit {
+            putBoolean(SEARCH_FROM_NAVIGATION, value)}
+
+    val isVolumeControls
+        get() = sharedPreferences.getBoolean(
+            VOLUME_CONTROLS, false
         )
 }
 

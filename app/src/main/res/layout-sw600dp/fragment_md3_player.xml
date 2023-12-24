@@ -69,7 +69,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toBottomOf="@id/statusBarContainer" />
 

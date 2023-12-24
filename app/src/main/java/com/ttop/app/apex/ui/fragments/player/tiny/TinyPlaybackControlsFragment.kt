@@ -20,6 +20,7 @@ import android.widget.ImageButton
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentTinyControlsFragmentBinding
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ColorUtil
 
@@ -34,6 +35,12 @@ class TinyPlaybackControlsFragment :
     override val repeatButton: ImageButton
         get() = binding.repeatButton
 
+    override val volUp: ImageButton
+        get() = binding.volUpButton
+
+    override val volDown: ImageButton
+        get() = binding.volDownButton
+
     override fun show() {}
 
     override fun hide() {}
@@ -41,6 +48,9 @@ class TinyPlaybackControlsFragment :
     override fun setColor(color: MediaNotificationProcessor) {
         lastPlaybackControlsColor = color.secondaryTextColor
         lastDisabledPlaybackControlsColor = ColorUtil.withAlpha(color.secondaryTextColor, 0.25f)
+
+        volUp.setColorFilter(lastPlaybackControlsColor)
+        volDown.setColorFilter(lastPlaybackControlsColor)
 
         updateRepeatState()
         updateShuffleState()
@@ -52,6 +62,14 @@ class TinyPlaybackControlsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTinyControlsFragmentBinding.bind(view)
+
+        if (!PreferenceUtil.isVolumeControls) {
+            volUp.visibility = View.GONE
+            volDown.visibility = View.GONE
+        }else {
+            volUp.visibility = View.VISIBLE
+            volDown.visibility = View.VISIBLE
+        }
     }
 
     override fun onServiceConnected() {

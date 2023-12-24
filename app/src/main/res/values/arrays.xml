@@ -143,7 +143,7 @@
     </string-array>
 
     <string-array name="pref_widget_button_color_list_titles">
-        <item>@string/default_color</item>
+        <item>@string/adaptive</item>
         <item>@string/black</item>
         <item>@string/white</item>
         <item>@string/accent_color</item>
@@ -186,28 +186,30 @@
 
     <string-array name="pref_font_list_titles">
         <item>@string/font_default_name</item>
+        <item>@string/font_apex_name</item>
         <item>@string/font_barlow_name</item>
+        <item>@string/font_beckman_name</item>
+        <item>@string/font_binjay_name</item>
         <item>@string/font_drexs_name</item>
-        <item>@string/font_sans_name</item>
         <item>@string/font_hermanoalto_name</item>
+        <item>@string/font_hiatus_name</item>
         <item>@string/font_jura_name</item>
         <item>@string/font_nothing_name</item>
-        <item>@string/font_oneui_name</item>
         <item>@string/font_pencil_name</item>
-        <item>@string/font_samsung_sans_name</item>
     </string-array>
 
     <string-array name="pref_font_list_values">
         <item>default</item>
+        <item>apex</item>
         <item>barlow</item>
+        <item>beckman</item>
+        <item>binjay</item>
         <item>drexs</item>
-        <item>sans</item>
         <item>hermanoalto</item>
+        <item>hiatus</item>
         <item>jura</item>
         <item>nothing</item>
-        <item>oneui</item>
         <item>pencil</item>
-        <item>samsung</item>
     </string-array>
 
     <string-array name="pref_home_grid_style_list_titles">

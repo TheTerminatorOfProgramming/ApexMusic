@@ -120,6 +120,36 @@
         tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/volUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="?attr/roundSelector"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/previousButton"
+        app:layout_constraintEnd_toStartOf="@+id/previousButton"
+        app:layout_constraintTop_toTopOf="@+id/previousButton"
+        android:layout_marginEnd="40dp"
+        app:srcCompat="@drawable/ic_add"
+        tools:ignore="MissingPrefix"
+        tools:tint="@color/md_black_1000" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/volDownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="?attr/roundSelector"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintStart_toEndOf="@+id/nextButton"
+        app:layout_constraintTop_toTopOf="@+id/nextButton"
+        android:layout_marginStart="40dp"
+        app:srcCompat="@drawable/ic_minus"
+        tools:ignore="MissingPrefix"
+        tools:tint="@color/md_black_1000" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/previousButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

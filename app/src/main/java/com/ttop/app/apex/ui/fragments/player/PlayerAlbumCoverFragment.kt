@@ -43,6 +43,7 @@ import com.ttop.app.apex.transform.ParallaxPagerTransformer
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.util.CoverLyricsType
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil

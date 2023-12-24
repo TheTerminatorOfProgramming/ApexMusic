@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RemoteViews
@@ -35,6 +36,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.darkerColor
 import com.ttop.app.apex.extensions.getColorResCompat
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -195,7 +197,7 @@ class AppWidgetFull : BaseAppWidget() {
         }
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
-        appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
+        appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
 
         if (PreferenceUtil.widgetBackground == "day_night") {
             when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
@@ -494,8 +496,8 @@ class AppWidgetFull : BaseAppWidget() {
             }
             target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
                 .load(ApexGlideExtension.getSongModel(song))
-                .placeholder(R.drawable.default_audio_art)
-                .error(R.drawable.default_audio_art)
+                .placeholder(R.drawable.default_album_art_round)
+                .error(R.drawable.default_album_art_round)
                 .circleCrop()
                 .into(object : SimpleTarget<BitmapPaletteWrapper>(
                     imageSize,
@@ -743,7 +745,7 @@ class AppWidgetFull : BaseAppWidget() {
         val song = service.currentSong
 
         target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
-            .load(R.drawable.default_audio_art)
+            .load(R.drawable.default_album_art_round)
             .circleCrop()
             .into(object : SimpleTarget<BitmapPaletteWrapper>(
                imageSize,

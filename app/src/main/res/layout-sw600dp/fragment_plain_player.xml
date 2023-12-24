@@ -99,10 +99,10 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playerAlbumCoverFragment"
         android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
         app:layout_constraintTop_toBottomOf="@id/titleContainer"
         app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment"/>

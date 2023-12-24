@@ -142,7 +142,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
 
     protected fun getAlbumArtDrawable(resources: Resources, bitmap: Bitmap?): Drawable {
         return if (bitmap == null) {
-            ContextCompat.getDrawable(App.getContext(), R.drawable.default_audio_art)!!
+            ContextCompat.getDrawable(App.getContext(), R.drawable.default_album_art_round)!!
         } else {
             BitmapDrawable(resources, bitmap)
         }

@@ -1268,41 +1268,121 @@ class MusicService : MediaBrowserServiceCompat(),
                 onCompletion()
             }
         } else {
-            // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
-            Glide.with(this)
-                .asBitmap()
-                .songCoverOptions(song)
-                .load(getSongModel(song))
-                .circleCrop()
-                .transition(getDefaultTransition())
-                .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                    override fun onLoadFailed(errorDrawable: Drawable?) {
-                        super.onLoadFailed(errorDrawable)
-                        metaData.putBitmap(
-                            MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                            BitmapFactory.decodeResource(
-                                resources,
-                                R.drawable.default_audio_art
-                            )
-                        )
-                        mediaSession?.setMetadata(metaData.build())
-                        onCompletion()
-                    }
+            val deviceManu = Build.MANUFACTURER
+            when (Build.VERSION.SDK_INT) {
+                Build.VERSION_CODES.S, Build.VERSION_CODES.TIRAMISU -> {
+                    // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
+                    Glide.with(this)
+                        .asBitmap()
+                        .songCoverOptions(song)
+                        .load(getSongModel(song))
+                        .circleCrop()
+                        .transition(getDefaultTransition())
+                        .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                super.onLoadFailed(errorDrawable)
+                                metaData.putBitmap(
+                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                    BitmapFactory.decodeResource(
+                                        resources,
+                                        R.drawable.default_audio_art
+                                    )
+                                )
+                                mediaSession?.setMetadata(metaData.build())
+                                onCompletion()
+                            }
 
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap?>?,
-                    ) {
-                        metaData.putBitmap(
-                            MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                            resource
-                        )
-                        mediaSession?.setMetadata(metaData.build())
-                        onCompletion()
-                    }
+                            override fun onResourceReady(
+                                resource: Bitmap,
+                                transition: Transition<in Bitmap?>?,
+                            ) {
+                                metaData.putBitmap(
+                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                    resource
+                                )
+                                mediaSession?.setMetadata(metaData.build())
+                                onCompletion()
+                            }
 
-                    override fun onLoadCleared(placeholder: Drawable?) {}
-                })
+                            override fun onLoadCleared(placeholder: Drawable?) {}
+                        })
+                }
+
+                Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
+                    if (deviceManu == "samsung") {
+                        // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
+                        Glide.with(this)
+                            .asBitmap()
+                            .songCoverOptions(song)
+                            .load(getSongModel(song))
+                            .transition(getDefaultTransition())
+                            .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                                override fun onLoadFailed(errorDrawable: Drawable?) {
+                                    super.onLoadFailed(errorDrawable)
+                                    metaData.putBitmap(
+                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                        BitmapFactory.decodeResource(
+                                            resources,
+                                            R.drawable.default_audio_art
+                                        )
+                                    )
+                                    mediaSession?.setMetadata(metaData.build())
+                                    onCompletion()
+                                }
+
+                                override fun onResourceReady(
+                                    resource: Bitmap,
+                                    transition: Transition<in Bitmap?>?,
+                                ) {
+                                    metaData.putBitmap(
+                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                        resource
+                                    )
+                                    mediaSession?.setMetadata(metaData.build())
+                                    onCompletion()
+                                }
+
+                                override fun onLoadCleared(placeholder: Drawable?) {}
+                            })
+                    }else {
+                        // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
+                        Glide.with(this)
+                            .asBitmap()
+                            .songCoverOptions(song)
+                            .load(getSongModel(song))
+                            .circleCrop()
+                            .transition(getDefaultTransition())
+                            .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                                override fun onLoadFailed(errorDrawable: Drawable?) {
+                                    super.onLoadFailed(errorDrawable)
+                                    metaData.putBitmap(
+                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                        BitmapFactory.decodeResource(
+                                            resources,
+                                            R.drawable.default_audio_art
+                                        )
+                                    )
+                                    mediaSession?.setMetadata(metaData.build())
+                                    onCompletion()
+                                }
+
+                                override fun onResourceReady(
+                                    resource: Bitmap,
+                                    transition: Transition<in Bitmap?>?,
+                                ) {
+                                    metaData.putBitmap(
+                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                        resource
+                                    )
+                                    mediaSession?.setMetadata(metaData.build())
+                                    onCompletion()
+                                }
+
+                                override fun onLoadCleared(placeholder: Drawable?) {}
+                            })
+                    }
+                }
+            }
         }
     }
 

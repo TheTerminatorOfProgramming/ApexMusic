@@ -46,7 +46,6 @@ import com.ttop.app.apex.util.logE
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import java.util.Random
 
 
 class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -65,7 +64,7 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
 
         setupNavigationController()
 
-        //WhatsNewFragment.showChangeLog(this)
+        WhatsNewFragment.showChangeLog(this)
 
         PreferenceUtil.isSamsungSoundPluginInstalled = checkSamsungSoundPlugin()
 

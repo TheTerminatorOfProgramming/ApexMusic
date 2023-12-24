@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="all_files_summary">অ্যাপেক্স মিউজিকের ডিভাইসে সমস্ত ফাইল অ্যাক্সেস করার অনুমতি দিন। সর্বোচ্চ ব্যাকআপগুলি স্বয়ংক্রিয়ভাবে সনাক্ত করতে এই অনুমতির প্রয়োজন৷</string>
+    <string name="all_files_title">সমস্ত ফাইল অনুমতি পরিচালনা করুন</string>
     <string name="available_to_download">ডাউনলোড করার জন্য উপলব্ধ!</string>
     <string name="download_agreement">এই আপডেটটি ডাউনলোড করে আপনি সর্বশেষ বৈশিষ্ট্য, উন্নতি এবং বাগ ফিক্স পাবেন!</string>
     <string name="install_now">আপনি কি এখন এই আপডেটটি ডাউনলোড এবং ইনস্টল করতে চান?</string>

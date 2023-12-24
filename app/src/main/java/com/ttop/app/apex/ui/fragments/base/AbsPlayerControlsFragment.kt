@@ -17,7 +17,11 @@ package com.ttop.app.apex.ui.fragments.base
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
+import android.media.AudioManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
@@ -26,9 +30,11 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.service.MusicService
@@ -68,6 +74,10 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     open val nextButton: ImageButton? = null
 
     open val previousButton: ImageButton? = null
+
+    open val volUp: ImageButton? = null
+
+    open val volDown: ImageButton? = null
 
     open val songTotalTime: TextView? = null
 
@@ -206,6 +216,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
         setUpPrevNext()
         setUpShuffleButton()
         setUpRepeatButton()
+        setupVolButtons()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -259,6 +270,49 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                     PorterDuff.Mode.SRC_IN
                 )
             }
+        }
+    }
+
+    private fun setupVolButtons() {
+        val mAudioManager: AudioManager = context?.getSystemService()!!
+
+        var lastUpClick: Long
+        var lastDownClick: Long
+
+        volUp?.setOnClickListener {
+            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
+
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            lastUpClick = System.currentTimeMillis()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (System.currentTimeMillis() - lastUpClick >= 500) {
+                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+                    val currentVolumeTotal = 100 * currentVolume / maxVolume
+
+                    showToast("New Volume: $currentVolumeTotal%")
+                }
+            }, 500)
+        }
+
+        volDown?.setOnClickListener {
+            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
+
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            lastDownClick = System.currentTimeMillis()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (System.currentTimeMillis() - lastDownClick >= 500) {
+                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+                    val currentVolumeTotal = 100 * currentVolume / maxVolume
+
+                    showToast("New Volume: $currentVolumeTotal%")
+                }
+            }, 500)
         }
     }
 

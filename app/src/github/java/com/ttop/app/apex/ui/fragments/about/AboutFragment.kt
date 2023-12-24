@@ -109,6 +109,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         if (VersionUtils.hasS()) {
             binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
         }
+        binding.aboutContent.cardPermissions?.filesPermission?.text = checkFilesPermission()
     }
 
     private fun setUpView() {
@@ -130,6 +131,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
         binding.aboutContent.cardPermissions?.ringtonePermission?.setOnClickListener(this)
         binding.aboutContent.cardPermissions?.sourcesPermission?.setOnClickListener(this)
+        binding.aboutContent.cardPermissions?.allFilesPermission?.setOnClickListener(this)
         binding.aboutContent.cardPermissions?.intro?.setOnClickListener(this)
         if (!PreferenceUtil.isDevModeEnabled) {
             binding.aboutContent.cardOther.version.setOnClickListener(this)
@@ -164,6 +166,12 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     GithubUtils.enableUnknownSources(requireContext())
                 }else {
                     showToast(R.string.permission_granted)
+                }
+            }
+            R.id.all_files_permission -> context?.let { activity?.let { it1 ->
+                    GithubUtils.enableManageAllFiles(it,
+                        it1
+                    )
                 }
             }
             R.id.battery_permission_title -> ApexUtil.disableBatteryOptimization()

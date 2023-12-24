@@ -26,6 +26,7 @@ import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper

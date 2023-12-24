@@ -203,7 +203,10 @@
     <string name="genre">ジャンル</string>
     <string name="genres">ジャンル</string>
     <string name="github_edition">Github版</string>
+    <string name="github_edition_beta">Github エディション: ベータ版</string>
     <string name="github_edition_debug">Github エディション: ビルド</string>
+    <string name="github_edition_preview">Github エディション: プレビュー</string>
+    <string name="github_edition_release">Github エディション: 安定版</string>
     <string name="github_summary">GitHub でプロジェクトをフォークする</string>
     <string name="gradient">勾配</string>
     <string name="granted">付与された</string>
@@ -327,7 +330,10 @@
     <string name="pick_from_local_storage">ローカル ストレージから選択する</string>
     <string name="plain">無地</string>
     <string name="play_store_edition">Playストア版</string>
+    <string name="play_store_edition_beta">Play ストア版: ベータ版</string>
     <string name="play_store_edition_debug">Play ストア エディション: ビルド</string>
+    <string name="play_store_edition_preview">Play ストア版: プレビュー</string>
+    <string name="play_store_edition_release">Play ストア版: 安定版</string>
     <string name="playlist_name_empty_cant">プレイリスト名を空にすることはできません</string>
     <string name="playlist_name_empty_shouldnt">プレイリスト名を空にすることはできません</string>
     <string name="playback_pitch">ピッチ</string>
@@ -361,9 +367,10 @@
     <string name="pref_header_library">図書館</string>
     <string name="pref_header_lockscreen">ロック画面と WearOS</string>
     <string name="pref_header_lyrics">歌詞</string>
-    <string name="pref_header_mini_controls">ミニプレーヤー</string>
+    <string name="pref_header_mini_controls">小さなプレーヤー</string>
     <string name="pref_header_notification">通知</string>
     <string name="pref_header_playlists">プレイリスト</string>
+    <string name="pref_header_search">検索</string>
     <string name="pref_header_widgets">ウィジェット</string>
     <string name="pref_keep_pause_on_zero_volume_summary">音量がゼロになると曲を一時停止し、音量レベルが上がると再生を開始します。 アプリ外でも動作します</string>
     <string name="pref_keep_pause_on_zero_volume_title">ゼロで一時停止</string>
@@ -415,6 +422,8 @@
     <string name="pref_summary_restore_big_widget">大きなウィジェットを復元する</string>
     <string name="pref_summary_restore_full_circle_widget">完全な円ウィジェットを復元する</string>
     <string name="pref_summary_restore_removed_widgets">削除したウィジェットを復元する</string>
+    <string name="pref_summary_search_action">既存のプレイリストに追加するのではなく、新しいシャッフルされたプレイリストを作成します</string>
+    <string name="pref_summary_search_icon">検索アイコンを音声検索アイコンに設定し、ツールバーから音声検索を自動開始します</string>
     <string name="pref_summary_show_lyrics">同期または埋め込まれた歌詞を表示する</string>
     <string name="pref_summary_show_update">再生通知のお気に入りを更新に置き換えます</string>
     <string name="pref_summary_specific_device">特定の Bluetooth デバイスのみに音楽の自動再生を許可する</string>
@@ -424,6 +433,7 @@
     <string name="pref_summary_use_new_widget">新しい正方形ウィジェットを使用します (これは最終的に完全なウィジェットを置き換えます)</string>
     <string name="pref_summary_use_notification_actions_for_auto">通知アクションを Android オートアクションとして使用する</string>
     <string name="pref_summary_user_name">ホームページ上のユーザー名を表示または非表示にする</string>
+    <string name="pref_summary_volume_controls">再生コントロールで音量コントロールを有効にする</string>
     <string name="pref_summary_wallpaper_accent">壁紙からアクセントカラーを抽出する</string>
     <string name="pref_summary_whitelist">/Music フォルダーの音楽のみを表示</string>
     <string name="pref_summary_widget_custom_color">ウィジェットボタンのカスタムカラーを設定します。デフォルトはアクセントカラーです。</string>
@@ -454,7 +464,7 @@
     <string name="pref_title_desaturated_color">彩度の低い色</string>
     <string name="pref_title_disable_widgets">デフォルトのウィジェットを無効にする</string>
     <string name="pref_title_dismiss_failsafe">フェールセーフを解除する</string>
-    <string name="pref_title_dismiss_method">ミニプレーヤーを閉じる</string>
+    <string name="pref_title_dismiss_method">小規模プレーヤーの退場</string>
     <string name="pref_title_embed_lyrics_view">埋め込み歌詞ビューのタイプ</string>
     <string name="pref_title_expand_now_playing_panel">再生中の画面を表示</string>
     <string name="pref_title_extended_accent">拡張アクセント</string>
@@ -489,6 +499,8 @@
     <string name="pref_title_restore_big_widget">大きなウィジェット</string>
     <string name="pref_title_restore_full_circle_widget">フルサークルウィジェット</string>
     <string name="pref_title_restore_removed_widgets">ウィジェットを復元する</string>
+    <string name="pref_title_search_action">検索アクション</string>
+    <string name="pref_title_search_icon">検索アイコン</string>
     <string name="pref_title_show_lyrics">歌詞を表示</string>
     <string name="pref_title_show_update">更新を表示</string>
     <string name="pref_title_specific_device">特定のデバイス</string>
@@ -502,6 +514,7 @@
     <string name="pref_title_use_new_widget">新しいウィジェットを使用する</string>
     <string name="pref_title_use_notification_actions_for_auto">通知アクションを使用する</string>
     <string name="pref_title_user_name">ユーザー名</string>
+    <string name="pref_title_volume_controls">ボリュームコントロール</string>
     <string name="pref_title_wallpaper_accent">壁紙のアクセントカラー</string>
     <string name="pref_title_whitelist">ホワイトリスト音楽</string>
     <string name="pref_title_widget_background">ウィジェットの背景</string>

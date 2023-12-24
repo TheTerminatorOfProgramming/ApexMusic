@@ -18,13 +18,17 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.animation.doOnEnd
@@ -51,6 +55,7 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.*
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -109,19 +114,34 @@ class FlatPlayerFragment : AbsPlayerFragment(R.layout.fragment_flat_player) {
     }
 
     private fun colorize(i: Int) {
-        if (valueAnimator != null) {
-            valueAnimator?.cancel()
-        }
+        if (PreferenceUtil.isPlayerBackgroundType) {
+            //GRADIENT
+            if (valueAnimator != null) {
+                valueAnimator?.cancel()
+            }
 
-        valueAnimator = ValueAnimator.ofObject(ArgbEvaluator(), android.R.color.transparent, i)
-        valueAnimator?.addUpdateListener { animation ->
-            val drawable = DrawableGradient(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                intArrayOf(animation.animatedValue as Int, android.R.color.transparent), 0
+            valueAnimator = ValueAnimator.ofObject(
+                ArgbEvaluator(),
+                surfaceColor(),
+                i
             )
-            _binding?.colorGradientBackground?.background = drawable
+            valueAnimator?.addUpdateListener { animation ->
+                if (isAdded) {
+                    val drawable = DrawableGradient(
+                        GradientDrawable.Orientation.TOP_BOTTOM,
+                        intArrayOf(
+                            animation.animatedValue as Int,
+                            surfaceColor()
+                        ), 0
+                    )
+                    binding.colorGradientBackground.background = drawable
+                }
+            }
+            valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
+        }else {
+            //SINGLE COLOR
+            binding.colorGradientBackground.setBackgroundColor(i)
         }
-        valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

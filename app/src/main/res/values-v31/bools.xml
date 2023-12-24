@@ -4,4 +4,5 @@
     <bool name="md3_enabled">true</bool>
 
     <bool name="widget_prefs">true</bool>
+    <bool name="auto_actions">false</bool>
 </resources>

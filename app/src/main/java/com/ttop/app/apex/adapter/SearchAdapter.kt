@@ -40,6 +40,7 @@ import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import java.util.*
 
@@ -209,8 +210,21 @@ class SearchAdapter(
                     )
                 }
                 SONG -> {
-                    MusicPlayerRemote.playNext(item as Song)
-                    MusicPlayerRemote.playNextSong()
+                    if (PreferenceUtil.searchActionShuffle) {
+                        val songToPlay = item as Song
+                        val allSongs = MusicUtil.repository.allSong()
+
+                        MusicPlayerRemote.openAndShuffleQueue(allSongs, false)
+                        MusicPlayerRemote.moveSong(MusicPlayerRemote.playingQueue.indexOf(songToPlay), 0)
+                        MusicPlayerRemote.playSongAt(0)
+
+                        if (!MusicPlayerRemote.isPlaying) {
+                            MusicPlayerRemote.playSongAt(0)
+                        }
+                    }else {
+                        MusicPlayerRemote.playNext(item as Song)
+                        MusicPlayerRemote.playNextSong()
+                    }
                 }
             }
         }

@@ -65,6 +65,12 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
     override val previousButton: ImageButton
         get() = binding.previousButton
 
+    override val volUp: ImageButton
+        get() = binding.volUpButton
+
+    override val volDown: ImageButton
+        get() = binding.volDownButton
+
     override val songTotalTime: TextView
         get() = binding.songTotalTime
 
@@ -78,6 +84,15 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPeekControlPlayerBinding.bind(view)
         setUpPlayPauseFab()
+
+        if (!PreferenceUtil.isVolumeControls) {
+            volUp.visibility = View.GONE
+            volDown.visibility = View.GONE
+        }else {
+            volUp.visibility = View.VISIBLE
+            volDown.visibility = View.VISIBLE
+        }
+
     }
 
     override fun show() {}
@@ -114,6 +129,8 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
         binding.playPauseButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
+        binding.volUpButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
+        binding.volDownButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
         if (PreferenceUtil.isAdaptiveColor) {
             if (!ATHUtil.isWindowBackgroundDark(requireContext())) {

@@ -19,12 +19,17 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
+import android.media.AudioManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.getSystemService
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -50,9 +55,11 @@ import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
@@ -150,6 +157,8 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         setupSheet()
         setupMenu()
         setupFavourite()
+        setupVolButtons()
+
         binding.playbackControlsFragment.title.setOnClickListener {
             goToAlbum(requireActivity())
         }
@@ -173,6 +182,57 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                     playingQueueAdapter?.setButtonsActivate(true)
                 }
             }
+        }
+
+        if (!PreferenceUtil.isVolumeControls) {
+            binding.playbackControlsFragment.volUpButton.visibility = View.GONE
+            binding.playbackControlsFragment.volDownButton.visibility = View.GONE
+        }else {
+            binding.playbackControlsFragment.volUpButton.visibility = View.VISIBLE
+            binding.playbackControlsFragment.volDownButton.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setupVolButtons() {
+        val mAudioManager: AudioManager = context?.getSystemService()!!
+
+        var lastUpClick: Long
+        var lastDownClick: Long
+
+        binding.playbackControlsFragment.volUpButton.setOnClickListener {
+            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
+
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            lastUpClick = System.currentTimeMillis()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (System.currentTimeMillis() - lastUpClick >= 500) {
+                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+                    val currentVolumeTotal = 100 * currentVolume / maxVolume
+
+                    showToast("New Volume: $currentVolumeTotal%")
+                }
+            }, 500)
+        }
+
+        binding.playbackControlsFragment.volDownButton.setOnClickListener {
+            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
+
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            lastDownClick = System.currentTimeMillis()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (System.currentTimeMillis() - lastDownClick >= 500) {
+                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+                    val currentVolumeTotal = 100 * currentVolume / maxVolume
+
+                    showToast("New Volume: $currentVolumeTotal%")
+                }
+            }, 500)
         }
     }
 
@@ -236,6 +296,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         binding.playerQueueSheet.setBackgroundColor(ColorUtil.darkenColor(color.backgroundColor))
 
         lastPlaybackControlsColor = color.primaryTextColor
+
         lastDisabledPlaybackControlsColor = ColorUtil.withAlpha(color.primaryTextColor, 0.3f)
 
         binding.playbackControlsFragment.title.setTextColor(lastPlaybackControlsColor)
@@ -271,6 +332,9 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         binding.playbackControlsFragment.songInfo.setTextColor(lastDisabledPlaybackControlsColor)
 
         binding.playbackControlsFragment.progressSlider.applyColor(lastPlaybackControlsColor.ripAlpha())
+
+        binding.playbackControlsFragment.volUpButton.setColorFilter(lastPlaybackControlsColor)
+        binding.playbackControlsFragment.volDownButton.setColorFilter(lastPlaybackControlsColor)
 
         updateRepeatState()
         updateShuffleState()

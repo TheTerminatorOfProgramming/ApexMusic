@@ -56,6 +56,12 @@ class CardPlaybackControlsFragment :
     override val previousButton: ImageButton
         get() = binding.mediaButton.previousButton
 
+    override val volUp: ImageButton
+        get() = binding.mediaButton.volUpButton
+
+    override val volDown: ImageButton
+        get() = binding.mediaButton.volDownButton
+
     override val songTotalTime: TextView
         get() = binding.songTotalTime
 
@@ -74,6 +80,14 @@ class CardPlaybackControlsFragment :
         }
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
+        }
+
+        if (!PreferenceUtil.isVolumeControls) {
+            volUp.visibility = View.GONE
+            volDown.visibility = View.GONE
+        }else {
+            volUp.visibility = View.VISIBLE
+            volDown.visibility = View.VISIBLE
         }
     }
 

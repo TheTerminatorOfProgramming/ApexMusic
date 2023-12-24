@@ -19,12 +19,14 @@ import android.view.*
 import androidx.annotation.NonNull
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.findNavController
-import androidx.preference.Preference
 import androidx.recyclerview.widget.RecyclerView
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.android.material.transition.MaterialFadeThrough
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
@@ -33,16 +35,18 @@ import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dip
-import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller.create
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+
 
 abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
     AbsMainActivityFragment(R.layout.fragment_main_recycler), IScrollHelper {
@@ -95,6 +99,21 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
                 bottomMargin = it
             }
         }
+
+        if (!IntroPrefs(requireContext()).hasIntroShown) {
+          TapTargetView.showFor(activity,
+                TapTarget.forView(
+                    binding.shuffleButton,
+                    "Shuffle Button",
+                    "Use this to create a shuffled playing queue"
+                )
+                    .targetCircleColor(R.color.black_color)
+                    .tintTarget(false)
+                    .outerCircleColor(com.ttop.app.appthemehelper.R.color.default_debug_color)
+                    .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null)))
+
+            IntroPrefs(requireContext()).hasIntroShown = true
+        }
     }
 
     open fun onShuffleClicked() {
@@ -103,7 +122,13 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     val toolbar: Toolbar get() = binding.appBarLayout.toolbar
 
     private fun setupToolbar() {
+        toolbar.navigationIcon = if (PreferenceUtil.isVoiceSearch) {
+            getDrawableCompat(R.drawable.ic_voice)
+        }else {
+            getDrawableCompat(R.drawable.ic_search)
+        }
         toolbar.setNavigationOnClickListener {
+            PreferenceUtil.isSearchFromNavigation = true
             findNavController().navigate(
                 R.id.action_search,
                 null,

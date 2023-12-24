@@ -3,100 +3,67 @@
 
     <style name="TextViewNormal" parent="">
         <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/sans</item>
     </style>
 
     <style name="TextViewNormalCompress" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/sans</item>
     </style>
 
-    <style name="TextViewHeadline4" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewHeadline4" parent="TextAppearance.MaterialComponents.Headline4" />
 
     <style name="TextViewHeadline4.Compress" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="fontFamily">@font/sans</item>
         <item name="android:textSize">32sp</item>
     </style>
 
-    <style name="TextViewHeadline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewHeadline5" parent="TextAppearance.MaterialComponents.Headline5" />
 
-    <style name="TextViewCaption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewCaption" parent="TextAppearance.MaterialComponents.Caption" />
 
-    <style name="TextViewHeadline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewHeadline6" parent="TextAppearance.MaterialComponents.Headline6" />
 
-    <style name="TextViewHeadline3" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewHeadline3" parent="TextAppearance.MaterialComponents.Headline3" />
 
-    <style name="TextViewHeadline2" parent="TextAppearance.MaterialComponents.Headline2">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewHeadline2" parent="TextAppearance.MaterialComponents.Headline2" />
 
-    <style name="TextViewSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1" />
 
-    <style name="TextViewSubtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewSubtitle2" parent="TextAppearance.MaterialComponents.Subtitle2" />
 
-    <style name="TextViewBody1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewBody1" parent="TextAppearance.MaterialComponents.Body1" />
 
-    <style name="TextViewButton" parent="TextAppearance.MaterialComponents.Button">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewButton" parent="TextAppearance.MaterialComponents.Button" />
 
-    <style name="TextViewBody2" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewBody2" parent="TextAppearance.MaterialComponents.Body2" />
 
-    <style name="TextViewOverline" parent="TextAppearance.MaterialComponents.Overline">
-        <item name="fontFamily">@font/sans</item>
-    </style>
+    <style name="TextViewOverline" parent="TextAppearance.MaterialComponents.Overline" />
 
     <style name="TextViewSubtitle3" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/sans</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextViewNormal3" parent="">
         <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/sans</item>
     </style>
 
     <style name="TextViewNormal3Bold" parent="">
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="fontFamily">@font/sans</item>
     </style>
 
     <style name="AppTextAppearance.MaterialAlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textAppearance">@style/TextViewButton</item>
-        <item name="fontFamily">@font/sans</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">0dp</item>
     </style>
 
     <style name="AppTextAppearance.MaterialAlertDialog.Body" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
         <item name="android:textAppearance">@style/TextViewBody1</item>
-        <item name="fontFamily">@font/sans</item>
         <item name="android:paddingTop">16dp</item>
     </style>
 
     <style name="AppTextAppearance.MaterialAlertDialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textAppearance">@style/TextViewHeadline6</item>
         <item name="android:textStyle">bold</item>
-        <item name="fontFamily">@font/sans</item>
         <item name="android:padding">16dp</item>
     </style>
 
@@ -104,7 +71,6 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textAppearance">@style/TextViewHeadline6</item>
-        <item name="fontFamily">@font/sans</item>
         <item name="android:textSize">20sp</item>
         <item name="android:letterSpacing">0.0125</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
@@ -116,77 +82,6 @@
 
     <style name="BottomSheetItemTextAppearance" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/sans</item>
-    </style>
-
-    <style name="SansThemeOverlay">
-        <item name="fontFamily">@font/sans</item>
-        <item name="android:fontFamily">@font/sans</item>
-    </style>
-
-    <style name="BarlowThemeOverlay">
-        <item name="fontFamily">@font/barlow</item>
-        <item name="android:fontFamily">@font/barlow</item>
-    </style>
-
-    <style name="JuraThemeOverlay">
-        <item name="fontFamily">@font/jura</item>
-        <item name="android:fontFamily">@font/jura</item>
-    </style>
-
-    <style name="PencilThemeOverlay">
-        <item name="fontFamily">@font/pencil</item>
-        <item name="android:fontFamily">@font/pencil</item>
-    </style>
-
-    <style name="SamsungThemeOverlay">
-        <item name="fontFamily">@font/samsung_sharp_sans</item>
-        <item name="android:fontFamily">@font/samsung_sharp_sans</item>
-    </style>
-
-    <style name="DrexsThemeOverlay">
-        <item name="fontFamily">@font/drexs</item>
-        <item name="android:fontFamily">@font/drexs</item>
-    </style>
-
-    <style name="HermanoaltoThemeOverlay">
-        <item name="fontFamily">@font/hermanoalto_chisel</item>
-        <item name="android:fontFamily">@font/hermanoalto_chisel</item>
-    </style>
-
-    <style name="NothingThemeOverlay">
-        <item name="fontFamily">@font/nothing</item>
-        <item name="android:fontFamily">@font/nothing</item>
-    </style>
-
-    <style name="OneUiThemeOverlay">
-        <item name="fontFamily">@font/oneui_sans</item>
-        <item name="android:fontFamily">@font/sans</item>
-    </style>
-
-    <style name="SansBoldThemeOverlay">
-        <item name="fontFamily">@font/sans_bold</item>
-        <item name="android:fontFamily">@font/sans_bold</item>
-    </style>
-
-    <style name="BarlowBoldThemeOverlay">
-        <item name="fontFamily">@font/barlow_bold_font</item>
-        <item name="android:fontFamily">@font/barlow_bold_font</item>
-    </style>
-
-    <style name="JuraBoldThemeOverlay">
-        <item name="fontFamily">@font/jura_bold_font</item>
-        <item name="android:fontFamily">@font/jura_bold_font</item>
-    </style>
-
-    <style name="SamsungBoldThemeOverlay">
-        <item name="fontFamily">@font/samsung_sharp_sans_bold</item>
-        <item name="android:fontFamily">@font/samsung_sharp_sans_bold</item>
-    </style>
-
-    <style name="OneUiBoldThemeOverlay">
-        <item name="fontFamily">@font/oneui_sans_bold_font</item>
-        <item name="android:fontFamily">@font/oneui_sans_bold_font</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">

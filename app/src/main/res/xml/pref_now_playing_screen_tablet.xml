@@ -113,6 +113,14 @@
             android:summary="@string/pref_summary_extra_song_info"
             android:title="@string/pref_title_extra_song_info"
             app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="volume_controls"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_volume_controls"
+            android:title="@string/pref_title_volume_controls"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
