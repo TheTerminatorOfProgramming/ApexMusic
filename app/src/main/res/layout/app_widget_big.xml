@@ -29,7 +29,7 @@
             android:background="@drawable/widget_selector_dark"
             android:padding="22dp"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_skip_previous_outline"
+            tools:src="@drawable/ic_skip_previous"
             tools:tint="@color/ate_primary_text_dark" />
 
         <ImageButton
@@ -40,7 +40,7 @@
             android:background="@drawable/widget_selector_dark"
             android:padding="22dp"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_play_arrow_outline_small"
+            tools:src="@drawable/ic_play_arrow"
             tools:tint="@color/ate_primary_text_dark" />
 
         <ImageButton
@@ -51,7 +51,7 @@
             android:background="@drawable/widget_selector_dark"
             android:padding="22dp"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_skip_next_outline"
+            tools:src="@drawable/ic_skip_next"
             tools:tint="@color/ate_primary_text_dark" />
 
 

@@ -42,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/songTotalTime">
 
         <LinearLayout
+            android:id="@+id/texts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -109,6 +110,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/artist"
                 tools:text="@tools:sample/full_names" />
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/volumeFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/texts"
+            tools:background="@color/md_red_400"
+            tools:layout_height="52dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -126,22 +137,6 @@
         tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/roundSelector"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/repeatButton"
-        app:layout_constraintEnd_toStartOf="@+id/repeatButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/repeatButton"
-        app:srcCompat="@drawable/ic_add"
-        tools:ignore="MissingPrefix"
-        tools:tint="@color/md_black_1000" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/repeatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -151,7 +146,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/previousButton"
         app:layout_constraintEnd_toStartOf="@+id/previousButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/volUpButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/previousButton"
         app:srcCompat="@drawable/ic_repeat"
         tools:ignore="MissingPrefix"
@@ -208,26 +203,10 @@
         android:padding="16dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-        app:layout_constraintEnd_toStartOf="@id/volDownButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/nextButton"
         app:layout_constraintTop_toTopOf="@+id/nextButton"
         app:srcCompat="@drawable/ic_shuffle"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volDownButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/roundSelector"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/shuffleButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/shuffleButton"
-        app:layout_constraintTop_toTopOf="@+id/shuffleButton"
-        app:srcCompat="@drawable/ic_minus"
-        tools:ignore="MissingPrefix"
-        tools:tint="@color/md_black_1000" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

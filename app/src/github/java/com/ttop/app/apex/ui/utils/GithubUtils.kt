@@ -113,117 +113,11 @@ object GithubUtils {
         updater.start()
     }
 
-    fun checkForUpdateWebsite(context: Context, showFailMessage: Boolean) {
-        val updater = AppUpdaterUtils(context)
-            .setUpdateFrom(UpdateFrom.XML)
-            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version.xml")
-            .withListener(object : AppUpdaterUtils.UpdateListener {
-                override fun onSuccess(update: Update, isUpdateAvailable: Boolean?) {
-                    Log.d("Latest Version", update.latestVersion)
-                    Log.d("Latest Version Code", update.latestVersionCode.toString())
-                    Log.d("URL", update.urlToDownload.toString())
-                    Log.d(
-                        "Is update available?",
-                        java.lang.Boolean.toString(isUpdateAvailable!!)
-                    )
-
-                    val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
-                    val finalVersionNumber = finalVersionNumberString.toDouble()
-
-                    val updateVersion = update.latestVersion.toDouble()
-
-                    if (updateVersion > finalVersionNumber) {
-                        val builder = AlertDialog.Builder(context)
-                            .setTitle("Update Available!")
-                            .setMessage("Update " + update.latestVersion + " is available to download!\n\n" + "Do you want to download and install this update now?")
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.yes) { _, _ ->
-                                val downloadApk = DownloadApk(context)
-                                // With standard fileName 'App Update.apk'
-                                //downloadApk.startDownloadingApk(update.urlToDownload.toString())
-                                //With Custom fileName
-                                downloadApk.startDownloadingApk(update.urlToDownload.toString(),"Apex Music " + update.latestVersion + ".apk")
-                            }
-
-                            .setNegativeButton(R.string.no) { _, _ ->
-                            }
-                        builder.show().withCenteredButtons()
-                    }else {
-                        if (showFailMessage) {
-                            context.showToast("No Updates Available!")
-                        }
-                    }
-                }
-
-                override fun onFailed(error: AppUpdaterError) {
-                    Log.d("AppUpdater Error", "Something went wrong")
-                }
-            })
-        updater.start()
-    }
-
-    fun checkForUpdateWebsitePreview(context: Context, showFailMessage: Boolean) {
-        val updater = AppUpdaterUtils(context)
-            .setUpdateFrom(UpdateFrom.XML)
-            .setUpdateXML("https://raw.githubusercontent.com/TheTerminatorOfProgramming/TheTerminatorOfProgramming.github.io/main/download/apex_latest_version_preview.xml")
-            .withListener(object : AppUpdaterUtils.UpdateListener {
-                override fun onSuccess(update: Update, isUpdateAvailable: Boolean?) {
-                    Log.d("Latest Version", update.latestVersion)
-                    Log.d("Latest Version Code", update.latestVersionCode.toString())
-                    Log.d("URL", update.urlToDownload.toString())
-                    Log.d(
-                        "Is update available?",
-                        java.lang.Boolean.toString(isUpdateAvailable!!)
-                    )
-
-                    val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
-                    val finalVersionNumber = finalVersionNumberString.toDouble()
-
-                    val updateVersion = update.latestVersion.toDouble()
-
-                    if (updateVersion > finalVersionNumber) {
-                        val builder = AlertDialog.Builder(context)
-                            .setTitle("Update Available!")
-                            .setMessage("Update " + update.latestVersion + " is available to download!\n\n" + "Do you want to download and install this update now?")
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.yes) { _, _ ->
-                                val downloadApk = DownloadApk(context)
-                                // With standard fileName 'App Update.apk'
-                                //downloadApk.startDownloadingApk(update.urlToDownload.toString())
-                                //With Custom fileName
-                                downloadApk.startDownloadingApk(update.urlToDownload.toString(),"Apex Music " + update.latestVersion + ".apk")
-                            }
-
-                            .setNegativeButton(R.string.no) { _, _ ->
-                            }
-                        builder.show().withCenteredButtons()
-                    }else {
-                        if (showFailMessage){
-                            context.showToast("No Updates Available!")
-                        }
-                    }
-                }
-
-                override fun onFailed(error: AppUpdaterError) {
-                    Log.d("AppUpdater Error", "Something went wrong")
-                }
-            })
-        updater.start()
-    }
-
     fun updateApex(context: Context) {
         when (PreferenceUtil.updateFrequency) {
             "startup" -> {
                 if (!PreferenceUtil.updateChecked) {
-                    if (PreferenceUtil.updateSource == "github") {
-                        checkForUpdateGithub(context, false)
-                    }else {
-                        if (PreferenceUtil.isPreviewChannel) {
-                            checkForUpdateWebsitePreview(context, false)
-                        }else {
-                            checkForUpdateWebsite(context, false)
-                        }
-                    }
+                    checkForUpdateGithub(context, false)
 
                     PreferenceUtil.updateChecked = true
                 }
@@ -237,15 +131,8 @@ object GithubUtils {
                     PreferenceUtil.dayOfYear = currentDayOfYear
 
                     if (!PreferenceUtil.updateChecked) {
-                        if (PreferenceUtil.updateSource == "github") {
-                            checkForUpdateGithub(context, false)
-                        }else {
-                            if (PreferenceUtil.isPreviewChannel) {
-                                checkForUpdateWebsitePreview(context, false)
-                            }else {
-                                checkForUpdateWebsite(context, false)
-                            }
-                        }
+                        checkForUpdateGithub(context, false)
+
                         PreferenceUtil.updateChecked = true
                     }
                 }
@@ -259,15 +146,8 @@ object GithubUtils {
                     PreferenceUtil.weekOfYear = currentWeekOfYear
 
                     if (!PreferenceUtil.updateChecked) {
-                        if (PreferenceUtil.updateSource == "github") {
-                            checkForUpdateGithub(context, false)
-                        }else {
-                            if (PreferenceUtil.isPreviewChannel) {
-                                checkForUpdateWebsitePreview(context, false)
-                            }else {
-                                checkForUpdateWebsite(context, false)
-                            }
-                        }
+                        checkForUpdateGithub(context, false)
+
                         PreferenceUtil.updateChecked = true
                     }
                 }
@@ -281,15 +161,8 @@ object GithubUtils {
                     PreferenceUtil.monthOfYear = currentMonthOfYear
 
                     if (!PreferenceUtil.updateChecked) {
-                        if (PreferenceUtil.updateSource == "github") {
-                            checkForUpdateGithub(context, false)
-                        }else {
-                            if (PreferenceUtil.isPreviewChannel) {
-                                checkForUpdateWebsitePreview(context, false)
-                            }else {
-                                checkForUpdateWebsite(context, false)
-                            }
-                        }
+                        checkForUpdateGithub(context, false)
+
                         PreferenceUtil.updateChecked = true
                     }
                 }

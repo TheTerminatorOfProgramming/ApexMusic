@@ -182,6 +182,8 @@
     <string name="enable_files_permission">ফাইল অনুমতি সক্ষম করুন</string>
     <string name="enter_text">লেখা অন্তর্ভুক্ত করুন</string>
     <string name="equalizer">ইকুয়ালাইজার</string>
+    <string name="equalizer_apex">এপেক্স ইকুয়ালাইজার</string>
+    <string name="equalizer_system">সিস্টেম ইকুয়ালাইজার</string>
     <string name="error_create_backup">ব্যাকআপ তৈরি করা যায়নি</string>
     <string name="error_delete_backup">ব্যাকআপ মুছে ফেলা যায়নি</string>
     <string name="error_empty_name">আপনার নাম খালি হতে পারে না!</string>
@@ -285,7 +287,6 @@
     <string name="no_albums">আপনার কোনো অ্যালবাম নেই</string>
     <string name="no_artists">তোমার কোন শিল্পী নেই</string>
     <string name="no_audio_ID">প্রথমে একটি গান চালান, তারপর আবার চেষ্টা করুন।</string>
-    <string name="no_equalizer">কোন ইকুয়ালাইজার পাওয়া যায়নি</string>
     <string name="no_genres">আপনার কোন ধারা নেই</string>
     <string name="no_lyrics_found">কোন লিরিক্স পাওয়া যায়নি</string>
     <string name="no_playing_queue">গান বাজছে না</string>
@@ -358,6 +359,7 @@
     <string name="pref_header_blacklist">কালো তালিকা</string>
     <string name="pref_header_bluetooth">ব্লুটুথ</string>
     <string name="pref_header_controls">নিয়ন্ত্রণ করে</string>
+    <string name="pref_header_equalizer">ইকুয়ালাইজার</string>
     <string name="pref_header_general">থিম</string>
     <string name="pref_header_headset">হেডসেট</string>
     <string name="pref_header_images">ছবি</string>
@@ -429,6 +431,7 @@
     <string name="pref_summary_show_lyrics">সিঙ্ক করা বা এমবেড করা গান দেখান</string>
     <string name="pref_summary_show_update">প্লেব্যাক বিজ্ঞপ্তিতে আপডেট দিয়ে প্রিয় প্রতিস্থাপন করুন</string>
     <string name="pref_summary_specific_device">শুধুমাত্র একটি নির্দিষ্ট ব্লুটুথ ডিভাইসকে সঙ্গীত অটোপ্লে করার অনুমতি দিন</string>
+    <string name="pref_summary_stock_equalizer">এপেক্স ইকুয়ালাইজারের পরিবর্তে অন্তর্নির্মিত ইকুয়ালাইজার (যদি উপলব্ধ) ব্যবহার করুন</string>
     <string name="pref_summary_suggestions">হোমস্ক্রীনে নতুন মিউজিক মিক্স দেখান</string>
     <string name="pref_summary_synced_lyrics">অ্যালবামের কভারে সিঙ্ক করা গানগুলি প্রদর্শন করুন৷</string>
     <string name="pref_summary_toggle_headset">হেডফোন সংযুক্ত হওয়ার সাথে সাথেই বাজানো শুরু করুন</string>
@@ -506,6 +509,7 @@
     <string name="pref_title_show_lyrics">লিরিক্স দেখান</string>
     <string name="pref_title_show_update">আপডেট দেখান</string>
     <string name="pref_title_specific_device">নির্দিষ্ট ডিভাইস</string>
+    <string name="pref_title_stock_equalizer">সিস্টেম ইকুয়ালাইজার ব্যবহার করুন</string>
     <string name="pref_title_suggestions">সাজেশন দেখান</string>
     <string name="pref_title_swipe_anywhere_now_playing">গান পরিবর্তন করতে যে কোন জায়গায় সোয়াইপ করুন</string>
     <string name="pref_title_swipe_gestures">সোয়াইপ অঙ্গভঙ্গি</string>

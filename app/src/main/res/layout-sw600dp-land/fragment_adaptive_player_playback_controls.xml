@@ -47,7 +47,7 @@
         tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volUpButton"
+        android:id="@+id/volDownButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
@@ -58,7 +58,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/repeatButton"
-        app:srcCompat="@drawable/ic_add"
+        app:srcCompat="@drawable/ic_minus"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 
@@ -72,7 +72,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/previousButton"
         app:layout_constraintEnd_toStartOf="@+id/previousButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/volUpButton"
+        app:layout_constraintStart_toEndOf="@id/volDownButton"
         app:layout_constraintTop_toTopOf="@+id/previousButton"
         app:srcCompat="@drawable/ic_repeat"
         tools:ignore="MissingPrefix"
@@ -131,7 +131,7 @@
         android:padding="16dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-        app:layout_constraintEnd_toStartOf="@id/volDownButton"
+        app:layout_constraintEnd_toStartOf="@id/volUpButton"
         app:layout_constraintStart_toEndOf="@+id/nextButton"
         app:layout_constraintTop_toTopOf="@+id/nextButton"
         app:srcCompat="@drawable/ic_shuffle"
@@ -139,7 +139,7 @@
         tools:tint="@color/md_black_1000" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volDownButton"
+        android:id="@+id/volUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
@@ -149,7 +149,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/shuffleButton"
         app:layout_constraintTop_toTopOf="@+id/shuffleButton"
-        app:srcCompat="@drawable/ic_minus"
+        app:srcCompat="@drawable/ic_add"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 

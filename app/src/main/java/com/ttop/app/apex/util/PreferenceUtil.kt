@@ -1142,11 +1142,6 @@ object PreferenceUtil {
     val isCustomFontBold
         get() = sharedPreferences.getBoolean(CUSTOM_FONT_BOLD, false)
 
-    val isLimitCategories
-        get() = sharedPreferences.getBoolean(
-            LIMIT_CATEGORIES, true
-        )
-
     val isShowScrollbar
         get() = sharedPreferences.getBoolean(
             SHOW_SCROLLBAR, true
@@ -1195,6 +1190,11 @@ object PreferenceUtil {
     val isVolumeControls
         get() = sharedPreferences.getBoolean(
             VOLUME_CONTROLS, false
+        )
+
+    val isStockEqualizer
+        get() = sharedPreferences.getBoolean(
+            EQUALIZER_STOCK, false
         )
 }
 

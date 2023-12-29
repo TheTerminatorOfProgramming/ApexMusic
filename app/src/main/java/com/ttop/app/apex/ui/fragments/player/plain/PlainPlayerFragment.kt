@@ -307,7 +307,7 @@ class PlainPlayerFragment : AbsPlayerFragment(R.layout.fragment_plain_player) {
                 return true
             }
             R.id.action_equalizer -> {
-                NavigationUtil.openEqualizer(requireActivity())
+                NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
                 return true
             }
             R.id.action_sleep_timer -> {

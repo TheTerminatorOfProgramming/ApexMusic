@@ -150,7 +150,7 @@
         app:layout_constraintEnd_toStartOf="@+id/playPauseButton"
         app:layout_constraintStart_toEndOf="@+id/repeatButton"
         app:layout_constraintTop_toTopOf="@+id/playPauseButton"
-        app:srcCompat="@drawable/ic_skip_previous_outline"
+        app:srcCompat="@drawable/ic_skip_previous"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 
@@ -166,7 +166,7 @@
         app:layout_constraintTop_toBottomOf="@+id/songCurrentProgress"
         android:layout_marginTop="20dp"
         app:maxImageSize="35dp"
-        app:srcCompat="@drawable/ic_pause_outline_small"
+        app:srcCompat="@drawable/ic_pause"
         tools:layout_editor_absoluteX="178dp"
         tools:tint="@color/md_black_1000" />
 
@@ -181,7 +181,7 @@
         app:layout_constraintEnd_toStartOf="@+id/shuffleButton"
         app:layout_constraintStart_toEndOf="@+id/playPauseButton"
         app:layout_constraintTop_toTopOf="@+id/playPauseButton"
-        app:srcCompat="@drawable/ic_skip_next_outline"
+        app:srcCompat="@drawable/ic_skip_next"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 

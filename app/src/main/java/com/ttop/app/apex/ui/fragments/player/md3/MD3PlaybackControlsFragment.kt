@@ -64,12 +64,6 @@ class MD3PlaybackControlsFragment :
     override val previousButton: ImageButton
         get() = binding.previousButton
 
-    override val volUp: ImageButton
-        get() = binding.volUpButton
-
-    override val volDown: ImageButton
-        get() = binding.volDownButton
-
     override val songTotalTime: TextView
         get() = binding.songTotalTime
 
@@ -94,14 +88,6 @@ class MD3PlaybackControlsFragment :
         }
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
-        }
-
-        if (!PreferenceUtil.isVolumeControls) {
-            volUp.visibility = View.GONE
-            volDown.visibility = View.GONE
-        }else {
-            volUp.visibility = View.VISIBLE
-            volDown.visibility = View.VISIBLE
         }
     }
 
@@ -128,6 +114,7 @@ class MD3PlaybackControlsFragment :
 
         if (PreferenceUtil.isAdaptiveColor) {
             binding.progressSlider.applyColor(color.secondaryTextColor)
+            volumeFragment?.setTintable(color.secondaryTextColor)
             binding.title.setTextColor(color.secondaryTextColor)
             binding.artist.setTextColor(color.secondaryTextColor)
             binding.songInfo.setTextColor(color.secondaryTextColor)
@@ -149,7 +136,7 @@ class MD3PlaybackControlsFragment :
             }
         }else {
             binding.progressSlider.applyColor(colorFinal)
-
+            volumeFragment?.setTintable(colorFinal)
             TintHelper.setTintAuto(
                 binding.playPauseButton,
                 MaterialValueHelper.getPrimaryTextColor(
@@ -191,9 +178,6 @@ class MD3PlaybackControlsFragment :
         updateShuffleState()
         updatePrevNextColor()
         updatePlayPauseDrawableState()
-
-        volUp.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
-        volDown.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
     private fun updateSong() {

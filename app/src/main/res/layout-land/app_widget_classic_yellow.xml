@@ -43,8 +43,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                android:scaleType="fitStart"
-                tools:src="@drawable/ic_skip_previous_outline"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/ic_skip_previous"
                 tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
@@ -55,7 +55,7 @@
                 android:background="@drawable/widget_selector"
                 android:scaleType="fitCenter"
 
-                tools:src="@drawable/ic_play_arrow_outline_small"
+                tools:src="@drawable/ic_play_arrow"
                 tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
@@ -64,7 +64,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                android:scaleType="fitEnd"
+                android:scaleType="fitCenter"
                 tools:src="@drawable/ic_skip_next_outline"
                 tools:tint="@color/ate_secondary_text_dark" />
 

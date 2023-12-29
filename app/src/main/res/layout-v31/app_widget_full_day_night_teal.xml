@@ -104,7 +104,7 @@
                 android:background="@drawable/widget_selector_dark"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_skip_previous_outline"
+                tools:src="@drawable/ic_skip_previous"
                 tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
@@ -115,7 +115,7 @@
                 android:background="@drawable/widget_selector_dark"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_play_arrow_outline_small"
+                tools:src="@drawable/ic_play_arrow"
                 tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
@@ -126,7 +126,7 @@
                 android:background="@drawable/widget_selector_dark"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_skip_next_outline"
+                tools:src="@drawable/ic_skip_next"
                 tools:tint="?android:attr/textColorPrimary" />
         </LinearLayout>
     </LinearLayout>

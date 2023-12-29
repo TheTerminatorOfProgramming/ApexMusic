@@ -66,12 +66,6 @@ class PlainPlaybackControlsFragment :
     override val previousButton: ImageButton
         get() = binding.previousButton
 
-    override val volUp: ImageButton
-        get() = binding.volUpButton
-
-    override val volDown: ImageButton
-        get() = binding.volDownButton
-
     override val songTotalTime: TextView
         get() = binding.songTotalTime
 
@@ -137,14 +131,6 @@ class PlainPlaybackControlsFragment :
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPlainControlsFragmentBinding.bind(view)
         setUpPlayPauseFab()
-
-        if (!PreferenceUtil.isVolumeControls) {
-            volUp.visibility = View.GONE
-            volDown.visibility = View.GONE
-        }else {
-            volUp.visibility = View.VISIBLE
-            volDown.visibility = View.VISIBLE
-        }
     }
 
     private fun setUpPlayPauseFab() {
@@ -167,6 +153,8 @@ class PlainPlaybackControlsFragment :
             binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
             binding.songTotalTime.setTextColor(color.secondaryTextColor)
 
+            volumeFragment?.setTintable(color.secondaryTextColor)
+
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {
                 lastPlaybackControlsColor = color.secondaryTextColor
@@ -185,6 +173,8 @@ class PlainPlaybackControlsFragment :
                 ColorStateList.valueOf(color.secondaryTextColor)
         } else {
             binding.progressSlider.applyColor(colorFinal)
+
+            volumeFragment?.setTintable(colorFinal)
 
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {
@@ -221,9 +211,6 @@ class PlainPlaybackControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
-
-        volUp.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
-        volDown.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
     public override fun show() {

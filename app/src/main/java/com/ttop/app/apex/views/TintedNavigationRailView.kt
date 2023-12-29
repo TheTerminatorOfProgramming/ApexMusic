@@ -33,7 +33,6 @@ class TintedNavigationRailView @JvmOverloads constructor(
     init {
         if (!isInEditMode) {
             labelVisibilityMode = PreferenceUtil.tabTitleMode
-
             if (!PreferenceUtil.materialYou) {
                 val iconColor = ATHUtil.resolveColor(context, android.R.attr.colorControlNormal)
                 val accentColor = context.accentColor()
@@ -45,10 +44,6 @@ class TintedNavigationRailView @JvmOverloads constructor(
     }
 
     override fun getMaxItemCount(): Int {
-        return if (PreferenceUtil.isLimitCategories) {
-            5
-        }else {
-            9
-        }
+        return 7
     }
 }

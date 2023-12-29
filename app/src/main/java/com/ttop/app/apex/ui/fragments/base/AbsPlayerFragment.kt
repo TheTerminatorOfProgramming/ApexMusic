@@ -173,7 +173,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 return true
             }
             R.id.action_equalizer -> {
-                NavigationUtil.openEqualizer(requireActivity())
+                NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
                 return true
             }
             R.id.action_sleep_timer -> {

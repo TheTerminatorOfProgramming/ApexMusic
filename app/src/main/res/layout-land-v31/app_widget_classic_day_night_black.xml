@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                tools:src="@drawable/ic_skip_previous_outline"
+                tools:src="@drawable/ic_skip_previous"
                 tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton

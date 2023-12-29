@@ -83,7 +83,7 @@ class AppWidgetFullCircle : BaseAppWidget() {
 
         // Set correct drawable for pause state
         val playPauseRes =
-            if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
+            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow_outline_small
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
             service.getTintedDrawable(
@@ -163,7 +163,7 @@ class AppWidgetFullCircle : BaseAppWidget() {
                         appWidgetView.setImageViewBitmap(
                             R.id.button_forward,
                             service.getTintedDrawable(
-                                R.drawable.ic_skip_next_outline, color
+                                R.drawable.ic_skip_next, color
                             ).toBitmap()
                         )
 
@@ -171,7 +171,7 @@ class AppWidgetFullCircle : BaseAppWidget() {
                         appWidgetView.setImageViewBitmap(
                             R.id.button_rewind,
                             service.getTintedDrawable(
-                                R.drawable.ic_skip_previous_outline, color
+                                R.drawable.ic_skip_previous, color
                             ).toBitmap()
                         )
 

@@ -80,46 +80,11 @@ fun AppCompatActivity.hideStatusBar(fullscreen: Boolean) {
 }
 
 fun AppCompatActivity.setDrawBehindSystemBars() {
-    if (VersionUtils.hasSv2()) {
-        WindowCompat.setDecorFitsSystemWindows(window, true)
-        window.navigationBarColor = Color.BLACK
-    }else if (VersionUtils.hasOreo()) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.navigationBarColor = Color.TRANSPARENT
-        window.statusBarColor = Color.TRANSPARENT
-        if (VersionUtils.hasQ()) {
-            window.isNavigationBarContrastEnforced = false
-        }
-    }else {
-        setNavigationBarColorPreOreo(surfaceColor())
-        if (VersionUtils.hasOreo()) {
-            setStatusBarColor(Color.TRANSPARENT)
-        } else {
-            setStatusBarColor(Color.BLACK)
-        }
-    }
-
-
-
-    if (VersionUtils.hasOreo()) {
-        if (VersionUtils.hasSv2()) {
-            WindowCompat.setDecorFitsSystemWindows(window, true)
-            window.navigationBarColor = Color.BLACK
-        }else {
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-            window.navigationBarColor = Color.TRANSPARENT
-        }
-        window.statusBarColor = Color.TRANSPARENT
-        if (VersionUtils.hasQ()) {
-            window.isNavigationBarContrastEnforced = false
-        }
-    } else {
-        setNavigationBarColorPreOreo(surfaceColor())
-        if (VersionUtils.hasOreo()) {
-            setStatusBarColor(Color.TRANSPARENT)
-        } else {
-            setStatusBarColor(Color.BLACK)
-        }
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+    window.navigationBarColor = Color.TRANSPARENT
+    window.statusBarColor = Color.TRANSPARENT
+    if (VersionUtils.hasQ()) {
+        window.isNavigationBarContrastEnforced = false
     }
 }
 

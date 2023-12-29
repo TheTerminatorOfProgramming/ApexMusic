@@ -61,18 +61,18 @@ class AppWidgetBig : BaseAppWidget() {
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
         appWidgetView.setImageViewBitmap(
             R.id.button_next, context.getTintedDrawable(
-                R.drawable.ic_skip_next_outline,
+                R.drawable.ic_skip_next,
                 MaterialValueHelper.getPrimaryTextColor(context, false)
             ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev, context.getTintedDrawable(
-                R.drawable.ic_skip_previous_outline,  MaterialValueHelper.getPrimaryTextColor(context, false)
+                R.drawable.ic_skip_previous,  MaterialValueHelper.getPrimaryTextColor(context, false)
             ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause, context.getTintedDrawable(
-                R.drawable.ic_play_arrow_outline_small,  MaterialValueHelper.getPrimaryTextColor(context, false)
+                R.drawable.ic_play_arrow,  MaterialValueHelper.getPrimaryTextColor(context, false)
             ).toBitmap()
         )
 
@@ -113,7 +113,7 @@ class AppWidgetBig : BaseAppWidget() {
         val primaryColor = MaterialValueHelper.getPrimaryTextColor(service, false)
         // Set correct drawable for pause state
         val playPauseRes =
-            if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
+            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
             service.getTintedDrawable(
@@ -126,14 +126,14 @@ class AppWidgetBig : BaseAppWidget() {
         appWidgetView.setImageViewBitmap(
             R.id.button_next,
             service.getTintedDrawable(
-                R.drawable.ic_skip_next_outline,
+                R.drawable.ic_skip_next,
                 primaryColor
             ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev,
             service.getTintedDrawable(
-                R.drawable.ic_skip_previous_outline,
+                R.drawable.ic_skip_previous,
                 primaryColor
             ).toBitmap()
         )

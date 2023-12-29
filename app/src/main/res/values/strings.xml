@@ -184,6 +184,8 @@
     <string name="enable_files_permission">Enable Files permission</string>
     <string name="enter_text">Enter Text</string>
     <string name="equalizer">Equalizer</string>
+    <string name="equalizer_apex">Apex equalizer</string>
+    <string name="equalizer_system">System equalizer</string>
     <string name="error_create_backup">Couldn\u2019t create backup</string>
     <string name="error_delete_backup">Couldn\u2019t delete backup</string>
     <string name="error_empty_name">Your name can\'t be empty!</string>
@@ -287,7 +289,6 @@
     <string name="no_albums">You have no albums</string>
     <string name="no_artists">You have no artists</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
-    <string name="no_equalizer">No equalizer found</string>
     <string name="no_genres">You have no genres</string>
     <string name="no_lyrics_found">No lyrics found</string>
     <string name="no_playing_queue">No songs playing</string>
@@ -360,6 +361,7 @@
     <string name="pref_header_blacklist">Blacklist</string>
     <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Controls</string>
+    <string name="pref_header_equalizer">Equalizer</string>
     <string name="pref_header_general">Theme</string>
     <string name="pref_header_headset">Headset</string>
     <string name="pref_header_images">Images</string>
@@ -412,7 +414,6 @@
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
-    <string name="pref_summary_limit_categories">Limit number of library categories able to be selected from 9 to 5</string>
     <string name="pref_summary_lock_screen">Use Apex Music\'s custom lockscreen controls</string>
     <string name="pref_summary_manage_audio_focus">Always play audio in background regardless of anything else being played</string>
     <string name="pref_summary_open_source_licences">License details for open source software</string>
@@ -433,6 +434,7 @@
     <string name="pref_summary_show_scrollbar">Show scrollbar in user interface</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
     <string name="pref_summary_specific_device">Allow only a specific bluetooth device to autoplay music</string>
+    <string name="pref_summary_stock_equalizer">Use the inbuilt equalizer (if available), instead of the apex equalizer</string>
     <string name="pref_summary_suggestions">Show new music mix on homescreen</string>
     <string name="pref_summary_synced_lyrics">Display synced lyrics over album cover</string>
     <string name="pref_summary_toggle_headset">Start playing immediately after headphones are connected</string>
@@ -486,7 +488,6 @@
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store Covers</string>
     <string name="pref_title_last_added_interval">Last Added Playlist Interval</string>
     <string name="pref_title_launcher_icon">Launcher Icon</string>
-    <string name="pref_title_limit_categories">Limit Library Categories</string>
     <string name="pref_title_lock_screen">Fullscreen Controls</string>
     <string name="pref_title_lyrics_screen_on">Keep Screen On When Showing Lyrics</string>
     <string name="pref_title_lyrics_type">Synced Lyrics Cover Type</string>
@@ -512,6 +513,7 @@
     <string name="pref_title_show_scrollbar">Show Scrollbar</string>
     <string name="pref_title_show_update">Show Update</string>
     <string name="pref_title_specific_device">Specific Device</string>
+    <string name="pref_title_stock_equalizer">Use System Equalizer</string>
     <string name="pref_title_suggestions">Show Suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Swipe Anywhere To Change Song</string>
     <string name="pref_title_swipe_gestures">Swipe Gestures</string>

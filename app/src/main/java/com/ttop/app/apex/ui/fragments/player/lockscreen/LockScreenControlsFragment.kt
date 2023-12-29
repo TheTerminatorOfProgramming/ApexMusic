@@ -179,9 +179,9 @@ class LockScreenControlsFragment :
 //MC_PAUSE_PLAY
     private fun updatePlayPauseDrawableState() {
         if (MusicPlayerRemote.isPlaying) {
-            binding.playPauseButton.setImageResource(R.drawable.ic_pause_outline_small)
+            binding.playPauseButton.setImageResource(R.drawable.ic_pause)
         } else {
-            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow_outline_small)
+            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow)
         }
     }
 

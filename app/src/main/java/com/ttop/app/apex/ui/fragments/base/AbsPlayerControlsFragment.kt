@@ -32,14 +32,18 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.other.VolumeFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -210,6 +214,11 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
             .start()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        hideVolumeIfAvailable()
+    }
+
     override fun onStart() {
         super.onStart()
         setUpProgressSlider()
@@ -314,6 +323,18 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                 }
             }, 500)
         }
+    }
+
+    protected var volumeFragment: VolumeFragment? = null
+
+    private fun hideVolumeIfAvailable() {
+        if (PreferenceUtil.isVolumeControls) {
+            childFragmentManager.commit {
+                replace<VolumeFragment>(R.id.volumeFragmentContainer)
+            }
+            childFragmentManager.executePendingTransactions()
+        }
+        volumeFragment = whichFragment(R.id.volumeFragmentContainer)
     }
 
     override fun onResume() {

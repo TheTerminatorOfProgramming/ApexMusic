@@ -182,6 +182,8 @@
     <string name="enable_files_permission">Ativar permissão de arquivos</string>
     <string name="enter_text">Digite o texto</string>
     <string name="equalizer">Equalizador</string>
+    <string name="equalizer_apex">Equalizador Apex</string>
+    <string name="equalizer_system">Equalizador do sistema</string>
     <string name="error_create_backup">Não foi possível criar o backup</string>
     <string name="error_delete_backup">Não foi possível excluir o backup</string>
     <string name="error_empty_name">Seu nome não pode ficar vazio!</string>
@@ -285,7 +287,6 @@
     <string name="no_albums">Você não tem álbuns</string>
     <string name="no_artists">Você não tem artistas</string>
     <string name="no_audio_ID">Reproduza uma música primeiro e tente novamente.</string>
-    <string name="no_equalizer">Nenhum equalizador encontrado</string>
     <string name="no_genres">Você não tem gêneros</string>
     <string name="no_lyrics_found">Nenhuma letra encontrada</string>
     <string name="no_playing_queue">Nenhuma música tocando</string>
@@ -358,6 +359,7 @@
     <string name="pref_header_blacklist">Lista negra</string>
     <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Controles</string>
+    <string name="pref_header_equalizer">Equalizador</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_headset">Fone de ouvido</string>
     <string name="pref_header_images">Imagens</string>
@@ -429,6 +431,7 @@
     <string name="pref_summary_show_lyrics">Mostrar letras sincronizadas ou incorporadas</string>
     <string name="pref_summary_show_update">Substituir favorito por atualização na notificação de reprodução</string>
     <string name="pref_summary_specific_device">Permitir que apenas um dispositivo Bluetooth específico reproduza músicas automaticamente</string>
+    <string name="pref_summary_stock_equalizer">Use o equalizador embutido (se disponível), em vez do equalizador apex</string>
     <string name="pref_summary_suggestions">Mostrar novo mix de música na tela inicial</string>
     <string name="pref_summary_synced_lyrics">Exibir letras sincronizadas sobre a capa do álbum</string>
     <string name="pref_summary_toggle_headset">Comece a tocar imediatamente após os fones de ouvido serem conectados</string>
@@ -506,6 +509,7 @@
     <string name="pref_title_show_lyrics">Mostrar letras</string>
     <string name="pref_title_show_update">Mostrar atualização</string>
     <string name="pref_title_specific_device">Dispositivo Específico</string>
+    <string name="pref_title_stock_equalizer">Use o equalizador do sistema</string>
     <string name="pref_title_suggestions">Mostrar sugestões</string>
     <string name="pref_title_swipe_anywhere_now_playing">Deslize em qualquer lugar para alterar a música</string>
     <string name="pref_title_swipe_gestures">Deslize os gestos</string>

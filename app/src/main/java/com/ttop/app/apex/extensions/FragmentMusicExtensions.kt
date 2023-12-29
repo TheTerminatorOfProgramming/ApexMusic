@@ -25,7 +25,7 @@ fun getSongInfo(song: Song): String {
                 .append(" kHz")
             string.toString()
         } catch (er: Exception) {
-            " - "
+            "Error: $er"
         }
     }
     return "-"

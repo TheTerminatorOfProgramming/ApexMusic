@@ -84,12 +84,12 @@ class PlayingNotificationImpl24(
         val toggleFavoriteOrUpdate = buildFavoriteUpdateAction(false)
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
-            R.drawable.ic_skip_previous_outline,
+            R.drawable.ic_skip_previous,
             context.getString(R.string.action_previous),
             retrievePlaybackAction(ACTION_REWIND)
         )
         val nextAction = NotificationCompat.Action(
-            R.drawable.ic_skip_next_outline,
+            R.drawable.ic_skip_next,
             context.getString(R.string.action_next),
             retrievePlaybackAction(ACTION_SKIP)
         )
@@ -165,7 +165,7 @@ class PlayingNotificationImpl24(
 
     private fun buildPlayAction(isPlaying: Boolean): NotificationCompat.Action {
         val playButtonResId =
-            if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
+            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
         return NotificationCompat.Action.Builder(
             playButtonResId,
             context.getString(R.string.action_play_pause),

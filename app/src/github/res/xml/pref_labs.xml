@@ -56,14 +56,5 @@
             android:title="@string/pref_title_update_channel"
             android:icon="@drawable/ic_channel"
             app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="true"
-            android:key="limit_categories"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_limit_categories"
-            android:title="@string/pref_title_limit_categories"
-            android:icon="@drawable/ic_library_add"
-            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

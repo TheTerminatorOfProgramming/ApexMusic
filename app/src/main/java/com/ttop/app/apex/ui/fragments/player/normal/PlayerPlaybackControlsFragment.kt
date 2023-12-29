@@ -64,12 +64,6 @@ class PlayerPlaybackControlsFragment :
     override val previousButton: ImageButton
         get() = binding.previousButton
 
-    override val volUp: ImageButton
-        get() = binding.volUpButton
-
-    override val volDown: ImageButton
-        get() = binding.volDownButton
-
     override val songTotalTime: TextView
         get() = binding.songTotalTime
 
@@ -88,14 +82,6 @@ class PlayerPlaybackControlsFragment :
         }
         binding.artist.setOnClickListener {
             goToArtist(requireActivity())
-        }
-
-        if (!PreferenceUtil.isVolumeControls) {
-            volUp.visibility = View.GONE
-            volDown.visibility = View.GONE
-        }else {
-            volUp.visibility = View.VISIBLE
-            volDown.visibility = View.VISIBLE
         }
     }
 
@@ -122,6 +108,7 @@ class PlayerPlaybackControlsFragment :
 
         if (PreferenceUtil.isAdaptiveColor) {
             binding.progressSlider.applyColor(color.secondaryTextColor)
+            volumeFragment?.setTintable(color.secondaryTextColor)
             binding.title.setTextColor(color.secondaryTextColor)
             binding.artist.setTextColor(color.secondaryTextColor)
             binding.songInfo.setTextColor(color.secondaryTextColor)
@@ -146,6 +133,7 @@ class PlayerPlaybackControlsFragment :
                 ColorStateList.valueOf(color.secondaryTextColor)
         } else {
             binding.progressSlider.applyColor(colorFinal)
+            volumeFragment?.setTintable(colorFinal)
 
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {
@@ -186,9 +174,6 @@ class PlayerPlaybackControlsFragment :
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
-
-        volUp.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
-        volDown.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
     private fun updateSong() {

@@ -20,6 +20,7 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.graphics.Color
 import android.media.audiofx.AudioEffect
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -31,11 +32,15 @@ import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_PERMISSION_REQUEST
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.util.VersionUtils
+import com.ttop.app.equalizer.DialogEqualizerFragment
 
 
 /**
@@ -45,14 +50,8 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 class AudioSettings : AbsSettingsFragment() {
     override fun invalidateSettings() {
         val eqPreference: Preference? = findPreference(EQUALIZER)
-        if (!hasEqualizer()) {
-            eqPreference?.isEnabled = false
-            eqPreference?.summary = resources.getString(R.string.no_equalizer)
-        } else {
-            eqPreference?.isEnabled = true
-        }
         eqPreference?.setOnPreferenceClickListener {
-            NavigationUtil.openEqualizer(requireActivity())
+            NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
             true
         }
 
@@ -141,14 +140,12 @@ class AudioSettings : AbsSettingsFragment() {
             PreferenceUtil.volumeLevel = 5
             true
         }
-    }
 
-    private fun hasEqualizer(): Boolean {
-        val effects = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
-
-        val pm = requireActivity().packageManager
-        val ri = pm.resolveActivity(effects, 0)
-        return ri != null
+        val stockEqualizer: TwoStatePreference? = findPreference(EQUALIZER_STOCK)
+        stockEqualizer?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

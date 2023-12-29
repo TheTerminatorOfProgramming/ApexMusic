@@ -180,6 +180,8 @@
     <string name="enable_files_permission">Aktifkan izin File</string>
     <string name="enter_text">Masukkan teks</string>
     <string name="equalizer">Ekualiser</string>
+    <string name="equalizer_apex">Ekualiser Apex</string>
+    <string name="equalizer_system">Ekualiser sistem</string>
     <string name="error_create_backup">Tidak dapat membuat cadangan</string>
     <string name="error_delete_backup">Tidak dapat menghapus cadangan</string>
     <string name="error_empty_name">Nama Anda tidak boleh kosong!</string>
@@ -283,7 +285,6 @@
     <string name="no_albums">Anda tidak memiliki album</string>
     <string name="no_artists">Anda tidak memiliki artis</string>
     <string name="no_audio_ID">Putar lagu terlebih dahulu, lalu coba lagi.</string>
-    <string name="no_equalizer">Ekualiser tidak ditemukan</string>
     <string name="no_genres">Anda tidak memiliki genre</string>
     <string name="no_lyrics_found">Lirik tidak ditemukan</string>
     <string name="no_playing_queue">Tidak ada lagu yang diputar</string>
@@ -356,6 +357,7 @@
     <string name="pref_header_blacklist">Daftar hitam</string>
     <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Kontrol</string>
+    <string name="pref_header_equalizer">Ekualiser</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_headset">Headset</string>
     <string name="pref_header_images">Gambar-gambar</string>
@@ -427,6 +429,7 @@
     <string name="pref_summary_show_lyrics">Tampilkan lirik yang disinkronkan atau disematkan</string>
     <string name="pref_summary_show_update">Ganti favorit dengan pembaruan di notifikasi pemutaran</string>
     <string name="pref_summary_specific_device">Izinkan hanya perangkat bluetooth tertentu untuk memutar musik secara otomatis</string>
+    <string name="pref_summary_stock_equalizer">Gunakan equalizer bawaan (jika tersedia), bukan equalizer apex</string>
     <string name="pref_summary_suggestions">Tampilkan campuran musik baru di layar beranda</string>
     <string name="pref_summary_synced_lyrics">Tampilkan lirik yang disinkronkan di sampul album</string>
     <string name="pref_summary_toggle_headset">Mulai mainkan segera setelah headphone tersambung</string>
@@ -504,6 +507,7 @@
     <string name="pref_title_show_lyrics">Tampilkan Lirik</string>
     <string name="pref_title_show_update">Tampilkan Pembaruan</string>
     <string name="pref_title_specific_device">Perangkat Tertentu</string>
+    <string name="pref_title_stock_equalizer">Gunakan Ekualiser Sistem</string>
     <string name="pref_title_suggestions">Tampilkan Saran</string>
     <string name="pref_title_swipe_anywhere_now_playing">Gesek Di Mana Saja Untuk Mengubah Lagu</string>
     <string name="pref_title_swipe_gestures">Geser Gestur</string>

@@ -23,6 +23,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Point
+import android.media.audiofx.AudioEffect
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -428,5 +429,13 @@ object ApexUtil {
             }
         }
         return canAuthenticate
+    }
+
+    fun hasEqualizer(context: Context): Boolean {
+        val effects = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
+
+        val pm = context.packageManager
+        val ri = pm.resolveActivity(effects, 0)
+        return ri != null
     }
 }

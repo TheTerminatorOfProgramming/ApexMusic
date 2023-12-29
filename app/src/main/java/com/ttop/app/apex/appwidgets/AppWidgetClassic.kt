@@ -209,21 +209,21 @@ class AppWidgetClassic : BaseAppWidget() {
                     appWidgetView.setImageViewBitmap(
                         R.id.button_next,
                         context.getTintedDrawable(
-                            R.drawable.ic_skip_next_outline,
+                            R.drawable.ic_skip_next,
                             secondaryColor
                         ).toBitmap()
                     )
                     appWidgetView.setImageViewBitmap(
                         R.id.button_prev,
                         context.getTintedDrawable(
-                            R.drawable.ic_skip_previous_outline,
+                            R.drawable.ic_skip_previous,
                             secondaryColor
                         ).toBitmap()
                     )
                     appWidgetView.setImageViewBitmap(
                         R.id.button_toggle_play_pause,
                         context.getTintedDrawable(
-                            R.drawable.ic_play_arrow_outline_small,
+                            R.drawable.ic_play_arrow,
                             secondaryColor
                         ).toBitmap()
                     )
@@ -234,21 +234,21 @@ class AppWidgetClassic : BaseAppWidget() {
                     appWidgetView.setImageViewBitmap(
                         R.id.button_next,
                         context.getTintedDrawable(
-                            R.drawable.ic_skip_next_outline,
+                            R.drawable.ic_skip_next,
                             secondaryColor
                         ).toBitmap()
                     )
                     appWidgetView.setImageViewBitmap(
                         R.id.button_prev,
                         context.getTintedDrawable(
-                            R.drawable.ic_skip_previous_outline,
+                            R.drawable.ic_skip_previous,
                             secondaryColor
                         ).toBitmap()
                     )
                     appWidgetView.setImageViewBitmap(
                         R.id.button_toggle_play_pause,
                         context.getTintedDrawable(
-                            R.drawable.ic_play_arrow_outline_small,
+                            R.drawable.ic_play_arrow_outline,
                             secondaryColor
                         ).toBitmap()
                     )
@@ -259,21 +259,21 @@ class AppWidgetClassic : BaseAppWidget() {
             appWidgetView.setImageViewBitmap(
                 R.id.button_next,
                 context.getTintedDrawable(
-                    R.drawable.ic_skip_next_outline,
+                    R.drawable.ic_skip_next,
                     secondaryColor
                 ).toBitmap()
             )
             appWidgetView.setImageViewBitmap(
                 R.id.button_prev,
                 context.getTintedDrawable(
-                    R.drawable.ic_skip_previous_outline,
+                    R.drawable.ic_skip_previous,
                     secondaryColor
                 ).toBitmap()
             )
             appWidgetView.setImageViewBitmap(
                 R.id.button_toggle_play_pause,
                 context.getTintedDrawable(
-                    R.drawable.ic_play_arrow_outline_small,
+                    R.drawable.ic_play_arrow_outline,
                     secondaryColor
                 ).toBitmap()
             )
@@ -441,7 +441,7 @@ class AppWidgetClassic : BaseAppWidget() {
 
         // Set correct drawable for pause state
         val playPauseRes =
-            if (isPlaying) R.drawable.ic_pause_outline_small else R.drawable.ic_play_arrow_outline_small
+            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
             service.getTintedDrawable(
@@ -454,14 +454,14 @@ class AppWidgetClassic : BaseAppWidget() {
         appWidgetView.setImageViewBitmap(
             R.id.button_next,
             service.getTintedDrawable(
-                R.drawable.ic_skip_next_outline,
+                R.drawable.ic_skip_next,
                 MaterialValueHelper.getSecondaryTextColor(service, true)
             ).toBitmap()
         )
         appWidgetView.setImageViewBitmap(
             R.id.button_prev,
             service.getTintedDrawable(
-                R.drawable.ic_skip_previous_outline,
+                R.drawable.ic_skip_previous,
                 MaterialValueHelper.getSecondaryTextColor(service, true)
             ).toBitmap()
         )
@@ -469,7 +469,7 @@ class AppWidgetClassic : BaseAppWidget() {
             R.id.button_toggle_play_pause,
 
             service.getTintedDrawable(
-                R.drawable.ic_play_arrow_outline_small,
+                R.drawable.ic_play_arrow,
                 MaterialValueHelper.getSecondaryTextColor(service, true)
             ).toBitmap()
         )
@@ -532,12 +532,12 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                     }
@@ -555,12 +555,12 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                     }
@@ -579,12 +579,12 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next_outline, color
+                                                R.drawable.ic_skip_next, color
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous_outline, color
+                                                R.drawable.ic_skip_previous, color
                                             ).toBitmap()
                                         )
                                     }
@@ -601,13 +601,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next_outline,
+                                                R.drawable.ic_skip_next,
                                                 service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous_outline,
+                                                R.drawable.ic_skip_previous,
                                                 service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
@@ -625,13 +625,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next_outline,
+                                                R.drawable.ic_skip_next,
                                                 service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous_outline,
+                                                R.drawable.ic_skip_previous,
                                                 service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
@@ -648,13 +648,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next_outline,
+                                                R.drawable.ic_skip_next,
                                                 service.accentColor()
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous_outline,
+                                                R.drawable.ic_skip_previous,
                                                 service.accentColor()
                                             ).toBitmap()
                                         )
@@ -671,13 +671,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next_outline,
+                                                R.drawable.ic_skip_next,
                                                 PreferenceUtil.customWidgetColor
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous_outline,
+                                                R.drawable.ic_skip_previous,
                                                 PreferenceUtil.customWidgetColor
                                             ).toBitmap()
                                         )
@@ -777,12 +777,12 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -799,12 +799,12 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -823,12 +823,12 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline, color
+                                        R.drawable.ic_skip_next, color
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline, color
+                                        R.drawable.ic_skip_previous, color
                                     ).toBitmap()
                                 )
                             }
@@ -845,13 +845,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline,
+                                        R.drawable.ic_skip_next,
                                         service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline,
+                                        R.drawable.ic_skip_previous,
                                         service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
@@ -869,13 +869,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline,
+                                        R.drawable.ic_skip_next,
                                         service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline,
+                                        R.drawable.ic_skip_previous,
                                         service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
@@ -892,13 +892,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline,
+                                        R.drawable.ic_skip_next,
                                         service.accentColor()
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline,
+                                        R.drawable.ic_skip_previous,
                                         service.accentColor()
                                     ).toBitmap()
                                 )
@@ -915,13 +915,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline,
+                                        R.drawable.ic_skip_next,
                                         PreferenceUtil.customWidgetColor
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous_outline,
+                                        R.drawable.ic_skip_previous,
                                         PreferenceUtil.customWidgetColor
                                     ).toBitmap()
                                 )

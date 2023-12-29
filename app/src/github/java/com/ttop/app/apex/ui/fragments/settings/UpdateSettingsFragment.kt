@@ -1,5 +1,7 @@
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.preference.Preference
 import com.ttop.app.apex.*
@@ -12,14 +14,15 @@ class UpdateSettingsFragment : AbsSettingsFragment() {
     override fun invalidateSettings() {
         val update: Preference? = findPreference("update_button")
         update?.setOnPreferenceClickListener {
+            var url = "https://theterminatorofprogramming.github.io/projects.html"
             if (PreferenceUtil.updateSource == "github") {
                 GithubUtils.checkForUpdateGithub(requireContext(), true)
             }else {
-                if (PreferenceUtil.isPreviewChannel) {
-                    GithubUtils.checkForUpdateWebsitePreview(requireContext(), false)
-                }else {
-                    GithubUtils.checkForUpdateWebsite(requireContext(), false)
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                    url = "http://$url"
                 }
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(browserIntent)
             }
             true
         }

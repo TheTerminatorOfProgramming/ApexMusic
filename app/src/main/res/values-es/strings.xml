@@ -182,6 +182,8 @@
     <string name="enable_files_permission">Habilitar permiso de archivos</string>
     <string name="enter_text">Ingrese texto</string>
     <string name="equalizer">Igualada</string>
+    <string name="equalizer_apex">Ecualizador Apex</string>
+    <string name="equalizer_system">Ecualizador del sistema</string>
     <string name="error_create_backup">No se pudo crear la copia de seguridad</string>
     <string name="error_delete_backup">No se pudo eliminar la copia de seguridad</string>
     <string name="error_empty_name">¡Tu nombre no puede estar vacío!</string>
@@ -285,7 +287,6 @@
     <string name="no_albums">no tienes albumes</string>
     <string name="no_artists">no tienes artistas</string>
     <string name="no_audio_ID">Primero reproduzca una canción y luego vuelva a intentarlo.</string>
-    <string name="no_equalizer">No se encontró el ecualizador</string>
     <string name="no_genres">no tienes generos</string>
     <string name="no_lyrics_found">No se encuentra la letra</string>
     <string name="no_playing_queue">No se reproducen canciones</string>
@@ -358,6 +359,7 @@
     <string name="pref_header_blacklist">Lista negra</string>
     <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Control S</string>
+    <string name="pref_header_equalizer">Igualada</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_headset">Auriculares</string>
     <string name="pref_header_images">Imágenes</string>
@@ -429,6 +431,7 @@
     <string name="pref_summary_show_lyrics">Mostrar letras sincronizadas o incrustadas</string>
     <string name="pref_summary_show_update">Reemplazar favorito con actualización en la notificación de reproducción</string>
     <string name="pref_summary_specific_device">Permitir que solo un dispositivo bluetooth específico reproduzca música automáticamente</string>
+    <string name="pref_summary_stock_equalizer">Utilice el ecualizador incorporado (si está disponible), en lugar del ecualizador superior</string>
     <string name="pref_summary_suggestions">Mostrar nueva mezcla de música en la pantalla de inicio</string>
     <string name="pref_summary_synced_lyrics">Mostrar letras sincronizadas sobre la portada del álbum</string>
     <string name="pref_summary_toggle_headset">Comience a jugar inmediatamente después de conectar los auriculares</string>
@@ -506,6 +509,7 @@
     <string name="pref_title_show_lyrics">Mostrar letras</string>
     <string name="pref_title_show_update">Mostrar actualización</string>
     <string name="pref_title_specific_device">Dispositivo específico</string>
+    <string name="pref_title_stock_equalizer">Usar el ecualizador del sistema</string>
     <string name="pref_title_suggestions">Mostrar sugerencias</string>
     <string name="pref_title_swipe_anywhere_now_playing">Deslizar en cualquier lugar para cambiar de canción</string>
     <string name="pref_title_swipe_gestures">Gestos de deslizamiento</string>

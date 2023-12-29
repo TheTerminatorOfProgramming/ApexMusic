@@ -63,10 +63,6 @@ class TintedBottomNavigationView @JvmOverloads constructor(
     }
 
     override fun getMaxItemCount(): Int {
-        return if (PreferenceUtil.isLimitCategories) {
-            5
-        }else {
-            9
-        }
+        return 7
     }
 }

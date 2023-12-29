@@ -35,9 +35,9 @@ class TopAppBarLayout @JvmOverloads constructor(
                 CollapsingAppbarLayoutBinding.inflate(LayoutInflater.from(context), this, true)
             val isLandscape =
                 context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-            //if (isLandscape) {
-            //    fitsSystemWindows = false
-            //}
+            if (isLandscape) {
+                fitsSystemWindows = false
+            }
 
         } else {
             simpleAppbarBinding =
@@ -88,8 +88,6 @@ class TopAppBarLayout @JvmOverloads constructor(
                     updateCollapsableAppBarTitleTextAppearance(
                         it
                     )
-
-                    backgroundTintList = ColorStateList.valueOf(context.darkAccentColor())
                 }
                 collapsingAppbarBinding?.collapsingToolbarLayout?.setContentScrimColor(context.darkAccentColor())
             } else {
@@ -105,11 +103,7 @@ class TopAppBarLayout @JvmOverloads constructor(
                     ApexUtil.updateSimpleAppBarTitleTextAppearance(context,
                         it
                     )
-
-                    backgroundTintList = ColorStateList.valueOf(context.darkAccentColor())
                 }
-
-                setStatusBarForegroundColor(context.darkAccentColor())
             }
         }
 

@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.ttop.app.apex.beta",
+  "variantName": "githubDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 330,
+      "versionName": "3.3.0 BETA",
+      "outputFile": "app-github-debug.apk"
+    }
+  ],
+  "elementType": "File"
+}

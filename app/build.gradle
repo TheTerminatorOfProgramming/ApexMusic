@@ -15,8 +15,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.ttop.app.apex"
-        versionCode 320
-        versionName '3.2.0'
+        versionCode 330
+        versionName '3.3.0'
     }
     signingConfigs {
         release {
@@ -93,6 +93,7 @@ static def getProperty(Properties properties, String name) {
 dependencies {
     implementation project(':appthemehelper')
     implementation project(':appIntro')
+    implementation project(':equalizer')
     implementation "androidx.gridlayout:gridlayout:1.0.0"
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"

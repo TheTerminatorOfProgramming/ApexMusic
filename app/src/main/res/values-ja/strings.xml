@@ -180,6 +180,8 @@
     <string name="enable_files_permission">ファイル権限を有効にする</string>
     <string name="enter_text">テキストを入力してください</string>
     <string name="equalizer">イコライザ</string>
+    <string name="equalizer_apex">アペックスイコライザー</string>
+    <string name="equalizer_system">システムイコライザー</string>
     <string name="error_create_backup">バックアップを作成できませんでした</string>
     <string name="error_delete_backup">バックアップを削除できませんでした</string>
     <string name="error_empty_name">あなたの名前を空にすることはできません!</string>
@@ -283,7 +285,6 @@
     <string name="no_albums">アルバムがありません</string>
     <string name="no_artists">アーティストがいません</string>
     <string name="no_audio_ID">まず曲を再生してから、もう一度試してください。</string>
-    <string name="no_equalizer">イコライザーが見つかりません</string>
     <string name="no_genres">あなたにはジャンルがありません</string>
     <string name="no_lyrics_found">歌詞が見つかりません</string>
     <string name="no_playing_queue">曲が再生されていません</string>
@@ -356,6 +357,7 @@
     <string name="pref_header_blacklist">ブラックリスト</string>
     <string name="pref_header_bluetooth">ブルートゥース</string>
     <string name="pref_header_controls">コントロール</string>
+    <string name="pref_header_equalizer">イコライザ</string>
     <string name="pref_header_general">テーマ</string>
     <string name="pref_header_headset">ヘッドセット</string>
     <string name="pref_header_images">画像</string>
@@ -427,6 +429,7 @@
     <string name="pref_summary_show_lyrics">同期または埋め込まれた歌詞を表示する</string>
     <string name="pref_summary_show_update">再生通知のお気に入りを更新に置き換えます</string>
     <string name="pref_summary_specific_device">特定の Bluetooth デバイスのみに音楽の自動再生を許可する</string>
+    <string name="pref_summary_stock_equalizer">apex イコライザーの代わりに、組み込みイコライザー (利用可能な場合) を使用します。</string>
     <string name="pref_summary_suggestions">新しい音楽ミックスをホーム画面に表示する</string>
     <string name="pref_summary_synced_lyrics">同期された歌詞をアルバム カバーの上に表示する</string>
     <string name="pref_summary_toggle_headset">ヘッドフォンを接続したらすぐに演奏を開始</string>
@@ -504,6 +507,7 @@
     <string name="pref_title_show_lyrics">歌詞を表示</string>
     <string name="pref_title_show_update">更新を表示</string>
     <string name="pref_title_specific_device">特定のデバイス</string>
+    <string name="pref_title_stock_equalizer">システムイコライザーを使用する</string>
     <string name="pref_title_suggestions">提案を表示</string>
     <string name="pref_title_swipe_anywhere_now_playing">どこでもスワイプして曲を変更</string>
     <string name="pref_title_swipe_gestures">スワイプジェスチャー</string>
