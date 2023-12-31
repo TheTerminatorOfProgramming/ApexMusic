@@ -10,10 +10,8 @@ import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.dcastalia.localappupdate.DownloadApk
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -21,10 +19,8 @@ import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
 import com.ttop.app.apex.BuildConfig
-import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.appendChar
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 import java.util.Calendar
@@ -42,6 +38,8 @@ object GithubUtils {
         return context.packageManager.canRequestPackageInstalls()
     }
     fun checkForUpdateGithub(context: Context, showFailMessage: Boolean) {
+        context.showToast("Checking for Update....")
+
         val updater = AppUpdaterUtils(context)
             .setUpdateFrom(UpdateFrom.GITHUB)
             .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
@@ -56,30 +54,17 @@ object GithubUtils {
                     )
 
                     val finalVersionNumberString = BuildConfig.VERSION_CODE.toString().appendChar(0, '.')
-                    val finalVersionNumber = finalVersionNumberString.toDouble()
+                    val finalVersionNumber = finalVersionNumberString.toFloat()
                     val isPreview = update.latestVersion.contains("-preview")
 
                     if (isPreview) {
-                        val updateVersionPreview = update.latestVersion.dropLast(8).toDouble()
-                        if (updateVersionPreview > finalVersionNumber) {
-                            if (PreferenceUtil.isPreviewChannel) {
-                                val appUpdater = AppUpdater(context)
-                                    .setUpdateFrom(UpdateFrom.GITHUB)
-                                    .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
-                                    .setDisplay(Display.DIALOG)
-                                    .setContentOnUpdateAvailable("Update " + update.latestVersion.replace('-', ' ') + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
-                                    .showAppUpdated(true)
-                                appUpdater.start()
-                            }else {
-                                if (showFailMessage){
-                                    context.showToast("No Updates Available!")
-                                }
-                            }
-                        }else {
-                            if (showFailMessage){
-                                context.showToast("No Updates Available!")
-                            }
-                        }
+                        val appUpdater = AppUpdater(context)
+                            .setUpdateFrom(UpdateFrom.GITHUB)
+                            .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
+                            .setDisplay(Display.DIALOG)
+                            .setContentOnUpdateAvailable("Update " + update.latestVersion.replace("-preview", " preview ") + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                            .showAppUpdated(true)
+                        appUpdater.start()
                     }else {
                         val updateVersion = update.latestVersion.toDouble()
                         if (updateVersion > finalVersionNumber) {

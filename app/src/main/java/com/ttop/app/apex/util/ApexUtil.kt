@@ -238,6 +238,14 @@ object ApexUtil {
             }
         }
 
+        if (PreferenceUtil.isCustomFont == "caviar") {
+            if (PreferenceUtil.isCustomFontBold) {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaviarDreamsBoldThemeOverlay)
+            } else {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaviarDreamsThemeOverlay)
+            }
+        }
+
         if (PreferenceUtil.isCustomFont == "pencil") {
            simpleToolbarLayout.setTitleTextAppearance(context, R.style.PencilThemeOverlay)
         }
@@ -252,10 +260,6 @@ object ApexUtil {
 
         if (PreferenceUtil.isCustomFont == "nothing") {
            simpleToolbarLayout.setTitleTextAppearance(context, R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "beckman") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BeckmanThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "binjay") {
@@ -289,6 +293,14 @@ object ApexUtil {
             }
         }
 
+        if (PreferenceUtil.isCustomFont == "caviar") {
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaviarDreamsBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
+            }
+        }
+
         if (PreferenceUtil.isCustomFont == "pencil") {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.PencilThemeOverlay)
         }
@@ -303,10 +315,6 @@ object ApexUtil {
 
         if (PreferenceUtil.isCustomFont == "nothing") {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "beckman") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BeckmanThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "binjay") {
@@ -337,6 +345,14 @@ object ApexUtil {
             }
         }
 
+        if (PreferenceUtil.isCustomFont == "caviar") {
+            if (PreferenceUtil.isCustomFontBold) {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaviarDreamsBoldThemeOverlay)
+            } else {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
+            }
+        }
+
         if (PreferenceUtil.isCustomFont == "pencil") {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.PencilThemeOverlay)
         }
@@ -351,10 +367,6 @@ object ApexUtil {
 
         if (PreferenceUtil.isCustomFont == "nothing") {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "beckman") {
-             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BeckmanThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "binjay") {

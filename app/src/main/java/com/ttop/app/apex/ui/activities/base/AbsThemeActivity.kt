@@ -71,6 +71,14 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             }
         }
 
+        if (PreferenceUtil.isCustomFont == "caviar") {
+            if (PreferenceUtil.isCustomFontBold) {
+                setTheme(R.style.CaviarDreamsBoldThemeOverlay)
+            } else {
+                setTheme(R.style.CaviarDreamsThemeOverlay)
+            }
+        }
+
         if (PreferenceUtil.isCustomFont == "pencil") {
             setTheme(R.style.PencilThemeOverlay)
         }
@@ -85,10 +93,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
 
         if (PreferenceUtil.isCustomFont == "nothing") {
             setTheme(R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "beckman") {
-            setTheme(R.style.BeckmanThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "hiatus") {

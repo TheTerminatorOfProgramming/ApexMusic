@@ -27,11 +27,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette

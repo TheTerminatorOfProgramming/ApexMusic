@@ -47,6 +47,7 @@ import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.ui.utils.GithubUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs

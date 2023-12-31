@@ -29,8 +29,6 @@ import com.ttop.app.apex.*
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.extensions.installLanguageAndRecreate
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.extensions.resolveColor
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -163,11 +161,11 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val customFont: Preference? = findPreference(CUSTOM_FONT)
         customFont?.setOnPreferenceChangeListener { _, newValue ->
             when (newValue as String){
-                "default", "drexs", "hermanoalto", "nothing", "pencil", "beckman", "binjay", "hiatus", "apex" -> {
+                "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex" -> {
                     customFontBold?.isChecked = false
                     customFontBold?.isEnabled = false
                 }
-                "barlow", "jura"  -> {
+                "barlow", "jura", "caviar"  -> {
                     customFontBold?.isEnabled = true
                 }
             }
@@ -262,11 +260,11 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
         when (PreferenceUtil.isCustomFont){
-            "default", "drexs", "hermanoalto", "nothing", "pencil", "beckman", "binjay", "hiatus", "apex" -> {
+            "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex" -> {
                 customFontBold?.isChecked = false
                 customFontBold?.isEnabled = false
             }
-            "barlow", "jura"  -> {
+            "barlow", "jura", "caviar"  -> {
                 customFontBold?.isEnabled = true
             }
         }

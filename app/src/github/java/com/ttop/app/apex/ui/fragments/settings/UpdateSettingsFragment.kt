@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.preference.Preference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.ui.utils.GithubUtils
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
 class UpdateSettingsFragment : AbsSettingsFragment() {

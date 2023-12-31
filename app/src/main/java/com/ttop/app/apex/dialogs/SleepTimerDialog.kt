@@ -49,7 +49,6 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
-import java.util.concurrent.atomic.AtomicBoolean
 
 
 class SleepTimerDialog : DialogFragment() {

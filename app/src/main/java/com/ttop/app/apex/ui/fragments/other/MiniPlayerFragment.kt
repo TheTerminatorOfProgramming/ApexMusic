@@ -18,11 +18,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.util.TypedValue
 import android.view.GestureDetector
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
@@ -45,7 +43,6 @@ import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
-import com.ttop.app.apex.ui.fragments.player.normal.PlayerFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore

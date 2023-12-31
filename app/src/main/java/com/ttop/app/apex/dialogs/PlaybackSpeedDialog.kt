@@ -1,15 +1,10 @@
 package com.ttop.app.apex.dialogs
 
-import android.app.AlarmManager
 import android.app.Dialog
-import android.app.PendingIntent
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.HapticFeedbackConstants
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.getSystemService
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
@@ -18,7 +13,6 @@ import com.ttop.app.apex.extensions.accent
 import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.util.PreferenceUtil
 
 class PlaybackSpeedDialog : DialogFragment() {

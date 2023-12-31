@@ -20,6 +20,7 @@ class ATESwitchPreference @JvmOverloads constructor(
     CheckBoxPreference(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+
         widgetLayoutResource = R.layout.ate_preference_switch_support
         icon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             ATHUtil.resolveColor(

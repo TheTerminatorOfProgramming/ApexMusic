@@ -188,7 +188,7 @@
         <item>@string/font_default_name</item>
         <item>@string/font_apex_name</item>
         <item>@string/font_barlow_name</item>
-        <item>@string/font_beckman_name</item>
+        <item>@string/font_caviar_name</item>
         <item>@string/font_binjay_name</item>
         <item>@string/font_drexs_name</item>
         <item>@string/font_hermanoalto_name</item>
@@ -202,7 +202,7 @@
         <item>default</item>
         <item>apex</item>
         <item>barlow</item>
-        <item>beckman</item>
+        <item>caviar</item>
         <item>binjay</item>
         <item>drexs</item>
         <item>hermanoalto</item>
