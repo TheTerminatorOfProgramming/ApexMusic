@@ -6,8 +6,6 @@
     <string name="download_agreement">¡Al descargar esta actualización, obtendrá las últimas funciones, mejoras y correcciones de errores!</string>
     <string name="install_now">¿Desea descargar e instalar esta actualización ahora?</string>
     <string name="pref_summary_update_app">Actualizar apex music a la última versión</string>
-    <string name="pref_summary_update_channel">Obtenga acceso a las actualizaciones de vista previa</string>
-    <string name="pref_title_update_channel">Mostrar vistas previas</string>
     <string name="pref_title_update_frequency">Comprobar la frecuencia de actualización</string>
     <string name="pref_title_update_source">Fuente de actualización</string>
     <string name="stable_available_to_download">estable está disponible para descargar!</string>

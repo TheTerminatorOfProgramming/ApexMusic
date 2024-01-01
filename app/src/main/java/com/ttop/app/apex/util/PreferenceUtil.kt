@@ -1033,9 +1033,6 @@ object PreferenceUtil {
     val updateSource
         get() = sharedPreferences.getString(UPDATE_SOURCE, "github")
 
-    val isPreviewChannel
-        get() = sharedPreferences.getBoolean(UPDATE_CHANNEL, false)
-
     val isDisableWidgets
         get() = sharedPreferences.getBoolean(DISABLE_WIDGETS, false)
 

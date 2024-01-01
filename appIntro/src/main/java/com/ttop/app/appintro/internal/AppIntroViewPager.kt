@@ -79,6 +79,13 @@ internal class AppIntroViewPager(context: Context, attrs: AttributeSet) : ViewPa
         return if (LayoutUtil.isRtl(context)) (currentItem == 0) else (currentItem - size + 1 == 0)
     }
 
+    fun goToLastSlide(size: Int): Int {
+        var offset = size - 1
+        currentItem += offset
+
+        return currentItem
+    }
+
     fun getCurrentSlideNumber(size: Int): Int {
         return if (LayoutUtil.isRtl(context)) (size - currentItem) else (currentItem + 1)
     }

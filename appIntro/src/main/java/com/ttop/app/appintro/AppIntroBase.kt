@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -67,7 +68,6 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
     protected var isWizardMode: Boolean = false
         set(value) {
             field = value
-            this.isSkipButtonEnabled = !value
             updateButtonsVisibility()
         }
 
@@ -112,10 +112,8 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
     private var currentlySelectedItem = -1
     private val fragments: MutableList<Fragment> = mutableListOf()
 
-    private lateinit var nextButton: View
     private lateinit var doneButton: View
     private lateinit var skipButton: View
-    private lateinit var backButton: View
     private lateinit var indicatorContainer: ViewGroup
 
     // Asks the ViewPager for the current slide number. Useful to query the [permissionsMap]
@@ -235,7 +233,11 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
         if (show) {
             controller.show(systemBars())
         } else {
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE
+            if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.S) {
+                controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
+            }else {
+                controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE
+            }
             controller.hide(systemBars())
         }
     }
@@ -404,33 +406,20 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
 
         indicatorContainer = findViewById(R.id.indicator_container)
             ?: error("Missing Indicator Container: R.id.indicator_container")
-        nextButton = findViewById(R.id.next) ?: error("Missing Next button: R.id.next")
         doneButton = findViewById(R.id.done) ?: error("Missing Done button: R.id.done")
         skipButton = findViewById(R.id.skip) ?: error("Missing Skip button: R.id.skip")
-        backButton = findViewById(R.id.back) ?: error("Missing Back button: R.id.back")
 
-        setTooltipText(nextButton, getString(R.string.app_intro_next_button))
         if (skipButton is ImageButton) {
             setTooltipText(skipButton, getString(R.string.app_intro_skip_button))
         }
         if (doneButton is ImageButton) {
             setTooltipText(doneButton, getString(R.string.app_intro_done_button))
         }
-        if (backButton is ImageButton) {
-            setTooltipText(backButton, getString(R.string.app_intro_back_button))
-        }
-
-        if (isRtl) {
-            nextButton.scaleX = -1f
-            backButton.scaleX = -1f
-        }
 
         pagerAdapter = PagerAdapter(supportFragmentManager, fragments)
         pager = findViewById(R.id.view_pager)
 
         doneButton.setOnClickListener(NextSlideOnClickListener(isLastSlide = true))
-        nextButton.setOnClickListener(NextSlideOnClickListener(isLastSlide = false))
-        backButton.setOnClickListener { pager.goToPreviousSlide() }
         skipButton.setOnClickListener {
             dispatchVibration()
             onSkipPressed(pagerAdapter.getItem(pager.currentItem))
@@ -575,18 +564,12 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
 
     private fun updateButtonsVisibility() {
         val isLastSlide = pager.isLastSlide(fragments.size)
-        if (isButtonsEnabled) {
-            val isFirstSlide = pager.isFirstSlide(fragments.size)
-            nextButton.isVisible = !isLastSlide
-            doneButton.isVisible = isLastSlide
-            skipButton.isVisible = false
-            backButton.isVisible = isWizardMode && !isFirstSlide
-        } else {
-            nextButton.isVisible = false
-            doneButton.isVisible = isLastSlide
-            backButton.isVisible = false
-            skipButton.isVisible = false
-        }
+        doneButton.isVisible = isLastSlide
+        skipButton.isVisible = isSkipButtonEnabled
+    }
+
+    protected fun goToLastSlide() {
+        pager.goToLastSlide(fragments.size)
     }
 
     /*
@@ -792,6 +775,15 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
                 val currentSlide = pagerAdapter.getItem(position)
                 val nextSlide = pagerAdapter.getItem(position + 1)
                 performColorTransition(currentSlide, nextSlide, positionOffset)
+            }
+            if (isSkipButtonEnabled) {
+                val isLastSlide: Boolean = pager.isLastSlide(fragments.size)
+
+                if (isLastSlide) {
+                    skipButton.visibility = View.GONE
+                }else {
+                    skipButton.visibility = View.VISIBLE
+                }
             }
         }
 

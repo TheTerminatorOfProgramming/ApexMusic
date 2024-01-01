@@ -154,7 +154,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.intro -> startActivity(
                 Intent(
                     activity,
-                    AppIntroActivity()::class.java
+                    AppIntroActivityAbout::class.java
                 )
             )
             R.id.version -> {

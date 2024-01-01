@@ -7,8 +7,6 @@
     <string name="install_now">Apakah Anda ingin mengunduh dan memasang pemutakhiran ini sekarang?</string>
     <string name="pref_summary_check_update">Periksa pembaruan</string>
     <string name="pref_summary_update_app">Perbarui musik apex ke versi terbaru</string>
-    <string name="pref_summary_update_channel">Dapatkan akses ke pembaruan pratinjau</string>
-    <string name="pref_title_update_channel">Tampilkan Pratinjau</string>
     <string name="pref_title_update_frequency">Periksa Frekuensi Pembaruan</string>
     <string name="pref_title_update_source">Perbarui Sumber</string>
     <string name="stable_available_to_download">stabil tersedia untuk diunduh!</string>

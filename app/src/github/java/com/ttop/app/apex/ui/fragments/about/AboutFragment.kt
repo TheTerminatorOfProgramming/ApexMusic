@@ -33,10 +33,9 @@ import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
-import com.ttop.app.apex.extensions.isSystemDarkModeEnabled
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.ui.activities.AppIntroActivity
+import com.ttop.app.apex.ui.activities.AppIntroActivityAbout
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.utils.GithubUtils
 import com.ttop.app.apex.util.ApexUtil
@@ -178,7 +177,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.intro -> startActivity(
                 Intent(
                     activity,
-                    AppIntroActivity()::class.java
+                    AppIntroActivityAbout::class.java
                 )
             )
             R.id.version -> {

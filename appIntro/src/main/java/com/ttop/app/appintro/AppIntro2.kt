@@ -1,13 +1,13 @@
 package com.ttop.app.appintro
 
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 
 abstract class AppIntro2 : AppIntroBase() {
 
@@ -26,9 +26,7 @@ abstract class AppIntro2 : AppIntroBase() {
         set(value) {
             field = value
             if (field != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    backgroundFrame.background = field
-                }
+                backgroundFrame.background = field
             }
         }
 
@@ -62,14 +60,9 @@ abstract class AppIntro2 : AppIntroBase() {
         skipImageButton.setImageDrawable(imageSkipButton)
     }
 
-    /**
-     * Override next button arrow color
-     *
-     * @param color your color
-     */
-    fun setNextArrowColor(@ColorInt color: Int) {
-        val nextButton = findViewById<ImageButton>(R.id.next)
-        nextButton.setColorFilter(color)
+    override fun onSkipPressed(currentFragment: Fragment?) {
+        super.onSkipPressed(currentFragment)
+        goToLastSlide()
     }
 
     /**

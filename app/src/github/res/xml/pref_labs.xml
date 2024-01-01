@@ -45,16 +45,7 @@
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_labs_other_options"
-        app:isPreferenceVisible="true"
+        app:isPreferenceVisible="false"
         app:allowDividerBelow="false">
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="update_channel"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_update_channel"
-            android:title="@string/pref_title_update_channel"
-            android:icon="@drawable/ic_channel"
-            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

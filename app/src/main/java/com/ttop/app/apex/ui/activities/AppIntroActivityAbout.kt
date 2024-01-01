@@ -23,7 +23,7 @@ import com.ttop.app.appintro.AppIntroPageTransformerType
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 
-class AppIntroActivity : AppIntro2() {
+class AppIntroActivityAbout : AppIntro2() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,20 +33,24 @@ class AppIntroActivity : AppIntro2() {
         //LANGUAGE SLIDE
         addSlide(LanguageSlideFragment.newInstance())
 
+        //NOTIFICATION SLIDE
         if (VersionUtils.hasT()) {
-            //NOTIFICATION SLIDE
             addSlide(NotificationSlideFragment.newInstance())
         }
+
         //SD CARD SLIDE
         addSlide(StorageSlideFragment.newInstance())
+
         //BLUETOOTH SLIDE
         if (VersionUtils.hasS()) {
             addSlide(BluetoothSlideFragment.newInstance())
         }
+
         //BATTERY OPTIMIZATION SLIDE
         if (VersionUtils.hasS()) {
             addSlide(BatterySlideFragment.newInstance())
         }
+
         //BLUETOOTH AUTOPLAY SLIDE
         addSlide(BluetoothAutoPlaySlideFragment.newInstance())
         //SHUFFLE SLIDE
@@ -85,7 +89,7 @@ class AppIntroActivity : AppIntro2() {
         isVibrate = true
         isWizardMode = true
         isSystemBackButtonLocked = true
-        isSkipButtonEnabled = false
+        isSkipButtonEnabled = true
         setImmersiveMode()
         setProgressIndicator()
     }

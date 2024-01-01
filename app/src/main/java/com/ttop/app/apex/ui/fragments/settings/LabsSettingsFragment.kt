@@ -88,13 +88,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             fullCircleWidgetState(requireContext(), value)
             true
         }
-
-        val showPreviews: TwoStatePreference? = findPreference(UPDATE_CHANNEL)
-        showPreviews?.isChecked = PreferenceUtil.isPreviewChannel
-        showPreviews?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

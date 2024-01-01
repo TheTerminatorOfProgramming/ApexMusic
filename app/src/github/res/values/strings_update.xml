@@ -7,8 +7,6 @@
     <string name="install_now">Do you want to download and install this update now?</string>
     <string name="pref_summary_check_update">Check for updates</string>
     <string name="pref_summary_update_app">Update apex music to the latest version</string>
-    <string name="pref_summary_update_channel">Get access to preview updates</string>
-    <string name="pref_title_update_channel">Show Previews</string>
     <string name="pref_title_update_frequency">Check For Update Frequency</string>
     <string name="pref_title_update_source">Update Source</string>
     <string name="stable_available_to_download">stable is available to download!</string>

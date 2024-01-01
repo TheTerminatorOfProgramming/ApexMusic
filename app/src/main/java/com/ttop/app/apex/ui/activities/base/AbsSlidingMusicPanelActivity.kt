@@ -16,7 +16,6 @@ package com.ttop.app.apex.ui.activities.base
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -36,13 +35,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.AppWidgetClassic
-import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.CategoryInfo
-import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.AppIntroActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
@@ -152,7 +148,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 startActivity(
                     Intent(
                         this@AbsSlidingMusicPanelActivity,
-                        AppIntroActivity()::class.java
+                        AppIntroActivity::class.java
                     )
                 )
                 finish()
@@ -161,7 +157,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     startActivity(
                         Intent(
                             this@AbsSlidingMusicPanelActivity,
-                            AppIntroActivity()::class.java
+                            AppIntroActivity::class.java
                         )
                     )
                     finish()
@@ -172,7 +168,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 startActivity(
                     Intent(
                         this@AbsSlidingMusicPanelActivity,
-                        AppIntroActivity()::class.java
+                        AppIntroActivity::class.java
                     )
                 )
                 finish()

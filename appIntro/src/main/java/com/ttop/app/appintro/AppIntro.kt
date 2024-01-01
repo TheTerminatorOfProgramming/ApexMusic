@@ -27,26 +27,6 @@ abstract class AppIntro : AppIntroBase() {
     }
 
     /**
-     * Override next button arrow color
-     *
-     * @param color your color
-     */
-    fun setNextArrowColor(@ColorInt color: Int) {
-        val nextButton = findViewById<ImageButton>(R.id.next)
-        nextButton.setColorFilter(color)
-    }
-
-    /**
-     * Override back button arrow color
-     *
-     * @param color your color
-     */
-    fun setBackArrowColor(@ColorInt color: Int) {
-        val backButton = findViewById<ImageButton>(R.id.back)
-        backButton.setColorFilter(color)
-    }
-
-    /**
      * Override separator color
      *
      * @param color your color resource
@@ -174,16 +154,6 @@ abstract class AppIntro : AppIntroBase() {
     fun setSkipTextAppearance(@StyleRes textAppearance: Int) {
         val skip = findViewById<TextView>(R.id.skip)
         TextViewCompat.setTextAppearance(skip, textAppearance)
-    }
-
-    /**
-     * Override Next button
-     *
-     * @param imageNextButton your drawable resource
-     */
-    fun setImageNextButton(imageNextButton: Drawable) {
-        val nextButton = findViewById<ImageView>(R.id.next)
-        nextButton.setImageDrawable(imageNextButton)
     }
 
     /**

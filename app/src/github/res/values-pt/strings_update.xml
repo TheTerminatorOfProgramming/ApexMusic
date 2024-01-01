@@ -7,8 +7,6 @@
     <string name="install_now">Deseja baixar e instalar esta atualização agora?</string>
     <string name="pref_summary_check_update">Verifique se há atualizações</string>
     <string name="pref_summary_update_app">Atualize apex music para a versão mais recente</string>
-    <string name="pref_summary_update_channel">Tenha acesso a atualizações de visualização</string>
-    <string name="pref_title_update_channel">Mostrar visualizações</string>
     <string name="pref_title_update_frequency">Verifique a frequência de atualização</string>
     <string name="pref_title_update_source">fonte de atualização</string>
     <string name="stable_available_to_download">estável está disponível para download!</string>

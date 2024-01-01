@@ -7,8 +7,6 @@
     <string name="install_now">このアップデートを今すぐダウンロードしてインストールしますか?</string>
     <string name="pref_summary_check_update">アップデートを確認</string>
     <string name="pref_summary_update_app">apexミュージックを最新バージョンにアップデートする</string>
-    <string name="pref_summary_update_channel">プレビューアップデートにアクセスする</string>
-    <string name="pref_title_update_channel">プレビューを表示</string>
     <string name="pref_title_update_frequency">更新頻度を確認する</string>
     <string name="pref_title_update_source">アップデートソース</string>
     <string name="stable_available_to_download">安定版をダウンロードできます!</string>
