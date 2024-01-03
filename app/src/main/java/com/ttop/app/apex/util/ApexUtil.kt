@@ -273,6 +273,10 @@ object ApexUtil {
         if (PreferenceUtil.isCustomFont == "apex") {
             simpleToolbarLayout.setTitleTextAppearance(context, R.style.ApexThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "neue") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.NeueBureauThemeOverlay)
+        }
     }
 
     fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
@@ -328,6 +332,10 @@ object ApexUtil {
         if (PreferenceUtil.isCustomFont == "apex") {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ApexThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "neue") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.NeueBureauThemeOverlay)
+        }
         //Collapsed
         if (PreferenceUtil.isCustomFont == "barlow") {
             if (PreferenceUtil.isCustomFontBold) {
@@ -379,6 +387,10 @@ object ApexUtil {
 
         if (PreferenceUtil.isCustomFont == "apex") {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ApexThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "neue") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.NeueBureauThemeOverlay)
         }
     }
 

@@ -83,7 +83,7 @@
     <string name="artists">Artistas</string>
     <string name="audio_fade_duration">Duração do fade de áudio</string>
     <string name="audio_focus_denied">Foco de áudio negado.</string>
-    <string name="audio_settings_summary">Altere as configurações de som e ajuste os controles do equalizador</string>
+    <string name="audio_settings_summary">Alterar as configurações de som</string>
     <string name="auto">Auto</string>
     <string name="backup_restore_settings_summary">Faça backup e restaure suas configurações, listas de reprodução</string>
     <string name="backup_restore_title"><![CDATA[Backup e restauração]]></string>

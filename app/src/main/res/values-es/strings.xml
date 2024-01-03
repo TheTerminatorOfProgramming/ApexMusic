@@ -83,7 +83,7 @@
     <string name="artists">Artistas</string>
     <string name="audio_fade_duration">Duración del desvanecimiento de audio</string>
     <string name="audio_focus_denied">Foco de audio denegado.</string>
-    <string name="audio_settings_summary">Cambiar la configuración de sonido y ajustar los controles del ecualizador</string>
+    <string name="audio_settings_summary">Cambiar la configuración de sonido</string>
     <string name="auto">Auto</string>
     <string name="backup_restore_settings_summary">Copia de seguridad y restaurar su configuración, listas de reproducción</string>
     <string name="backup_restore_title"><![CDATA[Copia de seguridad y restauración]]></string>

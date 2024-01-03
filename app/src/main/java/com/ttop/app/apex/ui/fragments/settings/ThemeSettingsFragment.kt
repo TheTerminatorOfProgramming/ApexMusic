@@ -161,7 +161,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val customFont: Preference? = findPreference(CUSTOM_FONT)
         customFont?.setOnPreferenceChangeListener { _, newValue ->
             when (newValue as String){
-                "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex" -> {
+                "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex", "neue" -> {
                     customFontBold?.isChecked = false
                     customFontBold?.isEnabled = false
                 }
@@ -260,7 +260,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
         when (PreferenceUtil.isCustomFont){
-            "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex" -> {
+            "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex", "neue" -> {
                 customFontBold?.isChecked = false
                 customFontBold?.isEnabled = false
             }

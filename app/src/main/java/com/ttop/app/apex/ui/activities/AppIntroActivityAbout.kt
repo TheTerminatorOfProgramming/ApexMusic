@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.intro.BatterySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothAutoPlaySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothSlideFragment
@@ -14,12 +16,15 @@ import com.ttop.app.apex.ui.fragments.intro.MainSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.NotificationSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.ShuffleSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.StorageSlideFragment
+import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.AppIntroPermissions
+import com.ttop.app.apex.util.AppIntroUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appintro.AppIntro2
 import com.ttop.app.appintro.AppIntroPageTransformerType
+import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 
@@ -62,36 +67,39 @@ class AppIntroActivityAbout : AppIntro2() {
         if (VersionUtils.hasT()) {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                slideNumber = AppIntroPermissions.notificationPermission(),
+                slideNumber = AppIntroUtil.notificationPermission(),
                 required = false)
         }
         //SD Storage Access
         if (VersionUtils.hasT()) {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_MEDIA_AUDIO),
-                slideNumber = AppIntroPermissions.storagePermission(),
+                slideNumber = AppIntroUtil.storagePermission(),
                 required = true)
         }else {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                slideNumber = AppIntroPermissions.storagePermission(),
+                slideNumber = AppIntroUtil.storagePermission(),
                 required = true)
         }
         //Bluetooth
         if (VersionUtils.hasS()) {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                slideNumber = AppIntroPermissions.bluetoothPermission(),
+                slideNumber = AppIntroUtil.bluetoothPermission(),
                 required = true)
         }
 
-        setTransformer(AppIntroPageTransformerType.Flow)
+        setTransformer(AppIntroUtil.transformerType())
         isVibrate = true
+        vibrateDuration = 100L
         isWizardMode = true
         isSystemBackButtonLocked = true
         isSkipButtonEnabled = true
+        isColorTransitionsEnabled = true
         setImmersiveMode()
-        setProgressIndicator()
+        setDotIndicator()
+        setSelectedIndicatorColor(applicationContext.accentColor())
     }
     public override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)

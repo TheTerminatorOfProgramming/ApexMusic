@@ -1,8 +1,9 @@
 package com.ttop.app.apex.util
 
+import com.ttop.app.appintro.AppIntroPageTransformerType
 import com.ttop.app.appthemehelper.util.VersionUtils
 
-object AppIntroPermissions {
+object AppIntroUtil {
 
     fun notificationPermission(): Int {
         return 3
@@ -22,5 +23,9 @@ object AppIntroPermissions {
         }else {
             3
         }
+    }
+
+    fun transformerType() : AppIntroPageTransformerType {
+        return AppIntroPageTransformerType.Parallax()
     }
 }

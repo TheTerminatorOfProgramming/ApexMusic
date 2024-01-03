@@ -54,14 +54,6 @@ abstract class AppIntroBaseFragment : Fragment(), SlideSelectionListener, SlideB
     @ColorRes
     private var descColorRes: Int = 0
 
-    @ColorInt
-    @Deprecated(
-        "`defaultBackgroundColor` has been deprecated to support configuration changes",
-        ReplaceWith("defaultBackgroundColorRes")
-    )
-    final override var defaultBackgroundColor: Int = 0
-        private set
-
     @ColorRes
     final override var defaultBackgroundColorRes: Int = 0
         private set
@@ -89,8 +81,6 @@ abstract class AppIntroBaseFragment : Fragment(), SlideSelectionListener, SlideB
             titleTypeface = TypefaceContainer(argsTitleTypeface, argsTitleTypefaceRes)
             descTypeface = TypefaceContainer(argsDescTypeface, argsDescTypefaceRes)
 
-            @Suppress("DEPRECATION")
-            defaultBackgroundColor = args.getInt(ARG_BG_COLOR)
             defaultBackgroundColorRes = args.getInt(ARG_BG_COLOR_RES)
             titleColor = args.getInt(ARG_TITLE_COLOR, 0)
             titleColorRes = args.getInt(ARG_TITLE_COLOR_RES, 0)
@@ -116,8 +106,6 @@ abstract class AppIntroBaseFragment : Fragment(), SlideSelectionListener, SlideB
                 savedInstanceState.getInt(ARG_DESC_TYPEFACE_RES, 0)
             )
 
-            @Suppress("DEPRECATION")
-            defaultBackgroundColor = savedInstanceState.getInt(ARG_BG_COLOR)
             defaultBackgroundColorRes = savedInstanceState.getInt(ARG_BG_COLOR_RES)
             bgDrawable = savedInstanceState.getInt(ARG_BG_DRAWABLE)
             titleColor = savedInstanceState.getInt(ARG_TITLE_COLOR)
@@ -163,10 +151,6 @@ abstract class AppIntroBaseFragment : Fragment(), SlideSelectionListener, SlideB
             defaultBackgroundColorRes != 0 -> {
                 mainLayout?.setBackgroundColor(ContextCompat.getColor(requireContext(), defaultBackgroundColorRes))
             }
-            else -> {
-                @Suppress("DEPRECATION")
-                mainLayout?.setBackgroundColor(defaultBackgroundColor)
-            }
         }
 
         titleText.movementMethod = ScrollingMovementMethod()
@@ -200,8 +184,6 @@ abstract class AppIntroBaseFragment : Fragment(), SlideSelectionListener, SlideB
         outState.putInt(ARG_BG_DRAWABLE, bgDrawable)
         outState.putString(ARG_TITLE, title)
         outState.putString(ARG_DESC, description)
-        @Suppress("DEPRECATION")
-        outState.putInt(ARG_BG_COLOR, defaultBackgroundColor)
         outState.putInt(ARG_BG_COLOR_RES, defaultBackgroundColorRes)
         outState.putInt(ARG_TITLE_COLOR, titleColor)
         outState.putInt(ARG_TITLE_COLOR_RES, titleColorRes)

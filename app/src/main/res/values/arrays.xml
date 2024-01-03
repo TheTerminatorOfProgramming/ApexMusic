@@ -194,6 +194,7 @@
         <item>@string/font_hermanoalto_name</item>
         <item>@string/font_hiatus_name</item>
         <item>@string/font_jura_name</item>
+        <item>@string/font_neue_name</item>
         <item>@string/font_nothing_name</item>
         <item>@string/font_pencil_name</item>
     </string-array>
@@ -208,6 +209,7 @@
         <item>hermanoalto</item>
         <item>hiatus</item>
         <item>jura</item>
+        <item>neue</item>
         <item>nothing</item>
         <item>pencil</item>
     </string-array>

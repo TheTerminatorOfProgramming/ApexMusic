@@ -64,6 +64,11 @@
         <item name="fontFamily">@font/caviardreams</item>
         <item name="android:fontFamily">@font/caviardreams</item>
     </style>
+
+    <style name="NeueBureauThemeOverlay">
+        <item name="fontFamily">@font/neuebureaugrotesk</item>
+        <item name="android:fontFamily">@font/neuebureaugrotesk</item>
+    </style>
     <!-- Bold -->
     <style name="BarlowBoldThemeOverlay">
         <item name="fontFamily">@font/barlow_bold</item>

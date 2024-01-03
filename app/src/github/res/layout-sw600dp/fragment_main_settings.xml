@@ -17,7 +17,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline0"
@@ -106,7 +107,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline00"

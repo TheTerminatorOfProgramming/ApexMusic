@@ -81,7 +81,7 @@
     <string name="artists">Artis</string>
     <string name="audio_fade_duration">Durasi audio memudar</string>
     <string name="audio_focus_denied">Fokus audio ditolak.</string>
-    <string name="audio_settings_summary">Ubah pengaturan suara dan sesuaikan kontrol equalizer</string>
+    <string name="audio_settings_summary">Ubah pengaturan suara</string>
     <string name="auto">Mobil</string>
     <string name="backup_restore_settings_summary">Cadangkan dan pulihkan pengaturan, daftar putar Anda</string>
     <string name="backup_restore_title"><![CDATA[Cadangkan &Pulihkan]]></string>

@@ -7,26 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
+import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.installLanguageAndRecreate
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appintro.SlideBackgroundColorHolder
 import org.angmarch.views.NiceSpinner
 import org.angmarch.views.OnSpinnerItemSelectedListener
 import java.util.LinkedList
 
 
-class LanguageSlideFragment : Fragment() {
+class LanguageSlideFragment(
+    override val defaultBackgroundColorRes: Int
+) : Fragment(), SlideBackgroundColorHolder {
 
     private lateinit var niceSpinner: NiceSpinner
+
+    //Required Constructor
+    constructor() : this(com.ttop.app.appthemehelper.R.color.md_yellow_A400)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(com.ttop.app.apex.R.layout.fragment_language_intro, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_intro_language, container, false)
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,7 +91,11 @@ class LanguageSlideFragment : Fragment() {
     }
     companion object {
         fun newInstance(): LanguageSlideFragment {
-            return LanguageSlideFragment()
+            return LanguageSlideFragment(com.ttop.app.appthemehelper.R.color.md_yellow_A400)
         }
+    }
+
+    override fun setBackgroundColor(backgroundColor: Int) {
+        view?.findViewById<ConstraintLayout>(R.id.main)?.setBackgroundColor(backgroundColor)
     }
 }

@@ -81,7 +81,7 @@
     <string name="artists">アーティスト</string>
     <string name="audio_fade_duration">オーディオフェードの長さ</string>
     <string name="audio_focus_denied">音声フォーカスが拒否されました。</string>
-    <string name="audio_settings_summary">サウンド設定を変更し、イコライザー コントロールを調整する</string>
+    <string name="audio_settings_summary">サウンド設定を変更する</string>
     <string name="auto">自動</string>
     <string name="backup_restore_settings_summary">設定やプレイリストのバックアップと復元</string>
     <string name="backup_restore_title"><![CDATA[バックアップと復元]]></string>

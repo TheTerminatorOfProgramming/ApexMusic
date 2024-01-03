@@ -1,30 +1,27 @@
 package com.ttop.app.apex.ui.fragments.intro
 
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
+import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.appintro.SlideBackgroundColorHolder
 import com.ttop.app.appintro.SlidePolicy
 import com.ttop.app.appthemehelper.util.VersionUtils
 
-
-class BatterySlideFragment : Fragment(), SlidePolicy {
+class BatterySlideFragment(
+    override val defaultBackgroundColorRes: Int
+) : Fragment(), SlidePolicy, SlideBackgroundColorHolder {
 
     private lateinit var battery: Button
     val handler = Handler(Looper.getMainLooper())
@@ -37,11 +34,14 @@ class BatterySlideFragment : Fragment(), SlidePolicy {
         }
     }
 
+    //Required Constructor
+    constructor() : this(com.ttop.app.appthemehelper.R.color.md_deep_purple_400)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_battery_intro, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_intro_battery, container, false)
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,7 +86,11 @@ class BatterySlideFragment : Fragment(), SlidePolicy {
 
     companion object {
         fun newInstance(): BatterySlideFragment {
-            return BatterySlideFragment()
+            return BatterySlideFragment(com.ttop.app.appthemehelper.R.color.md_deep_purple_400)
         }
+    }
+
+    override fun setBackgroundColor(backgroundColor: Int) {
+        view?.findViewById<ConstraintLayout>(R.id.main)?.setBackgroundColor(backgroundColor)
     }
 }

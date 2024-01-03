@@ -286,16 +286,40 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
         indicatorController = ProgressIndicatorController(this)
     }
 
+    protected fun setDotIndicator() {
+        indicatorController = DotIndicatorController(this)
+    }
+
     /**
      * Overrides color of selected and unselected indicator colors
      * @param selectedIndicatorColor your selected color
      * @param unselectedIndicatorColor your unselected color
      */
-    protected fun setIndicatorColor(
+    protected fun setIndicatorsColor(
         @ColorInt selectedIndicatorColor: Int,
         @ColorInt unselectedIndicatorColor: Int
     ) {
         indicatorController?.selectedIndicatorColor = selectedIndicatorColor
+        indicatorController?.unselectedIndicatorColor = unselectedIndicatorColor
+    }
+
+    /**
+     * Overrides color of selected indicator color
+     * @param selectedIndicatorColor your selected color
+     */
+    protected fun setSelectedIndicatorColor(
+        @ColorInt selectedIndicatorColor: Int
+    ) {
+        indicatorController?.selectedIndicatorColor = selectedIndicatorColor
+    }
+
+    /**
+     * Overrides color of unselected indicator color
+     * @param unselectedIndicatorColor your unselected color
+     */
+    protected fun setUnselectedIndicatorColor(
+        @ColorInt unselectedIndicatorColor: Int
+    ) {
         indicatorController?.unselectedIndicatorColor = unselectedIndicatorColor
     }
 
@@ -729,11 +753,7 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
     @ColorInt
     @Suppress("DEPRECATION")
     private fun getSlideColor(slide: SlideBackgroundColorHolder): Int {
-        if (slide.defaultBackgroundColorRes != 0) {
-            return ContextCompat.getColor(this, slide.defaultBackgroundColorRes)
-        }
-
-        return slide.defaultBackgroundColor
+        return ContextCompat.getColor(this, slide.defaultBackgroundColorRes)
     }
 
     /**

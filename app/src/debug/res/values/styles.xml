@@ -25,7 +25,9 @@
 
     <style name="TextViewHeadline2" parent="TextAppearance.MaterialComponents.Headline2" />
 
-    <style name="TextViewSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1" />
+    <style name="TextViewSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">15sp</item>
+    </style>
 
     <style name="TextViewSubtitle2" parent="TextAppearance.MaterialComponents.Subtitle2" />
 

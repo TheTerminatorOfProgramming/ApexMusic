@@ -80,7 +80,6 @@ public class EqualizerFragment extends Fragment {
     short   numberOfFrequencyBands;
     private int     audioSesionId;
     static  boolean showBackButton = true;
-
     public static EqualizerFragment newInstance(int audioSessionId) {
 
         Bundle args = new Bundle();
@@ -163,24 +162,16 @@ public class EqualizerFragment extends Fragment {
 
         equalizerSwitch = view.findViewById(R.id.equalizer_switch);
         equalizerSwitch.setChecked(Settings.isEqualizerEnabled);
-        equalizerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mEqualizer.setEnabled(isChecked);
-                bassBoost.setEnabled(isChecked);
-                presetReverb.setEnabled(isChecked);
-                Settings.isEqualizerEnabled = isChecked;
-                Settings.equalizerModel.setEqualizerEnabled(isChecked);
-            }
+
+        equalizerSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mEqualizer.setEnabled(isChecked);
+            bassBoost.setEnabled(isChecked);
+            Settings.isEqualizerEnabled = isChecked;
+            Settings.equalizerModel.setEqualizerEnabled(isChecked);
         });
 
         spinnerDropDownIcon = view.findViewById(R.id.spinner_dropdown_icon);
-        spinnerDropDownIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presetSpinner.performClick();
-            }
-        });
+        spinnerDropDownIcon.setOnClickListener(v -> presetSpinner.performClick());
 
         presetSpinner = view.findViewById(R.id.equalizer_preset_spinner);
 

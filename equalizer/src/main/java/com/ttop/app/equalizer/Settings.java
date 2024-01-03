@@ -1,7 +1,8 @@
 package com.ttop.app.equalizer;
 
 public class Settings {
-    public static boolean        isEqualizerEnabled  = true;
+
+    public static boolean        isEqualizerEnabled = false;
     public static boolean        isEqualizerReloaded = true;
     public static int[]          seekbarpos          = new int[5];
     public static int            presetPos;

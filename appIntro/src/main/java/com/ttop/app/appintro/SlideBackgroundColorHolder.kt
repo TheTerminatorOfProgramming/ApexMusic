@@ -10,18 +10,6 @@ interface SlideBackgroundColorHolder {
      *
      * @return The default background color of the slide
      */
-    @get:ColorInt
-    @Deprecated(
-        "`defaultBackgroundColor` has been deprecated to support configuration changes",
-        ReplaceWith("defaultBackgroundColorRes")
-    )
-    val defaultBackgroundColor: Int
-
-    /**
-     * Returns the default background color of the slide
-     *
-     * @return The default background color of the slide
-     */
     @get:ColorRes
     val defaultBackgroundColorRes: Int
 

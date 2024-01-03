@@ -38,6 +38,7 @@ import com.db.chart.view.ChartView;
 import com.db.chart.view.LineChartView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class DialogEqualizerFragment extends DialogFragment {
@@ -66,7 +67,6 @@ public class DialogEqualizerFragment extends DialogFragment {
     private TextView         titleTextView;
     private AnalogController bassController;
     private AnalogController reverbController;
-
 
     public DialogEqualizerFragment() {
         // Required empty public constructor
@@ -171,10 +171,11 @@ public class DialogEqualizerFragment extends DialogFragment {
             titleTextView.setText(titleString);
         }
         SwitchCompat equalizerSwitch = view.findViewById(R.id.equalizer_switch);
-        equalizerSwitch.setChecked(true);
+        equalizerSwitch.setChecked(Settings.isEqualizerEnabled);
         equalizerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Settings.isEqualizerEnabled = isChecked;
                 mEqualizer.setEnabled(isChecked);
                 bassBoost.setEnabled(isChecked);
                 presetReverb.setEnabled(isChecked);
