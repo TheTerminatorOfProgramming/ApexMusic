@@ -1,20 +1,18 @@
-Apex Music v3.20
+Apex Music v3.30
 
 =What's New=
--Removed some fonts
--Added new default font: apex
--Redesigned the settings page into a grid layout
--Reorganised the intro screen, which now includes a language section
--Added search options in settings
--Added the ability in backup and restore to open the current backup path
--Changed the default filename for backups
--Added volume controls to the now playing theme by a toggleable option
--Changed widgets default album art to round instead of square
+-Removed the color in the top appbar as it was causing issues in landscape mode and navigation buttons
+-Changed the volume buttons in the now playing theme from buttons into a slider
+-Updated the notification and widgets icons
+-Added inbuilt equalizer (currently in beta test)
+-Added 2 new fonts
 
 =Fixed=
 -Misc bugs
 -Code optimizations
+-Fixed intro screen
 
 =Possible Bugs=
 -App may crash when opening app through the widgets. This is due to a change by google
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the miniplayer
+-Some android skins such as funtouch os may experience issues with apex
