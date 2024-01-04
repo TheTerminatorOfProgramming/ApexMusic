@@ -10,8 +10,11 @@ import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.dcastalia.localappupdate.DownloadApk
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.AppUpdaterUtils
 import com.github.javiersantos.appupdater.enums.AppUpdaterError
@@ -19,8 +22,10 @@ import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.github.javiersantos.appupdater.objects.Update
 import com.ttop.app.apex.BuildConfig
+import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.appendChar
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 import java.util.Calendar
@@ -58,31 +63,91 @@ object GithubUtils {
                     val isPreview = update.latestVersion.contains("-preview")
 
                     if (isPreview) {
-                        val appUpdater = AppUpdater(context)
+                        /*val appUpdater = AppUpdater(context)
                             .setUpdateFrom(UpdateFrom.GITHUB)
                             .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
                             .setDisplay(Display.DIALOG)
                             .setContentOnUpdateAvailable("Update " + update.latestVersion.replace("-preview", " preview ") + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
                             .showAppUpdated(true)
-                        appUpdater.start()
+                        appUpdater.start()*/
+
+                        val builder = AlertDialog.Builder(context)
+                            .setTitle("Update Available!")
+                            .setMessage("Update " + update.latestVersion.replace("-preview", " preview ") + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes) { _, _ ->
+                                val downloadApk = DownloadApk(context)
+
+                                val version = update.latestVersion
+                                val firstReplace = version.replace('-', '.')
+                                val secondReplace = firstReplace.replace("preview0","Preview.")
+
+                                val link = "https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest/download/Apex.Music.v$secondReplace.apk"
+
+                                //Toast.makeText(context, link, Toast.LENGTH_LONG).show()
+
+                                downloadApk.startDownloadingApk(link,"Apex.Music.v$secondReplace")
+                            }
+                            .setNegativeButton(R.string.no) { _, _ ->
+                            }
+                        builder.show().withCenteredButtons()
                     }else {
                         val updateVersion = update.latestVersion.toDouble()
                         if (updateVersion > finalVersionNumber) {
-                            val appUpdater = AppUpdater(context)
+                            /*val appUpdater = AppUpdater(context)
                                 .setUpdateFrom(UpdateFrom.GITHUB)
                                 .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
                                 .setDisplay(Display.DIALOG)
                                 .setContentOnUpdateAvailable("Update " + update.latestVersion + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
                                 .showAppUpdated(true)
-                            appUpdater.start()
+                            appUpdater.start()*/
+
+                            val builder = AlertDialog.Builder(context)
+                                .setTitle("Update Available!")
+                                .setMessage("Update " + update.latestVersion + " is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.yes) { _, _ ->
+                                    val downloadApk = DownloadApk(context)
+
+                                    val version = update.latestVersion
+
+                                    val link = "https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest/download/Apex.Music.v$version.Stable.Github.apk"
+
+                                    //Toast.makeText(context, link, Toast.LENGTH_LONG).show()
+
+                                    downloadApk.startDownloadingApk(link,"Apex.Music.v$version.Stable.Github")
+                                }
+                                .setNegativeButton(R.string.no) { _, _ ->
+                                }
+                            builder.show().withCenteredButtons()
                         } else if (BuildConfig.BUILD_TYPE.equals("preview")) {
+                            /*
                             val appUpdater = AppUpdater(context)
                                 .setUpdateFrom(UpdateFrom.GITHUB)
                                 .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
                                 .setDisplay(Display.DIALOG)
                                 .setContentOnUpdateAvailable("Update " + update.latestVersion + " stable is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
                                 .showAppUpdated(true)
-                            appUpdater.start()
+                            appUpdater.start()*/
+
+                            val builder = AlertDialog.Builder(context)
+                                .setTitle("Update Available!")
+                                .setMessage("Update " + update.latestVersion + " stable is available to download!\n\n" + "By downloading this update you will get the latest features, improvements and bug fixes!")
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.yes) { _, _ ->
+                                    val downloadApk = DownloadApk(context)
+
+                                    val version = update.latestVersion
+
+                                    val link = "https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest/download/Apex.Music.v$version.Stable.Github.apk"
+
+                                    //Toast.makeText(context, link, Toast.LENGTH_LONG).show()
+
+                                    downloadApk.startDownloadingApk(link,"Apex.Music.v$version.Stable.Github")
+                                }
+                                .setNegativeButton(R.string.no) { _, _ ->
+                                }
+                            builder.show().withCenteredButtons()
                         }else {
                             if (showFailMessage){
                                 context.showToast("No Updates Available!")
