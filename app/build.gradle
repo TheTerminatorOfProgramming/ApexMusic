@@ -63,7 +63,7 @@ android {
     }
     lint {
         abortOnError false
-        disable 'MissingTranslation', 'InvalidPackage'
+        disable 'MissingTranslation', 'InvalidPackage', 'Instantiatable'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11

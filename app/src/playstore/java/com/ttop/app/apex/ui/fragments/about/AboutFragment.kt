@@ -35,6 +35,7 @@ import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.ui.activities.AppIntroActivityAbout
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
