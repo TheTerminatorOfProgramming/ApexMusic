@@ -33,8 +33,7 @@ import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
-import com.ttop.app.apex.ui.fragments.AlbumCoverStyle.*
+import com.ttop.app.apex.ui.fragments.AlbumCoverStyle.values
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
@@ -139,6 +138,3 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
     }
 }
 
-private fun isAlbumCoverStyle(style: AlbumCoverStyle): Boolean {
-    return (style == Circle || style == Card || style == FullCard)
-}

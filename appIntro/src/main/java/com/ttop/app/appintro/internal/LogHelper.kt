@@ -19,7 +19,7 @@ internal object LogHelper {
     @JvmStatic
     fun makeLogTag(cls: Class<*>) =
         LOG_PREFIX +
-            cutTagLength(cls.simpleName, MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH)
+                cutTagLength(cls.simpleName, MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH)
 
     /**
      * Creates a tag for the logs from a [KClass]
@@ -27,7 +27,7 @@ internal object LogHelper {
      */
     fun makeLogTag(cls: KClass<*>) =
         LOG_PREFIX +
-            cutTagLength(cls.simpleName ?: "", MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH)
+                cutTagLength(cls.simpleName ?: "", MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH)
 
     private fun cutTagLength(tag: String, length: Int): String {
         return if (tag.length > length) {
@@ -58,9 +58,4 @@ internal object LogHelper {
         Log.e(tag, message, throwable)
     }
 
-    @JvmOverloads
-    @JvmStatic
-    fun wtf(tag: String, message: String, throwable: Throwable? = null) {
-        Log.wtf(tag, message, throwable)
-    }
 }

@@ -13,43 +13,22 @@
  */
 package com.ttop.app.apex.util
 
-import android.os.Environment
 import android.util.Log
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.model.lyrics.AbsSynchronizedLyrics
 import org.jaudiotagger.audio.AudioFileIO
 import org.jaudiotagger.tag.FieldKey
-import java.io.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
+import java.io.IOException
 
 /**
  * Created by hefuyi on 2016/11/8.
  */
 object LyricUtil {
     private val fileName = PreferenceUtil.backupPath
-    private const val TAG = "LyricUtil"
-    fun writeLrcToLoc(
-        title: String, artist: String, lrcContext: String
-    ): File? {
-        var writer: FileWriter? = null
-        return try {
-            val file = File(getLrcPath(title, artist))
-            if (file.parentFile?.exists() != true) {
-                file.parentFile?.mkdirs()
-            }
-            writer = FileWriter(getLrcPath(title, artist))
-            writer.write(lrcContext)
-            file
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        } finally {
-            try {
-                writer?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-    }
 
     //So in Apex, Lrc file can be same folder as Music File or in Apex Folder
     // In this case we pass location of the file and Contents to write to file
@@ -78,11 +57,6 @@ object LyricUtil {
                 e.printStackTrace()
             }
         }
-    }
-
-    fun deleteLrcFile(title: String, artist: String): Boolean {
-        val file = File(getLrcPath(title, artist))
-        return file.delete()
     }
 
     private fun isLrcFileExist(title: String, artist: String): Boolean {
@@ -122,20 +96,6 @@ object LyricUtil {
 
     private fun getLrcOriginalPath(filePath: String): String {
         return filePath.replace(filePath.substring(filePath.lastIndexOf(".") + 1), "lrc")
-    }
-
-    @Throws(Exception::class)
-    fun getStringFromFile(title: String, artist: String): String {
-        val file = File(getLrcPath(title, artist))
-        val fin = FileInputStream(file)
-        val ret = convertStreamToString(fin)
-        fin.close()
-        return ret
-    }
-
-    @Throws(Exception::class)
-    private fun convertStreamToString(inputStream: InputStream): String {
-        return inputStream.bufferedReader().readLines().joinToString(separator = "\n")
     }
 
     fun getStringFromLrc(file: File?): String {

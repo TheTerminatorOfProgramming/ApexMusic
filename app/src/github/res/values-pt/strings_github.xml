@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_files_summary">Permitir acesso a todos os arquivos no dispositivo para música Apex. Esta permissão é necessária para detectar automaticamente backups do Apex</string>
+    <string name="all_files_title">Permissão para gerenciar todos os arquivos</string>
+</resources>

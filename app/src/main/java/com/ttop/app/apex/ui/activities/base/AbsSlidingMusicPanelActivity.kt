@@ -25,39 +25,102 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.view.animation.PathInterpolator
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.animation.doOnEnd
-import androidx.core.view.*
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.commit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.*
-import com.ttop.app.apex.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_DRAGGING
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_SETTLING
+import com.google.android.material.bottomsheet.BottomSheetBehavior.from
+import com.ttop.app.apex.ADAPTIVE_COLOR_APP
+import com.ttop.app.apex.ALBUM_COVER_STYLE
+import com.ttop.app.apex.ALBUM_COVER_TRANSFORM
+import com.ttop.app.apex.APPBAR_MODE
+import com.ttop.app.apex.AUTO_ROTATE
+import com.ttop.app.apex.BLACK_THEME
+import com.ttop.app.apex.CAROUSEL_EFFECT
+import com.ttop.app.apex.CIRCLE_PLAY_BUTTON
+import com.ttop.app.apex.COLOR_ANIMATE
+import com.ttop.app.apex.CUSTOM_FONT
+import com.ttop.app.apex.DISMISS_FAILSAFE
+import com.ttop.app.apex.DISMISS_METHOD
+import com.ttop.app.apex.EMBED_LYRICS
+import com.ttop.app.apex.EXTRA_SONG_INFO
+import com.ttop.app.apex.FONT_SIZE
+import com.ttop.app.apex.GENERAL_THEME
+import com.ttop.app.apex.KEEP_SCREEN_ON
+import com.ttop.app.apex.LIBRARY_CATEGORIES
+import com.ttop.app.apex.LYRICS
+import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
+import com.ttop.app.apex.PLAYER_BACKGROUND
+import com.ttop.app.apex.PROGRESS_BAR_ALIGNMENT
+import com.ttop.app.apex.PROGRESS_BAR_STYLE
+import com.ttop.app.apex.QUEUE_STYLE
+import com.ttop.app.apex.QUEUE_STYLE_LAND
+import com.ttop.app.apex.R
+import com.ttop.app.apex.SCREEN_ON_LYRICS
+import com.ttop.app.apex.SHOW_UPDATE
+import com.ttop.app.apex.SHUFFLE_STATE
+import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
+import com.ttop.app.apex.SYNCED_LYRICS
+import com.ttop.app.apex.TAB_TEXT_MODE
+import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
+import com.ttop.app.apex.TOGGLE_FULL_SCREEN
+import com.ttop.app.apex.VOLUME_CONTROLS
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.currentFragment
+import com.ttop.app.apex.extensions.darkAccentColor
+import com.ttop.app.apex.extensions.dip
+import com.ttop.app.apex.extensions.getBottomInsets
+import com.ttop.app.apex.extensions.hide
+import com.ttop.app.apex.extensions.isColorLight
+import com.ttop.app.apex.extensions.keepScreenOn
+import com.ttop.app.apex.extensions.maybeSetScreenOn
+import com.ttop.app.apex.extensions.peekHeightAnimate
+import com.ttop.app.apex.extensions.setLightNavigationBar
+import com.ttop.app.apex.extensions.setLightNavigationBarAuto
+import com.ttop.app.apex.extensions.setLightStatusBar
+import com.ttop.app.apex.extensions.setLightStatusBarAuto
+import com.ttop.app.apex.extensions.setNavigationBarColorPreOreo
+import com.ttop.app.apex.extensions.setTaskDescriptionColor
+import com.ttop.app.apex.extensions.show
+import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.activities.AppIntroActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.adaptive.AdaptiveFragment
 import com.ttop.app.apex.ui.fragments.player.blur.BlurPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.card.CardFragment
-import com.ttop.app.apex.ui.fragments.player.flat.FlatPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.gradient.GradientPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.md3.MD3PlayerFragment
-import com.ttop.app.apex.ui.fragments.player.normal.PlayerFragment
+import com.ttop.app.apex.ui.fragments.player.classic.ClassicPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.plain.PlainPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.simple.SimplePlayerFragment
 import com.ttop.app.apex.ui.fragments.player.tiny.TinyPlayerFragment
 import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
-import com.ttop.app.apex.util.*
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.IntroPrefs
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.logD
 import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -263,11 +326,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             TAB_TEXT_MODE -> {
                 navigationView.labelVisibilityMode = PreferenceUtil.tabTitleMode
             }
-            TOGGLE_USER_NAME,
             TOGGLE_FULL_SCREEN,
             PROGRESS_BAR_ALIGNMENT,
             PROGRESS_BAR_STYLE,
-            EXTENDED_ACCENT,
             DISMISS_FAILSAFE,
             LYRICS,
             EMBED_LYRICS,
@@ -276,7 +337,13 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             VOLUME_CONTROLS,
             PLAYER_BACKGROUND,
             COLOR_ANIMATE,
-            ADAPTIVE_COLOR_APP -> {
+            ADAPTIVE_COLOR_APP,
+            FONT_SIZE,
+            CUSTOM_FONT,
+            GENERAL_THEME,
+            BLACK_THEME,
+            SHUFFLE_STATE,
+            APPBAR_MODE -> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {
@@ -327,26 +394,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         binding.playerFragmentContainer.alpha = (progress - 0.2F) / 0.2F
     }
 
-    private fun animateNavigationBarColor(color: Int) {
-        if (VersionUtils.hasOreo()) return
-        navigationBarColorAnimator?.cancel()
-        navigationBarColorAnimator = ValueAnimator
-            .ofArgb(window.navigationBarColor, color).apply {
-                duration = ViewUtil.APEX_MUSIC_ANIM_TIME.toLong()
-                interpolator = PathInterpolator(0.4f, 0f, 1f, 1f)
-                addUpdateListener { animation: ValueAnimator ->
-                    setNavigationBarColorPreOreo(
-                        animation.animatedValue as Int
-                    )
-                }
-                start()
-            }
-    }
-
     open fun onPanelCollapsed() {
         setMiniPlayerAlphaProgress(0F)
         // restore values
-        animateNavigationBarColor(surfaceColor())
         setLightStatusBarAuto()
         setLightNavigationBarAuto()
         setTaskDescriptionColor(taskColor)
@@ -420,16 +470,11 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             navigationBarColor = surfaceColor()
             setTaskDescColor(paletteColor)
             val isColorLight = paletteColor.isColorLight
-            if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreen == Normal || nowPlayingScreen == Flat)) {
-                setLightNavigationBar(true)
-                setLightStatusBar(isColorLight)
-            } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur) {
-                animateNavigationBarColor(Color.BLACK)
+            if (nowPlayingScreen == Card || nowPlayingScreen == Blur) {
                 navigationBarColor = Color.BLACK
                 setLightStatusBar(false)
                 setLightNavigationBar(true)
-            } else if (nowPlayingScreen == Tiny || nowPlayingScreen == Gradient) {
-                animateNavigationBarColor(paletteColor)
+            } else if (nowPlayingScreen == Minimal || nowPlayingScreen == Gradient) {
                 navigationBarColor = paletteColor
                 setLightNavigationBar(isColorLight)
                 setLightStatusBar(isColorLight)
@@ -562,16 +607,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         val fragment: AbsPlayerFragment = when (nowPlayingScreen) {
             Blur -> BlurPlayerFragment()
             Adaptive -> AdaptiveFragment()
-            Normal -> PlayerFragment()
             Card -> CardFragment()
-            Flat -> FlatPlayerFragment()
-            Plain -> PlainPlayerFragment()
+            Classic -> ClassicPlayerFragment()
             Gradient -> GradientPlayerFragment()
-            Tiny -> TinyPlayerFragment()
+            Minimal -> TinyPlayerFragment()
             Peek -> PeekPlayerFragment()
-            MD3 -> MD3PlayerFragment()
-            Simple -> SimplePlayerFragment()
-            else -> PlayerFragment()
+            else -> ClassicPlayerFragment()
         } // must extend AbsPlayerFragment
         supportFragmentManager.commit(allowStateLoss = true) {
             replace(R.id.playerFragmentContainer, fragment)

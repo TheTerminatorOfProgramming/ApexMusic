@@ -15,13 +15,16 @@
 package com.ttop.app.apex.ui.fragments.playlists
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.SubMenu
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
-import com.ttop.app.apex.EXTRA_PLAYLIST
 import com.ttop.app.apex.EXTRA_PLAYLIST_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.playlist.PlaylistAdapter
@@ -46,6 +49,14 @@ class PlaylistsFragment :
                 adapter?.swapDataSet(it)
             else
                 adapter?.swapDataSet(listOf())
+        }
+
+        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+            if (ApexUtil.isTablet) {
+                setAndSaveGridSize(2)
+            }else {
+                setAndSaveGridSize(1)
+            }
         }
     }
 
@@ -78,6 +89,11 @@ class PlaylistsFragment :
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
+
+        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+            gridSizeItem.isVisible = false
+        }
+
         setupGridSizeMenu(gridSizeItem.subMenu!!)
         menu.removeItem(R.id.action_layout_type)
         menu.add(0, R.id.action_add_to_playlist, 0, R.string.new_playlist_title)

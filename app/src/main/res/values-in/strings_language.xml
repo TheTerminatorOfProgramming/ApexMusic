@@ -2,9 +2,13 @@
 <resources>
     <string name="bengali">Benggala</string>
     <string name="english">Bahasa inggris</string>
+    <string name="german">Jerman</string>
+    <string name="hindi">Hindi</string>
     <string name="indonesian">bahasa Indonesia</string>
     <string name="japanese">Jepang</string>
+    <string name="mandarin">Mandarin</string>
     <string name="portuguese">Portugis</string>
+    <string name="punjabi">Punjabi</string>
     <string name="spanish">Orang Spanyol</string>
-    <string name="system_default">Default Sistem</string>
+    <string name="system_default">Bawaan Sistem</string>
 </resources>

@@ -5,7 +5,6 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat

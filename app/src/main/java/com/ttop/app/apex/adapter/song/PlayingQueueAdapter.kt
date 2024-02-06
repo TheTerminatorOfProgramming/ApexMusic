@@ -14,15 +14,15 @@
  */
 package com.ttop.app.apex.adapter.song
 
+import android.annotation.SuppressLint
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
-import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemState
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
 import com.h6ah4i.android.widget.advrecyclerview.draggable.annotation.DraggableItemStateFlags
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter
@@ -31,7 +31,6 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAct
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionDefault
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionRemoveItem
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -61,7 +60,6 @@ class PlayingQueueAdapter(
 
     private var songToRemove: Song? = null
     private var lastColor: Int = 0
-    private lateinit var recyclerView: RecyclerView
     private var activate = false
     private lateinit var imageviewDragView: ImageView
     override fun createViewHolder(view: View): SongQueueAdapter.ViewHolder {
@@ -73,32 +71,32 @@ class PlayingQueueAdapter(
         val song = dataSet[position]
         holder.time?.text = MusicUtil.getReadableDurationString(song.duration)
         if (holder.itemViewType == HISTORY || holder.itemViewType == CURRENT) {
-            setAlpha(holder, 0.5f)
+            setAlpha(holder)
         }
         val imageView = holder.dragView as ImageView
 
         imageviewDragView = imageView
 
         if (activate) {
-            imageView.visibility = View.VISIBLE;
+            imageView.visibility = View.VISIBLE
         } else {
-            imageView.visibility = View.GONE;
+            imageView.visibility = View.GONE
         }
 
         when (PreferenceUtil.nowPlayingScreen){
             NowPlayingScreen.Adaptive -> {
                 if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.title?.setTextColor(lastColor)
                     holder.text?.setTextColor(lastColor)
                     holder.text2?.setTextColor(lastColor)
                     holder.menu?.setColorFilter(lastColor)
                     imageView.setColorFilter(lastColor)
                 }else {
-                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                 }
             }
             NowPlayingScreen.Blur -> {
@@ -109,70 +107,46 @@ class PlayingQueueAdapter(
                     holder.menu?.setColorFilter(lastColor)
                     imageView.setColorFilter(lastColor)
                 }else {
-                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                 }
             }
             NowPlayingScreen.Card -> {
                 val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
                 if (ColorUtil.isColorLight(colorBg)) {
-                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                    imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
                 }else {
-                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                }
-            }
-            NowPlayingScreen.Flat -> {
-                if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
-                    holder.text?.setTextColor(lastColor)
-                    holder.text2?.setTextColor(lastColor)
-                    holder.menu?.setColorFilter(lastColor)
-                    imageView.setColorFilter(lastColor)
-                }else {
-                    val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                    if (ColorUtil.isColorLight(colorBg)) {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                    }else {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    }
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                 }
             }
             NowPlayingScreen.Gradient -> {
                 val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
                 if (ColorUtil.isColorLight(colorBg)) {
-                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                    imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
                 }else {
-                    holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                    holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                 }
             }
-            NowPlayingScreen.MD3 -> {
+            NowPlayingScreen.Classic -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     holder.title?.setTextColor(lastColor) //PreferenceUtil.
                     holder.text?.setTextColor(lastColor)
@@ -183,163 +157,84 @@ class PlayingQueueAdapter(
                     if (ApexUtil.isTablet) {
                         val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
                         if (ColorUtil.isColorLight(colorBg)) {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
+                            holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
                         }else {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                            holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                         }
                     }else {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    }
-                }
-            }
-            NowPlayingScreen.Normal -> {
-                if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
-                    holder.text?.setTextColor(lastColor)
-                    holder.text2?.setTextColor(lastColor)
-                    holder.menu?.setColorFilter(lastColor)
-                    imageView.setColorFilter(lastColor)
-                }else {
-                    if (ApexUtil.isTablet) {
-                        val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                        if (ColorUtil.isColorLight(colorBg)) {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                        }else {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        }
-                    }else {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                     }
                 }
             }
             NowPlayingScreen.Peek -> {
-                if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
-                    holder.text?.setTextColor(lastColor)
-                    holder.text2?.setTextColor(lastColor)
-                    holder.menu?.setColorFilter(lastColor)
-                    imageView.setColorFilter(lastColor)
+                if (ApexUtil.isTablet) {
+                        if (PreferenceUtil.isAdaptiveColor) {
+                            holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                            holder.text?.setTextColor(lastColor)
+                            holder.text2?.setTextColor(lastColor)
+                            holder.menu?.setColorFilter(lastColor)
+                            imageView.setColorFilter(lastColor)
+                        }else {
+                            val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
+                            if (ColorUtil.isColorLight(colorBg)) {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                                holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                                holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                                holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                                imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            }else {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            }
+                        }
                 }else {
-                    val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                    if (ColorUtil.isColorLight(colorBg)) {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                        holder.text?.setTextColor(lastColor)
+                        holder.text2?.setTextColor(lastColor)
+                        holder.menu?.setColorFilter(lastColor)
+                        imageView.setColorFilter(lastColor)
                     }else {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    }
-                }
-            }
-            NowPlayingScreen.Plain -> {
-                if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
-                    holder.text?.setTextColor(lastColor)
-                    holder.text2?.setTextColor(lastColor)
-                    holder.menu?.setColorFilter(lastColor)
-                    imageView.setColorFilter(lastColor)
-                }else {
-                    if (ApexUtil.isTablet) {
                         val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
                         if (ColorUtil.isColorLight(colorBg)) {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
+                            holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
                         }else {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                            holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                         }
-                    }else {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                    }
-                }
-            }
-            NowPlayingScreen.Simple -> {
-                if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
-                    holder.text?.setTextColor(lastColor)
-                    holder.text2?.setTextColor(lastColor)
-                    holder.menu?.setColorFilter(lastColor)
-                    imageView.setColorFilter(lastColor)
-                }else {
-                    if (ApexUtil.isTablet) {
-                        val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                        if (ColorUtil.isColorLight(colorBg)) {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_black_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_black_1000))
-                        }else {
-                            holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                            holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                            imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        }
-                    }else {
-                        holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                        holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                        imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
                     }
                 }
             }
             else -> {
-                holder.title?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                holder.text?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                holder.text2?.setTextColor(activity.resources.getColor(R.color.md_white_1000))
-                holder.menu?.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
-                imageView.setColorFilter(activity.resources.getColor(R.color.md_white_1000))
+                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
             }
         }
-    }
-
-    fun getRecyclerView(): RecyclerView {
-        return recyclerView
-    }
-
-    fun setRecyclerView(view: RecyclerView) {
-        recyclerView = view
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -351,21 +246,18 @@ class PlayingQueueAdapter(
         return CURRENT
     }
 
-    fun activateButtons(activate: Boolean) {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun activateButtons(activate: Boolean) {
         this.activate = activate
         notifyDataSetChanged() //need to call it for the child views to be re-created with buttons.
     }
 
-    fun setButtonsActivate(boolean: Boolean) {
+    fun setButtonsActivate() {
         if (imageviewDragView.visibility == View.VISIBLE) {
             activateButtons(false)
         }else {
             activateButtons(true)
         }
-    }
-
-    fun getButtonsActivate(): Boolean {
-        return activate
     }
 
     override fun loadAlbumCover(song: Song, holder: SongQueueAdapter.ViewHolder) {
@@ -378,31 +270,33 @@ class PlayingQueueAdapter(
             .into(holder.image!!)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun swapDataSet(dataSet: List<Song>, position: Int) {
         this.dataSet = dataSet.toMutableList()
         current = position
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setCurrent(current: Int) {
         this.current = current
         notifyDataSetChanged()
     }
 
-    private fun setAlpha(holder: SongQueueAdapter.ViewHolder, alpha: Float) {
-        holder.image?.alpha = alpha
-        holder.title?.alpha = alpha
-        holder.text?.alpha = alpha
+    private fun setAlpha(holder: SongQueueAdapter.ViewHolder) {
+        holder.image?.alpha = 0.5f
+        holder.title?.alpha = 0.5f
+        holder.text?.alpha = 0.5f
         if (PreferenceUtil.queueStyle == "trio") {
-            holder.text2?.alpha = alpha
+            holder.text2?.alpha = 0.5f
         }
 
         if(PreferenceUtil.queueStyleLand == "trio") {
-            holder.text2?.alpha = alpha
+            holder.text2?.alpha = 0.5f
         }
-        holder.paletteColorContainer?.alpha = alpha
-        holder.dragView?.alpha = alpha
-        holder.menu?.alpha = alpha
+        holder.paletteColorContainer?.alpha = 0.5f
+        holder.dragView?.alpha = 0.5f
+        holder.menu?.alpha = 0.5f
     }
 
     override fun getPopupText(view: View, position: Int): String {
@@ -429,10 +323,12 @@ class PlayingQueueAdapter(
         return true
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onItemDragStarted(position: Int) {
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onItemDragFinished(fromPosition: Int, toPosition: Int, result: Boolean) {
         notifyDataSetChanged()
     }
@@ -440,7 +336,7 @@ class PlayingQueueAdapter(
     fun setSongToRemove(song: Song) {
         songToRemove = song
     }
-
+    @SuppressLint("NotifyDataSetChanged")
     fun setTextColor(color: Int) {
         lastColor = color
         notifyDataSetChanged()
@@ -466,10 +362,6 @@ class PlayingQueueAdapter(
             } else {
                 MusicPlayerRemote.playSongAt(layoutPosition)
             }
-        }
-
-        override fun getDragState(): DraggableItemState {
-            return super.getDragState()
         }
 
         override fun onSongMenuItemClick(item: MenuItem): Boolean {
@@ -507,7 +399,7 @@ class PlayingQueueAdapter(
         return if (result == SwipeableItemConstants.RESULT_CANCELED) {
             SwipeResultActionDefault()
         } else {
-            SwipedResultActionRemoveItem(this, position, activity)
+            SwipedResultActionRemoveItem(this, position)
         }
     }
 
@@ -527,13 +419,10 @@ class PlayingQueueAdapter(
 
     internal class SwipedResultActionRemoveItem(
         private val adapter: PlayingQueueAdapter,
-        private val position: Int,
-        private val activity: FragmentActivity,
+        private val position: Int
     ) : SwipeResultActionRemoveItem() {
 
         private var songToRemove: Song? = null
-        private val isPlaying: Boolean = MusicPlayerRemote.isPlaying
-        private val songProgressMillis = 0
         override fun onPerformAction() {
             // currentlyShownSnackbar = null
         }

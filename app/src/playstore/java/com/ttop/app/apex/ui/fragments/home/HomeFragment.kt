@@ -51,7 +51,6 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.PreferenceUtil.userName
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
@@ -69,7 +68,6 @@ class HomeFragment :
         mainActivity.setSupportActionBar(binding.toolbar)
         mainActivity.supportActionBar?.title = null
         setupListeners()
-        binding.titleWelcome.text = String.format("%s", userName)
 
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
@@ -88,7 +86,6 @@ class HomeFragment :
             homeAdapter.swapData(it)
         }
 
-        loadProfile()
         setupTitle()
         colorButtons()
         postponeEnterTransition()
@@ -110,14 +107,6 @@ class HomeFragment :
     }
 
     private fun setupListeners() {
-        binding.bannerImage?.setOnClickListener {
-            findNavController().navigate(
-                R.id.user_info_fragment, null, null, FragmentNavigatorExtras(
-                    binding.userImage to "user_image"
-                )
-            )
-            reenterTransition = null
-        }
 
         binding.lastAdded.setOnClickListener {
             findNavController().navigate(
@@ -147,13 +136,6 @@ class HomeFragment :
             setSharedAxisYTransitions()
         }
 
-        binding.userImage.setOnClickListener {
-            findNavController().navigate(
-                R.id.user_info_fragment, null, null, FragmentNavigatorExtras(
-                    binding.userImage to "user_image"
-                )
-            )
-        }
         // Reload suggestions
         binding.suggestions.refreshButton.setOnClickListener {
             libraryViewModel.forceReload(
@@ -176,19 +158,6 @@ class HomeFragment :
         val appName = "Apex <font color=$hexColor>Music</font>".parseAsHtml()
         binding.appBarLayout.title = appName
 
-    }
-
-    private fun loadProfile() {
-        binding.bannerImage?.let {
-            Glide.with(requireContext())
-                .load(ApexGlideExtension.getBannerModel())
-                .profileBannerOptions(ApexGlideExtension.getBannerModel())
-                .into(it)
-        }
-        Glide.with(requireActivity())
-            .load(ApexGlideExtension.getUserModel())
-            .userProfileOptions(ApexGlideExtension.getUserModel(), requireContext())
-            .into(binding.userImage)
     }
 
     fun colorButtons() {

@@ -59,7 +59,6 @@ import com.ttop.app.apex.extensions.uri
 import com.ttop.app.apex.glide.ApexGlideExtension.getDefaultTransition
 import com.ttop.app.apex.glide.ApexGlideExtension.getSongModel
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
-import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.ShuffleHelper.makeShuffleList
 import com.ttop.app.apex.model.Song
@@ -80,9 +79,7 @@ import com.ttop.app.apex.util.MusicUtil.toggleFavorite
 import com.ttop.app.apex.util.PackageValidator
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
-import com.ttop.app.apex.util.PreferenceUtil.isAlbumArtOnLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
-import com.ttop.app.apex.util.PreferenceUtil.isBlurredAlbumArt
 import com.ttop.app.apex.util.PreferenceUtil.isClassicNotification
 import com.ttop.app.apex.util.PreferenceUtil.isHeadsetPlugged
 import com.ttop.app.apex.util.PreferenceUtil.isLockScreen
@@ -273,10 +270,6 @@ class MusicService : MediaBrowserServiceCompat(),
                         if (connected){
                             Handler(Looper.getMainLooper()).postDelayed(
                                 Runnable {
-                                    if (PreferenceUtil.isBluetoothVolume){
-                                        val audioManager = audioManager
-                                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,PreferenceUtil.bluetoothVolumeLevel , 0)
-                                    }
                                     play()
                                 }, 1000
                             )
@@ -284,10 +277,6 @@ class MusicService : MediaBrowserServiceCompat(),
                     }else{
                         Handler(Looper.getMainLooper()).postDelayed(
                             Runnable {
-                                if (PreferenceUtil.isBluetoothVolume){
-                                    val audioManager = audioManager
-                                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,PreferenceUtil.bluetoothVolumeLevel , 0)
-                                }
                                 play()
                             }, 1000
                         )
@@ -314,21 +303,11 @@ class MusicService : MediaBrowserServiceCompat(),
                         0 -> pause()
                         // Check whether the current song is empty which means the playing queue hasn't restored yet
                         1 -> if (currentSong != emptySong) {
-                            if (PreferenceUtil.isHeadsetVolume) {
-                                Handler(Looper.getMainLooper()).postDelayed(
-                                    Runnable {
-                                        val audioManager = audioManager
-                                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,PreferenceUtil.volumeLevel , 0)
-                                        play()
-                                    }, 1000
-                                )
-                            }else {
-                                Handler(Looper.getMainLooper()).postDelayed(
-                                    Runnable {
-                                        play()
-                                    }, 1000
-                                )
-                            }
+                            Handler(Looper.getMainLooper()).postDelayed(
+                                Runnable {
+                                    play()
+                                }, 1000
+                            )
                         } else {
                             receivedHeadsetConnected = true
                         }
@@ -483,14 +462,6 @@ class MusicService : MediaBrowserServiceCompat(),
         playingQueue.addAll(songs!!)
         originalPlayingQueue.addAll(songs)
         notifyChange(QUEUE_CHANGED)
-    }
-
-    fun back(force: Boolean) {
-        if (songProgressMillis > 2000) {
-            seek(0, false)
-        } else {
-            playPreviousSong(force)
-        }
     }
 
     fun clearQueue() {
@@ -740,7 +711,7 @@ class MusicService : MediaBrowserServiceCompat(),
                     playbackManager.setCrossFadeDuration(crossFadeDuration)
                 }
             }
-            ALBUM_ART_ON_LOCK_SCREEN, BLURRED_ALBUM_ART -> updateMediaSessionMetaData(::updateMediaSessionPlaybackState)
+            BLURRED_ALBUM_ART -> updateMediaSessionMetaData(::updateMediaSessionPlaybackState)
             COLORED_NOTIFICATION -> {
                 playingNotification?.updateMetadata(currentSong) {
                     playingNotification?.setPlaying(isPlaying)
@@ -1223,54 +1194,83 @@ class MusicService : MediaBrowserServiceCompat(),
             .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, null)
             .putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, playingQueue.size.toLong())
 
-        if (VersionUtils.hasRorBefore()) {
-            if (isAlbumArtOnLockScreen) {
-                // val screenSize: Point = RetroUtil.getScreenSize(this)
-                val request = Glide.with(this)
+        val deviceManu = Build.MANUFACTURER
+        when (Build.VERSION.SDK_INT) {
+            Build.VERSION_CODES.S, Build.VERSION_CODES.TIRAMISU -> {
+                // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
+                Glide.with(this)
                     .asBitmap()
                     .songCoverOptions(song)
                     .load(getSongModel(song))
-
-                if (isBlurredAlbumArt && VersionUtils.hasQ()) {
-                    request.transform(BlurTransformation.Builder(this@MusicService).build())
-                }
-                request.into(object :
-                    CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                    override fun onLoadFailed(errorDrawable: Drawable?) {
-                        super.onLoadFailed(errorDrawable)
-                        metaData.putBitmap(
-                            MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                            BitmapFactory.decodeResource(
-                                resources,
-                                R.drawable.default_audio_art
+                    .circleCrop()
+                    .transition(getDefaultTransition())
+                    .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
+                            super.onLoadFailed(errorDrawable)
+                            metaData.putBitmap(
+                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                BitmapFactory.decodeResource(
+                                    resources,
+                                    R.drawable.default_audio_art
+                                )
                             )
-                        )
-                        mediaSession?.setMetadata(metaData.build())
-                        onCompletion()
-                    }
+                            mediaSession?.setMetadata(metaData.build())
+                            onCompletion()
+                        }
 
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap?>?,
-                    ) {
-                        metaData.putBitmap(
-                            MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                            resource
-                        )
-                        mediaSession?.setMetadata(metaData.build())
-                        onCompletion()
-                    }
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap?>?,
+                        ) {
+                            metaData.putBitmap(
+                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                resource
+                            )
+                            mediaSession?.setMetadata(metaData.build())
+                            onCompletion()
+                        }
 
-                    override fun onLoadCleared(placeholder: Drawable?) {}
-                })
-            } else {
-                mediaSession?.setMetadata(metaData.build())
-                onCompletion()
+                        override fun onLoadCleared(placeholder: Drawable?) {}
+                    })
             }
-        } else {
-            val deviceManu = Build.MANUFACTURER
-            when (Build.VERSION.SDK_INT) {
-                Build.VERSION_CODES.S, Build.VERSION_CODES.TIRAMISU -> {
+
+            Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
+                if (deviceManu == "samsung") {
+                    // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
+                    Glide.with(this)
+                        .asBitmap()
+                        .songCoverOptions(song)
+                        .load(getSongModel(song))
+                        .transition(getDefaultTransition())
+                        .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                super.onLoadFailed(errorDrawable)
+                                metaData.putBitmap(
+                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                    BitmapFactory.decodeResource(
+                                        resources,
+                                        R.drawable.default_audio_art
+                                    )
+                                )
+                                mediaSession?.setMetadata(metaData.build())
+                                onCompletion()
+                            }
+
+                            override fun onResourceReady(
+                                resource: Bitmap,
+                                transition: Transition<in Bitmap?>?,
+                            ) {
+                                metaData.putBitmap(
+                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                    resource
+                                )
+                                mediaSession?.setMetadata(metaData.build())
+                                onCompletion()
+                            }
+
+                            override fun onLoadCleared(placeholder: Drawable?) {}
+                        })
+                }else {
                     // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
                     Glide.with(this)
                         .asBitmap()
@@ -1306,81 +1306,6 @@ class MusicService : MediaBrowserServiceCompat(),
 
                             override fun onLoadCleared(placeholder: Drawable?) {}
                         })
-                }
-
-                Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
-                    if (deviceManu == "samsung") {
-                        // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
-                        Glide.with(this)
-                            .asBitmap()
-                            .songCoverOptions(song)
-                            .load(getSongModel(song))
-                            .transition(getDefaultTransition())
-                            .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                                override fun onLoadFailed(errorDrawable: Drawable?) {
-                                    super.onLoadFailed(errorDrawable)
-                                    metaData.putBitmap(
-                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                        BitmapFactory.decodeResource(
-                                            resources,
-                                            R.drawable.default_audio_art
-                                        )
-                                    )
-                                    mediaSession?.setMetadata(metaData.build())
-                                    onCompletion()
-                                }
-
-                                override fun onResourceReady(
-                                    resource: Bitmap,
-                                    transition: Transition<in Bitmap?>?,
-                                ) {
-                                    metaData.putBitmap(
-                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                        resource
-                                    )
-                                    mediaSession?.setMetadata(metaData.build())
-                                    onCompletion()
-                                }
-
-                                override fun onLoadCleared(placeholder: Drawable?) {}
-                            })
-                    }else {
-                        // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
-                        Glide.with(this)
-                            .asBitmap()
-                            .songCoverOptions(song)
-                            .load(getSongModel(song))
-                            .circleCrop()
-                            .transition(getDefaultTransition())
-                            .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                                override fun onLoadFailed(errorDrawable: Drawable?) {
-                                    super.onLoadFailed(errorDrawable)
-                                    metaData.putBitmap(
-                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                        BitmapFactory.decodeResource(
-                                            resources,
-                                            R.drawable.default_audio_art
-                                        )
-                                    )
-                                    mediaSession?.setMetadata(metaData.build())
-                                    onCompletion()
-                                }
-
-                                override fun onResourceReady(
-                                    resource: Bitmap,
-                                    transition: Transition<in Bitmap?>?,
-                                ) {
-                                    metaData.putBitmap(
-                                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                        resource
-                                    )
-                                    mediaSession?.setMetadata(metaData.build())
-                                    onCompletion()
-                                }
-
-                                override fun onLoadCleared(placeholder: Drawable?) {}
-                            })
-                    }
                 }
             }
         }
@@ -1965,8 +1890,8 @@ class MusicService : MediaBrowserServiceCompat(),
         mediaButtonIntent.component = mediaButtonReceiverComponentName
         val mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(
             applicationContext, 0, mediaButtonIntent,
-            if (VersionUtils.hasOreo()) PendingIntent.FLAG_IMMUTABLE else 0
-        )
+            PendingIntent.FLAG_IMMUTABLE)
+
         mediaSession = MediaSessionCompat(
             this,
             BuildConfig.APPLICATION_ID,

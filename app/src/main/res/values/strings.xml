@@ -89,6 +89,10 @@
     <string name="backup_restore_title">
         <![CDATA[Backup & Restore]]>
     </string>
+    <string name="backup_open_path">Open Current Path</string>
+    <string name="backup_path">Backup Path</string>
+    <string name="backup_path_desc">Would you like to open the current backup path or select a new backup path?</string>
+    <string name="backup_select_path">Select New Path</string>
     <string name="backup_title">Backups</string>
     <string name="banner_image">Banner Image</string>
     <string name="battery_optimize">Battery Optimization Already Disabled!</string>
@@ -117,6 +121,7 @@
     <string name="choose_restore_title">Choose what to restore</string>
     <string name="circle">Circle</string>
     <string name="circular">Circular</string>
+    <string name="classic">Classic</string>
     <string name="clear_action">Clear</string>
     <string name="clear_blacklist">Clear blacklist</string>
     <string name="clear_history">Clear History</string>
@@ -161,6 +166,7 @@
     <string name="deleted_x_songs">Deleted %1$d songs.</string>
     <string name="denied">Denied</string>
     <string name="depth">Depth</string>
+    <string name="design">design</string>
     <string name="dev_options_off">Turn off Developer Options?</string>
     <string name="dev_options_on">Developer Options On!</string>
     <string name="dev_options_on_already">Developer options already turned on!</string>
@@ -202,6 +208,8 @@
     <string name="folders">Folders</string>
     <string name="follow_system">Follow System</string>
     <string name="font_default_name">System Font</string>
+    <string name="force_close">Force Close</string>
+    <string name="force_close_summary">If apex music is experiencing an issue then use this option to try and fix the issue</string>
     <string name="full">Full</string>
     <string name="full_card">Full card</string>
     <string name="general_settings_summary">Customize the user interface</string>
@@ -273,11 +281,11 @@
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Permission error</string>
     <string name="message_backup_create_success">Backup created successfully.</string>
-    <string name="message_limit_tabs">No more than 9 tabs allowed</string>
-    <string name="message_limit_tabs_limit">No more than 5 tabs allowed</string>
+    <string name="message_limit_tabs">No more than 6 tabs allowed</string>
     <string name="message_restore_success">Restore completed successfully.</string>
     <string name="message_updated">Updated</string>
     <string name="message_welcome"><![CDATA[Hello there! <br>Welcome to %s]]></string>
+    <string name="minimal">Minimal</string>
     <string name="monthly">Monthly</string>
     <string name="my_name">Name</string>
     <string name="my_top_tracks">Most played</string>
@@ -285,6 +293,7 @@
     <string name="new_music_mix">New Music Mix</string>
     <string name="new_playlist_title">New playlist</string>
     <string name="new_start_directory">%s is the new start directory.</string>
+    <string name="new_volume">New Volume</string>
     <string name="no">No</string>
     <string name="no_albums">You have no albums</string>
     <string name="no_artists">You have no artists</string>
@@ -358,12 +367,11 @@
     <string name="pref_header_album">Album style</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_auto">Android Auto</string>
+    <string name="pref_header_autoplay">AutoPlay</string>
     <string name="pref_header_blacklist">Blacklist</string>
-    <string name="pref_header_bluetooth">Bluetooth</string>
     <string name="pref_header_controls">Controls</string>
     <string name="pref_header_equalizer">Equalizer</string>
     <string name="pref_header_general">Theme</string>
-    <string name="pref_header_headset">Headset</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_labs_default_widgets">Default Widgets</string>
     <string name="pref_header_labs_other_options">Other Options</string>
@@ -389,9 +397,7 @@
     <string name="pref_summary_auto_rotate">Auto rotate the screen when using a tablet or foldable</string>
     <string name="pref_summary_blacklist">The content of blacklisted folders is hidden from your library.</string>
     <string name="pref_summary_bluetooth_playback">Start playing as soon as connected to bluetooth device</string>
-    <string name="pref_summary_bluetooth_volume">Set a specific volume when bluetooth autoplay is connected</string>
     <string name="pref_summary_blurred_album_art">Blur the album cover on the lockscreen and wearOS media controls. Can cause problems with third party apps and widgets</string>
-    <string name="pref_summary_bold_font">Bold the selected font</string>
     <string name="pref_summary_carousel_effect">Carousel effect for the album art in the now playing screen. Note that Card and Blur Card themes won\'t work</string>
     <string name="pref_summary_circle_button">Replace the default rounded square play button with a circular play button in nps themes</string>
     <string name="pref_summary_classic_notification">Use the classic notification design</string>
@@ -404,13 +410,11 @@
     <string name="pref_summary_disable_widgets">Disable default widgets</string>
     <string name="pref_summary_dismiss_failsafe">Show a dialog to check if the user wants to dismiss the miniplayer</string>
     <string name="pref_summary_expand_now_playing_panel">Clicking on the notification will show now playing screen instead of the home screen</string>
-    <string name="pref_summary_extended_accent">Apply the accent color to the header text</string>
+    <string name="pref_summary_expand_now_type">Show the now playing screen every time the app is opened instead of just clicking on the notification</string>
     <string name="pref_summary_extra_controls">Add extra controls for mini player</string>
     <string name="pref_summary_extra_controls_foldable">Add extra controls for mini player on cover display</string>
     <string name="pref_summary_extra_song_info">Show extra Song information, such as file format, bitrate and frequency</string>
-    <string name="pref_summary_font_size">Set the font size</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
-    <string name="pref_summary_headset_volume">Set a specific volume when wired earphones are connected</string>
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
@@ -428,11 +432,13 @@
     <string name="pref_summary_restore_big_widget">Restore big widget</string>
     <string name="pref_summary_restore_full_circle_widget">Restore full circle widget</string>
     <string name="pref_summary_restore_removed_widgets">Restore removed widgets</string>
+    <string name="pref_summary_scrollbar_type">Use the standard scrollbar in the library instead of alphabet scrollbar</string>
     <string name="pref_summary_search_action">Create a new shuffled playlist instead of adding to existing playlist</string>
     <string name="pref_summary_search_icon">Set the search icon to the voice search icon and auto start voice search from toolbar</string>
     <string name="pref_summary_show_lyrics">Show synced or embedded lyrics</string>
     <string name="pref_summary_show_scrollbar">Show scrollbar in user interface</string>
     <string name="pref_summary_show_update">Replace favorite with update in the playback notification</string>
+    <string name="pref_summary_shuffle_state">Keep current shuffle mode when playing new playing queue</string>
     <string name="pref_summary_specific_device">Allow only a specific bluetooth device to autoplay music</string>
     <string name="pref_summary_stock_equalizer">Use the inbuilt equalizer (if available), instead of the apex equalizer</string>
     <string name="pref_summary_suggestions">Show new music mix on homescreen</string>
@@ -457,11 +463,8 @@
     <string name="pref_title_auto_play">Keep Play State</string>
     <string name="pref_title_auto_rotate">Screen Rotation</string>
     <string name="pref_title_bluetooth_device">Bluetooth Device</string>
-    <string name="pref_title_bluetooth_level">Bluetooth Volume Level</string>
     <string name="pref_title_bluetooth_playback">Bluetooth Playback</string>
-    <string name="pref_title_bluetooth_volume">Bluetooth Volume</string>
     <string name="pref_title_blurred_album_art">Blur Album Cover</string>
-    <string name="pref_title_bold_font">Bold Font</string>
     <string name="pref_title_circle_button">Circular Play Button</string>
     <string name="pref_title_classic_notification">Classic Notification Design</string>
     <string name="pref_title_color_animate">Color Animation</string>
@@ -475,13 +478,13 @@
     <string name="pref_title_dismiss_method">MiniPlayer Dismiss</string>
     <string name="pref_title_embed_lyrics_view">Embedded Lyrics View Type</string>
     <string name="pref_title_expand_now_playing_panel">Show Now Playing Screen</string>
-    <string name="pref_title_extended_accent">Extended Accent</string>
+    <string name="pref_title_expand_now_type">Show Now Playing Screen On App Launch</string>
     <string name="pref_title_extra_controls">Extra Controls</string>
     <string name="pref_title_extra_song_info">Song Info</string>
+    <string name="pref_title_font_size">Font Size</string>
+    <string name="pref_title_font_size_lyrics">Lyrics Font Size</string>
     <string name="pref_title_gapless_playback">Gapless Playback</string>
     <string name="pref_title_general_theme">App Theme</string>
-    <string name="pref_title_headset_volume">Headset Volume</string>
-    <string name="pref_title_headset_level">Headset Volume Level</string>
     <string name="pref_title_home_album_grid_style">Album Grid</string>
     <string name="pref_title_home_artist_grid_style">Artist Grid</string>
     <string name="pref_title_home_banner">Banner</string>
@@ -507,11 +510,13 @@
     <string name="pref_title_restore_big_widget">Big Widget</string>
     <string name="pref_title_restore_full_circle_widget">Full Circle Widget</string>
     <string name="pref_title_restore_removed_widgets">Restore Widgets</string>
+    <string name="pref_title_scrollbar_type">Use Standard Scrollbars</string>
     <string name="pref_title_search_action">Search Action</string>
     <string name="pref_title_search_icon">Search Icon</string>
     <string name="pref_title_show_lyrics">Show Lyrics</string>
     <string name="pref_title_show_scrollbar">Show Scrollbar</string>
     <string name="pref_title_show_update">Show Update</string>
+    <string name="pref_title_shuffle_state">Keep Shuffle State</string>
     <string name="pref_title_specific_device">Specific Device</string>
     <string name="pref_title_stock_equalizer">Use System Equalizer</string>
     <string name="pref_title_suggestions">Show Suggestions</string>
@@ -531,7 +536,6 @@
     <string name="pref_title_widget_buttons_color">Widget Buttons Color</string>
     <string name="pref_title_widget_custom_color">Custom Color</string>
     <string name="preview">Preview</string>
-    <string name="progressbar_color">Progress Bar Color</string>
     <string name="profile">Profile</string>
     <string name="profile_image">Profile Image</string>
     <string name="queue">Playing Queue</string>
@@ -578,7 +582,7 @@
     <string name="save_playlists_title">Save as files</string>
     <string name="saved_playlist_to">Saved playlist to %s.</string>
     <string name="scan_media">Scan media</string>
-    <string name="scanned_files">Scanned %1$d of %2$d files.</string>
+    <string name="scanned_files">Scanned %1$d files</string>
     <string name="scan_from_folder">Scan file from folder</string>
     <string name="scrobbles_label">Scrobbles</string>
     <string name="sd_card">SD Card</string>
@@ -592,6 +596,8 @@
     <string name="share_to_stories">Share to Stories</string>
     <string name="show_album_artists">Show Album Artists</string>
     <string name="shuffle">Shuffle</string>
+    <string name="shuffle_button">Shuffle Button</string>
+    <string name="shuffle_button_desc">Use this to create a shuffled playing queue</string>
     <string name="shuffle_mode">Use Shuffle Mode</string>
     <string name="shuffle_mode_summary">Enable Shuffle mode as default</string>
     <string name="simple">Simple</string>
@@ -609,7 +615,7 @@
     <string name="sort_order_composer">Composer</string>
     <string name="sort_order_date">Date added</string>
     <string name="sort_order_date_modified">Date modified</string>
-    <string name="sort_order_default">Default</string>
+    <string name="sort_order_default">Default (Ignore Articles)</string>
     <string name="sort_order_num_songs">Song count</string>
     <string name="sort_order_num_songs_desc">Song count desc</string>
     <string name="sort_order_year">Year</string>
@@ -620,7 +626,7 @@
     <string name="stack">Stack</string>
     <string name="startup">On Every Startup</string>
     <string name="suggestion_songs">Suggestions</string>
-    <string name="support_development">Support development</string>
+    <string name="support_development">Support &amp; development</string>
     <string name="swipe_to_unlock">Swipe to unlock</string>
     <string name="swipe">Swipe</string>
     <string name="synced_lyrics">Synced Lyrics</string>
@@ -645,6 +651,7 @@
     <string name="track_list">Track number</string>
     <string name="transparent_widget_background_title">Transparent</string>
     <string name="trio">Trio</string>
+    <string name="troubleshoot">Troubleshoot</string>
     <string name="unknown">Unknown</string>
     <string name="unlabeled">Unlabeled</string>
     <string name="unplayable_file">Couldn\u2019t play this song.</string>

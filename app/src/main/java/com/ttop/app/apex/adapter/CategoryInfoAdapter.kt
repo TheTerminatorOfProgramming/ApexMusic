@@ -68,6 +68,62 @@ class CategoryInfoAdapter : RecyclerView.Adapter<CategoryInfoAdapter.ViewHolder>
             }
             false
         }
+
+        when (PreferenceUtil.fontSize) {
+            "12" -> {
+                holder.binding.title.textSize = 12f
+            }
+
+            "13" -> {
+                holder.binding.title.textSize = 13f
+            }
+
+            "14" -> {
+                holder.binding.title.textSize = 14f
+            }
+
+            "15" -> {
+                holder.binding.title.textSize = 15f
+            }
+
+            "16" -> {
+                holder.binding.title.textSize = 16f
+            }
+
+            "17" -> {
+                holder.binding.title.textSize = 17f
+            }
+
+            "18" -> {
+                holder.binding.title.textSize = 18f
+            }
+
+            "19" -> {
+                holder.binding.title.textSize = 19f
+            }
+
+            "20" -> {
+                holder.binding.title.textSize = 20f
+            }
+
+            "21" -> {
+                holder.binding.title.textSize = 21f
+            }
+
+            "22" -> {
+                holder.binding.title.textSize = 22f
+            }
+
+            "23" -> {
+                holder.binding.title.textSize = 23f
+            }
+
+            "24" -> {
+                holder.binding.title.textSize = 24f
+            }
+        }
+
+
     }
 
     override fun onCreateViewHolder(

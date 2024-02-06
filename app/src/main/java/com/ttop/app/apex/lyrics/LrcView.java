@@ -195,15 +195,15 @@ public class LrcView extends View {
         mNormalTextColor =
                 ta.getColor(
                         R.styleable.LrcView_lrcNormalTextColor,
-                        getResources().getColor(R.color.lrc_normal_text_color));
+                        ContextCompat.getColor(getContext(), R.color.lrc_normal_text_color));
         mCurrentTextColor =
                 ta.getColor(
                         R.styleable.LrcView_lrcCurrentTextColor,
-                        getResources().getColor(R.color.lrc_current_text_color));
+                        ContextCompat.getColor(getContext(), R.color.lrc_current_text_color));
         mTimelineTextColor =
                 ta.getColor(
                         R.styleable.LrcView_lrcTimelineTextColor,
-                        getResources().getColor(R.color.lrc_timeline_text_color));
+                        ContextCompat.getColor(getContext(), R.color.lrc_timeline_text_color));
         mDefaultLabel = ta.getString(R.styleable.LrcView_lrcLabel);
         mDefaultLabel =
                 TextUtils.isEmpty(mDefaultLabel) ? getContext().getString(R.string.empty) : mDefaultLabel;
@@ -211,7 +211,7 @@ public class LrcView extends View {
         mTimelineColor =
                 ta.getColor(
                         R.styleable.LrcView_lrcTimelineColor,
-                        getResources().getColor(R.color.lrc_timeline_color));
+                        ContextCompat.getColor(getContext(), R.color.lrc_timeline_color));
         float timelineHeight =
                 ta.getDimension(
                         R.styleable.LrcView_lrcTimelineHeight,
@@ -224,7 +224,7 @@ public class LrcView extends View {
         mTimeTextColor =
                 ta.getColor(
                         R.styleable.LrcView_lrcTimeTextColor,
-                        getResources().getColor(R.color.lrc_time_text_color));
+                        ContextCompat.getColor(getContext(), R.color.lrc_time_text_color));
         float timeTextSize =
                 ta.getDimension(
                         R.styleable.LrcView_lrcTimeTextSize,

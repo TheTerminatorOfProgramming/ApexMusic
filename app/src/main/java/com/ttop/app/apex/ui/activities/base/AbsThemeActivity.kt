@@ -23,8 +23,15 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.os.LocaleListCompat
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.*
-import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.extensions.exitFullscreen
+import com.ttop.app.apex.extensions.hideStatusBar
+import com.ttop.app.apex.extensions.installSplitCompat
+import com.ttop.app.apex.extensions.maybeSetScreenOn
+import com.ttop.app.apex.extensions.setEdgeToEdgeOrImmersive
+import com.ttop.app.apex.extensions.setImmersiveFullscreen
+import com.ttop.app.apex.extensions.setLightNavigationBarAuto
+import com.ttop.app.apex.extensions.setLightStatusBarAuto
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
@@ -56,27 +63,15 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         }
 
         if (PreferenceUtil.isCustomFont == "barlow") {
-            if (PreferenceUtil.isCustomFontBold) {
-                setTheme(R.style.BarlowBoldThemeOverlay)
-            } else {
-                setTheme(R.style.BarlowThemeOverlay)
-            }
+            setTheme(R.style.BarlowThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            if (PreferenceUtil.isCustomFontBold) {
-                setTheme(R.style.JuraBoldThemeOverlay)
-            } else {
-                setTheme(R.style.JuraThemeOverlay)
-            }
+            setTheme(R.style.JuraThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "caviar") {
-            if (PreferenceUtil.isCustomFontBold) {
-                setTheme(R.style.CaviarDreamsBoldThemeOverlay)
-            } else {
-                setTheme(R.style.CaviarDreamsThemeOverlay)
-            }
+            setTheme(R.style.CaviarDreamsThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
@@ -111,8 +106,74 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.NeueBureauThemeOverlay)
         }
 
+        if (PreferenceUtil.isCustomFont == "dancing") {
+            setTheme(R.style.DancingScriptThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "teko") {
+            setTheme(R.style.TekoThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "sixty") {
+            setTheme(R.style.SixtyFourThemeOverlay)
+        }
+
         if (PreferenceUtil.circlePlayButton) {
             setTheme(R.style.CircleFABOverlay)
+        }
+
+        when (PreferenceUtil.fontSize) {
+            "12" -> {
+                setTheme(R.style.FontSize12)
+            }
+
+            "13" -> {
+                setTheme(R.style.FontSize13)
+            }
+
+            "14" -> {
+                setTheme(R.style.FontSize14)
+            }
+
+            "15" -> {
+                setTheme(R.style.FontSize15)
+            }
+
+            "16" -> {
+                setTheme(R.style.FontSize16)
+            }
+
+            "17" -> {
+                setTheme(R.style.FontSize17)
+            }
+
+            "18" -> {
+                setTheme(R.style.FontSize18)
+            }
+
+            "19" -> {
+                setTheme(R.style.FontSize19)
+            }
+
+            "20" -> {
+                setTheme(R.style.FontSize20)
+            }
+
+            "21" -> {
+                setTheme(R.style.FontSize21)
+            }
+
+            "22" -> {
+                setTheme(R.style.FontSize22)
+            }
+
+            "23" -> {
+                setTheme(R.style.FontSize23)
+            }
+
+            "24" -> {
+                setTheme(R.style.FontSize24)
+            }
         }
     }
 

@@ -14,17 +14,12 @@
  */
 package com.ttop.app.apex.ui.fragments.library
 
-import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.text.parseAsHtml
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -34,7 +29,6 @@ import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
@@ -52,10 +46,7 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentLibraryBinding.bind(view)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         mainActivity.setBottomNavVisibility(true)
         mainActivity.setSupportActionBar(binding.toolbar)
         mainActivity.supportActionBar?.title = null

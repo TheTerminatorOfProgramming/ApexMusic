@@ -13,26 +13,23 @@
  */
 package com.ttop.app.apex.util
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.Context.KEYGUARD_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Point
-import android.media.audiofx.AudioEffect
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.os.PowerManager
 import android.provider.Settings
 import android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-import android.text.TextUtils
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -41,26 +38,19 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import com.google.android.datatransport.runtime.scheduling.jobscheduling.SchedulerConfig.Flag
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.VersionUtils
 import java.net.InetAddress
 import java.net.NetworkInterface
-import java.text.Collator
 import java.text.DecimalFormat
 import java.util.*
 
 
 object ApexUtil {
-    private val collator = Collator.getInstance()
     fun formatValue(numValue: Float): String {
         var value = numValue
         val arr = arrayOf("", "K", "M", "B", "T", "P", "E")
@@ -192,58 +182,28 @@ object ApexUtil {
         ).toInt()
     }
 
-    fun compareIgnoreAccent(s1: String?, s2: String?): Int {
-        // Null-proof comparison
-        if (s1 == null) {
-            return if (s2 == null) 0 else -1
-        } else if (s2 == null) {
-            return 1
+    fun dpToPixel(dp: Float, context: Context?): Float {
+        return if (context != null) {
+            val resources = context.resources
+            val metrics = resources.displayMetrics
+            dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+        } else {
+            val metrics = Resources.getSystem().displayMetrics
+            dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
         }
-        return collator.compare(s1, s2)
-    }
-
-    fun getNameWithoutArticle(title: String?): String {
-        if (TextUtils.isEmpty(title)) {
-            return ""
-        }
-        var strippedTitle = title!!.trim { it <= ' ' }
-        val articles = listOf(
-            "a ", "an ", "the ",  // English ones
-            "l'", "le ", "la ", "les " // French ones
-        )
-        val lowerCaseTitle = strippedTitle.lowercase(Locale.getDefault())
-        for (article in articles) {
-            if (lowerCaseTitle.startsWith(article)) {
-                strippedTitle = strippedTitle.substring(article.length)
-                break
-            }
-        }
-        return strippedTitle
     }
 
     fun updateSimpleAppBarTitleTextAppearance(context: Context, simpleToolbarLayout: MaterialToolbar){
         if (PreferenceUtil.isCustomFont == "barlow") {
-            if (PreferenceUtil.isCustomFontBold) {
-               simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowBoldThemeOverlay)
-            } else {
-               simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowThemeOverlay)
-            }
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            if (PreferenceUtil.isCustomFontBold) {
-               simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraBoldThemeOverlay)
-            } else {
-               simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraThemeOverlay)
-            }
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "caviar") {
-            if (PreferenceUtil.isCustomFontBold) {
-                simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaviarDreamsBoldThemeOverlay)
-            } else {
-                simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaviarDreamsThemeOverlay)
-            }
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaviarDreamsThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
@@ -263,11 +223,11 @@ object ApexUtil {
         }
 
         if (PreferenceUtil.isCustomFont == "binjay") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BinjayTitleThemeOverlay)
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BinjayThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "hiatus") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.HiatusTitleThemeOverlay)
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.HiatusThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "apex") {
@@ -277,32 +237,87 @@ object ApexUtil {
         if (PreferenceUtil.isCustomFont == "neue") {
             simpleToolbarLayout.setTitleTextAppearance(context, R.style.NeueBureauThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "dancing") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.DancingScriptThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "teko") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.TekoThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "sixty") {
+            simpleToolbarLayout.setTitleTextAppearance(context, R.style.SixtyFourThemeOverlay)
+        }
+
+        when (PreferenceUtil.fontSize) {
+            "12" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize18)
+            }
+
+            "13" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize19)
+            }
+
+            "14" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize20)
+            }
+
+            "15" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize21)
+            }
+
+            "16" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize22)
+            }
+
+            "17" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize23)
+            }
+
+            "18" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize24)
+            }
+
+            "19" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize25)
+            }
+
+            "20" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize26)
+            }
+
+            "21" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize27)
+            }
+
+            "22" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize28)
+            }
+
+            "23" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize29)
+            }
+
+            "24" -> {
+                simpleToolbarLayout.setTitleTextAppearance(context, R.style.FontSize30)
+            }
+        }
+
     }
 
     fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
         //Expanded
         if (PreferenceUtil.isCustomFont == "barlow") {
-            if (PreferenceUtil.isCustomFontBold) {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowBoldThemeOverlay)
-            } else {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowThemeOverlay)
-            }
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            if (PreferenceUtil.isCustomFontBold) {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraBoldThemeOverlay)
-            } else {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraThemeOverlay)
-            }
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "caviar") {
-            if (PreferenceUtil.isCustomFontBold) {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaviarDreamsBoldThemeOverlay)
-            } else {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
-            }
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
@@ -322,11 +337,11 @@ object ApexUtil {
         }
 
         if (PreferenceUtil.isCustomFont == "binjay") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BinjayTitleThemeOverlay)
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BinjayThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "hiatus") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.HiatusTitleThemeOverlay)
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.HiatusThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "apex") {
@@ -336,29 +351,84 @@ object ApexUtil {
         if (PreferenceUtil.isCustomFont == "neue") {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.NeueBureauThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "dancing") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.DancingScriptThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "teako") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.TekoThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "sixty") {
+            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SixtyFourThemeOverlay)
+        }
+
+        when (PreferenceUtil.fontSize) {
+            "12" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize22)
+            }
+
+            "13" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize13)
+            }
+
+            "14" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize24)
+            }
+
+            "15" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize25)
+            }
+
+            "16" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize26)
+            }
+
+            "17" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize27)
+            }
+
+            "18" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize28)
+            }
+
+            "19" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize29)
+            }
+
+            "20" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize30)
+            }
+
+            "21" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize31)
+            }
+
+            "22" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize32)
+            }
+
+            "23" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize33)
+            }
+
+            "24" -> {
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize34)
+            }
+        }
+
         //Collapsed
         if (PreferenceUtil.isCustomFont == "barlow") {
-            if (PreferenceUtil.isCustomFontBold) {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowBoldThemeOverlay)
-            } else {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowThemeOverlay)
-            }
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "jura") {
-            if (PreferenceUtil.isCustomFontBold) {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraBoldThemeOverlay)
-            } else {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraThemeOverlay)
-            }
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "caviar") {
-            if (PreferenceUtil.isCustomFontBold) {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaviarDreamsBoldThemeOverlay)
-            } else {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
-            }
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "pencil") {
@@ -378,11 +448,11 @@ object ApexUtil {
         }
 
         if (PreferenceUtil.isCustomFont == "binjay") {
-             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BinjayTitleThemeOverlay)
+             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BinjayThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "hiatus") {
-             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.HiatusTitleThemeOverlay)
+             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.HiatusThemeOverlay)
         }
 
         if (PreferenceUtil.isCustomFont == "apex") {
@@ -392,6 +462,73 @@ object ApexUtil {
         if (PreferenceUtil.isCustomFont == "neue") {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.NeueBureauThemeOverlay)
         }
+
+        if (PreferenceUtil.isCustomFont == "dancing") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.DancingScriptThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "teko") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.TekoThemeOverlay)
+        }
+
+        if (PreferenceUtil.isCustomFont == "sixty") {
+            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SixtyFourThemeOverlay)
+        }
+
+        when (PreferenceUtil.fontSize) {
+            "12" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize18)
+            }
+
+            "13" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize19)
+            }
+
+            "14" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize20)
+            }
+
+            "15" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize21)
+            }
+
+            "16" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize22)
+            }
+
+            "17" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize23)
+            }
+
+            "18" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize24)
+            }
+
+            "19" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize25)
+            }
+
+            "20" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize26)
+            }
+
+            "21" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize27)
+            }
+
+            "22" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize28)
+            }
+
+            "23" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize29)
+            }
+
+            "24" -> {
+                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize30)
+            }
+        }
+
     }
 
     fun isNetworkAvailable(context: Context): Boolean {
@@ -406,24 +543,6 @@ object ApexUtil {
             //for check internet over Bluetooth
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
             else -> false
-        }
-    }
-
-    fun Context.getCatchyUsername(): String {
-        // This will only work for English locales, I don't want to localize this
-        return if (Locale.getDefault().toLanguageTag().contains("en")) {
-            arrayOf(
-                "The Unnamed",
-                "The Unknown",
-                "The Mysterious",
-                "The Unrevealed",
-                "The Nameless",
-                "The Unspeakable",
-                "The Unmentionable",
-            ).random().apply { logD("Username $this") }
-        } else {
-            logD("username here")
-            getString(R.string.user_name)
         }
     }
 
@@ -455,11 +574,4 @@ object ApexUtil {
         return canAuthenticate
     }
 
-    fun hasEqualizer(context: Context): Boolean {
-        val effects = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
-
-        val pm = context.packageManager
-        val ri = pm.resolveActivity(effects, 0)
-        return ri != null
-    }
 }

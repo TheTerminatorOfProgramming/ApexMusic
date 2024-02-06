@@ -17,10 +17,12 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.withStyledAttributes
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ListSettingItemViewBinding
+import com.ttop.app.apex.util.ApexUtil
 
 /**
  * Created by hemanths on 2019-12-10.

@@ -23,12 +23,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.SystemClock
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.HapticFeedbackConstants
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -38,10 +35,10 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.textview.MaterialTextView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogSleepTimerBinding
-import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.addAccentColor
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_PENDING_QUIT
@@ -112,7 +109,7 @@ class SleepTimerDialog : DialogFragment() {
             }
         })
 
-        binding.shouldFinishLastSong.setOnClickListener() {
+        binding.shouldFinishLastSong.setOnClickListener {
             dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
 
@@ -143,11 +140,7 @@ class SleepTimerDialog : DialogFragment() {
                     )
                 }
 
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().resources.getString(R.string.sleep_timer_set, minutes),
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast(String.format(getString(R.string.sleep_timer_set), minutes))
                 PreferenceUtil.isTimerCancelled = false
             }
 
@@ -155,24 +148,22 @@ class SleepTimerDialog : DialogFragment() {
                 timerUpdater.cancel()
                 dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 val previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE)
-                if (previous != null) {
-                    val am = requireContext().getSystemService<AlarmManager>()
-                    am?.cancel(previous)
-                    previous.cancel()
+                val am = requireContext().getSystemService<AlarmManager>()
+                am?.cancel(previous)
+                previous.cancel()
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().resources.getString(R.string.sleep_timer_canceled),
+                    Toast.LENGTH_SHORT
+                ).show()
+                val musicService = MusicPlayerRemote.musicService
+                if (musicService != null && musicService.pendingQuit) {
+                    musicService.pendingQuit = false
                     Toast.makeText(
                         requireContext(),
                         requireContext().resources.getString(R.string.sleep_timer_canceled),
                         Toast.LENGTH_SHORT
                     ).show()
-                    val musicService = MusicPlayerRemote.musicService
-                    if (musicService != null && musicService.pendingQuit) {
-                        musicService.pendingQuit = false
-                        Toast.makeText(
-                            requireContext(),
-                            requireContext().resources.getString(R.string.sleep_timer_canceled),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
                 }
                 PreferenceUtil.isTimerCancelled = true
             }
@@ -189,15 +180,13 @@ class SleepTimerDialog : DialogFragment() {
     }
 
     private fun updateTimeDisplayTime() {
-        timerDisplay.text = "$seekArcProgress min"
+        val minutes = "$seekArcProgress min"
+        timerDisplay.text = minutes
     }
 
     private fun makeTimerPendingIntent(flag: Int): PendingIntent {
         return PendingIntent.getService(
-            requireActivity(), 0, makeTimerIntent(), flag or if (VersionUtils.hasOreo())
-                PendingIntent.FLAG_IMMUTABLE
-            else 0
-        )
+            requireActivity(), 0, makeTimerIntent(), flag or PendingIntent.FLAG_IMMUTABLE)
     }
 
     private fun makeTimerIntent(): Intent {
@@ -246,7 +235,8 @@ class SleepTimerDialog : DialogFragment() {
             if (PreferenceUtil.isTimerCancelled) {
                 super.cancel()
             }else {
-                remaining.text =  "${getString(R.string.remaining)}: ${MusicUtil.getReadableDurationString(millisUntilFinished)}"
+                val remainingTime = "${getString(R.string.remaining)}: ${MusicUtil.getReadableDurationString(millisUntilFinished)}"
+                remaining.text =  remainingTime
             }
         }
 

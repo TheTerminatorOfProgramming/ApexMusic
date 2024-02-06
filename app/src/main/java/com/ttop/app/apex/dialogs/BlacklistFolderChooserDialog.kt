@@ -63,8 +63,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                     positiveButton(res = android.R.string.ok)
                 }
             }
-        }else if (VersionUtils.hasOreo()
-            && ActivityCompat.checkSelfPermission(
+        }else if (ActivityCompat.checkSelfPermission(
                 requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
             )
             != PackageManager.PERMISSION_GRANTED

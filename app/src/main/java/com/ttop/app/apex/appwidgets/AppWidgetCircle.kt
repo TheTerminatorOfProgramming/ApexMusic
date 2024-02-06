@@ -22,11 +22,11 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
@@ -45,7 +45,6 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
@@ -57,7 +56,7 @@ class AppWidgetCircle : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView: RemoteViews = RemoteViews(context.packageName, R.layout.app_widget_circle)
+        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_circle)
 
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
         val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
@@ -77,7 +76,7 @@ class AppWidgetCircle : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView: RemoteViews = RemoteViews(service.packageName, R.layout.app_widget_circle)
+        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_circle)
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -153,7 +152,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
-                                            playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
 
@@ -161,7 +160,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
-                                            favoriteRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
                                 }
@@ -171,7 +170,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
-                                            playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
 
@@ -179,7 +178,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     appWidgetView.setImageViewBitmap(
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
-                                            favoriteRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
                                 }
@@ -209,7 +208,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
                                             playPauseRes,
-                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                            ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
 
@@ -218,7 +217,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
                                             favoriteRes,
-                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                            ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                         ).toBitmap()
                                     )
                                 }
@@ -228,7 +227,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_play_pause,
                                         service.getTintedDrawable(
                                             playPauseRes,
-                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                            ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
 
@@ -237,7 +236,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                         R.id.button_toggle_favorite,
                                         service.getTintedDrawable(
                                             favoriteRes,
-                                            service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                            ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                         ).toBitmap()
                                     )
                                 }
@@ -298,7 +297,7 @@ class AppWidgetCircle : BaseAppWidget() {
         target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
             .load(R.drawable.default_album_art_round)
             .circleCrop()
-            .into(object : SimpleTarget<BitmapPaletteWrapper>(
+            .into(object : CustomTarget<BitmapPaletteWrapper>(
               imageSize,imageSize
             ) {
                 override fun onResourceReady(
@@ -322,6 +321,8 @@ class AppWidgetCircle : BaseAppWidget() {
                     update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
                 }
 
+                override fun onLoadCleared(placeholder: Drawable?) {}
+
                 private fun update(bitmap: Bitmap?, color: Int) {
                     if (PreferenceUtil.widgetBackground == "day_night") {
                         when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
@@ -330,19 +331,19 @@ class AppWidgetCircle : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
-                                        playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        R.drawable.ic_skip_next_outline, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        R.drawable.ic_skip_previous, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -352,19 +353,19 @@ class AppWidgetCircle : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
-                                        playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next_outline, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        R.drawable.ic_skip_next_outline, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        R.drawable.ic_skip_previous, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -398,7 +399,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
                                         playPauseRes,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
@@ -406,13 +407,13 @@ class AppWidgetCircle : BaseAppWidget() {
                                     R.id.button_next,
                                     service.getTintedDrawable(
                                         R.drawable.ic_skip_next_outline,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
                                         R.drawable.ic_skip_previous,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -422,7 +423,7 @@ class AppWidgetCircle : BaseAppWidget() {
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
                                         playPauseRes,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
@@ -430,13 +431,13 @@ class AppWidgetCircle : BaseAppWidget() {
                                     R.id.button_next,
                                     service.getTintedDrawable(
                                         R.drawable.ic_skip_next_outline,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
                                         R.drawable.ic_skip_previous,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -511,10 +512,8 @@ class AppWidgetCircle : BaseAppWidget() {
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         var pendingIntent = PendingIntent.getActivity(
-            context, 0, action, if (VersionUtils.hasOreo())
-                PendingIntent.FLAG_IMMUTABLE
-            else 0
-        )
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE)
+
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
         // Favorite track
         pendingIntent = buildPendingIntent(context, TOGGLE_FAVORITE, serviceName)

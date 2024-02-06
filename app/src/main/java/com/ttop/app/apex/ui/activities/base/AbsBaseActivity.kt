@@ -33,7 +33,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.rootView
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -70,9 +69,7 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
         val hasPermissions = hasPermissions()
         if (hasPermissions != hadPermissions) {
             hadPermissions = hasPermissions
-            if (VersionUtils.hasOreo()) {
-                onHasPermissionsChanged(hasPermissions)
-            }
+            onHasPermissionsChanged(hasPermissions)
         }
     }
 

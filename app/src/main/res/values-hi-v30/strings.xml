@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_summary_album_art_on_lockscreen">एल्बम कला को वेयर ओएस पर पृष्ठभूमि के रूप में दिखाएं। कुछ उपकरणों पर अधिसूचना में समस्याएँ उत्पन्न हो सकती हैं।</string>
+    <string name="pref_title_album_art_on_lockscreen">ओएस पहनें</string>
+</resources>

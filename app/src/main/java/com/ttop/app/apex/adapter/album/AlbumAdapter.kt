@@ -14,23 +14,26 @@
  */
 package com.ttop.app.apex.adapter.album
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SectionIndexer
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.albumCoverOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
+import com.ttop.app.apex.indexer.Helpers
 import com.ttop.app.apex.interfaces.IAlbumClickListener
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Song
@@ -38,6 +41,7 @@ import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import me.zhanghai.android.fastscroll.PopupTextProvider
+import java.util.Locale
 
 open class AlbumAdapter(
     override val activity: FragmentActivity,
@@ -47,12 +51,16 @@ open class AlbumAdapter(
 ) : AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album>(
     activity,
     R.menu.menu_media_selection
-), PopupTextProvider {
+), PopupTextProvider, SectionIndexer {
+
+    private var mSectionPositions: ArrayList<Int>? = null
+    private var sectionsTranslator = HashMap<Int, Int>()
 
     init {
         this.setHasStableIds(true)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun swapDataSet(dataSet: List<Album>) {
         this.dataSet = dataSet
         notifyDataSetChanged()
@@ -194,5 +202,37 @@ open class AlbumAdapter(
 
     companion object {
         val TAG: String = AlbumAdapter::class.java.simpleName
+    }
+
+    override fun getSections(): Array<Any>? {
+        val mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        val sections: MutableList<String> = ArrayList(27)
+        val alphabetFull = ArrayList<String>()
+        mSectionPositions = ArrayList()
+        run {
+            var i = 0
+            val size = dataSet.size
+            while (i < size) {
+                val section = dataSet[i].title[0].toString().uppercase(Locale.getDefault())
+                if (!sections.contains(section)) {
+                    sections.add(section)
+                    mSectionPositions?.add(i)
+                }
+                i++
+            }
+        }
+        for (element in mSections) {
+            alphabetFull.add(element.toString())
+        }
+        sectionsTranslator = Helpers.sectionsHelper(sections, alphabetFull)
+        return alphabetFull.toTypedArray()
+    }
+
+    override fun getPositionForSection(sectionIndex: Int): Int {
+        return mSectionPositions!![sectionsTranslator[sectionIndex]!!]
+    }
+
+    override fun getSectionForPosition(position: Int): Int {
+        return 0
     }
 }

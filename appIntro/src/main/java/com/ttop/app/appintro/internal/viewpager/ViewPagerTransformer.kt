@@ -1,7 +1,7 @@
 package com.ttop.app.appintro.internal.viewpager
 
 import android.view.View
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.ttop.app.appintro.AppIntroPageTransformerType
 import com.ttop.app.appintro.internal.LogHelper
 import kotlin.math.abs
@@ -17,7 +17,7 @@ private const val FLOW_ROTATION_ANGLE = -30f
 
 internal class ViewPagerTransformer(
     private val transformType: AppIntroPageTransformerType
-) : ViewPager.PageTransformer {
+) : ViewPager2.PageTransformer {
 
     private var titlePF: Double = 0.0
     private var imagePF: Double = 0.0
@@ -107,7 +107,7 @@ internal class ViewPagerTransformer(
         if (position >= -1 && position <= 1) {
             page.scaleXY = max(MIN_SCALE_ZOOM, 1 - abs(position))
             page.alpha = MIN_ALPHA_ZOOM + (page.scaleXY - MIN_SCALE_ZOOM) /
-                (1 - MIN_SCALE_ZOOM) * (1 - MIN_ALPHA_ZOOM)
+                    (1 - MIN_SCALE_ZOOM) * (1 - MIN_ALPHA_ZOOM)
             val vMargin = page.height * (1 - page.scaleXY) / 2
             val hMargin = page.width * (1 - page.scaleXY) / 2
             if (position < 0) {

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.intro.BatterySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothAutoPlaySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothSlideFragment
@@ -16,15 +15,11 @@ import com.ttop.app.apex.ui.fragments.intro.MainSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.NotificationSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.ShuffleSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.StorageSlideFragment
-import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.AppIntroUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appintro.AppIntro2
-import com.ttop.app.appintro.AppIntroPageTransformerType
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 

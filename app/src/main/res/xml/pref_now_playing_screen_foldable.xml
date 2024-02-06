@@ -6,7 +6,6 @@
         android:key="now_playing_screen_id"
         android:layout="@layout/list_item_view"
         android:title="@string/pref_title_now_playing_screen_appearance"
-        app:icon="@drawable/ic_play_circle_filled"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
@@ -17,7 +16,6 @@
         android:summary="@string/pref_blur_amount_summary"
         android:title="@string/pref_blur_amount_title"
         app:ateKey_pref_unit="px"
-        app:icon="@drawable/ic_blur_on"
         app:showSeekBarValue="true"
         app:allowDividerBelow="false"/>
 
@@ -87,10 +85,18 @@
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:layout="@layout/list_item_view_switch"
         app:defaultValue="false"
-        app:icon="@drawable/ic_expand_less"
         app:key="expand_now_playing_panel"
         app:summary="@string/pref_summary_expand_now_playing_panel"
         app:title="@string/pref_title_expand_now_playing_panel"
+        app:allowDividerBelow="false"/>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:layout="@layout/list_item_view_switch"
+        app:defaultValue="false"
+        app:key="expand_panel_type"
+        app:summary="@string/pref_summary_expand_now_type"
+        app:title="@string/pref_title_expand_now_type"
+        app:dependency="expand_now_playing_panel"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
@@ -100,10 +106,17 @@
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
             app:defaultValue="false"
-            app:icon="@drawable/ic_skip_next"
             app:key="toggle_autoplay"
             app:summary="@string/pref_summary_auto_play"
             app:title="@string/pref_title_auto_play"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:key="shuffle_state"
+            app:summary="@string/pref_summary_shuffle_state"
+            app:title="@string/pref_title_shuffle_state"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -131,7 +144,6 @@
             android:key="album_cover_style_id"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_album_cover_style"
-            app:icon="@drawable/ic_image"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
@@ -146,7 +158,6 @@
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
             app:defaultValue="false"
-            app:icon="@drawable/ic_view_carousel"
             app:key="carousel_effect"
             app:summary="@string/pref_summary_carousel_effect"
             app:title="@string/pref_title_toggle_carousel_effect"
@@ -181,6 +192,18 @@
             android:key="embed_lyrics"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_embed_lyrics_view"
+            android:dependency="lyrics"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="16"
+            android:key="font_size_lyrics"
+            android:entries="@array/pref_font_size_titles"
+            android:entryValues="@array/pref_font_size_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_font_size_lyrics"
             android:dependency="lyrics"
             app:allowDividerBelow="false"/>
 

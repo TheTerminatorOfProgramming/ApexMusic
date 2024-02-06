@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.*
 import kotlin.math.abs
 

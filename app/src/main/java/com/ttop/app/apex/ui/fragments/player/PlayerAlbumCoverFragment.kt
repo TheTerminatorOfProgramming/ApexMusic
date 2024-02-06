@@ -23,7 +23,9 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.ttop.app.apex.LYRICS_TYPE
@@ -43,7 +45,6 @@ import com.ttop.app.apex.transform.ParallaxPagerTransformer
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
-import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.util.CoverLyricsType
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -77,10 +78,10 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
 
     var lyrics: Lyrics? = null
 
-    fun removeSlideEffect() {
+    suspend fun removeSlideEffect() {
         val transformer = ParallaxPagerTransformer(R.id.player_image)
         transformer.setSpeed(0.3f)
-        lifecycleScope.launchWhenStarted {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewPager.setPageTransformer(false, transformer)
         }
     }
@@ -299,11 +300,6 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         )
 
         when (PreferenceUtil.nowPlayingScreen) {
-            Flat, Normal -> if (PreferenceUtil.isAdaptiveColor) {
-                setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
-            } else {
-                setLRCViewColors(primaryColor, secondaryColor)
-            }
             Blur -> setLRCViewColors(Color.WHITE, ColorUtil.withAlpha(Color.WHITE, 0.5f))
             else -> setLRCViewColors(primaryColor, secondaryColor)
         }
@@ -325,5 +321,5 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private val lyricViewNpsList =
-        listOf(Blur, Flat, MD3, Normal, Plain, Simple, Adaptive, Card, Gradient)
+        listOf(Blur, Classic, Adaptive, Card, Gradient)
 }

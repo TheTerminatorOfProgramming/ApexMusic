@@ -39,11 +39,6 @@ object ColorUtil {
     }
 
     @ColorInt
-    fun darkenColorTheme(@ColorInt color: Int): Int {
-        return shiftColor(color, 0.8f)
-    }
-
-    @ColorInt
     fun lightenColor(@ColorInt color: Int): Int {
         return shiftColor(color, 1.1f)
     }
@@ -99,14 +94,6 @@ object ColorUtil {
     }
 
     @ColorInt
-    fun invertColor(@ColorInt color: Int): Int {
-        val r = 255 - Color.red(color)
-        val g = 255 - Color.green(color)
-        val b = 255 - Color.blue(color)
-        return Color.argb(Color.alpha(color), r, g, b)
-    }
-
-    @ColorInt
     fun adjustAlpha(@ColorInt color: Int, @FloatRange(from = 0.0, to = 1.0) factor: Float): Int {
         val alpha = (Color.alpha(color) * factor).roundToInt()
         val red = Color.red(color)
@@ -134,33 +121,6 @@ object ColorUtil {
         return Color.argb(a.toInt(), r.toInt(), g.toInt(), b.toInt())
     }
 
-    private fun getColorDarkness(@ColorInt color: Int): Double {
-        return if (color == Color.BLACK)
-            1.0
-        else if (color == Color.WHITE || color == Color.TRANSPARENT)
-            0.0
-        else
-            1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
-    }
-
-    @ColorInt
-    fun getInverseColor(@ColorInt color: Int): Int {
-        return 0xFFFFFF - color or -0x1
-    }
-
-    fun isColorSaturated(@ColorInt color: Int): Boolean {
-        val max = max(
-            0.299 * Color.red(color),
-            max(0.587 * Color.green(color), 0.114 * Color.blue(color))
-        )
-        val min = min(
-            0.299 * Color.red(color),
-            min(0.587 * Color.green(color), 0.114 * Color.blue(color))
-        )
-        val diff = abs(max - min)
-        return diff > 20
-    }
-
     @ColorInt
     fun getMixedColor(@ColorInt color1: Int, @ColorInt color2: Int): Int {
         return Color.rgb(
@@ -175,11 +135,6 @@ object ColorUtil {
         diff += abs(0.587 * (Color.green(color1) - Color.green(color2)))
         diff += abs(0.114 * (Color.blue(color1) - Color.blue(color2)))
         return diff
-    }
-
-    @ColorInt
-    fun getReadableText(@ColorInt textColor: Int, @ColorInt backgroundColor: Int): Int {
-        return getReadableText(textColor, backgroundColor, 100)
     }
 
     @ColorInt
@@ -200,11 +155,4 @@ object ColorUtil {
         return textColorFinal
     }
 
-    @ColorInt
-    fun getContrastColor(@ColorInt color: Int): Int {
-        // Counting the perceptive luminance - human eye favors green color...
-        val a =
-            1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
-        return if (a < 0.5) Color.BLACK else Color.WHITE
-    }
 }

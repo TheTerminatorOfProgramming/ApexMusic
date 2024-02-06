@@ -115,10 +115,6 @@ class AlbumTagEditorActivity : AbsTagEditorActivity<ActivityAlbumTagEditorBindin
         deleteAlbumArt = false
     }
 
-    private fun toastLoadingFailed() {
-        showToast(R.string.could_not_download_album_cover)
-    }
-
     override fun searchImageOnWeb() {
         searchWebFor(binding.albumText.text.toString(), binding.albumArtistText.text.toString())
     }

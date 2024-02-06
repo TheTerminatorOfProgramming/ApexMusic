@@ -34,6 +34,59 @@ class ATEPreferenceCategory @JvmOverloads constructor(
         title.setTextColor(
            ThemeStore.accentColor(context)
         )
-        title.textSize = 18f
+
+        when (ThemeStore.fontSize(context)) {
+            "12" -> {
+                title.textSize = 14f
+            }
+
+            "13" -> {
+                title.textSize = 15f
+            }
+
+            "14" -> {
+                title.textSize = 16f
+            }
+
+            "15" -> {
+                title.textSize = 17f
+            }
+
+            "16" -> {
+                title.textSize = 18f
+            }
+
+            "17" -> {
+                title.textSize = 19f
+            }
+
+            "18" -> {
+                title.textSize = 20f
+            }
+
+            "19" -> {
+                title.textSize = 21f
+            }
+
+            "20" -> {
+                title.textSize = 22f
+            }
+
+            "21" -> {
+                title.textSize =23f
+            }
+
+            "22" -> {
+                title.textSize = 24f
+            }
+
+            "23" -> {
+                title.textSize = 25f
+            }
+
+            "24" -> {
+                title.textSize = 26f
+            }
+        }
     }
 }

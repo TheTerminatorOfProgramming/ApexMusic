@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
-import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.appintro.SlideBackgroundColorHolder
 import com.ttop.app.appintro.SlidePolicy
@@ -50,12 +49,12 @@ class BatterySlideFragment(
 
         if (!ApexUtil.hasBatteryPermission()) {
             battery.text = getString(R.string.disable_battery_optimize)
+
+            battery.setOnClickListener {
+                ApexUtil.disableBatteryOptimization()
+            }
         }else {
             battery.text = getString(R.string.battery_optimize)
-        }
-
-        battery.setOnClickListener {
-            ApexUtil.disableBatteryOptimization()
         }
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_deep_purple_400))

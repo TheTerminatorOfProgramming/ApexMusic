@@ -15,8 +15,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.ttop.app.apex"
-        versionCode 330
-        versionName '3.3.0'
+        versionCode 340
+        versionName '3.4.0'
     }
     signingConfigs {
         release {
@@ -147,7 +147,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
 
-    def koin_version = '3.4.0'
+    def koin_version = '3.5.3'
     implementation "io.insert-koin:koin-core:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
 
@@ -173,9 +173,8 @@ dependencies {
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
     implementation 'com.github.xeinebiu:android_lyrics_finder:1.2.0'
     implementation 'com.jakewharton:process-phoenix:2.1.2'
-    githubImplementation 'com.github.javiersantos:AppUpdater:2.7'
-    githubImplementation 'com.github.Piashsarker:AndroidAppUpdateLibrary:1.0.4'
     implementation 'androidx.car.app:app:1.4.0-rc02'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
     implementation 'com.github.arcadefire:nice-spinner:1.4.5'
+    implementation "androidx.gridlayout:gridlayout:1.0.0"
 }

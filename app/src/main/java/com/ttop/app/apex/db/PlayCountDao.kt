@@ -36,6 +36,4 @@ interface PlayCountDao {
     @Query("DELETE FROM SongEntity WHERE id =:songId")
     fun deleteSong(songId: Long)
 
-    @Query("UPDATE PlayCountEntity SET play_count = play_count + 1 WHERE id = :id")
-    fun updateQuantity(id: Long)
 }

@@ -2,9 +2,13 @@
 <resources>
     <string name="bengali">বাংলা</string>
     <string name="english">ইংরেজি</string>
+    <string name="german">জার্মান</string>
+    <string name="hindi">হিন্দি</string>
     <string name="indonesian">ইন্দোনেশিয়ান</string>
     <string name="japanese">জাপানিজ</string>
+    <string name="mandarin">ম্যান্ডারিন</string>
     <string name="portuguese">পর্তুগীজ</string>
+    <string name="punjabi">পাঞ্জাবি</string>
     <string name="spanish">স্পেনীয়</string>
     <string name="system_default">সিস্টেমের ডিফল্ট</string>
 </resources>

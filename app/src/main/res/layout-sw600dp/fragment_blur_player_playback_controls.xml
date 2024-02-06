@@ -42,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/songTotalTime">
 
         <LinearLayout
+            android:id="@+id/texts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -109,6 +110,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/artist"
                 tools:text="@tools:sample/full_names" />
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/volumeFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/texts"
+            tools:background="@color/md_red_400"
+            tools:layout_height="52dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -198,18 +209,4 @@
         app:srcCompat="@drawable/ic_shuffle"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
-
-    <FrameLayout
-        android:id="@+id/volumeFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        app:layout_constraintStart_toStartOf="@+id/previousButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toEndOf="@id/previousButton"
-        app:layout_constraintTop_toBottomOf="@+id/previousButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="20dp"
-        tools:background="@color/md_red_400"
-        tools:layout_height="52dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

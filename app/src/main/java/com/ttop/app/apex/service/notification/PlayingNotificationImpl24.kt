@@ -22,16 +22,14 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.support.v4.media.session.MediaSessionCompat
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.media.app.NotificationCompat.MediaStyle
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
@@ -42,13 +40,8 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import com.ttop.app.apex.ui.activities.MainActivity
-import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @SuppressLint("RestrictedApi")
 class PlayingNotificationImpl24(
@@ -65,10 +58,7 @@ class PlayingNotificationImpl24(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or if (VersionUtils.hasOreo())
-                    PendingIntent.FLAG_IMMUTABLE
-                else 0
-            )
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         val serviceName = ComponentName(context, MusicService::class.java)
         val intent = Intent(ACTION_QUIT)
@@ -77,10 +67,8 @@ class PlayingNotificationImpl24(
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or (if (VersionUtils.hasOreo())
-                PendingIntent.FLAG_IMMUTABLE
-            else 0)
-        )
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
         val toggleFavoriteOrUpdate = buildFavoriteUpdateAction(false)
         val playPauseAction = buildPlayAction(true)
         val previousAction = NotificationCompat.Action(
@@ -206,10 +194,7 @@ class PlayingNotificationImpl24(
         val intent = Intent(action)
         intent.component = serviceName
         return PendingIntent.getService(
-            context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or
-                    if (VersionUtils.hasOreo()) PendingIntent.FLAG_IMMUTABLE
-                    else 0
-        )
+            context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     companion object {
@@ -218,9 +203,7 @@ class PlayingNotificationImpl24(
             notificationManager: NotificationManager,
             mediaSession: MediaSessionCompat,
         ): PlayingNotification {
-            if (VersionUtils.hasOreo()) {
-                createNotificationChannel(context, notificationManager)
-            }
+            createNotificationChannel(context, notificationManager)
             return PlayingNotificationImpl24(context, mediaSession.sessionToken)
         }
     }

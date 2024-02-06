@@ -17,7 +17,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.core.content.withStyledAttributes
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.ttop.app.apex.R
 
@@ -36,12 +35,6 @@ class ApexShapeableImageView @JvmOverloads constructor(
                 shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(radius)
             }
         }
-    }
-
-    private fun updateCornerSize(cornerSize: Float) {
-        shapeAppearanceModel = ShapeAppearanceModel.Builder()
-            .setAllCorners(CornerFamily.ROUNDED, cornerSize)
-            .build()
     }
 
     //For square

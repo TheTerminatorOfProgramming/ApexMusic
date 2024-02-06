@@ -131,7 +131,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DraggableItemAnimator()
             dragDropManager.attachRecyclerView(this)
-            if (PreferenceUtil.isShowScrollbar) {
+            if (PreferenceUtil.isShowScrollbar && PreferenceUtil.scrollbarType) {
                 ThemedFastScroller.create(this)
             }
         }

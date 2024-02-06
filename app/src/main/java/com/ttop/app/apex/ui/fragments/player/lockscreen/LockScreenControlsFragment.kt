@@ -21,7 +21,6 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
-import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentLockScreenPlaybackControlsBinding
 import com.ttop.app.apex.extensions.applyColor

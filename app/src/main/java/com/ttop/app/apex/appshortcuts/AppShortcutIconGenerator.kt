@@ -17,16 +17,13 @@ package com.ttop.app.apex.appshortcuts
 import android.content.Context
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
-import android.os.Build
 import android.util.TypedValue
-import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.toBitmap
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 
-@RequiresApi(Build.VERSION_CODES.N_MR1)
 object AppShortcutIconGenerator {
     fun generateThemedIcon(context: Context, iconId: Int): Icon {
         return if (PreferenceUtil.isColoredAppShortcuts) {

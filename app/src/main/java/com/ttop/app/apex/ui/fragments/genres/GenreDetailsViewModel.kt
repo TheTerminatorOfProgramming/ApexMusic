@@ -33,13 +33,8 @@ class GenreDetailsViewModel(
 ) : ViewModel(), IMusicServiceEventListener {
 
     private val _playListSongs = MutableLiveData<List<Song>>()
-    private val _genre = MutableLiveData<Genre>().apply {
-        postValue(genre)
-    }
 
     fun getSongs(): LiveData<List<Song>> = _playListSongs
-
-    fun getGenre(): LiveData<Genre> = _genre
 
     init {
         loadGenreSongs(genre)

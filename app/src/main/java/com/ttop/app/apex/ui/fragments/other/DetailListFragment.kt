@@ -20,7 +20,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -32,7 +31,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
-import com.ttop.app.apex.*
+import com.ttop.app.apex.EXTRA_ALBUM_ID
+import com.ttop.app.apex.EXTRA_ARTIST_ID
+import com.ttop.app.apex.FAVOURITES
+import com.ttop.app.apex.HISTORY_PLAYLIST
+import com.ttop.app.apex.LAST_ADDED_PLAYLIST
+import com.ttop.app.apex.R
+import com.ttop.app.apex.RECENT_ALBUMS
+import com.ttop.app.apex.RECENT_ARTISTS
+import com.ttop.app.apex.TOP_ALBUMS
+import com.ttop.app.apex.TOP_ARTISTS
+import com.ttop.app.apex.TOP_PLAYED_PLAYLIST
 import com.ttop.app.apex.adapter.album.AlbumAdapter
 import com.ttop.app.apex.adapter.artist.ArtistAdapter
 import com.ttop.app.apex.adapter.song.ShuffleButtonSongAdapter

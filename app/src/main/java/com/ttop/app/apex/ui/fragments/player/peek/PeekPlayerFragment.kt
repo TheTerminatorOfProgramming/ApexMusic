@@ -18,20 +18,17 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.animation.doOnEnd
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -47,17 +44,29 @@ import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentPeekPlayerBinding
-import com.ttop.app.apex.dialogs.*
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.dialogs.AddToPlaylistDialog
+import com.ttop.app.apex.dialogs.CreatePlaylistDialog
+import com.ttop.app.apex.dialogs.DeleteSongsDialog
+import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
+import com.ttop.app.apex.dialogs.SleepTimerDialog
+import com.ttop.app.apex.dialogs.SongDetailDialog
+import com.ttop.app.apex.dialogs.SongShareDialog
+import com.ttop.app.apex.extensions.colorControlNormal
+import com.ttop.app.apex.extensions.drawAboveSystemBarsWithPadding
+import com.ttop.app.apex.extensions.getSongInfo
+import com.ttop.app.apex.extensions.hide
+import com.ttop.app.apex.extensions.keepScreenOn
+import com.ttop.app.apex.extensions.show
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
-import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -133,11 +142,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             }
             R.id.action_reorder -> {
                 if (binding.playerQueueSheet.visibility == View.VISIBLE) {
-                    if (playingQueueAdapter?.getButtonsActivate() == true) {
-                        playingQueueAdapter?.setButtonsActivate(false)
-                    }else {
-                        playingQueueAdapter?.setButtonsActivate(true)
-                    }
+                    playingQueueAdapter?.setButtonsActivate()
                 }
                 return true
             }
@@ -255,15 +260,19 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         setUpPlayerToolbar()
         setUpSubFragments()
         setupRecyclerView()
-        binding.title.isSelected = true
-        binding.artist.isSelected = true
-        binding.title.setOnClickListener {
-            goToAlbum(requireActivity())
-        }
-        binding.artist.setOnClickListener {
-            goToArtist(requireActivity())
-        }
+
         binding.root.drawAboveSystemBarsWithPadding()
+
+
+        /*if (ApexUtil.isTablet) {
+
+        }else {
+            if (ApexUtil.isLandscape) {
+
+            }else {
+
+            }
+        }
 
         if (ApexUtil.isLandscape && !ApexUtil.isTablet){
             binding.playerQueueSheet.visibility = View.GONE
@@ -273,7 +282,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             }else{
                 binding.playerQueueSheet.visibility = View.VISIBLE
             }
-        }
+        }*/
     }
 
     private fun setUpSubFragments() {
@@ -306,12 +315,87 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = PlayingQueueAdapter(
-            requireActivity() as AppCompatActivity,
-            MusicPlayerRemote.playingQueue.toMutableList(),
-            MusicPlayerRemote.position,
-            R.layout.item_queue
-        )
+        playingQueueAdapter = if (ApexUtil.isTablet) {
+            if(ApexUtil.isLandscape) {
+                when (PreferenceUtil.queueStyleLand) {
+                    "normal" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
+                    "duo" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_duo
+                        )
+                    }
+                    "trio" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_trio
+                        )
+                    }
+                    else -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
+                }
+            }else {
+                when (PreferenceUtil.queueStyle) {
+                    "normal" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
+                    "duo" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_duo
+                        )
+                    }
+                    "trio" -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_trio
+                        )
+                    }
+                    else -> {
+                        PlayingQueueAdapter(
+                            requireActivity() as AppCompatActivity,
+                            MusicPlayerRemote.playingQueue.toMutableList(),
+                            MusicPlayerRemote.position,
+                            R.layout.item_queue_player_plain
+                        )
+                    }
+                }
+            }
+        }else {
+           PlayingQueueAdapter(
+                requireActivity() as AppCompatActivity,
+                MusicPlayerRemote.playingQueue.toMutableList(),
+                MusicPlayerRemote.position,
+                R.layout.item_queue
+            )
+        }
+
         linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerViewTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
         recyclerViewDragDropManager = RecyclerViewDragDropManager()
@@ -387,28 +471,14 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
 
         if (PreferenceUtil.isAdaptiveColor) {
             colorize(color.backgroundColor)
-            binding.title.setTextColor(color.secondaryTextColor)
-            binding.artist.setTextColor(color.secondaryTextColor)
-            binding.songInfo.setTextColor(color.secondaryTextColor)
 
             if (PreferenceUtil.isColorAnimate) {
                 val animator =
-                    binding.colorGradientBackground?.let { controlsFragment.createRevealAnimator(it) }
-                animator?.doOnEnd {
+                    binding.colorGradientBackground.let { controlsFragment.createRevealAnimator(it) }
+                animator.doOnEnd {
                     _binding?.root?.setBackgroundColor(color.backgroundColor)
                 }
-                animator?.start()
-            }
-        }else {
-            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
-            if (ColorUtil.isColorLight(colorBg)) {
-                context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_black_1000)) }
-                context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_black_1000)) }
-                context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_black_1000)) }
-            }else {
-                context?.resources?.let { binding.title.setTextColor(it.getColor(R.color.md_white_1000)) }
-                context?.resources?.let { binding.artist.setTextColor(it.getColor(R.color.md_white_1000)) }
-                context?.resources?.let { binding.songInfo.setTextColor(it.getColor(R.color.md_white_1000)) }
+                animator.start()
             }
         }
 
@@ -421,7 +491,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                 ThemeStore.accentColor(requireContext())
             }
 
-        binding.playerQueueSubHeader.setTextColor(controlsColor)
+        binding.playerQueueSubHeader?.setTextColor(controlsColor)
     }
 
     private fun colorize(i: Int) {
@@ -458,33 +528,15 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
     override fun onFavoriteToggled() {
     }
 
-    private fun updateSong() {
-        val song = MusicPlayerRemote.currentSong
-        binding.title.text = song.title
-        binding.artist.text = song.artistName
-
-        if (PreferenceUtil.isSongInfo) {
-            binding.songInfo.text = getSongInfo(song)
-            binding.songInfo.show()
-            binding.songInfo.isSelected = true
-
-            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.dpToMargin(8),0,0,ApexUtil.dpToMargin(10)) }
-
-        } else {
-            binding.songInfo.hide()
-            binding.artist.let { ApexUtil.setMargins(it, ApexUtil.dpToMargin(8),0,0,0) }
-        }
-    }
-
     override fun onServiceConnected() {
         super.onServiceConnected()
-        updateSong()
+        controlsFragment.updateSong()
         updateQueue()
     }
 
     override fun onPlayingMetaChanged() {
         super.onPlayingMetaChanged()
-        updateSong()
+        controlsFragment.updateSong()
         updateQueuePosition()
     }
 

@@ -18,15 +18,11 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.App
-import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.glide.palette.BitmapPaletteTarget
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 
 abstract class ApexColoredTarget(view: ImageView) : BitmapPaletteTarget(view) {
-
-    protected val defaultFooterColor: Int
-        get() = getView().context.colorControlNormal()
 
     abstract fun onColorReady(colors: MediaNotificationProcessor)
 

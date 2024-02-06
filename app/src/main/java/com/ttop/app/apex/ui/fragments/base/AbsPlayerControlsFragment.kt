@@ -91,8 +91,8 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
         val nps = PreferenceUtil.nowPlayingScreen
-        if (nps == NowPlayingScreen.MD3 || nps == NowPlayingScreen.Normal ||
-            nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Plain) {
+        if (nps == NowPlayingScreen.Classic||
+            nps == NowPlayingScreen.Peek) {
             progressSlider?.valueTo = total.toFloat()
 
             progressSlider?.value =
@@ -216,7 +216,12 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hideVolumeIfAvailable()
+        val nps = PreferenceUtil.nowPlayingScreen
+        val npsVolButtons = NowPlayingScreen.Adaptive
+
+        if (npsVolButtons == nps) {
+            hideVolumeIfAvailable()
+        }
     }
 
     override fun onStart() {
@@ -319,7 +324,8 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                     val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
                     val currentVolumeTotal = 100 * currentVolume / maxVolume
 
-                    showToast("New Volume: $currentVolumeTotal%")
+                    val newVol = getString(R.string.new_volume)
+                    showToast("$newVol: $currentVolumeTotal%")
                 }
             }, 500)
         }

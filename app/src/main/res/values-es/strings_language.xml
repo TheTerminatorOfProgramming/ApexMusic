@@ -2,9 +2,13 @@
 <resources>
     <string name="bengali">bengalí</string>
     <string name="english">Inglés</string>
+    <string name="german">Alemán</string>
+    <string name="hindi">hindi</string>
     <string name="indonesian">indonesio</string>
     <string name="japanese">japonés</string>
+    <string name="mandarin">mandarín</string>
     <string name="portuguese">portugués</string>
+    <string name="punjabi">punjabi</string>
     <string name="spanish">Español</string>
     <string name="system_default">Sistema por defecto</string>
 </resources>

@@ -9,13 +9,10 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.annotation.GlideExtension
-import com.bumptech.glide.annotation.GlideOption
-import com.bumptech.glide.annotation.GlideType
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.Key
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.BaseRequestOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
@@ -74,23 +71,13 @@ object ApexGlideExtension {
     fun getArtistModel(artist: Artist): Any {
         return getArtistModel(
             artist,
-            getInstance(getContext()).hasCustomArtistImage(artist),
-            false
+            getInstance(getContext()).hasCustomArtistImage(artist)
         )
     }
 
-    fun getArtistModel(artist: Artist, forceDownload: Boolean): Any {
-        return getArtistModel(
-            artist,
-            getInstance(getContext()).hasCustomArtistImage(artist),
-            forceDownload
-        )
-    }
-
-    private fun getArtistModel(
+    fun getArtistModel(
         artist: Artist,
-        hasCustomImage: Boolean,
-        forceDownload: Boolean
+        hasCustomImage: Boolean
     ): Any {
         return if (!hasCustomImage) {
             ArtistImage(artist)

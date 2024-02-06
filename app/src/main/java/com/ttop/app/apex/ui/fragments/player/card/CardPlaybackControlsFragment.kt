@@ -20,13 +20,12 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentCardPlayerPlaybackControlsBinding
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ATHUtil
@@ -56,12 +55,6 @@ class CardPlaybackControlsFragment :
     override val previousButton: ImageButton
         get() = binding.mediaButton.previousButton
 
-    override val volUp: ImageButton
-        get() = binding.mediaButton.volUpButton
-
-    override val volDown: ImageButton
-        get() = binding.mediaButton.volDownButton
-
     override val songTotalTime: TextView
         get() = binding.songTotalTime
 
@@ -74,21 +67,6 @@ class CardPlaybackControlsFragment :
         setUpPlayPauseFab()
         binding.title.isSelected = true
         binding.artist.isSelected = true
-
-        binding.title.setOnClickListener {
-            goToAlbum(requireActivity())
-        }
-        binding.artist.setOnClickListener {
-            goToArtist(requireActivity())
-        }
-
-        if (!PreferenceUtil.isVolumeControls) {
-            volUp.visibility = View.GONE
-            volDown.visibility = View.GONE
-        }else {
-            volUp.visibility = View.VISIBLE
-            volDown.visibility = View.VISIBLE
-        }
     }
 
     private fun updateSong() {
@@ -187,11 +165,11 @@ class CardPlaybackControlsFragment :
     private fun updateProgressTextColor() {
         val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
         if (ColorUtil.isColorLight(colorBg)) {
-            binding.songTotalTime.setTextColor(resources.getColor(R.color.md_black_1000))
-            binding.songCurrentProgress.setTextColor(resources.getColor(R.color.md_black_1000))
+            binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
+            binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
         }else {
-            binding.songTotalTime.setTextColor(resources.getColor(R.color.md_white_1000))
-            binding.songCurrentProgress.setTextColor(resources.getColor(R.color.md_white_1000))
+            binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+            binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
         }
     }
 

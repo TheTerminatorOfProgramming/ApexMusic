@@ -206,11 +206,11 @@ class RealRepository(
     override suspend fun homeSections(): List<Home> {
         val homeSections = mutableListOf<Home>()
         val sections: List<Home> = listOf(
+            favoritePlaylistHome(),
             topArtistsHome(),
             topAlbumsHome(),
             recentArtistsHome(),
-            recentAlbumsHome(),
-            favoritePlaylistHome()
+            recentAlbumsHome()
         )
         for (section in sections) {
             if (section.arrayList.isNotEmpty()) {

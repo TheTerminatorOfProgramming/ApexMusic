@@ -29,4 +29,5 @@ enum class AlbumCoverStyle(
     FullCard(R.string.full_card, R.drawable.player_adaptive, 5),
     Full(R.string.full, R.drawable.player_full, 4),
     Normal(R.string.normal, R.drawable.player_normal, 0),
+    Peek(R.string.peek, R.drawable.album_cover_peek, 6)
 }

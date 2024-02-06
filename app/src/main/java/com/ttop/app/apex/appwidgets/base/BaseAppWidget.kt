@@ -20,15 +20,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.applyCanvas
-import com.ttop.app.apex.App
-import com.ttop.app.apex.R
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
@@ -38,10 +30,9 @@ import com.ttop.app.apex.service.MusicService.Companion.FAVORITE_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.META_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.PLAY_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.SAVED_POSITION_IN_TRACK
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class BaseAppWidget : AppWidgetProvider() {
-    val musicService = MusicPlayerRemote.musicService
+    private val musicService = MusicPlayerRemote.musicService
     /**
      * {@inheritDoc}
      */
@@ -57,8 +48,6 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
         updateIntent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY)
         context.sendBroadcast(updateIntent)
-
-        //MusicService().updatePlaybackControls()
     }
 
     override fun onEnabled(context: Context) {
@@ -66,11 +55,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         musicService?.let { performUpdate(it, null) }
 
         val serviceIntent = Intent(context, MusicService::class.java)
-        if (VersionUtils.hasOreo()) {
-            context.startForegroundService(serviceIntent)
-        }else {
-            context.startService(serviceIntent)
-        }
+        context.startForegroundService(serviceIntent)
     }
 
     /**
@@ -125,28 +110,12 @@ abstract class BaseAppWidget : AppWidgetProvider() {
     ): PendingIntent {
         val intent = Intent(action)
         intent.component = serviceName
-        return if (VersionUtils.hasOreo()) {
-            PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        } else {
-            PendingIntent.getService(
-                context, 0, intent, if (VersionUtils.hasOreo())
-                    PendingIntent.FLAG_IMMUTABLE
-                else 0
-            )
-        }
+        return  PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     protected abstract fun defaultAppWidget(context: Context, appWidgetIds: IntArray)
 
     abstract fun performUpdate(service: MusicService, appWidgetIds: IntArray?)
-
-    protected fun getAlbumArtDrawable(resources: Resources, bitmap: Bitmap?): Drawable {
-        return if (bitmap == null) {
-            ContextCompat.getDrawable(App.getContext(), R.drawable.default_album_art_round)!!
-        } else {
-            BitmapDrawable(resources, bitmap)
-        }
-    }
 
     protected fun getSongArtist(song: Song): String {
         return song.artistName
@@ -155,70 +124,5 @@ abstract class BaseAppWidget : AppWidgetProvider() {
     companion object {
 
         const val NAME: String = "app_widget"
-
-        fun createRoundedBitmap(
-            drawable: Drawable?,
-            width: Int,
-            height: Int,
-            tl: Float,
-            tr: Float,
-            bl: Float,
-            br: Float
-        ): Bitmap? {
-            if (drawable == null) {
-                return null
-            }
-
-            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            val c = Canvas(bitmap)
-            drawable.setBounds(0, 0, width, height)
-            drawable.draw(c)
-
-            val rounded = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-
-            val canvas = Canvas(rounded)
-            val paint = Paint()
-            paint.shader = BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-            paint.isAntiAlias = true
-            canvas.drawPath(
-                composeRoundedRectPath(
-                    RectF(0f, 0f, width.toFloat(), height.toFloat()), tl, tr, bl, br
-                ), paint
-            )
-
-            return rounded
-        }
-
-        fun createBitmap(drawable: Drawable, sizeMultiplier: Float): Bitmap {
-            return androidx.core.graphics.createBitmap(
-                (drawable.intrinsicWidth * sizeMultiplier).toInt(),
-                (drawable.intrinsicHeight * sizeMultiplier).toInt(),
-            ).applyCanvas {
-                drawable.setBounds(0, 0, this.width, this.height)
-                drawable.draw(this)
-            }
-        }
-
-        protected fun composeRoundedRectPath(
-            rect: RectF,
-            tl: Float,
-            tr: Float,
-            bl: Float,
-            br: Float
-        ): Path {
-            val path = Path()
-            path.moveTo(rect.left + tl, rect.top)
-            path.lineTo(rect.right - tr, rect.top)
-            path.quadTo(rect.right, rect.top, rect.right, rect.top + tr)
-            path.lineTo(rect.right, rect.bottom - br)
-            path.quadTo(rect.right, rect.bottom, rect.right - br, rect.bottom)
-            path.lineTo(rect.left + bl, rect.bottom)
-            path.quadTo(rect.left, rect.bottom, rect.left, rect.bottom - bl)
-            path.lineTo(rect.left, rect.top + tl)
-            path.quadTo(rect.left, rect.top, rect.left + tl, rect.top)
-            path.close()
-
-            return path
-        }
     }
 }

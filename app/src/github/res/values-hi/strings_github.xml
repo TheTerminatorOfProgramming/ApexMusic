@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_files_summary">एपेक्स म्यूजिक के लिए डिवाइस की सभी फाइलों तक पहुंच की अनुमति दें। एपेक्स बैकअप का स्वतः पता लगाने के लिए इस अनुमति की आवश्यकता है</string>
+    <string name="all_files_title">सभी फ़ाइलें अनुमति प्रबंधित करें</string>
+</resources>

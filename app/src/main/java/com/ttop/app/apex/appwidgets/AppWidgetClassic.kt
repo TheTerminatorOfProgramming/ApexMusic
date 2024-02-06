@@ -15,49 +15,36 @@
 package com.ttop.app.apex.appwidgets
 
 import android.app.PendingIntent
-import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.RemoteViews
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.darkerColor
 import com.ttop.app.apex.extensions.getTintedDrawable
-import com.ttop.app.apex.extensions.lightColor
-import com.ttop.app.apex.extensions.lighterColor
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
-import com.ttop.app.apex.glide.WidgetBlurTransform
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_UPDATE
 import com.ttop.app.apex.ui.activities.MainActivity
-import com.ttop.app.apex.util.DensityUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
 
@@ -70,100 +57,17 @@ class AppWidgetClassic : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        var appWidgetView: RemoteViews? = null
-
-        appWidgetView = when (PreferenceUtil.widgetBackground) {
-            "default" -> {
-                if (PreferenceUtil.isProgressBar) {
-                    when (PreferenceUtil.progressColor) {
-                        "black" -> RemoteViews(context.packageName, R.layout.app_widget_classic_black)
-                        "blue" -> RemoteViews(context.packageName, R.layout.app_widget_classic_blue)
-                        "green" -> RemoteViews(context.packageName, R.layout.app_widget_classic_green)
-                        "orange" -> RemoteViews(context.packageName, R.layout.app_widget_classic_orange)
-                        "purple" -> RemoteViews(context.packageName, R.layout.app_widget_classic_purple)
-                        "red" -> RemoteViews(context.packageName, R.layout.app_widget_classic_red)
-                        "teal" -> RemoteViews(context.packageName, R.layout.app_widget_classic_teal)
-                        "white" -> RemoteViews(context.packageName, R.layout.app_widget_classic_white)
-                        "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_classic_yellow)
-                        else -> RemoteViews(context.packageName, R.layout.app_widget_classic_teal)
-                    }
-                }else {
-                    RemoteViews(context.packageName, R.layout.app_widget_classic_time)
-                }
-            }
+        val appWidgetView = when (PreferenceUtil.widgetBackground) {
+            "default" -> RemoteViews(context.packageName, R.layout.app_widget_classic)
             "day_night" -> {
                 if (VersionUtils.hasS()) {
-                    if (PreferenceUtil.isProgressBar) {
-                        when (PreferenceUtil.progressColor) {
-                            "black" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_black)
-                            "blue" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_blue)
-                            "green" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_green)
-                            "orange" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_orange)
-                            "purple" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_purple)
-                            "red" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_red)
-                            "teal" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_teal)
-                            "white" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_white)
-                            "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_yellow)
-                            else -> RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_teal)
-                        }
-                    }else {
-                        RemoteViews(context.packageName, R.layout.app_widget_classic_day_night_time)
-                    }
+                    RemoteViews(context.packageName, R.layout.app_widget_classic_day_night)
                 }else {
-                    if (PreferenceUtil.isProgressBar) {
-                        when (PreferenceUtil.progressColor) {
-                            "black" -> RemoteViews(context.packageName, R.layout.app_widget_classic_black)
-                            "blue" -> RemoteViews(context.packageName, R.layout.app_widget_classic_blue)
-                            "green" -> RemoteViews(context.packageName, R.layout.app_widget_classic_green)
-                            "orange" -> RemoteViews(context.packageName, R.layout.app_widget_classic_orange)
-                            "purple" -> RemoteViews(context.packageName, R.layout.app_widget_classic_purple)
-                            "red" -> RemoteViews(context.packageName, R.layout.app_widget_classic_red)
-                            "teal" -> RemoteViews(context.packageName, R.layout.app_widget_classic_teal)
-                            "white" -> RemoteViews(context.packageName, R.layout.app_widget_classic_white)
-                            "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_classic_yellow)
-                            else -> RemoteViews(context.packageName, R.layout.app_widget_classic_teal)
-                        }
-                    }else {
-                        RemoteViews(context.packageName, R.layout.app_widget_classic_time)
-                    }
+                    RemoteViews(context.packageName, R.layout.app_widget_classic)
                 }
             }
-            "transparent" -> {
-                if (PreferenceUtil.isProgressBar) {
-                    when (PreferenceUtil.progressColor) {
-                        "black" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_black)
-                        "blue" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_blue)
-                        "green" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_green)
-                        "orange" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_orange)
-                        "purple" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_purple)
-                        "red" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_red)
-                        "teal" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_teal)
-                        "white" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_white)
-                        "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_yellow)
-                        else -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_teal)
-                    }
-                }else {
-                    RemoteViews(context.packageName, R.layout.app_widget_classic_transparent_time)
-                }
-            }
-            else -> {
-                if (PreferenceUtil.isProgressBar) {
-                    when (PreferenceUtil.progressColor) {
-                        "black" -> RemoteViews(context.packageName, R.layout.app_widget_classic_black)
-                        "blue" -> RemoteViews(context.packageName, R.layout.app_widget_classic_blue)
-                        "green" -> RemoteViews(context.packageName, R.layout.app_widget_classic_green)
-                        "orange" -> RemoteViews(context.packageName, R.layout.app_widget_classic_orange)
-                        "purple" -> RemoteViews(context.packageName, R.layout.app_widget_classic_purple)
-                        "red" -> RemoteViews(context.packageName, R.layout.app_widget_classic_red)
-                        "teal" -> RemoteViews(context.packageName, R.layout.app_widget_classic_teal)
-                        "white" -> RemoteViews(context.packageName, R.layout.app_widget_classic_white)
-                        "yellow" -> RemoteViews(context.packageName, R.layout.app_widget_classic_yellow)
-                        else -> RemoteViews(context.packageName, R.layout.app_widget_classic_teal)
-                    }
-                }else {
-                    RemoteViews(context.packageName, R.layout.app_widget_classic_time)
-                }
-            }
+            "transparent" -> RemoteViews(context.packageName, R.layout.app_widget_classic_transparent)
+            else -> RemoteViews(context.packageName, R.layout.app_widget_classic)
         }
 
         if (PreferenceUtil.widgetBackground == "transparent") {
@@ -288,100 +192,17 @@ class AppWidgetClassic : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        var appWidgetView: RemoteViews? = null
-
-        appWidgetView = when (PreferenceUtil.widgetBackground) {
-            "default" -> {
-                if (PreferenceUtil.isProgressBar) {
-                    when (PreferenceUtil.progressColor) {
-                        "black" -> RemoteViews(service.packageName, R.layout.app_widget_classic_black)
-                        "blue" -> RemoteViews(service.packageName, R.layout.app_widget_classic_blue)
-                        "green" -> RemoteViews(service.packageName, R.layout.app_widget_classic_green)
-                        "orange" -> RemoteViews(service.packageName, R.layout.app_widget_classic_orange)
-                        "purple" -> RemoteViews(service.packageName, R.layout.app_widget_classic_purple)
-                        "red" -> RemoteViews(service.packageName, R.layout.app_widget_classic_red)
-                        "teal" -> RemoteViews(service.packageName, R.layout.app_widget_classic_teal)
-                        "white" -> RemoteViews(service.packageName, R.layout.app_widget_classic_white)
-                        "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_classic_yellow)
-                        else -> RemoteViews(service.packageName, R.layout.app_widget_classic_teal)
-                    }
-                }else {
-                    RemoteViews(service.packageName, R.layout.app_widget_classic_time)
-                }
-            }
+        val appWidgetView = when (PreferenceUtil.widgetBackground) {
+            "default" -> RemoteViews(service.packageName, R.layout.app_widget_classic)
             "day_night" -> {
                 if (VersionUtils.hasS()) {
-                    if (PreferenceUtil.isProgressBar) {
-                        when (PreferenceUtil.progressColor) {
-                            "black" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_black)
-                            "blue" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_blue)
-                            "green" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_green)
-                            "orange" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_orange)
-                            "purple" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_purple)
-                            "red" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_red)
-                            "teal" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_teal)
-                            "white" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_white)
-                            "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_yellow)
-                            else -> RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_teal)
-                        }
-                    }else {
-                        RemoteViews(service.packageName, R.layout.app_widget_classic_day_night_time)
-                    }
+                    RemoteViews(service.packageName, R.layout.app_widget_classic_day_night)
                 }else {
-                    if (PreferenceUtil.isProgressBar) {
-                        when (PreferenceUtil.progressColor) {
-                            "black" -> RemoteViews(service.packageName, R.layout.app_widget_classic_black)
-                            "blue" -> RemoteViews(service.packageName, R.layout.app_widget_classic_blue)
-                            "green" -> RemoteViews(service.packageName, R.layout.app_widget_classic_green)
-                            "orange" -> RemoteViews(service.packageName, R.layout.app_widget_classic_orange)
-                            "purple" -> RemoteViews(service.packageName, R.layout.app_widget_classic_purple)
-                            "red" -> RemoteViews(service.packageName, R.layout.app_widget_classic_red)
-                            "teal" -> RemoteViews(service.packageName, R.layout.app_widget_classic_teal)
-                            "white" -> RemoteViews(service.packageName, R.layout.app_widget_classic_white)
-                            "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_classic_yellow)
-                            else -> RemoteViews(service.packageName, R.layout.app_widget_classic_teal)
-                        }
-                    }else {
-                        RemoteViews(service.packageName, R.layout.app_widget_classic_time)
-                    }
+                    RemoteViews(service.packageName, R.layout.app_widget_classic)
                 }
             }
-            "transparent" -> {
-                if (PreferenceUtil.isProgressBar) {
-                    when (PreferenceUtil.progressColor) {
-                        "black" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_black)
-                        "blue" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_blue)
-                        "green" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_green)
-                        "orange" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_orange)
-                        "purple" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_purple)
-                        "red" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_red)
-                        "teal" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_teal)
-                        "white" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_white)
-                        "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_yellow)
-                        else -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_teal)
-                    }
-                }else {
-                    RemoteViews(service.packageName, R.layout.app_widget_classic_transparent_time)
-                }
-            }
-            else -> {
-                if (PreferenceUtil.isProgressBar) {
-                    when (PreferenceUtil.progressColor) {
-                        "black" -> RemoteViews(service.packageName, R.layout.app_widget_classic_black)
-                        "blue" -> RemoteViews(service.packageName, R.layout.app_widget_classic_blue)
-                        "green" -> RemoteViews(service.packageName, R.layout.app_widget_classic_green)
-                        "orange" -> RemoteViews(service.packageName, R.layout.app_widget_classic_orange)
-                        "purple" -> RemoteViews(service.packageName, R.layout.app_widget_classic_purple)
-                        "red" -> RemoteViews(service.packageName, R.layout.app_widget_classic_red)
-                        "teal" -> RemoteViews(service.packageName, R.layout.app_widget_classic_teal)
-                        "white" -> RemoteViews(service.packageName, R.layout.app_widget_classic_white)
-                        "yellow" -> RemoteViews(service.packageName, R.layout.app_widget_classic_yellow)
-                        else -> RemoteViews(service.packageName, R.layout.app_widget_classic_teal)
-                    }
-                }else {
-                    RemoteViews(service.packageName, R.layout.app_widget_classic_time)
-                }
-            }
+            "transparent" -> RemoteViews(service.packageName, R.layout.app_widget_classic_transparent)
+            else -> RemoteViews(service.packageName, R.layout.app_widget_classic)
         }
 
         if (PreferenceUtil.widgetBackground == "transparent") {
@@ -476,10 +297,6 @@ class AppWidgetClassic : BaseAppWidget() {
         // Link actions buttons to intents
         linkButtons(service, appWidgetView)
 
-        if (PreferenceUtil.isProgressBar) {
-            appWidgetView.setProgressBar(R.id.progress_bar, service.songDurationMillis, service.songProgressMillis, false)
-        }
-
         if (imageSize == 0) {
             imageSize =
                 service.resources.getDimensionPixelSize(R.dimen.app_widget_card_image_size)
@@ -495,7 +312,7 @@ class AppWidgetClassic : BaseAppWidget() {
                     .placeholder(R.drawable.default_album_art_round)
                     .error(R.drawable.default_album_art_round)
                     .circleCrop()
-                    .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+                    .into(object : CustomTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                         override fun onResourceReady(
                             resource: BitmapPaletteWrapper,
                             transition: Transition<in BitmapPaletteWrapper>?
@@ -517,6 +334,8 @@ class AppWidgetClassic : BaseAppWidget() {
                             update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
                         }
 
+                        override fun onLoadCleared(placeholder: Drawable?) {}
+
                         private fun update(bitmap: Bitmap?, color: Int) {
                             if (PreferenceUtil.widgetBackground == "day_night") {
                                 when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
@@ -525,19 +344,19 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_toggle_play_pause,
                                             service.getTintedDrawable(
-                                                playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                         // Set prev/next button drawables
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                R.drawable.ic_skip_next, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                R.drawable.ic_skip_previous, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                     }
@@ -547,7 +366,7 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_toggle_play_pause,
                                             service.getTintedDrawable(
-                                                playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
 
@@ -555,12 +374,12 @@ class AppWidgetClassic : BaseAppWidget() {
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_next,
                                             service.getTintedDrawable(
-                                                R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                R.drawable.ic_skip_next, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
-                                                R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                R.drawable.ic_skip_previous, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                     }
@@ -594,7 +413,7 @@ class AppWidgetClassic : BaseAppWidget() {
                                             R.id.button_toggle_play_pause,
                                             service.getTintedDrawable(
                                                 playPauseRes,
-                                                service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                         // Set prev/next button drawables
@@ -602,13 +421,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                             R.id.button_next,
                                             service.getTintedDrawable(
                                                 R.drawable.ic_skip_next,
-                                                service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
                                                 R.drawable.ic_skip_previous,
-                                                service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                                ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                             ).toBitmap()
                                         )
                                     }
@@ -618,7 +437,7 @@ class AppWidgetClassic : BaseAppWidget() {
                                             R.id.button_toggle_play_pause,
                                             service.getTintedDrawable(
                                                 playPauseRes,
-                                                service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                         // Set prev/next button drawables
@@ -626,13 +445,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                             R.id.button_next,
                                             service.getTintedDrawable(
                                                 R.drawable.ic_skip_next,
-                                                service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                         appWidgetView.setImageViewBitmap(
                                             R.id.button_prev, service.getTintedDrawable(
                                                 R.drawable.ic_skip_previous,
-                                                service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                                ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                             ).toBitmap()
                                         )
                                     }
@@ -711,10 +530,8 @@ class AppWidgetClassic : BaseAppWidget() {
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         var pendingIntent = PendingIntent.getActivity(
-            context, 0, action, if (VersionUtils.hasOreo())
-                PendingIntent.FLAG_IMMUTABLE
-            else 0
-        )
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE)
+
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
 
         // Previous track
@@ -740,7 +557,7 @@ class AppWidgetClassic : BaseAppWidget() {
         target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
             .load(R.drawable.default_album_art_round)
             .circleCrop()
-            .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+            .into(object : CustomTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                 override fun onResourceReady(
                     resource: BitmapPaletteWrapper,
                     transition: Transition<in BitmapPaletteWrapper>?
@@ -762,6 +579,8 @@ class AppWidgetClassic : BaseAppWidget() {
                     update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
                 }
 
+                override fun onLoadCleared(placeholder: Drawable?) {}
+
                 private fun update(bitmap: Bitmap?, color: Int) {
                     if (PreferenceUtil.widgetBackground == "day_night") {
                         when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
@@ -770,19 +589,19 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
-                                        playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        R.drawable.ic_skip_next, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        R.drawable.ic_skip_previous, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -792,19 +611,19 @@ class AppWidgetClassic : BaseAppWidget() {
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
-                                        playPauseRes, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_next,
                                     service.getTintedDrawable(
-                                        R.drawable.ic_skip_next, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        R.drawable.ic_skip_next, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
-                                        R.drawable.ic_skip_previous, service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        R.drawable.ic_skip_previous, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -838,7 +657,7 @@ class AppWidgetClassic : BaseAppWidget() {
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
                                         playPauseRes,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
@@ -846,13 +665,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                     R.id.button_next,
                                     service.getTintedDrawable(
                                         R.drawable.ic_skip_next,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
                                         R.drawable.ic_skip_previous,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_black_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
                                     ).toBitmap()
                                 )
                             }
@@ -862,7 +681,7 @@ class AppWidgetClassic : BaseAppWidget() {
                                     R.id.button_toggle_play_pause,
                                     service.getTintedDrawable(
                                         playPauseRes,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 // Set prev/next button drawables
@@ -870,13 +689,13 @@ class AppWidgetClassic : BaseAppWidget() {
                                     R.id.button_next,
                                     service.getTintedDrawable(
                                         R.drawable.ic_skip_next,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                                 appWidgetView.setImageViewBitmap(
                                     R.id.button_prev, service.getTintedDrawable(
                                         R.drawable.ic_skip_previous,
-                                        service.resources.getColor(com.ttop.app.appthemehelper.R.color.md_white_1000)
+                                        ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                                     ).toBitmap()
                                 )
                             }

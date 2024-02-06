@@ -158,38 +158,13 @@
         <item>custom</item>
     </string-array>
 
-    <string-array name="pref_update_frequency_list_titles">
-        <item>@string/none</item>
-        <item>@string/startup</item>
-        <item>@string/daily</item>
-        <item>@string/weekly</item>
-        <item>@string/monthly</item>
-    </string-array>
-
-    <string-array name="pref_update_frequency_list_values">
-        <item>none</item>
-        <item>startup</item>
-        <item>daily</item>
-        <item>weekly</item>
-        <item>monthly</item>
-    </string-array>
-
-    <string-array name="pref_update_source_list_titles">
-        <item>@string/git_hub</item>
-        <item>@string/website</item>
-    </string-array>
-
-    <string-array name="pref_update_source_list_values">
-        <item>github</item>
-        <item>website</item>
-    </string-array>
-
     <string-array name="pref_font_list_titles">
         <item>@string/font_default_name</item>
         <item>@string/font_apex_name</item>
         <item>@string/font_barlow_name</item>
-        <item>@string/font_caviar_name</item>
         <item>@string/font_binjay_name</item>
+        <item>@string/font_caviar_name</item>
+        <item>@string/font_dancing_name</item>
         <item>@string/font_drexs_name</item>
         <item>@string/font_hermanoalto_name</item>
         <item>@string/font_hiatus_name</item>
@@ -197,14 +172,17 @@
         <item>@string/font_neue_name</item>
         <item>@string/font_nothing_name</item>
         <item>@string/font_pencil_name</item>
+        <item>@string/font_sixty_name</item>
+        <item>@string/font_teko_name</item>
     </string-array>
 
     <string-array name="pref_font_list_values">
         <item>default</item>
         <item>apex</item>
         <item>barlow</item>
-        <item>caviar</item>
         <item>binjay</item>
+        <item>caviar</item>
+        <item>dancing</item>
         <item>drexs</item>
         <item>hermanoalto</item>
         <item>hiatus</item>
@@ -212,6 +190,8 @@
         <item>neue</item>
         <item>nothing</item>
         <item>pencil</item>
+        <item>sixty</item>
+        <item>teko</item>
     </string-array>
 
     <string-array name="pref_home_grid_style_list_titles">
@@ -269,9 +249,13 @@
         <item>@string/system_default</item>
         <item>@string/bengali</item>
         <item>@string/english</item>
+        <item>@string/german</item>
+        <item>@string/hindi</item>
         <item>@string/indonesian</item>
         <item>@string/japanese</item>
+        <item>@string/mandarin</item>
         <item>@string/portuguese</item>
+        <item>@string/punjabi</item>
         <item>@string/spanish</item>
     </string-array>
 
@@ -279,9 +263,13 @@
         <item>auto</item>
         <item>bn</item>
         <item>en</item>
+        <item>de</item>
+        <item>hi</item>
         <item>in</item>
         <item>ja</item>
+        <item>zh</item>
         <item>pt</item>
+        <item>pa</item>
         <item>es</item>
     </string-array>
 
@@ -349,5 +337,37 @@
         <item>repeat</item>
         <item>shuffle</item>
         <item>none</item>
+    </string-array>
+
+    <string-array name="pref_font_size_titles">
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+    </string-array>
+
+    <string-array name="pref_font_size_values">
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
     </string-array>
 </resources>

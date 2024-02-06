@@ -16,7 +16,6 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_general_theme"
-            app:icon="@drawable/ic_color_lens"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -40,7 +39,7 @@
         android:title="@string/pref_title_custom_font"
         app:allowDividerBelow="false">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="apex"
+            android:defaultValue="default"
             android:key="custom_font"
             android:entries="@array/pref_font_list_titles"
             android:entryValues="@array/pref_font_list_values"
@@ -48,15 +47,17 @@
             android:positiveButtonText="@null"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_custom_font"
-            android:icon="@drawable/ic_font"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="custom_font_bold"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_bold_font"
-            android:title="@string/pref_title_bold_font"
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="16"
+            android:key="font_size"
+            android:entries="@array/pref_font_size_titles"
+            android:entryValues="@array/pref_font_size_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_font_size"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
@@ -81,15 +82,6 @@
             android:persistent="false"
             android:summary="@string/accent_color_desc"
             android:title="@string/accent_color"
-            app:icon="@drawable/ic_colorize"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="extended_accent"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_extended_accent"
-            android:title="@string/pref_title_extended_accent"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -123,7 +115,6 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_language_name"
-            app:icon="@drawable/ic_language"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
@@ -140,7 +131,6 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_dismiss_method"
-            android:icon="@drawable/ic_close"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -160,7 +150,6 @@
             android:positiveButtonText="@null"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_swipe_gestures"
-            android:icon="@drawable/ic_gesture"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -169,7 +158,6 @@
             app:key="progress_bar_style"
             app:summary="@string/pref_summary_progress_bar_style"
             app:title="@string/pref_title_progress_bar_style"
-            android:icon="@drawable/ic_progress"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -178,7 +166,6 @@
             app:key="progress_bar_alignment"
             app:summary="@string/pref_summary_progress_bar_alignment"
             app:title="@string/pref_title_progress_bar_alignment"
-            android:icon="@drawable/ic_vertical_align_top"
             android:dependency="progress_bar_style"
             app:allowDividerBelow="false"/>
 

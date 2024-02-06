@@ -16,7 +16,6 @@ package com.ttop.app.apex.ui.activities.tageditor
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -30,10 +29,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.transition.Transition
@@ -41,7 +42,6 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivitySongTagEditorBinding
 import com.ttop.app.apex.extensions.*
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
 import com.ttop.app.apex.model.ArtworkInfo
@@ -50,6 +50,7 @@ import com.ttop.app.apex.ui.fragments.search.clearText
 import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.xeinebiu.lyrics_finder.LyricsFinder
@@ -107,7 +108,67 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
                         binding.lyricsText.setText(modifiedLyrics)
                     }
                 }
-                builder.show()
+                val alert = builder.create()
+                alert.show()
+                alert.withCenteredButtons()
+
+                val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+
+                when (PreferenceUtil.fontSize) {
+                    "12" -> {
+                        textViewMessage!!.textSize = 12f
+                    }
+
+                    "13" -> {
+                        textViewMessage!!.textSize = 13f
+                    }
+
+                    "14" -> {
+                        textViewMessage!!.textSize = 14f
+                    }
+
+                    "15" -> {
+                        textViewMessage!!.textSize = 15f
+                    }
+
+                    "16" -> {
+                        textViewMessage!!.textSize = 16f
+                    }
+
+                    "17" -> {
+                        textViewMessage!!.textSize = 17f
+                    }
+
+                    "18" -> {
+                        textViewMessage!!.textSize = 18f
+
+                    }
+
+                    "19" -> {
+                        textViewMessage!!.textSize = 19f
+                    }
+
+                    "20" -> {
+                        textViewMessage!!.textSize = 20f
+                    }
+
+                    "21" -> {
+                        textViewMessage!!.textSize = 21f
+                    }
+
+                    "22" -> {
+                        textViewMessage!!.textSize = 22f
+                    }
+
+                    "23" -> {
+                        textViewMessage!!.textSize = 23f
+                    }
+
+                    "24" -> {
+                        textViewMessage!!.textSize = 24f
+                    }
+                }
+
                 return true
             }
         }
@@ -126,21 +187,21 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
         builder.setView(input)
 
 // Set up the buttons
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton(R.string.cast_tracks_chooser_dialog_ok) { _, _ ->
             // Here you get get input text from the Edittext
-            val m_Text = input.text.toString()
+            val text = input.text.toString()
 
             lifecycleScope.launch {
                 binding.lyricsText.clearText()
-                val lyrics = lyricsFinder.find(m_Text)
+                val lyrics = lyricsFinder.find(text)
                 var modifiedLyrics = lyrics.toString()
                 modifiedLyrics = modifiedLyrics.replace("\\[.+\\]\\s?".toRegex(), "\n").trim()
                 modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n\n").trim()
                 modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n").trim()
                 binding.lyricsText.setText(modifiedLyrics)
             }
-        })
-        builder.setNegativeButton(R.string.action_cancel, DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        }
+        builder.setNegativeButton(R.string.action_cancel) { dialog, _ -> dialog.cancel() }
 
         builder.show()
     }

@@ -19,13 +19,18 @@ import android.content.Intent
 import android.provider.BaseColumns
 import android.provider.MediaStore
 import android.provider.Settings
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.jakewharton.processphoenix.ProcessPhoenix
+import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil.getSongFileUri
-import com.ttop.app.appthemehelper.util.VersionUtils
+import java.io.File
 
 object RingtoneManager {
     fun setRingtone(context: Context, song: Song) {
@@ -53,24 +58,82 @@ object RingtoneManager {
     }
 
     fun requiresDialog(context: Context): Boolean {
-        if (VersionUtils.hasOreo()) {
-            if (!Settings.System.canWrite(context)) {
-                return true
-            }
-        }
-        return false
+        return !Settings.System.canWrite(context)
     }
 
     fun showDialog(context: Context) {
-        return MaterialAlertDialogBuilder(context, R.style.MaterialAlertDialogTheme)
-            .setTitle(R.string.dialog_title_set_ringtone)
-            .setMessage(R.string.dialog_message_set_ringtone)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
-                intent.data = ("package:" + context.applicationContext.packageName).toUri()
-                context.startActivity(intent)
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(R.string.dialog_title_set_ringtone)
+        builder.setMessage(R.string.dialog_message_set_ringtone)
+
+        builder.setPositiveButton(R.string.yes) { _, _ ->
+            val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+            intent.data = ("package:" + context.applicationContext.packageName).toUri()
+            context.startActivity(intent)
+        }
+
+        builder.setNegativeButton(R.string.no) { _, _ ->
+        }
+        val alert = builder.create()
+        alert.show()
+        alert.withCenteredButtons()
+
+        val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+
+        when (PreferenceUtil.fontSize) {
+            "12" -> {
+                textViewMessage!!.textSize = 12f
             }
-            .setNegativeButton(android.R.string.cancel, null)
-            .create().show()
+
+            "13" -> {
+                textViewMessage!!.textSize = 13f
+            }
+
+            "14" -> {
+                textViewMessage!!.textSize = 14f
+            }
+
+            "15" -> {
+                textViewMessage!!.textSize = 15f
+            }
+
+            "16" -> {
+                textViewMessage!!.textSize = 16f
+            }
+
+            "17" -> {
+                textViewMessage!!.textSize = 17f
+            }
+
+            "18" -> {
+                textViewMessage!!.textSize = 18f
+
+            }
+
+            "19" -> {
+                textViewMessage!!.textSize = 19f
+            }
+
+            "20" -> {
+                textViewMessage!!.textSize = 20f
+            }
+
+            "21" -> {
+                textViewMessage!!.textSize = 21f
+            }
+
+            "22" -> {
+                textViewMessage!!.textSize = 22f
+            }
+
+            "23" -> {
+                textViewMessage!!.textSize = 23f
+            }
+
+            "24" -> {
+                textViewMessage!!.textSize = 24f
+            }
+        }
+
     }
 }

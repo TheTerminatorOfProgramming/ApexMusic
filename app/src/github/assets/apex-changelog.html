@@ -46,6 +46,11 @@
 
         h3 {
             margin: 10px 0px;
+            font-size: 1.25rem;
+        }
+
+        h4 {
+            margin: 10px 0px;
             font-size: 1rem;
         }
 
@@ -71,6 +76,91 @@
         See Y'all Soon,
         <br>TTOP
     </p>
+</div>
+<div>
+    <h5>February 6th 2024</h5>
+    <h2>v3.4.0</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Added a link to the telegram group</li>
+        <li>Added font size option</li>
+        <li>Added font size option for lyrics</li>
+        <li>Added option to keep shuffle state</li>
+        <li>Added the ability to play/pause the song by clicking on the album art in the player themes</li>
+        <li>Added alphabet index slider</li>
+        <li>Added option to use standard slider. <b>NOTE: as this is a new feature i have had to disable the layout selector and grid size options for all categories that use the alphabet indexer</b></li>
+        <li>Added new languages: german, hindi, mandarin and punjabi</li>
+        <li>Added option to allow the now playing screen to open when app is opened in any way or only when notification or widgets are used to open the app</li>
+        <li>Added 3 new fonts</li>
+        <li>Added new peek album cover style</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Removed the ability to go to the current song album/artist by tapping on the song/album text in the player themes. the menu options are still present</li>
+        <li>Removed the progress bar from the widgets</li>
+        <li>Removed the extended accent option and applied as default</li>
+        <li>Removed the bold font option</li>
+        <li>Removed the headset and bluetooth headset volume level option</li>
+        <li>Removed the headset section</li>
+        <li>Renamed the bluetooth section to autoplay and moved the headset autoplay option into the autoplay section</li>
+        <li>Removed the ability to update the apex music from within the app. app updates must now be manually downloaded and installed</li>
+        <li>Removed the flat player theme</li>
+        <li>Removed the simple player theme</li>
+        <li>Removed the plain player theme</li>
+        <li>Removed the md3 player theme</li>
+        <li>Removed the default font and the system font will now be the default font</li>
+        <li>Removed the user name and banner on the home tab</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Updated all code libraries</li>
+        <li>Updated translations</li>
+        <li>Updated dependencies</li>
+        <li>Updated intro screen</li>
+        <li>Sliders now have a new thicker design due to changes with the google material library</li>
+        <li>Renamed the bluetooth section to autoplay and moved the headset autoplay option into the autoplay section</li>
+        <li>Reworked the settings grid layout</li>
+        <li>Changelog now has a new format</li>
+        <li>Reworked the peek player layout</li>
+        <li>The normal player theme has got the md3 player themes play/pause button and has been renamed to classic</li>
+        <li>Classic player theme is now set as default</li>
+        <li>Changed the home tab layout</li>
+        <li>Android 8-11 functionality will no longer be maintained within this app</li>
+    </ul>
+    <h4>What's Planned To Be Removed</h4>
+    <ul>
+        <li>Restore legacy widgets option</li>
+        <li>Big widget</li>
+        <li>Full circle widget</li>
+        <li>Circle button option option. this will be enabled by default</li>
+        <li>Colored app shortcuts option. this will be enabled by default</li>
+        <li>Use standard scrollbars option</li>
+        <li>Blur album cover option</li>
+        <li>Support for android 8, 9, 10 & 11 from apex music v4.0.0</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Misc bugs</li>
+        <li>Code optimizations</li>
+        <li>Volume buttons not getting colored in the player themes</li>
+        <li>Screen not staying on when using the option with lyrics</li>
+        <li>Mini-player height bug from v3.30</li>
+        <li>Android 11 notification crash</li>
+        <li>Album artist image now loads correctly in the album details section</li>
+        <li>Correct error message now shows when selecting more than 6 library categories</li>
+        <li>Fixed any bugs and errors with the player themes layouts</li>
+        <li>Fixed the material you app themes not working as intended</li>
+        <li>Fixed the media scanner on completion message</li>
+        <li>Fixed tag editor crash when changing album art on android 14 devices using v3.0.0 or above</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google</li>
+        <li>When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the miniplayer</li>
+        <li>Some android skins such as funtouch os may experience issues with apex</li>
+        <li>Music controls may not work due to a possible bug in apex. the bug should be fixed but needs some additional testing</li>
+    </ul>
 </div>
 <div>
     <h5>January 4th, 2024</h5>
@@ -163,24 +253,24 @@
         <li>Added multi language support (bn, en, es, in, ja, pt). Other languages will be added in future versions</li>
         <li>Apex is now split into two separate versions (play store version and github version)</li>
         <li>Added new playing queue design</li>
-        <li>NPS have had a slight redesign</li>
+        <li>player themes have had a slight redesign</li>
         <li>LockScreen controls have had a slight redesign and better integration with biometrics unlock</li>
         <li>Various dialogs have had redesigns or improvements</li>
         <li>Sleep dialog now shows the remaining time</li>
         <li>Adaptive color now tints all text and buttons in player</li>
-        <li>Tinted queues in nps that support adaptive color and adaptive color is on</li>
+        <li>Tinted queues in player themes that support adaptive color and adaptive color is on</li>
         <li>Removed queue and square widgets</li>
         <li>Removed the snow feature</li>
         <li>Removed the ability to blur the classic and full widgets</li>
         <li>Removed the ability to change the shape of the classic and full widgets (these widgets are now circular permanently)</li>
         <li>Full widget text alignment is now permanently centered</li>
         <li>Changed app icon and shortened app name</li>
-        <li>Removed the album names from nps</li>
-        <li>Removed classic, blur card, material, swipe, circle, fit and full nps</li>
+        <li>Removed the album names from player themes</li>
+        <li>Removed classic, blur card, material, swipe, circle, fit and full player themes</li>
         <li>Added manage all files permission</li>
         <li>Status bar now applies accent color</li>
         <li>Updated default color</li>
-        <li>Changed default nps</li>
+        <li>Changed default player theme</li>
         <li>Added ability to change apex folder location (tap the file path text in backup and restore to select new path)</li>
         <li>Changed minimum sdk from 23 (Android 6.0) to 26 (Android 8.0)</li>
         <li>Accent color dialog now shows an option to reset the accent color to the default color</li>
@@ -194,24 +284,24 @@
         <li>Improved the classic widget layout</li>
         <li>Added option to hide scrollbars</li>
         <li>Hidden the playing queue dragview as default and added option to toggle dragview</li>
-        <li>Added option to set separate nps queue style for landscape and portrait (only on foldables and tablets)</li>
+        <li>Added option to set separate the player theme queue style for landscape and portrait (only on foldables and tablets)</li>
         <li>Added option to apply an animation when changing song if adaptive color is enabled</li>
-        <li>Color nps is deprecated and will be removed in the next version</li>
+        <li>Color player theme is deprecated and will be removed in the next version</li>
     </ul>
     <h3>Fixed</h3>
     <ul>
         <li>Misc bugs</li>
         <li>Misc ui fixes</li>
         <li>LRC files now work from Apex/Lyrics folder. They can also be put in the same folder as the songs</li>
-        <li>Playing queues in nps now shows the menu</li>
+        <li>Playing queues in player themes now shows the menu</li>
         <li>Translation fixes</li>
         <li>Cast issues for android 12 and below. casting may not work for android 13</li>
-        <li>NPS layouts</li>
+        <li>player themes layouts</li>
         <li>Peek player queue height issue on tablets and foldables</li>
         <li>Dismiss failsafe only works for long press dismiss method.</li>
         <li>Playlist and genre tabs no longer crashes app if playlist or genre and settings tab are selected in library categories</li>
         <li>Playlists grid and list layout</li>
-        <li>NPS light mode text color</li>
+        <li>player themes light mode text color</li>
     </ul>
     <h3>Possible Bugs</h3>
     <ul>
@@ -235,7 +325,7 @@
     </ul>
     <h3>Fixed</h3>
     <ul>
-        <li>NPS layouts</li>
+        <li>player themes layouts</li>
         <li>Minor changes</li>
         <li>App intro landscape layouts</li>
         <li>Bluetooth autoplay custom volume issue</li>
@@ -642,7 +732,7 @@
     </ul>
     <h3>Fixed</h3>
     <ul>
-        <li>Fixed classic nps landscape layout</li>
+        <li>Fixed classic player theme landscape layout</li>
         <li>Fixed Bluetooth autoplay not working on Android 12</li>
         <li>Fixed small UI tweaks</li>
     </ul>

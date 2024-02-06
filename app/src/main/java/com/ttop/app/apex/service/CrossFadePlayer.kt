@@ -14,7 +14,6 @@ import com.ttop.app.apex.service.AudioFader.Companion.createFadeAnimator
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
-import com.ttop.app.appthemehelper.util.VersionUtils.hasOreo
 import kotlinx.coroutines.*
 
 /** @author Prathamesh M */
@@ -357,11 +356,9 @@ class CrossFadePlayer(context: Context) : LocalPlayback(context) {
 internal fun crossFadeScope(): CoroutineScope = CoroutineScope(Job() + Dispatchers.Default)
 
 fun MediaPlayer.setPlaybackSpeedPitch(speed: Float, pitch: Float) {
-    if (hasOreo()) {
-        val wasPlaying = isPlaying
-        playbackParams = PlaybackParams().setSpeed(speed).setPitch(pitch)
-        if (!wasPlaying) {
-            pause()
-        }
+    val wasPlaying = isPlaying
+    playbackParams = PlaybackParams().setSpeed(speed).setPitch(pitch)
+    if (!wasPlaying) {
+        pause()
     }
 }

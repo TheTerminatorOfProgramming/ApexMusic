@@ -8,24 +8,6 @@
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="true"
-            android:key="toggle_user_name"
-            android:disableDependentsState="false"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_user_name"
-            android:title="@string/pref_title_user_name"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="toggle_home_banner"
-            android:dependency="toggle_user_name"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_home_banner"
-            android:title="@string/pref_title_home_banner"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="true"
             android:key="toggle_suggestions"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_suggestions"
@@ -41,7 +23,6 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_home_artist_grid_style"
-            app:icon="@drawable/ic_home"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
@@ -73,7 +54,6 @@
             android:layout="@layout/list_item_view"
             android:summary="@string/pref_summary_library_categories"
             android:title="@string/library_categories"
-            app:icon="@drawable/ic_library_music"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -112,6 +92,15 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_show_scrollbar"
             android:title="@string/pref_title_show_scrollbar"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="scrollbar_type"
+            android:layout="@layout/list_item_view_switch"
+            android:summary="@string/pref_summary_scrollbar_type"
+            android:title="@string/pref_title_scrollbar_type"
+            android:dependency="show_scrollbar"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory

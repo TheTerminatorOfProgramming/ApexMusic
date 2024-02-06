@@ -1,8 +1,6 @@
 package com.ttop.app.apex.helper
 
 import android.content.Context
-import android.os.Environment
-import android.widget.Toast
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
@@ -13,18 +11,14 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.Repository
 import com.ttop.app.apex.repository.SongRepository
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.File
 import java.io.InputStream
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
-import kotlin.coroutines.coroutineContext
 
 object BackupHelper : KoinComponent {
     private val repository by inject<Repository>()
@@ -291,9 +285,6 @@ object BackupHelper : KoinComponent {
         return name.substring(name.lastIndexOf(File.separator) + 1)
     }
 
-    fun getTimeStamp(): String {
-        return SimpleDateFormat("dd-MMM yyyy HHmmss", Locale.getDefault()).format(Date())
-    }
 }
 
 data class ZipItem(val filePath: String, val zipPath: String)

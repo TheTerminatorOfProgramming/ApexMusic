@@ -91,86 +91,36 @@
                 app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
         </FrameLayout>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/middle_guideline"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="293dp" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintHeight_percent="0.5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbarContainer" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:freezesText="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewSubtitle1"
-            app:layout_constraintBottom_toTopOf="@+id/artist"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
-            tools:text="@tools:sample/lorem/random" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/artist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:freezesText="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewBody2"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toTopOf="@+id/songInfo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="@tools:sample/lorem" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/songInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:freezesText="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewBody2"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toBottomOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/artist"
-            tools:text="@tools:sample/lorem/random" />
+            app:layout_constraintEnd_toEndOf="@id/middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
+            app:layout_constraintBottom_toTopOf="@id/space"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerControlFragment"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/middle_guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playerAlbumCoverFragment"
+            app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
+            app:layout_constraintBottom_toTopOf="@id/space"
             tools:layout="@layout/fragment_peek_control_player" />
 
         <androidx.legacy.widget.Space
+            android:id="@+id/space"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             app:layout_constraintTop_toBottomOf="@+id/playbackControlsFragment"/>

@@ -1,7 +1,6 @@
 package com.ttop.app.apex.views
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -73,15 +72,13 @@ class TopAppBarLayout @JvmOverloads constructor(
         set(value) {
             if (mode == AppBarMode.COLLAPSING) {
                 collapsingAppbarBinding?.collapsingToolbarLayout?.title = value
-                if (PreferenceUtil.isExtendedAccent) {
-                    if (!value.contains("Apex")) {
-                        collapsingAppbarBinding?.collapsingToolbarLayout?.setCollapsedTitleTextColor(
-                            context.accentColor()
-                        )
-                        collapsingAppbarBinding?.collapsingToolbarLayout?.setExpandedTitleColor(
-                            context.accentColor()
-                        )
-                    }
+                if (!value.contains("Apex")) {
+                    collapsingAppbarBinding?.collapsingToolbarLayout?.setCollapsedTitleTextColor(
+                        context.accentColor()
+                    )
+                    collapsingAppbarBinding?.collapsingToolbarLayout?.setExpandedTitleColor(
+                        context.accentColor()
+                    )
                 }
 
                 collapsingAppbarBinding?.collapsingToolbarLayout?.let {
@@ -93,10 +90,8 @@ class TopAppBarLayout @JvmOverloads constructor(
             } else {
                 simpleAppbarBinding?.toolbar?.title = value
 
-                if (PreferenceUtil.isExtendedAccent) {
-                    if (!value.contains("Apex")) {
-                        simpleAppbarBinding?.toolbar?.setTitleTextColor(context.accentColor())
-                    }
+                if (!value.contains("Apex")) {
+                    simpleAppbarBinding?.toolbar?.setTitleTextColor(context.accentColor())
                 }
 
                 simpleAppbarBinding?.toolbar?.let {

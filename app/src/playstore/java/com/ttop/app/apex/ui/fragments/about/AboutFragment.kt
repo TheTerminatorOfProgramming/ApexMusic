@@ -22,6 +22,7 @@ import android.net.Uri
 import android.os.*
 import android.provider.Settings
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
@@ -101,10 +102,10 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     override fun onResume() {
         super.onResume()
 
-        binding.aboutContent.cardPermissions?.storagePermission?.text = checkStoragePermission()
-        binding.aboutContent.cardPermissions?.btPermission?.text = checkBtPermission()
+        binding.aboutContent.cardPermissions.storagePermission.text = checkStoragePermission()
+        binding.aboutContent.cardPermissions.btPermission.text = checkBtPermission()
         if (VersionUtils.hasS()) {
-            binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
+            binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
         }
     }
 
@@ -119,21 +120,22 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardOther.changelog.setOnClickListener(this)
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
 
-        binding.aboutContent.cardPermissions?.storagePermission?.text = checkStoragePermission()
-        binding.aboutContent.cardPermissions?.btPermission?.text = checkBtPermission()
+        binding.aboutContent.cardPermissions.storagePermission.text = checkStoragePermission()
+        binding.aboutContent.cardPermissions.btPermission.text = checkBtPermission()
         if (VersionUtils.hasS()) {
-            binding.aboutContent.cardPermissions?.batteryPermission?.text = checkBatteryOptimization()
+            binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
         }
-        binding.aboutContent.cardPermissions?.permissionsEdit?.setOnClickListener(this)
-        binding.aboutContent.cardPermissions?.ringtonePermission?.setOnClickListener(this)
-        binding.aboutContent.cardPermissions?.intro?.setOnClickListener(this)
+        binding.aboutContent.cardPermissions.permissionsEdit.setOnClickListener(this)
+        binding.aboutContent.cardPermissions.ringtonePermission.setOnClickListener(this)
+        binding.aboutContent.cardPermissions.intro.setOnClickListener(this)
         if (!PreferenceUtil.isDevModeEnabled) {
             binding.aboutContent.cardOther.version.setOnClickListener(this)
         }
         binding.aboutContent.cardOther.devMode.setOnClickListener(this)
+
+        binding.aboutContent.cardTroubleshoot.forceClose.setOnClickListener(this)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onClick(view: View) {
         when (view.id) {
             R.id.appGithub -> openUrl(Constants.GITHUB_PROJECT)
@@ -190,7 +192,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 builder.setTitle(R.string.developer_mode)
                 builder.setMessage(R.string.dev_options_off)
 
-                builder.setPositiveButton(android.R.string.yes) { _, _ ->
+                builder.setPositiveButton(R.string.yes) { _, _ ->
                     PreferenceUtil.isDevModeEnabled = false
 
                     binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
@@ -200,9 +202,74 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     binding.aboutContent.cardOther.version.isClickable = true
                 }
 
-                builder.setNegativeButton(android.R.string.no) { _, _ ->
+                builder.setNegativeButton(R.string.no) { _, _ ->
                 }
-                builder.show()
+                val alert = builder.create()
+                alert.show()
+
+                val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+
+                when (PreferenceUtil.fontSize) {
+                    "12" -> {
+                        textViewMessage!!.textSize = 12f
+                    }
+
+                    "13" -> {
+                        textViewMessage!!.textSize = 13f
+                    }
+
+                    "14" -> {
+                        textViewMessage!!.textSize = 14f
+                    }
+
+                    "15" -> {
+                        textViewMessage!!.textSize = 15f
+                    }
+
+                    "16" -> {
+                        textViewMessage!!.textSize = 16f
+                    }
+
+                    "17" -> {
+                        textViewMessage!!.textSize = 17f
+                    }
+
+                    "18" -> {
+                        textViewMessage!!.textSize = 18f
+
+                    }
+
+                    "19" -> {
+                        textViewMessage!!.textSize = 19f
+                    }
+
+                    "20" -> {
+                        textViewMessage!!.textSize = 20f
+                    }
+
+                    "21" -> {
+                        textViewMessage!!.textSize = 21f
+                    }
+
+                    "22" -> {
+                        textViewMessage!!.textSize = 22f
+                    }
+
+                    "23" -> {
+                        textViewMessage!!.textSize = 23f
+                    }
+
+                    "24" -> {
+                        textViewMessage!!.textSize = 24f
+                    }
+                }
+            }
+            R.id.force_close -> {
+                val id = Process.myPid()
+                Process.killProcess(id)
+            }
+            R.id.telegramLink -> {
+                goToTelegramGroup()
             }
         }
     }
@@ -211,6 +278,16 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("https://theterminatorofprogramming.github.io/")
         startActivity(intent)
+    }
+
+    private fun goToTelegramGroup() {
+        try {
+            val telegramIntent = Intent(Intent.ACTION_VIEW)
+            telegramIntent.data = Uri.parse("https://t.me/ApexMusicSupport")
+            startActivity(telegramIntent)
+        } catch (e: Exception) {
+            showToast(e.message.toString())
+        }
     }
 
     private fun getAppVersion(): String {
@@ -277,13 +354,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
     private fun goToPermissions() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        val uri: Uri = Uri.fromParts("package", activity?.packageName, null)
-        intent.data = uri
-        startActivity(intent)
-    }
-
-    private fun goToAppLanguage() {
-        val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
         val uri: Uri = Uri.fromParts("package", activity?.packageName, null)
         intent.data = uri
         startActivity(intent)

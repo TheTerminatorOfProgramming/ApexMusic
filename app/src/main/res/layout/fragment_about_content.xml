@@ -18,6 +18,10 @@
         layout="@layout/card_permissions" />
 
     <include
+        android:id="@+id/card_troubleshoot"
+        layout="@layout/card_troubleshoot" />
+
+    <include
         android:id="@+id/card_other"
         layout="@layout/card_other" />
 

@@ -22,63 +22,20 @@
     android:focusable="true"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/playerQueueSheet"
-        style="@style/BottomSheetStyleQueue"
-        android:layout_width="match_parent"
-        android:layout_height="375dp"
-        app:cardCornerRadius="0dp"
-        android:gravity="bottom"
-        android:theme="@style/TopCornerCardView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:behavior_hideable="false"
-        android:backgroundTint="@color/transparent"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        tools:peekHeight="0dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="false"
-            android:orientation="vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/player_queue_sub_header"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/listPreferredItemHeightSmall"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="@string/up_next"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="?android:attr/textColorSecondary" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="@integer/overScrollMode"
-                tools:listitem="@layout/item_list" />
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/playerContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/playerQueueSheet"
+        app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical">
+
         <FrameLayout
             android:id="@+id/toolbarContainer"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -91,82 +48,63 @@
                 app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
         </FrameLayout>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="1dp"
+            android:orientation="vertical"
+            android:id="@+id/middle_guideline"
+            app:layout_constraintGuide_percent="0.5"
+            android:layout_height="match_parent"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/playerQueueSheet"
+            style="@style/BottomSheetStyleQueue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/middle_guideline"
+            app:shapeAppearanceOverlay="@style/TabQueueTopCornerCardView"
+            app:behavior_hideable="false"
+            android:backgroundTint="@color/transparent"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            tools:peekHeight="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="@integer/overScrollMode"
+                    tools:listitem="@layout/item_queue_player" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintStart_toEndOf="@id/middle_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbarContainer" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:freezesText="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewSubtitle1"
-            app:layout_constraintBottom_toTopOf="@+id/artist"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
-            tools:text="@tools:sample/lorem/random" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/artist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:freezesText="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewBody2"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toTopOf="@+id/songInfo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="@tools:sample/lorem" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/songInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:freezesText="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewBody2"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toBottomOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/playerAlbumCoverFragment"
-            app:layout_constraintTop_toBottomOf="@+id/artist"
-            tools:text="@tools:sample/lorem/random" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerControlFragment"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/middle_guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/playerAlbumCoverFragment"
             tools:layout="@layout/fragment_peek_control_player" />
 

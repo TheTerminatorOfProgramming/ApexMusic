@@ -8,7 +8,6 @@ import android.os.Environment
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.content.res.use
-import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,7 +24,6 @@ import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
-import com.ttop.app.apex.util.ApexUtil.getCatchyUsername
 import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.TopAppBarLayout
 import com.ttop.app.appthemehelper.ThemeStore
@@ -114,15 +112,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(LOCALE_AUTO_STORE_ENABLED, value)
-        }
-
-    var Fragment.userName
-        get() = sharedPreferences.getString(
-            USER_NAME,
-            requireContext().getCatchyUsername()
-        )
-        set(value) = sharedPreferences.edit {
-            putString(USER_NAME, value)
         }
 
     var safSdCardUri
@@ -243,10 +232,6 @@ object PreferenceUtil {
             TOGGLE_ADD_CONTROLS, false
         )
 
-    val isHomeBanner
-        get() = sharedPreferences.getBoolean(
-            TOGGLE_HOME_BANNER, false
-        )
     var isClassicNotification
         get() = sharedPreferences.getBoolean(CLASSIC_NOTIFICATION, false)
         set(value) = sharedPreferences.edit { putBoolean(CLASSIC_NOTIFICATION, value) }
@@ -268,11 +253,6 @@ object PreferenceUtil {
     val isHeadsetPlugged
         get() = sharedPreferences.getBoolean(
             TOGGLE_HEADSET, false
-        )
-
-    val isAlbumArtOnLockScreen
-        get() = sharedPreferences.getBoolean(
-            ALBUM_ART_ON_LOCK_SCREEN, false
         )
 
     var isBluetoothSpeaker
@@ -349,14 +329,10 @@ object PreferenceUtil {
             "always" -> true
             "only_wifi" -> {
                 val connectivityManager = context.getSystemService<ConnectivityManager>()
-                if (VersionUtils.hasOreo()) {
-                    val network = connectivityManager?.activeNetwork
-                    val capabilities = connectivityManager?.getNetworkCapabilities(network)
-                    capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                } else {
-                    val netInfo = connectivityManager?.activeNetworkInfo
-                    netInfo != null && netInfo.type == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting
-                }
+                val network = connectivityManager?.activeNetwork
+                val capabilities = connectivityManager?.getNetworkCapabilities(network)
+
+                capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
             }
             "never" -> false
             else -> false
@@ -652,13 +628,13 @@ object PreferenceUtil {
 
     var nowPlayingScreen: NowPlayingScreen
         get() {
-            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 18)
+            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 3)
             for (nowPlayingScreen in NowPlayingScreen.values()) {
                 if (nowPlayingScreen.id == id) {
                     return nowPlayingScreen
                 }
             }
-            return NowPlayingScreen.Normal
+            return NowPlayingScreen.Classic
         }
         set(value) = sharedPreferences.edit {
             putInt(NOW_PLAYING_SCREEN_ID, value.id)
@@ -762,14 +738,12 @@ object PreferenceUtil {
         get() = sharedPreferences
             .getInt(CROSS_FADE_DURATION, 0)
 
-    val isCrossfadeEnabled get() = crossFadeDuration > 0
-
     var materialYou
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, VersionUtils.hasS())
         set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
     val isCustomFont
-        get() = sharedPreferences.getString(CUSTOM_FONT, "apex")
+        get() = sharedPreferences.getString(CUSTOM_FONT, "default")
 
     val lyricsType: CoverLyricsType
         get() = if (sharedPreferences.getString(LYRICS_TYPE, "0") == "0") {
@@ -835,11 +809,6 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(SHOULD_RECREATE_TABS, value)}
 
-    val isUserName
-        get() = sharedPreferences.getBoolean(
-            TOGGLE_USER_NAME, false
-        )
-
     val specificDevice
         get() = sharedPreferences.getBoolean(SPECIFIC_DEVICE, false)
 
@@ -887,30 +856,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(PROGRESS_BAR_ALIGNMENT, value)}
-
-    var isBluetoothVolume
-        get() = sharedPreferences.getBoolean(
-            BT_VOLUME, false
-        )
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(BT_VOLUME, value)}
-
-    var bluetoothVolumeLevel
-        get() = sharedPreferences.getInt(
-            BT_CUSTOM_VOLUME, 5
-        )
-
-        set(value) = sharedPreferences.edit {
-            putInt(BT_CUSTOM_VOLUME, value)}
-
-    var isSamsungSoundPluginInstalled
-        get() = sharedPreferences.getBoolean(
-            SAMSUNG_SOUND_PLUGIN, false
-        )
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(SAMSUNG_SOUND_PLUGIN, value)}
 
 
     var isSwipe
@@ -960,9 +905,6 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(DEV_MODE, value)}
-
-    val isExtendedAccent
-        get() = sharedPreferences.getBoolean(EXTENDED_ACCENT, false)
 
     val isLegacyWidgets
         get() = sharedPreferences.getBoolean(RESTORE_LEGACY_WIDGETS, false)
@@ -1036,22 +978,6 @@ object PreferenceUtil {
     val isDisableWidgets
         get() = sharedPreferences.getBoolean(DISABLE_WIDGETS, false)
 
-    var isHeadsetVolume
-        get() = sharedPreferences.getBoolean(
-            HEADSET_VOLUME, false
-        )
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(HEADSET_VOLUME, value)}
-
-    var volumeLevel
-        get() = sharedPreferences.getInt(
-            CUSTOM_VOLUME, 5
-        )
-
-        set(value) = sharedPreferences.edit {
-            putInt(CUSTOM_VOLUME, value)}
-
     var isInternetConnected
         get() = sharedPreferences.getBoolean(
             INTERNET_CONNECTED, true
@@ -1076,31 +1002,12 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putInt(WIDGET_CUSTOM_COLOR, value)}
 
-    val isProgressBar
-        get() = sharedPreferences.getBoolean(SHOW_WIDGET_PROGRESSBAR, true)
-
-    val progressColor
-        get() = sharedPreferences.getString(PROGRESSBAR_COLOR, "teal")
-
     var isTimerCancelled
         get() = sharedPreferences.getBoolean(
             "TIMER_CANCELLED", true)
 
         set(value) = sharedPreferences.edit {
             putBoolean("TIMER_CANCELLED", value)}
-
-    var launcherIcon
-        get() = sharedPreferences.getString(
-            LAUNCHER_ICON, "v3"
-        )
-
-        set(value) = sharedPreferences.edit {
-            putString(LAUNCHER_ICON, value)}
-
-    val isLauncherTitleShort
-        get() = sharedPreferences.getBoolean(
-            LAUNCHER_TITLE, true
-        )
 
     var queueStyle
         get() = sharedPreferences.getString(
@@ -1135,9 +1042,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             DISABLE_UPDATE, false
         )
-
-    val isCustomFontBold
-        get() = sharedPreferences.getBoolean(CUSTOM_FONT_BOLD, false)
 
     val isShowScrollbar
         get() = sharedPreferences.getBoolean(
@@ -1192,6 +1096,31 @@ object PreferenceUtil {
     val isStockEqualizer
         get() = sharedPreferences.getBoolean(
             EQUALIZER_STOCK, false
+        )
+
+    val fontSize
+        get() = sharedPreferences.getString(
+            FONT_SIZE, "16"
+        )
+
+    val fontSizeLyrics
+        get() = sharedPreferences.getString(
+            FONT_SIZE_LYRICS, "16"
+        )
+
+    val keepShuffleState
+        get() = sharedPreferences.getBoolean(
+            SHUFFLE_STATE, false
+        )
+
+    val scrollbarType
+        get() = sharedPreferences.getBoolean(
+            SCROLLBAR_TYPE, false
+        )
+
+    val expandPanelType
+        get() = sharedPreferences.getBoolean(
+            EXPAND_PANEL_TYPE, false
         )
 }
 

@@ -2,7 +2,6 @@ package com.ttop.app.apex.ui.activities
 
 import android.Manifest
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -22,7 +21,6 @@ import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appintro.AppIntro2
 import com.ttop.app.appintro.AppIntroPageTransformerType
-import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 

@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,6 +75,7 @@ class ContributorAdapter(
         return contributors.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun swapData(it: List<Contributor>) {
         contributors = it
         notifyDataSetChanged()

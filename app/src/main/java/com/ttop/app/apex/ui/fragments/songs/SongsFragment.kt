@@ -15,13 +15,16 @@
 package com.ttop.app.apex.ui.fragments.songs
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.SubMenu
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.SongAdapter
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.SortOrder.SongSortOrder
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.ReloadType
@@ -40,6 +43,14 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
                 adapter?.swapDataSet(it)
             else
                 adapter?.swapDataSet(listOf())
+        }
+
+        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+            if (ApexUtil.isTablet) {
+                setAndSaveGridSize(2)
+            }else {
+                setAndSaveGridSize(1)
+            }
         }
     }
 
@@ -118,6 +129,11 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
+
+        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+            gridSizeItem.isVisible = false
+        }
+
         setUpGridSizeMenu(gridSizeItem.subMenu!!)
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu!!)

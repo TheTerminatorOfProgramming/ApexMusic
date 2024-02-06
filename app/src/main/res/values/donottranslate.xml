@@ -32,6 +32,9 @@
     <string name="font_hiatus_name">Hiatus</string>
     <string name="font_caviar_name">Caviar Dreams</string>
     <string name="font_neue_name">Neue Bureau</string>
+    <string name="font_dancing_name">Dancing Script</string>
+    <string name="font_teko_name">Teko</string>
+    <string name="font_sixty_name">Sixty Four</string>
 
     <string name="app_widget_big_name">Big</string>
     <string name="app_widget_classic_name">Classic</string>

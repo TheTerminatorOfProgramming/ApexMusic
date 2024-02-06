@@ -14,12 +14,8 @@
  */
 package com.ttop.app.apex.ui.fragments.queue
 
-import android.R
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -119,7 +115,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
             }
         })
 
-        if (PreferenceUtil.isShowScrollbar) {
+        if (PreferenceUtil.isShowScrollbar && PreferenceUtil.scrollbarType) {
             ThemedFastScroller.create(binding.recyclerView)
         }
     }
@@ -192,14 +188,6 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
     }
 
     private fun setupToolbar() {
-        binding.appBarLayout.toolbar.setOnClickListener {
-            if (playingQueueAdapter?.getButtonsActivate() == true) {
-                playingQueueAdapter?.setButtonsActivate(false)
-            }else {
-                playingQueueAdapter?.setButtonsActivate(true)
-            }
-        }
-
         binding.appBarLayout.toolbar.subtitle = getUpNextAndQueueTime()
         binding.appBarLayout.toolbar.isTitleCentered = false
         binding.clearQueue.backgroundTintList = ColorStateList.valueOf(accentColor())

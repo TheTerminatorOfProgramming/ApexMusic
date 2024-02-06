@@ -20,6 +20,7 @@ import androidx.transition.TransitionManager
 import com.google.android.material.transition.MaterialFade
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 
 abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
@@ -43,25 +44,49 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     fun itemLayoutRes(): Int {
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
-        } else R.layout.item_list
+        } else {
+            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+                R.layout.item_list_index
+            }else {
+                R.layout.item_list
+            }
+        }
     }
 
     fun itemLayoutResArtist(): Int {
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
-        } else R.layout.item_list_artist
+        } else {
+            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+                R.layout.item_list_artist_index
+            }else {
+                R.layout.item_list_artist
+            }
+        }
     }
 
     fun itemLayoutResAlbum(): Int {
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
-        } else R.layout.item_list_album
+        } else {
+            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+                R.layout.item_list_album_index
+            }else {
+                R.layout.item_list_album
+            }
+        }
     }
 
     fun itemLayoutResPlaylist(): Int {
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
-        } else R.layout.item_list_playlist
+        } else {
+            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+                R.layout.item_list_playlist_index
+            }else {
+                R.layout.item_list_playlist
+            }
+        }
     }
 
     fun setAndSaveLayoutRes(layoutRes: Int) {
@@ -115,6 +140,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     fun setAndSaveGridSize(gridSize: Int) {
         val oldLayoutRes = itemLayoutRes()
         this.gridSize = gridSize
+
         if (ApexUtil.isTablet) {
             if (isLandscape) {
                 saveGridSizeTabletLand(gridSize)
@@ -130,12 +156,13 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         }
         recyclerView.isVisible = false
         invalidateLayoutManager()
-        // only recreate the adapter and layout manager if the layout currentLayoutRes has changed
+        // only recreate the adapter and layout manager if the layout currentLayoutRes has changed+
         if (oldLayoutRes != itemLayoutRes()) {
             invalidateAdapter()
         } else {
             setGridSize(gridSize)
         }
+
         val transition = MaterialFade().apply {
             addTarget(recyclerView)
         }

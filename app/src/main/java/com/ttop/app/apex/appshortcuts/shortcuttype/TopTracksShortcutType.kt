@@ -14,15 +14,12 @@
  */
 package com.ttop.app.apex.appshortcuts.shortcuttype
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.pm.ShortcutInfo
-import android.os.Build
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appshortcuts.AppShortcutIconGenerator
 import com.ttop.app.apex.appshortcuts.AppShortcutLauncherActivity
 
-@TargetApi(Build.VERSION_CODES.N_MR1)
 class TopTracksShortcutType(context: Context) : BaseShortcutType(context) {
 
     override val shortcutInfo: ShortcutInfo

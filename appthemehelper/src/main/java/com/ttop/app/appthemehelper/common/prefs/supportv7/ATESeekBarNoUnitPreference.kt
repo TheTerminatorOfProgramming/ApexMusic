@@ -3,7 +3,6 @@ package com.ttop.app.appthemehelper.common.prefs.supportv7
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.SeekBar
-import android.widget.TextView
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.preference.PreferenceViewHolder

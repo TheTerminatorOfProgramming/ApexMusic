@@ -17,7 +17,11 @@ import android.content.Context
 import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.os.Environment
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.PopupMenu
@@ -53,13 +57,15 @@ import com.ttop.app.apex.interfaces.IMainActivityFragmentCallbacks
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener
 import com.ttop.app.apex.misc.WrappedAsyncTaskLoader
-import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.*
+import com.ttop.app.apex.util.FileUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
 import com.ttop.app.apex.util.ThemedFastScroller.create
+import com.ttop.app.apex.util.getExternalStorageDirectory
+import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import com.ttop.app.apex.views.BreadCrumbLayout
 import com.ttop.app.apex.views.BreadCrumbLayout.Crumb
 import com.ttop.app.apex.views.BreadCrumbLayout.SelectionCallback
@@ -73,7 +79,8 @@ import java.io.File
 import java.io.FileFilter
 import java.io.IOException
 import java.lang.ref.WeakReference
-import java.util.*
+import java.util.Collections
+import java.util.LinkedList
 
 class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     IMainActivityFragmentCallbacks, SelectionCallback, ICallbacks,
@@ -483,7 +490,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     private fun setUpRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        if (PreferenceUtil.isShowScrollbar) {
+        if (PreferenceUtil.isShowScrollbar && PreferenceUtil.scrollbarType) {
             create(
                 binding.recyclerView
             )

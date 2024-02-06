@@ -41,24 +41,6 @@ class BlurTransformation private constructor(builder: Builder) : BitmapTransform
             return this
         }
 
-        /**
-         * @param sampling The inSampleSize to use. Must be a power of 2, or 1 for no down sampling or 0 for auto detect sampling. Default is 0.
-         * @return the same Builder
-         */
-        fun sampling(sampling: Int): Builder {
-            this.sampling = sampling
-            return this
-        }
-
-        /**
-         * @param bitmapPool The BitmapPool to use.
-         * @return the same Builder
-         */
-        fun bitmapPool(bitmapPool: BitmapPool?): Builder {
-            this.bitmapPool = bitmapPool
-            return this
-        }
-
         fun build(): BlurTransformation {
             return if (bitmapPool != null) {
                 BlurTransformation(this)

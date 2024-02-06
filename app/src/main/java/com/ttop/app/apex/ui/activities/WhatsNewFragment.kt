@@ -14,7 +14,6 @@ import android.webkit.WebViewClient
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.databinding.FragmentWhatsNewBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.util.PreferenceUtil.lastVersion
@@ -23,7 +22,7 @@ import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight
 import com.ttop.app.appthemehelper.util.ColorUtil.lightenColor
 import com.ttop.app.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Locale
 
 class WhatsNewFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentWhatsNewBinding? = null

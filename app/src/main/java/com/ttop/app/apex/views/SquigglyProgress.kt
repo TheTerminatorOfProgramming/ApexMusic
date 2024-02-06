@@ -33,8 +33,6 @@ import kotlin.math.abs
 import kotlin.math.cos
 
 
-private const val TAG = "Squiggly"
-
 private const val TWO_PI = (Math.PI * 2f).toFloat()
 @VisibleForTesting internal const val DISABLED_ALPHA = 77
 

@@ -25,7 +25,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,7 +52,6 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
-import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -61,7 +59,9 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
@@ -91,13 +91,16 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
         binding.playbackControlsFragment.drawAboveSystemBars()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun setUpSubFragments() {
         playbackControlsFragment =
             whichFragment(R.id.playbackControlsFragment) as AdaptivePlaybackControlsFragment
         val playerAlbumCoverFragment =
             whichFragment(R.id.playerAlbumCoverFragment) as PlayerAlbumCoverFragment
         playerAlbumCoverFragment.apply {
-            removeSlideEffect()
+            GlobalScope.launch {
+                removeSlideEffect()
+            }
             setCallbacks(this@AdaptiveFragment)
         }
     }
@@ -113,6 +116,74 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             setTitleTextColor(textColorPrimary())
             setSubtitleTextColor(textColorSecondary())
             setOnMenuItemClickListener(this@AdaptiveFragment)
+
+            when (PreferenceUtil.fontSize) {
+                "12" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize12)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize12)
+                }
+
+                "13" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize13)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize13)
+                }
+
+                "14" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize14)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize14)
+                }
+
+                "15" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize15)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize15)
+                }
+
+                "16" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize16)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize16)
+                }
+
+                "17" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize17)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize17)
+                }
+
+                "18" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize18)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize18)
+                }
+
+                "19" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize19)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize19)
+                }
+
+                "20" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize20)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize20)
+                }
+
+                "21" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize21)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize21)
+                }
+
+                "22" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize22)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize22)
+                }
+
+                "23" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize23)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize23)
+                }
+
+                "24" -> {
+                    setTitleTextAppearance(requireContext(), R.style.FontSize24)
+                    setSubtitleTextAppearance(requireContext(), R.style.FontSize24)
+                }
+            }
+
         }
     }
 
@@ -153,11 +224,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             }
             R.id.action_reorder -> {
                 if (binding.playerQueueSheet.visibility == View.VISIBLE) {
-                    if (playingQueueAdapter?.getButtonsActivate() == true) {
-                        playingQueueAdapter?.setButtonsActivate(false)
-                    }else {
-                        playingQueueAdapter?.setButtonsActivate(true)
-                    }
+                    playingQueueAdapter?.setButtonsActivate()
                 }
                 return true
             }

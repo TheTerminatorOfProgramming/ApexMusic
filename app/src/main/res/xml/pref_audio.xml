@@ -42,7 +42,6 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_keep_pause_on_zero_volume_summary"
         android:title="@string/pref_keep_pause_on_zero_volume_title"
-        app:icon="@drawable/ic_pause"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
@@ -62,57 +61,27 @@
             android:key="equalizer"
             android:layout="@layout/list_item_view_no_title"
             android:title="@string/equalizer"
-            app:icon="@drawable/ic_equalizer"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_headset"
+        android:title="@string/pref_header_autoplay"
         app:allowDividerBelow="false">
-
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="toggle_headset"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_toggle_headset"
             android:title="@string/pref_title_toggle_headset"
-            app:icon="@drawable/ic_play_arrow"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="headset_volume"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_headset_volume"
-            android:title="@string/pref_title_headset_volume"
-            android:dependency="toggle_headset"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarNoUnitPreference
-            android:defaultValue="5"
-            android:key="custom_volume"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="20"
-            app:ateKey_pref_unit=""
-            android:title="@string/pref_title_headset_level"
-            app:showSeekBarValue="true"
-            android:dependency="headset_volume"
-            app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
-        android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_bluetooth"
-        android:key="bluetooth_section"
-        app:allowDividerBelow="false">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="bluetooth_playback"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_bluetooth_playback"
             android:title="@string/pref_title_bluetooth_playback"
-            app:icon="@drawable/ic_bluetooth"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -131,26 +100,6 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_bluetooth_device"
             android:dependency="specific_device"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="bt_volume"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_bluetooth_volume"
-            android:title="@string/pref_title_bluetooth_volume"
-            android:dependency="bluetooth_playback"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarNoUnitPreference
-            android:defaultValue="5"
-            android:key="bt_custom_volume"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="15"
-            app:ateKey_pref_unit=""
-            android:title="@string/pref_title_bluetooth_level"
-            app:showSeekBarValue="true"
-            android:dependency="bt_volume"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

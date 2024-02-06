@@ -21,7 +21,4 @@ object ATH {
         TintHelper.setTintAuto(view, color, false)
     }
 
-    fun setBackgroundTint(view: View, @ColorInt color: Int) {
-        TintHelper.setTintAuto(view, color, true)
-    }
 }

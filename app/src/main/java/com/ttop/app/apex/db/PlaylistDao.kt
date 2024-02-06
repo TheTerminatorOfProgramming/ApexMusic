@@ -55,13 +55,7 @@ interface PlaylistDao {
     fun songsFromPlaylist(playlistId: Long): LiveData<List<SongEntity>>
 
     @Delete
-    suspend fun deletePlaylist(playlistEntity: PlaylistEntity)
-
-    @Delete
     suspend fun deletePlaylists(playlistEntities: List<PlaylistEntity>)
-
-    @Delete
-    suspend fun deletePlaylistSongs(songs: List<SongEntity>)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM SongEntity ,(SELECT playlist_id FROM PlaylistEntity WHERE playlist_name= :playlistName LIMIT 1) AS playlist WHERE playlist_creator_id= playlist.playlist_id")

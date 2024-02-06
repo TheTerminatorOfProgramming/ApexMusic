@@ -80,5 +80,18 @@
             app:listItemSummary="@string/website_summary"
             app:listItemTitle="@string/website" />
 
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/telegramLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/websiteLink"
+            app:listItemIcon="@drawable/ic_telegram_white"
+            app:listItemSummary="@string/telegram_group_summary"
+            app:listItemTitle="@string/telegram_group" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -15,8 +15,12 @@
 package com.ttop.app.apex.ui.fragments.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
+import android.view.View
+import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.bundleOf
 import androidx.core.text.parseAsHtml
@@ -27,17 +31,24 @@ import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.shape.MaterialShapeDrawable
+import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
-import com.ttop.app.apex.*
+import com.ttop.app.apex.EXTRA_PLAYLIST_TYPE
+import com.ttop.app.apex.HISTORY_PLAYLIST
+import com.ttop.app.apex.LAST_ADDED_PLAYLIST
+import com.ttop.app.apex.R
+import com.ttop.app.apex.TOP_PLAYED_PLAYLIST
 import com.ttop.app.apex.adapter.HomeAdapter
 import com.ttop.app.apex.databinding.FragmentHomeBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.dip
+import com.ttop.app.apex.extensions.elevatedAccentColor
+import com.ttop.app.apex.extensions.getDrawableCompat
+import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.profileBannerOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.userProfileOptions
@@ -47,13 +58,11 @@ import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.ui.utils.GithubUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.PreferenceUtil.userName
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
@@ -71,7 +80,6 @@ class HomeFragment :
         mainActivity.setSupportActionBar(binding.toolbar)
         mainActivity.supportActionBar?.title = null
         setupListeners()
-        binding.titleWelcome.text = String.format("%s", userName)
 
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
@@ -90,7 +98,6 @@ class HomeFragment :
             homeAdapter.swapData(it)
         }
 
-        loadProfile()
         setupTitle()
         colorButtons()
         postponeEnterTransition()
@@ -103,7 +110,7 @@ class HomeFragment :
             if (!GithubUtils.checkFilesPermission(
                     requireContext()
                 )) {
-                GithubUtils.enableManageAllFiles(requireContext(), requireActivity())
+                GithubUtils.enableAllFiles(requireContext(), requireActivity())
             }
         }
     }
@@ -120,14 +127,6 @@ class HomeFragment :
     }
 
     private fun setupListeners() {
-        binding.bannerImage?.setOnClickListener {
-            findNavController().navigate(
-                R.id.user_info_fragment, null, null, FragmentNavigatorExtras(
-                    binding.userImage to "user_image"
-                )
-            )
-            reenterTransition = null
-        }
 
         binding.lastAdded.setOnClickListener {
             findNavController().navigate(
@@ -157,13 +156,6 @@ class HomeFragment :
             setSharedAxisYTransitions()
         }
 
-        binding.userImage.setOnClickListener {
-            findNavController().navigate(
-                R.id.user_info_fragment, null, null, FragmentNavigatorExtras(
-                    binding.userImage to "user_image"
-                )
-            )
-        }
         // Reload suggestions
         binding.suggestions.refreshButton.setOnClickListener {
             libraryViewModel.forceReload(
@@ -186,19 +178,6 @@ class HomeFragment :
         val appName = "Apex <font color=$hexColor>Music</font>".parseAsHtml()
         binding.appBarLayout.title = appName
 
-    }
-
-    private fun loadProfile() {
-        binding.bannerImage?.let {
-            Glide.with(requireContext())
-                .load(ApexGlideExtension.getBannerModel())
-                .profileBannerOptions(ApexGlideExtension.getBannerModel())
-                .into(it)
-        }
-        Glide.with(requireActivity())
-            .load(ApexGlideExtension.getUserModel())
-            .userProfileOptions(ApexGlideExtension.getUserModel(), requireContext())
-            .into(binding.userImage)
     }
 
     fun colorButtons() {

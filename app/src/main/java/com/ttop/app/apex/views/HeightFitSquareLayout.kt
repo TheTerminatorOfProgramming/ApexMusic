@@ -24,11 +24,6 @@ class HeightFitSquareLayout  @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr){
     private var forceSquare = true
 
-    fun setForceSquare(forceSquare: Boolean) {
-        this.forceSquare = forceSquare
-        requestLayout()
-    }
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var i = widthMeasureSpec
         if (forceSquare) {

@@ -29,6 +29,7 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.SongRepository
 import com.ttop.app.apex.service.CastPlayer
 import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.getExternalStorageDirectory
 import com.ttop.app.apex.util.logE
 import org.koin.core.component.KoinComponent
@@ -107,9 +108,6 @@ object MusicPlayerRemote : KoinComponent {
             musicService!!.audioSessionId
         } else -1
 
-    val isServiceConnected: Boolean
-        get() = musicService != null
-
     fun bindToService(context: Context, callback: ServiceConnection): ServiceToken? {
 
         val realActivity = (context as Activity).parent ?: context
@@ -165,10 +163,6 @@ object MusicPlayerRemote : KoinComponent {
         return null
     }
 
-    fun getQueueDurationSongs(): Int {
-        return musicService?.playingQueue?.size ?: -1
-    }
-
     fun playSongAt(position: Int) {
         musicService?.playSongAt(position)
     }
@@ -199,17 +193,6 @@ object MusicPlayerRemote : KoinComponent {
         musicService?.playPreviousSongAuto(true, isPlaying)
     }
 
-    fun updatePlaybackControls(){
-        musicService?.updatePlaybackControls()
-    }
-
-    /**
-     * Async
-     */
-    fun back() {
-        musicService?.back(true)
-    }
-
     fun resumePlaying() {
         musicService?.play()
     }
@@ -226,6 +209,10 @@ object MusicPlayerRemote : KoinComponent {
             ) && musicService != null
         ) {
             musicService?.openQueue(queue, startPosition, startPlaying)
+
+            if (!PreferenceUtil.keepShuffleState) {
+                setShuffleMode(MusicService.SHUFFLE_MODE_NONE)
+            }
         }
     }
 
@@ -242,7 +229,7 @@ object MusicPlayerRemote : KoinComponent {
                 startPlaying
             ) && musicService != null
         ) {
-            openQueue(queue, startPosition, startPlaying)
+            musicService?.openQueue(queue, startPosition, startPlaying)
             setShuffleMode(MusicService.SHUFFLE_MODE_SHUFFLE)
         }
     }

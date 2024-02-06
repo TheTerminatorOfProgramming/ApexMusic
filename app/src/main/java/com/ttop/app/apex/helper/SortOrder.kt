@@ -32,11 +32,6 @@ class SortOrder {
             /* Artist sort order Z-A */
             const val ARTIST_Z_A = "$ARTIST_A_Z DESC"
 
-            /* Artist sort order number of songs */
-            const val ARTIST_NUMBER_OF_SONGS = MediaStore.Audio.Artists.NUMBER_OF_TRACKS + " DESC"
-
-            /* Artist sort order number of albums */
-            const val ARTIST_NUMBER_OF_ALBUMS = MediaStore.Audio.Artists.NUMBER_OF_ALBUMS + " DESC"
         }
     }
 
@@ -150,8 +145,6 @@ class SortOrder {
             /* Artist song sort order duration */
             const val SONG_DURATION = MediaStore.Audio.Media.DURATION + " DESC"
 
-            /* Artist song sort order date */
-            const val SONG_DATE = MediaStore.Audio.Media.DATE_ADDED + " DESC"
         }
     }
 
@@ -165,14 +158,6 @@ class SortOrder {
             /* Artist album sort order A-Z */
             const val ALBUM_A_Z = MediaStore.Audio.Albums.DEFAULT_SORT_ORDER
 
-            /* Artist album sort order Z-A */
-            const val ALBUM_Z_A = "$ALBUM_A_Z DESC"
-
-            /* Artist album sort order year */
-            const val ALBUM_YEAR = MediaStore.Audio.Media.YEAR + " DESC"
-
-            /* Artist album sort order year */
-            const val ALBUM_YEAR_ASC = MediaStore.Audio.Media.YEAR + " ASC"
         }
     }
 
@@ -186,8 +171,6 @@ class SortOrder {
             /* Genre sort order A-Z */
             const val GENRE_A_Z = MediaStore.Audio.Genres.DEFAULT_SORT_ORDER
 
-            /* Genre sort order Z-A */
-            const val ALBUM_Z_A = "$GENRE_A_Z DESC"
         }
     }
 

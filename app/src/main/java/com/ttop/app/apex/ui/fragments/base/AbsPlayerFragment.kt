@@ -56,7 +56,6 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -280,7 +279,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Main) {
-                val icon = if (animate && VersionUtils.hasOreo()) {
+                val icon = if (animate) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
@@ -320,8 +319,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         playerAlbumCoverFragment = whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment?.setCallbacks(this)
 
-        if (VersionUtils.hasOreo())
-            view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
+        view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -360,18 +358,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     showLyricsIcon(this)
                 }
             }
-            NowPlayingScreen.Flat -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
             NowPlayingScreen.Gradient -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
@@ -381,19 +367,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     showLyricsIcon(this)
                 }
             }
-            NowPlayingScreen.MD3 -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
-            NowPlayingScreen.Normal -> {
+            NowPlayingScreen.Classic -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 if (ApexUtil.isTablet) {
                     playerToolbar()?.menu?.removeItem(R.id.action_queue)
@@ -415,31 +389,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
-            NowPlayingScreen.Plain -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
-            NowPlayingScreen.Simple -> {
-                playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
-                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
-                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
-            }
-            NowPlayingScreen.Tiny -> {
+            NowPlayingScreen.Minimal -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
             }
@@ -549,25 +499,6 @@ fun goToArtist(activity: Activity) {
         findNavController(R.id.fragment_container).navigate(
             R.id.artistDetailsFragment,
             bundleOf(EXTRA_ARTIST_ID to song.artistId)
-        )
-    }
-}
-
-fun goToAlbum(activity: Activity) {
-    if (activity !is MainActivity) return
-    val song = MusicPlayerRemote.currentSong
-    activity.apply {
-        currentFragment(R.id.fragment_container)?.exitTransition = null
-
-        //Hide Bottom Bar First, else Bottom Sheet doesn't collapse fully
-        setBottomNavVisibility(false)
-        if (getBottomSheetBehavior().state == BottomSheetBehavior.STATE_EXPANDED) {
-            collapsePanel()
-        }
-
-        findNavController(R.id.fragment_container).navigate(
-            R.id.albumDetailsFragment,
-            bundleOf(EXTRA_ALBUM_ID to song.albumId)
         )
     }
 }

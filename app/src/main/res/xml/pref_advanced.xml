@@ -7,13 +7,11 @@
         android:layout="@layout/list_item_view"
         android:summary="@string/pref_summary_blacklist"
         android:title="@string/pref_header_blacklist"
-        app:icon="@drawable/ic_music_note_off"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="true"
         android:key="whitelist_music"
-        android:icon="@drawable/ic_filter_list"
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_whitelist"
         android:title="@string/pref_title_whitelist"
@@ -30,7 +28,6 @@
         android:layout="@layout/list_item_view_switch"
         android:summary="@string/pref_summary_use_notification_actions_for_auto"
         android:title="@string/pref_title_use_notification_actions_for_auto"
-        app:icon="@drawable/ic_car"
         android:disableDependentsState="true"
         app:allowDividerBelow="false"/>
 
@@ -71,7 +68,6 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_search_action"
             android:title="@string/pref_title_search_action"
-            app:icon="@drawable/ic_shuffle"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -80,7 +76,6 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_search_icon"
             android:title="@string/pref_title_search_icon"
-            app:icon="@drawable/ic_search"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
@@ -97,7 +92,6 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_last_added_interval"
-            app:icon="@drawable/ic_playlist_add"
             app:allowDividerBelow="false"/>
 
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
@@ -112,7 +106,6 @@
             android:max="60"
             android:summary="@string/pref_filter_song_summary"
             android:title="@string/pref_filter_song_title"
-            app:icon="@drawable/ic_filter_song"
             app:showSeekBarValue="true"
             app:allowDividerBelow="false"/>
 
@@ -122,13 +115,11 @@
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_keep_screen_on_summary"
             android:title="@string/pref_keep_screen_on_title"
-            app:icon="@drawable/ic_settings_brigntness"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="auto_rotate"
-            android:icon="@drawable/ic_screen_rotation"
             android:layout="@layout/list_item_view_switch"
             android:summary="@string/pref_summary_auto_rotate"
             android:title="@string/pref_title_auto_rotate"

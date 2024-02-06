@@ -26,6 +26,7 @@ import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
@@ -54,8 +55,6 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private var _binding: FragmentMiniPlayerBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressViewUpdateHelper: MusicProgressViewUpdateHelper
-
-    private var titleColor: Int = 0
 
     val mainActivity: MainActivity
         get() = activity as MainActivity
@@ -106,10 +105,6 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         view.setOnTouchListener(FlingPlayBackController(requireContext(), view, mainActivity))
         setUpMiniPlayer()
         setUpButtons()
-    }
-
-    fun setTitleTextColor(color: Int) {
-        titleColor = color
     }
 
     fun setUpButtons() {
@@ -307,10 +302,67 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
                             alertDialog.withCenteredButtons()
 
+                            val textViewMessage = alertDialog.findViewById(android.R.id.message) as TextView?
+
+                            when (PreferenceUtil.fontSize) {
+                                "12" -> {
+                                    textViewMessage!!.textSize = 12f
+                                }
+
+                                "13" -> {
+                                    textViewMessage!!.textSize = 13f
+                                }
+
+                                "14" -> {
+                                    textViewMessage!!.textSize = 14f
+                                }
+
+                                "15" -> {
+                                    textViewMessage!!.textSize = 15f
+                                }
+
+                                "16" -> {
+                                    textViewMessage!!.textSize = 16f
+                                }
+
+                                "17" -> {
+                                    textViewMessage!!.textSize = 17f
+                                }
+
+                                "18" -> {
+                                    textViewMessage!!.textSize = 18f
+
+                                }
+
+                                "19" -> {
+                                    textViewMessage!!.textSize = 19f
+                                }
+
+                                "20" -> {
+                                    textViewMessage!!.textSize = 20f
+                                }
+
+                                "21" -> {
+                                    textViewMessage!!.textSize = 21f
+                                }
+
+                                "22" -> {
+                                    textViewMessage!!.textSize = 22f
+                                }
+
+                                "23" -> {
+                                    textViewMessage!!.textSize = 23f
+                                }
+
+                                "24" -> {
+                                    textViewMessage!!.textSize = 24f
+                                }
+                            }
+
+
                         } else {
                             MusicPlayerRemote.clearQueue()
                         }
-                        true
                     }
                     super.onLongPress(e)
                 }

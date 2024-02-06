@@ -48,6 +48,7 @@ import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
 import com.ttop.app.apex.util.logD
 import com.ttop.app.apex.util.logE
 import com.ttop.app.appthemehelper.util.VersionUtils
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jaudiotagger.audio.AudioFile
@@ -350,6 +351,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         paletteColorPrimary = color
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     protected fun writeValuesToFiles(
         fieldKeyValueMap: Map<FieldKey, String>,
         artworkInfo: ArtworkInfo?
@@ -384,6 +386,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun writeTags(paths: List<String>?) {
         GlobalScope.launch {
             if (VersionUtils.hasR()) {
@@ -450,6 +453,5 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         const val EXTRA_ID = "extra_id"
         const val EXTRA_PALETTE = "extra_palette"
         private val TAG = AbsTagEditorActivity::class.java.simpleName
-        private const val REQUEST_CODE_SELECT_IMAGE = 1000
     }
 }

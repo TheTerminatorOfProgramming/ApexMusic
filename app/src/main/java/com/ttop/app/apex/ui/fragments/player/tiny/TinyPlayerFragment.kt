@@ -33,15 +33,12 @@ import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlin.math.abs
 
 class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
@@ -140,12 +137,7 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
 
         setUpPlayerToolbar()
         setUpSubFragments()
-        binding.title.setOnClickListener {
-            goToAlbum(requireActivity())
-        }
-        binding.text.setOnClickListener {
-            goToArtist(requireActivity())
-        }
+
         playerToolbar().drawAboveSystemBars()
     }
 
@@ -288,11 +280,7 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_tiny_player),
         @Suppress("Deprecation")
         private fun vibrate() {
             val v = requireContext().getSystemService<Vibrator>()
-            if (VersionUtils.hasOreo()) {
-                v?.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                v?.vibrate(10)
-            }
+            v?.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 

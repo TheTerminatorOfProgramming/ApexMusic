@@ -15,8 +15,6 @@
 package com.ttop.app.apex.ui.activities
 
 import android.app.KeyguardManager
-import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -41,11 +39,9 @@ import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.VersionUtils
 

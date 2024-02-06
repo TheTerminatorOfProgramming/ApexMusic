@@ -15,10 +15,9 @@ fun getSongInfo(song: Song): String {
             val audioHeader = AudioFileIO.read(File(song.data)).audioHeader
             val string: StringBuilder = StringBuilder()
             val uriFile = file.toUri()
-            if (getMimeType(uriFile.toString()) == "FLAC"){
-                string.append(audioHeader.format).append(" • ")
-            }else{
-                string.append(getMimeType(uriFile.toString())).append(" • ")
+            string.append(getMimeType(uriFile.toString())).append(" • ")
+            if (audioHeader.isLossless) {
+                string.append(audioHeader.bitsPerSample).append("-bit").append(" • ")
             }
             string.append(audioHeader.bitRate).append(" kb/s").append(" • ")
             string.append(ApexUtil.frequencyCount(audioHeader.sampleRate.toInt()))
@@ -28,7 +27,7 @@ fun getSongInfo(song: Song): String {
             "Error: $er"
         }
     }
-    return "-"
+    return song.title + " " + file.exists().toString()
 }
 
 private fun getMimeType(url: String): String {

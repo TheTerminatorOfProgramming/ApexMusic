@@ -165,6 +165,11 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         return this
     }
 
+    fun fontSize(size: String): ThemeStore {
+        mEditor.putString(ThemeStorePrefKeys.FONT_SIZE_TEXT, size)
+        return this
+    }
+
     override fun textColorSecondaryInverseRes(@ColorRes colorRes: Int): ThemeStore {
         return textColorSecondaryInverse(ContextCompat.getColor(mContext, colorRes))
     }
@@ -213,21 +218,6 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         }
 
         @CheckResult
-        @StyleRes
-        fun activityTheme(context: Context): Int {
-            return prefs(context).getInt(ThemeStorePrefKeys.KEY_ACTIVITY_THEME, 0)
-        }
-
-        @CheckResult
-        @ColorInt
-        fun primaryColor(context: Context): Int {
-            return prefs(context).getInt(
-                ThemeStorePrefKeys.KEY_PRIMARY_COLOR,
-                resolveColor(context, androidx.appcompat.R.attr.colorPrimary, Color.parseColor("#455A64"))
-            )
-        }
-
-        @CheckResult
         @ColorInt
         fun accentColor(context: Context): Int {
             // Set MD3 accent if MD3 is enabled or in-app accent otherwise
@@ -259,30 +249,6 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         }
 
         @CheckResult
-        @ColorInt
-        fun navigationBarColor(context: Context): Int {
-            return if (!coloredNavigationBar(context)) {
-                Color.BLACK
-            } else prefs(context).getInt(
-                ThemeStorePrefKeys.KEY_NAVIGATION_BAR_COLOR,
-                primaryColor(context)
-            )
-        }
-
-        @CheckResult
-        fun coloredStatusBar(context: Context): Boolean {
-            return prefs(context).getBoolean(
-                ThemeStorePrefKeys.KEY_APPLY_PRIMARYDARK_STATUSBAR,
-                true
-            )
-        }
-
-        @CheckResult
-        fun coloredNavigationBar(context: Context): Boolean {
-            return prefs(context).getBoolean(ThemeStorePrefKeys.KEY_APPLY_PRIMARY_NAVBAR, false)
-        }
-
-        @CheckResult
         fun autoGeneratePrimaryDark(context: Context): Boolean {
             return prefs(context).getBoolean(ThemeStorePrefKeys.KEY_AUTO_GENERATE_PRIMARYDARK, true)
         }
@@ -303,28 +269,10 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
 
         @CheckResult
         @ColorInt
-        fun textColorPrimaryInverse(context: Context): Int {
-            return prefs(context).getInt(
-                ThemeStorePrefKeys.KEY_TEXT_COLOR_PRIMARY_INVERSE,
-                resolveColor(context, android.R.attr.textColorPrimaryInverse)
-            )
-        }
-
-        @CheckResult
-        @ColorInt
         fun textColorSecondary(context: Context): Int {
             return prefs(context).getInt(
                 ThemeStorePrefKeys.KEY_TEXT_COLOR_SECONDARY,
                 resolveColor(context, android.R.attr.textColorSecondary)
-            )
-        }
-
-        @CheckResult
-        @ColorInt
-        fun textColorSecondaryInverse(context: Context): Int {
-            return prefs(context).getInt(
-                ThemeStorePrefKeys.KEY_TEXT_COLOR_SECONDARY_INVERSE,
-                resolveColor(context, android.R.attr.textColorSecondaryInverse)
             )
         }
 
@@ -351,6 +299,12 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         private fun isWallpaperAccentEnabled(context: Context): Boolean {
             return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("wallpaper_accent", false)
+        }
+
+        fun fontSize(context: Context): String? {
+            return prefs(context).getString(
+                ThemeStorePrefKeys.FONT_SIZE_TEXT, "12"
+            )
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pref_summary_album_art_on_lockscreen">Wear OS の背景としてアルバム アートを表示します。 一部のデバイスでは通知で問題が発生する可能性があります。</string>
+    <string name="pref_summary_album_art_on_lockscreen">Wear OS の背景としてアルバム アートを表示します. 一部のデバイスでは通知で問題が発生する可能性があります.</string>
     <string name="pref_title_album_art_on_lockscreen">OSを着る</string>
 </resources>

@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.adapter.song
 
+import android.annotation.SuppressLint
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
@@ -118,10 +119,12 @@ class OrderablePlaylistSongAdapter(
         return true
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onItemDragStarted(position: Int) {
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onItemDragFinished(fromPosition: Int, toPosition: Int, result: Boolean) {
         notifyDataSetChanged()
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/app_widget_classic_teal"
+    android:initialLayout="@layout/app_widget_classic"
     android:minWidth="@dimen/app_widget_classic_min_width"
     android:minHeight="@dimen/app_widget_classic_min_height"
     android:previewImage="@drawable/widget_classic"

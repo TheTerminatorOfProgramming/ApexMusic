@@ -24,13 +24,12 @@ import android.view.MenuItem
 import androidx.core.net.toUri
 import androidx.core.os.BundleCompat
 import androidx.core.view.drawToBitmap
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.databinding.ActivityShareInstagramBinding
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.setLightStatusBar
 import com.ttop.app.apex.extensions.setStatusBarColor
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.model.Song
@@ -87,7 +86,7 @@ class ShareInstagramStory : AbsThemeActivity() {
                 val path: String = Media.insertImage(
                     contentResolver,
                     binding.mainContent.drawToBitmap(Bitmap.Config.ARGB_8888),
-                    "Design", null
+                    getString(com.ttop.app.apex.R.string.design), null
                 )
                 Share.shareStoryToSocial(
                     this@ShareInstagramStory,

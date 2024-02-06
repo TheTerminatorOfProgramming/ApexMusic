@@ -19,13 +19,16 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
-import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentAdaptivePlayerPlaybackControlsBinding
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.applyColor
+import com.ttop.app.apex.extensions.getSongInfo
+import com.ttop.app.apex.extensions.hide
+import com.ttop.app.apex.extensions.ripAlpha
+import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
@@ -146,8 +149,6 @@ class AdaptivePlaybackControlsFragment :
             accentColor()
         }.ripAlpha()
 
-
-
         TintHelper.setTintAuto(
             binding.playPauseButton,
             MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(colorFinal)),
@@ -155,6 +156,9 @@ class AdaptivePlaybackControlsFragment :
         )
         TintHelper.setTintAuto(binding.playPauseButton, colorFinal, true)
         binding.progressSlider.applyColor(colorFinal)
+
+        binding.volUpButton.setColorFilter(colorFinal)
+        binding.volDownButton.setColorFilter(colorFinal)
     }
 
     private fun updatePlayPauseColor() {

@@ -15,32 +15,31 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.Manifest.permission.BLUETOOTH_CONNECT
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.graphics.Color
-import android.media.audiofx.AudioEffect
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
-import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.*
-import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.AUTO_DOWNLOAD_IMAGES_POLICY
+import com.ttop.app.apex.BLUETOOTH_DEVICE
+import com.ttop.app.apex.BLUETOOTH_PLAYBACK
+import com.ttop.app.apex.EQUALIZER
+import com.ttop.app.apex.EQUALIZER_STOCK
+import com.ttop.app.apex.GAP_LESS_PLAYBACK
+import com.ttop.app.apex.MANAGE_AUDIO_FOCUS
+import com.ttop.app.apex.PAUSE_ON_ZERO_VOLUME
+import com.ttop.app.apex.R
+import com.ttop.app.apex.SPECIFIC_DEVICE
+import com.ttop.app.apex.TOGGLE_HEADSET
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_PERMISSION_REQUEST
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.util.VersionUtils
-import com.ttop.app.equalizer.DialogEqualizerFragment
 
 
 /**
@@ -127,20 +126,6 @@ class AudioSettings : AbsSettingsFragment() {
         bluetoothDevice?.entries = name.toTypedArray()
         bluetoothDevice?.entryValues = address.toTypedArray()
 
-        val btVolume: TwoStatePreference? = findPreference(BT_VOLUME)
-        btVolume?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.bluetoothVolumeLevel = 5
-            true
-        }
-
-        val headsetVolume: TwoStatePreference? = findPreference(HEADSET_VOLUME)
-        headsetVolume?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.volumeLevel = 5
-            true
-        }
-
         val stockEqualizer: TwoStatePreference? = findPreference(EQUALIZER_STOCK)
         stockEqualizer?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -149,11 +134,7 @@ class AudioSettings : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (PreferenceUtil.isSamsungSoundPluginInstalled) {
-            addPreferencesFromResource(R.xml.pref_audio_samsung)
-        }else {
-            addPreferencesFromResource(R.xml.pref_audio)
-        }
+        addPreferencesFromResource(R.xml.pref_audio)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

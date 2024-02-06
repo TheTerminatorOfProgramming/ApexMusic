@@ -24,10 +24,13 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
-import com.google.android.material.slider.Slider
+import androidx.core.content.ContextCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentPeekControlPlayerBinding
 import com.ttop.app.apex.extensions.applyColor
+import com.ttop.app.apex.extensions.getSongInfo
+import com.ttop.app.apex.extensions.hide
+import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
@@ -78,6 +81,11 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPeekControlPlayerBinding.bind(view)
         setUpPlayPauseFab()
+
+        binding.titleArtist?.isSelected = true
+        binding.title?.isSelected = true
+        binding.artist?.isSelected = true
+        binding.songInfo.isSelected = true
     }
 
     override fun show() {}
@@ -102,6 +110,24 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
 
     }
 
+    fun updateSong() {
+        val song = MusicPlayerRemote.currentSong
+
+        val string: StringBuilder = StringBuilder()
+        string.append(song.title).append(" • ").append(song.artistName)
+
+        binding.titleArtist?.text = string
+        binding.title?.text = song.title
+        binding.artist?.text = song.artistName
+        binding.songInfo.text = getSongInfo(song)
+
+        if (PreferenceUtil.isSongInfo) {
+            binding.songInfo.show()
+        } else {
+            binding.songInfo.hide()
+        }
+    }
+
     override fun setColor(color: MediaNotificationProcessor) {
         val controlsColor =
             if (PreferenceUtil.isAdaptiveColor) {
@@ -115,7 +141,7 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
         binding.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
-        volumeFragment?.setTintable(controlsColor)
+        volumeFragment?.tint(controlsColor)
 
         if (PreferenceUtil.isAdaptiveColor) {
             if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
@@ -146,11 +172,72 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
 
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {
-                context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_black_1000)) }
-                context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_black_1000)) }
+                binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
+                binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
             }else {
-                context?.resources?.let { binding.songCurrentProgress.setTextColor(it.getColor(R.color.md_white_1000)) }
-                context?.resources?.let { binding.songTotalTime.setTextColor(it.getColor(R.color.md_white_1000)) }
+                binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+            }
+        }
+
+        if (PreferenceUtil.isAdaptiveColor) {
+            binding.titleArtist?.setTextColor(color.secondaryTextColor)
+            binding.title?.setTextColor(color.secondaryTextColor)
+            binding.artist?.setTextColor(color.secondaryTextColor)
+            binding.songInfo.setTextColor(color.secondaryTextColor)
+
+        }else {
+            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+            if (ColorUtil.isColorLight(colorBg)) {
+                binding.titleArtist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+                binding.title?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+                binding.artist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+                binding.songInfo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+            } else {
+                binding.titleArtist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+                binding.title?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+                binding.artist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+                binding.songInfo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
             }
         }
 

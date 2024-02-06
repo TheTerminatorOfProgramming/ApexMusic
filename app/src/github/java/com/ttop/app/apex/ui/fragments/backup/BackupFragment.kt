@@ -2,15 +2,15 @@ package com.ttop.app.apex.ui.fragments.backup
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -134,15 +134,15 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         binding.backupPath.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
 
-            builder.setTitle("Backup Path")
-            builder.setMessage("Would you like to open the current backup path or select a new backup path?")
+            builder.setTitle(getString(R.string.backup_path))
+            builder.setMessage(getString(R.string.backup_path_desc))
 
-            builder.setPositiveButton("Select New Path") { _, _ ->
+            builder.setPositiveButton(getString(R.string.backup_select_path)) { _, _ ->
                 selectFolder()
             }
 
             builder.setNegativeButton(
-                "Open Current Path"
+                getString(R.string.backup_open_path)
             ) { _, _ ->
                 val location = binding.backupPath.text.toString()
                 val intent = Intent(Intent.ACTION_VIEW)
@@ -153,6 +153,63 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
 
             val alert = builder.create()
             alert.show()
+            val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+
+
+            when (PreferenceUtil.fontSize) {
+                "12" -> {
+                    textViewMessage!!.textSize = 12f
+                }
+
+                "13" -> {
+                    textViewMessage!!.textSize = 13f
+                }
+
+                "14" -> {
+                    textViewMessage!!.textSize = 14f
+                }
+
+                "15" -> {
+                    textViewMessage!!.textSize = 15f
+                }
+
+                "16" -> {
+                    textViewMessage!!.textSize = 16f
+                }
+
+                "17" -> {
+                    textViewMessage!!.textSize = 17f
+                }
+
+                "18" -> {
+                    textViewMessage!!.textSize = 18f
+
+                }
+
+                "19" -> {
+                    textViewMessage!!.textSize = 19f
+                }
+
+                "20" -> {
+                    textViewMessage!!.textSize = 20f
+                }
+
+                "21" -> {
+                    textViewMessage!!.textSize = 21f
+                }
+
+                "22" -> {
+                    textViewMessage!!.textSize = 22f
+                }
+
+                "23" -> {
+                    textViewMessage!!.textSize = 23f
+                }
+
+                "24" -> {
+                    textViewMessage!!.textSize = 24f
+                }
+            }
         }
 
         binding.backupPath.text = PreferenceUtil.backupPath
@@ -166,16 +223,73 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                 val id = BuildConfig.APPLICATION_ID
                 val path = "/data/data/$id/shared_prefs"
                 val file = File(path)
-                if (VersionUtils.hasOreo()) {
-                    deleteDirectory(file)
-                }
+                deleteDirectory(file)
 
                 ProcessPhoenix.triggerRebirth(requireActivity())
             }
 
             builder.setNegativeButton(R.string.no) { _, _ ->
             }
-            builder.show().withCenteredButtons()
+            val alert = builder.create()
+            alert.show()
+            alert.withCenteredButtons()
+
+            val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+
+            when (PreferenceUtil.fontSize) {
+                "12" -> {
+                    textViewMessage!!.textSize = 12f
+                }
+
+                "13" -> {
+                    textViewMessage!!.textSize = 13f
+                }
+
+                "14" -> {
+                    textViewMessage!!.textSize = 14f
+                }
+
+                "15" -> {
+                    textViewMessage!!.textSize = 15f
+                }
+
+                "16" -> {
+                    textViewMessage!!.textSize = 16f
+                }
+
+                "17" -> {
+                    textViewMessage!!.textSize = 17f
+                }
+
+                "18" -> {
+                    textViewMessage!!.textSize = 18f
+
+                }
+
+                "19" -> {
+                    textViewMessage!!.textSize = 19f
+                }
+
+                "20" -> {
+                    textViewMessage!!.textSize = 20f
+                }
+
+                "21" -> {
+                    textViewMessage!!.textSize = 21f
+                }
+
+                "22" -> {
+                    textViewMessage!!.textSize = 22f
+                }
+
+                "23" -> {
+                    textViewMessage!!.textSize = 23f
+                }
+
+                "24" -> {
+                    textViewMessage!!.textSize = 24f
+                }
+            }
         }
     }
 
@@ -184,8 +298,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         backupViewModel.loadBackups()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun deleteDirectory(directory: File) {
+    private fun deleteDirectory(directory: File) {
        Files.walk(directory.toPath())
        .filter { Files.isRegularFile(it) }
         .map { it.toFile() }
@@ -218,7 +331,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         binding.backupRecyclerview.isVisible = !isEmpty
     }
 
-    fun setupRecyclerview() {
+    private fun setupRecyclerview() {
         binding.backupRecyclerview.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = backupAdapter
@@ -229,22 +342,22 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         if (VersionUtils.hasP()) {
             return when (BuildConfig.BUILD_TYPE) {
                 "debug" -> {
-                    SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
                         0
-                    ).longVersionCode + "] ["  + getString(R.string.github_edition_beta) + "]"
+                    ).longVersionCode + "] ["  + getString(R.string.github_edition_beta).replace(": ", " ") + "]"
                 }
                 "preview" -> {
-                    SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
                         0
-                    ).longVersionCode + "] ["  + getString(R.string.github_edition_preview) + "]"
+                    ).longVersionCode + "] ["  + getString(R.string.github_edition_preview).replace(": ", " ") + "]"
                 }
                 "release" -> {
-                    SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
                         0
-                    ).longVersionCode + "] ["  + getString(R.string.github_edition_preview) + "]"
+                    ).longVersionCode + "] ["  + getString(R.string.github_edition).replace(": ", " ") + "]"
                 }
                 else -> {
                     getString(R.string.error_load_failed)
@@ -253,22 +366,22 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         }else {
             return when (BuildConfig.BUILD_TYPE) {
                 "debug" -> {
-                    SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
                         0
-                    ).versionCode + "] ["  + getString(R.string.github_edition_beta) + "]"
+                    ).versionCode + "] ["  + getString(R.string.github_edition_beta).replace(": ", " ") + "]"
                 }
                 "preview" -> {
-                    SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
                         0
-                    ).versionCode + "] ["  + getString(R.string.github_edition_preview) + "]"
+                    ).versionCode + "] ["  + getString(R.string.github_edition_preview).replace(": ", " ") + "]"
                 }
                 "release" -> {
-                    SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
                         0
-                    ).versionCode + "] ["  + getString(R.string.github_edition_preview) + "]"
+                    ).versionCode + "] ["  + getString(R.string.github_edition).replace(": ", " ") + "]"
                 }
                 else -> {
                     getString(R.string.error_load_failed)

@@ -27,15 +27,11 @@ enum class NowPlayingScreen constructor(
 ) {
     // Some Now playing themes look better with particular Album cover theme
 
-    Adaptive(R.string.adaptive, R.drawable.player_adaptive, 10, AlbumCoverStyle.FullCard),
-    Blur(R.string.blur, R.drawable.player_blur, 4, AlbumCoverStyle.Normal),
-    Card(R.string.card, R.drawable.player_card, 6, AlbumCoverStyle.Full),
-    Flat(R.string.flat, R.drawable.player_flat, 1, AlbumCoverStyle.Flat),
-    Gradient(R.string.gradient, R.drawable.player_gradient, 17, AlbumCoverStyle.Full),
-    MD3(R.string.md3, R.drawable.player_md3, 18, AlbumCoverStyle.Normal),
-    Normal(R.string.normal, R.drawable.player_normal, 0, AlbumCoverStyle.Normal),
-    Peek(R.string.peek, R.drawable.player_peek, 14, AlbumCoverStyle.Normal),
-    Plain(R.string.plain, R.drawable.player_plain, 3, AlbumCoverStyle.Normal),
-    Simple(R.string.simple, R.drawable.player_simple, 8, AlbumCoverStyle.Normal),
-    Tiny(R.string.tiny, R.drawable.player_tiny, 7, null),
+    Adaptive(R.string.adaptive, R.drawable.player_adaptive, 0, AlbumCoverStyle.FullCard),
+    Blur(R.string.blur, R.drawable.player_blur, 1, AlbumCoverStyle.Normal),
+    Card(R.string.card, R.drawable.player_card, 2, AlbumCoverStyle.Full),
+    Classic(R.string.classic, R.drawable.player_classic, 3, AlbumCoverStyle.Normal),
+    Gradient(R.string.gradient, R.drawable.player_gradient, 4, AlbumCoverStyle.Full),
+    Minimal(R.string.minimal, R.drawable.player_minimal, 6, null),
+    Peek(R.string.peek, R.drawable.player_peek, 5, AlbumCoverStyle.Full),
 }

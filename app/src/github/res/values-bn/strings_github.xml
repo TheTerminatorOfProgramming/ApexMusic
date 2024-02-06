@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_files_summary">অ্যাপেক্স মিউজিকের ডিভাইসে সমস্ত ফাইল অ্যাক্সেস করার অনুমতি দিন। সর্বোচ্চ ব্যাকআপগুলি স্বয়ংক্রিয়ভাবে সনাক্ত করতে এই অনুমতির প্রয়োজন৷</string>
+    <string name="all_files_title">সমস্ত ফাইল অনুমতি পরিচালনা করুন</string>
+</resources>

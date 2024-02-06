@@ -26,10 +26,12 @@ import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
     override fun playerToolbar(): Toolbar {
@@ -88,12 +90,15 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
         (binding.playbackControlsFragment.parent as View).drawAboveSystemBars()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun setUpSubFragments() {
         playbackControlsFragment = whichFragment(R.id.playbackControlsFragment)
         val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
             whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment.setCallbacks(this)
-        playerAlbumCoverFragment.removeSlideEffect()
+        GlobalScope.launch {
+            playerAlbumCoverFragment.removeSlideEffect()
+        }
     }
 
     private fun setUpPlayerToolbar() {

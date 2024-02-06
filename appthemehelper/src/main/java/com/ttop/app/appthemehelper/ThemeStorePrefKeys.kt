@@ -31,5 +31,6 @@ internal interface ThemeStorePrefKeys {
         const val KEY_MATERIAL_YOU = "material_you"
         const val KEY_WALLPAPER_COLOR_LIGHT = "wallpaper_color_light"
         const val KEY_WALLPAPER_COLOR_DARK = "wallpaper_color_dark"
+        const val FONT_SIZE_TEXT = "font_size_text"
     }
 }

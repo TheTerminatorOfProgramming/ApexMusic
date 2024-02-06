@@ -4,7 +4,6 @@ import android.content.Context
 import com.google.gson.GsonBuilder
 import com.ttop.app.apex.App
 import com.ttop.app.apex.BuildConfig
-import com.ttop.app.apex.network.conversion.LyricsConverterFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -71,17 +70,3 @@ fun provideLastFmRest(retrofit: Retrofit): LastFMService {
     return retrofit.create(LastFMService::class.java)
 }
 
-fun provideDeezerRest(retrofit: Retrofit): DeezerService {
-    val newBuilder = retrofit.newBuilder()
-        .baseUrl("https://api.deezer.com/")
-        .build()
-    return newBuilder.create(DeezerService::class.java)
-}
-
-fun provideLyrics(retrofit: Retrofit): LyricsRestService {
-    val newBuilder = retrofit.newBuilder()
-        .baseUrl("https://makeitpersonal.co")
-        .addConverterFactory(LyricsConverterFactory())
-        .build()
-    return newBuilder.create(LyricsRestService::class.java)
-}

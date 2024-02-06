@@ -1,7 +1,5 @@
 package com.ttop.app.apex.ui.fragments.artists
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spanned
@@ -23,6 +21,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
+import com.bumptech.glide.Glide
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ttop.app.apex.EXTRA_ALBUM_ID
@@ -31,9 +30,12 @@ import com.ttop.app.apex.adapter.album.HorizontalAlbumAdapter
 import com.ttop.app.apex.adapter.song.SimpleSongAdapter
 import com.ttop.app.apex.databinding.FragmentArtistDetailsBinding
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.applyColor
+import com.ttop.app.apex.extensions.applyOutlineColor
+import com.ttop.app.apex.extensions.show
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.SingleColorTarget
@@ -45,12 +47,17 @@ import com.ttop.app.apex.network.Result
 import com.ttop.app.apex.network.model.LastFmArtist
 import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.*
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.CustomArtistImageUtil
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.logD
+import com.ttop.app.apex.util.logE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
-import java.util.*
+import java.util.Locale
 
 abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_artist_details),
     IAlbumClickListener {

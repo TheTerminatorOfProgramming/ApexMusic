@@ -38,7 +38,6 @@
         android:id="@+id/infoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/playPauseButton"
         app:layout_constraintTop_toBottomOf="@+id/songTotalTime">
 
         <LinearLayout
@@ -84,9 +83,7 @@
                 android:paddingVertical="8dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewBody1"
                 android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"
@@ -104,7 +101,6 @@
                 android:paddingBottom="8dp"
                 android:gravity="center"
                 android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/artist"
@@ -172,7 +168,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/nextButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/previousButton"

@@ -14,7 +14,6 @@
  */
 package com.ttop.app.apex.ui.fragments.other
 
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.media.AudioManager
 import android.os.Bundle
@@ -55,7 +54,7 @@ class VolumeFragment : Fragment(), Slider.OnChangeListener, OnAudioVolumeChanged
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTintable(ThemeStore.accentColor(requireContext()))
+        tint(ThemeStore.accentColor(requireContext()))
         binding.volumeDown.setOnClickListener(this)
         binding.volumeUp.setOnClickListener(this)
     }
@@ -108,27 +107,15 @@ class VolumeFragment : Fragment(), Slider.OnChangeListener, OnAudioVolumeChanged
         }
     }
 
-    fun tintWhiteColor() {
-        val color = Color.WHITE
-        binding.volumeDown.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-        binding.volumeUp.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-        binding.volumeSeekBar.applyColor(color)
-    }
-
-    fun setTintable(color: Int) {
-        binding.volumeSeekBar.applyColor(color)
-    }
-
     private fun setPauseWhenZeroVolume(pauseWhenZeroVolume: Boolean) {
         if (PreferenceUtil.isPauseOnZeroVolume)
             if (MusicPlayerRemote.isPlaying && pauseWhenZeroVolume)
                 MusicPlayerRemote.pauseSong()
     }
 
-    fun setTintableColor(color: Int) {
+    fun tint(color: Int) {
         binding.volumeDown.setColorFilter(color, PorterDuff.Mode.SRC_IN)
         binding.volumeUp.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-        // TintHelper.setTint(volumeSeekBar, color, false)
         binding.volumeSeekBar.applyColor(color)
     }
 

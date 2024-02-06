@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bengali">बंगाली</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="german">जर्मन</string>
+    <string name="hindi">हिंदी</string>
+    <string name="indonesian">इन्डोनेशियाई</string>
+    <string name="japanese">जापानी</string>
+    <string name="mandarin">अकर्मण्य</string>
+    <string name="portuguese">पुर्तगाली</string>
+    <string name="punjabi">पंजाबी</string>
+    <string name="spanish">स्पैनिश</string>
+    <string name="system_default">प्रणालीगत चूक</string>
+</resources>

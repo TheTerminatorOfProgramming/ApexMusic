@@ -1,5 +1,6 @@
 package com.ttop.app.apex.adapter.base
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.ActionMode
 import android.view.Menu
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.NumberRollViewBinding
 import com.ttop.app.apex.views.NumberRollView
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
     open val activity: FragmentActivity, @MenuRes menuRes: Int,
@@ -43,14 +43,12 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         clearChecked()
-        activity.window.statusBarColor = when {
-            VersionUtils.hasOreo() -> Color.TRANSPARENT
-            else -> Color.BLACK
-        }
+        activity.window.statusBarColor = Color.TRANSPARENT
         actionMode = null
         onBackPressedCallback.remove()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun checkAll() {
         if (actionMode != null) {
             checked.clear()
@@ -91,6 +89,7 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
         return true
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun clearChecked() {
         checked.clear()
         notifyDataSetChanged()

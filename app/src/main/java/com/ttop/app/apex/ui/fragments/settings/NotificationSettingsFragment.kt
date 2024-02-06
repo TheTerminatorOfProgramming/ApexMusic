@@ -15,32 +15,33 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.content.SharedPreferences
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
-import android.widget.Toast
-import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.preference.SeekBarPreference
 import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.color.colorChooser
-import com.ttop.app.apex.*
-import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
+import com.ttop.app.apex.CLASSIC_NOTIFICATION
+import com.ttop.app.apex.COLORED_NOTIFICATION
+import com.ttop.app.apex.DISABLE_UPDATE
+import com.ttop.app.apex.NOTIFICATION_ACTION_1
+import com.ttop.app.apex.NOTIFICATION_ACTION_2
+import com.ttop.app.apex.R
+import com.ttop.app.apex.SHOW_UPDATE
+import com.ttop.app.apex.WIDGET_BACKGROUND
+import com.ttop.app.apex.WIDGET_BUTTON_COLOR
+import com.ttop.app.apex.WIDGET_CUSTOM_COLOR
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
 import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -71,10 +72,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 appWidgetClassic.notifyThemeChange(musicService)
                 appWidgetFull.notifyThemeChange(musicService)
                 appWidgetCircle.notifyThemeChange(musicService)
-            }
-            PROGRESSBAR_COLOR-> {
-                appWidgetClassic.notifyThemeChange(musicService)
-                appWidgetFull.notifyThemeChange(musicService)
             }
             WIDGET_BACKGROUND -> {
                 appWidgetClassic.notifyThemeChange(musicService)
@@ -167,23 +164,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
                 }
             }
             return@setOnPreferenceClickListener true
-        }
-
-        val progressBarColor: Preference? = findPreference(PROGRESSBAR_COLOR)
-        progressBarColor?.let {
-            setSummary(it)
-            it.setOnPreferenceChangeListener { _, newValue ->
-                setSummary(it, newValue)
-                appWidgetClassic.notifyThemeChange(musicService)
-                appWidgetFull.notifyThemeChange(musicService)
-                true
-            }
-        }
-
-        val showProgressBar: TwoStatePreference? = findPreference(SHOW_WIDGET_PROGRESSBAR)
-        showProgressBar?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
         }
 
         val disableUpdate: TwoStatePreference? = findPreference(DISABLE_UPDATE)

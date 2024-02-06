@@ -163,7 +163,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                 val songAdapter = SongAdapter(
                     activity,
                     home.arrayList as MutableList<Song>,
-                    R.layout.item_favourite_card
+                    R.layout.item_circle
                 )
                 layoutManager = linearLayoutManager()
                 adapter = songAdapter

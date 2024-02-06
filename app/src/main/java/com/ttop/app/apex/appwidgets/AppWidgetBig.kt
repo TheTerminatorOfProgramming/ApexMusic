@@ -24,14 +24,13 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
@@ -40,7 +39,6 @@ import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 class AppWidgetBig : BaseAppWidget() {
     private var target: Target<Bitmap>? = null // for cancellation
@@ -151,9 +149,8 @@ class AppWidgetBig : BaseAppWidget() {
             }
             target = Glide.with(appContext)
                 .asBitmap()
-                //.checkIgnoreMediaStore()
                 .load(ApexGlideExtension.getSongModel(song))
-                .into(object : SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
+                .into(object : CustomTarget<Bitmap>(widgetImageSize, widgetImageSize) {
                     override fun onResourceReady(
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
@@ -165,6 +162,8 @@ class AppWidgetBig : BaseAppWidget() {
                         super.onLoadFailed(errorDrawable)
                         update(null)
                     }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
 
                     private fun update(bitmap: Bitmap?) {
                         if (bitmap == null) {
@@ -196,10 +195,8 @@ class AppWidgetBig : BaseAppWidget() {
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         var pendingIntent = PendingIntent.getActivity(
-            context, 0, action, if (VersionUtils.hasOreo())
-                PendingIntent.FLAG_IMMUTABLE
-            else 0
-        )
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE)
+
         views.setOnClickPendingIntent(R.id.clickable_area, pendingIntent)
 
         // Previous track

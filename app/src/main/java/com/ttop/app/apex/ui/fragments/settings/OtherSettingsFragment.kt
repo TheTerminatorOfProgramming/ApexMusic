@@ -15,26 +15,23 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.AppWidgetFull
-import com.ttop.app.apex.extensions.installLanguageAndRecreate
-import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.service.MusicService
+import com.ttop.app.apex.AUTO_ROTATE
+import com.ttop.app.apex.KEEP_SCREEN_ON
+import com.ttop.app.apex.LAST_ADDED_CUTOFF
+import com.ttop.app.apex.R
+import com.ttop.app.apex.SEARCH_ACTION
+import com.ttop.app.apex.SEARCH_ICON_NAVIGATION
+import com.ttop.app.apex.USE_NOTI_ACTIONS_AUTO
+import com.ttop.app.apex.WHITELIST_MUSIC
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
  * @author Hemanth S (h4h13).

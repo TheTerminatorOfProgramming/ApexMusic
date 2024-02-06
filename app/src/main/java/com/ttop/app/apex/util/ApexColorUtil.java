@@ -14,6 +14,7 @@
 
 package com.ttop.app.apex.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -25,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 
-import com.ttop.app.apex.R;
 import com.ttop.app.appthemehelper.ThemeStore;
 import com.ttop.app.appthemehelper.util.ColorUtil;
 import com.ttop.app.appthemehelper.util.VersionUtils;
@@ -84,7 +84,7 @@ public class ApexColorUtil {
 
   public static int getMatColor(Context context, String typeColor) {
     int returnColor = Color.BLACK;
-    int arrayId =
+    @SuppressLint("DiscouragedApi") int arrayId =
         context
             .getResources()
             .getIdentifier(

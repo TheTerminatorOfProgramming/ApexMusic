@@ -14,28 +14,27 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:background="?roundSelector"
-        android:padding="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/volumeSeekBar"
         app:layout_constraintEnd_toStartOf="@+id/volumeSeekBar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/volumeSeekBar"
         app:srcCompat="@drawable/ic_minus"
         app:tint="?attr/colorControlNormal" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSeekBar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:maxHeight="2dp"
-        style="@style/Widget.Retro.Slider"
+        style="@style/Widget.Apex.Slider"
         android:progressDrawable="@drawable/color_progress_seek"
-        app:layout_constraintBottom_toBottomOf="@+id/volumeDown"
         app:layout_constraintEnd_toStartOf="@+id/volumeUp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/volumeDown"
-        app:layout_constraintTop_toTopOf="@+id/volumeDown" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/volumeUp"
@@ -43,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:background="?roundSelector"
-        android:padding="12dp"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/volumeSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

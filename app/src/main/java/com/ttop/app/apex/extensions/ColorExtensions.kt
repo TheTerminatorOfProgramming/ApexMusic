@@ -87,8 +87,6 @@ fun Fragment.textColorPrimary() = resolveColor(android.R.attr.textColorPrimary)
 
 fun Context.defaultFooterColor() = resolveColor(R.attr.defaultFooterColor)
 
-fun Fragment.defaultFooterColor() = resolveColor(R.attr.defaultFooterColor)
-
 fun Context.resolveColor(@AttrRes attr: Int, fallBackColor: Int = 0) =
     ATHUtil.resolveColor(this, attr, fallBackColor)
 
@@ -129,15 +127,7 @@ fun Slider.accent() {
 }
 
 fun Button.accentTextColor() {
-    if (materialYou) return
-    setTextColor(context.accentColor())
-}
-
-fun MaterialButton.accentBackgroundColor() {
-    if (materialYou) return
-    backgroundTintList = ColorStateList(
-        arrayOf(intArrayOf(android.R.attr.state_enabled), intArrayOf()),
-            intArrayOf(context.accentColor(), context.accentColor().addAlpha(0.12f)))
+    setTextColor(ThemeStore.accentColor(context))
 }
 
 fun MaterialButton.accentOutlineColor() {
@@ -291,26 +281,8 @@ fun Context.darkAccentColorVariant(): Int {
     )
 }
 
-@ColorInt
-fun Context.accentColorVariant(): Int {
-    return if (surfaceColor().isColorLight) {
-        accentColor().darkerColor
-    } else {
-        accentColor().lighterColor
-    }
-}
-
 inline val @receiver:ColorInt Int.isColorLight
     get() = ColorUtil.isColorLight(this)
-
-inline val @receiver:ColorInt Int.lightColor
-    get() = ColorUtil.withAlpha(this, 0.5F)
-
-inline val @receiver:ColorInt Int.lighterColor
-    get() = ColorUtil.lightenColor(this)
-
-inline val @receiver:ColorInt Int.darkerColor
-    get() = ColorUtil.darkenColor(this)
 
 inline val Int.colorStateList: ColorStateList
     get() = ColorStateList.valueOf(this)

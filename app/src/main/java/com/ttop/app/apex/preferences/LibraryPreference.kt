@@ -19,6 +19,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.AttributeSet
+import android.widget.TextView
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
@@ -26,9 +27,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.CategoryInfoAdapter
 import com.ttop.app.apex.databinding.PreferenceDialogLibraryCategoriesBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
@@ -62,7 +65,7 @@ class LibraryPreferenceDialog : DialogFragment() {
             categoryAdapter.attachToRecyclerView(this)
         }
 
-        return materialDialog(R.string.library_categories)
+        val dialog = materialDialog(R.string.library_categories)
             .setNeutralButton(
                 R.string.reset_action
             ) { _, _ ->
@@ -78,12 +81,14 @@ class LibraryPreferenceDialog : DialogFragment() {
             .setView(binding.root)
             .create()
             .colorButtons()
+
+        return dialog
     }
 
     private fun updateCategories(categories: List<CategoryInfo>) {
         if (getSelected(categories) == 0) return
         if (getSelected(categories) > 6) {
-            showToast(R.string.message_limit_tabs_limit)
+            showToast(R.string.message_limit_tabs)
             return
         }
 

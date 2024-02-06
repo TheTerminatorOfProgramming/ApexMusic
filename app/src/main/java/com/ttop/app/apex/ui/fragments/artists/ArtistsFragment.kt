@@ -15,7 +15,11 @@
 package com.ttop.app.apex.ui.fragments.artists
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.SubMenu
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -45,6 +49,14 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
                 adapter?.swapDataSet(it)
             else
                 adapter?.swapDataSet(listOf())
+        }
+
+        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+            if (ApexUtil.isTablet) {
+                setAndSaveGridSize(2)
+            }else {
+                setAndSaveGridSize(1)
+            }
         }
     }
 
@@ -156,9 +168,16 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateMenu(menu, inflater)
         val gridSizeItem: MenuItem = menu.findItem(R.id.action_grid_size)
+        val gridStyleItem: MenuItem = menu.findItem(R.id.action_layout_type)
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
+
+        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
+            gridSizeItem.isVisible = false
+            gridStyleItem.isVisible = false
+        }
+
         setUpGridSizeMenu(gridSizeItem.subMenu!!)
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu!!)

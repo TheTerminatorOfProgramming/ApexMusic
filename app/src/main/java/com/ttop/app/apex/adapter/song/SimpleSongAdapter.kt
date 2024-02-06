@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.adapter.song
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -26,6 +27,7 @@ class SimpleSongAdapter(
     layoutRes: Int
 ) : SongAdapter(context, songs, layoutRes) {
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun swapDataSet(dataSet: List<Song>) {
         this.dataSet = dataSet.toMutableList()
         notifyDataSetChanged()

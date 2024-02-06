@@ -27,7 +27,7 @@ class LanguageSlideFragment(
     private lateinit var niceSpinner: NiceSpinner
 
     //Required Constructor
-    constructor() : this(com.ttop.app.appthemehelper.R.color.md_yellow_A400)
+    constructor() : this(com.ttop.app.appthemehelper.R.color.md_green_500)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,23 +39,27 @@ class LanguageSlideFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       niceSpinner = view.findViewById(com.ttop.app.apex.R.id.spinner) as NiceSpinner
-        val dataset: List<String> = LinkedList(mutableListOf(getString(com.ttop.app.apex.R.string.system_default), getString(com.ttop.app.apex.R.string.bengali),
-            getString(com.ttop.app.apex.R.string.english), getString(com.ttop.app.apex.R.string.indonesian), getString(com.ttop.app.apex.R.string.japanese),
-            getString(com.ttop.app.apex.R.string.portuguese), getString(com.ttop.app.apex.R.string.spanish)))
+        niceSpinner = view.findViewById(R.id.spinner) as NiceSpinner
+        val dataset: List<String> = LinkedList(mutableListOf(getString(R.string.system_default), getString(R.string.bengali),
+            getString(R.string.english), getString(R.string.german), getString(R.string.hindi), getString(R.string.indonesian), getString(R.string.japanese), getString(R.string.mandarin), getString(R.string.portuguese),
+            getString(R.string.punjabi), getString(R.string.spanish)))
         niceSpinner.attachDataSource(dataset)
 
         when (PreferenceUtil.languageCode) {
             "auto" -> niceSpinner.selectedIndex = 0
             "bn" -> niceSpinner.selectedIndex = 1
             "en" -> niceSpinner.selectedIndex = 2
-            "in" -> niceSpinner.selectedIndex = 3
-            "ja" -> niceSpinner.selectedIndex = 4
-            "pt" -> niceSpinner.selectedIndex = 5
-            "es" -> niceSpinner.selectedIndex = 6
+            "de" -> niceSpinner.selectedIndex = 3
+            "hi" -> niceSpinner.selectedIndex = 4
+            "in" -> niceSpinner.selectedIndex = 5
+            "ja" -> niceSpinner.selectedIndex = 6
+            "zh" -> niceSpinner.selectedIndex = 7
+            "pt" -> niceSpinner.selectedIndex = 8
+            "pa" -> niceSpinner.selectedIndex = 9
+            "es" -> niceSpinner.selectedIndex = 10
         }
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_yellow_A400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_green_500))
 
         niceSpinner.onSpinnerItemSelectedListener = OnSpinnerItemSelectedListener { parent, _, position, _ ->
             val item: String = parent.getItemAtPosition(position) as String
@@ -66,13 +70,17 @@ class LanguageSlideFragment(
     private fun setLanguage(item: String) {
         var itemCode = ""
         when (item) {
-            "Default" -> itemCode = "auto"
-            "Bengali" -> itemCode = "bn"
-            "English" -> itemCode = "en"
-            "Indonesian" -> itemCode = "in"
-            "Japanese" -> itemCode = "ja"
-            "Portuguese" -> itemCode = "pt"
-            "Spanish" -> itemCode = "es"
+            getString(R.string.system_default) -> itemCode = "auto"
+            getString(R.string.bengali) -> itemCode = "bn"
+            getString(R.string.english) -> itemCode = "en"
+            getString(R.string.german) -> itemCode = "de"
+            getString(R.string.hindi) -> itemCode = "hi"
+            getString(R.string.indonesian) -> itemCode = "in"
+            getString(R.string.japanese) -> itemCode = "ja"
+            getString(R.string.mandarin) -> itemCode = "zh"
+            getString(R.string.portuguese) -> itemCode = "pt"
+            getString(R.string.punjabi) -> itemCode = "pa"
+            getString(R.string.spanish) -> itemCode = "es"
         }
 
         if (itemCode as? String == "auto") {
@@ -91,7 +99,7 @@ class LanguageSlideFragment(
     }
     companion object {
         fun newInstance(): LanguageSlideFragment {
-            return LanguageSlideFragment(com.ttop.app.appthemehelper.R.color.md_yellow_A400)
+            return LanguageSlideFragment(com.ttop.app.appthemehelper.R.color.md_green_500)
         }
     }
 

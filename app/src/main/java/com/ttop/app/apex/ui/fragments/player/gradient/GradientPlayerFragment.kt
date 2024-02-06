@@ -53,15 +53,10 @@ import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToAlbum
-import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -159,12 +154,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         setupFavourite()
         setupVolButtons()
 
-        binding.playbackControlsFragment.title.setOnClickListener {
-            goToAlbum(requireActivity())
-        }
-        binding.playbackControlsFragment.artist.setOnClickListener {
-            goToArtist(requireActivity())
-        }
         ViewCompat.setOnApplyWindowInsetsListener(
             (binding.container)
         ) { v: View, insets: WindowInsetsCompat ->
@@ -176,11 +165,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
 
         binding.queueIcon.setOnClickListener {
             if (binding.playerQueueSheet.visibility == View.VISIBLE) {
-                if (playingQueueAdapter?.getButtonsActivate() == true) {
-                    playingQueueAdapter?.setButtonsActivate(false)
-                }else {
-                    playingQueueAdapter?.setButtonsActivate(true)
-                }
+                playingQueueAdapter?.setButtonsActivate()
             }
         }
 
@@ -212,7 +197,9 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                     val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
                     val currentVolumeTotal = 100 * currentVolume / maxVolume
 
-                    showToast("New Volume: $currentVolumeTotal%")
+                    val newVol = getString(R.string.new_volume)
+
+                    showToast("$newVol: $currentVolumeTotal%")
                 }
             }, 500)
         }
@@ -350,7 +337,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             val isFavorite: Boolean =
                 libraryViewModel.isSongFavorite(MusicPlayerRemote.currentSong.id)
             withContext(Dispatchers.Main) {
-                val icon = if (animate && VersionUtils.hasOreo()) {
+                val icon = if (animate) {
                     if (isFavorite) R.drawable.avd_favorite else R.drawable.avd_unfavorite
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border

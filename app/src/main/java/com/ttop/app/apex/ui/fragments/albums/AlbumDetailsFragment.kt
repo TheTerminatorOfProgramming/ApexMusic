@@ -18,8 +18,11 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
-import androidx.activity.addCallback
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.SubMenu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.text.parseAsHtml
@@ -32,6 +35,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Fade
+import com.bumptech.glide.Glide
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
@@ -44,9 +48,12 @@ import com.ttop.app.apex.adapter.song.SimpleSongAdapter
 import com.ttop.app.apex.databinding.FragmentAlbumDetailsBinding
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.dialogs.DeleteSongsDialog
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.applyColor
+import com.ttop.app.apex.extensions.applyOutlineColor
+import com.ttop.app.apex.extensions.findActivityNavController
+import com.ttop.app.apex.extensions.show
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.albumCoverOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
@@ -65,7 +72,11 @@ import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.AlbumTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.*
+import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.logD
+import com.ttop.app.apex.util.logE
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
@@ -293,16 +304,9 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             moreAlbums(it)
         }
         Glide.with(requireContext())
-            //.forceDownload(PreferenceUtil.isAllowedToDownloadMetadata())
-            .load(
-                ApexGlideExtension.getArtistModel(
-                    artist,
-                    PreferenceUtil.isAllowedToDownloadMetadata(requireContext())
-                )
-            )
+            .load(ApexGlideExtension.getArtistModel(artist))
             .artistImageOptions(artist)
             .dontAnimate()
-            .dontTransform()
             .into(binding.artistImage)
     }
 

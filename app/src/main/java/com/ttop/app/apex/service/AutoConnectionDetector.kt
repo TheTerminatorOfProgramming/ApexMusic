@@ -9,7 +9,6 @@ import android.content.IntentFilter
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
 

@@ -15,8 +15,11 @@
 package com.ttop.app.apex.ui.fragments.base
 
 import android.os.Bundle
-import android.view.*
-import androidx.annotation.NonNull
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
@@ -36,8 +39,10 @@ import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.extensions.getDrawableCompat
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.repository.SongRepository
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
@@ -46,6 +51,8 @@ import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import org.koin.android.ext.android.inject
+import org.koin.core.component.inject
 
 
 abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
@@ -101,19 +108,25 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         }
 
         if (!IntroPrefs(requireContext()).hasIntroShown) {
-          TapTargetView.showFor(activity,
+            TapTargetView.showFor(
+                activity,
                 TapTarget.forView(
                     binding.shuffleButton,
-                    "Shuffle Button",
-                    "Use this to create a shuffled playing queue"
+                    getString(R.string.shuffle_button),
+                    getString(R.string.shuffle_button_desc)
                 )
                     .targetCircleColor(R.color.black_color)
                     .tintTarget(false)
                     .outerCircleColor(com.ttop.app.appthemehelper.R.color.default_debug_color)
-                    .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null)))
+                    .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null))
+            )
 
             IntroPrefs(requireContext()).hasIntroShown = true
         }
+
+        /*if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+            activity?.recreate()
+        }*/
     }
 
     open fun onShuffleClicked() {
@@ -145,7 +158,7 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         binding.recyclerView.apply {
             layoutManager = this@AbsRecyclerViewFragment.layoutManager
             adapter = this@AbsRecyclerViewFragment.adapter
-            if (PreferenceUtil.isShowScrollbar) {
+            if (PreferenceUtil.isShowScrollbar && PreferenceUtil.scrollbarType) {
                 create(this)
             }
         }
@@ -191,7 +204,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
 
     protected abstract fun createLayoutManager(): LM
 
-    @NonNull
     protected abstract fun createAdapter(): A
 
     protected fun invalidateLayoutManager() {

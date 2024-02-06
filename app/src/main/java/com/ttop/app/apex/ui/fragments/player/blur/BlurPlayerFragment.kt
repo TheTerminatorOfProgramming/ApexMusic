@@ -31,7 +31,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,13 +44,21 @@ import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentBlurBinding
-import com.ttop.app.apex.dialogs.*
+import com.ttop.app.apex.dialogs.AddToPlaylistDialog
+import com.ttop.app.apex.dialogs.CreatePlaylistDialog
+import com.ttop.app.apex.dialogs.DeleteSongsDialog
+import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
+import com.ttop.app.apex.dialogs.SleepTimerDialog
+import com.ttop.app.apex.dialogs.SongDetailDialog
+import com.ttop.app.apex.dialogs.SongShareDialog
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
-import com.ttop.app.apex.glide.*
+import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.simpleSongCoverOptions
+import com.ttop.app.apex.glide.BlurTransformation
+import com.ttop.app.apex.glide.crossfadeListener
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
@@ -60,7 +67,6 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
-import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -162,11 +168,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
             }
             R.id.action_reorder -> {
                 if (binding.playerQueueSheet.visibility == View.VISIBLE) {
-                    if (playingQueueAdapter?.getButtonsActivate() == true) {
-                        playingQueueAdapter?.setButtonsActivate(false)
-                    }else {
-                        playingQueueAdapter?.setButtonsActivate(true)
-                    }
+                    playingQueueAdapter?.setButtonsActivate()
                 }
                 return true
             }
@@ -411,11 +413,11 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
         animator.supportsChangeAnimations = false
         wrappedAdapter =
             recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!) as RecyclerView.Adapter<*>
-        binding.recyclerView?.layoutManager = linearLayoutManager
-        binding.recyclerView?.adapter = wrappedAdapter
-        binding.recyclerView?.itemAnimator = animator
-        binding.recyclerView?.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
-        binding.recyclerView?.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
+        binding.recyclerView.layoutManager = linearLayoutManager
+        binding.recyclerView.adapter = wrappedAdapter
+        binding.recyclerView.itemAnimator = animator
+        binding.recyclerView.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
+        binding.recyclerView.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
 
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
@@ -431,7 +433,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
     }
 
     private fun resetToCurrentPosition() {
-        binding.recyclerView?.stopScroll()
+        binding.recyclerView.stopScroll()
         linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
 

@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by Harjot on 23-May-16.
  */
@@ -70,10 +72,12 @@ public class AnalogController extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
-        midx = canvas.getWidth() / 2;
-        midy = canvas.getHeight() / 2;
+        float width = (float) getWidth();
+        float height = (float) getHeight();
+        midx = width / 2;
+        midy = height / 2;
 
         int   ang    = 0;
         float x      = 0, y = 0;

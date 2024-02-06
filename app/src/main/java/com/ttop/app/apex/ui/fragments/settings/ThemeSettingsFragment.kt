@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
@@ -55,9 +56,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 setSummary(it, newValue)
                 ThemeStore.markChanged(requireContext())
 
-                if (VersionUtils.hasOreo()) {
-                    DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-                }
+                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                 restartActivity()
                 true
             }
@@ -75,18 +74,16 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                     subColors = ACCENT_COLORS_SUB, allowCustomArgb = true
                 ) { _, color ->
                     ThemeStore.editTheme(requireContext()).accentColor(color).commit()
-                    if (VersionUtils.hasOreo())
-                        DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                    DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                     restartActivity()
                 }
-                neutralButton(res = R.string.reset_action) {
+                negativeButton(res = R.string.reset_action) {
                     if (BuildConfig.DEBUG) {
-                        ThemeStore.editTheme(requireContext()).accentColor(resources.getColor(R.color.default_debug_color)).commit()
+                        ThemeStore.editTheme(requireContext()).accentColor(ContextCompat.getColor(requireContext(), R.color.default_debug_color)).commit()
                     }else {
-                        ThemeStore.editTheme(requireContext()).accentColor(resources.getColor(R.color.default_color)).commit()
+                        ThemeStore.editTheme(requireContext()).accentColor(ContextCompat.getColor(requireContext(), R.color.default_color)).commit()
                     }
-                    if (VersionUtils.hasOreo())
-                        DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                    DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                     restartActivity()
                 }
             }
@@ -97,10 +94,8 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         blackTheme?.setOnPreferenceChangeListener { _, _ ->
             ThemeStore.markChanged(requireContext())
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            if (VersionUtils.hasOreo()) {
-                requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
-                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-            }
+            requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
+            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
             restartActivity()
             true
         }
@@ -118,16 +113,12 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         }
 
         val colorAppShortcuts: TwoStatePreference? = findPreference(SHOULD_COLOR_APP_SHORTCUTS)
-        if (!VersionUtils.hasOreo()) {
-            colorAppShortcuts?.isVisible = false
-        } else {
-            colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
-            colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
-                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-                true
-            }
+        colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
+        colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
+            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+            true
         }
 
         val materialYou: ATESwitchPreference? = findPreference(MATERIAL_YOU)
@@ -144,32 +135,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)
         wallpaperAccent?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            restartActivity()
-            true
-        }
-
-
-        val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
-        customFontBold?.isChecked = PreferenceUtil.isCustomFontBold
-        customFontBold?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.shouldRecreate = true
-            restartActivity()
-            true
-        }
-
-        val customFont: Preference? = findPreference(CUSTOM_FONT)
-        customFont?.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue as String){
-                "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex", "neue" -> {
-                    customFontBold?.isChecked = false
-                    customFontBold?.isEnabled = false
-                }
-                "barlow", "jura", "caviar"  -> {
-                    customFontBold?.isEnabled = true
-                }
-            }
-            PreferenceUtil.shouldRecreate = true
             restartActivity()
             true
         }
@@ -194,13 +159,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val extendedAccent: TwoStatePreference? = findPreference(EXTENDED_ACCENT)
-        extendedAccent?.isChecked = PreferenceUtil.isExtendedAccent
-        extendedAccent?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val dismissCheck: TwoStatePreference? = findPreference(DISMISS_FAILSAFE)
         dismissCheck?.isChecked = PreferenceUtil.isDismissFailsafe
         dismissCheck?.setOnPreferenceChangeListener { _, _ ->
@@ -220,6 +178,13 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         languagePreference?.setOnPreferenceChangeListener { _, _ ->
             restartActivity()
             return@setOnPreferenceChangeListener true
+        }
+
+        val fontSize: Preference? = findPreference(FONT_SIZE)
+        fontSize?.setOnPreferenceChangeListener { _, newValue ->
+            val value = newValue as String
+            ThemeStore.editTheme(requireContext()).fontSize(value).commit()
+            true
         }
     }
 
@@ -256,17 +221,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             }
         }else {
             addPreferencesFromResource(R.xml.pref_general)
-        }
-
-        val customFontBold: TwoStatePreference? = findPreference(CUSTOM_FONT_BOLD)
-        when (PreferenceUtil.isCustomFont){
-            "default", "drexs", "hermanoalto", "nothing", "pencil", "binjay", "hiatus", "apex", "neue" -> {
-                customFontBold?.isChecked = false
-                customFontBold?.isEnabled = false
-            }
-            "barlow", "jura", "caviar"  -> {
-                customFontBold?.isEnabled = true
-            }
         }
 
         val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)

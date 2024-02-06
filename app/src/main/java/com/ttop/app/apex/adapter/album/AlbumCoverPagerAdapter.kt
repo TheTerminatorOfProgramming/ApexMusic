@@ -16,10 +16,13 @@ package com.ttop.app.apex.adapter.album
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -28,23 +31,28 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentTextColor
+import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Tiny
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
 import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -102,7 +110,11 @@ class AlbumCoverPagerAdapter(
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             if (arguments != null) {
-                song = requireArguments().getParcelable(SONG_ARG)!!
+                song = if (VersionUtils.hasT()) {
+                    requireArguments().getParcelable(SONG_ARG, Song::class.java)!!
+                }else {
+                    requireArguments().getParcelable(SONG_ARG)!!
+                }
             }
         }
 
@@ -115,8 +127,8 @@ class AlbumCoverPagerAdapter(
 
             val view = inflater.inflate(getLayoutWithPlayerTheme(), container, false)
 
-            view.setOnClickListener(object : DoubleClickListener() {
-                override fun onDoubleClick(v: View?) {
+            val gestureDetector = GestureDetector(activity, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onDoubleTap(e: MotionEvent): Boolean {
                     if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
                         if (PreferenceUtil.isLyrics) {
                             if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "both") {
@@ -124,8 +136,27 @@ class AlbumCoverPagerAdapter(
                             }
                         }
                     }
+                    return super.onDoubleTap(e)
+                }
+
+                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                    if (MusicPlayerRemote.isPlaying) {
+                        MusicPlayerRemote.pauseSong()
+                    }else {
+                        MusicPlayerRemote.resumePlaying()
+                    }
+                    return super.onSingleTapConfirmed(e)
+                }
+
+                override fun onDown(e: MotionEvent): Boolean {
+                    return true //this method is needed otherwise the GestureDetector won't work
                 }
             })
+
+            view.setOnTouchListener { _, event ->
+                view.performClick()
+                gestureDetector.onTouchEvent(event)
+            }
 
             return view
         }
@@ -134,6 +165,7 @@ class AlbumCoverPagerAdapter(
             lifecycleScope.launch(Dispatchers.IO) {
                 val data: String? = MusicUtil.getLyrics(song)
                 withContext(Dispatchers.Main) {
+                    mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle(song.title)
                     builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
@@ -144,20 +176,120 @@ class AlbumCoverPagerAdapter(
                     }
 
                     builder.setNeutralButton(R.string.dismiss) { _, _ ->
+                        mainActivity.keepScreenOn(false)
                         materialDialog().dismiss()
                     }
 
                     val dialog: AlertDialog = builder.show()
+
+                    val textViewMessage = dialog.findViewById(android.R.id.message) as TextView?
+                    val textViewTitle = dialog.findViewById(R.id.alertTitle) as TextView?
+
+
+                    when (PreferenceUtil.fontSizeLyrics) {
+                        "12" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 14f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 14f
+                            textViewMessage!!.textSize = 12f
+                            textViewTitle!!.textSize = 16f
+                        }
+
+                        "13" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 15f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 15f
+                            textViewMessage!!.textSize = 13f
+                            textViewTitle!!.textSize = 17f
+                        }
+
+                        "14" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 16f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 16f
+                            textViewMessage!!.textSize = 14f
+                            textViewTitle!!.textSize = 18f
+                        }
+
+                        "15" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 17f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 17f
+                            textViewMessage!!.textSize = 15f
+                            textViewTitle!!.textSize = 19f
+                        }
+
+                        "16" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 18f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 18f
+                            textViewMessage!!.textSize = 16f
+                            textViewTitle!!.textSize = 20f
+                        }
+
+                        "17" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 19f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 19f
+                            textViewMessage!!.textSize = 17f
+                            textViewTitle!!.textSize = 21f
+                        }
+
+                        "18" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 20f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 20f
+                            textViewMessage!!.textSize = 18f
+                            textViewTitle!!.textSize = 22f
+                        }
+
+                        "19" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 21f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 21f
+                            textViewMessage!!.textSize = 19f
+                            textViewTitle!!.textSize = 23f
+                        }
+
+                        "20" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 22f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 22f
+                            textViewMessage!!.textSize = 20f
+                            textViewTitle!!.textSize = 24f
+                        }
+
+                        "21" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 23f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 23f
+                            textViewMessage!!.textSize = 21f
+                            textViewTitle!!.textSize = 25f
+                        }
+
+                        "22" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 24f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 24f
+                            textViewMessage!!.textSize = 22f
+                            textViewTitle!!.textSize = 26f
+                        }
+
+                        "23" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 25f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 25f
+                            textViewMessage!!.textSize = 23f
+                            textViewTitle!!.textSize = 27f
+                        }
+
+                        "24" -> {
+                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 26f
+                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 26f
+                            textViewMessage!!.textSize = 24f
+                            textViewTitle!!.textSize = 28f
+                        }
+                    }
+
                     dialog.setCanceledOnTouchOutside(false)
                     dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
                     dialog.getButton(Dialog.BUTTON_NEUTRAL).accentTextColor()
+                    textViewTitle!!.setTextColor(requireContext().accentColor())
                 }
             }
         }
 
         private fun getLayoutWithPlayerTheme(): Int {
             return when (PreferenceUtil.nowPlayingScreen) {
-                Card, Tiny, Gradient -> R.layout.fragment_album_full_cover
+                Card, Minimal, Gradient -> R.layout.fragment_album_full_cover
                 else -> {
                     if (PreferenceUtil.isCarouselEffect) {
                         R.layout.fragment_album_carousel_cover
@@ -169,6 +301,7 @@ class AlbumCoverPagerAdapter(
                             AlbumCoverStyle.Card -> R.layout.fragment_album_card_cover
                             AlbumCoverStyle.Full -> R.layout.fragment_album_full_cover
                             AlbumCoverStyle.FullCard -> R.layout.fragment_album_full_card_cover
+                            AlbumCoverStyle.Peek -> R.layout.fragment_album_peek
                         }
                     }
                 }
@@ -218,27 +351,6 @@ class AlbumCoverPagerAdapter(
         interface ColorReceiver {
             fun onColorReady(color: MediaNotificationProcessor, request: Int)
         }
-
-
-            // Abstract class defining methods to check Double Click where Time Delay
-            // between the two clicks is set to 300 ms
-            abstract class DoubleClickListener : View.OnClickListener {
-                var lastClickTime: Long = 0
-                override fun onClick(v: View?) {
-                    val clickTime = System.currentTimeMillis()
-                    if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
-                        onDoubleClick(v)
-                    }
-                    lastClickTime = clickTime
-                }
-
-                abstract fun onDoubleClick(v: View?)
-
-                companion object {
-                    private const val DOUBLE_CLICK_TIME_DELTA: Long = 200 //milliseconds
-                }
-            }
-
 
         companion object {
 

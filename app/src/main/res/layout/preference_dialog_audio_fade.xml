@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
+        style="@style/Widget.Apex.Slider.AudioFade"
         android:stepSize="100"
         android:valueFrom="0"
         android:valueTo="1000"

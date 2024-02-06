@@ -92,14 +92,6 @@
             app:launchSingleTop="true"
             app:popEnterAnim="@anim/apex_fragment_close_enter"
             app:popExitAnim="@anim/apex_fragment_close_exit" />
-        <action
-            android:id="@+id/action_mainSettingsFragment_to_updateFragment"
-            app:destination="@id/update_fragment"
-            app:enterAnim="@anim/apex_fragment_open_enter"
-            app:exitAnim="@anim/apex_fragment_open_exit"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/apex_fragment_close_enter"
-            app:popExitAnim="@anim/apex_fragment_close_exit" />
     </fragment>
 
     <fragment
@@ -151,8 +143,4 @@
         android:id="@+id/labs_fragment"
         android:name="com.ttop.app.apex.ui.fragments.settings.LabsSettingsFragment"
         android:label="@string/developer_mode" />
-    <fragment
-        android:id="@+id/update_fragment"
-        android:name="com.ttop.app.apex.ui.fragments.settings.UpdateSettingsFragment"
-        android:label="Updates" />
 </navigation>

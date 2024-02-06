@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.adapter.song
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -25,13 +26,13 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -39,19 +40,17 @@ import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import me.zhanghai.android.fastscroll.PopupTextProvider
-import kotlin.coroutines.coroutineContext
 
 /**
  * Created by hemanths on 13/08/17.
  */
 
 open class SongQueueAdapter(
-    override val activity: FragmentActivity,
+    final override val activity: FragmentActivity,
     var dataSet: MutableList<Song>,
     protected var itemLayoutRes: Int,
     showSectionName: Boolean = true
@@ -67,6 +66,7 @@ open class SongQueueAdapter(
         this.setHasStableIds(true)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     open fun swapDataSet(dataSet: List<Song>) {
         this.dataSet = ArrayList(dataSet)
         notifyDataSetChanged()

@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 330,
-      "versionName": "3.3.0",
+      "versionCode": 340,
+      "versionName": "3.4.0",
       "outputFile": "app-github-release.apk"
     }
   ],

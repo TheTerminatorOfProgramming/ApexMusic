@@ -103,17 +103,6 @@ class RealTopPlayedRepository(
         return retCursor
     }
 
-    private fun makeRecentTracksCursorImpl(): SortedLongCursor? {
-        // first get the top results ids from the internal database
-        val songs = HistoryStore.getInstance(context).queryRecentIds()
-        songs.use {
-            return makeSortedCursor(
-                it,
-                it.getColumnIndex(HistoryStore.RecentStoreColumns.ID)
-            )
-        }
-    }
-
     private fun makeTopTracksCursorImpl(): SortedLongCursor? {
         // first get the top results ids from the internal database
         val cursor =

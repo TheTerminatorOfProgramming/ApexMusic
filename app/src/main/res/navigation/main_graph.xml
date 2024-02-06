@@ -121,10 +121,6 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/user_info_fragment"
-        android:name="com.ttop.app.apex.ui.fragments.other.UserInfoFragment" />
-
-    <fragment
         android:id="@+id/playing_queue_fragment"
         android:name="com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment" />
 

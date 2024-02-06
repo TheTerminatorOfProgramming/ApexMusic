@@ -6,7 +6,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.ttop.app.apex.views.insets.InsetsRecyclerView
+    <com.ttop.app.apex.views.TopAppBarLayout
+        android:id="@+id/appBarLayout"
+        style="?appBarLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/CenteredCheckBoxTheme" />
+
+    <com.ttop.app.apex.indexer.IndexFastScrollRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,16 +23,11 @@
         android:paddingBottom="@dimen/mini_player_height"
         android:scrollbars="none"
         android:transitionGroup="true"
+        app:setIndexBarTransparentValue="0"
+        app:setIndexBarStrokeColor="@color/transparent"
+        app:setPreviewTransparentValue="1"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_list" />
-
-    <com.ttop.app.apex.views.TopAppBarLayout
-        android:id="@+id/appBarLayout"
-        style="?appBarLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/CenteredCheckBoxTheme" />
+        tools:listitem="@layout/item_list"/>
 
     <LinearLayout
         android:id="@android:id/empty"
@@ -61,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="35dp"
         android:contentDescription="@string/shuffle"
         app:srcCompat="@drawable/ic_shuffle" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

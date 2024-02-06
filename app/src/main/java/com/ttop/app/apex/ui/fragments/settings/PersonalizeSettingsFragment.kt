@@ -14,33 +14,29 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
-import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
-import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.*
-import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.APPBAR_MODE
+import com.ttop.app.apex.BLURRED_ALBUM_ART
+import com.ttop.app.apex.EXPAND_PANEL_TYPE
+import com.ttop.app.apex.HOME_ALBUM_GRID_STYLE
+import com.ttop.app.apex.HOME_ARTIST_GRID_STYLE
+import com.ttop.app.apex.LOCK_SCREEN
+import com.ttop.app.apex.PAUSE_HISTORY
+import com.ttop.app.apex.R
+import com.ttop.app.apex.REMEMBER_LAST_TAB
+import com.ttop.app.apex.SCROLLBAR_TYPE
+import com.ttop.app.apex.SHOW_SCROLLBAR
+import com.ttop.app.apex.TAB_TEXT_MODE
+import com.ttop.app.apex.TOGGLE_SUGGESTIONS
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 class PersonalizeSettingsFragment : AbsSettingsFragment() {
 
     override fun invalidateSettings() {
-        val user: TwoStatePreference? = findPreference(TOGGLE_USER_NAME)
-        user?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val banner: TwoStatePreference? = findPreference(TOGGLE_HOME_BANNER)
-        banner?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
 
         val suggestions: TwoStatePreference? = findPreference(TOGGLE_SUGGESTIONS)
         suggestions?.setOnPreferenceChangeListener { _, _ ->
@@ -65,11 +61,6 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
-        val albumArt: TwoStatePreference? = findPreference(ALBUM_ART_ON_LOCK_SCREEN)
-        albumArt?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
 
         val blur: TwoStatePreference? = findPreference(BLURRED_ALBUM_ART)
         blur?.setOnPreferenceChangeListener { _, _ ->
@@ -83,28 +74,30 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val appBarMode: ATEListPreference? = findPreference(APPBAR_MODE)
-        appBarMode?.setOnPreferenceChangeListener { _, _ ->
-            restartActivity()
-            true
-        }
-
         val showScrollbar: TwoStatePreference? = findPreference(SHOW_SCROLLBAR)
         showScrollbar?.isChecked = PreferenceUtil.isShowScrollbar
         showScrollbar?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val scrollbarType: TwoStatePreference? = findPreference(SCROLLBAR_TYPE)
+        scrollbarType?.isChecked = PreferenceUtil.scrollbarType
+        scrollbarType?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val expandPanelType: TwoStatePreference? = findPreference(EXPAND_PANEL_TYPE)
+        expandPanelType?.isChecked = PreferenceUtil.expandPanelType
+        expandPanelType?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q){
-            addPreferencesFromResource(R.xml.pref_ui_a10)
-        }else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.R){
-            addPreferencesFromResource(R.xml.pref_ui_a11)
-        }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            addPreferencesFromResource(R.xml.pref_ui)
-        }
+        addPreferencesFromResource(R.xml.pref_ui)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

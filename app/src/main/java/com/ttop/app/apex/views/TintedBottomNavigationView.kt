@@ -20,7 +20,6 @@ import android.util.AttributeSet
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ttop.app.apex.extensions.addAlpha
 import com.ttop.app.apex.extensions.setItemColors
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ATHUtil

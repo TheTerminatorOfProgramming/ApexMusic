@@ -311,16 +311,6 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="Widget.Apex.Slider" parent="Widget.Material3.Slider">
-        <item name="labelBehavior">gone</item>
-        <item name="thumbRadius">6dp</item>
-        <item name="haloRadius">18dp</item>
-    </style>
-
-    <style name="Widget.Apex.Slider.NoLabel" parent="Widget.Material3.Slider">
-        <item name="labelBehavior">gone</item>
-    </style>
-
     <style name="circleImageView1" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
@@ -332,17 +322,35 @@
         <item name="android:thumbTint">?colorPrimary</item>
         <item name="android:progressBackgroundTint">?android:attr/textColorTertiary</item>
         <item name="android:clickable">true</item>
-        <item name="android:splitTrack">false</item> </style>
+        <item name="android:splitTrack">false</item>
+    </style>
 
     <style name="SquigglySlider" parent="Base.SquigglySlider"/>
+
+    <style name="SquigglySlider.Tablet" parent="Base.SquigglySlider">
+    <item name="android:scaleY">1.5</item>
+    </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="Widget.Retro.Slider" parent="Widget.Material3.Slider">
+    <style name="Widget.Apex.Slider" parent="Widget.Material3.Slider">
         <item name="labelBehavior">gone</item>
-        <item name="thumbRadius">6dp</item>
-        <item name="haloRadius">18dp</item>
+        <item name="thumbRadius">0dp</item>
+        <item name="haloRadius">0dp</item>
+        <item name="trackStopIndicatorSize">0dp</item>
+        <item name="thumbHeight">0dp</item>
+        <item name="thumbTrackGapSize">0dp</item>
+        <item name="trackHeight">16dp</item>
+    </style>
+
+    <style name="Widget.Apex.Slider.AudioFade" parent="Widget.Material3.Slider">
+        <item name="labelBehavior">gone</item>
+        <item name="thumbRadius">0dp</item>
+        <item name="haloRadius">0dp</item>
+        <item name="thumbHeight">0dp</item>
+        <item name="thumbTrackGapSize">0dp</item>
+        <item name="trackHeight">16dp</item>
     </style>
 </resources>

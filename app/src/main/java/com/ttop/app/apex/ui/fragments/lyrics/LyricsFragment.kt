@@ -47,6 +47,7 @@ import com.ttop.app.apex.util.UriUtil
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.appthemehelper.util.VersionUtils
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jaudiotagger.audio.AudioFileIO
@@ -195,6 +196,7 @@ class LyricsFragment : AbsMainActivityFragment(R.layout.fragment_lyrics),
         return false
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("CheckResult")
     private fun editNormalLyrics(lyrics: String? = null) {
         val file = File(song.data)
@@ -249,6 +251,7 @@ class LyricsFragment : AbsMainActivityFragment(R.layout.fragment_lyrics),
     }
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("CheckResult")
     private fun editSyncedLyrics(lyrics: String? = null) {
         val content = lyrics ?: LyricUtil.getStringFromLrc(LyricUtil.getSyncedLyricsFile(song))

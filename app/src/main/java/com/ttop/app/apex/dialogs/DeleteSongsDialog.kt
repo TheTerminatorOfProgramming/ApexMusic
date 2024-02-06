@@ -19,6 +19,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
@@ -62,6 +63,26 @@ class DeleteSongsDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         libraryViewModel = activity?.getViewModel() as LibraryViewModel
+
+        val intent = Intent(requireActivity(), SAFGuideActivity::class.java)
+        val launcher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            when (result.resultCode) {
+                SAFGuideActivity.REQUEST_CODE_SAF_GUIDE -> {
+                    SAFUtil.openTreePicker(this)
+                }
+                SAFUtil.REQUEST_SAF_PICK_TREE,
+                SAFUtil.REQUEST_SAF_PICK_FILE -> {
+                    if (result.resultCode == Activity.RESULT_OK) {
+                        SAFUtil.saveTreeUri(requireActivity(), intent)
+                        val songs = extraNotNull<List<Song>>(EXTRA_SONG).value
+                        deleteSongs(songs)
+                    }
+                }
+            }
+        }
+
         val songs = extraNotNull<List<Song>>(EXTRA_SONG).value
         if (VersionUtils.hasR()) {
             val deleteResultLauncher =
@@ -119,34 +140,14 @@ class DeleteSongsDialog : DialogFragment() {
                         if (SAFUtil.isSDCardAccessGranted(requireActivity())) {
                             deleteSongs(songs)
                         } else {
-                            startActivityForResult(
-                                Intent(requireActivity(), SAFGuideActivity::class.java),
-                                SAFGuideActivity.REQUEST_CODE_SAF_GUIDE
-                            )
+                            launcher.launch(intent)
                         }
                     }
                 }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            SAFGuideActivity.REQUEST_CODE_SAF_GUIDE -> {
-                SAFUtil.openTreePicker(this)
-            }
-            SAFUtil.REQUEST_SAF_PICK_TREE,
-            SAFUtil.REQUEST_SAF_PICK_FILE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    SAFUtil.saveTreeUri(requireActivity(), data)
-                    val songs = extraNotNull<List<Song>>(EXTRA_SONG).value
-                    deleteSongs(songs)
-                }
-            }
-        }
-    }
-
-    fun deleteSongs(songs: List<Song>) {
+    private fun deleteSongs(songs: List<Song>) {
         CoroutineScope(Dispatchers.IO).launch {
             dismiss()
             MusicUtil.deleteTracks(requireActivity(), songs, null, null)

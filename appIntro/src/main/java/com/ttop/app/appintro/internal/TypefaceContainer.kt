@@ -4,7 +4,6 @@ import android.graphics.Typeface
 import android.widget.TextView
 import androidx.annotation.FontRes
 import androidx.core.content.res.ResourcesCompat
-import com.ttop.app.appintro.internal.CustomFontCache
 
 /**
  * Class for containing the Typefaces that can be used with AppIntro.

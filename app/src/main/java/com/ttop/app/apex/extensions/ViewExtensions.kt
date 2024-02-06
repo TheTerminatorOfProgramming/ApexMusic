@@ -29,14 +29,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
-import androidx.annotation.Px
 import androidx.core.animation.doOnEnd
-import androidx.core.animation.doOnStart
 import androidx.core.content.getSystemService
 import androidx.core.view.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 import com.ttop.app.apex.util.ApexUtil
@@ -66,10 +63,6 @@ fun View.see() {
 
 fun View.goAway() {
     visibility = View.GONE
-}
-
-fun View.hidden() {
-    isInvisible = true
 }
 
 fun EditText.appHandleColor(): EditText {
@@ -172,44 +165,12 @@ fun NavigationBarView.hide() {
     }
 }
 
-fun View.translateYAnimate(value: Float): Animator {
-    return ObjectAnimator.ofFloat(this, "translationY", value)
-        .apply {
-            duration = 300
-            doOnStart {
-                show()
-                bringToFront()
-            }
-            doOnEnd {
-                isGone = (value != 0f)
-            }
-            start()
-        }
-}
-
 fun BottomSheetBehavior<*>.peekHeightAnimate(value: Int): Animator {
     return ObjectAnimator.ofInt(this, "peekHeight", value)
         .apply {
             duration = ANIM_DURATION
             start()
         }
-}
-
-fun MaterialCardView.animateRadius(cornerRadius: Float, pause: Boolean = true) {
-    ValueAnimator.ofFloat(radius, cornerRadius).apply {
-        addUpdateListener { radius = animatedValue as Float }
-        start()
-    }
-    ValueAnimator.ofInt(measuredWidth, if (pause) (height * 1.5).toInt() else height).apply {
-        addUpdateListener {
-            updateLayoutParams<ViewGroup.LayoutParams> { width = animatedValue as Int }
-        }
-        start()
-    }
-}
-
-fun MaterialCardView.animateToCircle() {
-    animateRadius(measuredHeight / 2F, pause = false)
 }
 
 fun View.focusAndShowKeyboard() {
@@ -273,63 +234,3 @@ fun View.drawAboveSystemBarsWithPadding() {
     }
 }
 
-fun View.drawNextToNavbar() {
-    if (PreferenceUtil.isFullScreenMode) return
-    applyInsetter {
-        type(statusBars = true, navigationBars = true) {
-            padding(horizontal = true)
-        }
-    }
-}
-
-fun View.updateMargin(
-    @Px left: Int = marginLeft,
-    @Px top: Int = marginTop,
-    @Px right: Int = marginRight,
-    @Px bottom: Int = marginBottom,
-) {
-    (layoutParams as ViewGroup.MarginLayoutParams).updateMargins(left, top, right, bottom)
-}
-
-fun View.applyBottomInsets() {
-    if (PreferenceUtil.isFullScreenMode) return
-    val initialPadding = recordInitialPaddingForView(this)
-
-    ViewCompat.setOnApplyWindowInsetsListener(
-        (this)
-    ) { v: View, windowInsets: WindowInsetsCompat ->
-        val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-        v.updatePadding(
-            bottom = initialPadding.bottom + insets.bottom
-        )
-        windowInsets
-    }
-    requestApplyInsetsWhenAttached()
-}
-
-fun View.requestApplyInsetsWhenAttached() {
-    if (isAttachedToWindow) {
-        // We're already attached, just request as normal
-        requestApplyInsets()
-    } else {
-        // We're not attached to the hierarchy, add a listener to
-        // request when we are
-        addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(v: View) {
-                v.removeOnAttachStateChangeListener(this)
-                v.requestApplyInsets()
-            }
-
-            override fun onViewDetachedFromWindow(v: View) = Unit
-        })
-    }
-}
-
-data class InitialPadding(
-    val left: Int, val top: Int,
-    val right: Int, val bottom: Int,
-)
-
-fun recordInitialPaddingForView(view: View) = InitialPadding(
-    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
-)

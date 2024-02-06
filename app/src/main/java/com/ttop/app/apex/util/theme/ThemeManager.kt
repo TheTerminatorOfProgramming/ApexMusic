@@ -9,7 +9,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.theme.ThemeMode.*
 
 @StyleRes
-fun Context.getThemeResValue(): Int =
+/*fun Context.getThemeResValue(): Int =
     if (PreferenceUtil.materialYou) {
         if (generalThemeValue == BLACK) R.style.Theme_Apex_MD3_Black
         else R.style.Theme_Apex_MD3
@@ -20,7 +20,40 @@ fun Context.getThemeResValue(): Int =
             BLACK -> R.style.Theme_Apex_Black
             AUTO -> R.style.Theme_Apex_FollowSystem
         }
-    }
+    }*/
+
+fun Context.getThemeResValue(): Int =
+        when (generalThemeValue) {
+            LIGHT -> {
+                if (PreferenceUtil.materialYou) {
+                    R.style.Theme_Apex_MD3_Light
+                }else {
+                    R.style.Theme_Apex_Light
+                }
+            }
+            DARK -> {
+                if (PreferenceUtil.materialYou) {
+                    R.style.Theme_Apex_MD3_Dark
+                }else {
+                    R.style.Theme_Apex_Base
+                }
+            }
+            BLACK -> {
+                if (PreferenceUtil.materialYou) {
+                    R.style.Theme_Apex_MD3_Black
+                }else {
+                    R.style.Theme_Apex_Black
+                }
+            }
+            AUTO -> {
+                if (PreferenceUtil.materialYou) {
+                    R.style.Theme_Apex_MD3
+                }else {
+                    R.style.Theme_Apex_FollowSystem
+                }
+
+            }
+        }
 
 fun Context.getNightMode(): Int = when (generalThemeValue) {
     LIGHT -> AppCompatDelegate.MODE_NIGHT_NO

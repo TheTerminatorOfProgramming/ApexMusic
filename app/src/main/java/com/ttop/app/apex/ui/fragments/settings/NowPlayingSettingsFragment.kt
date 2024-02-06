@@ -15,19 +15,34 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.*
-import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.ADAPTIVE_COLOR_APP
+import com.ttop.app.apex.ALBUM_COVER_STYLE
+import com.ttop.app.apex.ALBUM_COVER_TRANSFORM
+import com.ttop.app.apex.CAROUSEL_EFFECT
+import com.ttop.app.apex.CIRCLE_PLAY_BUTTON
+import com.ttop.app.apex.CIRCULAR_ALBUM_ART
+import com.ttop.app.apex.COLOR_ANIMATE
+import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
+import com.ttop.app.apex.EXPAND_PANEL_TYPE
+import com.ttop.app.apex.EXTRA_SONG_INFO
+import com.ttop.app.apex.LYRICS
+import com.ttop.app.apex.NEW_BLUR_AMOUNT
+import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
+import com.ttop.app.apex.PLAYER_BACKGROUND
+import com.ttop.app.apex.R
+import com.ttop.app.apex.SCREEN_ON_LYRICS
+import com.ttop.app.apex.SHUFFLE_STATE
+import com.ttop.app.apex.SYNCED_LYRICS
+import com.ttop.app.apex.TOGGLE_AUTOPLAY
+import com.ttop.app.apex.VOLUME_CONTROLS
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -105,24 +120,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             PreferenceUtil.nowPlayingScreen in listOf(
                 NowPlayingScreen.Adaptive,
                 NowPlayingScreen.Card,
-                NowPlayingScreen.Flat,
+                NowPlayingScreen.Classic,
                 NowPlayingScreen.Gradient,
-                NowPlayingScreen.Normal,
-                NowPlayingScreen.MD3,
                 NowPlayingScreen.Peek,
-                NowPlayingScreen.Plain,
-                NowPlayingScreen.Simple
             )
 
-        adaptiveColor?.setOnPreferenceChangeListener { _, newValue ->
+        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            /*val value = newValue as Boolean
-
-            if (!value) {
-                colorAnimate?.isChecked = false
-            }*/
-
             true
         }
 
@@ -135,6 +139,18 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val volumeControls: TwoStatePreference? = findPreference(VOLUME_CONTROLS)
         volumeControls?.isChecked = PreferenceUtil.isVolumeControls
         volumeControls?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val shuffleState: ATESwitchPreference? = findPreference(SHUFFLE_STATE)
+        shuffleState?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val expandPanelType: ATESwitchPreference? = findPreference(EXPAND_PANEL_TYPE)
+        expandPanelType?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
@@ -171,13 +187,9 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             PreferenceUtil.nowPlayingScreen in listOf(
                 NowPlayingScreen.Adaptive,
                 NowPlayingScreen.Card,
-                NowPlayingScreen.Flat,
+                NowPlayingScreen.Classic,
                 NowPlayingScreen.Gradient,
-                NowPlayingScreen.Normal,
-                NowPlayingScreen.MD3,
-                NowPlayingScreen.Peek,
-                NowPlayingScreen.Plain,
-                NowPlayingScreen.Simple
+                NowPlayingScreen.Peek
             )
 
         if (adaptiveColor?.isEnabled == false) {
@@ -191,7 +203,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
     private fun updateAlbumCoverStyle() {
         val preference: Preference? = findPreference(ALBUM_COVER_STYLE)
         when (PreferenceUtil.nowPlayingScreen) {
-            NowPlayingScreen.Card, NowPlayingScreen.Tiny, NowPlayingScreen.Gradient -> {
+            NowPlayingScreen.Card, NowPlayingScreen.Minimal, NowPlayingScreen.Gradient -> {
                 preference?.isEnabled = false
             }
             else -> {

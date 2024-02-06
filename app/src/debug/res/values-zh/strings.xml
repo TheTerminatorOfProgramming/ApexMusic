@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accent_color_desc">主题强调色，默认为紫色</string>
+</resources>

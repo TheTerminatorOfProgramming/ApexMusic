@@ -20,7 +20,6 @@ import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.util.PreferenceUtil.isAudioFocusEnabled
 import com.ttop.app.apex.util.PreferenceUtil.playbackPitch
 import com.ttop.app.apex.util.PreferenceUtil.playbackSpeed
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErrorListener,
     MediaPlayer.OnCompletionListener {
@@ -132,9 +131,8 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
                     .build()
             )
 
-            if (VersionUtils.hasOreo())
-                player.playbackParams =
-                    PlaybackParams().setSpeed(playbackSpeed).setPitch(playbackPitch)
+            player.playbackParams =
+                PlaybackParams().setSpeed(playbackSpeed).setPitch(playbackPitch)
 
             player.setOnPreparedListener {
                 player.setOnPreparedListener(null)

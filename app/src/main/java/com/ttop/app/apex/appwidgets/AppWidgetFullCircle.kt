@@ -22,15 +22,15 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
@@ -44,7 +44,6 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
@@ -56,7 +55,7 @@ class AppWidgetFullCircle : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView: RemoteViews = RemoteViews(context.packageName, R.layout.app_widget_full_circle)
+        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_full_circle)
 
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_audio_art)
         val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
@@ -76,7 +75,7 @@ class AppWidgetFullCircle : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView: RemoteViews = RemoteViews(service.packageName, R.layout.app_widget_full_circle)
+        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_full_circle)
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -120,7 +119,7 @@ class AppWidgetFullCircle : BaseAppWidget() {
             target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
                 .load(ApexGlideExtension.getSongModel(song))
                 .apply(RequestOptions.circleCropTransform())
-                .into(object : SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
+                .into(object : CustomTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                     override fun onResourceReady(
                         resource: BitmapPaletteWrapper,
                         transition: Transition<in BitmapPaletteWrapper>?,
@@ -141,6 +140,8 @@ class AppWidgetFullCircle : BaseAppWidget() {
                         super.onLoadFailed(errorDrawable)
                         update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
                     }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
 
                     private fun update(bitmap: Bitmap?, color: Int) {
                         // Set correct drawable for pause state
@@ -200,10 +201,8 @@ class AppWidgetFullCircle : BaseAppWidget() {
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         var pendingIntent = PendingIntent.getActivity(
-            context, 0, action, if (VersionUtils.hasOreo())
-                PendingIntent.FLAG_IMMUTABLE
-            else 0
-        )
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE)
+
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
         // Favorite track
         pendingIntent = buildPendingIntent(context, TOGGLE_FAVORITE, serviceName)

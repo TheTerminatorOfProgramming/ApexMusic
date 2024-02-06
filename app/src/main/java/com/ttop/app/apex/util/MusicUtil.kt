@@ -7,7 +7,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
 import android.provider.MediaStore
-import android.text.Editable
 import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.content.contentValuesOf
@@ -17,7 +16,6 @@ import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
-import com.ttop.app.apex.db.SongEntity
 import com.ttop.app.apex.db.toSongEntity
 import com.ttop.app.apex.extensions.getLong
 import com.ttop.app.apex.extensions.showToast
@@ -38,7 +36,8 @@ import org.koin.core.component.get
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import java.util.regex.Pattern
 
 
@@ -224,13 +223,6 @@ object MusicUtil : KoinComponent {
         )
     }
 
-    fun playlistInfoString(
-        context: Context,
-        songs: List<SongEntity>,
-    ): String {
-        return getSongCountString(context, songs.size)
-    }
-
     fun getReadableDurationString(songDurationMillis: Long): String {
         var minutes = songDurationMillis / 1000 / 60
         val seconds = songDurationMillis / 1000 % 60
@@ -334,7 +326,7 @@ object MusicUtil : KoinComponent {
         contentResolver.delete(ContentUris.withAppendedId(artworkUri, albumId), null, null)
         val values = contentValuesOf(
             "album_id" to albumId,
-            "_data" to path
+            "data" to path
         )
         contentResolver.insert(artworkUri, values)
         contentResolver.notifyChange(artworkUri, null)

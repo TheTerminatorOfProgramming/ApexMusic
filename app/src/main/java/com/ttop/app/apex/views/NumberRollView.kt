@@ -1,6 +1,5 @@
 package com.ttop.app.apex.views
 
-import android.content.res.ColorStateList
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -9,7 +8,6 @@ import android.util.Property
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.annotation.VisibleForTesting
 import com.ttop.app.apex.R
 import java.text.NumberFormat
 
@@ -45,22 +43,6 @@ class NumberRollView(context: Context?, attrs: AttributeSet?) :
         } else {
             setNumberRoll(number.toFloat())
         }
-    }
-
-    /**
-     * @param stringId The id of the string to use for the description. The string must be a plural
-     * that has one placeholder for a quantity.
-     */
-    fun setString(stringId: Int) {
-        mStringId = stringId
-    }
-
-    /**
-     * @param stringIdForZero The id of the string to use for the description when the number is
-     * zero.
-     */
-    fun setStringForZero(stringIdForZero: Int) {
-        mStringIdForZero = stringIdForZero
     }
 
     /**
@@ -105,21 +87,6 @@ class NumberRollView(context: Context?, attrs: AttributeSet?) :
         mDownNumber!!.translationY = mDownNumber!!.height * offset
         mUpNumber!!.alpha = offset
         mDownNumber!!.alpha = 1.0f - offset
-    }
-
-    /** Ends any in-progress animations.  */
-    @VisibleForTesting
-    fun endAnimationsForTesting() {
-        if (mLastRollAnimator != null) mLastRollAnimator!!.end()
-    }
-
-    /**
-     * Update the text color with [ColorStateList] for both [TextView].
-     * @param resId The new text [ColorStateList] to use.
-     */
-    fun setTextColorStateList(colorStateList: ColorStateList?) {
-        mUpNumber!!.setTextColor(colorStateList)
-        mDownNumber!!.setTextColor(colorStateList)
     }
 
     companion object {
