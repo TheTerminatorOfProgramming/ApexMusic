@@ -413,6 +413,7 @@
     <string name="pref_summary_extra_controls_foldable">कवर डिस्प्ले पर मिनी प्लेयर के लिए अतिरिक्त नियंत्रण जोड़ें</string>
     <string name="pref_summary_extra_song_info">अतिरिक्त गीत जानकारी दिखाएँ, जैसे फ़ाइल स्वरूप, बिटरेट और आवृत्ति</string>
     <string name="pref_summary_gapless_playback">कुछ उपकरणों पर प्लेबैक समस्याएँ पैदा हो सकती हैं।</string>
+    <string name="pref_summary_hide_update">क्लासिक और पूर्ण विजेट में अपडेट बटन छुपाएं</string>
     <string name="pref_summary_home_banner">होम बैनर दिखाएँ या छिपाएँ</string>
     <string name="pref_summary_ignore_media_store_artwork">एल्बम कवर गुणवत्ता को बढ़ा सकता है, लेकिन छवि लोडिंग समय को धीमा कर देता है। इसे केवल तभी सक्षम करें जब आपको कम रिज़ॉल्यूशन वाली कलाकृतियों में समस्या हो</string>
     <string name="pref_summary_library_categories">लाइब्रेरी श्रेणियों की दृश्यता और क्रम कॉन्फ़िगर करें।</string>
@@ -447,6 +448,7 @@
     <string name="pref_summary_volume_controls">प्लेबैक नियंत्रणों में वॉल्यूम नियंत्रण सक्षम करें</string>
     <string name="pref_summary_wallpaper_accent">वॉलपेपर से एक्सेंट रंग निकालें</string>
     <string name="pref_summary_whitelist">केवल /म्यूजिक फोल्डर से संगीत दिखाएं</string>
+    <string name="pref_summary_widget_background">विजेट्स की पृष्ठभूमि को पारदर्शी बनाएं</string>
     <string name="pref_summary_widget_custom_color">विजेट बटनों के लिए एक कस्टम रंग सेट करें, डिफ़ॉल्ट रूप से उच्चारण रंग</string>
     <string name="pref_title_album_art_on_lockscreen">एल्बम कवर दिखाएँ</string>
     <string name="pref_title_album_cover_style">एल्बम कवर थीम</string>
@@ -482,6 +484,7 @@
     <string name="pref_title_font_size_lyrics">गीत फ़ॉन्ट आकार</string>
     <string name="pref_title_gapless_playback">गैपलेस प्लेबैक</string>
     <string name="pref_title_general_theme">ऐप थीम</string>
+    <string name="pref_title_hide_update">अद्यतन बटन छिपाएँ</string>
     <string name="pref_title_home_album_grid_style">एल्बम ग्रिड</string>
     <string name="pref_title_home_artist_grid_style">कलाकार ग्रिड</string>
     <string name="pref_title_home_banner">बैनर</string>

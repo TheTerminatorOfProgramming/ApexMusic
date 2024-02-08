@@ -413,6 +413,7 @@
     <string name="pref_summary_extra_controls_foldable">Fügen Sie zusätzliche Bedienelemente für den Mini-Player auf dem Cover-Display hinzu</string>
     <string name="pref_summary_extra_song_info">Zeigen Sie zusätzliche Songinformationen an, z. B. Dateiformat, Bitrate und Frequenz</string>
     <string name="pref_summary_gapless_playback">Kann auf einigen Geräten zu Wiedergabeproblemen führen.</string>
+    <string name="pref_summary_hide_update">Blenden Sie die Update-Schaltfläche in den klassischen und vollständigen Widgets aus</string>
     <string name="pref_summary_home_banner">Blenden Sie das Home-Banner ein oder aus</string>
     <string name="pref_summary_ignore_media_store_artwork">Kann die Qualität des Albumcovers verbessern, führt jedoch zu langsameren Bildladezeiten. Aktivieren Sie dies nur, wenn Sie Probleme mit Grafiken mit niedriger Auflösung haben</string>
     <string name="pref_summary_library_categories">Konfigurieren Sie die Sichtbarkeit und Reihenfolge der Bibliothekskategorien.</string>
@@ -447,6 +448,7 @@
     <string name="pref_summary_volume_controls">Aktivieren Sie die Lautstärkeregelung in den Wiedergabesteuerungen</string>
     <string name="pref_summary_wallpaper_accent">Extrahieren Sie Akzentfarben aus der Tapete</string>
     <string name="pref_summary_whitelist">Zeigt nur Musik aus dem Ordner „/Musik“ an</string>
+    <string name="pref_summary_widget_background">Machen Sie den Hintergrund der Widgets transparent</string>
     <string name="pref_summary_widget_custom_color">Legen Sie eine benutzerdefinierte Farbe für Widget-Schaltflächen fest. Standardmäßig wird die Akzentfarbe verwendet</string>
     <string name="pref_title_album_art_on_lockscreen">Albumcover anzeigen</string>
     <string name="pref_title_album_cover_style">Albumcover-Thema</string>
@@ -482,6 +484,7 @@
     <string name="pref_title_font_size_lyrics">Schriftgröße des Liedtextes</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_general_theme">App-Theme</string>
+    <string name="pref_title_hide_update">Schaltfläche Aktualisieren Ausblenden</string>
     <string name="pref_title_home_album_grid_style">Albumraster</string>
     <string name="pref_title_home_artist_grid_style">Künstlerraster</string>
     <string name="pref_title_home_banner">Banner</string>

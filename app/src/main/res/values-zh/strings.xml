@@ -411,6 +411,7 @@
     <string name="pref_summary_extra_controls_foldable">将强调色应用于标题文本</string>
     <string name="pref_summary_extra_song_info">为迷你播放器添加额外的控件</string>
     <string name="pref_summary_gapless_playback">在封面显示上为迷你播放器添加额外的控件</string>
+    <string name="pref_summary_hide_update">隐藏经典和完整小部件中的更新按钮</string>
     <string name="pref_summary_home_banner">可能会导致某些设备上的播放问题。</string>
     <string name="pref_summary_ignore_media_store_artwork">连接有线耳机时设置特定音量</string>
     <string name="pref_summary_library_categories">显示或隐藏主页横幅</string>
@@ -445,6 +446,7 @@
     <string name="pref_summary_volume_controls">使用通知操作作为 Android 自动操作</string>
     <string name="pref_summary_wallpaper_accent">在主页上显示或隐藏用户名</string>
     <string name="pref_summary_whitelist">在播放控件中启用音量控制</string>
+    <string name="pref_summary_widget_background">使小部件的背景透明</string>
     <string name="pref_summary_widget_custom_color">从壁纸中提取强调色</string>
     <string name="pref_title_album_art_on_lockscreen">仅显示 /Music 文件夹中的音乐</string>
     <string name="pref_title_album_cover_style">为小部件按钮设置自定义颜色，默认为强调色</string>
@@ -480,6 +482,7 @@
     <string name="pref_title_font_size_lyrics">额外的控制</string>
     <string name="pref_title_gapless_playback">歌曲信息</string>
     <string name="pref_title_general_theme">字体大小</string>
+    <string name="pref_title_hide_update">隐藏更新按钮</string>
     <string name="pref_title_home_album_grid_style">应用主题</string>
     <string name="pref_title_home_artist_grid_style">耳机音量</string>
     <string name="pref_title_home_banner">耳机音量</string>

@@ -413,6 +413,7 @@
     <string name="pref_summary_extra_controls_foldable">কভার ডিসপ্লেতে মিনি প্লেয়ারের জন্য অতিরিক্ত নিয়ন্ত্রণ যোগ করুন</string>
     <string name="pref_summary_extra_song_info">অতিরিক্ত গানের তথ্য দেখান, যেমন ফাইল ফরম্যাট, বিটরেট এবং ফ্রিকোয়েন্সি</string>
     <string name="pref_summary_gapless_playback">কিছু ডিভাইসে প্লেব্যাক সমস্যা হতে পারে।</string>
+    <string name="pref_summary_hide_update">ক্লাসিক এবং সম্পূর্ণ উইজেটগুলিতে আপডেট বোতামটি লুকান৷</string>
     <string name="pref_summary_home_banner">বাড়ির ব্যানার দেখান বা লুকিয়ে রাখুন</string>
     <string name="pref_summary_ignore_media_store_artwork">অ্যালবাম কভার গুণমান বৃদ্ধি করতে পারে, কিন্তু ধীর চিত্র লোডিং সময় কারণ. কম রেজোলিউশন আর্টওয়ার্কের সাথে আপনার সমস্যা থাকলেই কেবল এটি সক্ষম করুন৷</string>
     <string name="pref_summary_library_categories">লাইব্রেরি বিভাগের দৃশ্যমানতা এবং ক্রম কনফিগার করুন।</string>
@@ -447,6 +448,7 @@
     <string name="pref_summary_volume_controls">প্লেব্যাক নিয়ন্ত্রণে ভলিউম নিয়ন্ত্রণ সক্ষম করুন</string>
     <string name="pref_summary_wallpaper_accent">ওয়ালপেপার থেকে অ্যাকসেন্ট রঙ বের করুন</string>
     <string name="pref_summary_whitelist">শুধুমাত্র /মিউজিক ফোল্ডার থেকে সঙ্গীত দেখান</string>
+    <string name="pref_summary_widget_background">উইজেটগুলির পটভূমি স্বচ্ছ করুন</string>
     <string name="pref_summary_widget_custom_color">উইজেট বোতামের জন্য একটি কাস্টম রঙ সেট করুন, অ্যাকসেন্ট রঙে ডিফল্ট</string>
     <string name="pref_title_album_art_on_lockscreen">অ্যালবাম কভার দেখান</string>
     <string name="pref_title_album_cover_style">অ্যালবাম কভার থিম</string>
@@ -482,6 +484,7 @@
     <string name="pref_title_font_size_lyrics">লিরিক্স ফন্ট সাইজ</string>
     <string name="pref_title_gapless_playback">গ্যাপলেস প্লেব্যাক</string>
     <string name="pref_title_general_theme">অ্যাপ থিম</string>
+    <string name="pref_title_hide_update">আপডেট বোতাম লুকান</string>
     <string name="pref_title_home_album_grid_style">অ্যালবাম গ্রিড</string>
     <string name="pref_title_home_artist_grid_style">শিল্পী গ্রিড</string>
     <string name="pref_title_home_banner">ব্যানার</string>

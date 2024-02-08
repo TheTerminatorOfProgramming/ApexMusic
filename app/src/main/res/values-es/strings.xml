@@ -415,6 +415,7 @@
     <string name="pref_summary_extra_controls_foldable">Agregue controles adicionales para el mini reproductor en la pantalla de la portada</string>
     <string name="pref_summary_extra_song_info">Mostrar información adicional de la canción, como formato de archivo, tasa de bits y frecuencia.</string>
     <string name="pref_summary_gapless_playback">Puede causar problemas de reproducción en algunos dispositivos.</string>
+    <string name="pref_summary_hide_update">Ocultar el botón de actualización en los widgets clásico y completo</string>
     <string name="pref_summary_home_banner">Mostrar u ocultar el banner de inicio</string>
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la portada del álbum, pero provoca tiempos de carga de imágenes más lentos. Habilite esto solo si tiene problemas con obras de arte de baja resolución.</string>
     <string name="pref_summary_library_categories">Configure la visibilidad y el orden de las categorías de la biblioteca.</string>
@@ -449,6 +450,7 @@
     <string name="pref_summary_volume_controls">Habilitar controles de volumen en los controles de reproducción.</string>
     <string name="pref_summary_wallpaper_accent">Extraer color de acento del papel tapiz</string>
     <string name="pref_summary_whitelist">Mostrar solo música de la carpeta /Music</string>
+    <string name="pref_summary_widget_background">Hacer transparente el fondo de los widgets</string>
     <string name="pref_summary_widget_custom_color">Establezca un color personalizado para los botones de los widgets, el valor predeterminado es el color de acento</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar portada del álbum</string>
     <string name="pref_title_album_cover_style">Tema de portada del álbum</string>
@@ -484,6 +486,7 @@
     <string name="pref_title_font_size_lyrics">Tamaño de fuente de la letra</string>
     <string name="pref_title_gapless_playback">Reproducción sin pausas</string>
     <string name="pref_title_general_theme">Tema de la aplicación</string>
+    <string name="pref_title_hide_update">Ocultar botón de actualización</string>
     <string name="pref_title_home_album_grid_style">Cuadrícula del álbum</string>
     <string name="pref_title_home_artist_grid_style">Cuadrícula de artistas</string>
     <string name="pref_title_home_banner">Bandera</string>

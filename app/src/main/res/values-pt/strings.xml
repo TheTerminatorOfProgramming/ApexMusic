@@ -415,6 +415,7 @@
     <string name="pref_summary_extra_controls_foldable">Adicione controles extras para o miniplayer na tela externa</string>
     <string name="pref_summary_extra_song_info">Mostrar informações extras da música, como formato de arquivo, taxa de bits e frequência</string>
     <string name="pref_summary_gapless_playback">Pode causar problemas de reprodução em alguns dispositivos.</string>
+    <string name="pref_summary_hide_update">Oculte o botão de atualização nos widgets clássico e completo</string>
     <string name="pref_summary_home_banner">Mostrar ou ocultar o banner inicial</string>
     <string name="pref_summary_ignore_media_store_artwork">Pode aumentar a qualidade da capa do álbum, mas causa tempos de carregamento de imagem mais lentos. Ative esta opção apenas se tiver problemas com obras de arte de baixa resolução</string>
     <string name="pref_summary_library_categories">Configure a visibilidade e a ordem das categorias da biblioteca.</string>
@@ -449,6 +450,7 @@
     <string name="pref_summary_volume_controls">Habilite os controles de volume nos controles de reprodução</string>
     <string name="pref_summary_wallpaper_accent">Extraia a cor de destaque do papel de parede</string>
     <string name="pref_summary_whitelist">Mostrar apenas músicas de /Pasta de músicas</string>
+    <string name="pref_summary_widget_background">Torne o fundo dos widgets transparente</string>
     <string name="pref_summary_widget_custom_color">Defina uma cor personalizada para os botões dos widgets, o padrão é a cor de destaque</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar capa do álbum</string>
     <string name="pref_title_album_cover_style">Tema da capa do álbum</string>
@@ -484,6 +486,7 @@
     <string name="pref_title_font_size_lyrics">Tamanho da fonte da letra</string>
     <string name="pref_title_gapless_playback">Reprodução sem intervalos</string>
     <string name="pref_title_general_theme">Tema do aplicativo</string>
+    <string name="pref_title_hide_update">Ocultar botão de atualização</string>
     <string name="pref_title_home_album_grid_style">Grade de álbuns</string>
     <string name="pref_title_home_artist_grid_style">Grade do Artista</string>
     <string name="pref_title_home_banner">Bandeira</string>

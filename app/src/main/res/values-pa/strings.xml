@@ -413,6 +413,7 @@
     <string name="pref_summary_extra_controls_foldable">ਕਵਰ ਡਿਸਪਲੇ \'ਤੇ ਮਿੰਨੀ ਪਲੇਅਰ ਲਈ ਵਾਧੂ ਨਿਯੰਤਰਣ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="pref_summary_extra_song_info">ਵਾਧੂ ਗੀਤ ਜਾਣਕਾਰੀ ਦਿਖਾਓ, ਜਿਵੇਂ ਕਿ ਫਾਈਲ ਫਾਰਮੈਟ, ਬਿੱਟਰੇਟ ਅਤੇ ਬਾਰੰਬਾਰਤਾ</string>
     <string name="pref_summary_gapless_playback">ਕੁਝ ਡਿਵਾਈਸਾਂ \'ਤੇ ਪਲੇਬੈਕ ਸਮੱਸਿਆਵਾਂ ਦਾ ਕਾਰਨ ਬਣ ਸਕਦਾ ਹੈ।</string>
+    <string name="pref_summary_hide_update">ਕਲਾਸਿਕ ਅਤੇ ਪੂਰੇ ਵਿਜੇਟਸ ਵਿੱਚ ਅੱਪਡੇਟ ਬਟਨ ਨੂੰ ਲੁਕਾਓ</string>
     <string name="pref_summary_home_banner">ਹੋਮ ਬੈਨਰ ਦਿਖਾਓ ਜਾਂ ਲੁਕਾਓ</string>
     <string name="pref_summary_ignore_media_store_artwork">ਐਲਬਮ ਕਵਰ ਗੁਣਵੱਤਾ ਨੂੰ ਵਧਾ ਸਕਦਾ ਹੈ, ਪਰ ਹੌਲੀ ਚਿੱਤਰ ਲੋਡ ਹੋਣ ਦਾ ਕਾਰਨ ਬਣਦਾ ਹੈ। ਇਸ ਨੂੰ ਸਿਰਫ਼ ਉਦੋਂ ਹੀ ਚਾਲੂ ਕਰੋ ਜੇਕਰ ਤੁਹਾਨੂੰ ਘੱਟ ਰੈਜ਼ੋਲਿਊਸ਼ਨ ਵਾਲੀਆਂ ਕਲਾਕ੍ਰਿਤੀਆਂ ਨਾਲ ਸਮੱਸਿਆਵਾਂ ਹਨ</string>
     <string name="pref_summary_library_categories">ਲਾਇਬ੍ਰੇਰੀ ਸ਼੍ਰੇਣੀਆਂ ਦੀ ਦਿੱਖ ਅਤੇ ਕ੍ਰਮ ਨੂੰ ਕੌਂਫਿਗਰ ਕਰੋ।</string>
@@ -447,6 +448,7 @@
     <string name="pref_summary_volume_controls">ਪਲੇਬੈਕ ਨਿਯੰਤਰਣ ਵਿੱਚ ਵਾਲੀਅਮ ਨਿਯੰਤਰਣ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="pref_summary_wallpaper_accent">ਵਾਲਪੇਪਰ ਤੋਂ ਲਹਿਜ਼ੇ ਦਾ ਰੰਗ ਕੱਢੋ</string>
     <string name="pref_summary_whitelist">ਸਿਰਫ਼ /ਸੰਗੀਤ ਫੋਲਡਰ ਤੋਂ ਸੰਗੀਤ ਦਿਖਾਓ</string>
+    <string name="pref_summary_widget_background">ਵਿਜੇਟਸ ਦੇ ਪਿਛੋਕੜ ਨੂੰ ਪਾਰਦਰਸ਼ੀ ਬਣਾਓ</string>
     <string name="pref_summary_widget_custom_color">ਵਿਜੇਟਸ ਬਟਨਾਂ ਲਈ ਇੱਕ ਕਸਟਮ ਰੰਗ ਸੈੱਟ ਕਰੋ, ਲਹਿਜ਼ੇ ਦੇ ਰੰਗ ਲਈ ਡਿਫੌਲਟ</string>
     <string name="pref_title_album_art_on_lockscreen">ਐਲਬਮ ਕਵਰ ਦਿਖਾਓ</string>
     <string name="pref_title_album_cover_style">ਐਲਬਮ ਕਵਰ ਥੀਮ</string>
@@ -482,6 +484,7 @@
     <string name="pref_title_font_size_lyrics">ਬੋਲ ਫੌਂਟ ਦਾ ਆਕਾਰ</string>
     <string name="pref_title_gapless_playback">ਗੈਪਲੈੱਸ ਪਲੇਬੈਕ</string>
     <string name="pref_title_general_theme">ਐਪ ਥੀਮ</string>
+    <string name="pref_title_hide_update">ਅੱਪਡੇਟ ਬਟਨ ਨੂੰ ਲੁਕਾਓ</string>
     <string name="pref_title_home_album_grid_style">ਐਲਬਮ ਗਰਿੱਡ</string>
     <string name="pref_title_home_artist_grid_style">ਕਲਾਕਾਰ ਗਰਿੱਡ</string>
     <string name="pref_title_home_banner">ਬੈਨਰ</string>

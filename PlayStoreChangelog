@@ -1,18 +1,31 @@
-Apex Music v3.30
+Apex Music v3.50
 
-=What's New=
--Removed the color in the top appbar as it was causing issues in landscape mode and navigation buttons
--Changed the volume buttons in the now playing theme from buttons into a slider
--Updated the notification and widgets icons
--Added inbuilt equalizer (currently in beta test)
--Added 2 new fonts
+=What's Been Added=
+-Nothing has been added
 
-=Fixed=
--Misc bugs
--Code optimizations
--Fixed intro screen
+=What's Been Removed=
+-Removed the restore legacy widgets option in developer options
+-Removed the big widget
+-Removed the full circle widget
+-Removed the circle button option. this is now enabled by default
+-Removed the colored app shortcuts option. this is now enabled by default
+-Removed the blur album cover option
+-Removed the use standard scrollbars option
+-Removed the alphabet scrollbars
+
+=What's Been Changed & Updated=
+-The lockscreen controls option has been moved to the advanced settings
+
+=What's Planned To Be Removed
+-Support for android 8, 9, 10 & 11 from apex music v4.0.0
+-The widget background option will be changed from a list to a switch
+
+=What's Fixed=
+-Adaptive player theme crash when volume controls are enabled
+Volume controls not enabling in player themes
 
 =Possible Bugs=
 -App may crash when opening app through the widgets. This is due to a change by google
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the miniplayer
 -Some android skins such as funtouch os may experience issues with apex
+-Music controls may not work due to a possible bug in apex. the bug should be fixed but needs some additional testing

@@ -411,6 +411,7 @@
     <string name="pref_summary_extra_controls_foldable">Tambahkan kontrol ekstra untuk pemutar mini di tampilan sampul</string>
     <string name="pref_summary_extra_song_info">Menampilkan informasi Lagu tambahan, seperti format file, bitrate, dan frekuensi</string>
     <string name="pref_summary_gapless_playback">Dapat menyebabkan masalah pemutaran pada beberapa perangkat.</string>
+    <string name="pref_summary_hide_update">Sembunyikan tombol perbarui di widget klasik dan lengkap</string>
     <string name="pref_summary_home_banner">Tampilkan atau sembunyikan spanduk beranda</string>
     <string name="pref_summary_ignore_media_store_artwork">Dapat meningkatkan kualitas sampul album, namun menyebabkan waktu pemuatan gambar lebih lambat. Hanya aktifkan ini jika Anda memiliki masalah dengan karya seni beresolusi rendah</string>
     <string name="pref_summary_library_categories">Konfigurasikan visibilitas dan urutan kategori perpustakaan.</string>
@@ -445,6 +446,7 @@
     <string name="pref_summary_volume_controls">Aktifkan kontrol volume di kontrol pemutaran</string>
     <string name="pref_summary_wallpaper_accent">Ekstrak warna aksen dari wallpaper</string>
     <string name="pref_summary_whitelist">Hanya tampilkan musik dari /Folder Musik</string>
+    <string name="pref_summary_widget_background">Jadikan latar belakang widget transparan</string>
     <string name="pref_summary_widget_custom_color">Tetapkan warna khusus untuk tombol widget, defaultnya adalah warna aksen</string>
     <string name="pref_title_album_art_on_lockscreen">Tampilkan Sampul Album</string>
     <string name="pref_title_album_cover_style">Tema Sampul Album</string>
@@ -480,6 +482,7 @@
     <string name="pref_title_font_size_lyrics">Ukuran Font Lirik</string>
     <string name="pref_title_gapless_playback">Pemutaran Tanpa Celah</string>
     <string name="pref_title_general_theme">Tema Aplikasi</string>
+    <string name="pref_title_hide_update">Sembunyikan Tombol Perbarui</string>
     <string name="pref_title_home_album_grid_style">Kotak Album</string>
     <string name="pref_title_home_artist_grid_style">Kotak Artis</string>
     <string name="pref_title_home_banner">Spanduk</string>

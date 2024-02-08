@@ -411,6 +411,7 @@
     <string name="pref_summary_extra_controls_foldable">カバー表示にミニプレーヤー用の追加コントロールを追加する</string>
     <string name="pref_summary_extra_song_info">ファイル形式、ビットレート、周波数などの追加の曲情報を表示します</string>
     <string name="pref_summary_gapless_playback">一部のデバイスでは再生の問題が発生する可能性があります。</string>
+    <string name="pref_summary_hide_update">クラシックウィジェットとフルウィジェットの更新ボタンを非表示にする</string>
     <string name="pref_summary_home_banner">ホームバナーを表示または非表示にする</string>
     <string name="pref_summary_ignore_media_store_artwork">アルバム カバーの品質は向上しますが、画像の読み込み時間が遅くなります。 低解像度のアートワークに問題がある場合にのみこれを有効にしてください。</string>
     <string name="pref_summary_library_categories">ライブラリ カテゴリの表示と順序を構成します。</string>
@@ -445,6 +446,7 @@
     <string name="pref_summary_volume_controls">再生コントロールで音量コントロールを有効にする</string>
     <string name="pref_summary_wallpaper_accent">壁紙からアクセントカラーを抽出する</string>
     <string name="pref_summary_whitelist">/Music フォルダーの音楽のみを表示</string>
+    <string name="pref_summary_widget_background">ウィジェットの背景を透明にする</string>
     <string name="pref_summary_widget_custom_color">ウィジェットボタンのカスタムカラーを設定します。デフォルトはアクセントカラーです。</string>
     <string name="pref_title_album_art_on_lockscreen">アルバムカバーを表示</string>
     <string name="pref_title_album_cover_style">アルバムカバーテーマ</string>
@@ -480,6 +482,7 @@
     <string name="pref_title_font_size_lyrics">歌詞のフォントサイズ</string>
     <string name="pref_title_gapless_playback">ギャップレス再生</string>
     <string name="pref_title_general_theme">アプリのテーマ</string>
+    <string name="pref_title_hide_update">更新ボタンを非表示にする</string>
     <string name="pref_title_home_album_grid_style">アルバムグリッド</string>
     <string name="pref_title_home_artist_grid_style">アーティストグリッド</string>
     <string name="pref_title_home_banner">バナー</string>
