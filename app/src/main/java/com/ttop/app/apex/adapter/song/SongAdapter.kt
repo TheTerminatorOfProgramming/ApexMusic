@@ -21,7 +21,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SectionIndexer
 import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -40,14 +39,12 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
-import com.ttop.app.apex.indexer.Helpers.Companion.sectionsHelper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import me.zhanghai.android.fastscroll.PopupTextProvider
-import java.util.Locale
 
 
 /**
@@ -62,11 +59,9 @@ open class SongAdapter(
 ) : AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song>(
     activity,
     R.menu.menu_media_selection
-), PopupTextProvider, SectionIndexer {
+), PopupTextProvider {
 
     private var showSectionName = true
-    private var mSectionPositions: ArrayList<Int>? = null
-    private var sectionsTranslator = HashMap<Int, Int>()
 
     init {
         this.showSectionName = showSectionName
@@ -88,11 +83,7 @@ open class SongAdapter(
             try {
                 LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false)
             } catch (e: Resources.NotFoundException) {
-                if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-                    LayoutInflater.from(activity).inflate(R.layout.item_list_index, parent, false)
-                }else {
-                    LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false)
-                }
+                LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false)
             }
         return createViewHolder(view)
     }
@@ -233,37 +224,5 @@ open class SongAdapter(
 
     companion object {
         val TAG: String = SongAdapter::class.java.simpleName
-    }
-
-    override fun getSections(): Array<Any>? {
-        val mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        val sections: MutableList<String> = ArrayList(27)
-        val alphabetFull = ArrayList<String>()
-        mSectionPositions = ArrayList()
-        run {
-            var i = 0
-            val size = dataSet.size
-            while (i < size) {
-                val section = dataSet[i].title[0].toString().uppercase(Locale.getDefault())
-                if (!sections.contains(section)) {
-                    sections.add(section)
-                    mSectionPositions?.add(i)
-                }
-                i++
-            }
-        }
-        for (element in mSections) {
-            alphabetFull.add(element.toString())
-        }
-        sectionsTranslator = sectionsHelper(sections, alphabetFull)
-        return alphabetFull.toTypedArray()
-    }
-
-    override fun getPositionForSection(sectionIndex: Int): Int {
-        return mSectionPositions!![sectionsTranslator[sectionIndex]!!]
-    }
-
-    override fun getSectionForPosition(position: Int): Int {
-        return 0
     }
 }

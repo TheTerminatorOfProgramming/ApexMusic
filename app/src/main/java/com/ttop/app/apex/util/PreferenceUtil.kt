@@ -264,26 +264,12 @@ object PreferenceUtil {
             putBoolean(BLUETOOTH_PLAYBACK, value)
         }
 
-
-    val isBlurredAlbumArt
-        get() = sharedPreferences.getBoolean(
-            BLURRED_ALBUM_ART, false
-        )&& !VersionUtils.hasR()
-
     val blurAmount get() = sharedPreferences.getInt(NEW_BLUR_AMOUNT, 25)
 
     val isCarouselEffect
         get() = sharedPreferences.getBoolean(
             CAROUSEL_EFFECT, false
         )
-
-    var isColoredAppShortcuts
-        get() = sharedPreferences.getBoolean(
-            COLORED_APP_SHORTCUTS, true
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(COLORED_APP_SHORTCUTS, value)
-        }
 
     var isColoredNotification
         get() = sharedPreferences.getBoolean(
@@ -778,9 +764,6 @@ object PreferenceUtil {
     val lyricsScreenOn
         get() = sharedPreferences.getBoolean(SCREEN_ON_LYRICS, false)
 
-    val circlePlayButton
-        get() = sharedPreferences.getBoolean(CIRCLE_PLAY_BUTTON, false)
-
     var swipeAnywhereToChangeSong
         get() = sharedPreferences.getString(
             SWIPE_ANYWHERE_NOW_PLAYING, "off"
@@ -905,15 +888,6 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(DEV_MODE, value)}
-
-    val isLegacyWidgets
-        get() = sharedPreferences.getBoolean(RESTORE_LEGACY_WIDGETS, false)
-
-    val isFullCircleWidget
-        get() = sharedPreferences.getBoolean(RESTORE_FULL_CIRCLE_WIDGET, false)
-
-    val isBigWidget
-        get() = sharedPreferences.getBoolean(RESTORE_BIG_WIDGET, false)
 
     val isAction1
         get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "none")
@@ -1111,11 +1085,6 @@ object PreferenceUtil {
     val keepShuffleState
         get() = sharedPreferences.getBoolean(
             SHUFFLE_STATE, false
-        )
-
-    val scrollbarType
-        get() = sharedPreferences.getBoolean(
-            SCROLLBAR_TYPE, false
         )
 
     val expandPanelType

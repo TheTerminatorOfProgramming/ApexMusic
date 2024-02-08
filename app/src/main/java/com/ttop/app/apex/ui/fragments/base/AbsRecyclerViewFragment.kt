@@ -39,10 +39,8 @@ import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.extensions.getDrawableCompat
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.CategoryInfo
-import com.ttop.app.apex.repository.SongRepository
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
@@ -51,8 +49,6 @@ import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import org.koin.android.ext.android.inject
-import org.koin.core.component.inject
 
 
 abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
@@ -158,7 +154,7 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         binding.recyclerView.apply {
             layoutManager = this@AbsRecyclerViewFragment.layoutManager
             adapter = this@AbsRecyclerViewFragment.adapter
-            if (PreferenceUtil.isShowScrollbar && PreferenceUtil.scrollbarType) {
+            if (PreferenceUtil.isShowScrollbar) {
                 create(this)
             }
         }

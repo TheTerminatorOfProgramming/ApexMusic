@@ -48,7 +48,6 @@ import com.ttop.app.apex.APPBAR_MODE
 import com.ttop.app.apex.AUTO_ROTATE
 import com.ttop.app.apex.BLACK_THEME
 import com.ttop.app.apex.CAROUSEL_EFFECT
-import com.ttop.app.apex.CIRCLE_PLAY_BUTTON
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.CUSTOM_FONT
 import com.ttop.app.apex.DISMISS_FAILSAFE
@@ -311,7 +310,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 }
             }
             ALBUM_COVER_TRANSFORM, CAROUSEL_EFFECT,
-            ALBUM_COVER_STYLE, EXTRA_SONG_INFO, CIRCLE_PLAY_BUTTON,
+            ALBUM_COVER_STYLE, EXTRA_SONG_INFO,
             -> {
                 chooseFragmentForTheme()
                 onServiceConnected()

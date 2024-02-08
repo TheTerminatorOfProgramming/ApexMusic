@@ -217,9 +217,9 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val nps = PreferenceUtil.nowPlayingScreen
-        val npsVolButtons = NowPlayingScreen.Adaptive
+        val npsVolButtons = listOf(NowPlayingScreen.Adaptive, NowPlayingScreen.Gradient)
 
-        if (npsVolButtons == nps) {
+        if (!npsVolButtons.contains(nps)) {
             hideVolumeIfAvailable()
         }
     }

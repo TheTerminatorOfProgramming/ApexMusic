@@ -428,7 +428,6 @@
     <string name="pref_summary_restore_big_widget">大きなウィジェットを復元する</string>
     <string name="pref_summary_restore_full_circle_widget">完全な円ウィジェットを復元する</string>
     <string name="pref_summary_restore_removed_widgets">削除したウィジェットを復元する</string>
-    <string name="pref_summary_scrollbar_type">アルファベット スクロールバーの代わりにライブラリの標準スクロールバーを使用する</string>
     <string name="pref_summary_search_action">既存のプレイリストに追加するのではなく、新しいシャッフルされたプレイリストを作成します</string>
     <string name="pref_summary_search_icon">検索アイコンを音声検索アイコンに設定し、ツールバーから音声検索を自動開始します</string>
     <string name="pref_summary_show_lyrics">同期または埋め込まれた歌詞を表示する</string>
@@ -506,7 +505,6 @@
     <string name="pref_title_restore_big_widget">大きなウィジェット</string>
     <string name="pref_title_restore_full_circle_widget">フルサークルウィジェット</string>
     <string name="pref_title_restore_removed_widgets">ウィジェットを復元する</string>
-    <string name="pref_title_scrollbar_type">標準のスクロールバーを使用する</string>
     <string name="pref_title_search_action">検索アクション</string>
     <string name="pref_title_search_icon">検索アイコン</string>
     <string name="pref_title_show_lyrics">歌詞を表示</string>

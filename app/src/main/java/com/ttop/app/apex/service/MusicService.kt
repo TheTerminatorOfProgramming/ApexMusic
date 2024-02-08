@@ -145,11 +145,9 @@ class MusicService : MediaBrowserServiceCompat(),
 
     @JvmField
     var position = -1
-    private val appWidgetBig = AppWidgetBig.instance
     private val appWidgetCircle = AppWidgetCircle.instance
     private val appWidgetClassic = AppWidgetClassic.instance
     private val appWidgetFull = AppWidgetFull.instance
-    private val appWidgetFullCircle = AppWidgetFullCircle.instance
     private val widgetIntentReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME)
@@ -160,17 +158,11 @@ class MusicService : MediaBrowserServiceCompat(),
                     AppWidgetClassic.NAME -> {
                         appWidgetClassic.performUpdate(this@MusicService, ids)
                     }
-                    AppWidgetBig.NAME -> {
-                        appWidgetBig.performUpdate(this@MusicService, ids)
-                    }
                     AppWidgetFull.NAME -> {
                         appWidgetFull.performUpdate(this@MusicService, ids)
                     }
                     AppWidgetCircle.NAME -> {
                         appWidgetCircle.performUpdate(this@MusicService, ids)
-                    }
-                    AppWidgetFullCircle.NAME -> {
-                        appWidgetFullCircle.performUpdate(this@MusicService, ids)
                     }
                 }
             }
@@ -711,7 +703,6 @@ class MusicService : MediaBrowserServiceCompat(),
                     playbackManager.setCrossFadeDuration(crossFadeDuration)
                 }
             }
-            BLURRED_ALBUM_ART -> updateMediaSessionMetaData(::updateMediaSessionPlaybackState)
             COLORED_NOTIFICATION -> {
                 playingNotification?.updateMetadata(currentSong) {
                     playingNotification?.setPlaying(isPlaying)
@@ -782,10 +773,8 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
                     ACTION_UPDATE -> {
                         appWidgetClassic.notifyThemeChange(this@MusicService)
-                        appWidgetBig.notifyThemeChange(this@MusicService)
                         appWidgetCircle.notifyThemeChange(this@MusicService)
                         appWidgetFull.notifyThemeChange(this@MusicService)
-                        appWidgetFullCircle.notifyThemeChange(this@MusicService)
 
                         updateWidget()
                     }
@@ -1197,7 +1186,6 @@ class MusicService : MediaBrowserServiceCompat(),
         val deviceManu = Build.MANUFACTURER
         when (Build.VERSION.SDK_INT) {
             Build.VERSION_CODES.S, Build.VERSION_CODES.TIRAMISU -> {
-                // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
                 Glide.with(this)
                     .asBitmap()
                     .songCoverOptions(song)
@@ -1236,47 +1224,10 @@ class MusicService : MediaBrowserServiceCompat(),
 
             Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
                 if (deviceManu == "samsung") {
-                    // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
                     Glide.with(this)
                         .asBitmap()
                         .songCoverOptions(song)
                         .load(getSongModel(song))
-                        .transition(getDefaultTransition())
-                        .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                            override fun onLoadFailed(errorDrawable: Drawable?) {
-                                super.onLoadFailed(errorDrawable)
-                                metaData.putBitmap(
-                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                    BitmapFactory.decodeResource(
-                                        resources,
-                                        R.drawable.default_audio_art
-                                    )
-                                )
-                                mediaSession?.setMetadata(metaData.build())
-                                onCompletion()
-                            }
-
-                            override fun onResourceReady(
-                                resource: Bitmap,
-                                transition: Transition<in Bitmap?>?,
-                            ) {
-                                metaData.putBitmap(
-                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                    resource
-                                )
-                                mediaSession?.setMetadata(metaData.build())
-                                onCompletion()
-                            }
-
-                            override fun onLoadCleared(placeholder: Drawable?) {}
-                        })
-                }else {
-                    // there only about notification's album art, so remove "isAlbumArtOnLockScreen" and "isBlurredAlbumArt"
-                    Glide.with(this)
-                        .asBitmap()
-                        .songCoverOptions(song)
-                        .load(getSongModel(song))
-                        .circleCrop()
                         .transition(getDefaultTransition())
                         .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
                             override fun onLoadFailed(errorDrawable: Drawable?) {
@@ -1576,11 +1527,9 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun sendChangeInternal(what: String) {
         sendBroadcast(Intent(what))
-        appWidgetBig.notifyChange(this, what)
         appWidgetClassic.notifyChange(this, what)
         appWidgetFull.notifyChange(this, what)
         appWidgetCircle.notifyChange(this, what)
-        appWidgetFullCircle.notifyChange(this, what)
     }
 
     private fun setCustomAction(stateBuilder: Builder) {

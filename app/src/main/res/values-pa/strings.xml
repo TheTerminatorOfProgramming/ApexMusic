@@ -430,7 +430,6 @@
     <string name="pref_summary_restore_big_widget">ਵੱਡੇ ਵਿਜੇਟ ਨੂੰ ਰੀਸਟੋਰ ਕਰੋ</string>
     <string name="pref_summary_restore_full_circle_widget">ਪੂਰੇ ਸਰਕਲ ਵਿਜੇਟ ਨੂੰ ਰੀਸਟੋਰ ਕਰੋ</string>
     <string name="pref_summary_restore_removed_widgets">ਹਟਾਏ ਗਏ ਵਿਜੇਟਸ ਨੂੰ ਰੀਸਟੋਰ ਕਰੋ</string>
-    <string name="pref_summary_scrollbar_type">ਵਰਣਮਾਲਾ ਸਕ੍ਰੋਲਬਾਰ ਦੀ ਬਜਾਏ ਲਾਇਬ੍ਰੇਰੀ ਵਿੱਚ ਮਿਆਰੀ ਸਕ੍ਰੋਲਬਾਰ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="pref_summary_search_action">ਮੌਜੂਦਾ ਪਲੇਲਿਸਟ ਵਿੱਚ ਜੋੜਨ ਦੀ ਬਜਾਏ ਇੱਕ ਨਵੀਂ ਬਦਲੀ ਪਲੇਲਿਸਟ ਬਣਾਓ</string>
     <string name="pref_summary_search_icon">ਖੋਜ ਆਈਕਨ ਨੂੰ ਵੌਇਸ ਖੋਜ ਆਈਕਨ ਤੇ ਸੈਟ ਕਰੋ ਅਤੇ ਟੂਲਬਾਰ ਤੋਂ ਆਟੋਮੈਟਿਕ ਵੌਇਸ ਖੋਜ ਸ਼ੁਰੂ ਕਰੋ</string>
     <string name="pref_summary_show_lyrics">ਸਿੰਕ ਕੀਤੇ ਜਾਂ ਏਮਬੈਡ ਕੀਤੇ ਬੋਲ ਦਿਖਾਓ</string>
@@ -508,7 +507,6 @@
     <string name="pref_title_restore_big_widget">ਵੱਡਾ ਵਿਜੇਟ</string>
     <string name="pref_title_restore_full_circle_widget">ਪੂਰਾ ਸਰਕਲ ਵਿਜੇਟ</string>
     <string name="pref_title_restore_removed_widgets">ਵਿਜੇਟਸ ਰੀਸਟੋਰ ਕਰੋ</string>
-    <string name="pref_title_scrollbar_type">ਮਿਆਰੀ ਸਕ੍ਰੋਲਬਾਰ ਵਰਤੋ</string>
     <string name="pref_title_search_action">ਖੋਜ ਕਾਰਵਾਈ</string>
     <string name="pref_title_search_icon">ਖੋਜ ਆਈਕਨ</string>
     <string name="pref_title_show_lyrics">ਬੋਲ ਦਿਖਾਓ</string>

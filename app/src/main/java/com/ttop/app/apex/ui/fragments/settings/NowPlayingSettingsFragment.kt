@@ -24,7 +24,6 @@ import com.ttop.app.apex.ADAPTIVE_COLOR_APP
 import com.ttop.app.apex.ALBUM_COVER_STYLE
 import com.ttop.app.apex.ALBUM_COVER_TRANSFORM
 import com.ttop.app.apex.CAROUSEL_EFFECT
-import com.ttop.app.apex.CIRCLE_PLAY_BUTTON
 import com.ttop.app.apex.CIRCULAR_ALBUM_ART
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
@@ -74,12 +73,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
         lyricsScreenOn?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val circlePlayButton: TwoStatePreference? = findPreference(CIRCLE_PLAY_BUTTON)
-        circlePlayButton?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }

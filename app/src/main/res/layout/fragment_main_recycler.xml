@@ -5,16 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-
-    <com.ttop.app.apex.views.TopAppBarLayout
-        android:id="@+id/appBarLayout"
-        style="?appBarLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/CenteredCheckBoxTheme" />
-
-    <com.ttop.app.apex.indexer.IndexFastScrollRecyclerView
+    <com.ttop.app.apex.views.insets.InsetsRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,12 +14,15 @@
         android:paddingBottom="@dimen/mini_player_height"
         android:scrollbars="none"
         android:transitionGroup="true"
-        app:setIndexBarTransparentValue="0"
-        app:setIndexBarStrokeColor="@color/transparent"
-        app:setPreviewTransparentValue="1"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_list"/>
-
+        tools:listitem="@layout/item_list" />
+    <com.ttop.app.apex.views.TopAppBarLayout
+        android:id="@+id/appBarLayout"
+        style="?appBarLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/CenteredCheckBoxTheme" />
     <LinearLayout
         android:id="@android:id/empty"
         android:layout_width="wrap_content"
@@ -38,7 +32,6 @@
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/emptyEmoji"
             android:layout_width="wrap_content"
@@ -46,7 +39,6 @@
             android:layout_marginBottom="16dp"
             android:text="@string/empty_text_emoji"
             android:textAppearance="@style/TextViewHeadline3" />
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/emptyText"
             android:layout_width="wrap_content"
@@ -57,14 +49,13 @@
             android:textColor="?android:attr/textColorSecondary"
             tools:visibility="visible" />
     </LinearLayout>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/shuffle_button"
         style="@style/Widget.Material3.FloatingActionButton.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginHorizontal="35dp"
+        android:layout_marginHorizontal="16dp"
         android:contentDescription="@string/shuffle"
         app:srcCompat="@drawable/ic_shuffle" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

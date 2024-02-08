@@ -30,10 +30,6 @@ class BootReceiver : BroadcastReceiver() {
                 // Start music service if there are any existing widgets
                 if (widgetManager.getAppWidgetIds(
                         ComponentName(
-                            context, AppWidgetBig::class.java
-                        )
-                    ).isNotEmpty() || widgetManager.getAppWidgetIds(
-                        ComponentName(
                             context, AppWidgetClassic::class.java
                         )
                     ).isNotEmpty() || widgetManager.getAppWidgetIds(
@@ -43,10 +39,6 @@ class BootReceiver : BroadcastReceiver() {
                     ).isNotEmpty() || widgetManager.getAppWidgetIds(
                         ComponentName(
                             context, AppWidgetFull::class.java
-                        )
-                    ).isNotEmpty() || widgetManager.getAppWidgetIds(
-                        ComponentName(
-                            context, AppWidgetFullCircle::class.java
                         )
                     ).isNotEmpty()
                 ) {

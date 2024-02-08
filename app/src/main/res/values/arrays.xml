@@ -273,6 +273,7 @@
         <item>es</item>
     </string-array>
 
+
     <string-array name="pref_widget_background_titles" tools:ignore="InconsistentArrays">
         <item>@string/default_widget_background_title</item>
         <item>@string/transparent_widget_background_title</item>

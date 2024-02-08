@@ -45,11 +45,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
         } else {
-            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-                R.layout.item_list_index
-            }else {
-                R.layout.item_list
-            }
+            R.layout.item_list
         }
     }
 
@@ -57,11 +53,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
         } else {
-            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-                R.layout.item_list_artist_index
-            }else {
-                R.layout.item_list_artist
-            }
+            R.layout.item_list_artist
         }
     }
 
@@ -69,11 +61,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
         } else {
-            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-                R.layout.item_list_album_index
-            }else {
-                R.layout.item_list_album
-            }
+            R.layout.item_list_album
         }
     }
 
@@ -81,11 +69,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         return if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
         } else {
-            if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-                R.layout.item_list_playlist_index
-            }else {
-                R.layout.item_list_playlist
-            }
+            R.layout.item_list_playlist
         }
     }
 

@@ -118,9 +118,7 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setTheme(R.style.SixtyFourThemeOverlay)
         }
 
-        if (PreferenceUtil.circlePlayButton) {
-            setTheme(R.style.CircleFABOverlay)
-        }
+        setTheme(R.style.CircleFABOverlay)
 
         when (PreferenceUtil.fontSize) {
             "12" -> {

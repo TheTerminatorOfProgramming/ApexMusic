@@ -428,7 +428,6 @@
     <string name="pref_summary_restore_big_widget">导航到启动时最后使用的选项卡</string>
     <string name="pref_summary_restore_full_circle_widget">如果启用，将显示进度条，否则将显示歌曲进度和持续时间</string>
     <string name="pref_summary_restore_removed_widgets">恢复大部件</string>
-    <string name="pref_summary_scrollbar_type">恢复全圆小部件</string>
     <string name="pref_summary_search_action">恢复删除的小部件</string>
     <string name="pref_summary_search_icon">使用库中的标准滚动条代替字母滚动条</string>
     <string name="pref_summary_show_lyrics">创建新的随机播放列表，而不是添加到现有播放列表</string>
@@ -506,7 +505,6 @@
     <string name="pref_title_restore_big_widget">正在播放队列风格（横向）</string>
     <string name="pref_title_restore_full_circle_widget">记住最后一个选项卡</string>
     <string name="pref_title_restore_removed_widgets">显示进度条</string>
-    <string name="pref_title_scrollbar_type">大部件</string>
     <string name="pref_title_search_action">全圆小部件</string>
     <string name="pref_title_search_icon">恢复小部件</string>
     <string name="pref_title_show_lyrics">使用标准滚动条</string>

@@ -42,6 +42,7 @@ import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).

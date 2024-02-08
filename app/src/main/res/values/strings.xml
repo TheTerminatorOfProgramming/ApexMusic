@@ -415,6 +415,7 @@
     <string name="pref_summary_extra_controls_foldable">Add extra controls for mini player on cover display</string>
     <string name="pref_summary_extra_song_info">Show extra Song information, such as file format, bitrate and frequency</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
+    <string name="pref_summary_hide_update">Hide the update button in the classic and full widgets</string>
     <string name="pref_summary_home_banner">Show or hide the home banner</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality, but causes slower image loading times. Only enable this if you have problems with low resolution artworks</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
@@ -432,7 +433,6 @@
     <string name="pref_summary_restore_big_widget">Restore big widget</string>
     <string name="pref_summary_restore_full_circle_widget">Restore full circle widget</string>
     <string name="pref_summary_restore_removed_widgets">Restore removed widgets</string>
-    <string name="pref_summary_scrollbar_type">Use the standard scrollbar in the library instead of alphabet scrollbar</string>
     <string name="pref_summary_search_action">Create a new shuffled playlist instead of adding to existing playlist</string>
     <string name="pref_summary_search_icon">Set the search icon to the voice search icon and auto start voice search from toolbar</string>
     <string name="pref_summary_show_lyrics">Show synced or embedded lyrics</string>
@@ -450,6 +450,7 @@
     <string name="pref_summary_volume_controls">Enable volume controls in the playback controls</string>
     <string name="pref_summary_wallpaper_accent">Extract accent color from wallpaper</string>
     <string name="pref_summary_whitelist">Only show music from /Music Folder</string>
+    <string name="pref_summary_widget_background">Make the background of the widgets transparent</string>
     <string name="pref_summary_widget_custom_color">Set a custom color for widgets buttons, defaults to accent color</string>
     <string name="pref_title_album_art_on_lockscreen">Show Album Cover</string>
     <string name="pref_title_album_cover_style">Album Cover Theme</string>
@@ -485,6 +486,7 @@
     <string name="pref_title_font_size_lyrics">Lyrics Font Size</string>
     <string name="pref_title_gapless_playback">Gapless Playback</string>
     <string name="pref_title_general_theme">App Theme</string>
+    <string name="pref_title_hide_update">Hide Update Button</string>
     <string name="pref_title_home_album_grid_style">Album Grid</string>
     <string name="pref_title_home_artist_grid_style">Artist Grid</string>
     <string name="pref_title_home_banner">Banner</string>
@@ -510,7 +512,6 @@
     <string name="pref_title_restore_big_widget">Big Widget</string>
     <string name="pref_title_restore_full_circle_widget">Full Circle Widget</string>
     <string name="pref_title_restore_removed_widgets">Restore Widgets</string>
-    <string name="pref_title_scrollbar_type">Use Standard Scrollbars</string>
     <string name="pref_title_search_action">Search Action</string>
     <string name="pref_title_search_icon">Search Icon</string>
     <string name="pref_title_show_lyrics">Show Lyrics</string>

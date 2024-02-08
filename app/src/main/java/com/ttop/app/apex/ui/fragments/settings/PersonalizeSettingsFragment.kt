@@ -18,16 +18,12 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.APPBAR_MODE
-import com.ttop.app.apex.BLURRED_ALBUM_ART
 import com.ttop.app.apex.EXPAND_PANEL_TYPE
 import com.ttop.app.apex.HOME_ALBUM_GRID_STYLE
 import com.ttop.app.apex.HOME_ARTIST_GRID_STYLE
-import com.ttop.app.apex.LOCK_SCREEN
 import com.ttop.app.apex.PAUSE_HISTORY
 import com.ttop.app.apex.R
 import com.ttop.app.apex.REMEMBER_LAST_TAB
-import com.ttop.app.apex.SCROLLBAR_TYPE
 import com.ttop.app.apex.SHOW_SCROLLBAR
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_SUGGESTIONS
@@ -62,28 +58,9 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val blur: TwoStatePreference? = findPreference(BLURRED_ALBUM_ART)
-        blur?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val lockScreen: TwoStatePreference? = findPreference(LOCK_SCREEN)
-        lockScreen?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val showScrollbar: TwoStatePreference? = findPreference(SHOW_SCROLLBAR)
         showScrollbar?.isChecked = PreferenceUtil.isShowScrollbar
         showScrollbar?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val scrollbarType: TwoStatePreference? = findPreference(SCROLLBAR_TYPE)
-        scrollbarType?.isChecked = PreferenceUtil.scrollbarType
-        scrollbarType?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }

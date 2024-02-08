@@ -50,14 +50,6 @@ class PlaylistsFragment :
             else
                 adapter?.swapDataSet(listOf())
         }
-
-        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-            if (ApexUtil.isTablet) {
-                setAndSaveGridSize(2)
-            }else {
-                setAndSaveGridSize(1)
-            }
-        }
     }
 
     override val titleRes: Int
@@ -88,10 +80,6 @@ class PlaylistsFragment :
         val gridSizeItem: MenuItem = menu.findItem(R.id.action_grid_size)
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
-        }
-
-        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-            gridSizeItem.isVisible = false
         }
 
         setupGridSizeMenu(gridSizeItem.subMenu!!)

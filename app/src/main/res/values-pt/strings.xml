@@ -432,7 +432,6 @@
     <string name="pref_summary_restore_big_widget">Restaurar widget grande</string>
     <string name="pref_summary_restore_full_circle_widget">Restaurar widget de círculo completo</string>
     <string name="pref_summary_restore_removed_widgets">Restaurar widgets removidos</string>
-    <string name="pref_summary_scrollbar_type">Use a barra de rolagem padrão da biblioteca em vez da barra de rolagem alfabética</string>
     <string name="pref_summary_search_action">Crie uma nova lista de reprodução aleatória em vez de adicioná-la à lista de reprodução existente</string>
     <string name="pref_summary_search_icon">Defina o ícone de pesquisa como ícone de pesquisa por voz e inicie automaticamente a pesquisa por voz na barra de ferramentas</string>
     <string name="pref_summary_show_lyrics">Mostrar letras sincronizadas ou incorporadas</string>
@@ -510,7 +509,6 @@
     <string name="pref_title_restore_big_widget">Grande widget</string>
     <string name="pref_title_restore_full_circle_widget">Widget de Círculo Completo</string>
     <string name="pref_title_restore_removed_widgets">Restaurar widgets</string>
-    <string name="pref_title_scrollbar_type">Use barras de rolagem padrão</string>
     <string name="pref_title_search_action">Ação de pesquisa</string>
     <string name="pref_title_search_icon">Ícone de pesquisa</string>
     <string name="pref_title_show_lyrics">Mostrar letras</string>

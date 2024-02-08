@@ -307,11 +307,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (PreferenceUtil.circlePlayButton) {
-            requireContext().theme.applyStyle(R.style.CircleFABOverlay, true)
-        } else {
-            requireContext().theme.applyStyle(R.style.RoundedFABOverlay, true)
-        }
+        requireContext().theme.applyStyle(R.style.CircleFABOverlay, true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

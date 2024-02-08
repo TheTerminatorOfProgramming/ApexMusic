@@ -27,17 +27,12 @@ import android.provider.MediaStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
-import com.ttop.app.apex.App
 import com.ttop.app.apex.DESATURATED_COLOR
 import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.R
-import com.ttop.app.apex.RESTORE_LEGACY_WIDGETS
-import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
-import com.ttop.app.apex.appwidgets.AppWidgetFullCircle
 import com.ttop.app.apex.extensions.currentFragment
 import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.findNavController
@@ -89,23 +84,6 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
             }
         } else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-        }
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.getContext())
-
-        if (!sharedPreferences.contains(RESTORE_LEGACY_WIDGETS)) {
-            packageManager.setComponentEnabledSetting(
-                ComponentName(
-                    applicationContext,
-                    AppWidgetFullCircle::class.java
-                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
-            )
-
-            packageManager.setComponentEnabledSetting(
-                ComponentName(
-                    applicationContext,
-                    AppWidgetBig::class.java
-                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
-            )
         }
 
         if (PreferenceUtil.isDisableWidgets) {

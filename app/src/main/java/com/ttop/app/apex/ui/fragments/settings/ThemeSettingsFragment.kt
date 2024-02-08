@@ -112,15 +112,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val colorAppShortcuts: TwoStatePreference? = findPreference(SHOULD_COLOR_APP_SHORTCUTS)
-        colorAppShortcuts?.isChecked = PreferenceUtil.isColoredAppShortcuts
-        colorAppShortcuts?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            PreferenceUtil.isColoredAppShortcuts = newValue as Boolean
-            DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-            true
-        }
-
         val materialYou: ATESwitchPreference? = findPreference(MATERIAL_YOU)
         materialYou?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)

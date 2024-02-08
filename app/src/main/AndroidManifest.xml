@@ -191,19 +191,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.ttop.app.apex.appwidgets.AppWidgetBig"
-            android:enabled="false"
-            android:exported="true"
-            android:label="@string/app_widget_big_name" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_big_info" />
-        </receiver>
-        <receiver
             android:name="com.ttop.app.apex.appwidgets.AppWidgetClassic"
             android:exported="true"
             android:label="@string/app_widget_classic_name" >
@@ -239,19 +226,6 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_circle_info" />
-        </receiver>
-        <receiver
-            android:name="com.ttop.app.apex.appwidgets.AppWidgetFullCircle"
-            android:enabled="true"
-            android:exported="true"
-            android:label="@string/app_widget_full_circle_name" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_full_circle_info" />
         </receiver>
 
         <service

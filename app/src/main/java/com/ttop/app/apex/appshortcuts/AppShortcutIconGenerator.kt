@@ -26,11 +26,7 @@ import com.ttop.app.appthemehelper.ThemeStore
 
 object AppShortcutIconGenerator {
     fun generateThemedIcon(context: Context, iconId: Int): Icon {
-        return if (PreferenceUtil.isColoredAppShortcuts) {
-            generateUserThemedIcon(context, iconId)
-        } else {
-            generateDefaultThemedIcon(context, iconId)
-        }
+        return generateUserThemedIcon(context, iconId)
     }
 
     private fun generateDefaultThemedIcon(context: Context, iconId: Int): Icon {

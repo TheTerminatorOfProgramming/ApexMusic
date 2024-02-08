@@ -49,14 +49,6 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             else
                 adapter?.swapDataSet(listOf())
         }
-
-        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-            if (ApexUtil.isTablet) {
-                setAndSaveGridSize(2)
-            }else {
-                setAndSaveGridSize(1)
-            }
-        }
     }
 
     override val titleRes: Int
@@ -160,11 +152,6 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
         val gridStyleItem: MenuItem = menu.findItem(R.id.action_layout_type)
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
-        }
-
-        if (PreferenceUtil.isShowScrollbar && !PreferenceUtil.scrollbarType) {
-            gridSizeItem.isVisible = false
-            gridStyleItem.isVisible = false
         }
 
         setUpGridSizeMenu(gridSizeItem.subMenu!!)

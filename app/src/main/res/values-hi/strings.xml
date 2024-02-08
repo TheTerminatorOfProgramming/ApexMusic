@@ -430,7 +430,6 @@
     <string name="pref_summary_restore_big_widget">बड़ा विजेट पुनर्स्थापित करें</string>
     <string name="pref_summary_restore_full_circle_widget">पूर्ण चक्र विजेट पुनर्स्थापित करें</string>
     <string name="pref_summary_restore_removed_widgets">हटाए गए विजेट पुनर्स्थापित करें</string>
-    <string name="pref_summary_scrollbar_type">लाइब्रेरी में वर्णमाला स्क्रॉलबार के बजाय मानक स्क्रॉलबार का उपयोग करें</string>
     <string name="pref_summary_search_action">मौजूदा प्लेलिस्ट में जोड़ने के बजाय एक नई शफ़ल प्लेलिस्ट बनाएं</string>
     <string name="pref_summary_search_icon">खोज आइकन को ध्वनि खोज आइकन पर सेट करें और टूलबार से स्वचालित रूप से ध्वनि खोज प्रारंभ करें</string>
     <string name="pref_summary_show_lyrics">सिंक किए गए या एंबेडेड गीत दिखाएं</string>
@@ -508,7 +507,6 @@
     <string name="pref_title_restore_big_widget">बड़ा विजेट</string>
     <string name="pref_title_restore_full_circle_widget">पूर्ण वृत्त विजेट</string>
     <string name="pref_title_restore_removed_widgets">विजेट पुनर्स्थापित करें</string>
-    <string name="pref_title_scrollbar_type">मानक स्क्रॉलबार का उपयोग करें</string>
     <string name="pref_title_search_action">खोज क्रिया</string>
     <string name="pref_title_search_icon">खोज चिह्न</string>
     <string name="pref_title_show_lyrics">गीत दिखाएँ</string>

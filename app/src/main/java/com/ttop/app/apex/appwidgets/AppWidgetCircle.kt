@@ -298,7 +298,7 @@ class AppWidgetCircle : BaseAppWidget() {
             .load(R.drawable.default_album_art_round)
             .circleCrop()
             .into(object : CustomTarget<BitmapPaletteWrapper>(
-              imageSize,imageSize
+                imageSize,imageSize
             ) {
                 override fun onResourceReady(
                     resource: BitmapPaletteWrapper,

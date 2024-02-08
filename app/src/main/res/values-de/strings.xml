@@ -430,7 +430,6 @@
     <string name="pref_summary_restore_big_widget">Großes Widget wiederherstellen</string>
     <string name="pref_summary_restore_full_circle_widget">Vollkreis-Widget wiederherstellen</string>
     <string name="pref_summary_restore_removed_widgets">Entfernte Widgets wiederherstellen</string>
-    <string name="pref_summary_scrollbar_type">Verwenden Sie die Standard-Bildlaufleiste in der Bibliothek anstelle der Alphabet-Bildlaufleiste</string>
     <string name="pref_summary_search_action">Erstellen Sie eine neue gemischte Wiedergabeliste, anstatt sie zu einer vorhandenen Wiedergabeliste hinzuzufügen</string>
     <string name="pref_summary_search_icon">Stellen Sie das Suchsymbol auf das Sprachsuchsymbol ein und starten Sie die Sprachsuche automatisch über die Symbolleiste</string>
     <string name="pref_summary_show_lyrics">Synchronisierte oder eingebettete Liedtexte anzeigen</string>
@@ -508,7 +507,6 @@
     <string name="pref_title_restore_big_widget">Großes Widget</string>
     <string name="pref_title_restore_full_circle_widget">Vollkreis-Widget</string>
     <string name="pref_title_restore_removed_widgets">Widgets wiederherstellen</string>
-    <string name="pref_title_scrollbar_type">Verwenden Sie Standard-Bildlaufleisten</string>
     <string name="pref_title_search_action">Suchaktion</string>
     <string name="pref_title_search_icon">Suchsymbol</string>
     <string name="pref_title_show_lyrics">Liedtext anzeigen</string>

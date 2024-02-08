@@ -23,6 +23,7 @@ import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.AUTO_ROTATE
 import com.ttop.app.apex.KEEP_SCREEN_ON
 import com.ttop.app.apex.LAST_ADDED_CUTOFF
+import com.ttop.app.apex.LOCK_SCREEN
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SEARCH_ACTION
 import com.ttop.app.apex.SEARCH_ICON_NAVIGATION
@@ -79,6 +80,12 @@ class OtherSettingsFragment : AbsSettingsFragment(),
 
         val searchIconNavigation: TwoStatePreference? = findPreference(SEARCH_ICON_NAVIGATION)
         searchIconNavigation?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val lockScreen: TwoStatePreference? = findPreference(LOCK_SCREEN)
+        lockScreen?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }

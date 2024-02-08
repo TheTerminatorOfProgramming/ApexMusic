@@ -430,7 +430,6 @@
     <string name="pref_summary_restore_big_widget">বড় উইজেট পুনরুদ্ধার করুন</string>
     <string name="pref_summary_restore_full_circle_widget">পূর্ণ বৃত্ত উইজেট পুনরুদ্ধার করুন</string>
     <string name="pref_summary_restore_removed_widgets">সরানো উইজেটগুলি পুনরুদ্ধার করুন</string>
-    <string name="pref_summary_scrollbar_type">বর্ণমালার স্ক্রলবারের পরিবর্তে লাইব্রেরিতে স্ট্যান্ডার্ড স্ক্রলবার ব্যবহার করুন</string>
     <string name="pref_summary_search_action">বিদ্যমান প্লেলিস্টে যোগ করার পরিবর্তে একটি নতুন এলোমেলো প্লেলিস্ট তৈরি করুন৷</string>
     <string name="pref_summary_search_icon">অনুসন্ধান আইকনটিকে ভয়েস অনুসন্ধান আইকনে সেট করুন এবং টুলবার থেকে স্বয়ংক্রিয়ভাবে ভয়েস অনুসন্ধান শুরু করুন৷</string>
     <string name="pref_summary_show_lyrics">সিঙ্ক করা বা এমবেড করা গান দেখান</string>
@@ -508,7 +507,6 @@
     <string name="pref_title_restore_big_widget">বড় উইজেট</string>
     <string name="pref_title_restore_full_circle_widget">সম্পূর্ণ সার্কেল উইজেট</string>
     <string name="pref_title_restore_removed_widgets">উইজেট পুনরুদ্ধার করুন</string>
-    <string name="pref_title_scrollbar_type">স্ট্যান্ডার্ড স্ক্রলবার ব্যবহার করুন</string>
     <string name="pref_title_search_action">অনুসন্ধান কর্ম</string>
     <string name="pref_title_search_icon">সার্চ আইকন</string>
     <string name="pref_title_show_lyrics">লিরিক্স দেখান</string>

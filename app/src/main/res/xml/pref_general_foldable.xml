@@ -92,15 +92,6 @@
             android:summary="@string/pref_summary_desaturated_color"
             android:title="@string/pref_title_desaturated_color"
             app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:dependency="material_you"
-            android:key="should_color_app_shortcuts"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_colored_app_shortcuts"
-            android:title="@string/pref_title_app_shortcuts"
-            app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"

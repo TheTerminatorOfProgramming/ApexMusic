@@ -20,7 +20,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SectionIndexer
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isGone
 import androidx.core.view.setPadding
@@ -38,7 +37,6 @@ import com.ttop.app.apex.glide.playlistPreview.PlaylistPreview
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.helper.menu.PlaylistMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
-import com.ttop.app.apex.indexer.Helpers
 import com.ttop.app.apex.interfaces.IPlaylistClickListener
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
@@ -46,7 +44,6 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.TintHelper
 import me.zhanghai.android.fastscroll.PopupTextProvider
-import java.util.Locale
 
 class PlaylistAdapter(
     override val activity: FragmentActivity,
@@ -56,10 +53,8 @@ class PlaylistAdapter(
 ) : AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, PlaylistWithSongs>(
     activity,
     R.menu.menu_playlists_selection
-), PopupTextProvider, SectionIndexer {
+), PopupTextProvider {
 
-    private var mSectionPositions: ArrayList<Int>? = null
-    private var sectionsTranslator = HashMap<Int, Int>()
 
     init {
         setHasStableIds(true)
@@ -108,7 +103,7 @@ class PlaylistAdapter(
         holder.title?.text = getPlaylistTitle(playlist.playlistEntity)
         holder.text?.text = getPlaylistText(playlist)
         holder.menu?.isGone = isChecked(playlist)
-        if (itemLayoutRes == R.layout.item_list_playlist || itemLayoutRes == R.layout.item_list_playlist_index) {
+        if (itemLayoutRes == R.layout.item_list_playlist) {
             holder.image?.setPadding(activity.dipToPix(8F).toInt())
             holder.image?.setImageDrawable(getIconRes())
         } else {
@@ -190,37 +185,5 @@ class PlaylistAdapter(
 
     companion object {
         val TAG: String = PlaylistAdapter::class.java.simpleName
-    }
-
-    override fun getSections(): Array<Any>? {
-        val mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        val sections: MutableList<String> = ArrayList(27)
-        val alphabetFull = ArrayList<String>()
-        mSectionPositions = ArrayList()
-        run {
-            var i = 0
-            val size = dataSet.size
-            while (i < size) {
-                val section = dataSet[i].playlistEntity.playlistName[0].toString().uppercase(Locale.getDefault())
-                if (!sections.contains(section)) {
-                    sections.add(section)
-                    mSectionPositions?.add(i)
-                }
-                i++
-            }
-        }
-        for (element in mSections) {
-            alphabetFull.add(element.toString())
-        }
-        sectionsTranslator = Helpers.sectionsHelper(sections, alphabetFull)
-        return alphabetFull.toTypedArray()
-    }
-
-    override fun getPositionForSection(sectionIndex: Int): Int {
-        return mSectionPositions!![sectionsTranslator[sectionIndex]!!]
-    }
-
-    override fun getSectionForPosition(position: Int): Int {
-        return 0
     }
 }

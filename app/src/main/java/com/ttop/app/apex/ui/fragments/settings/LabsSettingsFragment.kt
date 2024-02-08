@@ -47,85 +47,10 @@ class LabsSettingsFragment : AbsSettingsFragment() {
 
             true
         }
-
-
-        val legacyWidgets: TwoStatePreference? = findPreference(RESTORE_LEGACY_WIDGETS)
-        legacyWidgets?.isChecked = PreferenceUtil.isLegacyWidgets
-        legacyWidgets?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            val value = newValue as Boolean
-
-            if (PreferenceUtil.isBigWidget) {
-                bigWidgetState(requireContext(), value)
-            }
-
-            if (PreferenceUtil.isFullCircleWidget) {
-                fullCircleWidgetState(requireContext(), value)
-            }
-
-            true
-        }
-
-        val bigWidget: TwoStatePreference? = findPreference(RESTORE_BIG_WIDGET)
-        bigWidget?.isChecked = PreferenceUtil.isLegacyWidgets
-        bigWidget?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            val value = newValue as Boolean
-
-            bigWidgetState(requireContext(), value)
-            true
-        }
-
-        val fullCircleWidget: TwoStatePreference? = findPreference(RESTORE_FULL_CIRCLE_WIDGET)
-        fullCircleWidget?.isChecked = PreferenceUtil.isLegacyWidgets
-        fullCircleWidget?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            val value = newValue as Boolean
-
-            fullCircleWidgetState(requireContext(), value)
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_labs)
-    }
-
-    private fun bigWidgetState(context: Context, state: Boolean) {
-        val pm: PackageManager = context.packageManager
-
-        val newState = if (state) {
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-        }else {
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }
-
-        pm.setComponentEnabledSetting(
-            ComponentName(
-                context,
-                AppWidgetBig::class.java
-            ), newState, PackageManager.DONT_KILL_APP
-        )
-    }
-
-    private fun fullCircleWidgetState(context: Context, state: Boolean) {
-        val pm: PackageManager = context.packageManager
-
-        val newState = if (state) {
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-        }else {
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }
-
-        pm.setComponentEnabledSetting(
-            ComponentName(
-                context,
-                AppWidgetFullCircle::class.java
-            ), newState, PackageManager.DONT_KILL_APP
-        )
     }
 
     private fun classicWidgetState(context: Context, state: Boolean) {

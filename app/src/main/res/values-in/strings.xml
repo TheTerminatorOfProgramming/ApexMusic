@@ -428,7 +428,6 @@
     <string name="pref_summary_restore_big_widget">Pulihkan widget besar</string>
     <string name="pref_summary_restore_full_circle_widget">Kembalikan widget lingkaran penuh</string>
     <string name="pref_summary_restore_removed_widgets">Pulihkan widget yang dihapus</string>
-    <string name="pref_summary_scrollbar_type">Gunakan bilah gulir standar di perpustakaan, bukan bilah gulir alfabet</string>
     <string name="pref_summary_search_action">Buat daftar putar baru yang diacak alih-alih menambahkan ke daftar putar yang sudah ada</string>
     <string name="pref_summary_search_icon">Atur ikon pencarian ke ikon pencarian suara dan mulai pencarian suara secara otomatis dari toolbar</string>
     <string name="pref_summary_show_lyrics">Tampilkan lirik yang disinkronkan atau disematkan</string>
@@ -506,7 +505,6 @@
     <string name="pref_title_restore_big_widget">Widget Besar</string>
     <string name="pref_title_restore_full_circle_widget">Widget Lingkaran Penuh</string>
     <string name="pref_title_restore_removed_widgets">Pulihkan Widget</string>
-    <string name="pref_title_scrollbar_type">Gunakan Scrollbar Standar</string>
     <string name="pref_title_search_action">Tindakan Pencarian</string>
     <string name="pref_title_search_icon">Ikon Pencarian</string>
     <string name="pref_title_show_lyrics">Tampilkan Lirik</string>
