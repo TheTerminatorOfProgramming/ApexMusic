@@ -395,7 +395,7 @@
     <string name="pref_title_toggle_headset">有線ヘッドセットの再生</string>
     <string name="pref_title_use_notification_actions_for_auto">通知アクションを使用する</string>
     <string name="pref_title_volume_controls">ボリュームコントロール</string>
-    <string name="pref_title_whitelist">ホワイトリストミュージック(/ミュージックフォルダー)</string>
+    <string name="pref_title_whitelist">ホワイトリストミュージック (/ミュージックフォルダー)</string>
     <string name="pref_title_widget_background">透明なウィジェット</string>
     <string name="pref_title_widget_buttons_color">アダプティブボタン</string>
     <string name="queue">プレイングキュー</string>

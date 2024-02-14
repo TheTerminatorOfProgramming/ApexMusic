@@ -397,7 +397,7 @@
     <string name="pref_title_toggle_headset">वायर्ड हेडसेट प्लेबैक</string>
     <string name="pref_title_use_notification_actions_for_auto">अधिसूचना क्रियाओं का उपयोग करें</string>
     <string name="pref_title_volume_controls">वॉल्यूम नियंत्रण</string>
-    <string name="pref_title_whitelist">श्वेतसूची संगीत(/संगीत फ़ोल्डर)</string>
+    <string name="pref_title_whitelist">श्वेतसूची संगीत (/संगीत फ़ोल्डर)</string>
     <string name="pref_title_widget_background">पारदर्शी विजेट</string>
     <string name="pref_title_widget_buttons_color">अनुकूली बटन</string>
     <string name="queue">कतार बजाना</string>

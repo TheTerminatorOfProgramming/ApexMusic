@@ -399,7 +399,7 @@
     <string name="pref_title_toggle_headset">Wired Headset Playback</string>
     <string name="pref_title_use_notification_actions_for_auto">Use Notification Actions</string>
     <string name="pref_title_volume_controls">Volume Controls</string>
-    <string name="pref_title_whitelist">Whitelist Music(/Music Folder)</string>
+    <string name="pref_title_whitelist">Whitelist Music (/Music Folder)</string>
     <string name="pref_title_widget_background">Transparent Widgets</string>
     <string name="pref_title_widget_buttons_color">Adaptive Buttons</string>
     <string name="queue">Playing Queue</string>

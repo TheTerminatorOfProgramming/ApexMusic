@@ -1,36 +1,21 @@
-Apex Music v3.60
+Apex Music v3.65
 What's New
 
 ==What's Been Added==
--Added the number of tracks in an album in the album details page
--Added more options for android auto actions
--Added seek duration options in now playing screen settings
+-Nothing has been added
 
 ==What's Been Removed==
--Removed support for android 8, 9, 10 & 11
--Removed mini player dismiss method and dismiss check options. the swipe option is now the only way to dismiss the mini player
--Removed the lyrics page
+-Nothing has been removed
 
 ==What's Been Changed & Updated==
--Status bar in classic player theme now changes between black and white depending on background color (same as gradient and minimal player themes)
--The player themes that use the squiggly seekbar now use a round seekbar thumb instead of the rectangle thumb
--The widget background option has been changed from a list to a switch. <b>you will need to reset the app to default using the reset option in the backup & restore settings</b>
--The button on the home page wil now show the correct color when using material you
--Changed the filter song duration system. you can now set a minimum duration and a maximum duration filter
--Changed the lyrics options
--Synced lyrics now enable/disable by double tapping the album cover in the player themes
--Embedded lyrics now activated by long pressing the album cover in the player themes
--Classic and blur player themes layouts have been changed
--Updated the widgets layouts
--The settings summaries and the space reserved for the icons have been removed
--Enhanced seek function
+-Whitelist option title has been updated
+-Peek player theme color animation has been changed
 
 ==What's Planned To Be Removed/Changed==
 -Embedded lyrics will be changed from using the dialog to the same system as the synced lyrics
 
 ==What's Fixed==
--Fixed the album and artists pages menu
--Back arrow on he search page now works and closes the search page
+-Nothing has been fixed
 
 ==Possible Bugs==
 -App may crash when opening app through the widgets. This is due to a change by google

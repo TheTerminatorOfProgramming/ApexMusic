@@ -102,7 +102,7 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
             view, x, y, startRadius.toFloat(),
             endRadius
         ).apply {
-            duration = 200
+            duration = 300
             interpolator = AccelerateInterpolator()
         }
 
