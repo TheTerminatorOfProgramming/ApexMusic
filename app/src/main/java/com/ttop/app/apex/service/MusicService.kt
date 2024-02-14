@@ -68,7 +68,6 @@ import com.ttop.app.apex.providers.HistoryStore
 import com.ttop.app.apex.providers.MusicPlaybackQueueStore
 import com.ttop.app.apex.providers.SongPlayCountStore
 import com.ttop.app.apex.service.notification.PlayingNotification
-import com.ttop.app.apex.service.notification.PlayingNotificationClassic
 import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
@@ -80,7 +79,6 @@ import com.ttop.app.apex.util.PackageValidator
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
-import com.ttop.app.apex.util.PreferenceUtil.isClassicNotification
 import com.ttop.app.apex.util.PreferenceUtil.isHeadsetPlugged
 import com.ttop.app.apex.util.PreferenceUtil.isLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isPauseOnZeroVolume
@@ -407,11 +405,9 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        PreferenceUtil.updateChecked = false
-
         val restartServiceIntent = Intent(applicationContext, this.javaClass)
         restartServiceIntent.setPackage(packageName)
-        startService(restartServiceIntent)
+        ContextCompat.startForegroundService(applicationContext, restartServiceIntent)
         super.onTaskRemoved(rootIntent)
     }
 
@@ -601,11 +597,7 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun initNotification() {
-        playingNotification = if (!isClassicNotification) {
-            PlayingNotificationImpl24.from(this, notificationManager!!, mediaSession!!)
-        } else {
-            PlayingNotificationClassic.from(this, notificationManager!!)
-        }
+        playingNotification = PlayingNotificationImpl24.from(this, notificationManager!!, mediaSession!!)
     }
 
     private val isLastTrack: Boolean
@@ -701,19 +693,6 @@ class MusicService : MediaBrowserServiceCompat(),
                     restorePlaybackState(wasPlaying, progress)
                 } else {
                     playbackManager.setCrossFadeDuration(crossFadeDuration)
-                }
-            }
-            COLORED_NOTIFICATION -> {
-                playingNotification?.updateMetadata(currentSong) {
-                    playingNotification?.setPlaying(isPlaying)
-                    startForegroundOrNotify()
-                }
-            }
-            CLASSIC_NOTIFICATION -> {
-                updateNotification()
-                playingNotification?.updateMetadata(currentSong) {
-                    playingNotification?.setPlaying(isPlaying)
-                    startForegroundOrNotify()
                 }
             }
             TOGGLE_HEADSET -> registerHeadsetEvents()
@@ -1331,17 +1310,10 @@ class MusicService : MediaBrowserServiceCompat(),
             }
             if (!isForeground && isPlaying) {
                 // Specify that this is a media service, if supported.
-                if (VersionUtils.hasQ()) {
-                    startForeground(
-                        PlayingNotification.NOTIFICATION_ID, playingNotification!!.build(),
-                        ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
-                    )
-                } else {
-                    startForeground(
-                        PlayingNotification.NOTIFICATION_ID,
-                        playingNotification!!.build()
-                    )
-                }
+                startForeground(
+                    PlayingNotification.NOTIFICATION_ID, playingNotification!!.build(),
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+                )
                 isForeground = true
             } else {
                 // If we are already in foreground just update the notification
@@ -1684,6 +1656,17 @@ class MusicService : MediaBrowserServiceCompat(),
                                     .build()
                             )
                         }
+
+                        "clear_queue" -> {
+                            stateBuilder.addCustomAction(
+                                PlaybackStateCompat.CustomAction.Builder(
+                                    QUEUE_CHANGED,
+                                    getString(R.string.action_clear_playing_queue),
+                                    clearIcon
+                                )
+                                    .build()
+                            )
+                        }
                     }
                 }
                 if (autoAction2 != "none") {
@@ -1703,6 +1686,17 @@ class MusicService : MediaBrowserServiceCompat(),
                                     TOGGLE_SHUFFLE,
                                     getString(R.string.action_toggle_shuffle),
                                     shuffleIcon
+                                )
+                                    .build()
+                            )
+                        }
+
+                        "clear_queue" -> {
+                            stateBuilder.addCustomAction(
+                                PlaybackStateCompat.CustomAction.Builder(
+                                    QUEUE_CHANGED,
+                                    getString(R.string.action_clear_playing_queue),
+                                    clearIcon
                                 )
                                     .build()
                             )

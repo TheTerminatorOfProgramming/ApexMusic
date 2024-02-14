@@ -22,7 +22,6 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
 import android.net.Uri
 import android.os.Bundle
-import android.os.Process
 import android.provider.MediaStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
@@ -53,9 +52,6 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -189,18 +185,15 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean =
-        findNavController(R.id.fragment_container).navigateUp()
-
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        val expand = if (PreferenceUtil.isExpandPanel && PreferenceUtil.expandPanelType) {
-            intent?.getBooleanExtra(EXPAND_PANEL, PreferenceUtil.isExpandPanel)
+        val expand = if (PreferenceUtil.isExpandPanel == "enhanced") {
+            intent?.getBooleanExtra(EXPAND_PANEL, PreferenceUtil.isExpandPanel == "enhanced")
         }else {
             intent?.extra<Boolean>(EXPAND_PANEL)?.value ?: false
         }
 
-        if (expand == true && PreferenceUtil.isExpandPanel) {
+        if (expand == true && PreferenceUtil.isExpandPanel != "disabled") {
             if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
                 fromNotification = true
                 if (ApexUtil.isTablet) {

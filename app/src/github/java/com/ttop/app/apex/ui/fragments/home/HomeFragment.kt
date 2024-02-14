@@ -28,7 +28,6 @@ import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -49,9 +48,7 @@ import com.ttop.app.apex.extensions.elevatedAccentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexGlideExtension.profileBannerOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
-import com.ttop.app.apex.glide.ApexGlideExtension.userProfileOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.CategoryInfo
@@ -107,10 +104,8 @@ class HomeFragment :
         }
 
         if (!IntroPrefs(requireContext()).hasIntroShown) {
-            if (!GithubUtils.checkFilesPermission(
-                    requireContext()
-                )) {
-                GithubUtils.enableAllFiles(requireContext(), requireActivity())
+            if (!GithubUtils.checkFilesPermission()) {
+                GithubUtils.enableAllFiles(requireContext())
             }
         }
     }

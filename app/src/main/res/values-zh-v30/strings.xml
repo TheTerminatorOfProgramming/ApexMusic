@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="pref_summary_album_art_on_lockscreen">在 Wear os 上显示专辑封面作为背景。 可能会导致某些设备上的通知出现问题。</string>
-    <string name="pref_title_album_art_on_lockscreen">磨损操作系统</string>
-</resources>

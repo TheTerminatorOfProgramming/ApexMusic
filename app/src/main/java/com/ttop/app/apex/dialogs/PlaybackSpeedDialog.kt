@@ -13,6 +13,7 @@ import com.ttop.app.apex.extensions.accent
 import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.util.PreferenceUtil
 
 class PlaybackSpeedDialog : DialogFragment() {
@@ -80,6 +81,8 @@ class PlaybackSpeedDialog : DialogFragment() {
             positiveButton!!.accentTextColor()
             negativeButton!!.accentTextColor()
             dismissButton!!.accentTextColor()
+
+            d.withCenteredButtons()
         }
     }
 

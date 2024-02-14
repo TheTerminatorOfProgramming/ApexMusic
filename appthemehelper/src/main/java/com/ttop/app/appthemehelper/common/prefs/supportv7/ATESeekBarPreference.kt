@@ -27,6 +27,7 @@ class ATESeekBarPreference @JvmOverloads constructor(
     var unit: String = ""
 
     init {
+        layoutResource = R.layout.custom_preference_seekbar
         context.withStyledAttributes(attrs, R.styleable.ATESeekBarPreference, 0, 0) {
             getString(R.styleable.ATESeekBarPreference_ateKey_pref_unit)?.let {
                 unit = it

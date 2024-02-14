@@ -42,6 +42,9 @@ import com.ttop.app.apex.util.PreferenceUtil
 
 class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, GridLayoutManager>(),
     IArtistClickListener, IAlbumArtistClickListener {
+
+    private var layout: MenuItem? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryViewModel.getArtists().observe(viewLifecycleOwner) {
@@ -160,7 +163,6 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateMenu(menu, inflater)
         val gridSizeItem: MenuItem = menu.findItem(R.id.action_grid_size)
-        val gridStyleItem: MenuItem = menu.findItem(R.id.action_layout_type)
         if (ApexUtil.isLandscape) {
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
@@ -168,6 +170,15 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         setUpGridSizeMenu(gridSizeItem.subMenu!!)
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu!!)
+
+        if (ApexUtil.isTablet){
+            layoutItem?.isVisible = getGridSize() >= 3
+        }else{
+            layoutItem?.isVisible = getGridSize() != 1
+        }
+
+        layout = layoutItem
+
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu!!)
         setupAlbumArtistMenu(menu)
         //Setting up cast button
@@ -214,6 +225,10 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
             R.layout.image -> subMenu.findItem(R.id.action_layout_image).isChecked = true
             R.layout.item_image_gradient -> subMenu.findItem(R.id.action_layout_gradient_image).isChecked =
                 true
+        }
+
+        if (getGridSize() < 2){
+            subMenu.findItem(R.id.action_layout_normal).isChecked = true
         }
     }
 
@@ -315,9 +330,7 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         return false
     }
 
-    private fun handleGridSizeMenuItem(
-        item: MenuItem
-    ): Boolean {
+    private fun handleGridSizeMenuItem(item: MenuItem): Boolean {
         val gridSize = when (item.itemId) {
             R.id.action_grid_size_1 -> 1
             R.id.action_grid_size_2 -> 2
@@ -332,6 +345,12 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         if (gridSize > 0) {
             item.isChecked = true
             setAndSaveGridSize(gridSize)
+
+            if (ApexUtil.isTablet){
+                layout?.isVisible = gridSize >= 3
+            }else{
+                layout?.isVisible = gridSize != 1
+            }
             return true
         }
         return false

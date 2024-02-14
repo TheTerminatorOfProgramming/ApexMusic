@@ -26,11 +26,8 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentBlurPlayerPlaybackControlsBinding
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.hide
-import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
 import com.ttop.app.appthemehelper.util.ColorUtil
@@ -76,13 +73,8 @@ class BlurPlaybackControlsFragment :
         binding.title.text = song.title
         binding.artist.text = song.artistName
 
-        if (PreferenceUtil.isSongInfo) {
-            binding.songInfo.show()
-            binding.songInfo.text = getSongInfo(song)
-            binding.songInfo.isSelected = true
-        } else {
-            binding.songInfo.hide()
-        }
+        binding.songInfo.text = getSongInfo(song)
+        binding.songInfo.isSelected = true
     }
 
     override fun onServiceConnected() {

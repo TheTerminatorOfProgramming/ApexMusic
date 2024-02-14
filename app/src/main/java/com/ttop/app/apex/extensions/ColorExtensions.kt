@@ -141,11 +141,12 @@ fun MaterialButton.accentOutlineColor() {
 }
 
 fun MaterialButton.elevatedAccentColor() {
-    if (materialYou) return
-    val color = context.darkAccentColorVariant()
-    rippleColor = ColorStateList.valueOf(color)
-    setBackgroundColor(color)
-    setTextColor(MaterialValueHelper.getPrimaryTextColor(context, color.isColorLight))
+    if (!materialYou) {
+        val color = context.darkAccentColorVariant()
+        rippleColor = ColorStateList.valueOf(color)
+        setBackgroundColor(color)
+        setTextColor(MaterialValueHelper.getPrimaryTextColor(context, color.isColorLight))
+    }
     iconTint = ColorStateList.valueOf(context.accentColor())
 }
 

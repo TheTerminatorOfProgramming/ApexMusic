@@ -26,7 +26,11 @@ class TopAppBarLayout @JvmOverloads constructor(
     private var simpleAppbarBinding: SimpleAppbarLayoutBinding? = null
     private var collapsingAppbarBinding: CollapsingAppbarLayoutBinding? = null
 
-    val mode: AppBarMode = PreferenceUtil.appBarMode
+    val mode: AppBarMode = if (PreferenceUtil.appBarMode) {
+        AppBarMode.COLLAPSING
+    }else {
+       AppBarMode.SIMPLE
+    }
 
     init {
         if (mode == AppBarMode.COLLAPSING) {

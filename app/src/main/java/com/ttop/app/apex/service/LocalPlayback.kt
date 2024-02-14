@@ -9,6 +9,7 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.PlaybackParams
 import androidx.annotation.CallSuper
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.media.AudioAttributesCompat
@@ -37,7 +38,7 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
             ) {
                 val serviceIntent = Intent(context, MusicService::class.java)
                 serviceIntent.action = MusicService.ACTION_PAUSE
-                context.startService(serviceIntent)
+                ContextCompat.startForegroundService(context, serviceIntent)
             }
         }
     }

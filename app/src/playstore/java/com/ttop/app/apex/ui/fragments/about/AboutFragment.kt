@@ -395,7 +395,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     private fun checkBatteryOptimization(): String {
         val packageName = context?.packageName
         val pm = context?.getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager

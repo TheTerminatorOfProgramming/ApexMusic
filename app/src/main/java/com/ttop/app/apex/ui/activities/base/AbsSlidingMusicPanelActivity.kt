@@ -33,6 +33,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.commit
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
@@ -50,15 +51,12 @@ import com.ttop.app.apex.BLACK_THEME
 import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.CUSTOM_FONT
-import com.ttop.app.apex.DISMISS_FAILSAFE
-import com.ttop.app.apex.DISMISS_METHOD
 import com.ttop.app.apex.EMBED_LYRICS
-import com.ttop.app.apex.EXTRA_SONG_INFO
 import com.ttop.app.apex.FONT_SIZE
 import com.ttop.app.apex.GENERAL_THEME
 import com.ttop.app.apex.KEEP_SCREEN_ON
 import com.ttop.app.apex.LIBRARY_CATEGORIES
-import com.ttop.app.apex.LYRICS
+import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
 import com.ttop.app.apex.PROGRESS_BAR_ALIGNMENT
@@ -67,10 +65,8 @@ import com.ttop.app.apex.QUEUE_STYLE
 import com.ttop.app.apex.QUEUE_STYLE_LAND
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SCREEN_ON_LYRICS
-import com.ttop.app.apex.SHOW_UPDATE
 import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
-import com.ttop.app.apex.SYNCED_LYRICS
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
 import com.ttop.app.apex.TOGGLE_FULL_SCREEN
@@ -114,13 +110,12 @@ import com.ttop.app.apex.ui.fragments.player.card.CardFragment
 import com.ttop.app.apex.ui.fragments.player.gradient.GradientPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.classic.ClassicPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerFragment
-import com.ttop.app.apex.ui.fragments.player.tiny.TinyPlayerFragment
+import com.ttop.app.apex.ui.fragments.player.minimal.TinyPlayerFragment
 import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
-import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -141,6 +136,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private var paletteColor: Int = Color.WHITE
     private var navigationBarColor = 0
 
+    private var panelStateBefore: Int? = null
+    private var panelStateCurrent: Int? = null
     private val panelState: Int
         get() = bottomSheetBehavior.state
     private lateinit var binding: SlidingMusicPanelLayoutBinding
@@ -148,6 +145,19 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     private var navigationBarColorAnimator: ValueAnimator? = null
     private val argbEvaluator: ArgbEvaluator = ArgbEvaluator()
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+                if(handleBackPress()){
+                    return
+                }
+                val navHostFragment  =
+                    supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+                if(!navHostFragment.navController.navigateUp()){
+                    finish()
+                }
+            }
+        }
 
     private val bottomSheetCallbackList by lazy {
         object : BottomSheetBehavior.BottomSheetCallback() {
@@ -165,6 +175,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if(panelStateCurrent != null){
+                    panelStateBefore = panelStateCurrent
+                }
+                panelStateCurrent = newState
                 when (newState) {
                     STATE_EXPANDED -> {
                         onPanelExpanded()
@@ -205,26 +219,14 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (VersionUtils.hasR()) {
-            if (!hasPermissions()) {
-                startActivity(
-                    Intent(
-                        this@AbsSlidingMusicPanelActivity,
-                        AppIntroActivity::class.java
-                    )
+        if (!hasPermissions()) {
+            startActivity(
+                Intent(
+                    this@AbsSlidingMusicPanelActivity,
+                    AppIntroActivity::class.java
                 )
-                finish()
-            } else {
-                if (!IntroPrefs(applicationContext).hasIntroSlidesShown) {
-                    startActivity(
-                        Intent(
-                            this@AbsSlidingMusicPanelActivity,
-                            AppIntroActivity::class.java
-                        )
-                    )
-                    finish()
-                }
-            }
+            )
+            finish()
         } else {
             if (!IntroPrefs(applicationContext).hasIntroSlidesShown) {
                 startActivity(
@@ -252,12 +254,14 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
 
         navigationBarColor = surfaceColor()
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun setupBottomSheet() {
         bottomSheetBehavior = from(binding.slidingPanel)
         bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallbackList)
-        bottomSheetBehavior.isHideable = PreferenceUtil.dismissMethod == "swipe"
+        bottomSheetBehavior.isHideable = true
         bottomSheetBehavior.significantVelocityThreshold = 300
         setMiniPlayerAlphaProgress(0F)
     }
@@ -291,10 +295,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
-            DISMISS_METHOD -> {
-                bottomSheetBehavior.isHideable = PreferenceUtil.dismissMethod == "swipe"
-                recreate()
-            }
             TOGGLE_ADD_CONTROLS -> {
                 miniPlayerFragment?.setUpButtons()
             }
@@ -310,7 +310,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 }
             }
             ALBUM_COVER_TRANSFORM, CAROUSEL_EFFECT,
-            ALBUM_COVER_STYLE, EXTRA_SONG_INFO,
+            ALBUM_COVER_STYLE,
             -> {
                 chooseFragmentForTheme()
                 onServiceConnected()
@@ -328,8 +328,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             TOGGLE_FULL_SCREEN,
             PROGRESS_BAR_ALIGNMENT,
             PROGRESS_BAR_STYLE,
-            DISMISS_FAILSAFE,
-            LYRICS,
             EMBED_LYRICS,
             QUEUE_STYLE,
             QUEUE_STYLE_LAND,
@@ -342,7 +340,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             GENERAL_THEME,
             BLACK_THEME,
             SHUFFLE_STATE,
-            APPBAR_MODE -> {
+            APPBAR_MODE,
+            MATERIAL_YOU -> {
                 recreate()
             }
             SCREEN_ON_LYRICS -> {
@@ -350,9 +349,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             }
             KEEP_SCREEN_ON -> {
                 maybeSetScreenOn()
-            }
-            SYNCED_LYRICS -> {
-                playerFragment.showSyncedLyrics()
             }
             AUTO_ROTATE -> {
                 requestedOrientation = if (ApexUtil.isTablet) {
@@ -364,9 +360,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 } else {
                     ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
-            }
-            SHOW_UPDATE -> {
-                MusicPlayerRemote.updateNotification()
             }
         }
     }
@@ -457,7 +450,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     private fun handleBackPress(): Boolean {
         if (bottomSheetBehavior.peekHeight != 0 && playerFragment.onBackPressed()) return true
-        if (panelState == STATE_EXPANDED) {
+        if (panelState == STATE_EXPANDED || (panelState == STATE_SETTLING && panelStateBefore != STATE_EXPANDED)) {
             collapsePanel()
             return true
         }
@@ -473,7 +466,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 navigationBarColor = Color.BLACK
                 setLightStatusBar(false)
                 setLightNavigationBar(true)
-            } else if (nowPlayingScreen == Minimal || nowPlayingScreen == Gradient) {
+            } else if (nowPlayingScreen == Minimal || nowPlayingScreen == Gradient || nowPlayingScreen == Classic) {
                 navigationBarColor = paletteColor
                 setLightNavigationBar(isColorLight)
                 setLightStatusBar(isColorLight)

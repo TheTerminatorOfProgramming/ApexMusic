@@ -31,6 +31,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textview.MaterialTextView
 import com.ttop.app.apex.R
@@ -39,6 +40,7 @@ import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.addAccentColor
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_PENDING_QUIT
@@ -210,7 +212,7 @@ class SleepTimerDialog : DialogFragment() {
             negativeButton = d.getButton(Dialog.BUTTON_NEGATIVE) as Button
             dismissButton = d.getButton(Dialog.BUTTON_NEUTRAL) as Button
             if (PreferenceUtil.isTimerCancelled) {
-                negativeButton!!.isEnabled = false
+                negativeButton!!.isVisible = false
             }
             positiveButton!!.accentTextColor()
             if (!PreferenceUtil.isTimerCancelled) {
@@ -222,6 +224,8 @@ class SleepTimerDialog : DialogFragment() {
             positiveButton!!.textSize = 13f
             negativeButton!!.textSize = 13f
             dismissButton!!.textSize = 13f
+
+            d.withCenteredButtons()
         }
     }
 

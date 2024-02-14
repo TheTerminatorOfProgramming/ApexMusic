@@ -38,7 +38,6 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_REWIND
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_SKIP
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
-import com.ttop.app.apex.service.MusicService.Companion.UPDATE_NOTIFY
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -51,7 +50,7 @@ class PlayingNotificationImpl24(
 
     init {
         val action = Intent(context, MainActivity::class.java)
-        action.putExtra(MainActivity.EXPAND_PANEL, PreferenceUtil.isExpandPanel)
+        action.putExtra(MainActivity.EXPAND_PANEL, PreferenceUtil.isExpandPanel == "default")
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         val clickIntent =
             PendingIntent.getActivity(
@@ -162,23 +161,13 @@ class PlayingNotificationImpl24(
     }
 
     private fun buildFavoriteUpdateAction(isFavorite: Boolean): NotificationCompat.Action {
-        if (!PreferenceUtil.showUpdate) {
-            val favoriteResId =
-                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
-            return NotificationCompat.Action.Builder(
-                favoriteResId,
-                context.getString(R.string.action_toggle_favorite),
-                retrievePlaybackAction(TOGGLE_FAVORITE)
-            ).build()
-        }else{
-            val updateResId =
-                R.drawable.mc_update
-            return NotificationCompat.Action.Builder(
-                updateResId,
-                context.getString(R.string.action_update),
-                retrievePlaybackAction(UPDATE_NOTIFY)
-            ).build()
-        }
+        val favoriteResId =
+            if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
+        return NotificationCompat.Action.Builder(
+            favoriteResId,
+            context.getString(R.string.action_toggle_favorite),
+            retrievePlaybackAction(TOGGLE_FAVORITE)
+        ).build()
     }
 
     override fun setPlaying(isPlaying: Boolean) {

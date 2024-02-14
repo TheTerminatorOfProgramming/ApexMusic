@@ -10,7 +10,6 @@
             android:defaultValue="true"
             android:key="toggle_suggestions"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_suggestions"
             android:title="@string/pref_title_suggestions"
             app:allowDividerBelow="false"/>
 
@@ -40,7 +39,6 @@
             android:defaultValue="false"
             android:key="pause_history"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_pause_history"
             android:title="@string/pref_title_pause_history"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
@@ -52,7 +50,6 @@
         <com.ttop.app.apex.preferences.LibraryPreference
             android:key="library_categories"
             android:layout="@layout/list_item_view"
-            android:summary="@string/pref_summary_library_categories"
             android:title="@string/library_categories"
             app:allowDividerBelow="false"/>
 
@@ -60,7 +57,6 @@
             android:defaultValue="true"
             android:key="remember_last_tab"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_remember_tab"
             android:title="@string/pref_title_remember_tab"
             app:allowDividerBelow="false"/>
 
@@ -75,14 +71,10 @@
             android:title="@string/pref_title_tab_text_mode"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="1"
-            android:entries="@array/pref_appbar_mode_titles"
-            android:entryValues="@array/pref_appbar_mode_values"
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
             android:key="appbar_mode"
-            android:layout="@layout/list_item_view"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
+            android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_appbar_mode"
             app:allowDividerBelow="false"/>
 
@@ -90,7 +82,6 @@
             android:defaultValue="true"
             android:key="show_scrollbar"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_show_scrollbar"
             android:title="@string/pref_title_show_scrollbar"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>

@@ -21,10 +21,18 @@
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
-        <item name="colorPrimary">@color/darkColorPrimary</item>
         <item name="colorSurface">@color/darkColorSurface</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+        <item name="elevationOverlayColor">@color/elevationOverlayDark</item>
         <item name="popupMenuBackground">@drawable/popup_background</item>
         <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Theme.Apex.MD3.Black" parent="@style/Theme.Apex.MD3">
+        <item name="colorSurface">@color/blackColorSurface</item>
+    </style>
+
+    <style name="Theme.AppWidget" parent="@android:style/Theme.DeviceDefault.DayNight">
+        <item name="colorSurface">@android:color/system_accent2_800</item>
     </style>
 </resources>

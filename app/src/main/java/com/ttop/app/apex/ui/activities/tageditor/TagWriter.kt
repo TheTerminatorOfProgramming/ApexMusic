@@ -121,7 +121,6 @@ class TagWriter {
             }
         }
 
-        @RequiresApi(Build.VERSION_CODES.R)
         suspend fun writeTagsToFilesR(context: Context, info: AudioTagInfo): List<File> =
             withContext(Dispatchers.IO) {
                 val cacheFiles = mutableListOf<File>()

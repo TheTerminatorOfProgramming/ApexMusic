@@ -2,11 +2,11 @@ package com.ttop.app.apex.ui.fragments.backup
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment.getExternalStoragePublicDirectory
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -31,8 +31,6 @@ import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.Share
-import com.ttop.app.apex.util.getExternalStoragePublicDirectory
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -84,13 +82,13 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                 }
             }
 
-            var path = PreferenceUtil.backupPath?.length?.minus(8)?.let { PreferenceUtil.backupPath!!.substring(0, it) }
+            /*var path = PreferenceUtil.backupPath?.length?.minus(8)?.let { PreferenceUtil.backupPath!!.substring(0, it) }
             path = path + File.separator + "Lyrics" + File.separator
 
             val newLyricsDir = File(path)
             if (!newLyricsDir.exists()){
                 newLyricsDir.mkdirs()
-            }
+            }*/
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -339,53 +337,48 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
     }
 
     private fun prefillTitle():String {
-        if (VersionUtils.hasP()) {
-            return when (BuildConfig.BUILD_TYPE) {
-                "debug" -> {
-                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                        requireContext().packageName,
-                        0
-                    ).longVersionCode + "] ["  + getString(R.string.github_edition_beta).replace(": ", " ") + "]"
-                }
-                "preview" -> {
-                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                        requireContext().packageName,
-                        0
-                    ).longVersionCode + "] ["  + getString(R.string.github_edition_preview).replace(": ", " ") + "]"
-                }
-                "release" -> {
-                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                        requireContext().packageName,
-                        0
-                    ).longVersionCode + "] ["  + getString(R.string.github_edition).replace(": ", " ") + "]"
-                }
-                else -> {
-                    getString(R.string.error_load_failed)
-                }
+        return when (BuildConfig.BUILD_TYPE) {
+            "debug" -> {
+                SimpleDateFormat(
+                    "dd-MMM-yyyy HH:mm:ss",
+                    Locale.getDefault()
+                ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    requireContext().packageName,
+                    0
+                ).longVersionCode + "] [" + getString(R.string.github_edition_beta).replace(
+                    ": ",
+                    " "
+                ) + "]"
             }
-        }else {
-            return when (BuildConfig.BUILD_TYPE) {
-                "debug" -> {
-                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                        requireContext().packageName,
-                        0
-                    ).versionCode + "] ["  + getString(R.string.github_edition_beta).replace(": ", " ") + "]"
-                }
-                "preview" -> {
-                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                        requireContext().packageName,
-                        0
-                    ).versionCode + "] ["  + getString(R.string.github_edition_preview).replace(": ", " ") + "]"
-                }
-                "release" -> {
-                    SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault()).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                        requireContext().packageName,
-                        0
-                    ).versionCode + "] ["  + getString(R.string.github_edition).replace(": ", " ") + "]"
-                }
-                else -> {
-                    getString(R.string.error_load_failed)
-                }
+
+            "preview" -> {
+                SimpleDateFormat(
+                    "dd-MMM-yyyy HH:mm:ss",
+                    Locale.getDefault()
+                ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    requireContext().packageName,
+                    0
+                ).longVersionCode + "] [" + getString(R.string.github_edition_preview).replace(
+                    ": ",
+                    " "
+                ) + "]"
+            }
+
+            "release" -> {
+                SimpleDateFormat(
+                    "dd-MMM-yyyy HH:mm:ss",
+                    Locale.getDefault()
+                ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                    requireContext().packageName,
+                    0
+                ).longVersionCode + "] [" + getString(R.string.github_edition).replace(
+                    ": ",
+                    " "
+                ) + "]"
+            }
+
+            else -> {
+                getString(R.string.error_load_failed)
             }
         }
     }

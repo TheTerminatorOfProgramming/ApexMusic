@@ -5,7 +5,6 @@
     <com.ttop.app.apex.preferences.BlacklistPreference
         android:key="blacklist"
         android:layout="@layout/list_item_view"
-        android:summary="@string/pref_summary_blacklist"
         android:title="@string/pref_header_blacklist"
         app:allowDividerBelow="false"/>
 
@@ -13,7 +12,6 @@
         android:defaultValue="true"
         android:key="whitelist_music"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_whitelist"
         android:title="@string/pref_title_whitelist"
         app:allowDividerBelow="false"/>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
@@ -26,7 +24,6 @@
         android:defaultValue="true"
         android:key="use_noti_actions_auto"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_use_notification_actions_for_auto"
         android:title="@string/pref_title_use_notification_actions_for_auto"
         android:disableDependentsState="true"
         app:allowDividerBelow="false"/>
@@ -66,7 +63,6 @@
             android:defaultValue="false"
             android:key="search_action"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_search_action"
             android:title="@string/pref_title_search_action"
             app:allowDividerBelow="false"/>
 
@@ -74,7 +70,6 @@
             android:defaultValue="false"
             android:key="search_icon_navigation"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_search_icon"
             android:title="@string/pref_title_search_icon"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
@@ -97,23 +92,38 @@
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
-        android:title="@string/pref_header_advanced"
+        android:title="@string/pref_header_filter"
         app:allowDividerBelow="false">
+
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
-            android:defaultValue="30"
-            android:key="filter_song"
+            android:defaultValue="0"
+            android:key="filter_song_min"
             android:layout="@layout/list_item_view_seekbar"
-            android:max="60"
-            android:summary="@string/pref_filter_song_summary"
-            android:title="@string/pref_filter_song_title"
+            android:max="10"
+            android:title="@string/pref_filter_song_min_title"
+            app:ateKey_pref_unit="′"
             app:showSeekBarValue="true"
             app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="10"
+            android:key="filter_song_max"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="10"
+            android:title="@string/pref_filter_song_max_title"
+            app:ateKey_pref_unit="′"
+            app:showSeekBarValue="true"
+            app:allowDividerBelow="false"/>
+    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:layout="@layout/preference_category_title"
+        android:title="@string/pref_header_advanced"
+        app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="keep_screen_on"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_keep_screen_on_summary"
             android:title="@string/pref_keep_screen_on_title"
             app:allowDividerBelow="false"/>
 
@@ -121,7 +131,6 @@
             android:defaultValue="false"
             android:key="auto_rotate"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_auto_rotate"
             android:title="@string/pref_title_auto_rotate"
             app:isPreferenceVisible="@bool/auto_rotate"
             app:allowDividerBelow="false"/>
@@ -130,7 +139,6 @@
             android:defaultValue="false"
             android:key="lock_screen"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_lock_screen"
             android:title="@string/pref_title_lock_screen"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>

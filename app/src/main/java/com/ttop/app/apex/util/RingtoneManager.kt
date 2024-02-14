@@ -22,15 +22,11 @@ import android.provider.Settings
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.jakewharton.processphoenix.ProcessPhoenix
-import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil.getSongFileUri
-import java.io.File
 
 object RingtoneManager {
     fun setRingtone(context: Context, song: Song) {

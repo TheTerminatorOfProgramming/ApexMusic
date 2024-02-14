@@ -10,15 +10,14 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/content"
         android:layout_alignParentEnd="true">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/largeIcon"
             android:layout_width="@dimen/notification_big_image_size"
             android:layout_height="@dimen/notification_big_image_size"
-            android:layout_alignParentEnd="true"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            android:layout_alignParentEnd="true"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars" />
 
@@ -33,34 +32,6 @@
         android:paddingStart="0dp"
         android:paddingTop="8dp"
         android:paddingEnd="144dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/smallIcon"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginStart="16dp"
-                tools:src="@drawable/audio_wave_64px"
-                tools:tint="@color/md_black_1000" />
-
-            <TextView
-                android:id="@+id/appName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:singleLine="true"
-                android:textSize="12sp"
-                tools:text="@string/app_name_short" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/title"
@@ -90,9 +61,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/action_prev"
@@ -109,7 +79,7 @@
                 android:layout_height="42dp"
                 android:background="@drawable/notification_selector"
                 android:scaleType="centerInside"
-                tools:src="@drawable/ic_pause_white_48dp"
+                tools:src="@drawable/ic_pause"
                 tools:tint="?colorOnPrimary" />
 
             <ImageButton
@@ -118,7 +88,7 @@
                 android:layout_height="42dp"
                 android:background="@drawable/notification_selector"
                 android:scaleType="centerInside"
-                tools:src="@drawable/ic_skip_next_round_white_32dp"
+                tools:src="@drawable/ic_skip_next"
                 tools:tint="?colorOnPrimary" />
 
             <ImageButton

@@ -44,7 +44,6 @@ import com.ttop.app.apex.transform.CarousalPagerTransformer
 import com.ttop.app.apex.transform.ParallaxPagerTransformer
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
-import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.CoverLyricsType
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -124,9 +123,9 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
                 MusicPlayerRemote.resumePlaying()
                 true
             }
-            setOnClickListener {
+            /*setOnClickListener {
                 goToLyrics(requireActivity())
-            }
+            }*/
         }
     }
 
@@ -249,7 +248,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         }
     }
 
-    fun updatePlayingQueue() {
+    private fun updatePlayingQueue() {
         binding.viewPager.apply {
             adapter = AlbumCoverPagerAdapter(parentFragmentManager, MusicPlayerRemote.playingQueue)
             setCurrentItem(MusicPlayerRemote.position, true)

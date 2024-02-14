@@ -25,12 +25,11 @@
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="@bool/md3_enabled"
+            android:defaultValue="true"
             android:disableDependentsState="true"
             android:key="material_you"
             android:layout="@layout/list_item_view_switch_no_title"
             android:title="@string/pref_title_md3"
-            app:isPreferenceVisible="@bool/md3_available"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
@@ -67,20 +66,11 @@
         android:title="@string/colors"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="wallpaper_accent"
-            android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_wallpaper_accent"
-            android:title="@string/pref_title_wallpaper_accent"
-            app:allowDividerBelow="false"/>
-
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:dependency="material_you"
             android:key="accent_color"
             android:layout="@layout/list_item_color_view"
             android:persistent="false"
-            android:summary="@string/accent_color_desc"
             android:title="@string/accent_color"
             app:allowDividerBelow="false"/>
 
@@ -89,7 +79,6 @@
             android:dependency="material_you"
             android:key="desaturated_color"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_desaturated_color"
             android:title="@string/pref_title_desaturated_color"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
@@ -114,25 +103,6 @@
         app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:key="dismiss_method"
-            android:defaultValue="none"
-            android:layout="@layout/list_item_view"
-            android:entries="@array/pref_dismiss_method_list_titles"
-            android:entryValues="@array/pref_dismiss_method_list_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            android:title="@string/pref_title_dismiss_method"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            android:defaultValue="false"
-            android:key="dismiss_failsafe"
-            android:summary="@string/pref_summary_dismiss_failsafe"
-            android:title="@string/pref_title_dismiss_failsafe"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="off"
             android:key="toggle_mini_swipe"
             android:entries="@array/pref_swipe_gestures_tab_titles"
@@ -147,7 +117,6 @@
             android:layout="@layout/list_item_view_switch"
             app:defaultValue="true"
             app:key="progress_bar_style"
-            app:summary="@string/pref_summary_progress_bar_style"
             app:title="@string/pref_title_progress_bar_style"
             app:allowDividerBelow="false"/>
 
@@ -155,7 +124,6 @@
             android:layout="@layout/list_item_view_switch"
             app:defaultValue="false"
             app:key="progress_bar_alignment"
-            app:summary="@string/pref_summary_progress_bar_alignment"
             app:title="@string/pref_title_progress_bar_alignment"
             android:dependency="progress_bar_style"
             app:allowDividerBelow="false"/>

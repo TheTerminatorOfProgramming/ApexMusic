@@ -18,7 +18,6 @@ import android.app.Application
 import androidx.preference.PreferenceManager
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
-import com.ttop.app.apex.helper.WallpaperAccentManager
 import com.ttop.app.apex.ui.activities.ErrorActivity
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.appthemehelper.ThemeStore
@@ -26,8 +25,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class App : Application() {
-
-    private val wallpaperAccentManager = WallpaperAccentManager(this)
 
     override fun onCreate() {
         super.onCreate()
@@ -51,7 +48,6 @@ class App : Application() {
                     .commit()
             }
         }
-        wallpaperAccentManager.init()
 
         DynamicShortcutManager(this).initDynamicShortcuts()
 
@@ -66,7 +62,6 @@ class App : Application() {
 
     override fun onTerminate() {
         super.onTerminate()
-        wallpaperAccentManager.release()
     }
 
     companion object {

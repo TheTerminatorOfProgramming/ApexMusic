@@ -47,10 +47,10 @@ fun AppCompatActivity.setImmersiveFullscreen() {
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             hide(WindowInsetsCompat.Type.systemBars())
         }
-        if (VersionUtils.hasP()) {
-            window.attributes.layoutInDisplayCutoutMode =
-                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-        }
+
+        window.attributes.layoutInDisplayCutoutMode =
+            WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+
         ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { _, insets ->
             if (insets.displayCutout != null) {
                 insets
@@ -88,16 +88,14 @@ fun AppCompatActivity.setDrawBehindSystemBars() {
         window.navigationBarColor = Color.TRANSPARENT
     }
     window.statusBarColor = Color.TRANSPARENT
-    if (VersionUtils.hasQ()) {
-        window.isNavigationBarContrastEnforced = false
-    }
+    window.isNavigationBarContrastEnforced = false
 }
 
 fun FragmentActivity.setTaskDescriptionColor(color: Int) {
     var colorFinal = color
     // Task description requires fully opaque color
     colorFinal = ColorUtil.stripAlpha(colorFinal)
-    // Sets color of entry in the system recents page
+    // Sets color of entry in the system overview screen
 
     if (VersionUtils.hasT()) {
         val td = ActivityManager.TaskDescription.Builder()
@@ -107,7 +105,7 @@ fun FragmentActivity.setTaskDescriptionColor(color: Int) {
             .build()
 
         setTaskDescription(td)
-    }else if (VersionUtils.hasP()) {
+    }else {
         setTaskDescription(
             ActivityManager.TaskDescription(
                 title as String?,
@@ -115,8 +113,6 @@ fun FragmentActivity.setTaskDescriptionColor(color: Int) {
                 colorFinal
             )
         )
-    }else{
-        setTaskDescription(ActivityManager.TaskDescription(title as String?))
     }
 }
 

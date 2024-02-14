@@ -10,11 +10,46 @@
         <item name="android:windowBackground">?colorSurface</item>
     </style>
 
-    <style name="Theme.Apex.MD3" parent="@style/Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Apex.MD3" parent="@style/Theme.Material3.DynamicColors.DayNight">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
         <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
         <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
+        <item name="popupMenuBackground">@drawable/popup_background</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Theme.Apex.MD3.Light" parent="@style/Theme.Material3.DynamicColors.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="roundSelector">@drawable/round_selector</item>
+        <item name="rectSelector">@drawable/rect_selector</item>
+        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
+        <item name="popupMenuBackground">@drawable/popup_background</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Theme.Apex.MD3.Dark" parent="@style/Theme.Material3.DynamicColors.Dark">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="roundSelector">@drawable/round_selector</item>
+        <item name="rectSelector">@drawable/rect_selector</item>
+        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
+        <item name="popupMenuBackground">@drawable/popup_background</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Theme.Apex.MD3.Black" parent="@style/Theme.Apex.MD3.Dark" />
+
+    <style name="Theme.AppWidget" parent="@android:style/Theme.DeviceDefault.DayNight">
+        <item name="colorSurface">@android:color/system_accent1_50</item>
     </style>
 
     <style name="Theme.Apex.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
@@ -66,7 +101,13 @@
     </style>
 
     <style name="BottomSheetItemTextAppearance" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:breakStrategy">simple</item>
+        <item name="android:hyphenationFrequency">none</item>
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextViewStyleIm" parent="android:Widget.Material.TextView">
+        <item name="android:hyphenationFrequency">none</item>
     </style>
 
     <style name="Fab" parent="FabParent" />
@@ -299,10 +340,6 @@
         </item>
     </style>
 
-    <style name="Theme.AppWidget" parent="">
-        <item name="colorSurface">#ff000000</item>
-    </style>
-
     <style name="Theme.AppWidget.Transparent" parent="" >
         <item name="colorSurface">#00ffffff</item>
     </style>
@@ -317,7 +354,6 @@
     </style>
 
     <style name="Base.SquigglySlider" parent="Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:thumb">@drawable/media_seekbar_thumb</item>
         <item name="android:progressTint">?colorPrimary</item>
         <item name="android:thumbTint">?colorPrimary</item>
         <item name="android:progressBackgroundTint">?android:attr/textColorTertiary</item>
@@ -325,7 +361,9 @@
         <item name="android:splitTrack">false</item>
     </style>
 
-    <style name="SquigglySlider" parent="Base.SquigglySlider"/>
+    <style name="SquigglySlider" parent="Base.SquigglySlider">
+        <item name="android:progressDrawable">@drawable/media_squiggly_progress</item>
+    </style>
 
     <style name="SquigglySlider.Tablet" parent="Base.SquigglySlider">
     <item name="android:scaleY">1.5</item>

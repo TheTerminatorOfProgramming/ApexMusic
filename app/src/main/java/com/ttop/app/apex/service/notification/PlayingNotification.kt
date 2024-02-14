@@ -38,8 +38,6 @@ abstract class PlayingNotification(context: Context) :
         internal const val NOTIFICATION_CHANNEL_ID = "playing_notification"
         const val NOTIFICATION_ID = 1
 
-
-        @RequiresApi(Build.VERSION_CODES.O)
         fun createNotificationChannel(
             context: Context,
             notificationManager: NotificationManager

@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.ttop.app.apex",
+  "variantName": "githubRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 360,
+      "versionName": "3.60",
+      "outputFile": "app-github-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

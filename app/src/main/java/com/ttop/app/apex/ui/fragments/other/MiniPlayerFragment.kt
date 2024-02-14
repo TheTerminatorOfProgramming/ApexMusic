@@ -16,18 +16,14 @@ package com.ttop.app.apex.ui.fragments.other
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.GestureDetector
-import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
@@ -36,7 +32,6 @@ import com.ttop.app.apex.databinding.FragmentMiniPlayerBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.textColorPrimary
-import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -102,7 +97,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
             binding.progressBarHorizontalBottom.visibility = View.GONE
         }
 
-        view.setOnTouchListener(FlingPlayBackController(requireContext(), view, mainActivity))
+        view.setOnTouchListener(FlingPlayBackController(requireContext(), mainActivity))
         setUpMiniPlayer()
         setUpButtons()
     }
@@ -223,7 +218,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         }
     }
 
-    class FlingPlayBackController(context: Context, view: View, activity: MainActivity) : View.OnTouchListener {
+    class FlingPlayBackController(context: Context, activity: MainActivity) : View.OnTouchListener {
 
         private var flingPlayBackController = GestureDetector(context,
             object : GestureDetector.SimpleOnGestureListener() {
@@ -280,91 +275,6 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                 override fun onSingleTapUp(e: MotionEvent): Boolean {
                     activity.expandPanel()
                     return super.onSingleTapUp(e)
-                }
-
-                override fun onLongPress(e: MotionEvent) {
-                    if (PreferenceUtil.dismissMethod == "long_touch") {
-                        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                        if (PreferenceUtil.isDismissFailsafe) {
-                            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                                .setMessage(R.string.clear_queue)
-                                .setTitle(R.string.alert)
-                                .setCancelable(false)
-                                .setPositiveButton(R.string.yes) { _: DialogInterface?, _: Int ->
-                                    MusicPlayerRemote.clearQueue()
-                                }
-                                .setNegativeButton(R.string.no) { dialog: DialogInterface, _: Int ->
-                                    dialog.cancel()
-                                }
-                            val alertDialog: AlertDialog = builder.create()
-
-                            alertDialog.show()
-
-                            alertDialog.withCenteredButtons()
-
-                            val textViewMessage = alertDialog.findViewById(android.R.id.message) as TextView?
-
-                            when (PreferenceUtil.fontSize) {
-                                "12" -> {
-                                    textViewMessage!!.textSize = 12f
-                                }
-
-                                "13" -> {
-                                    textViewMessage!!.textSize = 13f
-                                }
-
-                                "14" -> {
-                                    textViewMessage!!.textSize = 14f
-                                }
-
-                                "15" -> {
-                                    textViewMessage!!.textSize = 15f
-                                }
-
-                                "16" -> {
-                                    textViewMessage!!.textSize = 16f
-                                }
-
-                                "17" -> {
-                                    textViewMessage!!.textSize = 17f
-                                }
-
-                                "18" -> {
-                                    textViewMessage!!.textSize = 18f
-
-                                }
-
-                                "19" -> {
-                                    textViewMessage!!.textSize = 19f
-                                }
-
-                                "20" -> {
-                                    textViewMessage!!.textSize = 20f
-                                }
-
-                                "21" -> {
-                                    textViewMessage!!.textSize = 21f
-                                }
-
-                                "22" -> {
-                                    textViewMessage!!.textSize = 22f
-                                }
-
-                                "23" -> {
-                                    textViewMessage!!.textSize = 23f
-                                }
-
-                                "24" -> {
-                                    textViewMessage!!.textSize = 24f
-                                }
-                            }
-
-
-                        } else {
-                            MusicPlayerRemote.clearQueue()
-                        }
-                    }
-                    super.onLongPress(e)
                 }
             })
 

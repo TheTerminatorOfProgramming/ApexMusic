@@ -101,7 +101,7 @@ class PlayingQueueAdapter(
             }
             NowPlayingScreen.Blur -> {
                 if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.title?.setTextColor(lastColor)
                     holder.text?.setTextColor(lastColor)
                     holder.text2?.setTextColor(lastColor)
                     holder.menu?.setColorFilter(lastColor)
@@ -148,7 +148,7 @@ class PlayingQueueAdapter(
             }
             NowPlayingScreen.Classic -> {
                 if (PreferenceUtil.isAdaptiveColor) {
-                    holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                    holder.title?.setTextColor(lastColor)
                     holder.text?.setTextColor(lastColor)
                     holder.text2?.setTextColor(lastColor)
                     holder.menu?.setColorFilter(lastColor)
@@ -181,7 +181,7 @@ class PlayingQueueAdapter(
             NowPlayingScreen.Peek -> {
                 if (ApexUtil.isTablet) {
                         if (PreferenceUtil.isAdaptiveColor) {
-                            holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                            holder.title?.setTextColor(lastColor)
                             holder.text?.setTextColor(lastColor)
                             holder.text2?.setTextColor(lastColor)
                             holder.menu?.setColorFilter(lastColor)
@@ -204,7 +204,7 @@ class PlayingQueueAdapter(
                         }
                 }else {
                     if (PreferenceUtil.isAdaptiveColor) {
-                        holder.title?.setTextColor(lastColor) //PreferenceUtil.
+                        holder.title?.setTextColor(lastColor)
                         holder.text?.setTextColor(lastColor)
                         holder.text2?.setTextColor(lastColor)
                         holder.menu?.setColorFilter(lastColor)

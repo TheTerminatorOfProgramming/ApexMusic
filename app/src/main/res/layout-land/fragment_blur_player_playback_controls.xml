@@ -38,10 +38,12 @@
         android:id="@+id/infoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/songTotalTime">
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/playPauseButton"
+        app:layout_constraintTop_toBottomOf="@+id/progressSlider">
 
         <LinearLayout
-            android:id="@+id/texts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -56,8 +58,6 @@
                 android:freezesText="true"
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewHeadline6"
@@ -79,10 +79,9 @@
                 android:freezesText="true"
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
+                android:textAppearance="@style/TextViewBody1"
                 android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,25 +96,14 @@
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
-                android:paddingHorizontal="16dp"
-                android:paddingBottom="8dp"
                 android:gravity="center"
                 android:textColor="?android:attr/textColorSecondary"
+                android:textAppearance="@style/TextViewBody1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/artist"
                 tools:text="@tools:sample/full_names" />
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/volumeFragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintTop_toBottomOf="@+id/texts"
-            tools:background="@color/md_red_400"
-            tools:layout_height="52dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -167,11 +155,11 @@
         android:id="@+id/playPauseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/roundSelector"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@id/volumeFragmentContainer"
         app:layout_constraintEnd_toStartOf="@+id/nextButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/previousButton"
-        app:layout_constraintTop_toBottomOf="@+id/infoContainer"
         app:srcCompat="@drawable/ic_pause"
         tools:tint="@color/md_black_1000" />
 
@@ -204,4 +192,13 @@
         app:srcCompat="@drawable/ic_shuffle"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
+
+    <FrameLayout
+        android:id="@+id/volumeFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:background="@color/md_red_400"
+        tools:layout_height="52dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

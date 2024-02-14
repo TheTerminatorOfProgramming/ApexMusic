@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content"
+    android:id="@+id/app_widget_classic"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_widget_classic_height"
     android:background="@drawable/app_widget_background"
@@ -30,7 +30,7 @@
         <LinearLayout
             android:id="@+id/media_actions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
@@ -43,8 +43,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                android:scaleType="fitCenter"
-                tools:src="@drawable/ic_skip_previous"
+                android:scaleType="fitStart"
+                tools:src="@drawable/ic_skip_previous_outline_small"
                 tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
@@ -54,8 +54,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
                 android:scaleType="fitCenter"
-
-                tools:src="@drawable/ic_play_arrow"
+                tools:src="@drawable/ic_play_arrow_outline_small"
                 tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
@@ -64,8 +63,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
-                android:scaleType="fitCenter"
-                tools:src="@drawable/ic_skip_next"
+                android:scaleType="fitEnd"
+                tools:src="@drawable/ic_skip_next_outline_small"
                 tools:tint="@color/ate_secondary_text_dark" />
 
         </LinearLayout>

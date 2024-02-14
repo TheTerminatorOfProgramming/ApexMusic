@@ -32,7 +32,6 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
-import com.ttop.app.appthemehelper.util.VersionUtils
 import java.text.Collator
 
 /**
@@ -194,13 +193,10 @@ class RealSongRepository(private val context: Context) : SongRepository {
             }
 
             selectionFinal =
-                selectionFinal + " AND " + Media.DURATION + ">= " + (PreferenceUtil.filterLength * 1000)
+                selectionFinal + " AND " + Media.DURATION + ">= " + (PreferenceUtil.filterLengthMin * 60000) + " AND " + Media.DURATION + "<= " + (PreferenceUtil.filterLengthMax * 60000)
         }
-        val uri = if (VersionUtils.hasQ()) {
-            Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
-        } else {
-            Media.EXTERNAL_CONTENT_URI
-        }
+        val uri = Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
+
         return try {
             context.contentResolver.query(
                 uri,

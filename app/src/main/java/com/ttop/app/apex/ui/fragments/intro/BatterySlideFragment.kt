@@ -26,7 +26,6 @@ class BatterySlideFragment(
     val handler = Handler(Looper.getMainLooper())
     private var isLooping = true
 
-    @RequiresApi(Build.VERSION_CODES.S)
     private val runnable: Runnable = Runnable {
         if (isLooping) {
             startLooping()
@@ -42,7 +41,6 @@ class BatterySlideFragment(
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_intro_battery, container, false)
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         battery = view.findViewById(R.id.permission_battery) as Button
@@ -66,7 +64,6 @@ class BatterySlideFragment(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     private fun startLooping() {
         if (ApexUtil.hasBatteryPermission()) {
             isLooping = false
@@ -76,7 +73,6 @@ class BatterySlideFragment(
     }
 
     override val isPolicyRespected: Boolean
-        @RequiresApi(Build.VERSION_CODES.S)
         get() = ApexUtil.hasBatteryPermission()
 
     override fun onUserIllegallyRequestedNextPage() {

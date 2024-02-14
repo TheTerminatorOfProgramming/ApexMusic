@@ -123,10 +123,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             popupMenu.menu.removeItem(R.id.action_rewind)
             popupMenu.menu.removeItem(R.id.action_fast_forward)
             popupMenu.menu.findItem(R.id.action_toggle_favorite).isVisible = false
-            popupMenu.menu.findItem(R.id.action_toggle_lyrics)?.apply {
-                isChecked = PreferenceUtil.showLyrics
-                showLyricsIcon(this)
-            }
             popupMenu.show()
         }
     }
@@ -396,12 +392,8 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         binding.playbackControlsFragment.title.text = song.title
         binding.playbackControlsFragment.artist.text = song.artistName
         updateLabel()
-        if (PreferenceUtil.isSongInfo) {
-            binding.playbackControlsFragment.songInfo.text = getSongInfo(song)
-            binding.playbackControlsFragment.songInfo.show()
-        } else {
-            binding.playbackControlsFragment.songInfo.hide()
-        }
+
+        binding.playbackControlsFragment.songInfo.text = getSongInfo(song)
     }
 
     private fun setUpMusicControllers() {

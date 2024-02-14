@@ -17,6 +17,7 @@ package com.ttop.app.apex.adapter.album
 import android.app.Dialog
 import android.os.Bundle
 import android.view.GestureDetector
+import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -35,6 +36,8 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
@@ -47,8 +50,6 @@ import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
-import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -129,11 +130,19 @@ class AlbumCoverPagerAdapter(
 
             val gestureDetector = GestureDetector(activity, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
-                    if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
-                        if (PreferenceUtil.isLyrics) {
-                            if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "both") {
-                                showLyricsDialog()
-                            }
+                    if (PreferenceUtil.syncedLyrics) {
+                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
+                        if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
+                            mainActivity.keepScreenOn(true)
+                        } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics) {
+                            mainActivity.keepScreenOn(false)
+                        }
+
+                        if (PreferenceUtil.showLyrics) {
+                            showToast(getString(R.string.cover_lyrics_on))
+                        }else {
+                            showToast(getString(R.string.cover_lyrics_off))
                         }
                     }
                     return super.onDoubleTap(e)
@@ -146,6 +155,16 @@ class AlbumCoverPagerAdapter(
                         MusicPlayerRemote.resumePlaying()
                     }
                     return super.onSingleTapConfirmed(e)
+                }
+
+                override fun onLongPress(e: MotionEvent) {
+                    if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
+                        if (PreferenceUtil.isEmbedMode) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                            showLyricsDialog()
+                        }
+                    }
+                    super.onLongPress(e)
                 }
 
                 override fun onDown(e: MotionEvent): Boolean {
@@ -169,13 +188,8 @@ class AlbumCoverPagerAdapter(
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle(song.title)
                     builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
-                    if (PreferenceUtil.syncedLyrics) {
-                        builder.setNegativeButton(R.string.synced_lyrics) { _, _ ->
-                            goToLyrics(requireActivity())
-                        }
-                    }
 
-                    builder.setNeutralButton(R.string.dismiss) { _, _ ->
+                    builder.setNegativeButton(R.string.dismiss) { _, _ ->
                         mainActivity.keepScreenOn(false)
                         materialDialog().dismiss()
                     }
@@ -189,91 +203,78 @@ class AlbumCoverPagerAdapter(
                     when (PreferenceUtil.fontSizeLyrics) {
                         "12" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 14f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 14f
                             textViewMessage!!.textSize = 12f
                             textViewTitle!!.textSize = 16f
                         }
 
                         "13" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 15f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 15f
                             textViewMessage!!.textSize = 13f
                             textViewTitle!!.textSize = 17f
                         }
 
                         "14" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 16f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 16f
                             textViewMessage!!.textSize = 14f
                             textViewTitle!!.textSize = 18f
                         }
 
                         "15" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 17f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 17f
                             textViewMessage!!.textSize = 15f
                             textViewTitle!!.textSize = 19f
                         }
 
                         "16" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 18f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 18f
                             textViewMessage!!.textSize = 16f
                             textViewTitle!!.textSize = 20f
                         }
 
                         "17" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 19f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 19f
                             textViewMessage!!.textSize = 17f
                             textViewTitle!!.textSize = 21f
                         }
 
                         "18" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 20f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 20f
                             textViewMessage!!.textSize = 18f
                             textViewTitle!!.textSize = 22f
                         }
 
                         "19" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 21f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 21f
                             textViewMessage!!.textSize = 19f
                             textViewTitle!!.textSize = 23f
                         }
 
                         "20" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 22f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 22f
                             textViewMessage!!.textSize = 20f
                             textViewTitle!!.textSize = 24f
                         }
 
                         "21" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 23f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 23f
                             textViewMessage!!.textSize = 21f
                             textViewTitle!!.textSize = 25f
                         }
 
                         "22" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 24f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 24f
                             textViewMessage!!.textSize = 22f
                             textViewTitle!!.textSize = 26f
                         }
 
                         "23" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 25f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 25f
                             textViewMessage!!.textSize = 23f
                             textViewTitle!!.textSize = 27f
                         }
 
                         "24" -> {
                             dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 26f
-                            dialog.getButton(Dialog.BUTTON_NEUTRAL).textSize = 26f
                             textViewMessage!!.textSize = 24f
                             textViewTitle!!.textSize = 28f
                         }
@@ -281,8 +282,9 @@ class AlbumCoverPagerAdapter(
 
                     dialog.setCanceledOnTouchOutside(false)
                     dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
-                    dialog.getButton(Dialog.BUTTON_NEUTRAL).accentTextColor()
                     textViewTitle!!.setTextColor(requireContext().accentColor())
+
+                    dialog.withCenteredButtons()
                 }
             }
         }

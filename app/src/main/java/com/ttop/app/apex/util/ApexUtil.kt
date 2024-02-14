@@ -93,7 +93,6 @@ object ApexUtil {
         get() = (getContext().resources.configuration.smallestScreenWidthDp
                 >= 600)
 
-    @RequiresApi(Build.VERSION_CODES.R)
     fun isFoldable(context: Context): Boolean {
         val pm = context.packageManager
 
@@ -139,7 +138,6 @@ object ApexUtil {
         return ""
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     fun hasBatteryPermission(): Boolean {
         val packageName = getContext().packageName
         val pm = getContext().getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager

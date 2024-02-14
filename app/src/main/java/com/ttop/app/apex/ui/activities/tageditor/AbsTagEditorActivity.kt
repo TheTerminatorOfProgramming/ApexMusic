@@ -41,13 +41,13 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.colorButtons
 import com.ttop.app.apex.extensions.hideSoftKeyboard
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.model.AudioTagInfo
 import com.ttop.app.apex.repository.Repository
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity
 import com.ttop.app.apex.util.logD
 import com.ttop.app.apex.util.logE
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -263,7 +263,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
             getString(R.string.web_search),
             getString(R.string.remove_cover)
         )
-        editorImage.setOnClickListener { show }
+        editorImage.setOnClickListener { show.withCenteredButtons() }
     }
 
     private fun startImagePicker() {
@@ -361,27 +361,17 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
         hideFab()
         logD(fieldKeyValueMap)
         GlobalScope.launch {
-            if (VersionUtils.hasR()) {
-                cacheFiles = TagWriter.writeTagsToFilesR(
-                    this@AbsTagEditorActivity, AudioTagInfo(
-                        songPaths,
-                        fieldKeyValueMap,
-                        artworkInfo
-                    )
+            cacheFiles = TagWriter.writeTagsToFilesR(
+                this@AbsTagEditorActivity, AudioTagInfo(
+                    songPaths,
+                    fieldKeyValueMap,
+                    artworkInfo
                 )
-                if (cacheFiles.isNotEmpty()) {
-                    val pendingIntent =
-                        MediaStore.createWriteRequest(contentResolver, getSongUris())
-                    launcher.launch(IntentSenderRequest.Builder(pendingIntent).build())
-                }
-            } else {
-                TagWriter.writeTagsToFiles(
-                    this@AbsTagEditorActivity, AudioTagInfo(
-                        songPaths,
-                        fieldKeyValueMap,
-                        artworkInfo
-                    )
-                )
+            )
+            if (cacheFiles.isNotEmpty()) {
+                val pendingIntent =
+                    MediaStore.createWriteRequest(contentResolver, getSongUris())
+                launcher.launch(IntentSenderRequest.Builder(pendingIntent).build())
             }
         }
     }
@@ -389,26 +379,16 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
     @OptIn(DelicateCoroutinesApi::class)
     private fun writeTags(paths: List<String>?) {
         GlobalScope.launch {
-            if (VersionUtils.hasR()) {
-                cacheFiles = TagWriter.writeTagsToFilesR(
-                    this@AbsTagEditorActivity, AudioTagInfo(
-                        paths,
-                        savedTags,
-                        savedArtworkInfo
-                    )
+            cacheFiles = TagWriter.writeTagsToFilesR(
+                this@AbsTagEditorActivity, AudioTagInfo(
+                    paths,
+                    savedTags,
+                    savedArtworkInfo
                 )
-                val pendingIntent = MediaStore.createWriteRequest(contentResolver, getSongUris())
+            )
+            val pendingIntent = MediaStore.createWriteRequest(contentResolver, getSongUris())
 
-                launcher.launch(IntentSenderRequest.Builder(pendingIntent).build())
-            } else {
-                TagWriter.writeTagsToFiles(
-                    this@AbsTagEditorActivity, AudioTagInfo(
-                        paths,
-                        savedTags,
-                        savedArtworkInfo
-                    )
-                )
-            }
+            launcher.launch(IntentSenderRequest.Builder(pendingIntent).build())
         }
     }
 

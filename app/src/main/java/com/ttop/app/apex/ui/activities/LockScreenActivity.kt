@@ -20,7 +20,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
 import com.bumptech.glide.Glide
@@ -43,7 +42,6 @@ import com.ttop.app.apex.ui.activities.base.AbsMusicServiceActivity
 import com.ttop.app.apex.ui.fragments.player.lockscreen.LockScreenControlsFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 
 class LockScreenActivity : AbsMusicServiceActivity() {
@@ -75,7 +73,6 @@ class LockScreenActivity : AbsMusicServiceActivity() {
             override fun onSlideOpened() {
             }
 
-            @RequiresApi(Build.VERSION_CODES.O)
             override fun onSlideClosed(): Boolean {
                 val keyguardManager =
                     getSystemService<KeyguardManager>()
@@ -117,13 +114,7 @@ class LockScreenActivity : AbsMusicServiceActivity() {
 
     @Suppress("Deprecation")
     private fun lockScreenInit() {
-        if (VersionUtils.hasOreoMR1()) {
-            setShowWhenLocked(true)
-        } else {
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-            )
-        }
+        setShowWhenLocked(true)
     }
 
     override fun onPlayingMetaChanged() {

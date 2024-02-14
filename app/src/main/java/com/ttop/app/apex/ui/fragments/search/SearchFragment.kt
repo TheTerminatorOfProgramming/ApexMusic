@@ -68,6 +68,8 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
         libraryViewModel.clearSearchResult()
         setupRecyclerView()
 
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+
         binding.voiceSearch.setOnClickListener { startMicSearch() }
         binding.clearText.setOnClickListener {
             binding.searchView.clearText()

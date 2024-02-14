@@ -26,10 +26,7 @@ import com.ttop.app.apex.ALBUM_COVER_TRANSFORM
 import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.CIRCULAR_ALBUM_ART
 import com.ttop.app.apex.COLOR_ANIMATE
-import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
-import com.ttop.app.apex.EXPAND_PANEL_TYPE
-import com.ttop.app.apex.EXTRA_SONG_INFO
-import com.ttop.app.apex.LYRICS
+import com.ttop.app.apex.EMBED_LYRICS
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
@@ -44,7 +41,6 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -65,9 +61,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
         lyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            PreferenceUtil.shouldRecreate = true
-            restartActivity()
             true
         }
 
@@ -77,23 +70,17 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val showLyrics: TwoStatePreference? = findPreference(LYRICS)
-        showLyrics?.setOnPreferenceChangeListener { _, _ ->
+        val embedLyrics: TwoStatePreference? = findPreference(EMBED_LYRICS)
+        embedLyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
 
-        val expand: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
+        /*val expand: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
         expand?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
-        }
-
-        val songInfo: TwoStatePreference? = findPreference(EXTRA_SONG_INFO)
-        songInfo?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
+        }*/
 
         val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
         autoplay?.setOnPreferenceChangeListener { _, _ ->
@@ -141,23 +128,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
-
-        val expandPanelType: ATESwitchPreference? = findPreference(EXPAND_PANEL_TYPE)
-        expandPanelType?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (VersionUtils.hasR()) {
-            if (ApexUtil.isFoldable(requireContext())) {
-                addPreferencesFromResource(R.xml.pref_now_playing_screen_foldable)
-            }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
-                addPreferencesFromResource(R.xml.pref_now_playing_screen_tablet)
-            }else {
-                addPreferencesFromResource(R.xml.pref_now_playing_screen)
-            }
+        if (ApexUtil.isFoldable(requireContext())) {
+            addPreferencesFromResource(R.xml.pref_now_playing_screen_foldable)
+        }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
+            addPreferencesFromResource(R.xml.pref_now_playing_screen_tablet)
         }else {
             addPreferencesFromResource(R.xml.pref_now_playing_screen)
         }
@@ -230,12 +207,12 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             }
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
-            LYRICS -> {
+            /*LYRICS -> {
                 val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
                 if (!PreferenceUtil.showLyrics){
                     lyrics?.isChecked = false
                 }
-            }
+            }*/
         }
     }
 }

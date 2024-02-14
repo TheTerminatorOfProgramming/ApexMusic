@@ -40,7 +40,6 @@ import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -118,15 +117,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             if (newValue as Boolean) {
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
             }
-            restartActivity()
-            PreferenceUtil.shouldRecreate = true
-            true
-        }
-
-        val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)
-        wallpaperAccent?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            restartActivity()
             true
         }
 
@@ -147,21 +137,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         progressbarAlignment?.isChecked = PreferenceUtil.progressBarAlignment
         progressbarAlignment?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val dismissCheck: TwoStatePreference? = findPreference(DISMISS_FAILSAFE)
-        dismissCheck?.isChecked = PreferenceUtil.isDismissFailsafe
-        dismissCheck?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val dismissMethod: Preference? = findPreference(DISMISS_METHOD)
-        dismissMethod?.setOnPreferenceChangeListener { _, newValue ->
-            PreferenceUtil.dismissMethod = newValue as String
-
-            dismissCheck?.isEnabled = PreferenceUtil.dismissMethod == "long_touch"
             true
         }
 
@@ -202,23 +177,13 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (VersionUtils.hasR()) {
-            if (ApexUtil.isFoldable(requireContext())) {
-                addPreferencesFromResource(R.xml.pref_general_foldable)
-            }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
-                addPreferencesFromResource(R.xml.pref_general_tablet)
-            }else {
-                addPreferencesFromResource(R.xml.pref_general)
-            }
+        if (ApexUtil.isFoldable(requireContext())) {
+            addPreferencesFromResource(R.xml.pref_general_foldable)
+        }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
+            addPreferencesFromResource(R.xml.pref_general_tablet)
         }else {
             addPreferencesFromResource(R.xml.pref_general)
         }
-
-        val wallpaperAccent: ATESwitchPreference? = findPreference(WALLPAPER_ACCENT)
-        wallpaperAccent?.isVisible = VersionUtils.hasOreoMR1() && !VersionUtils.hasS()
-
-        val dismissCheck: TwoStatePreference? = findPreference(DISMISS_FAILSAFE)
-        dismissCheck?.isEnabled = PreferenceUtil.dismissMethod == "long_touch"
 
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
         if (PreferenceUtil.baseTheme == "auto") {

@@ -25,8 +25,6 @@ import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.util.theme.ThemeMode
-import com.ttop.app.apex.views.TopAppBarLayout
-import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 
@@ -112,12 +110,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(LOCALE_AUTO_STORE_ENABLED, value)
-        }
-
-    var safSdCardUri
-        get() = sharedPreferences.getStringOrDefault(SAF_SDCARD_URI, "")
-        set(value) = sharedPreferences.edit {
-            putString(SAF_SDCARD_URI, value)
         }
 
     private val autoDownloadImagesPolicy
@@ -232,13 +224,7 @@ object PreferenceUtil {
             TOGGLE_ADD_CONTROLS, false
         )
 
-    var isClassicNotification
-        get() = sharedPreferences.getBoolean(CLASSIC_NOTIFICATION, false)
-        set(value) = sharedPreferences.edit { putBoolean(CLASSIC_NOTIFICATION, value) }
-
     val isScreenOnEnabled get() = sharedPreferences.getBoolean(KEEP_SCREEN_ON, false)
-
-    val isSongInfo get() = sharedPreferences.getBoolean(EXTRA_SONG_INFO, false)
 
     val isPauseOnZeroVolume get() = sharedPreferences.getBoolean(PAUSE_ON_ZERO_VOLUME, false)
 
@@ -270,14 +256,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             CAROUSEL_EFFECT, false
         )
-
-    var isColoredNotification
-        get() = sharedPreferences.getBoolean(
-            COLORED_NOTIFICATION, true
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(COLORED_NOTIFICATION, value)
-        }
 
     var isDesaturatedColor
         get() = sharedPreferences.getBoolean(
@@ -361,7 +339,8 @@ object PreferenceUtil {
             putInt(ARTIST_GRID_STYLE, value.id)
         }
 
-    val filterLength get() = sharedPreferences.getInt(FILTER_SONG, 20)
+    val filterLengthMin get() = sharedPreferences.getInt(FILTER_SONG_MIN, 0)
+    val filterLengthMax get() = sharedPreferences.getInt(FILTER_SONG_MAX, 10)
 
     var lastVersion
         // This was stored as an integer before now it's a long, so avoid a ClassCastException
@@ -748,18 +727,10 @@ object PreferenceUtil {
             .getFloat(PLAYBACK_PITCH, 1F)
         set(value) = sharedPreferences.edit { putFloat(PLAYBACK_PITCH, value) }
 
-    val appBarMode: TopAppBarLayout.AppBarMode
-        get() = if (sharedPreferences.getString(APPBAR_MODE, "1") == "0") {
-            TopAppBarLayout.AppBarMode.COLLAPSING
-        } else {
-            TopAppBarLayout.AppBarMode.SIMPLE
-        }
+    val appBarMode
+        get() = sharedPreferences.getBoolean(APPBAR_MODE, false)
 
-    val wallpaperAccent
-        get() = sharedPreferences.getBoolean(
-            WALLPAPER_ACCENT,
-            VersionUtils.hasOreoMR1() && !VersionUtils.hasS()
-        )
+
 
     val lyricsScreenOn
         get() = sharedPreferences.getBoolean(SCREEN_ON_LYRICS, false)
@@ -810,21 +781,12 @@ object PreferenceUtil {
             SYNCED_LYRICS, false
         )
 
-    val showUpdate
-        get() = sharedPreferences.getBoolean(
-            SHOW_UPDATE, false
-        )
-
     var widgetBackground
-        get() = sharedPreferences.getString(
-            WIDGET_BACKGROUND, if (VersionUtils.hasS()) {
-                "day_night"
-            }else {
-                "default"
-            }
+        get() = sharedPreferences.getBoolean(
+            WIDGET_BACKGROUND, false
         )
         set(value) = sharedPreferences.edit {
-            putString(WIDGET_BACKGROUND, value)}
+            putBoolean(WIDGET_BACKGROUND, value)}
 
     var progressBarStyle
         get() = sharedPreferences.getBoolean(
@@ -863,16 +825,10 @@ object PreferenceUtil {
             putBoolean(AUTO_ROTATE, value)}
 
     var isEmbedMode
-        get() = sharedPreferences.getString(EMBED_LYRICS, "both")
+        get() = sharedPreferences.getBoolean(EMBED_LYRICS, false)
 
         set(value) = sharedPreferences.edit {
-            putString(EMBED_LYRICS, value)}
-
-    var isLyrics
-        get() = sharedPreferences.getBoolean(LYRICS, false)
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(LYRICS, value)}
+            putBoolean(EMBED_LYRICS, value)}
 
     var isWidgetPanel
         get() = sharedPreferences.getBoolean(WIDGET_PANEL, false)
@@ -881,7 +837,7 @@ object PreferenceUtil {
             putBoolean(WIDGET_PANEL, value)}
 
     val isExpandPanel
-        get() = sharedPreferences.getBoolean(EXPAND_NOW_PLAYING_PANEL, false)
+        get() = sharedPreferences.getString(EXPAND_NOW_PLAYING_PANEL, "disabled")
 
     var isDevModeEnabled
         get() = sharedPreferences.getBoolean(DEV_MODE, false)
@@ -895,60 +851,6 @@ object PreferenceUtil {
     val isAction2
         get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_2, "none")
 
-    var dismissMethod
-        get() = sharedPreferences.getString(
-            DISMISS_METHOD, "none"
-        )
-
-        set(value) = sharedPreferences.edit {
-            putString(DISMISS_METHOD, value)}
-
-    val isDismissFailsafe
-        get() = sharedPreferences.getBoolean(DISMISS_FAILSAFE, false)
-
-    var updateChecked
-        get() = sharedPreferences.getBoolean(
-            UPDATE_CHECKED, false
-        )
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(UPDATE_CHECKED, value)}
-
-    var updateFrequency
-        get() = sharedPreferences.getString(
-            UPDATE_FREQUENCY, "none"
-        )
-
-        set(value) = sharedPreferences.edit {
-            putString(UPDATE_FREQUENCY, value)}
-
-    var weekOfYear
-        get() = sharedPreferences.getInt(
-            WEEK_OF_YEAR, 0
-        )
-
-        set(value) = sharedPreferences.edit {
-            putInt(WEEK_OF_YEAR, value)}
-
-    var monthOfYear
-        get() = sharedPreferences.getInt(
-            MONTH_OF_YEAR, 0
-        )
-
-        set(value) = sharedPreferences.edit {
-            putInt(MONTH_OF_YEAR, value)}
-
-    var dayOfYear
-        get() = sharedPreferences.getInt(
-            DAY_OF_YEAR, 0
-        )
-
-        set(value) = sharedPreferences.edit {
-            putInt(DAY_OF_YEAR, value)}
-
-    val updateSource
-        get() = sharedPreferences.getString(UPDATE_SOURCE, "github")
-
     val isDisableWidgets
         get() = sharedPreferences.getBoolean(DISABLE_WIDGETS, false)
 
@@ -961,20 +863,11 @@ object PreferenceUtil {
             putBoolean(INTERNET_CONNECTED, value)}
 
     var buttonColorOnWidgets
-        get() = sharedPreferences.getStringOrDefault(
-            WIDGET_BUTTON_COLOR, "default_color"
+        get() = sharedPreferences.getBoolean(
+            WIDGET_BUTTON_COLOR, true
         )
-
         set(value) = sharedPreferences.edit {
-            putString(WIDGET_BUTTON_COLOR, value)}
-
-    var customWidgetColor
-        get() = sharedPreferences.getInt(
-            WIDGET_CUSTOM_COLOR, ThemeStore.accentColor(App.getContext())
-        )
-
-        set(value) = sharedPreferences.edit {
-            putInt(WIDGET_CUSTOM_COLOR, value)}
+            putBoolean(WIDGET_BUTTON_COLOR, value)}
 
     var isTimerCancelled
         get() = sharedPreferences.getBoolean(
@@ -1087,10 +980,8 @@ object PreferenceUtil {
             SHUFFLE_STATE, false
         )
 
-    val expandPanelType
-        get() = sharedPreferences.getBoolean(
-            EXPAND_PANEL_TYPE, false
-        )
+    val rewindDuration get() = sharedPreferences.getInt(REWIND_DURATION, 10)
+    val fastForwardDuration get() = sharedPreferences.getInt(FAST_FORWARD_DURATION, 10)
 }
 
 enum class CoverLyricsType {

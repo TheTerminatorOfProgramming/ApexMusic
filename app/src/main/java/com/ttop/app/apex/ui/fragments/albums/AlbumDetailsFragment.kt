@@ -215,18 +215,25 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             album.songCount
         )
         binding.fragmentAlbumContent.songTitle.text = songText
+
+
+        val albumTracksNumber: StringBuilder = StringBuilder()
+        albumTracksNumber.append(album.songCount).append(" ").append(getString(R.string.songs))
+
         if (MusicUtil.getYearString(album.year) == "-") {
             binding.albumText.text = String.format(
-                "%s • %s",
+                "%s • %s • %s",
                 if (albumArtistExists) album.albumArtist else album.artistName,
-                MusicUtil.getReadableDurationString(MusicUtil.getTotalDuration(album.songs))
+                MusicUtil.getReadableDurationString(MusicUtil.getTotalDuration(album.songs)),
+                albumTracksNumber
             )
         } else {
             binding.albumText.text = String.format(
-                "%s • %s • %s",
+                "%s • %s • %s • %s",
                 album.artistName,
                 MusicUtil.getYearString(album.year),
-                MusicUtil.getReadableDurationString(MusicUtil.getTotalDuration(album.songs))
+                MusicUtil.getReadableDurationString(MusicUtil.getTotalDuration(album.songs)),
+                albumTracksNumber
             )
         }
         loadAlbumCover(album)

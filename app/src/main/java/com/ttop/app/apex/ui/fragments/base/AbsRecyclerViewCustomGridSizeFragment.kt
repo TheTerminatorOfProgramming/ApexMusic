@@ -20,7 +20,6 @@ import androidx.transition.TransitionManager
 import com.google.android.material.transition.MaterialFade
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 
 abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :

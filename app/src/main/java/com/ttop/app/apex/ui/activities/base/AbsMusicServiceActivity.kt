@@ -198,12 +198,8 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
             } else {
                 add(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
-            if (!VersionUtils.hasR()) {
-                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-            if (VersionUtils.hasS()) {
-                add(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-            }
+
+            add(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
         }.toTypedArray()
     }
 

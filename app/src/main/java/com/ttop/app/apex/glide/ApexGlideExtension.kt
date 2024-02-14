@@ -20,8 +20,6 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.signature.MediaStoreSignature
 import com.ttop.app.apex.App.Companion.getContext
-import com.ttop.app.apex.Constants.USER_BANNER
-import com.ttop.app.apex.Constants.USER_PROFILE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.glide.artistimage.ArtistImage
@@ -157,16 +155,6 @@ object ApexGlideExtension {
     private fun createSignature(artist: Artist): Key {
         return ArtistSignatureUtil.getInstance(getContext())
             .getArtistSignature(artist.name)
-    }
-
-    fun getUserModel(): File {
-        val dir = getContext().filesDir
-        return File(dir, USER_PROFILE)
-    }
-
-    fun getBannerModel(): File {
-        val dir = getContext().filesDir
-        return File(dir, USER_BANNER)
     }
 
     private fun getErrorUserProfile(context: Context): Drawable {

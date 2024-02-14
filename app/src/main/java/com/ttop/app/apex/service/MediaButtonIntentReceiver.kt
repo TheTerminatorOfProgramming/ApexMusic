@@ -155,17 +155,7 @@ class MediaButtonIntentReceiver : MediaButtonReceiver() {
         private fun startService(context: Context, command: String?) {
             val intent = Intent(context, MusicService::class.java)
             intent.action = command
-            try {
-                // IMPORTANT NOTE: (kind of a hack)
-                // on Android O and above the following crashes when the app is not running
-                // there is no good way to check whether the app is running so we catch the exception
-                // we do not always want to use startForegroundService() because then one gets an ANR
-                // if no notification is displayed via startForeground()
-                // according to Play analytics this happens a lot, I suppose for example if command = PAUSE
-                context.startService(intent)
-            } catch (e: Exception) {
-                ContextCompat.startForegroundService(context, intent)
-            }
+            ContextCompat.startForegroundService(context, intent)
         }
 
         private fun acquireWakeLockAndSendMessage(context: Context, msg: Message, delay: Long) {

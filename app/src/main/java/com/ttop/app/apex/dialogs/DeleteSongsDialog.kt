@@ -16,30 +16,19 @@ package com.ttop.app.apex.dialogs
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
-import androidx.core.text.parseAsHtml
 import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_SONG
-import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.extraNotNull
-import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.ui.activities.saf.SAFGuideActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.SAFUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class DeleteSongsDialog : DialogFragment() {
@@ -64,95 +53,26 @@ class DeleteSongsDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         libraryViewModel = activity?.getViewModel() as LibraryViewModel
 
-        val intent = Intent(requireActivity(), SAFGuideActivity::class.java)
-        val launcher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            when (result.resultCode) {
-                SAFGuideActivity.REQUEST_CODE_SAF_GUIDE -> {
-                    SAFUtil.openTreePicker(this)
-                }
-                SAFUtil.REQUEST_SAF_PICK_TREE,
-                SAFUtil.REQUEST_SAF_PICK_FILE -> {
-                    if (result.resultCode == Activity.RESULT_OK) {
-                        SAFUtil.saveTreeUri(requireActivity(), intent)
-                        val songs = extraNotNull<List<Song>>(EXTRA_SONG).value
-                        deleteSongs(songs)
-                    }
-                }
-            }
-        }
-
         val songs = extraNotNull<List<Song>>(EXTRA_SONG).value
-        if (VersionUtils.hasR()) {
-            val deleteResultLauncher =
-                registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-                    if (result.resultCode == Activity.RESULT_OK) {
-                        if ((songs.size == 1) && MusicPlayerRemote.isPlaying(songs[0])) {
-                            MusicPlayerRemote.playNextSong()
-                        }
-                        MusicPlayerRemote.removeFromQueue(songs)
-                        reloadTabs()
-                    }
-                    dismiss()
-                }
-            val pendingIntent =
-                MediaStore.createDeleteRequest(requireActivity().contentResolver, songs.map {
-                    MusicUtil.getSongFileUri(it.id)
-                })
-            deleteResultLauncher.launch(
-                IntentSenderRequest.Builder(pendingIntent.intentSender).build()
-            )
-            return super.onCreateDialog(savedInstanceState)
-        } else {
-            val pair = if (songs.size > 1) {
-                Pair(
-                    R.string.delete_songs_title,
-                    String.format(getString(R.string.delete_x_songs), songs.size).parseAsHtml()
-                )
-            } else {
-                Pair(
-                    R.string.delete_song_title,
-                    String.format(getString(R.string.delete_song_x), songs[0].title).parseAsHtml()
-                )
-            }
-
-            return materialDialog()
-                .title(pair.first)
-                .message(text = pair.second)
-                .noAutoDismiss()
-                .negativeButton(android.R.string.cancel)
-                {
-                    dismiss()
-                }
-                .positiveButton(R.string.action_delete)
-                {
+        val deleteResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
                     if ((songs.size == 1) && MusicPlayerRemote.isPlaying(songs[0])) {
                         MusicPlayerRemote.playNextSong()
                     }
-                    if (!SAFUtil.isSAFRequiredForSongs(songs)) {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            dismiss()
-                            MusicUtil.deleteTracks(requireContext(), songs)
-                            reloadTabs()
-                        }
-                    } else {
-                        if (SAFUtil.isSDCardAccessGranted(requireActivity())) {
-                            deleteSongs(songs)
-                        } else {
-                            launcher.launch(intent)
-                        }
-                    }
+                    MusicPlayerRemote.removeFromQueue(songs)
+                    reloadTabs()
                 }
-        }
-    }
-
-    private fun deleteSongs(songs: List<Song>) {
-        CoroutineScope(Dispatchers.IO).launch {
-            dismiss()
-            MusicUtil.deleteTracks(requireActivity(), songs, null, null)
-            reloadTabs()
-        }
+                dismiss()
+            }
+        val pendingIntent =
+            MediaStore.createDeleteRequest(requireActivity().contentResolver, songs.map {
+                MusicUtil.getSongFileUri(it.id)
+            })
+        deleteResultLauncher.launch(
+            IntentSenderRequest.Builder(pendingIntent.intentSender).build()
+        )
+        return super.onCreateDialog(savedInstanceState)
     }
 
     private fun reloadTabs() {

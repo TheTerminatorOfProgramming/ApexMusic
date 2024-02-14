@@ -28,9 +28,7 @@ import com.ttop.app.apex.databinding.FragmentClassicPlayerPlaybackControlsBindin
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.extensions.ripAlpha
-import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
@@ -179,13 +177,8 @@ class ClassicPlaybackControlsFragment :
         binding.title.text = song.title
         binding.artist.text = song.artistName
 
-        if (PreferenceUtil.isSongInfo) {
-            binding.songInfo.text = getSongInfo(song)
-            binding.songInfo.show()
-            binding.songInfo.isSelected = true
-        } else {
-            binding.songInfo.hide()
-        }
+        binding.songInfo.text = getSongInfo(song)
+        binding.songInfo.isSelected = true
     }
 
     override fun onServiceConnected() {

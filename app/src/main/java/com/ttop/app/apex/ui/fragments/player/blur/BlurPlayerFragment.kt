@@ -52,7 +52,6 @@ import com.ttop.app.apex.dialogs.SleepTimerDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
 import com.ttop.app.apex.dialogs.SongShareDialog
 import com.ttop.app.apex.extensions.drawAboveSystemBars
-import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -66,7 +65,6 @@ import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -139,20 +137,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
                 return true
             }
-            R.id.action_toggle_lyrics -> {
-                PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                showLyricsIcon(item)
-                if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
-                    mainActivity.keepScreenOn(true)
-                } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics) {
-                    mainActivity.keepScreenOn(false)
-                }
-                return true
-            }
-            R.id.action_go_to_lyrics -> {
-                goToLyrics(requireActivity())
-                return true
-            }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -217,10 +201,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur),
             }
             R.id.action_go_to_artist -> {
                 goToArtist(requireActivity())
-                return true
-            }
-            R.id.action_show_lyrics -> {
-                goToLyrics(requireActivity())
                 return true
             }
             R.id.action_equalizer -> {

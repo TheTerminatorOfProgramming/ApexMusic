@@ -225,14 +225,10 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
                 return ContextCompat.getColor(context, R.color.m3_accent_color)
             }
             val desaturatedColor = prefs(context).getBoolean("desaturated_color", false)
-            val color = if (isWallpaperAccentEnabled(context)) {
-                wallpaperColor(context, isWindowBackgroundDark(context))
-            } else {
-                prefs(context).getInt(
-                    ThemeStorePrefKeys.KEY_ACCENT_COLOR,
-                    resolveColor(context, androidx.appcompat.R.attr.colorAccent, Color.parseColor("#263238"))
-                )
-            }
+            val color = prefs(context).getInt(
+                ThemeStorePrefKeys.KEY_ACCENT_COLOR,
+                resolveColor(context, androidx.appcompat.R.attr.colorAccent, Color.parseColor("#263238"))
+            )
             return if (isWindowBackgroundDark(context) && desaturatedColor) ColorUtil.desaturateColor(
                 color,
                 0.4f
@@ -294,11 +290,6 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         fun isMD3Enabled(context: Context): Boolean {
             return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(ThemeStorePrefKeys.KEY_MATERIAL_YOU, VersionUtils.hasS())
-        }
-
-        private fun isWallpaperAccentEnabled(context: Context): Boolean {
-            return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("wallpaper_accent", false)
         }
 
         fun fontSize(context: Context): String? {

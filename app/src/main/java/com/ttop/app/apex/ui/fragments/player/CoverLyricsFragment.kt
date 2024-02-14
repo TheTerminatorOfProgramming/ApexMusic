@@ -12,13 +12,14 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.SHOW_LYRICS
 import com.ttop.app.apex.databinding.FragmentCoverLyricsBinding
 import com.ttop.app.apex.extensions.dipToPix
+import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.model.lyrics.AbsSynchronizedLyrics
 import com.ttop.app.apex.model.lyrics.Lyrics
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
-import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -34,6 +35,9 @@ class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyri
     private var _binding: FragmentCoverLyricsBinding? = null
     private val binding get() = _binding!!
 
+    val mainActivity: MainActivity
+        get() = activity as MainActivity
+
     private val lyricsLayout: FrameLayout get() = binding.playerLyrics
     private val lyricsLine1: TextView get() = binding.playerLyricsLine1
     private val lyricsLine2: TextView get() = binding.playerLyricsLine2
@@ -46,10 +50,6 @@ class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyri
         progressViewUpdateHelper = MusicProgressViewUpdateHelper(this, 500, 1000)
         if (PreferenceUtil.showLyrics) {
             progressViewUpdateHelper?.start()
-        }
-
-        binding.playerLyricsLine2.setOnClickListener {
-            goToLyrics(requireActivity())
         }
     }
 
@@ -73,6 +73,12 @@ class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyri
             } else {
                 progressViewUpdateHelper?.stop()
                 binding.root.isVisible = false
+            }
+
+            if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
+                mainActivity.keepScreenOn(true)
+            } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics) {
+                mainActivity.keepScreenOn(false)
             }
         }
     }

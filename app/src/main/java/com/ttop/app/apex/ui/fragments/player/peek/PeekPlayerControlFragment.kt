@@ -29,8 +29,6 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentPeekControlPlayerBinding
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.hide
-import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
@@ -120,12 +118,6 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
         binding.title?.text = song.title
         binding.artist?.text = song.artistName
         binding.songInfo.text = getSongInfo(song)
-
-        if (PreferenceUtil.isSongInfo) {
-            binding.songInfo.show()
-        } else {
-            binding.songInfo.hide()
-        }
     }
 
     override fun setColor(color: MediaNotificationProcessor) {

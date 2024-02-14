@@ -32,33 +32,6 @@
         <item>@string/over_cover</item>
     </array>
 
-    <string-array name="pref_embed_lyrics_values">
-        <item>none</item>
-        <item>tap</item>
-        <item>menu</item>
-        <item>both</item>
-    </string-array>
-
-    <array name="pref_embed_lyrics_entries">
-        <item>@string/none</item>
-        <item>@string/tap</item>
-        <item>@string/menu</item>
-        <item>@string/both</item>
-    </array>
-
-    <string-array name="pref_tab_text_mode_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <array name="pref_auto_download_images_titles">
-        <item>@string/always</item>
-        <item>@string/only_on_wifi</item>
-        <item>@string/never</item>
-    </array>
-
     <array name="pref_tab_text_mode_titles">
         <item>@string/auto</item>
         <item>@string/labeled</item>
@@ -66,14 +39,11 @@
         <item>@string/unlabeled</item>
     </array>
 
-    <array name="pref_appbar_mode_titles">
-        <item>@string/expanded</item>
-        <item>@string/compact</item>
-    </array>
-
-    <string-array name="pref_appbar_mode_values">
+    <string-array name="pref_tab_text_mode_values">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="pref_general_theme_list_titles">
@@ -86,30 +56,6 @@
         <item>light</item>
         <item>dark</item>
         <item>auto</item>
-    </string-array>
-
-    <string-array name="pref_progressbar_list_titles">
-        <item>@string/color_black</item>
-        <item>@string/color_blue</item>
-        <item>@string/color_green</item>
-        <item>@string/color_orange</item>
-        <item>@string/color_purple</item>
-        <item>@string/color_red</item>
-        <item>@string/color_teal</item>
-        <item>@string/color_white</item>
-        <item>@string/color_yellow</item>
-    </string-array>
-
-    <string-array name="pref_progressbar_list_values">
-        <item>black</item>
-        <item>blue</item>
-        <item>green</item>
-        <item>orange</item>
-        <item>purple</item>
-        <item>red</item>
-        <item>teal</item>
-        <item>white</item>
-        <item>yellow</item>
     </string-array>
 
     <string-array name="pref_notification_action_list_titles">
@@ -128,34 +74,6 @@
         <item>quit</item>
         <item>clear_queue</item>
         <item>none</item>
-    </string-array>
-
-    <string-array name="pref_dismiss_method_list_titles">
-        <item>@string/swipe</item>
-        <item>@string/long_touch</item>
-        <item>@string/none</item>
-    </string-array>
-
-    <string-array name="pref_dismiss_method_list_values">
-        <item>swipe</item>
-        <item>long_touch</item>
-        <item>none</item>
-    </string-array>
-
-    <string-array name="pref_widget_button_color_list_titles">
-        <item>@string/adaptive</item>
-        <item>@string/black</item>
-        <item>@string/white</item>
-        <item>@string/accent_color</item>
-        <item>@string/custom</item>
-    </string-array>
-
-    <string-array name="pref_widget_button_color_list_values">
-        <item>default_color</item>
-        <item>black</item>
-        <item>white</item>
-        <item>accent</item>
-        <item>custom</item>
     </string-array>
 
     <string-array name="pref_font_list_titles">
@@ -218,6 +136,12 @@
         <item>@layout/item_image</item>
     </array>
 
+    <array name="pref_auto_download_images_titles">
+        <item>@string/always</item>
+        <item>@string/only_on_wifi</item>
+        <item>@string/never</item>
+    </array>
+
     <array name="pref_auto_download_images_values">
         <item>always</item>
         <item>only_wifi</item>
@@ -238,11 +162,6 @@
         <item>this_month</item>
         <item>past_three_months</item>
         <item>this_year</item>
-    </string-array>
-
-    <string-array name="image_settings_options">
-        <item>@string/choose_image</item>
-        <item>@string/remove_image</item>
     </string-array>
 
     <string-array name="pref_language_names">
@@ -273,17 +192,6 @@
         <item>es</item>
     </string-array>
 
-
-    <string-array name="pref_widget_background_titles" tools:ignore="InconsistentArrays">
-        <item>@string/default_widget_background_title</item>
-        <item>@string/transparent_widget_background_title</item>
-    </string-array>
-
-    <string-array name="pref_widget_background_values" tools:ignore="InconsistentArrays">
-        <item>default</item>
-        <item>transparent</item>
-    </string-array>
-
     <string-array name="pref_swipe_gestures_titles">
         <item>@string/off</item>
         <item>@string/on</item>
@@ -304,18 +212,6 @@
         <item>always</item>
     </string-array>
 
-    <string-array name="pref_launcher_icon_titles">
-        <item>@string/icon_v1</item>
-        <item>@string/icon_v2</item>
-        <item>@string/icon_v3</item>
-    </string-array>
-
-    <string-array name="pref_launcher_icon_values">
-        <item>v1</item>
-        <item>v2</item>
-        <item>v3</item>
-    </string-array>
-
     <string-array name="pref_queue_style_titles">
         <item>@string/duo_vertical</item>
         <item>@string/duo_horizontal</item>
@@ -331,12 +227,14 @@
     <string-array name="pref_auto_action_list_titles">
         <item>@string/repeat</item>
         <item>@string/shuffle</item>
+        <item>@string/clear_playing_queue</item>
         <item>@string/none</item>
     </string-array>
 
     <string-array name="pref_auto_action_list_values">
         <item>repeat</item>
         <item>shuffle</item>
+        <item>clear_queue</item>
         <item>none</item>
     </string-array>
 
@@ -370,5 +268,17 @@
         <item>22</item>
         <item>23</item>
         <item>24</item>
+    </string-array>
+
+    <string-array name="pref_expand_panel_titles">
+        <item>@string/show_player_from_notification</item>
+        <item>@string/show_player_on_app_launch</item>
+        <item>@string/disabled</item>
+    </string-array>
+
+    <string-array name="pref_expand_panel_values">
+        <item>default</item>
+        <item>enhanced</item>
+        <item>disabled</item>
     </string-array>
 </resources>

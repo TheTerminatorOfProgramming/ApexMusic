@@ -12,7 +12,6 @@
 
     <application
         android:name="com.ttop.app.apex.App"
-        android:allowBackup="@bool/allowBackup"
         android:appCategory="audio"
         android:configChanges="locale|layoutDirection"
         android:enableOnBackInvokedCallback="true"
@@ -24,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apex.FollowSystem"
         android:usesCleartextTraffic="true"
-        tools:ignore="UnusedAttribute" >
+        tools:ignore="UnusedAttribute">
         <activity
             android:name="com.ttop.app.apex.ui.activities.MainActivity"
             android:exported="true"
@@ -155,9 +154,6 @@
             android:name="com.ttop.app.apex.appshortcuts.AppShortcutLauncherActivity"
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.ttop.app.apex.ui.activities.saf.SAFGuideActivity"
-            android:theme="@style/Theme.Intro" />
         <activity
             android:name="com.ttop.app.apex.ui.activities.ErrorActivity"
             android:exported="true" >

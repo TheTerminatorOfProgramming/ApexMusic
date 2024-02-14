@@ -28,7 +28,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.animation.doOnEnd
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -53,10 +52,6 @@ import com.ttop.app.apex.dialogs.SongDetailDialog
 import com.ttop.app.apex.dialogs.SongShareDialog
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.drawAboveSystemBarsWithPadding
-import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.hide
-import com.ttop.app.apex.extensions.keepScreenOn
-import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.extensions.whichFragment
@@ -66,7 +61,6 @@ import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.ui.fragments.base.goToLyrics
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
@@ -76,8 +70,6 @@ import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.DrawableGradient
 import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -111,20 +103,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
-                return true
-            }
-            R.id.action_toggle_lyrics -> {
-                PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                showLyricsIcon(item)
-                if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
-                    mainActivity.keepScreenOn(true)
-                } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics) {
-                    mainActivity.keepScreenOn(false)
-                }
-                return true
-            }
-            R.id.action_go_to_lyrics -> {
-                goToLyrics(requireActivity())
                 return true
             }
             R.id.action_toggle_favorite -> {
@@ -200,10 +178,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                     navOptions { launchSingleTop = true }
                 )
                 mainActivity.collapsePanel()
-                return true
-            }
-            R.id.action_show_lyrics -> {
-                goToLyrics(requireActivity())
                 return true
             }
             R.id.action_equalizer -> {

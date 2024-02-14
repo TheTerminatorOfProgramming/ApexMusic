@@ -9,7 +9,6 @@
         android:defaultValue="false"
         android:key="disable_widgets"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_disable_widgets"
         android:title="@string/pref_title_disable_widgets"
         app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>

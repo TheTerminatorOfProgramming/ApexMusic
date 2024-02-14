@@ -74,13 +74,8 @@ class CardPlaybackControlsFragment :
         binding.title.text = song.title
         binding.artist.text = song.artistName
 
-        if (PreferenceUtil.isSongInfo) {
-            binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
-            binding.songInfo.show()
-            binding.songInfo.isSelected = true
-        } else {
-            binding.songInfo.hide()
-        }
+        binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
+        binding.songInfo.isSelected = true
     }
 
     override fun onServiceConnected() {

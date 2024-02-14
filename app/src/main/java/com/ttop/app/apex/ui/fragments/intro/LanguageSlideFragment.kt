@@ -35,7 +35,6 @@ class LanguageSlideFragment(
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_intro_language, container, false)
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

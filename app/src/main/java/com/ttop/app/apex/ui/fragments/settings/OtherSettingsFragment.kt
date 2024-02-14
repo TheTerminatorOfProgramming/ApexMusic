@@ -49,14 +49,11 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val auto_rotate: TwoStatePreference? = findPreference(AUTO_ROTATE)
-        auto_rotate?.setOnPreferenceChangeListener { _, newValue ->
+        val autoRotate: TwoStatePreference? = findPreference(AUTO_ROTATE)
+        autoRotate?.setOnPreferenceChangeListener { _, newValue ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
 
             PreferenceUtil.isAutoRotate = newValue as Boolean
-
-            PreferenceUtil.shouldRecreate = true
-            restartActivity()
             true
         }
 

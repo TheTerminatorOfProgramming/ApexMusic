@@ -19,6 +19,7 @@ import android.util.AttributeSet
 import android.widget.TextView
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceViewHolder
+import com.ttop.app.appthemehelper.R
 import com.ttop.app.appthemehelper.ThemeStore
 
 class ATEPreferenceCategory @JvmOverloads constructor(
@@ -27,6 +28,10 @@ class ATEPreferenceCategory @JvmOverloads constructor(
     defStyleAttr: Int = -1,
     defStyleRes: Int = -1
 ) : PreferenceCategory(context, attrs, defStyleAttr, defStyleRes) {
+
+    init {
+        layoutResource = R.layout.custom_preference
+    }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)

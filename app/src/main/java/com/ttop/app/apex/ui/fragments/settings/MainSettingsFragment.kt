@@ -23,7 +23,6 @@ import androidx.navigation.fragment.findNavController
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMainSettingsBinding
 import com.ttop.app.apex.extensions.drawAboveSystemBarsWithPadding
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
 

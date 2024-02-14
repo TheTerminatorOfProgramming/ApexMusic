@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/app_widget_full"
+    android:initialLayout="@layout/app_widget_full_day_night"
     android:minWidth="@dimen/app_widget_full_min_width"
     android:minHeight="@dimen/app_widget_full_min_height"
     android:minResizeWidth="@dimen/app_widget_full_min_width"

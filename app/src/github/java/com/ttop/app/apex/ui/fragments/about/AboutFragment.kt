@@ -36,7 +36,6 @@ import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.ui.activities.AppIntroActivityAbout
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.utils.GithubUtils
@@ -342,7 +341,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun getRetroMusicVersion(): String {
-        return getString(R.string.retromusic_base)
+        return getString(R.string.retro_base)
     }
 
     private fun shareApp() {
@@ -407,7 +406,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     private fun checkBatteryOptimization(): String {
         val packageName = context?.packageName
         val pm = context?.getSystemService(ATHToolbarActivity.POWER_SERVICE) as PowerManager
@@ -420,26 +418,11 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun checkFilesPermission(): String {
-        if (VersionUtils.hasR()) {
-            return if (Environment.isExternalStorageManager()) {
-                getString(R.string.granted) + " ✅"
-            }else {
-                getString(R.string.denied) + " ❌"
-            }
-        }else if (VersionUtils.hasQ()){
-            return if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                getString(R.string.granted) + " ✅"
-            }else{
-                getString(R.string.denied) + " ❌"
-            }
+        return if (Environment.isExternalStorageManager()) {
+            getString(R.string.granted) + " ✅"
         }else {
-            return if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                getString(R.string.granted) + " ✅"
-            }else{
-                getString(R.string.denied) + " ❌"
-            }
+            getString(R.string.denied) + " ❌"
         }
-
     }
 
     override fun onDestroyView() {

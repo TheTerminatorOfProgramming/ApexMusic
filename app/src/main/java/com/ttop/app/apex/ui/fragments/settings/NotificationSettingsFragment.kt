@@ -19,30 +19,18 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.afollestad.materialdialogs.color.colorChooser
-import com.ttop.app.apex.CLASSIC_NOTIFICATION
-import com.ttop.app.apex.COLORED_NOTIFICATION
 import com.ttop.app.apex.DISABLE_UPDATE
 import com.ttop.app.apex.NOTIFICATION_ACTION_1
 import com.ttop.app.apex.NOTIFICATION_ACTION_2
 import com.ttop.app.apex.R
-import com.ttop.app.apex.SHOW_UPDATE
 import com.ttop.app.apex.WIDGET_BACKGROUND
 import com.ttop.app.apex.WIDGET_BUTTON_COLOR
-import com.ttop.app.apex.WIDGET_CUSTOM_COLOR
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
-import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ACCENT_COLORS
-import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 /**
  * @author Hemanth S (h4h13).
@@ -57,19 +45,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
-            CLASSIC_NOTIFICATION -> {
-                findPreference<Preference>(COLORED_NOTIFICATION)?.isEnabled =
-                    sharedPreferences?.getBoolean(key, false)!!
-            }
             WIDGET_BUTTON_COLOR -> {
-                val customWidgetColor: ATEColorPreference? = findPreference(WIDGET_CUSTOM_COLOR)
-                customWidgetColor?.isEnabled = PreferenceUtil.buttonColorOnWidgets == "custom"
-
-                appWidgetClassic.notifyThemeChange(musicService)
-                appWidgetFull.notifyThemeChange(musicService)
-                appWidgetCircle.notifyThemeChange(musicService)
-            }
-            WIDGET_CUSTOM_COLOR -> {
                 appWidgetClassic.notifyThemeChange(musicService)
                 appWidgetFull.notifyThemeChange(musicService)
                 appWidgetCircle.notifyThemeChange(musicService)
@@ -83,42 +59,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
     }
 
     override fun invalidateSettings() {
-        val classicNotification: TwoStatePreference? = findPreference(CLASSIC_NOTIFICATION)
-        classicNotification?.apply {
-            isChecked = PreferenceUtil.isClassicNotification
-            setOnPreferenceChangeListener { _, newValue ->
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                // Save preference
-                PreferenceUtil.isClassicNotification = newValue as Boolean
-                invalidateSettings()
-                true
-            }
-        }
-
-        val coloredNotification: TwoStatePreference? = findPreference(COLORED_NOTIFICATION)
-        coloredNotification?.apply {
-            isChecked = PreferenceUtil.isColoredNotification
-            setOnPreferenceChangeListener { _, newValue ->
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                PreferenceUtil.isColoredNotification = newValue as Boolean
-                true
-            }
-        }
-
-        val update: TwoStatePreference? = findPreference(SHOW_UPDATE)
-        /*if (!PreferenceUtil.isAlbumArtOnLockScreen) {
-            update?.isChecked = false
-            update?.isEnabled = false
-            MusicPlayerRemote.updateNotification()
-        }*/
-
-        update?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            update.isChecked = newValue as Boolean
-            MusicPlayerRemote.updateNotification()
-            false
-        }
-
         val action1: Preference? = findPreference(NOTIFICATION_ACTION_1)
         action1?.let {
             setSummary(it)
@@ -137,34 +77,10 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             }
         }
 
-        val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
-        buttonColor?.let {
-            setSummary(it)
-            it.setOnPreferenceChangeListener { _, newValue ->
-                setSummary(it, newValue)
-                true
-            }
-        }
-
-        val customWidgetColor: ATEColorPreference? = findPreference(WIDGET_CUSTOM_COLOR)
-        val accentColor = PreferenceUtil.customWidgetColor
-        customWidgetColor?.setColor(accentColor, ColorUtil.darkenColor(accentColor))
-        customWidgetColor?.setOnPreferenceClickListener {
-            materialDialog().show {
-                colorChooser(
-                    initialSelection = accentColor,
-                    showAlphaSelector = false,
-                    colors = ACCENT_COLORS,
-                    subColors = ACCENT_COLORS_SUB, allowCustomArgb = true
-                ) { _, color ->
-                    PreferenceUtil.customWidgetColor = color
-                    appWidgetClassic.notifyThemeChange(musicService)
-                    appWidgetFull.notifyThemeChange(musicService)
-                    appWidgetCircle.notifyThemeChange(musicService)
-                    restartActivity()
-                }
-            }
-            return@setOnPreferenceClickListener true
+        val buttonColor: TwoStatePreference? = findPreference(WIDGET_BUTTON_COLOR)
+        buttonColor?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
         }
 
         val disableUpdate: TwoStatePreference? = findPreference(DISABLE_UPDATE)
@@ -176,12 +92,12 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val widgetBackground: ATEListPreference? = findPreference(WIDGET_BACKGROUND)
+        val widgetBackground: TwoStatePreference? = findPreference(WIDGET_BACKGROUND)
         widgetBackground?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            val value = newValue as Boolean
 
-            val value = newValue as String
-
-            buttonColor?.isEnabled = value != "day_night"
+            buttonColor?.isEnabled = value
             true
         }
     }
@@ -199,10 +115,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_notification)
 
-        val customWidgetColor: ATEColorPreference? = findPreference(WIDGET_CUSTOM_COLOR)
-        customWidgetColor?.isEnabled = PreferenceUtil.buttonColorOnWidgets == "custom"
-
         val buttonColor: Preference? = findPreference(WIDGET_BUTTON_COLOR)
-        buttonColor?.isEnabled = PreferenceUtil.widgetBackground != "day_night"
+        buttonColor?.isEnabled = PreferenceUtil.widgetBackground
     }
 }

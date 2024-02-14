@@ -24,9 +24,7 @@ import com.ttop.app.apex.databinding.FragmentAdaptivePlayerPlaybackControlsBindi
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.extensions.ripAlpha
-import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.PreferenceUtil
@@ -86,13 +84,8 @@ class AdaptivePlaybackControlsFragment :
     }
 
     private fun updateSong() {
-        if (PreferenceUtil.isSongInfo) {
-            binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
-            binding.songInfo.show()
-            binding.songInfo.isSelected = true
-        } else {
-            binding.songInfo.hide()
-        }
+        binding.songInfo.text = getSongInfo(MusicPlayerRemote.currentSong)
+        binding.songInfo.isSelected = true
     }
 
     override fun onPlayingMetaChanged() {

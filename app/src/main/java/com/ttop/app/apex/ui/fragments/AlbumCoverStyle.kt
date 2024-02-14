@@ -23,11 +23,11 @@ enum class AlbumCoverStyle(
     @DrawableRes val drawableResId: Int,
     val id: Int
 ) {
-    Card(R.string.card, R.drawable.player_blur_card, 3),
-    Circle(R.string.circular, R.drawable.player_circle, 2),
-    Flat(R.string.flat, R.drawable.player_flat, 1),
-    FullCard(R.string.full_card, R.drawable.player_adaptive, 5),
-    Full(R.string.full, R.drawable.player_full, 4),
-    Normal(R.string.normal, R.drawable.player_normal, 0),
-    Peek(R.string.peek, R.drawable.album_cover_peek, 6)
+    Card(R.string.card, R.drawable.cover_theme_card, 3),
+    Circle(R.string.circular, R.drawable.cover_theme_circular, 2),
+    Flat(R.string.flat, R.drawable.cover_theme_flat, 1),
+    Full(R.string.full, R.drawable.cover_theme_full, 4),
+    FullCard(R.string.full_card, R.drawable.cover_theme_full_card, 5),
+    Normal(R.string.normal, R.drawable.cover_theme_normal, 0),
+    Peek(R.string.peek, R.drawable.cover_theme_peek, 6)
 }

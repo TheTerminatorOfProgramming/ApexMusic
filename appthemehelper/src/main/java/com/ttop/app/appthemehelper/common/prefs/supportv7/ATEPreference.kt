@@ -19,6 +19,7 @@ import android.util.AttributeSet
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.preference.Preference
+import com.ttop.app.appthemehelper.R
 import com.ttop.app.appthemehelper.util.ATHUtil
 
 class ATEPreference @JvmOverloads constructor(
@@ -29,6 +30,7 @@ class ATEPreference @JvmOverloads constructor(
 ) : Preference(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        layoutResource = R.layout.custom_preference
         icon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             ATHUtil.resolveColor(
                 context,

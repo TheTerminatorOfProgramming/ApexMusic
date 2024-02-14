@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="md3_available">false</bool>
-    <bool name="md3_enabled">false</bool>
-
-    <bool name="allowBackup">true</bool>
-    <bool name="widget_prefs">false</bool>
-
     <bool name="auto_rotate">false</bool>
-    <bool name="classic_notification">true</bool>
     <bool name="actions">false</bool>
     <bool name="auto_actions">false</bool>
 </resources>

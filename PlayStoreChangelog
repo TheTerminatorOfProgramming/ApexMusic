@@ -1,31 +1,39 @@
-Apex Music v3.50
+Apex Music v3.60
+What's New
 
-=What's Been Added=
--Nothing has been added
+==What's Been Added==
+-Added the number of tracks in an album in the album details page
+-Added more options for android auto actions
+-Added seek duration options in now playing screen settings
 
-=What's Been Removed=
--Removed the restore legacy widgets option in developer options
--Removed the big widget
--Removed the full circle widget
--Removed the circle button option. this is now enabled by default
--Removed the colored app shortcuts option. this is now enabled by default
--Removed the blur album cover option
--Removed the use standard scrollbars option
--Removed the alphabet scrollbars
+==What's Been Removed==
+-Removed support for android 8, 9, 10 & 11
+-Removed mini player dismiss method and dismiss check options. the swipe option is now the only way to dismiss the mini player
+-Removed the lyrics page
 
-=What's Been Changed & Updated=
--The lockscreen controls option has been moved to the advanced settings
+==What's Been Changed & Updated==
+-Status bar in classic player theme now changes between black and white depending on background color (same as gradient and minimal player themes)
+-The player themes that use the squiggly seekbar now use a round seekbar thumb instead of the rectangle thumb
+-The widget background option has been changed from a list to a switch. <b>you will need to reset the app to default using the reset option in the backup & restore settings</b>
+-The button on the home page wil now show the correct color when using material you
+-Changed the filter song duration system. you can now set a minimum duration and a maximum duration filter
+-Changed the lyrics options
+-Synced lyrics now enable/disable by double tapping the album cover in the player themes
+-Embedded lyrics now activated by long pressing the album cover in the player themes
+-Classic and blur player themes layouts have been changed
+-Updated the widgets layouts
+-The settings summaries and the space reserved for the icons have been removed
+-Enhanced seek function
 
-=What's Planned To Be Removed
--Support for android 8, 9, 10 & 11 from apex music v4.0.0
--The widget background option will be changed from a list to a switch
+==What's Planned To Be Removed/Changed==
+-Embedded lyrics will be changed from using the dialog to the same system as the synced lyrics
 
-=What's Fixed=
--Adaptive player theme crash when volume controls are enabled
-Volume controls not enabling in player themes
+==What's Fixed==
+-Fixed the album and artists pages menu
+-Back arrow on he search page now works and closes the search page
 
-=Possible Bugs=
+==Possible Bugs==
 -App may crash when opening app through the widgets. This is due to a change by google
--When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the miniplayer
+-When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player
 -Some android skins such as funtouch os may experience issues with apex
--Music controls may not work due to a possible bug in apex. the bug should be fixed but needs some additional testing
+-Headset music controls may not work due to a possible bug in apex. the bug should be fixed but needs some additional testing

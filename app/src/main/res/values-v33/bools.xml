@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="classic_notification">false</bool>
-    <bool name="full_circle">false</bool>
     <bool name="actions">true</bool>
     <bool name="auto_actions">true</bool>
 </resources>

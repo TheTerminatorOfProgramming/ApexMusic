@@ -3,30 +3,20 @@ package com.ttop.app.apex.util
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
-import android.provider.BaseColumns
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.content.contentValuesOf
 import androidx.core.net.toUri
-import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.db.toSongEntity
-import com.ttop.app.apex.extensions.getLong
-import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.helper.MusicPlayerRemote.removeFromQueue
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.model.lyrics.AbsSynchronizedLyrics
 import com.ttop.app.apex.repository.Repository
-import com.ttop.app.apex.repository.SongRepository
-import com.ttop.app.appthemehelper.util.VersionUtils
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import org.jaudiotagger.audio.AudioFileIO
@@ -101,7 +91,7 @@ object MusicUtil : KoinComponent {
 
     private fun createAlbumArtDir(context: Context): File {
         val albumArtDir = File(
-            if (VersionUtils.hasR()) context.cacheDir else getExternalStorageDirectory(),
+            context.cacheDir,
             "/albumthumbs/"
         )
         if (!albumArtDir.exists()) {
@@ -368,145 +358,6 @@ object MusicUtil : KoinComponent {
     }
 
     suspend fun isFavorite(song: Song) = repository.isSongFavorite(song.id)
-
-    fun deleteTracks(
-        activity: FragmentActivity,
-        songs: List<Song>,
-        safUris: List<Uri>?,
-        callback: Runnable?,
-    ) {
-        val songRepository: SongRepository = get()
-        val projection = arrayOf(
-            BaseColumns._ID, Constants.DATA
-        )
-        // Split the query into multiple batches, and merge the resulting cursors
-        var batchStart: Int
-        var batchEnd = 0
-        val batchSize =
-            1000000 / 10 // 10^6 being the SQLite limite on the query lenth in bytes, 10 being the max number of digits in an int, used to store the track ID
-        val songCount = songs.size
-
-        while (batchEnd < songCount) {
-            batchStart = batchEnd
-
-            val selection = StringBuilder()
-            selection.append(BaseColumns._ID + " IN (")
-
-            var i = 0
-            while (i < batchSize - 1 && batchEnd < songCount - 1) {
-                selection.append(songs[batchEnd].id)
-                selection.append(",")
-                i++
-                batchEnd++
-            }
-            // The last element of a batch
-            // The last element of a batch
-            selection.append(songs[batchEnd].id)
-            batchEnd++
-            selection.append(")")
-
-            try {
-                val cursor = activity.contentResolver.query(
-                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
-                    null, null
-                )
-                if (cursor != null) {
-                    // Step 1: Remove selected tracks from the current playlist, as well
-                    // as from the album art cache
-                    cursor.moveToFirst()
-                    while (!cursor.isAfterLast) {
-                        val id = cursor.getLong(BaseColumns._ID)
-                        val song: Song = songRepository.song(id)
-                        removeFromQueue(song)
-                        cursor.moveToNext()
-                    }
-
-                    // Step 2: Remove selected tracks from the database
-                    activity.contentResolver.delete(
-                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                        selection.toString(), null
-                    )
-                    // Step 3: Remove files from card
-                    cursor.moveToFirst()
-                    var index = batchStart
-                    while (!cursor.isAfterLast) {
-                        val name = cursor.getString(1)
-                        val safUri =
-                            if (safUris == null || safUris.size <= index) null else safUris[index]
-                        SAFUtil.delete(activity, name, safUri)
-                        index++
-                        cursor.moveToNext()
-                    }
-                    cursor.close()
-                }
-            } catch (ignored: SecurityException) {
-
-            }
-            activity.contentResolver.notifyChange("content://media".toUri(), null)
-            activity.runOnUiThread {
-                activity.showToast(activity.getString(R.string.deleted_x_songs, songCount))
-                callback?.run()
-            }
-        }
-    }
-
-    suspend fun deleteTracks(context: Context, songs: List<Song>) {
-        val projection = arrayOf(BaseColumns._ID, Constants.DATA)
-        val selection = StringBuilder()
-        selection.append(BaseColumns._ID + " IN (")
-        for (i in songs.indices) {
-            selection.append(songs[i].id)
-            if (i < songs.size - 1) {
-                selection.append(",")
-            }
-        }
-        selection.append(")")
-        var deletedCount = 0
-        try {
-            val cursor: Cursor? = context.contentResolver.query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
-                null, null
-            )
-            if (cursor != null) {
-                removeFromQueue(songs)
-
-                // Step 2: Remove files from card
-                cursor.moveToFirst()
-                while (!cursor.isAfterLast) {
-                    val id: Int = cursor.getInt(0)
-                    val name: String = cursor.getString(1)
-                    try { // File.delete can throw a security exception
-                        val f = File(name)
-                        if (f.delete()) {
-                            // Step 3: Remove selected track from the database
-                            context.contentResolver.delete(
-                                ContentUris.withAppendedId(
-                                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                                    id.toLong()
-                                ), null, null
-                            )
-                            deletedCount++
-                        } else {
-                            // I'm not sure if we'd ever get here (deletion would
-                            // have to fail, but no exception thrown)
-                            Log.e("MusicUtils", "Failed to delete file $name")
-                        }
-                        cursor.moveToNext()
-                    } catch (ex: SecurityException) {
-                        cursor.moveToNext()
-                    } catch (e: NullPointerException) {
-                        Log.e("MusicUtils", "Failed to find file $name")
-                    }
-                }
-                cursor.close()
-            }
-            withContext(Dispatchers.Main) {
-                context.showToast(context.getString(R.string.deleted_x_songs, deletedCount))
-            }
-
-        } catch (ignored: SecurityException) {
-        }
-    }
 
     fun songByGenre(genreId: Long): Song {
         return repository.getSongByGenre(genreId)

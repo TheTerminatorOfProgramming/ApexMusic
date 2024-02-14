@@ -5,33 +5,6 @@
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_notification"
         app:allowDividerBelow="false">
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="classic_notification"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_classic_notification"
-        android:title="@string/pref_title_classic_notification"
-        app:isPreferenceVisible="@bool/classic_notification"
-        app:allowDividerBelow="false"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="true"
-        android:key="colored_notification"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_colored_notification"
-        android:title="@string/pref_title_colored_notification"
-        android:dependency="classic_notification"
-        app:isPreferenceVisible="@bool/classic_notification"
-        app:allowDividerBelow="false"/>
-
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="show_update"
-        android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_show_update"
-        android:title="@string/pref_title_show_update"
-        app:isPreferenceVisible="@bool/classic_notification"
-        app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="none"
@@ -62,14 +35,10 @@
         android:title="@string/pref_header_widgets"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="@string/default_background"
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
             android:key="widget_background"
-            android:entries="@array/pref_widget_background_titles"
-            android:entryValues="@array/pref_widget_background_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            android:layout="@layout/list_item_view"
+            android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_widget_background"
             app:allowDividerBelow="false"/>
 
@@ -77,27 +46,14 @@
             android:defaultValue="false"
             android:key="disable_update"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_hide_update"
             android:title="@string/pref_title_hide_update"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
             android:key="widget_button_color"
-            android:defaultValue="default_color"
-            android:layout="@layout/list_item_view"
-            android:entries="@array/pref_widget_button_color_list_titles"
-            android:entryValues="@array/pref_widget_button_color_list_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
+            android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_widget_buttons_color"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
-            android:key="widget_custom_color"
-            android:layout="@layout/list_item_color_view"
-            android:persistent="false"
-            android:summary="@string/pref_summary_widget_custom_color"
-            android:title="@string/pref_title_widget_custom_color"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

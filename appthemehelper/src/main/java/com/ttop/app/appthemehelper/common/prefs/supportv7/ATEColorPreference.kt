@@ -36,6 +36,7 @@ class ATEColorPreference @JvmOverloads constructor(
     private var border: Int = 0
 
     init {
+        layoutResource = R.layout.custom_preference
         widgetLayoutResource = R.layout.ate_preference_color
         isPersistent = false
 

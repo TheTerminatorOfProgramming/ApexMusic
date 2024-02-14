@@ -5,7 +5,6 @@
         android:defaultValue="0"
         android:key="audio_fade_duration"
         android:layout="@layout/list_item_view"
-        android:summary="@string/pref_summary_audio_fade"
         android:title="@string/pref_title_audio_fade"
         app:allowDividerBelow="false"/>
 
@@ -13,7 +12,6 @@
         android:defaultValue="false"
         android:key="manage_audio_focus"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_manage_audio_focus"
         android:title="@string/pref_title_manage_audio_focus"
         app:allowDividerBelow="false"/>
 
@@ -23,7 +21,6 @@
         android:layout="@layout/list_item_view_seekbar"
         app:ateKey_pref_unit="s"
         android:max="12"
-        android:summary="@string/pref_summary_cross_fade"
         android:title="@string/pref_title_cross_fade"
         app:showSeekBarValue="true"
         app:allowDividerBelow="false"/>
@@ -32,7 +29,6 @@
         android:defaultValue="false"
         android:key="gapless_playback"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_summary_gapless_playback"
         android:title="@string/pref_title_gapless_playback"
         app:allowDividerBelow="false"/>
 
@@ -40,7 +36,6 @@
         android:defaultValue="false"
         android:key="pause_on_zero_volume"
         android:layout="@layout/list_item_view_switch"
-        android:summary="@string/pref_keep_pause_on_zero_volume_summary"
         android:title="@string/pref_keep_pause_on_zero_volume_title"
         app:allowDividerBelow="false"/>
 
@@ -53,7 +48,6 @@
             android:defaultValue="false"
             android:key="equalizer_stock"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_stock_equalizer"
             android:title="@string/pref_title_stock_equalizer"
             app:allowDividerBelow="false"/>
 
@@ -72,7 +66,6 @@
             android:defaultValue="false"
             android:key="toggle_headset"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_toggle_headset"
             android:title="@string/pref_title_toggle_headset"
             app:allowDividerBelow="false"/>
 
@@ -80,7 +73,6 @@
             android:defaultValue="false"
             android:key="bluetooth_playback"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_bluetooth_playback"
             android:title="@string/pref_title_bluetooth_playback"
             app:allowDividerBelow="false"/>
 
@@ -88,7 +80,6 @@
             android:defaultValue="false"
             android:key="specific_device"
             android:layout="@layout/list_item_view_switch"
-            android:summary="@string/pref_summary_specific_device"
             android:title="@string/pref_title_specific_device"
             android:dependency="bluetooth_playback"
             app:allowDividerBelow="false"/>

@@ -7,6 +7,7 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.preference.PreferenceViewHolder
 import androidx.preference.SeekBarPreference
+import com.ttop.app.appthemehelper.R
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.TintHelper
@@ -19,6 +20,7 @@ class ATESeekBarNoUnitPreference @JvmOverloads constructor(
 ) : SeekBarPreference(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
+        layoutResource = R.layout.custom_preference
         icon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             ATHUtil.resolveColor(
                 context,

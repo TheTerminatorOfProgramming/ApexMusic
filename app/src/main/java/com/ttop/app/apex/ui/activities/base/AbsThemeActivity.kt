@@ -36,7 +36,6 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
 
@@ -51,9 +50,8 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         maybeSetScreenOn()
         setLightNavigationBarAuto()
         setLightStatusBarAuto(surfaceColor())
-        if (VersionUtils.hasQ()) {
-            window.decorView.isForceDarkAllowed = false
-        }
+
+        window.decorView.isForceDarkAllowed = false
     }
 
     private fun updateTheme() {

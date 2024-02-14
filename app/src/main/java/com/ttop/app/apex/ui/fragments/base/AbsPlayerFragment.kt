@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.fragments.base
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
@@ -25,7 +26,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
@@ -53,6 +56,7 @@ import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
@@ -74,6 +78,111 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
     private var playerAlbumCoverFragment: PlayerAlbumCoverFragment? = null
 
+    private fun goToLyrics() {
+        val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(MusicPlayerRemote.currentSong.title)
+        builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
+
+        builder.setNegativeButton(R.string.dismiss) { _, _ ->
+            mainActivity.keepScreenOn(false)
+            materialDialog().dismiss()
+        }
+
+        val dialog: AlertDialog = builder.show()
+
+        val textViewMessage = dialog.findViewById(android.R.id.message) as TextView?
+        val textViewTitle = dialog.findViewById(R.id.alertTitle) as TextView?
+
+
+        when (PreferenceUtil.fontSizeLyrics) {
+            "12" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 14f
+                textViewMessage!!.textSize = 12f
+                textViewTitle!!.textSize = 16f
+            }
+
+            "13" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 15f
+                textViewMessage!!.textSize = 13f
+                textViewTitle!!.textSize = 17f
+            }
+
+            "14" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 16f
+                textViewMessage!!.textSize = 14f
+                textViewTitle!!.textSize = 18f
+            }
+
+            "15" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 17f
+                textViewMessage!!.textSize = 15f
+                textViewTitle!!.textSize = 19f
+            }
+
+            "16" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 18f
+                textViewMessage!!.textSize = 16f
+                textViewTitle!!.textSize = 20f
+            }
+
+            "17" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 19f
+                textViewMessage!!.textSize = 17f
+                textViewTitle!!.textSize = 21f
+            }
+
+            "18" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 20f
+                textViewMessage!!.textSize = 18f
+                textViewTitle!!.textSize = 22f
+            }
+
+            "19" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 21f
+                textViewMessage!!.textSize = 19f
+                textViewTitle!!.textSize = 23f
+            }
+
+            "20" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 22f
+                textViewMessage!!.textSize = 20f
+                textViewTitle!!.textSize = 24f
+            }
+
+            "21" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 23f
+                textViewMessage!!.textSize = 21f
+                textViewTitle!!.textSize = 25f
+            }
+
+            "22" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 24f
+                textViewMessage!!.textSize = 22f
+                textViewTitle!!.textSize = 26f
+            }
+
+            "23" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 25f
+                textViewMessage!!.textSize = 23f
+                textViewTitle!!.textSize = 27f
+            }
+
+            "24" -> {
+                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 26f
+                textViewMessage!!.textSize = 24f
+                textViewTitle!!.textSize = 28f
+            }
+        }
+
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
+        textViewTitle!!.setTextColor(mainActivity.accentColor())
+
+        dialog.withCenteredButtons()
+    }
+
     override fun onMenuItemClick(
         item: MenuItem,
     ): Boolean {
@@ -84,18 +193,8 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
                 return true
             }
-            R.id.action_toggle_lyrics -> {
-                PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                showLyricsIcon(item)
-                if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
-                    mainActivity.keepScreenOn(true)
-                } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics) {
-                    mainActivity.keepScreenOn(false)
-                }
-                return true
-            }
             R.id.action_go_to_lyrics -> {
-                goToLyrics(requireActivity())
+                goToLyrics()
                 return true
             }
             R.id.action_toggle_favorite -> {
@@ -167,10 +266,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 mainActivity.collapsePanel()
                 return true
             }
-            R.id.action_show_lyrics -> {
-                goToLyrics(requireActivity())
-                return true
-            }
             R.id.action_equalizer -> {
                 NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
                 return true
@@ -224,17 +319,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
         }
         return false
-    }
-
-    fun showLyricsIcon(item: MenuItem) {
-        val icon =
-            if (PreferenceUtil.showLyrics) R.drawable.ic_lyrics else R.drawable.ic_lyrics_outline
-        val drawable = requireContext().getTintedDrawable(
-            icon,
-            toolbarIconColor()
-        )
-        item.isChecked = PreferenceUtil.showLyrics
-        item.icon = drawable
     }
 
     abstract fun playerToolbar(): Toolbar?
@@ -321,17 +405,13 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     @SuppressLint("ClickableViewAccessibility")
     override fun onResume() {
         super.onResume()
-        val nps = PreferenceUtil.nowPlayingScreen
 
-        when(nps) {
+        when(PreferenceUtil.nowPlayingScreen) {
             NowPlayingScreen.Adaptive -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Blur -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
@@ -340,28 +420,19 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Card -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Gradient -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Classic -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
@@ -370,49 +441,33 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                    isChecked = PreferenceUtil.showLyrics
-                    showLyricsIcon(this)
-                }
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Peek -> {
-                if (!ApexUtil.isTablet && ApexUtil.isLandscape){
+                if (ApexUtil.isTablet) {
                     playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }else {
                     playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                }else {
+                    if (ApexUtil.isLandscape) {
+                        playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                    }else {
+                        playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                    }
                 }
-                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
+
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Minimal -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
             }
-        }
-
-        if (!PreferenceUtil.isLyrics) {
-            playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
-        }else {
-            if (PreferenceUtil.isEmbedMode == "tap" || PreferenceUtil.isEmbedMode == "none") {
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
-            }
-        }
-
-        if (!PreferenceUtil.syncedLyrics) {
-            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
         }
     }
 
     override fun onStart() {
         super.onStart()
         addSwipeDetector()
-    }
-
-    fun showSyncedLyrics() {
-        if (!PreferenceUtil.syncedLyrics) {
-            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-        }
     }
 
     fun addSwipeDetector() {
@@ -439,7 +494,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         )
     }
 
-    class SwipeDetector(val context: Context, val viewPager: ViewPager?, val view: View) :
+    class SwipeDetector(val context: Context, private val viewPager: ViewPager?, val view: View) :
         View.OnTouchListener {
         private var flingPlayBackController: GestureDetector = GestureDetector(
             context,
@@ -495,23 +550,6 @@ fun goToArtist(activity: Activity) {
         findNavController(R.id.fragment_container).navigate(
             R.id.artistDetailsFragment,
             bundleOf(EXTRA_ARTIST_ID to song.artistId)
-        )
-    }
-}
-
-fun goToLyrics(activity: Activity) {
-    if (activity !is MainActivity) return
-    activity.apply {
-        //Hide Bottom Bar First, else Bottom Sheet doesn't collapse fully
-        setBottomNavVisibility(false)
-        if (getBottomSheetBehavior().state == BottomSheetBehavior.STATE_EXPANDED) {
-            collapsePanel()
-        }
-
-        findNavController(R.id.fragment_container).navigate(
-            R.id.lyrics_fragment,
-            null,
-            navOptions { launchSingleTop = true }
         )
     }
 }
