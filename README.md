@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/badge/Platform-Android-green.svg">
   </a>
   <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Min API: 26">
-    <img src="https://img.shields.io/badge/minSdkVersion-26-green.svg">
+    <img src="https://img.shields.io/badge/minSdkVersion-31-green.svg">
   </a>
   <a href="https://play.google.com/store/apps/details?id=com.ttop.app.apex" style="text-decoration:none" area-label="Play Store">
     <img src="https://img.shields.io/badge/Download-Google_Play-green.svg">
@@ -24,11 +24,8 @@
     <a href="https://play.google.com/store/apps/details?id=cm.ttop.app.apex">
         <img src="assets/google-play-badge.png" height="80">
     </a
-        <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest">
+    <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest">
         <img src="assets/github.png" height="80">
-    </a
-        <a href="https://theterminatorofprogramming.github.io/download/Apex_Music_Stable_latest.apk">
-        <img src="https://avatars.githubusercontent.com/u/41417119" height="70">
     </a
 </p>
     
