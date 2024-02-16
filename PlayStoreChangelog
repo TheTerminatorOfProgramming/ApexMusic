@@ -1,21 +1,20 @@
-Apex Music v3.65
-What's New
+Apex Music v3.70
 
-==What's Been Added==
+==What's New==
+=What's Been Added=
 -Nothing has been added
 
-==What's Been Removed==
--Nothing has been removed
+=What's Been Removed=
+-Removed the queue button on the android auto playing screen. the now playing queue tab is still available
 
-==What's Been Changed & Updated==
--Whitelist option title has been updated
--Peek player theme color animation has been changed
+=What's Been Changed & Updated=
+-Nothing has been changed & updated
 
-==What's Planned To Be Removed/Changed==
+=What's Planned To Be Removed/Changed=
 -Embedded lyrics will be changed from using the dialog to the same system as the synced lyrics
 
 ==What's Fixed==
--Nothing has been fixed
+-Android auto playing queue issue
 
 ==Possible Bugs==
 -App may crash when opening app through the widgets. This is due to a change by google
