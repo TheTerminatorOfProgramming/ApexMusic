@@ -616,7 +616,7 @@ class AppWidgetClassic : BaseAppWidget() {
     }
     companion object {
 
-        const val NAME: String = "app_widget_full"
+        const val NAME: String = "app_widget_classic"
         private var mInstance: AppWidgetClassic? = null
         private var imageSize = 0
         val instance: AppWidgetClassic

@@ -908,6 +908,14 @@ class MusicService : MediaBrowserServiceCompat(),
         }
     }
 
+    fun playSong(position: Long) {
+        openTrackAndPrepareNextAt(position.toInt()) { success ->
+            if (success) {
+                play()
+            }
+        }
+    }
+
     private fun playSongAtImpl(position: Int, play: Boolean) {
         openTrackAndPrepareNextAt(position) { success ->
             if (success) {
@@ -1049,8 +1057,9 @@ class MusicService : MediaBrowserServiceCompat(),
                     }
 
                     sendChangeInternal(QUEUE_CHANGED)
-                    mediaSession?.setQueueTitle(getString(R.string.now_playing_queue))
-                    mediaSession?.setQueue(playingQueue.toMediaSessionQueue())
+                    //REMOVE IN v3.70
+                    //mediaSession?.setQueueTitle(getString(R.string.now_playing_queue))
+                    //mediaSession?.setQueue(playingQueue.toMediaSessionQueue())
                 }
             }
             queuesRestored = true
@@ -1284,8 +1293,9 @@ class MusicService : MediaBrowserServiceCompat(),
                 }
             }
             QUEUE_CHANGED -> {
-                mediaSession?.setQueueTitle(getString(R.string.now_playing_queue))
-                mediaSession?.setQueue(playingQueue.toMediaSessionQueue())
+                //REMOVE IN v3.70
+                //mediaSession?.setQueueTitle(getString(R.string.now_playing_queue))
+                //mediaSession?.setQueue(playingQueue.toMediaSessionQueue())
                 updateMediaSessionMetaData(::updateMediaSessionPlaybackState) // because playing queue size might have changed
                 saveQueues()
                 if (playingQueue.size > 0) {
@@ -1836,7 +1846,7 @@ class MusicService : MediaBrowserServiceCompat(),
             PendingIntent.FLAG_IMMUTABLE)
 
         mediaSession = MediaSessionCompat(
-            this,
+            baseContext,
             BuildConfig.APPLICATION_ID,
             mediaButtonReceiverComponentName,
             mediaButtonReceiverPendingIntent
