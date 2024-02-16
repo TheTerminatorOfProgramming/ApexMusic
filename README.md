@@ -35,38 +35,43 @@
 ## Screenshots
       
 ### App Themes
-|<img src="screenshots/Artwork/1.main_light.jpg" width="200"/>|<img src="screenshots/Artwork/2.Main_Dark.jpg" width="200"/>|<img src="screenshots/Artwork/3.Main_Black.jpg" width="200"/>|
+|<img src="screenshots/Artwork/01.main_white.jpg" width="200"/>|<img src="screenshots/Artwork/02.main_dark.jpg" width="200"/>|<img src="screenshots/Artwork/03.main_black.jpg" width="200"/>|
 |:-----:	|:-----:	|:-----:	|
 | Bright White 	| Sorta Dark 	| Jet Black 	| 
 
-|<img src="screenshots/Artwork/4.main_material_light.jpg" width="200"/>|<img src="screenshots/Artwork/5.Main_Material_Dark.jpg" width="200"/>|<img src="screenshots/Artwork/6.main_material_black.jpg" width="200"/>|
+|<img src="screenshots/Artwork/04.main_material_you_white.jpg" width="200"/>|<img src="screenshots/Artwork/05.main_material_you_dark.jpg" width="200"/>|<img src="screenshots/Artwork/06.main_material_you_black.jpg" width="200"/>|
 |:-----:	|:-----:	|:-----:	|
 | Material U Light (A12+) 	| Material U Dark (A12+) 	| Material U Black (A12+) 	|
 
 ### User Interface
-|<img src="screenshots/Artwork/1.main_light.jpg" width="200"/>|<img src="screenshots/songs.jpg" width="200"/>|<img src="screenshots/albums.jpg" width="200"/>|<img src="screenshots/artists.jpg" width="200"/>|
+|<img src="screenshots/main_material_you_white.jpg" width="200"/>|<img src="screenshots/songs_material_you_white.jpg" width="200"/>|<img src="screenshots/albums_material_you_white.jpg" width="200"/>|<img src="screenshots/artists_material_you_white.jpg" width="200"/>|
 |:-----:	|:-----:	|:-----:	|:-----:	|
 | Home 	| Songs 	| Albums 	| Artists 	|
 
-|<img src="screenshots/playlists.jpg" width="200"/>|<img src="screenshots/playlists_empty.jpg" width="200"/>|<img src="screenshots/settings.jpg" width="200"/>|<img src="screenshots/Artwork/27.lockscreen.jpg" width="200"/>|
+|<img src="screenshots/playlists_material_you_white.jpg" width="200"/>|<img src="screenshots/playlists_empty_material_you_white.jpg" width="200"/>|<img src="screenshots/settings_material_you_white.jpg" width="200"/>|<img src="screenshots/Artwork/15.lockscreen_controls.jpg" width="200"/>|
 |:-----:	|:-----:	|:-----:	|:-----:	|
 | Playlists 	| Playlists(Empty) 	| Settings 	| Lockscreen 	|
 
-### 15+ Now playing themes
-|<img src="screenshots/gradient.jpg" width="200"/>|<img src="screenshots/swipe.jpg" width="200"/>|<img src="screenshots/material.jpg" width="200"/>|<img src="screenshots/peek.jpg" width="200"/>|
+### 7 Now Playing Themes
+|<img src="screenshots/adaptive.jpg" width="200"/>|<img src="screenshots/blur.jpg" width="200"/>|<img src="screenshots/card.jpg" width="200"/>|<img src="screenshots/classic.jpg" width="200"/>|
 |:-----:	|:-----:	|:-----:	|:-----:	|
-| Gradient 	| Swipe 	| Material 	| Peek 	|      
+| Adaptive 	| Blur 	| Card 	| Classic 	|      
       
-|<img src="screenshots/normal.jpg" width="200"/>|<img src="screenshots/fit.jpg" width="200"/>|<img src="screenshots/flat.jpg" width="200"/>|<img src="screenshots/color.jpg" width="200"/>|
-|:-----:	|:-----:	|:-----:	|:-----:	|
-| Normal 	| Fit 	| Flat 	| Color 	|
+|<img src="screenshots/gradient.jpg" width="200"/>|<img src="screenshots/minimal.jpg" width="200"/>|<img src="screenshots/peek.jpg" width="200"/>|
+|:-----:	|:-----:	|:-----:	|
+| Gradient 	| Minimal 	| Peek 	|
 
-|<img src="screenshots/classic.jpg" width="200"/>|<img src="screenshots/adaptive.jpg" width="200"/>|<img src="screenshots/blur.jpg" width="200"/>|<img src="screenshots/tiny.jpg" width="200"/>|
+### 7 Cover Themes
+|<img src="screenshots/cover_theme_card.jpg" width="200"/>|<img src="screenshots/cover_theme_circular.jpg" width="200"/>|<img src="screenshots/cover_theme_flat.jpg" width="200"/>|<img src="screenshots/cover_theme_full.jpg" width="200"/>|
 |:-----:	|:-----:	|:-----:	|:-----:	|
-| Classic 	| Adaptive 	| Blur 	| Tiny 	|
+| Card 	| Circular 	| Flat 	| Full 	|      
+      
+|<img src="screenshots/cover_theme_full_card.jpg" width="200"/>|<img src="screenshots/cover_theme_normal.jpg" width="200"/>|<img src="screenshots/cover_theme_peek.jpg" width="200"/>|
+|:-----:	|:-----:	|:-----:	|
+| Full Card 	| Normal 	| Peek 	|
 
 ### Widgets
-|<img src="screenshots/widget_classic.jpg" width="200"/>|<img src="screenshots/widget_full.jpg" width="200"/>|<img src="screenshots/widget_circle.jpg" width="200"/>|
+|<img src="screenshots/widget_classic.png" width="200"/>|<img src="screenshots/widget_full.png" width="200"/>|<img src="screenshots/widget_circle.png" width="200"/>|
 |:-----:	|:-----:	|:-----:	|
 | Classic 	| Full 	| Circle 	|
 
