@@ -71,6 +71,10 @@
         <item quantity="other">アルバム</item>
     </plurals>
     <string name="always">いつも</string>
+    <string name="appbar_mode_expanded">拡張された</string>
+    <string name="appbar_mode_expanded_no_scroll">展開済み (スクロールなし)</string>
+    <string name="appbar_mode_simple">単純</string>
+    <string name="appbar_mode_simple_no_scroll">シンプル (スクロールなし)</string>
     <string name="apex_music">エイペックスミュージック</string>
     <string name="app_share">このクールな音楽プレーヤーをチェックしてください: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">シャッフル</string>
@@ -81,6 +85,7 @@
     <string name="audio_focus_denied">音声フォーカスが拒否されました。</string>
     <string name="audio_settings_summary">サウンド設定を変更する</string>
     <string name="auto">自動</string>
+    <string name="auto_hide">自動非表示</string>
     <string name="backup_restore_settings_summary">設定やプレイリストのバックアップと復元</string>
     <string name="backup_restore_title"><![CDATA[バックアップと復元]]></string>
     <string name="backup_open_path">現在のパスを開く</string>
@@ -197,7 +202,9 @@
     <string name="history_cleared">履歴がクリアされました</string>
     <string name="history_undo_button">元に戻す</string>
     <string name="home">家</string>
+    <string name="horizontal_bottom">水平底部</string>
     <string name="horizontal_flip">水平反転</string>
+    <string name="horizontal_top">水平トップ</string>
     <string name="id3_tags">ID3タグ</string>
     <string name="image">画像</string>
     <string name="image_gradient">グラデーション画像</string>
@@ -337,7 +344,7 @@
     <string name="pref_summary_permissions_edit">このアプリに関連する権限を変更する</string>
     <string name="pref_title_album_cover_style">アルバムカバーテーマ</string>
     <string name="pref_title_album_cover_transform">アルバムカバースキップ</string>
-    <string name="pref_title_appbar_mode">拡張ヘッダー スタイル</string>
+    <string name="pref_title_appbar_mode">ヘッダーのスタイル</string>
     <string name="pref_title_audio_fade">フェードオーディオ</string>
     <string name="pref_title_auto_action_1">左 Android オートアクション</string>
     <string name="pref_title_auto_action_2">正しいAndroidオートアクション</string>
@@ -352,6 +359,7 @@
     <string name="pref_title_custom_font">フォント</string>
     <string name="pref_title_desaturated_color">彩度の低い色</string>
     <string name="pref_title_disable_widgets">デフォルトのウィジェットを無効にする</string>
+    <string name="pref_title_duration">単一期間</string>
     <string name="pref_title_embed_lyrics_view">同期されていない ID3 の歌詞</string>
     <string name="pref_title_expand_now_playing_panel">再生中の画面を表示</string>
     <string name="pref_title_extra_controls">追加のコントロール</string>
@@ -374,15 +382,14 @@
     <string name="pref_title_open_source_licences">オープンソースライセンス</string>
     <string name="pref_title_pause_history">履歴の一時停止</string>
     <string name="pref_title_player_background">グラデーションの背景</string>
-    <string name="pref_title_progress_bar_alignment">プログレスバーの配置</string>
     <string name="pref_title_progress_bar_style">プログレスバーのスタイル</string>
     <string name="pref_title_queue_style">再生中のキュー スタイル (縦)</string>
     <string name="pref_title_queue_style_land">再生中のキュー スタイル (横)</string>
     <string name="pref_title_remember_tab">最後のタブを記憶する</string>
     <string name="pref_title_rewind_duration">リワインドシーク期間</string>
+    <string name="pref_title_scrollbar_style">スクロールバーのスタイル</string>
     <string name="pref_title_search_action">シャッフル検索アクション</string>
-    <string name="pref_title_search_icon">音声検索ヘッダー方式</string>
-    <string name="pref_title_show_scrollbar">スクロールバーを表示する</string>
+    <string name="pref_title_search_icon">ヘッダー内の音声検索</string>
     <string name="pref_title_shuffle_state">シャッフル状態を維持する</string>
     <string name="pref_title_specific_device">特定のデバイス</string>
     <string name="pref_title_stock_equalizer">システムイコライザーを使用する</string>
@@ -395,7 +402,7 @@
     <string name="pref_title_toggle_headset">有線ヘッドセットの再生</string>
     <string name="pref_title_use_notification_actions_for_auto">通知アクションを使用する</string>
     <string name="pref_title_volume_controls">ボリュームコントロール</string>
-    <string name="pref_title_whitelist">ホワイトリストミュージック (/ミュージックフォルダー)</string>
+    <string name="pref_title_whitelist">ホワイトリスト音楽 (/音楽フォルダー)</string>
     <string name="pref_title_widget_background">透明なウィジェット</string>
     <string name="pref_title_widget_buttons_color">アダプティブボタン</string>
     <string name="queue">プレイングキュー</string>
@@ -436,13 +443,14 @@
     <string name="set_artist_image">アーティスト画像を設定する</string>
     <string name="share_app">アプリを共有する</string>
     <string name="share_summary">アプリを友達や家族と共有する</string>
-    <string name="share_to_stories">ストーリーにシェアする</string>
+    <string name="share_to_stories">ストーリーでシェアする</string>
     <string name="show_album_artists">アルバムアーティストを表示</string>
+    <string name="show_always">いつも見せる</string>
     <string name="show_player_from_notification">通知/ウィジェットから</string>
     <string name="show_player_on_app_launch">アプリ起動時に常に表示</string>
     <string name="shuffle">シャッフル</string>
     <string name="shuffle_button">シャッフルボタン</string>
-    <string name="shuffle_button_desc">これを使用してシャッフルされた再生キューを作成します</string>
+    <string name="shuffle_button_desc">これを使用してシャッフル再生キューを作成します</string>
     <string name="shuffle_mode">シャッフルモードを使用する</string>
     <string name="shuffle_mode_summary">シャッフルモードをデフォルトとして有効にする</string>
     <string name="simple">単純</string>
@@ -460,10 +468,14 @@
     <string name="sort_order_composer">作曲</string>
     <string name="sort_order_date">追加日</string>
     <string name="sort_order_date_modified">日付が変更されました</string>
-    <string name="sort_order_default">デフォルト (記事を無視)</string>
-    <string name="sort_order_num_songs">トラック数</string>
-    <string name="sort_order_num_songs_desc">トラック数の説明</string>
+    <string name="sort_order_default">↑記事は無視してください</string>
+    <string name="sort_order_default_desc">記事は無視してください↓</string>
+    <string name="sort_order_num_songs">トラック数 ↑</string>
+    <string name="sort_order_num_songs_asc">トラック数 ↑</string>
+    <string name="sort_order_num_songs_desc">トラック数↓</string>
     <string name="sort_order_year">年</string>
+    <string name="sort_order_year_asc">年↑</string>
+    <string name="sort_order_year_desc">年 ↓</string>
     <string name="sort_order_z_a">降順</string>
     <string name="speech_not_supported">ごめん！ お使いのデバイスは音声入力をサポートしていません</string>
     <string name="speech_prompt">ライブラリを検索する</string>

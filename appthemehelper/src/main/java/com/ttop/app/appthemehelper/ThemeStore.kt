@@ -11,7 +11,6 @@ import androidx.preference.PreferenceManager
 import com.ttop.app.appthemehelper.util.ATHUtil.isWindowBackgroundDark
 import com.ttop.app.appthemehelper.util.ATHUtil.resolveColor
 import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 
 /**
@@ -221,7 +220,7 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         @ColorInt
         fun accentColor(context: Context): Int {
             // Set MD3 accent if MD3 is enabled or in-app accent otherwise
-            if (isMD3Enabled(context) && VersionUtils.hasS()) {
+            if (isMD3Enabled(context)) {
                 return ContextCompat.getColor(context, R.color.m3_accent_color)
             }
             val desaturatedColor = prefs(context).getBoolean("desaturated_color", false)
@@ -233,15 +232,6 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
                 color,
                 0.4f
             ) else color
-        }
-
-        @CheckResult
-        @ColorInt
-        fun wallpaperColor(context: Context, isDarkMode: Boolean): Int {
-            return prefs(context).getInt(
-                if (isDarkMode) ThemeStorePrefKeys.KEY_WALLPAPER_COLOR_DARK else ThemeStorePrefKeys.KEY_WALLPAPER_COLOR_LIGHT,
-                resolveColor(context, androidx.appcompat.R.attr.colorAccent, Color.parseColor("#263238"))
-            )
         }
 
         @CheckResult
@@ -289,7 +279,7 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
 
         fun isMD3Enabled(context: Context): Boolean {
             return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(ThemeStorePrefKeys.KEY_MATERIAL_YOU, VersionUtils.hasS())
+                .getBoolean(ThemeStorePrefKeys.KEY_MATERIAL_YOU, true)
         }
 
         fun fontSize(context: Context): String? {

@@ -21,7 +21,6 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
     private var job: Job? = null
     private var counter = 0
     private var wasSeeking = false
-    private var wasPlaying = true
 
     private var startX = 0f
     private var startY = 0f
@@ -39,9 +38,7 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                     while (isActive) {
                         delay(500)
                         wasSeeking = true
-                        wasPlaying = MusicPlayerRemote.isPlaying
 
-                        MusicPlayerRemote.pauseSong()
                         var seekingDuration = MusicPlayerRemote.songProgressMillis
                         if (next) {
                             seekingDuration += (PreferenceUtil.fastForwardDuration * 1000) * (counter.floorDiv(2) + 1)
@@ -72,12 +69,6 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                         }else {
                             MusicPlayerRemote.playPreviousSong()
                         }
-                    }
-                }
-
-                if (wasSeeking) {
-                    if (wasPlaying) {
-                        MusicPlayerRemote.resumePlaying()
                     }
                 }
 

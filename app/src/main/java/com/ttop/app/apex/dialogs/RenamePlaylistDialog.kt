@@ -24,7 +24,8 @@ import com.ttop.app.apex.EXTRA_PLAYLIST_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
@@ -65,6 +66,6 @@ class RenamePlaylistDialog : DialogFragment() {
                 }
             }
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 }

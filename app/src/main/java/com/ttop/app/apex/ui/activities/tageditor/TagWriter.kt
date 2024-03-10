@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener

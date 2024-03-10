@@ -8,9 +8,12 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.getActionButton
 import com.afollestad.materialdialogs.list.listItems
 import com.afollestad.materialdialogs.list.updateListItems
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.util.getExternalStorageDirectory
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -61,6 +64,8 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                     title(res = R.string.md_error_label)
                     message(res = R.string.md_storage_perm_error)
                     positiveButton(res = android.R.string.ok)
+                    getActionButton(WhichButton.POSITIVE).updateTextColor(accentColor())
+                    getActionButton(WhichButton.NEGATIVE).updateTextColor(accentColor())
                 }
             }
         }else if (ActivityCompat.checkSelfPermission(
@@ -72,6 +77,8 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                 title(res = R.string.md_error_label)
                 message(res = R.string.md_storage_perm_error)
                 positiveButton(res = android.R.string.ok)
+                getActionButton(WhichButton.POSITIVE).updateTextColor(accentColor())
+                getActionButton(WhichButton.NEGATIVE).updateTextColor(accentColor())
             }
         }
 
@@ -84,7 +91,8 @@ class BlacklistFolderChooserDialog : DialogFragment() {
         parentFolder = File(mSavedInstanceState.getString("current_path", File.pathSeparator))
         checkIfCanGoUp()
         parentContents = listFiles()
-        return materialDialog()
+
+        val dialog = materialDialog()
             .title(text = parentFolder?.absolutePath)
             .listItems(
                 items = contentsArray.toCharSequence(),
@@ -98,6 +106,10 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                 dismiss()
             }
             .negativeButton(res = android.R.string.cancel) { dismiss() }
+
+        dialog.getActionButton(WhichButton.POSITIVE).updateTextColor(accentColor())
+        dialog.getActionButton(WhichButton.NEGATIVE).updateTextColor(accentColor())
+        return dialog
     }
 
     private fun onSelection(i: Int) {

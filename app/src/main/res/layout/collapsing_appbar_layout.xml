@@ -5,7 +5,7 @@
     android:id="@+id/collapsingToolbarLayout"
     style="?attr/collapsingToolbarLayoutLargeStyle"
     android:layout_width="match_parent"
-    android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+    android:layout_height="125dp"
     app:collapsedTitleTextAppearance="@style/TextViewHeadline6"
     app:expandedTitleMarginBottom="24dp"
     app:expandedTitleMarginEnd="24dp"

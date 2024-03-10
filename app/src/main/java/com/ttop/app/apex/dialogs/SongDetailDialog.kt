@@ -26,7 +26,8 @@ import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogFileDetailsBinding
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
@@ -115,7 +116,7 @@ class SongDetailDialog : DialogFragment() {
             .setPositiveButton(android.R.string.ok, null)
             .setView(binding.root)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 
     companion object {

@@ -115,8 +115,8 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
             }
         })
 
-        if (PreferenceUtil.isShowScrollbar) {
-            ThemedFastScroller.create(binding.recyclerView)
+        if (PreferenceUtil.scrollbarStyle != "disabled") {
+            ThemedFastScroller.create(binding.recyclerView, PreferenceUtil.scrollbarStyle == "auto_hide")
         }
     }
 

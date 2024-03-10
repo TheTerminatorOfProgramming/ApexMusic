@@ -37,11 +37,12 @@ fun Fragment.materialDialog(title: Int): MaterialAlertDialogBuilder {
     }.setTitle(title)
 }
 
-fun AlertDialog.colorButtons(): AlertDialog {
+fun AlertDialog.centeredColorButtons(): AlertDialog {
     setOnShowListener {
         getButton(AlertDialog.BUTTON_POSITIVE).accentTextColor()
         getButton(AlertDialog.BUTTON_NEGATIVE).accentTextColor()
         getButton(AlertDialog.BUTTON_NEUTRAL).accentTextColor()
+        withCenteredButtons()
     }
     return this
 }

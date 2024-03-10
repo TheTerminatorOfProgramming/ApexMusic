@@ -144,13 +144,6 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         sortOrderMenu.clear()
         sortOrderMenu.add(
             0,
-            R.id.action_song_default_sort_order,
-            0,
-            R.string.sort_order_default
-        ).isChecked =
-            currentSortOrder == SongSortOrder.SONG_DEFAULT
-        sortOrderMenu.add(
-            0,
             R.id.action_song_sort_order_asc,
             0,
             R.string.sort_order_a_z
@@ -159,10 +152,24 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_desc,
-            1,
+            0,
             R.string.sort_order_z_a
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_Z_A
+        sortOrderMenu.add(
+            0,
+            R.id.action_song_default_sort_order,
+            0,
+            R.string.sort_order_default
+        ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_DEFAULT
+        sortOrderMenu.add(
+            0,
+            R.id.action_song_default_sort_order_desc,
+            1,
+            R.string.sort_order_default_desc
+        ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_DEFAULT_DESC
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_artist,
@@ -172,46 +179,53 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             currentSortOrder == SongSortOrder.SONG_ARTIST
         sortOrderMenu.add(
             0,
-            R.id.action_song_sort_order_album,
+            R.id.action_song_sort_order_album_artist,
             3,
+            R.string.album_artist
+        ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_ALBUM_ARTIST
+        sortOrderMenu.add(
+            0,
+            R.id.action_song_sort_order_album,
+            4,
             R.string.sort_order_album
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_ALBUM
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_year,
-            4,
-            R.string.sort_order_year
+            5,
+            R.string.sort_order_year_asc
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_YEAR
         sortOrderMenu.add(
             0,
-            R.id.action_song_sort_order_date,
+            R.id.action_song_sort_order_year_desc,
             5,
+            R.string.sort_order_year_desc
+        ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_YEAR_DESC
+        sortOrderMenu.add(
+            0,
+            R.id.action_song_sort_order_date,
+            6,
             R.string.sort_order_date
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_DATE
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_date_modified,
-            6,
+            7,
             R.string.sort_order_date_modified
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_DATE_MODIFIED
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_composer,
-            7,
+            8,
             R.string.sort_order_composer
         ).isChecked =
             currentSortOrder == SongSortOrder.COMPOSER
-        sortOrderMenu.add(
-            0,
-            R.id.action_song_sort_order_album_artist,
-            8,
-            R.string.album_artist
-        ).isChecked =
-            currentSortOrder == SongSortOrder.SONG_ALBUM_ARTIST
 
         sortOrderMenu.setGroupCheckable(0, true, true)
     }
@@ -219,7 +233,6 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     private fun setupLayoutMenu(subMenu: SubMenu) {
         when (itemLayoutRes()) {
             R.layout.item_card -> subMenu.findItem(R.id.action_layout_card).isChecked = true
-            R.layout.item_grid -> subMenu.findItem(R.id.action_layout_normal).isChecked = true
             R.layout.item_card_color ->
                 subMenu.findItem(R.id.action_layout_colored_card).isChecked = true
             R.layout.item_grid_circle ->
@@ -230,7 +243,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         }
 
         if (getGridSize() < 2){
-            subMenu.findItem(R.id.action_layout_normal).isChecked = true
+            subMenu.findItem(R.id.action_layout_circular).isChecked = true
         }
     }
 
@@ -282,12 +295,14 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     private fun handleSortOrderMenuItem(item: MenuItem): Boolean {
         val sortOrder: String = when (item.itemId) {
             R.id.action_song_default_sort_order -> SongSortOrder.SONG_DEFAULT
+            R.id.action_song_default_sort_order_desc -> SongSortOrder.SONG_DEFAULT_DESC
             R.id.action_song_sort_order_asc -> SongSortOrder.SONG_A_Z
             R.id.action_song_sort_order_desc -> SongSortOrder.SONG_Z_A
             R.id.action_song_sort_order_artist -> SongSortOrder.SONG_ARTIST
             R.id.action_song_sort_order_album_artist -> SongSortOrder.SONG_ALBUM_ARTIST
             R.id.action_song_sort_order_album -> SongSortOrder.SONG_ALBUM
             R.id.action_song_sort_order_year -> SongSortOrder.SONG_YEAR
+            R.id.action_song_sort_order_year_desc -> SongSortOrder.SONG_YEAR_DESC
             R.id.action_song_sort_order_date -> SongSortOrder.SONG_DATE
             R.id.action_song_sort_order_composer -> SongSortOrder.COMPOSER
             R.id.action_song_sort_order_date_modified -> SongSortOrder.SONG_DATE_MODIFIED
@@ -303,7 +318,6 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
 
     private fun handleLayoutResType(item: MenuItem): Boolean {
         val layoutRes = when (item.itemId) {
-            R.id.action_layout_normal -> R.layout.item_grid
             R.id.action_layout_card -> R.layout.item_card
             R.id.action_layout_colored_card -> R.layout.item_card_color
             R.id.action_layout_circular -> R.layout.item_grid_circle

@@ -40,14 +40,12 @@ import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.addAccentColor
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_PENDING_QUIT
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 
 class SleepTimerDialog : DialogFragment() {
@@ -126,16 +124,8 @@ class SleepTimerDialog : DialogFragment() {
                     SystemClock.elapsedRealtime() + minutes * 60 * 1000
                 PreferenceUtil.nextSleepTimerElapsedRealTime = nextSleepTimerElapsedTime.toInt()
                 val am = requireContext().getSystemService<AlarmManager>()
-                if (VersionUtils.hasS()) {
-                    if (am?.canScheduleExactAlarms() == true) {
-                        am.setExact(
-                            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                            nextSleepTimerElapsedTime,
-                            pi
-                        )
-                    }
-                }else {
-                    am?.setExact(
+                if (am?.canScheduleExactAlarms() == true) {
+                    am.setExact(
                         AlarmManager.ELAPSED_REALTIME_WAKEUP,
                         nextSleepTimerElapsedTime,
                         pi
@@ -224,8 +214,6 @@ class SleepTimerDialog : DialogFragment() {
             positiveButton!!.textSize = 13f
             negativeButton!!.textSize = 13f
             dismissButton!!.textSize = 13f
-
-            d.withCenteredButtons()
         }
     }
 

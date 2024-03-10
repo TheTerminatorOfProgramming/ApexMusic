@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -20,6 +19,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.getActionButton
+import com.afollestad.materialdialogs.input.getInputLayout
 import com.afollestad.materialdialogs.input.input
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.ttop.app.apex.BACKUP_PATH
@@ -83,14 +85,6 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                     newDir.mkdirs()
                 }
             }
-
-            /*var path = PreferenceUtil.backupPath?.length?.minus(8)?.let { PreferenceUtil.backupPath!!.substring(0, it) }
-            path = path + File.separator + "Lyrics" + File.separator
-
-            val newLyricsDir = File(path)
-            if (!newLyricsDir.exists()){
-                newLyricsDir.mkdirs()
-            }*/
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,8 +147,9 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
 
             val alert = builder.create()
             alert.show()
-            val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+            alert.withCenteredButtons()
 
+            val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
 
             when (PreferenceUtil.fontSize) {
                 "12" -> {
@@ -373,6 +368,10 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             positiveButton(android.R.string.ok)
             negativeButton(R.string.action_cancel)
             setTitle(R.string.title_new_backup)
+            getActionButton(WhichButton.POSITIVE).updateTextColor(accentColor())
+            getActionButton(WhichButton.NEGATIVE).updateTextColor(accentColor())
+            getInputLayout().cursorColor = ColorStateList.valueOf(accentColor())
+            getInputLayout().setBoxStrokeColorStateList(ColorStateList.valueOf(accentColor()))
         }
     }
 
@@ -417,6 +416,10 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                     positiveButton(android.R.string.ok)
                     negativeButton(R.string.action_cancel)
                     setTitle(R.string.action_rename)
+                    getActionButton(WhichButton.POSITIVE).updateTextColor(accentColor())
+                    getActionButton(WhichButton.NEGATIVE).updateTextColor(accentColor())
+                    getInputLayout().cursorColor = ColorStateList.valueOf(accentColor())
+                    getInputLayout().setBoxStrokeColorStateList(ColorStateList.valueOf(accentColor()))
                 }
                 return true
             }

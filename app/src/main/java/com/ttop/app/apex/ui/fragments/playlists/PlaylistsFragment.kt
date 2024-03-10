@@ -168,7 +168,7 @@ class PlaylistsFragment :
         createId(
             subMenu,
             R.id.action_playlist_sort_order,
-            R.string.sort_order_num_songs,
+            R.string.sort_order_num_songs_asc,
             order == PlaylistSortOrder.PLAYLIST_SONG_COUNT
         )
         createId(

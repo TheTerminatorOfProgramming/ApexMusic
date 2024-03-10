@@ -18,13 +18,11 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.APPBAR_MODE
 import com.ttop.app.apex.HOME_ALBUM_GRID_STYLE
 import com.ttop.app.apex.HOME_ARTIST_GRID_STYLE
 import com.ttop.app.apex.PAUSE_HISTORY
 import com.ttop.app.apex.R
 import com.ttop.app.apex.REMEMBER_LAST_TAB
-import com.ttop.app.apex.SHOW_SCROLLBAR
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_SUGGESTIONS
 import com.ttop.app.apex.util.PreferenceUtil
@@ -57,21 +55,6 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
-
-        val showScrollbar: TwoStatePreference? = findPreference(SHOW_SCROLLBAR)
-        showScrollbar?.isChecked = PreferenceUtil.isShowScrollbar
-        showScrollbar?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val appBarMode: TwoStatePreference? = findPreference(APPBAR_MODE)
-        appBarMode?.isChecked = PreferenceUtil.appBarMode
-        appBarMode?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

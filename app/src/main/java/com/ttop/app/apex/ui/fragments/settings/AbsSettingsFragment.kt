@@ -17,7 +17,6 @@ package com.ttop.app.apex.ui.fragments.settings
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.updatePadding
@@ -72,9 +71,7 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDivider(ColorDrawable(Color.BLACK))
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            listView.overScrollMode = View.OVER_SCROLL_NEVER
-        }
+        listView.overScrollMode = View.OVER_SCROLL_NEVER
 
         listView.updatePadding(bottom = dip(R.dimen.mini_player_height))
         listView.applyInsetter {

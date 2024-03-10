@@ -30,7 +30,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.transition.MaterialFadeThrough
+import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.databinding.FragmentMainRecyclerBinding
@@ -39,20 +41,22 @@ import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.extensions.getDrawableCompat
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ThemedFastScroller.create
+import com.ttop.app.apex.util.ThemedFastScroller
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
-import me.zhanghai.android.fastscroll.FastScroller
-import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import com.ttop.app.fastscroller.FastScroller
+import com.ttop.app.fastscroller.FastScrollerBuilder
+import kotlin.math.abs
 
 
 abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
-    AbsMainActivityFragment(R.layout.fragment_main_recycler), IScrollHelper {
+    AbsMainActivityFragment(R.layout.fragment_main_recycler), IScrollHelper, AppBarLayout.OnOffsetChangedListener {
 
     private var _binding: FragmentMainRecyclerBinding? = null
     private val binding get() = _binding!!
@@ -60,6 +64,9 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     protected var layoutManager: LM? = null
     val shuffleButton get() = binding.shuffleButton
     abstract val isShuffleVisible: Boolean
+
+    val toolbar: Toolbar get() = binding.appBarLayout.toolbar
+    val appBarLayout: AppBarLayout get() = binding.appBarLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,18 +111,37 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         }
 
         if (!IntroPrefs(requireContext()).hasIntroShown) {
-            TapTargetView.showFor(
-                activity,
-                TapTarget.forView(
-                    binding.shuffleButton,
-                    getString(R.string.shuffle_button),
-                    getString(R.string.shuffle_button_desc)
-                )
-                    .targetCircleColor(R.color.black_color)
-                    .tintTarget(false)
-                    .outerCircleColor(com.ttop.app.appthemehelper.R.color.default_debug_color)
-                    .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null))
-            )
+            when (BuildConfig.BUILD_TYPE) {
+                "debug" -> {
+                    TapTargetView.showFor(
+                        activity,
+                        TapTarget.forView(
+                            binding.shuffleButton,
+                            getString(R.string.shuffle_button),
+                            getString(R.string.shuffle_button_desc)
+                        )
+                            .targetCircleColor(R.color.black_color)
+                            .tintTarget(false)
+                            .outerCircleColor(com.ttop.app.appthemehelper.R.color.default_debug_color)
+                            .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null))
+                    )
+                }
+                "preview",
+                "release" -> {
+                    TapTargetView.showFor(
+                        activity,
+                        TapTarget.forView(
+                            binding.shuffleButton,
+                            getString(R.string.shuffle_button),
+                            getString(R.string.shuffle_button_desc)
+                        )
+                            .targetCircleColor(R.color.black_color)
+                            .tintTarget(false)
+                            .outerCircleColor(com.ttop.app.appthemehelper.R.color.default_color)
+                            .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null))
+                    )
+                }
+            }
 
             IntroPrefs(requireContext()).hasIntroShown = true
         }
@@ -127,8 +153,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
 
     open fun onShuffleClicked() {
     }
-
-    val toolbar: Toolbar get() = binding.appBarLayout.toolbar
 
     private fun setupToolbar() {
         toolbar.navigationIcon = if (PreferenceUtil.isVoiceSearch) {
@@ -146,6 +170,41 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         }
         val appName = resources.getString(titleRes)
         binding.appBarLayout.title = appName
+
+        appBarLayout.addOnOffsetChangedListener(this)
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        when (PreferenceUtil.appBarMode) {
+            "simple", "expanded" ->{
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    if (abs(verticalOffset) >= appBarLayout!!.totalScrollRange)
+                    {
+                        binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(64f, context).toInt())
+                    }
+                    else
+                    {
+                        binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(120f, context).toInt())
+                    }
+                }else {
+                    if (abs(verticalOffset) >= appBarLayout!!.totalScrollRange)
+                    {
+                        binding.recyclerView.setPadding(0,0,0,0)
+                    }
+                    else
+                    {
+                        binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(64f, context).toInt())
+                    }
+                }
+            }
+            "simple_no_scroll", "expanded_no_scroll" -> {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(64f, context).toInt())
+                }else {
+                    binding.recyclerView.setPadding(0,0,0,0)
+                }
+            }
+        }
     }
 
     abstract val titleRes: Int
@@ -154,8 +213,8 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         binding.recyclerView.apply {
             layoutManager = this@AbsRecyclerViewFragment.layoutManager
             adapter = this@AbsRecyclerViewFragment.adapter
-            if (PreferenceUtil.isShowScrollbar) {
-                create(this)
+            if (PreferenceUtil.scrollbarStyle != "disabled") {
+                ThemedFastScroller.create(this, PreferenceUtil.scrollbarStyle == "auto_hide")
             }
         }
     }

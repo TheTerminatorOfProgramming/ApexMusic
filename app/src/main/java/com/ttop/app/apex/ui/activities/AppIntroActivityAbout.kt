@@ -1,11 +1,8 @@
 package com.ttop.app.apex.ui.activities
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
-import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.ui.fragments.intro.BatterySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothAutoPlaySlideFragment
@@ -13,11 +10,9 @@ import com.ttop.app.apex.ui.fragments.intro.BluetoothSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.LanguageSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.MainSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.NotificationSlideFragment
-import com.ttop.app.apex.ui.fragments.intro.ShuffleSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.StorageSlideFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.AppIntroUtil
-import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appintro.AppIntro2
 import com.ttop.app.appthemehelper.util.VersionUtils
@@ -42,19 +37,15 @@ class AppIntroActivityAbout : AppIntro2() {
         addSlide(StorageSlideFragment.newInstance())
 
         //BLUETOOTH SLIDE
-        if (VersionUtils.hasS()) {
-            addSlide(BluetoothSlideFragment.newInstance())
-        }
-
-        //BATTERY OPTIMIZATION SLIDE
-        if (VersionUtils.hasS()) {
-            addSlide(BatterySlideFragment.newInstance())
-        }
+        addSlide(BluetoothSlideFragment.newInstance())
 
         //BLUETOOTH AUTOPLAY SLIDE
         addSlide(BluetoothAutoPlaySlideFragment.newInstance())
-        //SHUFFLE SLIDE
-        addSlide(ShuffleSlideFragment.newInstance())
+
+        //BATTERY OPTIMIZATION SLIDE
+        if (!ApexUtil.hasBatteryPermission()) {
+            addSlide(BatterySlideFragment.newInstance())
+        }
 
         // Here we ask for permissions
 
@@ -63,7 +54,7 @@ class AppIntroActivityAbout : AppIntro2() {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                 slideNumber = AppIntroUtil.notificationPermission(),
-                required = false)
+                required = true)
         }
         //SD Storage Access
         if (VersionUtils.hasT()) {
@@ -78,12 +69,10 @@ class AppIntroActivityAbout : AppIntro2() {
                 required = true)
         }
         //Bluetooth
-        if (VersionUtils.hasS()) {
-            askForPermissions(
-                permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                slideNumber = AppIntroUtil.bluetoothPermission(),
-                required = true)
-        }
+        askForPermissions(
+            permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
+            slideNumber = AppIntroUtil.bluetoothPermission(),
+            required = true)
 
         setTransformer(AppIntroUtil.transformerType())
         isVibrate = true
@@ -100,13 +89,6 @@ class AppIntroActivityAbout : AppIntro2() {
         super.onDonePressed(currentFragment)
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
 
-        if (!IntroPrefs(applicationContext).hasIntroSlidesShown) {
-            PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
-            IntroPrefs(applicationContext).hasIntroSlidesShown = true
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }else {
-            finish()
-        }
+        finish()
     }
 }

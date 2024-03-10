@@ -2,7 +2,7 @@
 <resources>
     <string name="about_album_label">ਲਗਭਗ %s</string>
     <string name="about_settings_summary">ਟੀਮ, ਸਮਾਜਿਕ ਲਿੰਕ</string>
-    <string name="accent_color">ਲਹਿਜ਼ੇ ਦਾ ਰੰਗ</string>
+    <string name="accent_color">ਐਕਸੈਂਟ ਰੰਗ</string>
     <string name="action_about">ਬਾਰੇ</string>
     <string name="action_add_to_blacklist">ਬਲੈਕਲਿਸਟ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="action_add_to_favorites">ਮਨਪਸੰਦ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ</string>
@@ -63,16 +63,20 @@
     <string name="added_x_titles_to_playing_queue">ਖੇਡਣ ਵਾਲੀ ਕਤਾਰ ਵਿੱਚ %1$d ਸਿਰਲੇਖ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ।</string>
     <string name="album">ਐਲਬਮ</string>
     <plurals name="albumSongs">
-        <item quantity="one">ਐਲਬਮ%d</item>
+        <item quantity="one">ਟਰੈਕ%d</item>
         <item quantity="other">ਟਰੈਕ</item>
     </plurals>
     <string name="album_artist">ਐਲਬਮ ਕਲਾਕਾਰ</string>
     <string name="albums">ਐਲਬਮਾਂ</string>
     <plurals name="albums">
-        <item quantity="one">ਟਰੈਕ%d</item>
+        <item quantity="one">ਐਲਬਮ%d</item>
         <item quantity="other">ਐਲਬਮਾਂ</item>
     </plurals>
     <string name="always">ਹਮੇਸ਼ਾ</string>
+    <string name="appbar_mode_expanded">ਵਿਸਤਾਰ ਕੀਤਾ</string>
+    <string name="appbar_mode_expanded_no_scroll">ਵਿਸਤ੍ਰਿਤ (ਕੋਈ ਸਕ੍ਰੌਲ ਨਹੀਂ)</string>
+    <string name="appbar_mode_simple">ਆਸਾਨ</string>
+    <string name="appbar_mode_simple_no_scroll">ਸਧਾਰਨ (ਕੋਈ ਸਕ੍ਰੌਲ ਨਹੀਂ)</string>
     <string name="apex_music">ਸਿਖਰ ਸੰਗੀਤ</string>
     <string name="app_share">ਹੇ ਇਸ ਸ਼ਾਨਦਾਰ ਸੰਗੀਤ ਪਲੇਅਰ ਨੂੰ ਇੱਥੇ ਦੇਖੋ: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">ਸ਼ਫਲ</string>
@@ -83,6 +87,7 @@
     <string name="audio_focus_denied">ਆਡੀਓ ਫੋਕਸ ਅਸਵੀਕਾਰ ਕੀਤਾ ਗਿਆ।</string>
     <string name="audio_settings_summary">ਧੁਨੀ ਸੈਟਿੰਗਾਂ ਨੂੰ ਬਦਲੋ</string>
     <string name="auto">ਆਟੋ</string>
+    <string name="auto_hide">ਆਟੋ-ਲੁਕਾਓ</string>
     <string name="backup_restore_settings_summary">ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ, ਪਲੇਲਿਸਟਾਂ ਦਾ ਬੈਕਅੱਪ ਅਤੇ ਰੀਸਟੋਰ ਕਰੋ</string>
     <string name="backup_restore_title"><![CDATA[ਬੈਕਅੱਪ ਅਤੇ ਰੀਸਟੋਰ]]></string>
     <string name="backup_open_path">ਮੌਜੂਦਾ ਮਾਰਗ ਖੋਲ੍ਹੋ</string>
@@ -92,7 +97,7 @@
     <string name="backup_title">ਬੈਕਅੱਪ</string>
     <string name="battery_optimize">ਬੈਟਰੀ ਓਪਟੀਮਾਈਜੇਸ਼ਨ ਪਹਿਲਾਂ ਹੀ ਅਯੋਗ ਹੈ!</string>
     <string name="battery_optimize_disabled">ਬੈਟਰੀ ਓਪਟੀਮਾਈਜੇਸ਼ਨ ਅਯੋਗ ਹੈ</string>
-    <string name="battery_summary">ਫੋਰਗਰਾਉਂਡ ਸੇਵਾ ਦੇ ਸਹੀ ਢੰਗ ਨਾਲ ਕੰਮ ਕਰਨ ਲਈ ਐਪ ਨੂੰ ਬੈਟਰੀ ਔਪਟੀਮਾਈਜੇਸ਼ਨ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਉਣ ਦੀ ਲੋੜ ਹੈ</string>
+    <string name="battery_summary">ਫੋਰਗਰਾਉਂਡ ਸੇਵਾ ਦੇ ਸਹੀ ਢੰਗ ਨਾਲ ਕੰਮ ਕਰਨ ਲਈ ਐਪ ਨੂੰ ਬੈਟਰੀ ਓਪਟੀਮਾਈਜੇਸ਼ਨ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਉਣ ਦੀ ਲੋੜ ਹੈ</string>
     <string name="battery_title">ਬੈਟਰੀ ਅਨੁਕੂਲਨ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="biography">ਜੀਵਨੀ</string>
     <string name="biometrics">ਬਾਇਓਮੈਟ੍ਰਿਕਸ ਦਾ ਪਤਾ ਲਗਾਇਆ ਗਿਆ</string>
@@ -143,7 +148,7 @@
     <string name="developer_mode">ਵਿਕਾਸਕਾਰ ਵਿਕਲਪ</string>
     <string name="dialog_message_set_ringtone">Apex ਸੰਗੀਤ ਨੂੰ ਆਡੀਓ ਸੈਟਿੰਗਾਂ ਨੂੰ ਸੋਧਣ ਦਿਓ</string>
     <string name="dialog_title_set_ringtone">ਰਿੰਗਟੋਨ ਸੈੱਟ ਕਰੋ</string>
-    <string name="disable_battery_optimize">ਬੈਟਰੀ ਅਨੁਕੂਲਨ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="disable_battery_optimize">ਬੈਟਰੀ ਓਪਟੀਮਾਈਜੇਸ਼ਨ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="disabled">ਅਯੋਗ</string>
     <string name="disc_hint">ਡਿਸਕ ਨੰਬਰ</string>
     <string name="dismiss">ਖਾਰਜ ਕਰੋ</string>
@@ -199,7 +204,9 @@
     <string name="history_cleared">ਇਤਿਹਾਸ ਸਾਫ਼ ਕੀਤਾ ਗਿਆ</string>
     <string name="history_undo_button">ਵਾਪਿਸ</string>
     <string name="home">ਘਰ</string>
+    <string name="horizontal_bottom">ਹਰੀਜ਼ੱਟਲ ਥੱਲੇ</string>
     <string name="horizontal_flip">ਹਰੀਜੱਟਲ ਫਲਿੱਪ</string>
+    <string name="horizontal_top">ਹਰੀਜ਼ੱਟਲ ਸਿਖਰ</string>
     <string name="id3_tags">ID3 ਟੈਗਸ</string>
     <string name="image">ਚਿੱਤਰ</string>
     <string name="image_gradient">ਗਰੇਡੀਐਂਟ ਚਿੱਤਰ</string>
@@ -297,12 +304,12 @@
     <string name="play_store_edition_debug">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ: ਬਿਲਡ</string>
     <string name="play_store_edition_preview">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ: ਪੂਰਵਦਰਸ਼ਨ</string>
     <string name="play_store_edition_release">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ: ਸਥਿਰ</string>
-    <string name="playlist_name_empty_cant">ਪਲੇਲਿਸਟ ਨਾਮ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ</string>
+    <string name="playlist_name_empty_cant">ਪਲੇਲਿਸਟ ਨਾਮ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="playlist_name_empty_shouldnt">ਪਲੇਲਿਸਟ ਨਾਮ ਖਾਲੀ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ</string>
     <string name="playback_pitch">ਪਿੱਚ</string>
     <string name="playback_settings">ਪਲੇਬੈਕ ਸੈਟਿੰਗਾਂ</string>
     <string name="playback_speed">ਪਲੇਬੈਕ ਸਪੀਡ</string>
-    <string name="playing_notification_description">ਪਲੇਬੈਕ ਨਿਯੰਤਰਣ ਪਲੇ/ਵਿਰਾਮ ਆਦਿ ਲਈ ਕਾਰਵਾਈਆਂ ਪ੍ਰਦਾਨ ਕਰਦੇ ਹਨ।</string>
+    <string name="playing_notification_description">ਪਲੇਬੈਕ ਕੰਟਰੋਲ ਪਲੇ/ਪੌਜ਼ ਆਦਿ ਲਈ ਕਾਰਵਾਈਆਂ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।</string>
     <string name="playing_notification_name">ਪਲੇਬੈਕ ਕੰਟਰੋਲ</string>
     <string name="playlist_created_sucessfully">%s ਸਫਲਤਾਪੂਰਵਕ ਬਣਾਇਆ ਗਿਆ</string>
     <string name="playlist_is_empty">ਪਲੇਲਿਸਟ ਖਾਲੀ ਹੈ</string>
@@ -339,10 +346,10 @@
     <string name="pref_summary_permissions_edit">ਇਸ ਐਪ ਨਾਲ ਸੰਬੰਧਿਤ ਅਨੁਮਤੀਆਂ ਨੂੰ ਸੋਧੋ</string>
     <string name="pref_title_album_cover_style">ਐਲਬਮ ਕਵਰ ਥੀਮ</string>
     <string name="pref_title_album_cover_transform">ਐਲਬਮ ਕਵਰ ਛੱਡੋ</string>
-    <string name="pref_title_appbar_mode">ਵਿਸਤ੍ਰਿਤ ਹੈਡਰ ਸ਼ੈਲੀ</string>
+    <string name="pref_title_appbar_mode">ਸਿਰਲੇਖ ਸ਼ੈਲੀ</string>
     <string name="pref_title_audio_fade">ਫੇਡ ਆਡੀਓ</string>
     <string name="pref_title_auto_action_1">Android Auto ਐਕਸ਼ਨ ਛੱਡ ਦਿੱਤਾ</string>
-    <string name="pref_title_auto_action_2">ਸੱਜੀ Android ਆਟੋ ਐਕਸ਼ਨ</string>
+    <string name="pref_title_auto_action_2">ਸੱਜਾ Android ਆਟੋ ਐਕਸ਼ਨ</string>
     <string name="pref_title_auto_download_artist_images">ਕਲਾਕਾਰ ਚਿੱਤਰਾਂ ਨੂੰ ਆਟੋ-ਡਾਊਨਲੋਡ ਕਰੋ</string>
     <string name="pref_title_auto_play">ਪਲੇ ਸਟੇਟ ਰੱਖੋ</string>
     <string name="pref_title_auto_rotate">ਸਕ੍ਰੀਨ ਰੋਟੇਸ਼ਨ</string>
@@ -354,6 +361,7 @@
     <string name="pref_title_custom_font">ਫੌਂਟ</string>
     <string name="pref_title_desaturated_color">ਅਸੰਤ੍ਰਿਪਤ ਰੰਗ</string>
     <string name="pref_title_disable_widgets">ਡਿਫੌਲਟ ਵਿਜੇਟਸ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
+    <string name="pref_title_duration">ਸਿੰਗਲ ਅਵਧੀ</string>
     <string name="pref_title_embed_lyrics_view">ਅਣਸਿੰਕ ਕੀਤੇ ID3 ਬੋਲ</string>
     <string name="pref_title_expand_now_playing_panel">ਹੁਣੇ ਚੱਲ ਰਹੀ ਸਕ੍ਰੀਨ ਦਿਖਾਓ</string>
     <string name="pref_title_extra_controls">ਵਾਧੂ ਨਿਯੰਤਰਣ</string>
@@ -376,15 +384,14 @@
     <string name="pref_title_open_source_licences">ਓਪਨ ਸੋਰਸ ਲਾਇਸੰਸ</string>
     <string name="pref_title_pause_history">ਇਤਿਹਾਸ ਨੂੰ ਰੋਕੋ</string>
     <string name="pref_title_player_background">ਗਰੇਡੀਐਂਟ ਬੈਕਗ੍ਰਾਊਂਡ</string>
-    <string name="pref_title_progress_bar_alignment">ਪ੍ਰਗਤੀ ਪੱਟੀ ਅਲਾਈਨਮੈਂਟ</string>
     <string name="pref_title_progress_bar_style">ਤਰੱਕੀ ਪੱਟੀ ਸ਼ੈਲੀ</string>
     <string name="pref_title_queue_style">ਹੁਣ ਚੱਲ ਰਹੀ ਕਤਾਰ ਸ਼ੈਲੀ (ਪੋਰਟਰੇਟ)</string>
     <string name="pref_title_queue_style_land">ਹੁਣ ਚੱਲ ਰਹੀ ਕਤਾਰ ਸ਼ੈਲੀ (ਲੈਂਡਸਕੇਪ)</string>
     <string name="pref_title_remember_tab">ਆਖਰੀ ਟੈਬ ਨੂੰ ਯਾਦ ਰੱਖੋ</string>
     <string name="pref_title_rewind_duration">ਰੀਵਾਈਂਡ ਸੀਕ ਦੀ ਮਿਆਦ</string>
+    <string name="pref_title_scrollbar_style">ਸਕ੍ਰੋਲਬਾਰ ਸ਼ੈਲੀ</string>
     <string name="pref_title_search_action">ਸ਼ਫਲ ਕੀਤੀ ਖੋਜ ਕਾਰਵਾਈ</string>
-    <string name="pref_title_search_icon">ਵੌਇਸ ਖੋਜ ਹੈਡਰ ਵਿਧੀ</string>
-    <string name="pref_title_show_scrollbar">ਸਕ੍ਰੋਲਬਾਰ ਦਿਖਾਓ</string>
+    <string name="pref_title_search_icon">ਸਿਰਲੇਖ ਵਿੱਚ ਵੌਇਸ ਖੋਜ</string>
     <string name="pref_title_shuffle_state">ਸ਼ਫਲ ਸਟੇਟ ਰੱਖੋ</string>
     <string name="pref_title_specific_device">ਖਾਸ ਡਿਵਾਈਸ</string>
     <string name="pref_title_stock_equalizer">ਸਿਸਟਮ ਬਰਾਬਰੀ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
@@ -416,7 +423,7 @@
     <string name="replace_cover">ਕਵਰ ਬਦਲੋ</string>
     <string name="reset_action">ਰੀਸੈਟ ਕਰੋ</string>
     <string name="reset_settings">ਸੈਟਿੰਗਾਂ ਰੀਸੈਟ ਕਰੋ</string>
-    <string name="reset_settings_msg">ਸੈਟਿੰਗਾਂ ਨੂੰ ਡਿਫੌਲਟ \'ਤੇ ਰੀਸੈਟ ਕਰਨਾ ਹੈ?\n\nਇਹ ਸ਼ਫਲ, ਬਲੂਟੁੱਥ ਆਟੋਪਲੇ ਸੈਟਿੰਗ ਅਤੇ ਹੋਰ ਸਮੇਤ ਸਾਰੀਆਂ ਸੈਟਿੰਗਾਂ ਨੂੰ ਰੀਸੈਟ ਕਰ ਦੇਵੇਗਾ\n\nਇਹ ਐਪ ਰੀਸੈਟ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਰੀਸਟਾਰਟ ਹੋ ਜਾਵੇਗਾ!</string>
+    <string name="reset_settings_msg">ਸੈਟਿੰਗਾਂ ਨੂੰ ਡਿਫੌਲਟ \'ਤੇ ਰੀਸੈਟ ਕਰਨਾ ਹੈ?\n\nਇਹ ਸ਼ਫਲ, ਬਲੂਟੁੱਥ ਆਟੋਪਲੇ ਸੈਟਿੰਗ ਅਤੇ ਹੋਰ ਸਮੇਤ ਸਾਰੀਆਂ ਸੈਟਿੰਗਾਂ ਨੂੰ ਰੀਸੈਟ ਕਰ ਦੇਵੇਗਾ\n\nਇਹ ਐਪ ਰੀਸੈਟ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਰੀਸਟਾਰਟ ਹੋਵੇਗੀ!</string>
     <string name="reset_artist_image">ਕਲਾਕਾਰ ਚਿੱਤਰ ਰੀਸੈਟ ਕਰੋ</string>
     <string name="reset_to_default">ਸੈਟਿੰਗਾਂ ਨੂੰ ਡਿਫੌਲਟ \'ਤੇ ਰੀਸੈਟ ਕਰੋ</string>
     <string name="restore">ਰੀਸਟੋਰ ਕਰੋ</string>
@@ -440,6 +447,7 @@
     <string name="share_summary">ਐਪ ਨੂੰ ਆਪਣੇ ਦੋਸਤਾਂ ਅਤੇ ਪਰਿਵਾਰ ਨਾਲ ਸਾਂਝਾ ਕਰੋ</string>
     <string name="share_to_stories">ਕਹਾਣੀਆਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ</string>
     <string name="show_album_artists">ਐਲਬਮ ਕਲਾਕਾਰ ਦਿਖਾਓ</string>
+    <string name="show_always">ਹਮੇਸ਼ਾ ਦਿਖਾਓ</string>
     <string name="show_player_from_notification">ਸੂਚਨਾ/ਵਿਜੇਟਸ ਤੋਂ</string>
     <string name="show_player_on_app_launch">ਐਪ ਲਾਂਚ \'ਤੇ ਹਮੇਸ਼ਾ ਦਿਖਾਓ</string>
     <string name="shuffle">ਸ਼ਫਲ</string>
@@ -462,10 +470,14 @@
     <string name="sort_order_composer">ਕੰਪੋਜ਼ਰ</string>
     <string name="sort_order_date">ਤਾਰੀਖ ਸ਼ਾਮਲ ਕੀਤੀ ਗਈ</string>
     <string name="sort_order_date_modified">ਤਾਰੀਖ ਸੋਧੀ ਗਈ</string>
-    <string name="sort_order_default">ਪੂਰਵ-ਨਿਰਧਾਰਤ (ਲੇਖਾਂ ਨੂੰ ਅਣਡਿੱਠ ਕਰੋ)</string>
-    <string name="sort_order_num_songs">ਟਰੈਕ ਗਿਣਤੀ</string>
-    <string name="sort_order_num_songs_desc">ਟਰੈਕ ਗਿਣਤੀ ਦਾ ਵੇਰਵਾ</string>
+    <string name="sort_order_default">ਲੇਖਾਂ ਨੂੰ ਅਣਡਿੱਠ ਕਰੋ ↑</string>
+    <string name="sort_order_default_desc">ਲੇਖਾਂ ਨੂੰ ਅਣਡਿੱਠ ਕਰੋ ↓</string>
+    <string name="sort_order_num_songs">ਟਰੈਕ ਗਿਣਤੀ ↑</string>
+    <string name="sort_order_num_songs_asc">ਟਰੈਕ ਗਿਣਤੀ ↑</string>
+    <string name="sort_order_num_songs_desc">ਟਰੈਕ ਗਿਣਤੀ ↓</string>
     <string name="sort_order_year">ਸਾਲ</string>
+    <string name="sort_order_year_asc">ਸਾਲ ↑</string>
+    <string name="sort_order_year_desc">ਸਾਲ ↓</string>
     <string name="sort_order_z_a">ਉਤਰਦੇ ਹੋਏ</string>
     <string name="speech_not_supported">ਮਾਫ ਕਰਨਾ! ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਸਪੀਚ ਇਨਪੁੱਟ ਦਾ ਸਮਰਥਨ ਨਹੀਂ ਕਰਦੀ ਹੈ</string>
     <string name="speech_prompt">ਆਪਣੀ ਲਾਇਬ੍ਰੇਰੀ ਖੋਜੋ</string>
@@ -496,7 +508,7 @@
     <string name="up_next">ਅਗਲਾ</string>
     <string name="update_image">ਚਿੱਤਰ ਅੱਪਡੇਟ ਕਰੋ</string>
     <string name="update_notify">ਸੂਚਨਾ ਅੱਪਡੇਟ ਕਰੋ</string>
-    <string name="updating">ਅੱਪਡੇਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹ…</string>
+    <string name="updating">ਅੱਪਡੇਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...</string>
     <string name="user_images_description">ਉਪਭੋਗਤਾ ਚਿੱਤਰ</string>
     <string name="version">ਸੰਸਕਰਣ</string>
     <string name="vertical_flip">ਵਰਟੀਕਲ ਫਲਿੱਪ</string>

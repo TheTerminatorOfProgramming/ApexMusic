@@ -38,7 +38,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.hideSoftKeyboard
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
 import com.ttop.app.apex.extensions.withCenteredButtons
@@ -93,7 +94,7 @@ abstract class AbsTagEditorActivity<VB : ViewBinding> : AbsBaseActivity() {
                 }
                 .setNegativeButton(R.string.action_cancel, null)
                 .show()
-                .colorButtons()
+                .centeredColorButtons()
 
     internal val albumArtist: String?
         get() {

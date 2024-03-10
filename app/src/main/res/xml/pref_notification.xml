@@ -7,7 +7,7 @@
         app:allowDividerBelow="false">
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="none"
+            android:defaultValue="repeat"
             android:entries="@array/pref_notification_action_list_titles"
             android:entryValues="@array/pref_notification_action_list_values"
             android:key="notification_action_1"
@@ -19,7 +19,7 @@
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="none"
+            android:defaultValue="shuffle"
             android:entries="@array/pref_notification_action_list_titles"
             android:entryValues="@array/pref_notification_action_list_values"
             android:key="notification_action_2"

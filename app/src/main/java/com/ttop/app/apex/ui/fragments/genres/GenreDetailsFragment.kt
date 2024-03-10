@@ -59,6 +59,9 @@ class GenreDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_
         genre = arguments.extraGenre
         binding.toolbar.title = arguments.extraGenre.name
         setupRecyclerView()
+
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+
         detailsViewModel.getSongs().observe(viewLifecycleOwner) {
             songs(it)
         }

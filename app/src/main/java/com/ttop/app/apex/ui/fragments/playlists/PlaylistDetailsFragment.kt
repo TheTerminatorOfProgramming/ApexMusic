@@ -72,6 +72,9 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
 //        binding.container.transitionName = playlist.playlistEntity.playlistName
 
         setUpRecyclerView()
+
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+
         setupButtons()
         viewModel.getPlaylist().observe(viewLifecycleOwner) { playlistWithSongs ->
             playlist = playlistWithSongs
@@ -131,8 +134,9 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DraggableItemAnimator()
             dragDropManager.attachRecyclerView(this)
-            if (PreferenceUtil.isShowScrollbar) {
-                ThemedFastScroller.create(this)
+
+            if (PreferenceUtil.scrollbarStyle != "disabled") {
+                ThemedFastScroller.create(this, PreferenceUtil.scrollbarStyle == "auto_hide")
             }
         }
         playlistSongAdapter.registerAdapterDataObserver(object :

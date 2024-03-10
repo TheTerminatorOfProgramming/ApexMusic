@@ -48,6 +48,7 @@ import com.ttop.app.apex.adapter.song.ShuffleButtonSongAdapter
 import com.ttop.app.apex.adapter.song.SongAdapter
 import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
 import com.ttop.app.apex.db.toSong
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.interfaces.IAlbumClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
 import com.ttop.app.apex.model.Album
@@ -105,6 +106,9 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
 
         binding.appBarLayout.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
+
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        binding.toolbar.setNavigationIconTint(accentColor())
     }
 
     private fun lastAddedSongs() {
@@ -212,7 +216,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
     private fun albumAdapter(albums: List<Album>): AlbumAdapter = AlbumAdapter(
         requireActivity(),
         albums,
-        R.layout.item_grid,
+        R.layout.item_grid_circle,
         this
     )
 

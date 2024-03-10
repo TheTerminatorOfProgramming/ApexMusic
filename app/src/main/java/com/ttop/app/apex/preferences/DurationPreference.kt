@@ -12,7 +12,8 @@ import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogAudioFadeBinding
 import com.ttop.app.apex.extensions.addAccentColor
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.util.PreferenceUtil
@@ -55,7 +56,7 @@ class DurationPreferenceDialog : DialogFragment() {
             .setPositiveButton(R.string.save) { _, _ -> updateDuration(binding.slider.value.toInt()) }
             .setView(binding.root)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 
     private fun updateText(value: Int, duration: TextView) {

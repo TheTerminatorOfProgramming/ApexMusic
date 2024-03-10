@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 include ':app', ':appthemehelper'
 include ':appIntro'
 include ':equalizer'
+include ':fastscroller'

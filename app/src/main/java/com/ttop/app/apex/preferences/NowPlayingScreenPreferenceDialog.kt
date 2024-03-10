@@ -29,7 +29,8 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.values
@@ -90,7 +91,7 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
             }
             .setView(view)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 
     companion object {

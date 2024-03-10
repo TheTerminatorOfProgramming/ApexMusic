@@ -22,7 +22,7 @@ import com.ttop.app.apex.EXTRA_PLAYLISTS
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.model.Song
@@ -68,7 +68,7 @@ class AddToPlaylistDialog : DialogFragment() {
             }
             .setNegativeButton(R.string.action_cancel, null)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 
     private fun showCreateDialog(songs: List<Song>) {

@@ -33,7 +33,7 @@
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="pause_on_zero_volume"
         android:layout="@layout/list_item_view_switch"
         android:title="@string/pref_keep_pause_on_zero_volume_title"

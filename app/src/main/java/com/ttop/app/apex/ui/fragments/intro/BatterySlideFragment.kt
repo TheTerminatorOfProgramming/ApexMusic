@@ -1,6 +1,5 @@
 package com.ttop.app.apex.ui.fragments.intro
 
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,7 +14,6 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.appintro.SlideBackgroundColorHolder
 import com.ttop.app.appintro.SlidePolicy
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 class BatterySlideFragment(
     override val defaultBackgroundColorRes: Int
@@ -57,7 +54,7 @@ class BatterySlideFragment(
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_deep_purple_400))
 
-        if (VersionUtils.hasS() && !ApexUtil.hasBatteryPermission()) {
+        if (!ApexUtil.hasBatteryPermission()) {
             if (isLooping) {
                 handler.postDelayed(runnable,250)
             }

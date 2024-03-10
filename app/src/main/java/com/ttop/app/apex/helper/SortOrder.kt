@@ -69,6 +69,8 @@ class SortOrder {
 
             const val SONG_DEFAULT = MediaStore.Audio.Media.DEFAULT_SORT_ORDER
 
+            const val SONG_DEFAULT_DESC = "$SONG_DEFAULT DESC"
+
             /* Song sort order A-Z */
             const val SONG_A_Z = MediaStore.Audio.Media.TITLE
 
@@ -84,8 +86,11 @@ class SortOrder {
             /* Song sort order album */
             const val SONG_ALBUM = MediaStore.Audio.Albums.DEFAULT_SORT_ORDER
 
-            /* Song sort order year */
-            const val SONG_YEAR = MediaStore.Audio.Media.YEAR + " DESC"
+            /* Song sort order year ascending */
+            const val SONG_YEAR = MediaStore.Audio.Media.YEAR
+
+            /* Song sort order year descending */
+            const val SONG_YEAR_DESC = "$SONG_YEAR DESC"
 
             /* Song sort order duration */
             const val SONG_DURATION = MediaStore.Audio.Media.DURATION + " DESC"
@@ -107,7 +112,6 @@ class SortOrder {
     interface AlbumSongSortOrder {
 
         companion object {
-
             /* Album song sort order A-Z */
             const val SONG_A_Z = MediaStore.Audio.Media.DEFAULT_SORT_ORDER
 

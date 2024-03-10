@@ -43,7 +43,7 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import me.zhanghai.android.fastscroll.PopupTextProvider
+import com.ttop.app.fastscroller.PopupTextProvider
 
 /**
  * Created by hemanths on 13/08/17.

@@ -40,7 +40,6 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 @SuppressLint("RestrictedApi")
 class PlayingNotificationImpl24(
@@ -85,7 +84,7 @@ class PlayingNotificationImpl24(
             context.getString(R.string.action_cancel),
             retrievePlaybackAction(ACTION_QUIT)
         )
-        setSmallIcon(R.drawable.audio_wave_64px)
+        setSmallIcon(R.drawable.app_icon_black)
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
@@ -93,9 +92,7 @@ class PlayingNotificationImpl24(
         addAction(previousAction)
         addAction(playPauseAction)
         addAction(nextAction)
-        if (VersionUtils.hasS()) {
-            addAction(dismissAction)
-        }
+        addAction(dismissAction)
 
         setStyle(
             MediaStyle()

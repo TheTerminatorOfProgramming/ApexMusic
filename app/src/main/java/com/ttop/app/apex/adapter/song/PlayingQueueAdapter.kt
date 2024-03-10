@@ -45,7 +45,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
-import me.zhanghai.android.fastscroll.PopupTextProvider
+import com.ttop.app.fastscroller.PopupTextProvider
 
 
 class PlayingQueueAdapter(

@@ -26,11 +26,14 @@ import com.ttop.app.apex.ALBUM_COVER_TRANSFORM
 import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.CIRCULAR_ALBUM_ART
 import com.ttop.app.apex.COLOR_ANIMATE
+import com.ttop.app.apex.DURATION_SAME
 import com.ttop.app.apex.EMBED_LYRICS
+import com.ttop.app.apex.FAST_FORWARD_DURATION
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
 import com.ttop.app.apex.R
+import com.ttop.app.apex.REWIND_DURATION
 import com.ttop.app.apex.SCREEN_ON_LYRICS
 import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SYNCED_LYRICS
@@ -76,12 +79,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        /*val expand: TwoStatePreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
-        expand?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }*/
-
         val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
         autoplay?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -126,6 +123,40 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val shuffleState: ATESwitchPreference? = findPreference(SHUFFLE_STATE)
         shuffleState?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val rwdDuration: ATESeekBarPreference? = findPreference(REWIND_DURATION)
+        rwdDuration?.min = 5
+
+        val ffDuration: ATESeekBarPreference? = findPreference(FAST_FORWARD_DURATION)
+        ffDuration?.min = 5
+        ffDuration?.setOnPreferenceChangeListener { _, newValue ->
+            val duration = newValue as Int
+
+            if (PreferenceUtil.isDurationSame) {
+                rwdDuration!!.value = duration
+            }
+            true
+        }
+
+        val durationSame: ATESwitchPreference? = findPreference(DURATION_SAME)
+        if (PreferenceUtil.isDurationSame) {
+            rwdDuration!!.value = ffDuration!!.value
+        }
+        rwdDuration?.isEnabled = !PreferenceUtil.isDurationSame
+
+        durationSame?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
+            val enabled = newValue as Boolean
+
+            if (enabled) {
+                rwdDuration!!.value = ffDuration!!.value
+            }
+
+            rwdDuration?.isEnabled = !enabled
+
             true
         }
     }

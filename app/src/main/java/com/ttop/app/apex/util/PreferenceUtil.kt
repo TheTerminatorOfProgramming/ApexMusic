@@ -25,7 +25,6 @@ import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.folder.FoldersFragment
 import com.ttop.app.apex.util.theme.ThemeMode
-import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 
 
@@ -214,7 +213,7 @@ object PreferenceUtil {
             putBoolean(INITIALIZED_BLACKLIST, value)
         }
 
-    private val isBlackMode
+    val isBlackMode
         get() = sharedPreferences.getBoolean(
             BLACK_THEME, false
         )
@@ -226,7 +225,7 @@ object PreferenceUtil {
 
     val isScreenOnEnabled get() = sharedPreferences.getBoolean(KEEP_SCREEN_ON, false)
 
-    val isPauseOnZeroVolume get() = sharedPreferences.getBoolean(PAUSE_ON_ZERO_VOLUME, false)
+    val isPauseOnZeroVolume get() = sharedPreferences.getBoolean(PAUSE_ON_ZERO_VOLUME, true)
 
     var isSleepTimerFinishMusic
         get() = sharedPreferences.getBoolean(
@@ -285,9 +284,6 @@ object PreferenceUtil {
             MANAGE_AUDIO_FOCUS, false
         )
 
-    val isLockScreen get() = sharedPreferences.getBoolean(LOCK_SCREEN, false)
-
-    @Suppress("deprecation")
     fun isAllowedToDownloadMetadata(context: Context): Boolean {
         return when (autoDownloadImagesPolicy) {
             "always" -> true
@@ -311,7 +307,7 @@ object PreferenceUtil {
             // "firstOrNull"
             return GridStyle.values().firstOrNull { gridStyle ->
                 gridStyle.id == id
-            } ?: GridStyle.Grid
+            } ?: GridStyle.Circular
         }
         set(value) = sharedPreferences.edit {
             putInt(SONG_GRID_STYLE, value.id)
@@ -322,7 +318,7 @@ object PreferenceUtil {
             val id: Int = sharedPreferences.getInt(ALBUM_GRID_STYLE, 3)
             return GridStyle.values().firstOrNull { gridStyle ->
                 gridStyle.id == id
-            } ?: GridStyle.Grid
+            } ?: GridStyle.Circular
         }
         set(value) = sharedPreferences.edit {
             putInt(ALBUM_GRID_STYLE, value.id)
@@ -704,7 +700,7 @@ object PreferenceUtil {
             .getInt(CROSS_FADE_DURATION, 0)
 
     var materialYou
-        get() = sharedPreferences.getBoolean(MATERIAL_YOU, VersionUtils.hasS())
+        get() = sharedPreferences.getBoolean(MATERIAL_YOU, true)
         set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
     val isCustomFont
@@ -727,9 +723,12 @@ object PreferenceUtil {
             .getFloat(PLAYBACK_PITCH, 1F)
         set(value) = sharedPreferences.edit { putFloat(PLAYBACK_PITCH, value) }
 
-    val appBarMode
-        get() = sharedPreferences.getBoolean(APPBAR_MODE, false)
-
+    var appBarMode
+        get() = sharedPreferences.getStringOrDefault(
+            APPBAR_MODE, "simple"
+        )
+        set(value) = sharedPreferences.edit {
+            putString(APPBAR_MODE, value)}
 
 
     val lyricsScreenOn
@@ -789,18 +788,11 @@ object PreferenceUtil {
             putBoolean(WIDGET_BACKGROUND, value)}
 
     var progressBarStyle
-        get() = sharedPreferences.getBoolean(
-            PROGRESS_BAR_STYLE, true
+        get() = sharedPreferences.getStringOrDefault(
+            PROGRESS_BAR_STYLE, "circular"
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(PROGRESS_BAR_STYLE, value)}
-
-    var progressBarAlignment
-        get() = sharedPreferences.getBoolean(
-            PROGRESS_BAR_ALIGNMENT, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(PROGRESS_BAR_ALIGNMENT, value)}
+            putString(PROGRESS_BAR_STYLE, value)}
 
 
     var isSwipe
@@ -909,11 +901,12 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             DISABLE_UPDATE, false
         )
-
-    val isShowScrollbar
-        get() = sharedPreferences.getBoolean(
-            SHOW_SCROLLBAR, true
+    var scrollbarStyle
+        get() = sharedPreferences.getStringOrDefault(
+            SCROLLBAR_STYLE, "auto_hide"
         )
+        set(value) = sharedPreferences.edit {
+            putString(APPBAR_MODE, value)}
 
     val isColorAnimate
         get() = sharedPreferences.getBoolean(
@@ -980,8 +973,20 @@ object PreferenceUtil {
             SHUFFLE_STATE, false
         )
 
-    val rewindDuration get() = sharedPreferences.getInt(REWIND_DURATION, 10)
-    val fastForwardDuration get() = sharedPreferences.getInt(FAST_FORWARD_DURATION, 10)
+    val rewindDuration
+        get() = sharedPreferences.getInt(
+        REWIND_DURATION, 10
+        )
+
+    val fastForwardDuration
+        get() = sharedPreferences.getInt(
+            FAST_FORWARD_DURATION, 10
+        )
+
+    val isDurationSame
+        get() = sharedPreferences.getBoolean(
+            DURATION_SAME, true
+        )
 }
 
 enum class CoverLyricsType {

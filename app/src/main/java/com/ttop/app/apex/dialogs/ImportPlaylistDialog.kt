@@ -18,7 +18,8 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -37,6 +38,6 @@ class ImportPlaylistDialog : DialogFragment() {
                 }
             }
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 }

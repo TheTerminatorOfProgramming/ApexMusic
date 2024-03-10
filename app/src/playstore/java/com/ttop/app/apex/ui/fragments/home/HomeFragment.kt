@@ -15,11 +15,13 @@
 package com.ttop.app.apex.ui.fragments.home
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.*
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.bundleOf
-import androidx.core.text.parseAsHtml
+import androidx.core.text.toSpannable
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -36,9 +38,7 @@ import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.bumptech.glide.Glide
-import com.ttop.app.apex.glide.ApexGlideExtension.profileBannerOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
-import com.ttop.app.apex.glide.ApexGlideExtension.userProfileOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.model.CategoryInfo
@@ -46,7 +46,6 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
@@ -152,10 +151,16 @@ class HomeFragment :
             PreferenceUtil.isSearchFromNavigation = true
             findNavController().navigate(R.id.action_search, null, navOptions)
         }
-        val hexColor = String.format("#%06X", 0xFFFFFF and accentColor())
-        val appName = "Apex <font color=$hexColor>Music</font>".parseAsHtml()
-        binding.appBarLayout.title = appName
+        val builder = SpannableStringBuilder()
 
+        val title = "Apex".toSpannable()
+        val title2 = "Music"
+
+        title.setSpan(ForegroundColorSpan(accentColor()), 0, title.length, 0)
+
+        builder.append(title).append(" ").append(title2)
+
+        binding.appBarLayout.title = builder
     }
 
     fun colorButtons() {

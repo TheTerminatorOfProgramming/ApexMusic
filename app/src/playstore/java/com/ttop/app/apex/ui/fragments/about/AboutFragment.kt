@@ -23,7 +23,6 @@ import android.os.*
 import android.provider.Settings
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -104,9 +103,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardPermissions.storagePermission.text = checkStoragePermission()
         binding.aboutContent.cardPermissions.btPermission.text = checkBtPermission()
-        if (VersionUtils.hasS()) {
-            binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
-        }
+        binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
     }
 
     private fun setUpView() {
@@ -122,9 +119,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardPermissions.storagePermission.text = checkStoragePermission()
         binding.aboutContent.cardPermissions.btPermission.text = checkBtPermission()
-        if (VersionUtils.hasS()) {
-            binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
-        }
+        binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
         binding.aboutContent.cardPermissions.permissionsEdit.setOnClickListener(this)
         binding.aboutContent.cardPermissions.ringtonePermission.setOnClickListener(this)
         binding.aboutContent.cardPermissions.intro.setOnClickListener(this)
@@ -378,20 +373,11 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun checkBtPermission(): String {
-        return if (VersionUtils.hasS()) {
-            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
-                == PackageManager.PERMISSION_GRANTED) {
-                getString(R.string.granted) + " ✅"
-            }else{
-                getString(R.string.denied) + " ❌"
-            }
-        } else {
-            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH) }
-                == PackageManager.PERMISSION_GRANTED) {
-                getString(R.string.granted) + " ✅"
-            }else{
-                getString(R.string.denied) + " ❌"
-            }
+        return if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
+            == PackageManager.PERMISSION_GRANTED) {
+            getString(R.string.granted) + " ✅"
+        }else{
+            getString(R.string.denied) + " ❌"
         }
     }
 

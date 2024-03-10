@@ -59,7 +59,6 @@ import com.ttop.app.apex.LIBRARY_CATEGORIES
 import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
-import com.ttop.app.apex.PROGRESS_BAR_ALIGNMENT
 import com.ttop.app.apex.PROGRESS_BAR_STYLE
 import com.ttop.app.apex.QUEUE_STYLE
 import com.ttop.app.apex.QUEUE_STYLE_LAND
@@ -325,8 +324,8 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             TAB_TEXT_MODE -> {
                 navigationView.labelVisibilityMode = PreferenceUtil.tabTitleMode
             }
+
             TOGGLE_FULL_SCREEN,
-            PROGRESS_BAR_ALIGNMENT,
             PROGRESS_BAR_STYLE,
             EMBED_LYRICS,
             QUEUE_STYLE,
@@ -344,6 +343,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             MATERIAL_YOU -> {
                 recreate()
             }
+
             SCREEN_ON_LYRICS -> {
                 keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics || PreferenceUtil.isScreenOnEnabled)
             }
@@ -612,6 +612,5 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         supportFragmentManager.executePendingTransactions()
         playerFragment = whichFragment(R.id.playerFragmentContainer)
         miniPlayerFragment = whichFragment<MiniPlayerFragment>(R.id.miniPlayerFragment)
-        //miniPlayerFragment?.view?.setOnClickListener { expandPanel() }
     }
 }

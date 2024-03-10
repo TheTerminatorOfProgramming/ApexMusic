@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.core.content.edit
 import com.ttop.app.apex.INTRO_SHOWN
 import com.ttop.app.apex.INTRO_SLIDES_SHOWN
-import com.ttop.app.apex.IS_SHUFFLE
 
 class IntroPrefs(context: Context) {
     private val sharedPreferences = context.getSharedPreferences("IntroPrefs",Context.MODE_PRIVATE)
@@ -24,13 +23,5 @@ class IntroPrefs(context: Context) {
 
         set(value) = sharedPreferences.edit {
             putBoolean(INTRO_SHOWN, value)}
-
-    var isShuffle
-        get() = sharedPreferences.getBoolean(
-            IS_SHUFFLE, false
-        )
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(IS_SHUFFLE, value)}
 
 }

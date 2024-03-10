@@ -22,7 +22,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.ShareInstagramStory
@@ -49,7 +50,7 @@ class SongShareDialog : DialogFragment() {
             }
             .setNegativeButton(R.string.action_cancel, null)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 
     private fun withAction(

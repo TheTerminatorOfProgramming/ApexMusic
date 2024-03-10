@@ -15,6 +15,9 @@
 package com.ttop.app.apex.adapter.album
 
 import android.app.Dialog
+import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.HapticFeedbackConstants
@@ -34,6 +37,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentTextColor
+import com.ttop.app.apex.extensions.generalThemeValue
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
@@ -53,6 +57,7 @@ import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -185,7 +190,7 @@ class AlbumCoverPagerAdapter(
                 val data: String? = MusicUtil.getLyrics(song)
                 withContext(Dispatchers.Main) {
                     mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
-                    val builder = AlertDialog.Builder(requireContext())
+                    val builder = AlertDialog.Builder(requireContext(), R.style.CustomDialogTheme)
                     builder.setTitle(song.title)
                     builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
 
@@ -194,11 +199,55 @@ class AlbumCoverPagerAdapter(
                         materialDialog().dismiss()
                     }
 
+                    builder.setPositiveButton(R.string.action_refresh) { _, _ ->
+                        materialDialog().dismiss()
+                        showLyricsDialog()
+                    }
+
                     val dialog: AlertDialog = builder.show()
 
                     val textViewMessage = dialog.findViewById(android.R.id.message) as TextView?
                     val textViewTitle = dialog.findViewById(R.id.alertTitle) as TextView?
 
+
+                    textViewTitle?.typeface = Typeface.DEFAULT_BOLD
+
+                    when (context?.generalThemeValue) {
+                        ThemeMode.LIGHT -> {
+                            dialog.window?.setBackgroundDrawableResource(R.color.md_white_1000)
+                            textViewMessage?.setTextColor(Color.BLACK)
+                        }
+                        ThemeMode.DARK -> {
+                            dialog.window?.setBackgroundDrawableResource(R.color.dark_color)
+                            textViewMessage?.setTextColor(Color.WHITE)
+                        }
+                        ThemeMode.BLACK -> {
+                            dialog.window?.setBackgroundDrawableResource(R.color.md_black_1000)
+                            textViewMessage?.setTextColor(Color.WHITE)
+                        }
+                        ThemeMode.AUTO -> {
+                            when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                                Configuration.UI_MODE_NIGHT_YES -> {
+                                    if (PreferenceUtil.isBlackMode) {
+                                        dialog.window?.setBackgroundDrawableResource(R.color.md_black_1000)
+                                        textViewMessage?.setTextColor(Color.WHITE)
+                                    }else {
+                                        dialog.window?.setBackgroundDrawableResource(R.color.dark_color)
+                                        textViewMessage?.setTextColor(Color.WHITE)
+                                    }
+                                }
+                                Configuration.UI_MODE_NIGHT_NO,
+                                Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                    dialog.window?.setBackgroundDrawableResource(R.color.md_white_1000)
+                                    textViewMessage?.setTextColor(Color.BLACK)
+                                }
+                            }
+                        }
+                        else -> {
+                            dialog.window?.setBackgroundDrawableResource(R.color.md_white_1000)
+                            textViewMessage?.setTextColor(Color.BLACK)
+                        }
+                    }
 
                     when (PreferenceUtil.fontSizeLyrics) {
                         "12" -> {
@@ -282,6 +331,7 @@ class AlbumCoverPagerAdapter(
 
                     dialog.setCanceledOnTouchOutside(false)
                     dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
+                    dialog.getButton(Dialog.BUTTON_POSITIVE).accentTextColor()
                     textViewTitle!!.setTextColor(requireContext().accentColor())
 
                     dialog.withCenteredButtons()

@@ -105,9 +105,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardPermissions.storagePermission.text = checkStoragePermission()
         binding.aboutContent.cardPermissions.btPermission.text = checkBtPermission()
-        if (VersionUtils.hasS()) {
-            binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
-        }
+        binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
         binding.aboutContent.cardPermissions.filesPermission.text = checkFilesPermission()
     }
 
@@ -123,9 +121,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
         binding.aboutContent.cardPermissions.storagePermission.text = checkStoragePermission()
         binding.aboutContent.cardPermissions.btPermission.text = checkBtPermission()
-        if (VersionUtils.hasS()) {
-            binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
-        }
+        binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
         binding.aboutContent.cardPermissions.filesPermission.text = checkFilesPermission()
         binding.aboutContent.cardPermissions.permissionsEdit.setOnClickListener(this)
         binding.aboutContent.cardPermissions.ringtonePermission.setOnClickListener(this)
@@ -156,12 +152,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     showToast(R.string.permission_granted)
                 }
             }
-            R.id.all_files_permission -> context?.let { activity?.let { it1 ->
-                    GithubUtils.manageAllFiles(it,
-                        it1
-                    )
-                }
-            }
+            R.id.all_files_permission -> context?.let { GithubUtils.manageAllFiles(it) }
             R.id.battery_permission_title -> ApexUtil.disableBatteryOptimization()
             R.id.intro -> startActivity(
                 Intent(
@@ -389,20 +380,11 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun checkBtPermission(): String {
-        return if (VersionUtils.hasS()) {
-            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
-                == PackageManager.PERMISSION_GRANTED) {
-                getString(R.string.granted) + " ✅"
-            }else{
-                getString(R.string.denied) + " ❌"
-            }
-        } else {
-            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH) }
-                == PackageManager.PERMISSION_GRANTED) {
-                getString(R.string.granted) + " ✅"
-            }else{
-                getString(R.string.denied) + " ❌"
-            }
+        return if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
+            == PackageManager.PERMISSION_GRANTED) {
+            getString(R.string.granted) + " ✅"
+        }else{
+            getString(R.string.denied) + " ❌"
         }
     }
 

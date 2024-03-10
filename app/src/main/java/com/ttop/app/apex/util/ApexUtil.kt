@@ -14,9 +14,7 @@
 package com.ttop.app.apex.util
 
 import android.annotation.SuppressLint
-import android.app.KeyguardManager
 import android.content.Context
-import android.content.Context.KEYGUARD_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -25,7 +23,6 @@ import android.graphics.Point
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
-import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
@@ -33,11 +30,6 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
-import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
-import androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
 import androidx.core.net.toUri
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.appbar.MaterialToolbar
@@ -543,33 +535,4 @@ object ApexUtil {
             else -> false
         }
     }
-
-    fun checkForBiometrics(context: Context) : Boolean{
-        var canAuthenticate = true
-        if (Build.VERSION.SDK_INT < 29) {
-            val keyguardManager : KeyguardManager = context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
-            val packageManager : PackageManager = context.packageManager
-            if (!packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
-                canAuthenticate = false
-            }
-            if (!keyguardManager.isKeyguardSecure) {
-                canAuthenticate = false
-            }
-        } else if (Build.VERSION.SDK_INT == 29){
-            val biometricManager = BiometricManager.from(context)
-            if (biometricManager.canAuthenticate() != BIOMETRIC_SUCCESS){
-                canAuthenticate = false
-            }
-        }
-        else if (Build.VERSION.SDK_INT >= 30){
-            val biometricManager = BiometricManager.from(context)
-            val authenticationTypes = BIOMETRIC_WEAK or DEVICE_CREDENTIAL
-            val authenticate = biometricManager.canAuthenticate(authenticationTypes)
-            if (authenticate != BIOMETRIC_SUCCESS) {
-                canAuthenticate = false
-            }
-        }
-        return canAuthenticate
-    }
-
 }

@@ -2,7 +2,6 @@ package com.ttop.app.apex.extensions
 
 import android.app.ActivityManager
 import android.graphics.Color
-import android.os.Build
 import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
 import android.view.WindowManager
@@ -175,9 +174,7 @@ fun AppCompatActivity.setStatusBarColor(color: Int) {
 }
 
 fun AppCompatActivity.setNavigationBarColorPreOreo(color: Int) {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-        window.navigationBarColor = ColorUtil.darkenColor(color)
-    }
+    window.navigationBarColor = ColorUtil.darkenColor(color)
 }
 
 fun AppCompatActivity.hideSoftKeyboard() {

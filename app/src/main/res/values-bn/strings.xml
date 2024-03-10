@@ -50,7 +50,7 @@
     <string name="action_shuffle_all">সব শাফল কর</string>
     <string name="action_shuffle_playlist">প্লেলিস্ট এলোমেলো করুন</string>
     <string name="action_sleep_timer">ঘুমের টাইমার</string>
-    <string name="action_sort_order">সাজানোর ক্রম</string>
+    <string name="action_sort_order">সাজানোর অর্ডার</string>
     <string name="action_tag_editor">ট্যাগ সম্পাদক</string>
     <string name="action_toggle_favorite">প্রিয় টগল করুন</string>
     <string name="action_toggle_shuffle">শাফেল মোড টগল করুন</string>
@@ -73,6 +73,10 @@
         <item quantity="other">অ্যালবাম</item>
     </plurals>
     <string name="always">সর্বদা</string>
+    <string name="appbar_mode_expanded">প্রসারিত</string>
+    <string name="appbar_mode_expanded_no_scroll">প্রসারিত (কোন স্ক্রল নেই)</string>
+    <string name="appbar_mode_simple">সরল</string>
+    <string name="appbar_mode_simple_no_scroll">সহজ (কোন স্ক্রল নেই)</string>
     <string name="apex_music">এপেক্স মিউজিক</string>
     <string name="app_share">আরে এই দুর্দান্ত মিউজিক প্লেয়ারটি এখানে দেখুন: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">অদলবদল</string>
@@ -83,6 +87,7 @@
     <string name="audio_focus_denied">অডিও ফোকাস অস্বীকার করা হয়েছে.</string>
     <string name="audio_settings_summary">সাউন্ড সেটিংস পরিবর্তন করুন</string>
     <string name="auto">অটো</string>
+    <string name="auto_hide">স্বয়ং চামড়া</string>
     <string name="backup_restore_settings_summary">আপনার সেটিংস, প্লেলিস্টগুলি ব্যাকআপ এবং পুনরুদ্ধার করুন</string>
     <string name="backup_restore_title"><![CDATA[ব্যাকআপ এবং পুনরুদ্ধার]]></string>
     <string name="backup_open_path">বর্তমান পথ খুলুন</string>
@@ -173,7 +178,7 @@
     <string name="force_close">জোর করে বন্ধ করুন</string>
     <string name="force_close_summary">যদি অ্যাপেক্স মিউজিক কোনো সমস্যার সম্মুখীন হয় তাহলে এই বিকল্পটি ব্যবহার করে চেষ্টা করুন এবং সমস্যার সমাধান করুন</string>
     <string name="full">সম্পূর্ণ</string>
-    <string name="full_card">সম্পূর্ণ কার্ড</string>
+    <string name="full_card">ফুল কার্ড</string>
     <string name="general_settings_summary">ইউজার ইন্টারফেস কাস্টমাইজ করুন</string>
     <string name="general_settings_title">ব্যবহারকারী ইন্টারফেস</string>
     <string name="genre">ধারা</string>
@@ -199,7 +204,9 @@
     <string name="history_cleared">ইতিহাস সাফ</string>
     <string name="history_undo_button">পূর্বাবস্থায় ফেরান</string>
     <string name="home">বাড়ি</string>
+    <string name="horizontal_bottom">অনুভূমিক নীচে</string>
     <string name="horizontal_flip">অনুভূমিক উল্টানো</string>
+    <string name="horizontal_top">অনুভূমিক শীর্ষ</string>
     <string name="id3_tags">ID3 ট্যাগ</string>
     <string name="image">ছবি</string>
     <string name="image_gradient">গ্রেডিয়েন্ট ইমেজ</string>
@@ -284,12 +291,12 @@
     <string name="permission_files">ফাইলের অনুমতি:\u0020</string>
     <string name="permission_granted">এই অনুমতি দেওয়া হয়েছে</string>
     <string name="permission_storage">স্টোরেজ অনুমতি:\u0020</string>
-    <string name="permission_summary">মিউজিক বাজানোর জন্য অ্যাপটির আপনার ডিভাইস স্টোরেজ অ্যাক্সেস করার অনুমতি প্রয়োজন</string>
+    <string name="permission_summary">সঙ্গীত বাজানোর জন্য আপনার ডিভাইস স্টোরেজ অ্যাক্সেস করার জন্য অ্যাপটির অনুমতি প্রয়োজন</string>
     <string name="permission_title">স্টোরেজ অ্যাক্সেস</string>
     <string name="permissions_denied">অনুমতি অস্বীকার করা হয়েছে.</string>
     <string name="permissions">অনুমতি</string>
     <string name="permission_edit">অনুমতি সম্পাদনা করুন</string>
-    <string name="personalize">ব্যক্তিগতকৃত করুন</string>
+    <string name="personalize">ব্যক্তিগতকৃত</string>
     <string name="personalize_settings_summary">আপনার লাইব্রেরি এবং লক স্ক্রিন কাস্টমাইজ করুন</string>
     <string name="pick_from_local_storage">স্থানীয় স্টোরেজ থেকে চয়ন করুন</string>
     <string name="play_store_edition">প্লে স্টোর সংস্করণ</string>
@@ -339,7 +346,7 @@
     <string name="pref_summary_permissions_edit">এই অ্যাপের সাথে সম্পর্কিত অনুমতি পরিবর্তন করুন</string>
     <string name="pref_title_album_cover_style">অ্যালবাম কভার থিম</string>
     <string name="pref_title_album_cover_transform">অ্যালবাম কভার স্কিপ</string>
-    <string name="pref_title_appbar_mode">প্রসারিত হেডার শৈলী</string>
+    <string name="pref_title_appbar_mode">হেডার স্টাইল</string>
     <string name="pref_title_audio_fade">ফেইড অডিও</string>
     <string name="pref_title_auto_action_1">অ্যান্ড্রয়েড অটো অ্যাকশন বাম</string>
     <string name="pref_title_auto_action_2">ডান অ্যান্ড্রয়েড অটো অ্যাকশন</string>
@@ -354,10 +361,11 @@
     <string name="pref_title_custom_font">হরফ</string>
     <string name="pref_title_desaturated_color">ডিস্যাচুরেটেড কালার</string>
     <string name="pref_title_disable_widgets">ডিফল্ট উইজেট অক্ষম করুন</string>
+    <string name="pref_title_duration">একক সময়কাল</string>
     <string name="pref_title_embed_lyrics_view">আনসিঙ্ক করা ID3 লিরিক্স</string>
     <string name="pref_title_expand_now_playing_panel">এখন বাজানো স্ক্রীন দেখান</string>
     <string name="pref_title_extra_controls">অতিরিক্ত নিয়ন্ত্রণ</string>
-    <string name="pref_title_fast_forward_duration">ফাস্ট ফরোয়ার্ড সিক সময়কাল</string>
+    <string name="pref_title_fast_forward_duration">দ্রুত ফরোয়ার্ড অনুসন্ধান সময়কাল</string>
     <string name="pref_title_font_size">অক্ষরের আকার</string>
     <string name="pref_title_font_size_lyrics">লিরিক্স ফন্ট সাইজ</string>
     <string name="pref_title_gapless_playback">গ্যাপলেস প্লেব্যাক</string>
@@ -376,15 +384,14 @@
     <string name="pref_title_open_source_licences">ওপেন সোর্স লাইসেন্স</string>
     <string name="pref_title_pause_history">ইতিহাস থামান</string>
     <string name="pref_title_player_background">গ্রেডিয়েন্ট ব্যাকগ্রাউন্ড</string>
-    <string name="pref_title_progress_bar_alignment">অগ্রগতি বার প্রান্তিককরণ</string>
     <string name="pref_title_progress_bar_style">অগ্রগতি বার শৈলী</string>
     <string name="pref_title_queue_style">এখন চলছে সারি স্টাইল (প্রতিকৃতি)</string>
     <string name="pref_title_queue_style_land">এখন চলছে কিউ স্টাইল (ল্যান্ডস্কেপ)</string>
     <string name="pref_title_remember_tab">শেষ ট্যাব মনে রাখবেন</string>
     <string name="pref_title_rewind_duration">রিওয়াইন্ড সিক সময়কাল</string>
+    <string name="pref_title_scrollbar_style">স্ক্রলবার স্টাইল</string>
     <string name="pref_title_search_action">এলোমেলো অনুসন্ধান কর্ম</string>
-    <string name="pref_title_search_icon">ভয়েস অনুসন্ধান হেডার পদ্ধতি</string>
-    <string name="pref_title_show_scrollbar">স্ক্রলবার দেখান</string>
+    <string name="pref_title_search_icon">হেডারে ভয়েস অনুসন্ধান</string>
     <string name="pref_title_shuffle_state">শাফেল স্টেট রাখুন</string>
     <string name="pref_title_specific_device">নির্দিষ্ট ডিভাইস</string>
     <string name="pref_title_stock_equalizer">সিস্টেম ইকুয়ালাইজার ব্যবহার করুন</string>
@@ -439,7 +446,8 @@
     <string name="share_app">অ্যাপ্লিকেশন ভাগ করা</string>
     <string name="share_summary">আপনার বন্ধু এবং পরিবারের সাথে অ্যাপ্লিকেশন শেয়ার করুন</string>
     <string name="share_to_stories">গল্প শেয়ার করুন</string>
-    <string name="show_album_artists">অ্যালবাম শিল্পী দেখান</string>
+    <string name="show_album_artists">অ্যালবাম শিল্পীদের দেখান</string>
+    <string name="show_always">সবসময় প্রদর্শন</string>
     <string name="show_player_from_notification">বিজ্ঞপ্তি/উইজেট থেকে</string>
     <string name="show_player_on_app_launch">অ্যাপ লঞ্চে সর্বদা দেখান</string>
     <string name="shuffle">অদলবদল</string>
@@ -462,10 +470,14 @@
     <string name="sort_order_composer">সুরকার</string>
     <string name="sort_order_date">তারিখ যোগ করা হয়েছে</string>
     <string name="sort_order_date_modified">তারিখ পরিবর্তন করা হয়েছে</string>
-    <string name="sort_order_default">ডিফল্ট (নিবন্ধ উপেক্ষা করুন)</string>
-    <string name="sort_order_num_songs">ট্র্যাক গণনা</string>
-    <string name="sort_order_num_songs_desc">ট্র্যাক গণনা বিবরণ</string>
+    <string name="sort_order_default">নিবন্ধগুলি উপেক্ষা করুন ↑</string>
+    <string name="sort_order_default_desc">নিবন্ধগুলি উপেক্ষা করুন ↓</string>
+    <string name="sort_order_num_songs">ট্র্যাক গণনা ↑</string>
+    <string name="sort_order_num_songs_asc">ট্র্যাক গণনা ↑</string>
+    <string name="sort_order_num_songs_desc">ট্র্যাক গণনা ↓</string>
     <string name="sort_order_year">বছর</string>
+    <string name="sort_order_year_asc">বছর ↑</string>
+    <string name="sort_order_year_desc">বছর ↓</string>
     <string name="sort_order_z_a">অবরোহী</string>
     <string name="speech_not_supported">দুঃখিত! আপনার ডিভাইস স্পিচ ইনপুট সমর্থন করে না</string>
     <string name="speech_prompt">আপনার লাইব্রেরি অনুসন্ধান করুন</string>
@@ -504,7 +516,7 @@
     <string name="website">ওয়েবসাইট</string>
     <string name="website_summary">আমাদের ওয়েবসাইট দেখুন</string>
     <string name="what_do_you_want_to_share">আপনি কি শেয়ার করতে চান?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s কে আপনার রিংটোন হিসাবে সেট করুন৷</string>
+    <string name="x_has_been_set_as_ringtone">আপনার রিংটোন হিসাবে %1$s সেট করুন৷</string>
     <string name="x_selected">%1$d নির্বাচন করা হয়েছে</string>
     <string name="year">বছর</string>
     <string name="yes">হ্যাঁ</string>

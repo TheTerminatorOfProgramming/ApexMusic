@@ -22,8 +22,8 @@
     <string name="action_go_to_lyrics">Pergi ke Lirik</string>
     <string name="action_go_to_start_directory">Pergi ke direktori awal</string>
     <string name="action_grant">Menganugerahkan</string>
-    <string name="action_grid_size">Ukuran kotak</string>
-    <string name="action_grid_size_land">Ukuran grid (tanah)</string>
+    <string name="action_grid_size">Ukuran Kotak</string>
+    <string name="action_grid_size_land">Ukuran Kotak (Tanah)</string>
     <string name="action_new_playlist">Daftar putar baru</string>
     <string name="action_next">Berikutnya</string>
     <string name="action_play">Bermain</string>
@@ -50,7 +50,7 @@
     <string name="action_shuffle_all">Kocok semuanya</string>
     <string name="action_shuffle_playlist">Acak daftar putar</string>
     <string name="action_sleep_timer">Pengatur waktu tidur</string>
-    <string name="action_sort_order">Urutkan pesanan</string>
+    <string name="action_sort_order">Urutkan Urutan</string>
     <string name="action_tag_editor">Penyunting tanda</string>
     <string name="action_toggle_favorite">Alihkan favorit</string>
     <string name="action_toggle_shuffle">Alihkan mode acak</string>
@@ -71,6 +71,10 @@
         <item quantity="other">Album</item>
     </plurals>
     <string name="always">Selalu</string>
+    <string name="appbar_mode_expanded">Diperluas</string>
+    <string name="appbar_mode_expanded_no_scroll">Diperluas (Tanpa Gulir)</string>
+    <string name="appbar_mode_simple">Sederhana</string>
+    <string name="appbar_mode_simple_no_scroll">Sederhana (Tanpa Gulir)</string>
     <string name="apex_music">Musik Puncak</string>
     <string name="app_share">Hai, lihat pemutar musik keren ini di: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Acak</string>
@@ -81,6 +85,7 @@
     <string name="audio_focus_denied">Fokus audio ditolak.</string>
     <string name="audio_settings_summary">Ubah pengaturan suara</string>
     <string name="auto">Mobil</string>
+    <string name="auto_hide">Sembunyi otomatis</string>
     <string name="backup_restore_settings_summary">Cadangkan dan pulihkan pengaturan Anda, daftar putar</string>
     <string name="backup_restore_title"><![CDATA[Pencadangan &Pemulihan]]></string>
     <string name="backup_open_path">Buka Jalur Saat Ini</string>
@@ -171,7 +176,7 @@
     <string name="force_close">Tutup Paksa</string>
     <string name="force_close_summary">Jika musik apex mengalami masalah, gunakan opsi ini untuk mencoba dan memperbaiki masalah tersebut</string>
     <string name="full">Penuh</string>
-    <string name="full_card">Kartu penuh</string>
+    <string name="full_card">Kartu Penuh</string>
     <string name="general_settings_summary">Sesuaikan antarmuka pengguna</string>
     <string name="general_settings_title">Antarmuka pengguna</string>
     <string name="genre">Genre</string>
@@ -191,13 +196,15 @@
     <string name="grid_size_6">6</string>
     <string name="grid_size_7">7</string>
     <string name="grid_size_8">8</string>
-    <string name="grid_style_label">Gaya kisi</string>
+    <string name="grid_style_label">Gaya Kotak</string>
     <string name="hinge">Engsel</string>
     <string name="history">Sejarah</string>
     <string name="history_cleared">Sejarah dihapus</string>
     <string name="history_undo_button">Membuka</string>
     <string name="home">Rumah</string>
+    <string name="horizontal_bottom">Bawah Horisontal</string>
     <string name="horizontal_flip">Balik horizontal</string>
+    <string name="horizontal_top">Atas Horisontal</string>
     <string name="id3_tags">Tag ID3</string>
     <string name="image">Gambar</string>
     <string name="image_gradient">Gambar gradien</string>
@@ -337,7 +344,7 @@
     <string name="pref_summary_permissions_edit">Ubah izin yang berkaitan dengan aplikasi ini</string>
     <string name="pref_title_album_cover_style">Tema Sampul Album</string>
     <string name="pref_title_album_cover_transform">Lewati Sampul Album</string>
-    <string name="pref_title_appbar_mode">Gaya Header yang Diperluas</string>
+    <string name="pref_title_appbar_mode">Gaya Tajuk</string>
     <string name="pref_title_audio_fade">Audio Pudar</string>
     <string name="pref_title_auto_action_1">Meninggalkan Aksi Otomatis Android</string>
     <string name="pref_title_auto_action_2">Tindakan Otomatis Android Kanan</string>
@@ -352,6 +359,7 @@
     <string name="pref_title_custom_font">huruf</string>
     <string name="pref_title_desaturated_color">Warna Desaturasi</string>
     <string name="pref_title_disable_widgets">Nonaktifkan Widget Default</string>
+    <string name="pref_title_duration">Durasi Tunggal</string>
     <string name="pref_title_embed_lyrics_view">Lirik ID3 Tidak Disinkronkan</string>
     <string name="pref_title_expand_now_playing_panel">Tampilkan Layar Sedang Diputar</string>
     <string name="pref_title_extra_controls">Kontrol Ekstra</string>
@@ -374,15 +382,14 @@
     <string name="pref_title_open_source_licences">Lisensi Sumber Terbuka</string>
     <string name="pref_title_pause_history">Jeda Riwayat</string>
     <string name="pref_title_player_background">Latar Belakang Gradien</string>
-    <string name="pref_title_progress_bar_alignment">Penyelarasan Bilah Kemajuan</string>
     <string name="pref_title_progress_bar_style">Gaya Bilah Kemajuan</string>
     <string name="pref_title_queue_style">Sedang Memutar Gaya Antrean (Potret)</string>
     <string name="pref_title_queue_style_land">Sedang Memutar Gaya Antrean (Lanskap)</string>
     <string name="pref_title_remember_tab">Ingat Tab Terakhir</string>
     <string name="pref_title_rewind_duration">Putar Ulang Durasi Pencarian</string>
+    <string name="pref_title_scrollbar_style">Gaya Bilah Gulir</string>
     <string name="pref_title_search_action">Tindakan Pencarian Acak</string>
-    <string name="pref_title_search_icon">Metode Header Pencarian Suara</string>
-    <string name="pref_title_show_scrollbar">Tampilkan Scrollbar</string>
+    <string name="pref_title_search_icon">Pencarian Suara Di Header</string>
     <string name="pref_title_shuffle_state">Pertahankan Status Acak</string>
     <string name="pref_title_specific_device">Perangkat Tertentu</string>
     <string name="pref_title_stock_equalizer">Gunakan Ekualiser Sistem</string>
@@ -438,6 +445,7 @@
     <string name="share_summary">Bagikan aplikasi dengan teman dan keluarga Anda</string>
     <string name="share_to_stories">Bagikan ke Cerita</string>
     <string name="show_album_artists">Tampilkan Artis Album</string>
+    <string name="show_always">Selalu Tunjukkan</string>
     <string name="show_player_from_notification">Dari Notifikasi/Widget</string>
     <string name="show_player_on_app_launch">Selalu Tampilkan Saat Peluncuran Aplikasi</string>
     <string name="shuffle">Acak</string>
@@ -460,10 +468,14 @@
     <string name="sort_order_composer">Komposer</string>
     <string name="sort_order_date">Tanggal Ditambahkan</string>
     <string name="sort_order_date_modified">Tanggal diubah</string>
-    <string name="sort_order_default">Default (Abaikan Artikel)</string>
-    <string name="sort_order_num_songs">Jumlah trek</string>
-    <string name="sort_order_num_songs_desc">Deskripsi jumlah trek</string>
+    <string name="sort_order_default">Abaikan artikel ↑</string>
+    <string name="sort_order_default_desc">Abaikan artikel ↓</string>
+    <string name="sort_order_num_songs">Jumlah trek ↑</string>
+    <string name="sort_order_num_songs_asc">Jumlah trek ↑</string>
+    <string name="sort_order_num_songs_desc">Jumlah trek ↓</string>
     <string name="sort_order_year">Tahun</string>
+    <string name="sort_order_year_asc">Tahun ↑</string>
+    <string name="sort_order_year_desc">Tahun ↓</string>
     <string name="sort_order_z_a">Menurun</string>
     <string name="speech_not_supported">Maaf! Perangkat Anda tidak mendukung masukan ucapan</string>
     <string name="speech_prompt">Telusuri perpustakaan Anda</string>

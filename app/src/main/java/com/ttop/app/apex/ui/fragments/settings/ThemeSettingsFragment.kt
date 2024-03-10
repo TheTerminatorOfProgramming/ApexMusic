@@ -25,9 +25,12 @@ import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.getActionButton
 import com.afollestad.materialdialogs.color.colorChooser
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.installLanguageAndRecreate
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
@@ -54,7 +57,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             it.setOnPreferenceChangeListener { _, newValue ->
                 setSummary(it, newValue)
                 ThemeStore.markChanged(requireContext())
-
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                 restartActivity()
                 true
@@ -68,9 +70,10 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             materialDialog().show {
                 colorChooser(
                     initialSelection = accentColor,
-                    showAlphaSelector = false,
+                    showAlphaSelector = true,
                     colors = ACCENT_COLORS,
-                    subColors = ACCENT_COLORS_SUB, allowCustomArgb = true
+                    subColors = ACCENT_COLORS_SUB,
+                    allowCustomArgb = true
                 ) { _, color ->
                     ThemeStore.editTheme(requireContext()).accentColor(color).commit()
                     DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
@@ -85,6 +88,8 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                     DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                     restartActivity()
                 }
+                getActionButton(WhichButton.POSITIVE).updateTextColor(accentColor())
+                getActionButton(WhichButton.NEGATIVE).updateTextColor(accentColor())
             }
             return@setOnPreferenceClickListener true
         }
@@ -122,20 +127,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
         extraControls?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val progressbar: TwoStatePreference? = findPreference(PROGRESS_BAR_STYLE)
-        progressbar?.isChecked = PreferenceUtil.progressBarStyle
-        progressbar?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val progressbarAlignment: TwoStatePreference? = findPreference(PROGRESS_BAR_ALIGNMENT)
-        progressbarAlignment?.isChecked = PreferenceUtil.progressBarAlignment
-        progressbarAlignment?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }

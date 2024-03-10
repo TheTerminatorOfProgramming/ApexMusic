@@ -43,7 +43,7 @@ import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.TintHelper
-import me.zhanghai.android.fastscroll.PopupTextProvider
+import com.ttop.app.fastscroller.PopupTextProvider
 
 class PlaylistAdapter(
     override val activity: FragmentActivity,

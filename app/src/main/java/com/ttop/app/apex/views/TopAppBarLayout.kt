@@ -6,7 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.view.updateLayoutParams
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED
+import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
 import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
+import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+import com.google.android.material.appbar.AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.databinding.CollapsingAppbarLayoutBinding
@@ -18,6 +23,7 @@ import com.ttop.app.apex.util.ApexUtil.updateCollapsableAppBarTitleTextAppearanc
 import com.ttop.app.apex.util.PreferenceUtil
 import dev.chrisbanes.insetter.applyInsetter
 
+
 class TopAppBarLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -26,10 +32,10 @@ class TopAppBarLayout @JvmOverloads constructor(
     private var simpleAppbarBinding: SimpleAppbarLayoutBinding? = null
     private var collapsingAppbarBinding: CollapsingAppbarLayoutBinding? = null
 
-    val mode: AppBarMode = if (PreferenceUtil.appBarMode) {
-        AppBarMode.COLLAPSING
-    }else {
-       AppBarMode.SIMPLE
+    val mode: AppBarMode = when (PreferenceUtil.appBarMode) {
+        "simple", "simple_no_scroll" -> AppBarMode.SIMPLE
+        "expanded", "expanded_no_scroll" -> AppBarMode.COLLAPSING
+        else -> AppBarMode.SIMPLE
     }
 
     init {
@@ -42,6 +48,15 @@ class TopAppBarLayout @JvmOverloads constructor(
                 fitsSystemWindows = false
             }
 
+            if (PreferenceUtil.appBarMode == "expanded_no_scroll") {
+                collapsingAppbarBinding?.root?.updateLayoutParams<LayoutParams> {
+                    scrollFlags = SCROLL_FLAG_NO_SCROLL
+                }
+            }else  if (PreferenceUtil.appBarMode == "expanded") {
+                collapsingAppbarBinding?.root?.updateLayoutParams<LayoutParams> {
+                    scrollFlags = (SCROLL_FLAG_SCROLL or SCROLL_FLAG_EXIT_UNTIL_COLLAPSED or SCROLL_FLAG_SNAP or SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED)
+                }
+            }
         } else {
             simpleAppbarBinding =
                 SimpleAppbarLayoutBinding.inflate(LayoutInflater.from(context), this, true)
@@ -51,6 +66,16 @@ class TopAppBarLayout @JvmOverloads constructor(
                 }
             }
             statusBarForeground = MaterialShapeDrawable.createWithElevationOverlay(context)
+
+            if (PreferenceUtil.appBarMode == "simple_no_scroll") {
+                simpleAppbarBinding?.root?.updateLayoutParams<LayoutParams> {
+                    scrollFlags = SCROLL_FLAG_NO_SCROLL
+                }
+            }else  if (PreferenceUtil.appBarMode == "simple") {
+                simpleAppbarBinding?.root?.updateLayoutParams<LayoutParams> {
+                    scrollFlags = (SCROLL_FLAG_SCROLL or SCROLL_FLAG_ENTER_ALWAYS)
+                }
+            }
         }
     }
 

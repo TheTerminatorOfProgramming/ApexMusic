@@ -75,7 +75,7 @@
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:dependency="material_you"
             android:key="desaturated_color"
             android:layout="@layout/list_item_view_switch"
@@ -113,19 +113,15 @@
             android:title="@string/pref_title_swipe_gestures"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="true"
-            app:key="progress_bar_style"
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="circular"
+            android:key="progress_bar_style"
+            android:entries="@array/pref_progress_bar_style_titles"
+            android:entryValues="@array/pref_progress_bar_style_values"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:layout="@layout/list_item_view"
             app:title="@string/pref_title_progress_bar_style"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
-            app:key="progress_bar_alignment"
-            app:title="@string/pref_title_progress_bar_alignment"
-            android:dependency="progress_bar_style"
             app:allowDividerBelow="false"/>
 
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>

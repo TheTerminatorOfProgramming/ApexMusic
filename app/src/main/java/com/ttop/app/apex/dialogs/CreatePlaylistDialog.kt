@@ -24,7 +24,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogPlaylistBinding
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.model.Song
@@ -71,7 +72,7 @@ class CreatePlaylistDialog : DialogFragment() {
             }
             .setNegativeButton(R.string.action_cancel, null)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 
     override fun onDestroyView() {

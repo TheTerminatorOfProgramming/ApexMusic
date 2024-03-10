@@ -490,9 +490,9 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     private fun setUpRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        if (PreferenceUtil.isShowScrollbar) {
+        if (PreferenceUtil.scrollbarStyle != "disabled") {
             create(
-                binding.recyclerView
+                binding.recyclerView, PreferenceUtil.scrollbarStyle == "auto_hide"
             )
         }
     }

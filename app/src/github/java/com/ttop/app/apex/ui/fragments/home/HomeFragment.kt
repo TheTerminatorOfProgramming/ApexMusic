@@ -15,6 +15,8 @@
 package com.ttop.app.apex.ui.fragments.home
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -24,6 +26,7 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.bundleOf
 import androidx.core.text.parseAsHtml
+import androidx.core.text.toSpannable
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -169,10 +172,16 @@ class HomeFragment :
             PreferenceUtil.isSearchFromNavigation = true
             findNavController().navigate(R.id.action_search, null, navOptions)
         }
-        val hexColor = String.format("#%06X", 0xFFFFFF and accentColor())
-        val appName = "Apex <font color=$hexColor>Music</font>".parseAsHtml()
-        binding.appBarLayout.title = appName
+        val builder = SpannableStringBuilder()
 
+        val title = "Apex".toSpannable()
+        val title2 = "Music"
+
+        title.setSpan(ForegroundColorSpan(accentColor()), 0, title.length, 0)
+
+        builder.append(title).append(" ").append(title2)
+
+        binding.appBarLayout.title = builder
     }
 
     fun colorButtons() {

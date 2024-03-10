@@ -11,6 +11,7 @@ import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
 import com.ttop.app.appintro.SlideBackgroundColorHolder
+import java.util.Locale
 
 class MainSlideFragment(
     override val defaultBackgroundColorRes: Int
@@ -30,11 +31,7 @@ class MainSlideFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val appName =
-            getString(
-                R.string.message_welcome,
-                getString(R.string.app_name)
-            ).parseAsHtml()
+        val appName = String.format(Locale.getDefault(), getString(R.string.app_name)).parseAsHtml()
 
         desc = view.findViewById(R.id.description) as TextView
 

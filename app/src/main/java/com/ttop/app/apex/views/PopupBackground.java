@@ -52,8 +52,8 @@ public class PopupBackground extends Drawable {
     mPaint.setColor(color);
     mPaint.setStyle(Paint.Style.FILL);
     Resources resources = context.getResources();
-    mPaddingStart = resources.getDimensionPixelOffset(me.zhanghai.android.fastscroll.R.dimen.afs_md2_popup_padding_start);
-    mPaddingEnd = resources.getDimensionPixelOffset(me.zhanghai.android.fastscroll.R.dimen.afs_md2_popup_padding_end);
+    mPaddingStart = resources.getDimensionPixelOffset(com.ttop.app.fastscroller.R.dimen.afs_md2_popup_padding_start);
+    mPaddingEnd = resources.getDimensionPixelOffset(com.ttop.app.fastscroller.R.dimen.afs_md2_popup_padding_end);
   }
 
   private static void pathArcTo(
@@ -85,14 +85,7 @@ public class PopupBackground extends Drawable {
 
   @Override
   public void getOutline(@NonNull Outline outline) {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && !mPath.isConvex()) {
-      // The outline path must be convex before Q, but we may run into floating point error
-      // caused by calculation involving sqrt(2) or OEM implementation difference, so in this
-      // case we just omit the shadow instead of crashing.
-      super.getOutline(outline);
-      return;
-    }
-    outline.setConvexPath(mPath);
+    outline.setPath(mPath);
   }
 
   @Override

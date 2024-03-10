@@ -39,7 +39,6 @@ import com.ttop.app.apex.TOGGLE_HEADSET
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_PERMISSION_REQUEST
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 
 /**
@@ -79,21 +78,19 @@ class AudioSettings : AbsSettingsFragment() {
         }
 
         val bluetoothPreference: Preference? = findPreference(BLUETOOTH_PLAYBACK)
-        if (VersionUtils.hasS()) {
-            bluetoothPreference?.setOnPreferenceChangeListener { _, newValue ->
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                val value = newValue as Boolean
+        bluetoothPreference?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            val value = newValue as Boolean
 
-                if (value) {
-                    if (ActivityCompat.checkSelfPermission(requireContext(),
-                            BLUETOOTH_CONNECT) != PERMISSION_GRANTED
-                    ) {
-                        ActivityCompat.requestPermissions(requireActivity(), arrayOf(
-                            BLUETOOTH_CONNECT), BLUETOOTH_PERMISSION_REQUEST)
-                    }
+            if (value) {
+                if (ActivityCompat.checkSelfPermission(requireContext(),
+                        BLUETOOTH_CONNECT) != PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(requireActivity(), arrayOf(
+                        BLUETOOTH_CONNECT), BLUETOOTH_PERMISSION_REQUEST)
                 }
-                return@setOnPreferenceChangeListener true
             }
+            return@setOnPreferenceChangeListener true
         }
 
         val specificDevice : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
@@ -109,17 +106,15 @@ class AudioSettings : AbsSettingsFragment() {
         val address = ArrayList<String>()
         val name = ArrayList<String>()
 
-        if (VersionUtils.hasS()) {
-            if (context?.let { ContextCompat.checkSelfPermission(it, BLUETOOTH_CONNECT) }
-                == PERMISSION_GRANTED) {
-                val pairedDevices = mBluetoothAdapter.bondedDevices
-                for (bt in pairedDevices){
-                    address.add(bt.address)
-                }
+        if (context?.let { ContextCompat.checkSelfPermission(it, BLUETOOTH_CONNECT) }
+            == PERMISSION_GRANTED) {
+            val pairedDevices = mBluetoothAdapter.bondedDevices
+            for (bt in pairedDevices){
+                address.add(bt.address)
+            }
 
-                for (bt in pairedDevices){
-                    name.add(bt.name)
-                }
+            for (bt in pairedDevices){
+                name.add(bt.name)
             }
         }
 

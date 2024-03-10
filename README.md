@@ -45,9 +45,9 @@
 |:-----:	|:-----:	|:-----:	|:-----:	|
 | Home 	| Songs 	| Albums 	| Artists 	|
 
-|<img src="screenshots/playlists_material_you_white.jpg" width="200"/>|<img src="screenshots/playlists_empty_material_you_white.jpg" width="200"/>|<img src="screenshots/settings_material_you_white.jpg" width="200"/>|<img src="screenshots/Artwork/15.lockscreen_controls.jpg" width="200"/>|
-|:-----:	|:-----:	|:-----:	|:-----:	|
-| Playlists 	| Playlists(Empty) 	| Settings 	| Lockscreen 	|
+|<img src="screenshots/playlists_material_you_white.jpg" width="200"/>|<img src="screenshots/playlists_empty_material_you_white.jpg" width="200"/>|<img src="screenshots/settings_material_you_white.jpg" width="200"/>
+|:-----:	|:-----:	|:-----:	|
+| Playlists 	| Playlists(Empty) 	| Settings 	|
 
 ### 7 Now Playing Themes
 |<img src="screenshots/adaptive.jpg" width="200"/>|<img src="screenshots/blur.jpg" width="200"/>|<img src="screenshots/card.jpg" width="200"/>|<img src="screenshots/classic.jpg" width="200"/>|
@@ -112,7 +112,15 @@ favorite songs.
   genre
 -  Smart Auto Playlists - Recently played, most played and history
 -  Build your playlist on the go
+___
+## Disclaimer
+Apex Music has only been tested on OneUI and AOSP Devices. Other Devices have not been tested and may cause issues including OneUI Core/Android Go Devices.
 
+=Devices Tested=<br />
+-Samsung Galaxy Fold 3 (Android 14)<br />
+-Samsung Galaxy A51 (Android 12, not OneUI Core Model)<br />
+-AOSP Device Emulators in Android Studio
+___
 ## License
 
 Apex Music is released under the GNU General Public License v3.0
@@ -121,7 +129,3 @@ Apex Music is released under the GNU General Public License v3.0
 
 >Please note: Apex Music is an offline music player app. It
 >doesn't support music downloading or online music streaming.
-
-## Icon
-      
-The icon is based on <a href="https://www.flaticon.com/free-icon/sound_865548?term=music" title="sound icon">Sound Icon created by Good Ware - Flaticon</a>, which i have edited

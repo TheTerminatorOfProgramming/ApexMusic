@@ -89,4 +89,13 @@
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="CustomDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="materialAlertDialogTitleTextStyle">@style/TitleStyle</item>
+    </style>
+
+    <style name="TitleStyle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:maxLines">3</item>
+        <item name="android:singleLine">false</item>
+    </style>
 </resources>

@@ -23,7 +23,7 @@
     <string name="action_go_to_start_directory">Gehen Sie zum Startverzeichnis</string>
     <string name="action_grant">Gewähren</string>
     <string name="action_grid_size">Gittergröße</string>
-    <string name="action_grid_size_land">Rastergröße (Land)</string>
+    <string name="action_grid_size_land">Gittergröße (Land)</string>
     <string name="action_new_playlist">Neue Playlist</string>
     <string name="action_next">Nächste</string>
     <string name="action_play">Spielen</string>
@@ -73,6 +73,10 @@
         <item quantity="other">Alben</item>
     </plurals>
     <string name="always">Stets</string>
+    <string name="appbar_mode_expanded">Erweitert</string>
+    <string name="appbar_mode_expanded_no_scroll">Erweitert (kein Scrollen)</string>
+    <string name="appbar_mode_simple">Einfach</string>
+    <string name="appbar_mode_simple_no_scroll">Einfach (kein Scrollen)</string>
     <string name="apex_music">Apex-Musik</string>
     <string name="app_share">Hey, schau dir diesen coolen Musikplayer an: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Mischen</string>
@@ -83,6 +87,7 @@
     <string name="audio_focus_denied">Audiofokus verweigert.</string>
     <string name="audio_settings_summary">Ändern Sie die Toneinstellungen</string>
     <string name="auto">Auto</string>
+    <string name="auto_hide">Automatisch ausblenden</string>
     <string name="backup_restore_settings_summary">Sichern und wiederherstellen Sie Ihre Einstellungen und Wiedergabelisten</string>
     <string name="backup_restore_title"><![CDATA[Sichern &Wiederherstellen]]></string>
     <string name="backup_open_path">Aktuellen Pfad öffnen</string>
@@ -199,7 +204,9 @@
     <string name="history_cleared">Verlauf gelöscht</string>
     <string name="history_undo_button">Rückgängig machen</string>
     <string name="home">Heim</string>
+    <string name="horizontal_bottom">Horizontaler Boden</string>
     <string name="horizontal_flip">Horizontaler Flip</string>
+    <string name="horizontal_top">Horizontale Oberseite</string>
     <string name="id3_tags">ID3-Tags</string>
     <string name="image">Bild</string>
     <string name="image_gradient">Farbverlaufsbild</string>
@@ -310,7 +317,7 @@
     <string name="playlists">Wiedergabelisten</string>
     <string name="pref_blur_amount_title">Unschärfestufe</string>
     <string name="pref_filter_song_max_title">Maximale Titeldauer</string>
-    <string name="pref_filter_song_min_title">Mindestdauer des Titels</string>
+    <string name="pref_filter_song_min_title">Mindestdauer des Tracks</string>
     <string name="pref_header_advanced">Fortschrittlich</string>
     <string name="pref_header_album">Albumstil</string>
     <string name="pref_header_audio">Audio</string>
@@ -339,7 +346,7 @@
     <string name="pref_summary_permissions_edit">Ändern Sie die Berechtigungen für diese App</string>
     <string name="pref_title_album_cover_style">Albumcover-Thema</string>
     <string name="pref_title_album_cover_transform">Albumcover überspringen</string>
-    <string name="pref_title_appbar_mode">Erweiterter Header-Stil</string>
+    <string name="pref_title_appbar_mode">Kopfzeilenstil</string>
     <string name="pref_title_audio_fade">Audio ausblenden</string>
     <string name="pref_title_auto_action_1">Linke Android-Auto-Aktion</string>
     <string name="pref_title_auto_action_2">Richtige Android-Auto-Aktion</string>
@@ -354,6 +361,7 @@
     <string name="pref_title_custom_font">Schriftart</string>
     <string name="pref_title_desaturated_color">Entsättigte Farbe</string>
     <string name="pref_title_disable_widgets">Deaktivieren Sie Standard-Widgets</string>
+    <string name="pref_title_duration">Einzelne Dauer</string>
     <string name="pref_title_embed_lyrics_view">Unsynchronisierte ID3-Texte</string>
     <string name="pref_title_expand_now_playing_panel">Bildschirm „Aktuelle Wiedergabe“ anzeigen</string>
     <string name="pref_title_extra_controls">Zusätzliche Kontrollen</string>
@@ -376,15 +384,14 @@
     <string name="pref_title_open_source_licences">Open-Source-Lizenzen</string>
     <string name="pref_title_pause_history">Verlauf anhalten</string>
     <string name="pref_title_player_background">Hintergrund mit Farbverlauf</string>
-    <string name="pref_title_progress_bar_alignment">Ausrichtung des Fortschrittsbalkens</string>
     <string name="pref_title_progress_bar_style">Fortschrittsbalkenstil</string>
-    <string name="pref_title_queue_style">Jetzt im Warteschlangenstil (Hochformat)</string>
+    <string name="pref_title_queue_style">Jetzt läuft Warteschlangenstil (Hochformat)</string>
     <string name="pref_title_queue_style_land">Aktuelle Wiedergabe im Warteschlangenstil (Querformat)</string>
     <string name="pref_title_remember_tab">Letzte Registerkarte merken</string>
     <string name="pref_title_rewind_duration">Suchdauer zurückspulen</string>
+    <string name="pref_title_scrollbar_style">Scrollbar-Stil</string>
     <string name="pref_title_search_action">Gemischte Suchaktion</string>
-    <string name="pref_title_search_icon">Header-Methode für die Sprachsuche</string>
-    <string name="pref_title_show_scrollbar">Bildlaufleisten anzeigen</string>
+    <string name="pref_title_search_icon">Sprachsuche im Header</string>
     <string name="pref_title_shuffle_state">Behalten Sie den Shuffle-Status bei</string>
     <string name="pref_title_specific_device">Spezifisches Gerät</string>
     <string name="pref_title_stock_equalizer">Verwenden Sie den System-Equalizer</string>
@@ -397,7 +404,7 @@
     <string name="pref_title_toggle_headset">Wiedergabe über kabelgebundene Headsets</string>
     <string name="pref_title_use_notification_actions_for_auto">Verwenden Sie Benachrichtigungsaktionen</string>
     <string name="pref_title_volume_controls">Lautstärkeregler</string>
-    <string name="pref_title_whitelist">Musik auf die Whitelist setzen (/Musikordner)</string>
+    <string name="pref_title_whitelist">Musik auf die weiße Liste setzen (/Musikordner)</string>
     <string name="pref_title_widget_background">Transparente Widgets</string>
     <string name="pref_title_widget_buttons_color">Adaptive Tasten</string>
     <string name="queue">Warteschlange spielen</string>
@@ -440,6 +447,7 @@
     <string name="share_summary">Teilen Sie die App mit Ihren Freunden und Ihrer Familie</string>
     <string name="share_to_stories">In Geschichten teilen</string>
     <string name="show_album_artists">Albumkünstler anzeigen</string>
+    <string name="show_always">Immer anzeigen</string>
     <string name="show_player_from_notification">Von Benachrichtigung/Widgets</string>
     <string name="show_player_on_app_launch">Immer beim App-Start anzeigen</string>
     <string name="shuffle">Mischen</string>
@@ -462,10 +470,14 @@
     <string name="sort_order_composer">Komponist</string>
     <string name="sort_order_date">Datum hinzugefügt</string>
     <string name="sort_order_date_modified">Datum geändert</string>
-    <string name="sort_order_default">Standard (Artikel ignorieren)</string>
-    <string name="sort_order_num_songs">Trackanzahl</string>
-    <string name="sort_order_num_songs_desc">Titelanzahl absteigend</string>
+    <string name="sort_order_default">Artikel ignorieren ↑</string>
+    <string name="sort_order_default_desc">Artikel ignorieren ↓</string>
+    <string name="sort_order_num_songs">Titelanzahl ↑</string>
+    <string name="sort_order_num_songs_asc">Titelanzahl ↑</string>
+    <string name="sort_order_num_songs_desc">Anzahl der Titel ↓</string>
     <string name="sort_order_year">Jahr</string>
+    <string name="sort_order_year_asc">Jahr ↑</string>
+    <string name="sort_order_year_desc">Jahr ↓</string>
     <string name="sort_order_z_a">Absteigend</string>
     <string name="speech_not_supported">Entschuldigung! Ihr Gerät unterstützt keine Spracheingabe</string>
     <string name="speech_prompt">Durchsuchen Sie Ihre Bibliothek</string>

@@ -112,10 +112,6 @@
             android:label="@string/intro_label"
             android:noHistory="true" />
         <activity
-            android:name="com.ttop.app.apex.ui.activities.LockScreenActivity"
-            android:launchMode="singleTask"
-            android:showOnLockScreen="true" />
-        <activity
             android:name="com.ttop.app.apex.ui.fragments.backup.RestoreActivity"
             android:excludeFromRecents="false"
             android:exported="true"

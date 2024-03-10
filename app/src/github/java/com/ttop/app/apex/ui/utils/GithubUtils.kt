@@ -28,20 +28,11 @@ object GithubUtils {
         }
     }
 
-    fun manageAllFiles(context: Context, activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-            val uri = Uri.fromParts("package", context.packageName, null)
-            intent.data = uri
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            context.startActivity(intent)
-        } else {
-            //below android 11=======
-            activity.let { it1 ->
-                ActivityCompat.requestPermissions(
-                    it1,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100)
-            }
-        }
+    fun manageAllFiles(context: Context) {
+        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+        val uri = Uri.fromParts("package", context.packageName, null)
+        intent.data = uri
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(intent)
     }
 }

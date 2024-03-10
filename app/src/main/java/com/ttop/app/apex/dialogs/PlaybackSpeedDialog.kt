@@ -11,7 +11,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.DialogPlaybackSpeedBinding
 import com.ttop.app.apex.extensions.accent
 import com.ttop.app.apex.extensions.accentTextColor
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.util.PreferenceUtil
@@ -59,7 +59,7 @@ class PlaybackSpeedDialog : DialogFragment() {
                 }
             setView(binding.root)
             dialog = create()
-            dialog.colorButtons()
+            dialog.centeredColorButtons()
             dialog.setCanceledOnTouchOutside(false)
         }
         return dialog

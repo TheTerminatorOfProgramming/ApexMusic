@@ -2,7 +2,7 @@
 <resources>
     <string name="about_album_label">About %s</string>
     <string name="about_settings_summary">Team, social links</string>
-    <string name="accent_color">Accent color</string>
+    <string name="accent_color">Accent Color</string>
     <string name="action_about">About</string>
     <string name="action_add_to_blacklist">Add to Blacklist</string>
     <string name="action_add_to_favorites">Add to favorites</string>
@@ -22,8 +22,8 @@
     <string name="action_go_to_lyrics">Go to Lyrics</string>
     <string name="action_go_to_start_directory">Go to start directory</string>
     <string name="action_grant">Grant</string>
-    <string name="action_grid_size">Grid size</string>
-    <string name="action_grid_size_land">Grid size (land)</string>
+    <string name="action_grid_size">Grid Size</string>
+    <string name="action_grid_size_land">Grid Size (Land)</string>
     <string name="action_new_playlist">New playlist</string>
     <string name="action_next">Next</string>
     <string name="action_play">Play</string>
@@ -50,7 +50,7 @@
     <string name="action_shuffle_all">Shuffle all</string>
     <string name="action_shuffle_playlist">Shuffle playlist</string>
     <string name="action_sleep_timer">Sleep timer</string>
-    <string name="action_sort_order">Sort order</string>
+    <string name="action_sort_order">Sort Order</string>
     <string name="action_tag_editor">Tag editor</string>
     <string name="action_toggle_favorite">Toggle favorite</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
@@ -66,13 +66,17 @@
         <item quantity="one">Track</item>
         <item quantity="other">Tracks</item>
     </plurals>
-    <string name="album_artist">Album Artist</string>
+    <string name="album_artist">Album artist</string>
     <string name="albums">Albums</string>
     <plurals name="albums">
         <item quantity="one">Album</item>
         <item quantity="other">Albums</item>
     </plurals>
     <string name="always">Always</string>
+    <string name="appbar_mode_expanded">Expanded</string>
+    <string name="appbar_mode_expanded_no_scroll">Expanded (No Scroll)</string>
+    <string name="appbar_mode_simple">Simple</string>
+    <string name="appbar_mode_simple_no_scroll">Simple (No Scroll)</string>
     <string name="apex_music">Apex Music</string>
     <string name="app_share">Hey check out this cool music player at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
@@ -83,6 +87,7 @@
     <string name="audio_focus_denied">Audio focus denied.</string>
     <string name="audio_settings_summary">Change the sound settings</string>
     <string name="auto">Auto</string>
+    <string name="auto_hide">Auto-Hide</string>
     <string name="backup_restore_settings_summary">Backup and restore your settings, playlists</string>
     <string name="backup_restore_title">
         <![CDATA[Backup & Restore]]>
@@ -195,13 +200,15 @@
     <string name="grid_size_6">6</string>
     <string name="grid_size_7">7</string>
     <string name="grid_size_8">8</string>
-    <string name="grid_style_label">Grid style</string>
+    <string name="grid_style_label">Grid Style</string>
     <string name="hinge">Hinge</string>
     <string name="history">History</string>
     <string name="history_cleared">History cleared</string>
     <string name="history_undo_button">Undo</string>
     <string name="home">Home</string>
+    <string name="horizontal_bottom">Horizontal Bottom</string>
     <string name="horizontal_flip">Horizontal flip</string>
+    <string name="horizontal_top">Horizontal Top</string>
     <string name="id3_tags">ID3 Tags</string>
     <string name="image">Image</string>
     <string name="image_gradient">Gradient image</string>
@@ -341,7 +348,7 @@
     <string name="pref_summary_permissions_edit">Modify permissions relating to this app</string>
     <string name="pref_title_album_cover_style">Album Cover Theme</string>
     <string name="pref_title_album_cover_transform">Album Cover Skip</string>
-    <string name="pref_title_appbar_mode">Expanded Header Style</string>
+    <string name="pref_title_appbar_mode">Header Style</string>
     <string name="pref_title_audio_fade">Fade Audio</string>
     <string name="pref_title_auto_action_1">Left Android Auto Action</string>
     <string name="pref_title_auto_action_2">Right Android Auto Action</string>
@@ -356,6 +363,7 @@
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Desaturated Color</string>
     <string name="pref_title_disable_widgets">Disable Default Widgets</string>
+    <string name="pref_title_duration">Single Duration</string>
     <string name="pref_title_embed_lyrics_view">Unsynced ID3 Lyrics</string>
     <string name="pref_title_expand_now_playing_panel">Show Now Playing Screen</string>
     <string name="pref_title_extra_controls">Extra Controls</string>
@@ -378,15 +386,14 @@
     <string name="pref_title_open_source_licences">Open Source Licences</string>
     <string name="pref_title_pause_history">Pause History</string>
     <string name="pref_title_player_background">Gradient Background</string>
-    <string name="pref_title_progress_bar_alignment">Progress Bar Alignment</string>
     <string name="pref_title_progress_bar_style">Progress Bar Style</string>
     <string name="pref_title_queue_style">Now Playing Queue Style (Portrait)</string>
     <string name="pref_title_queue_style_land">Now Playing Queue Style (Landscape)</string>
     <string name="pref_title_remember_tab">Remember Last Tab</string>
     <string name="pref_title_rewind_duration">Rewind Seek Duration</string>
+    <string name="pref_title_scrollbar_style">Scrollbar Style</string>
     <string name="pref_title_search_action">Shuffled Search Action</string>
-    <string name="pref_title_search_icon">Voice Search Header Method</string>
-    <string name="pref_title_show_scrollbar">Show Scrollbars</string>
+    <string name="pref_title_search_icon">Voice Search In Header</string>
     <string name="pref_title_shuffle_state">Keep Shuffle State</string>
     <string name="pref_title_specific_device">Specific Device</string>
     <string name="pref_title_stock_equalizer">Use System Equalizer</string>
@@ -442,6 +449,7 @@
     <string name="share_summary">Share the app with your friends and family</string>
     <string name="share_to_stories">Share to Stories</string>
     <string name="show_album_artists">Show Album Artists</string>
+    <string name="show_always">Always Show</string>
     <string name="show_player_from_notification">From Notification/Widgets</string>
     <string name="show_player_on_app_launch">Always Show On App Launch</string>
     <string name="shuffle">Shuffle</string>
@@ -464,10 +472,14 @@
     <string name="sort_order_composer">Composer</string>
     <string name="sort_order_date">Date added</string>
     <string name="sort_order_date_modified">Date modified</string>
-    <string name="sort_order_default">Default (Ignore Articles)</string>
-    <string name="sort_order_num_songs">Track count</string>
-    <string name="sort_order_num_songs_desc">Track count desc</string>
+    <string name="sort_order_default">Ignore articles ↑</string>
+    <string name="sort_order_default_desc">Ignore articles ↓</string>
+    <string name="sort_order_num_songs">Track count ↑</string>
+    <string name="sort_order_num_songs_asc">Track count ↑</string>
+    <string name="sort_order_num_songs_desc">Track count ↓</string>
     <string name="sort_order_year">Year</string>
+    <string name="sort_order_year_asc">Year ↑</string>
+    <string name="sort_order_year_desc">Year ↓</string>
     <string name="sort_order_z_a">Descending</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
     <string name="speech_prompt">Search your library</string>

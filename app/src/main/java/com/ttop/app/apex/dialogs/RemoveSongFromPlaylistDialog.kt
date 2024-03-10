@@ -22,7 +22,8 @@ import androidx.fragment.app.DialogFragment
 import com.ttop.app.apex.EXTRA_SONG
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.SongEntity
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.extraNotNull
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
@@ -71,6 +72,6 @@ class RemoveSongFromPlaylistDialog : DialogFragment() {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 }

@@ -13,7 +13,6 @@ import com.ttop.app.apex.ui.fragments.intro.BluetoothSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.LanguageSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.MainSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.NotificationSlideFragment
-import com.ttop.app.apex.ui.fragments.intro.ShuffleSlideFragment
 import com.ttop.app.apex.ui.fragments.intro.StorageSlideFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.AppIntroUtil
@@ -34,24 +33,24 @@ class AppIntroActivity : AppIntro2() {
         //LANGUAGE SLIDE
         addSlide(LanguageSlideFragment.newInstance())
 
+        //NOTIFICATION SLIDE
         if (VersionUtils.hasT()) {
-            //NOTIFICATION SLIDE
             addSlide(NotificationSlideFragment.newInstance())
         }
+
         //SD CARD SLIDE
         addSlide(StorageSlideFragment.newInstance())
+
         //BLUETOOTH SLIDE
-        if (VersionUtils.hasS()) {
-            addSlide(BluetoothSlideFragment.newInstance())
-        }
-        //BATTERY OPTIMIZATION SLIDE
-        if (VersionUtils.hasS()) {
-            addSlide(BatterySlideFragment.newInstance())
-        }
+        addSlide(BluetoothSlideFragment.newInstance())
+
         //BLUETOOTH AUTOPLAY SLIDE
         addSlide(BluetoothAutoPlaySlideFragment.newInstance())
-        //SHUFFLE SLIDE
-        addSlide(ShuffleSlideFragment.newInstance())
+
+        //BATTERY OPTIMIZATION SLIDE
+        if (!ApexUtil.hasBatteryPermission()) {
+            addSlide(BatterySlideFragment.newInstance())
+        }
 
         // Here we ask for permissions
 
@@ -60,7 +59,7 @@ class AppIntroActivity : AppIntro2() {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                 slideNumber = AppIntroUtil.notificationPermission(),
-                required = false)
+                required = true)
         }
         //SD Storage Access
         if (VersionUtils.hasT()) {
@@ -75,12 +74,10 @@ class AppIntroActivity : AppIntro2() {
                 required = true)
         }
         //Bluetooth
-        if (VersionUtils.hasS()) {
-            askForPermissions(
-                permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                slideNumber = AppIntroUtil.bluetoothPermission(),
-                required = true)
-        }
+        askForPermissions(
+            permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
+            slideNumber = AppIntroUtil.bluetoothPermission(),
+            required = true)
 
         setTransformer(AppIntroPageTransformerType.Flow)
         isVibrate = true
@@ -98,7 +95,23 @@ class AppIntroActivity : AppIntro2() {
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
 
         if (!IntroPrefs(applicationContext).hasIntroSlidesShown) {
+            if (ApexUtil.isFoldable(applicationContext)) {
+                PreferenceManager.setDefaultValues(this, R.xml.pref_general_foldable, false)
+                PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen_foldable, false)
+            }else if (!ApexUtil.isFoldable(applicationContext) && ApexUtil.isTablet){
+                PreferenceManager.setDefaultValues(this, R.xml.pref_general_tablet, false)
+                PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen_tablet, false)
+            }else {
+                PreferenceManager.setDefaultValues(this, R.xml.pref_general, false)
+                PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen, false)
+            }
+            PreferenceManager.setDefaultValues(this, R.xml.pref_advanced, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_audio, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_images, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_labs, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false)
             PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
+
             IntroPrefs(applicationContext).hasIntroSlidesShown = true
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

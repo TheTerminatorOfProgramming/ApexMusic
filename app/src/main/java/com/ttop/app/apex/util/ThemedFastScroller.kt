@@ -19,13 +19,13 @@ import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight
 import com.ttop.app.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
 import com.ttop.app.appthemehelper.util.TintHelper
-import me.zhanghai.android.fastscroll.FastScroller
-import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import me.zhanghai.android.fastscroll.PopupStyles
-import me.zhanghai.android.fastscroll.R
+import com.ttop.app.fastscroller.FastScroller
+import com.ttop.app.fastscroller.FastScrollerBuilder
+import com.ttop.app.fastscroller.PopupStyles
+import com.ttop.app.fastscroller.R
 
 object ThemedFastScroller {
-    fun create(view: ViewGroup): FastScroller {
+    fun create(view: ViewGroup, autoHide: Boolean): FastScroller {
         val context = view.context
         val color = accentColor(context)
         val textColor = getPrimaryTextColor(context, isColorLight(color))
@@ -44,6 +44,11 @@ object ThemedFastScroller {
                 color
             )
         )
+
+        if (!autoHide) {
+            fastScrollerBuilder.disableScrollbarAutoHide()
+        }
+
         return fastScrollerBuilder.build()
     }
 }

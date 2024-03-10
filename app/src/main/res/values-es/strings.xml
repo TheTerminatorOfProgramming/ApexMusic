@@ -23,12 +23,12 @@
     <string name="action_go_to_start_directory">Ir al directorio de inicio</string>
     <string name="action_grant">Conceder</string>
     <string name="action_grid_size">Tamaño de la cuadrícula</string>
-    <string name="action_grid_size_land">Tamaño de la cuadrícula (terreno)</string>
+    <string name="action_grid_size_land">Tamaño de cuadrícula (terreno)</string>
     <string name="action_new_playlist">Nueva lista de reproducción</string>
     <string name="action_next">Próximo</string>
     <string name="action_play">Jugar</string>
     <string name="action_play_all">Jugar todo</string>
-    <string name="action_play_next">Reproducir siguiente</string>
+    <string name="action_play_next">Jugar a continuación</string>
     <string name="action_play_pause">Reproducir pausar</string>
     <string name="action_previous">Anterior</string>
     <string name="action_queue">Alternar cola de reproducción</string>
@@ -75,8 +75,12 @@
         <item quantity="many">Álbumes</item>
     </plurals>
     <string name="always">Siempre</string>
+    <string name="appbar_mode_expanded">Expandido</string>
+    <string name="appbar_mode_expanded_no_scroll">Expandido (sin desplazamiento)</string>
+    <string name="appbar_mode_simple">Simple</string>
+    <string name="appbar_mode_simple_no_scroll">Simple (sin desplazamiento)</string>
     <string name="apex_music">Música ápice</string>
-    <string name="app_share">Oye, mira este fantástico reproductor de música en: https://play.google.com/store/apps/details?id=%s</string>
+    <string name="app_share">Oye, mira este genial reproductor de música en: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Barajar</string>
     <string name="app_shortcut_top_tracks_short">Los mejores temas</string>
     <string name="artist">Artista</string>
@@ -85,6 +89,7 @@
     <string name="audio_focus_denied">Enfoque de audio denegado.</string>
     <string name="audio_settings_summary">Cambiar la configuración de sonido</string>
     <string name="auto">Auto</string>
+    <string name="auto_hide">Auto-escondite</string>
     <string name="backup_restore_settings_summary">Haga una copia de seguridad y restaure su configuración, listas de reproducción</string>
     <string name="backup_restore_title"><![CDATA[Copia de seguridad y restauración]]></string>
     <string name="backup_open_path">Abrir ruta actual</string>
@@ -175,7 +180,7 @@
     <string name="force_close">Forzar cierre</string>
     <string name="force_close_summary">Si Apex Music tiene un problema, utilice esta opción para intentar solucionar el problema.</string>
     <string name="full">Lleno</string>
-    <string name="full_card">tarjeta completa</string>
+    <string name="full_card">Tarjeta completa</string>
     <string name="general_settings_summary">Personaliza la interfaz de usuario</string>
     <string name="general_settings_title">Interfaz de usuario</string>
     <string name="genre">Género</string>
@@ -201,7 +206,9 @@
     <string name="history_cleared">Historial borrado</string>
     <string name="history_undo_button">Deshacer</string>
     <string name="home">Hogar</string>
+    <string name="horizontal_bottom">Fondo Horizontal</string>
     <string name="horizontal_flip">volteo horizontal</string>
+    <string name="horizontal_top">Parte superior horizontal</string>
     <string name="id3_tags">Etiquetas ID3</string>
     <string name="image">Imagen</string>
     <string name="image_gradient">Imagen degradada</string>
@@ -341,7 +348,7 @@
     <string name="pref_summary_permissions_edit">Modificar los permisos relacionados con esta aplicación</string>
     <string name="pref_title_album_cover_style">Tema de portada del álbum</string>
     <string name="pref_title_album_cover_transform">Saltar portada del álbum</string>
-    <string name="pref_title_appbar_mode">Estilo de encabezado ampliado</string>
+    <string name="pref_title_appbar_mode">Estilo de encabezado</string>
     <string name="pref_title_audio_fade">Fundir audio</string>
     <string name="pref_title_auto_action_1">Acción automática de Android izquierda</string>
     <string name="pref_title_auto_action_2">Acción automática derecha de Android</string>
@@ -356,6 +363,7 @@
     <string name="pref_title_custom_font">Fuente</string>
     <string name="pref_title_desaturated_color">Color desaturado</string>
     <string name="pref_title_disable_widgets">Deshabilitar widgets predeterminados</string>
+    <string name="pref_title_duration">Duración única</string>
     <string name="pref_title_embed_lyrics_view">Letras de ID3 no sincronizadas</string>
     <string name="pref_title_expand_now_playing_panel">Mostrar pantalla de reproducción actual</string>
     <string name="pref_title_extra_controls">Controles adicionales</string>
@@ -378,15 +386,14 @@
     <string name="pref_title_open_source_licences">Licencias de código abierto</string>
     <string name="pref_title_pause_history">Pausar historial</string>
     <string name="pref_title_player_background">Fondo degradado</string>
-    <string name="pref_title_progress_bar_alignment">Alineación de la barra de progreso</string>
     <string name="pref_title_progress_bar_style">Estilo de barra de progreso</string>
     <string name="pref_title_queue_style">Estilo de cola de reproducción en curso (vertical)</string>
     <string name="pref_title_queue_style_land">Estilo de cola de reproducción en curso (apaisado)</string>
     <string name="pref_title_remember_tab">Recordar la última pestaña</string>
     <string name="pref_title_rewind_duration">Duración de la búsqueda de rebobinado</string>
+    <string name="pref_title_scrollbar_style">Estilo de barra de desplazamiento</string>
     <string name="pref_title_search_action">Acción de búsqueda aleatoria</string>
-    <string name="pref_title_search_icon">Método de encabezado de búsqueda por voz</string>
-    <string name="pref_title_show_scrollbar">Mostrar barras de desplazamiento</string>
+    <string name="pref_title_search_icon">Búsqueda por voz en el encabezado</string>
     <string name="pref_title_shuffle_state">Mantener estado aleatorio</string>
     <string name="pref_title_specific_device">Dispositivo específico</string>
     <string name="pref_title_stock_equalizer">Usar el ecualizador del sistema</string>
@@ -399,7 +406,7 @@
     <string name="pref_title_toggle_headset">Reproducción de auriculares con cable</string>
     <string name="pref_title_use_notification_actions_for_auto">Usar acciones de notificación</string>
     <string name="pref_title_volume_controls">Controles de volumen</string>
-    <string name="pref_title_whitelist">Lista blanca de música (/carpeta de música)</string>
+    <string name="pref_title_whitelist">Música en la lista blanca (/carpeta de música)</string>
     <string name="pref_title_widget_background">Widgets transparentes</string>
     <string name="pref_title_widget_buttons_color">Botones adaptables</string>
     <string name="queue">Cola de reproducción</string>
@@ -442,6 +449,7 @@
     <string name="share_summary">Comparte la aplicación con tus amigos y familiares.</string>
     <string name="share_to_stories">Compartir en Historias</string>
     <string name="show_album_artists">Mostrar artistas del álbum</string>
+    <string name="show_always">Siempre muestra</string>
     <string name="show_player_from_notification">Desde notificaciones/widgets</string>
     <string name="show_player_on_app_launch">Mostrar siempre al iniciar la aplicación</string>
     <string name="shuffle">Barajar</string>
@@ -464,10 +472,14 @@
     <string name="sort_order_composer">Compositor</string>
     <string name="sort_order_date">Fecha Agregada</string>
     <string name="sort_order_date_modified">Fecha modificada</string>
-    <string name="sort_order_default">Predeterminado (ignorar artículos)</string>
-    <string name="sort_order_num_songs">Recuento de pistas</string>
-    <string name="sort_order_num_songs_desc">Descripción del recuento de pistas</string>
+    <string name="sort_order_default">Ignorar artículos ↑</string>
+    <string name="sort_order_default_desc">Ignorar artículos ↓</string>
+    <string name="sort_order_num_songs">Recuento de pistas ↑</string>
+    <string name="sort_order_num_songs_asc">Recuento de pistas ↑</string>
+    <string name="sort_order_num_songs_desc">Recuento de pistas ↓</string>
     <string name="sort_order_year">Año</string>
+    <string name="sort_order_year_asc">Año ↑</string>
+    <string name="sort_order_year_desc">Año ↓</string>
     <string name="sort_order_z_a">Descendente</string>
     <string name="speech_not_supported">¡Lo siento! Su dispositivo no admite entrada de voz</string>
     <string name="speech_prompt">Busca en tu biblioteca</string>

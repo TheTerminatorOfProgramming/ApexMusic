@@ -73,6 +73,10 @@
         <item quantity="other">एलबम</item>
     </plurals>
     <string name="always">हमेशा</string>
+    <string name="appbar_mode_expanded">विस्तारित</string>
+    <string name="appbar_mode_expanded_no_scroll">विस्तारित (कोई स्क्रॉल नहीं)</string>
+    <string name="appbar_mode_simple">सरल</string>
+    <string name="appbar_mode_simple_no_scroll">सरल (कोई स्क्रॉल नहीं)</string>
     <string name="apex_music">शीर्ष संगीत</string>
     <string name="app_share">अरे इस शानदार म्यूजिक प्लेयर को यहां देखें: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">मिश्रण</string>
@@ -83,6 +87,7 @@
     <string name="audio_focus_denied">ऑडियो फोकस अस्वीकृत.</string>
     <string name="audio_settings_summary">ध्वनि सेटिंग बदलें</string>
     <string name="auto">ऑटो</string>
+    <string name="auto_hide">खुद से छिपना</string>
     <string name="backup_restore_settings_summary">अपनी सेटिंग्स, प्लेलिस्ट का बैकअप लें और उन्हें पुनर्स्थापित करें</string>
     <string name="backup_restore_title"><![CDATA[बैकअप और पुनर्स्थापना]]></string>
     <string name="backup_open_path">वर्तमान पथ खोलें</string>
@@ -199,7 +204,9 @@
     <string name="history_cleared">इतिहास साफ हो गया</string>
     <string name="history_undo_button">पूर्ववत</string>
     <string name="home">घर</string>
+    <string name="horizontal_bottom">क्षैतिज तल</string>
     <string name="horizontal_flip">क्षैतिज पलटा</string>
+    <string name="horizontal_top">क्षैतिज शीर्ष</string>
     <string name="id3_tags">आईडी3 टैग</string>
     <string name="image">छवि</string>
     <string name="image_gradient">ढाल छवि</string>
@@ -339,7 +346,7 @@
     <string name="pref_summary_permissions_edit">इस ऐप से संबंधित अनुमतियाँ संशोधित करें</string>
     <string name="pref_title_album_cover_style">एल्बम कवर थीम</string>
     <string name="pref_title_album_cover_transform">एल्बम कवर छोड़ें</string>
-    <string name="pref_title_appbar_mode">विस्तारित हेडर शैली</string>
+    <string name="pref_title_appbar_mode">शीर्ष लेख शैली</string>
     <string name="pref_title_audio_fade">फीका ऑडियो</string>
     <string name="pref_title_auto_action_1">बाएं एंड्रॉइड ऑटो एक्शन</string>
     <string name="pref_title_auto_action_2">सही एंड्रॉइड ऑटो एक्शन</string>
@@ -354,6 +361,7 @@
     <string name="pref_title_custom_font">फ़ॉन्ट</string>
     <string name="pref_title_desaturated_color">असंतृप्त रंग</string>
     <string name="pref_title_disable_widgets">डिफ़ॉल्ट विजेट अक्षम करें</string>
+    <string name="pref_title_duration">एकल अवधि</string>
     <string name="pref_title_embed_lyrics_view">अनसिंक किए गए ID3 गीत</string>
     <string name="pref_title_expand_now_playing_panel">अभी चल रही स्क्रीन दिखाएँ</string>
     <string name="pref_title_extra_controls">अतिरिक्त नियंत्रण</string>
@@ -376,15 +384,14 @@
     <string name="pref_title_open_source_licences">ओपन सोर्स लाइसेंस</string>
     <string name="pref_title_pause_history">इतिहास रोकें</string>
     <string name="pref_title_player_background">ग्रेडियेंट पृष्ठभूमि</string>
-    <string name="pref_title_progress_bar_alignment">प्रगति पट्टी संरेखण</string>
     <string name="pref_title_progress_bar_style">प्रगति बार शैली</string>
     <string name="pref_title_queue_style">अभी चल रहा है कतार शैली (पोर्ट्रेट)</string>
     <string name="pref_title_queue_style_land">अभी चल रहा है कतार शैली (लैंडस्केप)</string>
     <string name="pref_title_remember_tab">अंतिम टैब याद रखें</string>
     <string name="pref_title_rewind_duration">रिवाइंड सीक अवधि</string>
-    <string name="pref_title_search_action">बदली हुई खोज क्रिया</string>
-    <string name="pref_title_search_icon">ध्वनि खोज शीर्षलेख विधि</string>
-    <string name="pref_title_show_scrollbar">स्क्रॉलबार दिखाएँ</string>
+    <string name="pref_title_scrollbar_style">स्क्रॉलबार शैली</string>
+    <string name="pref_title_search_action">फेरबदल की गई खोज क्रिया</string>
+    <string name="pref_title_search_icon">हेडर में ध्वनि खोज</string>
     <string name="pref_title_shuffle_state">शफ़ल स्थिति रखें</string>
     <string name="pref_title_specific_device">विशिष्ट उपकरण</string>
     <string name="pref_title_stock_equalizer">सिस्टम इक्वलाइज़र का उपयोग करें</string>
@@ -440,6 +447,7 @@
     <string name="share_summary">ऐप को अपने दोस्तों और परिवार के साथ साझा करें</string>
     <string name="share_to_stories">कहानियों पर साझा करें</string>
     <string name="show_album_artists">एल्बम कलाकार दिखाएँ</string>
+    <string name="show_always">हमेशा दिखाएं</string>
     <string name="show_player_from_notification">अधिसूचना/विजेट्स से</string>
     <string name="show_player_on_app_launch">ऐप लॉन्च पर हमेशा दिखाएं</string>
     <string name="shuffle">मिश्रण</string>
@@ -462,10 +470,14 @@
     <string name="sort_order_composer">संगीतकार</string>
     <string name="sort_order_date">तिथि जोड़ी</string>
     <string name="sort_order_date_modified">डेटा संशोधित</string>
-    <string name="sort_order_default">डिफ़ॉल्ट (लेखों पर ध्यान न दें)</string>
-    <string name="sort_order_num_songs">ट्रैक गिनती</string>
-    <string name="sort_order_num_songs_desc">ट्रैक गणना विवरण</string>
+    <string name="sort_order_default">लेखों पर ध्यान न दें ↑</string>
+    <string name="sort_order_default_desc">लेखों पर ध्यान न दें ↓</string>
+    <string name="sort_order_num_songs">ट्रैक गिनती ↑</string>
+    <string name="sort_order_num_songs_asc">ट्रैक गिनती ↑</string>
+    <string name="sort_order_num_songs_desc">ट्रैक गिनती ↓</string>
     <string name="sort_order_year">वर्ष</string>
+    <string name="sort_order_year_asc">वर्ष ↑</string>
+    <string name="sort_order_year_desc">वर्ष ↓</string>
     <string name="sort_order_z_a">अवरोही</string>
     <string name="speech_not_supported">क्षमा मांगना! आपका उपकरण वाक् इनपुट का समर्थन नहीं करता</string>
     <string name="speech_prompt">अपनी लाइब्रेरी खोजें</string>

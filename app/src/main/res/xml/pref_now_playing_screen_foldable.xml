@@ -19,7 +19,7 @@
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="adaptive_color_app"
         android:layout="@layout/list_item_view_switch"
         android:title="@string/pref_title_colored_app"
@@ -94,7 +94,7 @@
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:key="shuffle_state"
             app:title="@string/pref_title_shuffle_state"
             app:allowDividerBelow="false"/>
@@ -124,6 +124,13 @@
             android:title="@string/pref_title_rewind_duration"
             app:ateKey_pref_unit="s"
             app:showSeekBarValue="true"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="duration_same"
+            android:layout="@layout/list_item_view_switch"
+            android:title="@string/pref_title_duration"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory

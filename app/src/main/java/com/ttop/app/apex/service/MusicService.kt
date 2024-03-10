@@ -19,7 +19,6 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.bluetooth.BluetoothDevice
 import android.content.*
-import android.content.Intent.ACTION_SCREEN_ON
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.ServiceInfo
 import android.content.res.Configuration
@@ -54,7 +53,6 @@ import com.ttop.app.apex.appwidgets.*
 import com.ttop.app.apex.auto.AutoMediaIDHelper
 import com.ttop.app.apex.auto.AutoMusicProvider
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.extensions.toMediaSessionQueue
 import com.ttop.app.apex.extensions.uri
 import com.ttop.app.apex.glide.ApexGlideExtension.getDefaultTransition
 import com.ttop.app.apex.glide.ApexGlideExtension.getSongModel
@@ -71,7 +69,6 @@ import com.ttop.app.apex.service.notification.PlayingNotification
 import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
-import com.ttop.app.apex.ui.activities.LockScreenActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil.isFavorite
 import com.ttop.app.apex.util.MusicUtil.toggleFavorite
@@ -80,7 +77,6 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.crossFadeDuration
 import com.ttop.app.apex.util.PreferenceUtil.isBluetoothSpeaker
 import com.ttop.app.apex.util.PreferenceUtil.isHeadsetPlugged
-import com.ttop.app.apex.util.PreferenceUtil.isLockScreen
 import com.ttop.app.apex.util.PreferenceUtil.isPauseOnZeroVolume
 import com.ttop.app.apex.util.PreferenceUtil.playbackPitch
 import com.ttop.app.apex.util.PreferenceUtil.playbackSpeed
@@ -210,16 +206,6 @@ class MusicService : MediaBrowserServiceCompat(),
         }
     }
 
-    private val lockScreenReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            if (isLockScreen && isPlaying) {
-                val lockIntent = Intent(context, LockScreenActivity::class.java)
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(lockIntent)
-            }
-        }
-    }
-
     private var queuesRestored = false
 
     var repeatMode = 0
@@ -337,9 +323,6 @@ class MusicService : MediaBrowserServiceCompat(),
         setupMediaSession()
 
         uiThreadHandler = Handler(Looper.getMainLooper())
-        ContextCompat.registerReceiver(this, widgetIntentReceiver, IntentFilter(APP_WIDGET_UPDATE), ContextCompat.RECEIVER_EXPORTED)
-        ContextCompat.registerReceiver(this, updateFavoriteReceiver, IntentFilter(FAVORITE_STATE_CHANGED), ContextCompat.RECEIVER_EXPORTED)
-        ContextCompat.registerReceiver(this, lockScreenReceiver, IntentFilter(ACTION_SCREEN_ON), ContextCompat.RECEIVER_EXPORTED)
         sessionToken = mediaSession?.sessionToken
         notificationManager = getSystemService()
         initNotification()
@@ -365,6 +348,8 @@ class MusicService : MediaBrowserServiceCompat(),
         registerBluetoothDisconnected()
         registerBluetoothRequestDisconnect()
         registerInternetEvents()
+        ContextCompat.registerReceiver(this, widgetIntentReceiver, IntentFilter(APP_WIDGET_UPDATE), ContextCompat.RECEIVER_EXPORTED)
+        ContextCompat.registerReceiver(this, updateFavoriteReceiver, IntentFilter(FAVORITE_STATE_CHANGED), ContextCompat.RECEIVER_EXPORTED)
         mPackageValidator = PackageValidator(this, R.xml.allowed_media_browser_callers)
         mMusicProvider.setMusicService(this)
         storage = PersistentStorage.getInstance(this)
@@ -375,7 +360,6 @@ class MusicService : MediaBrowserServiceCompat(),
     override fun onDestroy() {
         unregisterReceiver(widgetIntentReceiver)
         unregisterReceiver(updateFavoriteReceiver)
-        unregisterReceiver(lockScreenReceiver)
         if (headsetReceiverRegistered) {
             unregisterReceiver(headsetReceiver)
             headsetReceiverRegistered = false
@@ -1309,15 +1293,6 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun startForegroundOrNotify() {
         if (playingNotification != null && currentSong.id != -1L) {
-            if (isForeground && !isPlaying) {
-                // This makes the notification dismissible
-                // We can't call stopForeground(false) on A12 though, which may result in crashes
-                // when we call startForeground after that e.g. when Alarm goes off,
-                if (!VersionUtils.hasS()) {
-                    ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_DETACH)
-                    isForeground = false
-                }
-            }
             if (!isForeground && isPlaying) {
                 // Specify that this is a media service, if supported.
                 startForeground(
@@ -1335,11 +1310,7 @@ class MusicService : MediaBrowserServiceCompat(),
     }
 
     private fun stopForegroundAndNotification() {
-        if (VersionUtils.hasT()) {
-            stopForeground(STOP_FOREGROUND_REMOVE)
-        }else {
-            stopForeground(true)
-        }
+        stopForeground(STOP_FOREGROUND_REMOVE)
         notificationManager?.cancel(PlayingNotification.NOTIFICATION_ID)
         isForeground = false
     }

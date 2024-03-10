@@ -31,7 +31,6 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMiniPlayerBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.show
-import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -43,6 +42,7 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 import kotlin.math.abs
+
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
     MusicProgressViewUpdateHelper.Callback, View.OnClickListener {
@@ -81,20 +81,30 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMiniPlayerBinding.bind(view)
 
-        if (PreferenceUtil.progressBarStyle){
-            if (PreferenceUtil.progressBarAlignment){
+        when (PreferenceUtil.progressBarStyle) {
+            "circular" -> {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.progressBarHorizontalTop.visibility = View.GONE
+                binding.progressBarHorizontalBottom.visibility = View.GONE
+            }
+
+            "horizontal_top" -> {
                 binding.progressBar.visibility = View.GONE
                 binding.progressBarHorizontalTop.visibility = View.VISIBLE
                 binding.progressBarHorizontalBottom.visibility = View.GONE
-            }else{
+            }
+
+            "horizontal_bottom" -> {
                 binding.progressBar.visibility = View.GONE
                 binding.progressBarHorizontalTop.visibility = View.GONE
                 binding.progressBarHorizontalBottom.visibility = View.VISIBLE
             }
-        }else{
-            binding.progressBar.visibility = View.VISIBLE
-            binding.progressBarHorizontalTop.visibility = View.GONE
-            binding.progressBarHorizontalBottom.visibility = View.GONE
+
+            "disabled" -> {
+                binding.progressBar.visibility = View.GONE
+                binding.progressBarHorizontalTop.visibility = View.GONE
+                binding.progressBarHorizontalBottom.visibility = View.GONE
+            }
         }
 
         view.setOnTouchListener(FlingPlayBackController(requireContext(), mainActivity))
@@ -112,6 +122,14 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         }
         binding.actionNext.setOnClickListener(this)
         binding.actionPrevious.setOnClickListener(this)
+
+        if (PreferenceUtil.materialYou) {
+            binding.actionNext.setColorFilter(binding.progressBar.indicatorColor[0])
+            binding.actionPrevious.setColorFilter(binding.progressBar.indicatorColor[0])
+        }else {
+            binding.actionNext.setColorFilter(accentColor())
+            binding.actionPrevious.setColorFilter(accentColor())
+        }
     }
 
     private fun setUpMiniPlayer() {
@@ -132,6 +150,12 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     private fun setUpPlayPauseButton() {
         binding.miniPlayerPlayPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
+
+        if (PreferenceUtil.materialYou) {
+            binding.miniPlayerPlayPauseButton.setColorFilter(binding.progressBar.indicatorColor[0])
+        }else {
+            binding.miniPlayerPlayPauseButton.setColorFilter(accentColor())
+        }
     }
 
     private fun updateSongTitle() {
@@ -142,26 +166,24 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         val title = song.title.toSpannable()
         val text = song.artistName.toSpannable()
 
-        title.setSpan(ForegroundColorSpan(textColorPrimary()), 0, title.length, 0)
-        text.setSpan(ForegroundColorSpan(textColorPrimary()), 0, text.length, 0)
-
-        /*if (PreferenceUtil.isMiniPlayerTextColored && PreferenceUtil.isAdaptiveColor) {
-            title.setSpan(ForegroundColorSpan(Color.parseColor(PreferenceUtil.miniPlayerColorCode)), 0, title.length, 0)
-            text.setSpan(ForegroundColorSpan(Color.parseColor(PreferenceUtil.miniPlayerColorCode)), 0, text.length, 0)
+        if (PreferenceUtil.materialYou) {
+            title.setSpan(ForegroundColorSpan(binding.progressBar.indicatorColor[0]), 0, title.length, 0)
+            text.setSpan(ForegroundColorSpan(binding.progressBar.indicatorColor[0]), 0, text.length, 0)
         }else {
-            title.setSpan(ForegroundColorSpan(textColorPrimary()), 0, title.length, 0)
-            text.setSpan(ForegroundColorSpan(textColorPrimary()), 0, text.length, 0)
-        }*/
+            title.setSpan(ForegroundColorSpan(accentColor()), 0, title.length, 0)
+            text.setSpan(ForegroundColorSpan(accentColor()), 0, text.length, 0)
+        }
 
         builder.append(title).append(" • ").append(text)
 
         binding.miniPlayerTitle.isSelected = true
         binding.miniPlayerTitle.text = builder
-        //binding.miniPlayerTitle.setTextColor(Color.parseColor(PreferenceUtil.miniPlayerColorCode))
-//        binding.title.isSelected = true
-//        binding.title.text = song.title
-//        binding.text.isSelected = true
-//        binding.text.text = song.artistName
+
+        if (PreferenceUtil.materialYou) {
+            binding.miniPlayerTitle.setTextColor(binding.progressBar.indicatorColor[0])
+        }else {
+            binding.miniPlayerTitle.setTextColor(accentColor())
+        }
     }
 
     private fun updateSongCover() {
@@ -210,7 +232,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         progressViewUpdateHelper.stop()
     }
 
-    protected fun updatePlayPauseDrawableState() {
+    private fun updatePlayPauseDrawableState() {
         if (MusicPlayerRemote.isPlaying) {
             binding.miniPlayerPlayPauseButton.setImageResource(R.drawable.ic_pause)
         } else {

@@ -19,6 +19,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.AttributeSet
+import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
@@ -26,10 +27,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.CategoryInfoAdapter
 import com.ttop.app.apex.databinding.PreferenceDialogLibraryCategoriesBinding
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
@@ -52,6 +55,7 @@ class LibraryPreference @JvmOverloads constructor(
 class LibraryPreferenceDialog : DialogFragment() {
     private var positiveBtnClicked = false
     private var wasOne = 0
+    private lateinit var dialog: AlertDialog
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = PreferenceDialogLibraryCategoriesBinding.inflate(layoutInflater)
 
@@ -62,7 +66,7 @@ class LibraryPreferenceDialog : DialogFragment() {
             categoryAdapter.attachToRecyclerView(this)
         }
 
-        val dialog = materialDialog(R.string.library_categories)
+        dialog = materialDialog(R.string.library_categories)
             .setNeutralButton(
                 R.string.reset_action
             ) { _, _ ->
@@ -77,7 +81,7 @@ class LibraryPreferenceDialog : DialogFragment() {
             }
             .setView(binding.root)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
 
         return dialog
     }
@@ -115,6 +119,12 @@ class LibraryPreferenceDialog : DialogFragment() {
             positiveBtnClicked = false
             activity?.recreate()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val d = dialog as AlertDialog?
+        d?.withCenteredButtons()
     }
 
     companion object {

@@ -27,9 +27,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
 import com.ttop.app.apex.dialogs.BlacklistFolderChooserDialog
 import com.ttop.app.apex.extensions.accentTextColor
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import java.io.File
@@ -76,7 +77,7 @@ class BlacklistPreferenceDialog : DialogFragment(), BlacklistFolderChooserDialog
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .create()
-                    .colorButtons()
+                    .centeredColorButtons()
                     .show()
             }
             .setNegativeButton(R.string.add_action) { _, _ ->
@@ -97,7 +98,7 @@ class BlacklistPreferenceDialog : DialogFragment(), BlacklistFolderChooserDialog
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .create()
-                    .colorButtons()
+                    .centeredColorButtons()
                     .show()
             }
             .create().apply {
@@ -105,6 +106,7 @@ class BlacklistPreferenceDialog : DialogFragment(), BlacklistFolderChooserDialog
                     getButton(AlertDialog.BUTTON_POSITIVE).accentTextColor()
                     getButton(AlertDialog.BUTTON_NEGATIVE).accentTextColor()
                     getButton(AlertDialog.BUTTON_NEUTRAL).accentTextColor()
+                    withCenteredButtons()
                 }
             }
     }

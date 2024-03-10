@@ -30,7 +30,8 @@ import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogNowPlayingScreenBinding
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
-import com.ttop.app.apex.extensions.colorButtons
+import com.ttop.app.apex.extensions.centeredColorButtons
+
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle.values
@@ -81,7 +82,7 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
             }
             .setView(binding.root)
             .create()
-            .colorButtons()
+            .centeredColorButtons()
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {

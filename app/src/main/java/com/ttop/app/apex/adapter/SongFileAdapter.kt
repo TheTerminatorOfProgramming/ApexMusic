@@ -33,7 +33,7 @@ import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.appthemehelper.util.ATHUtil
-import me.zhanghai.android.fastscroll.PopupTextProvider
+import com.ttop.app.fastscroller.PopupTextProvider
 import java.io.File
 import java.text.DecimalFormat
 import kotlin.math.log10
