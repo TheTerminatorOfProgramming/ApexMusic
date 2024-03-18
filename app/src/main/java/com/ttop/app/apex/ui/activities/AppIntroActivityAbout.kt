@@ -66,7 +66,7 @@ class AppIntroActivityAbout : AppIntro2() {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 slideNumber = AppIntroUtil.storagePermission(),
-                required = true)
+                required = false)
         }
         //Bluetooth
         askForPermissions(

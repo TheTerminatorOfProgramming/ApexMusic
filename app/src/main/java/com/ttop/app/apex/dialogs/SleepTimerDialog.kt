@@ -93,7 +93,7 @@ class SleepTimerDialog : DialogFragment() {
                 }
                 seekArcProgress = i
 
-                if (seekArcProgress == PreferenceUtil.lastSleepTimerValue && !PreferenceUtil.isTimerCancelled) {
+                if (!PreferenceUtil.isTimerCancelled && seekArcProgress == PreferenceUtil.lastSleepTimerValue) {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(R.string.reset_action)
                 }else {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(R.string.action_set)
@@ -202,7 +202,7 @@ class SleepTimerDialog : DialogFragment() {
             negativeButton = d.getButton(Dialog.BUTTON_NEGATIVE) as Button
             dismissButton = d.getButton(Dialog.BUTTON_NEUTRAL) as Button
             if (PreferenceUtil.isTimerCancelled) {
-                negativeButton!!.isVisible = false
+                negativeButton!!.isEnabled = false
             }
             positiveButton!!.accentTextColor()
             if (!PreferenceUtil.isTimerCancelled) {

@@ -243,7 +243,7 @@
     <string name="message_backup_create_success">权限错误</string>
     <string name="message_limit_tabs">备份创建成功。</string>
     <string name="message_restore_success">不允许超过 6 个选项卡</string>
-    <string name="message_welcome">恢复成功完成。</string>
+    <string name="message_welcome"><![CDATA[欢迎来到 <br> %s]]></string>
     <string name="minimal"><![CDATA[你好！ <br>欢迎来到 %s]]></string>
     <string name="my_top_tracks">最小</string>
     <string name="never">玩得最多的</string>

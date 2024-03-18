@@ -243,7 +243,7 @@
     <string name="message_backup_create_success">バックアップが正常に作成されました。</string>
     <string name="message_limit_tabs">タブは 6 つまでです</string>
     <string name="message_restore_success">復元が正常に完了しました。</string>
-    <string name="message_welcome"><![CDATA[こんにちは！ <br>%s へようこそ]]></string>
+    <string name="message_welcome"><![CDATA[<br> %s へようこそ]]></string>
     <string name="minimal">最小限</string>
     <string name="my_top_tracks">最もプレイされた</string>
     <string name="never">一度もない</string>

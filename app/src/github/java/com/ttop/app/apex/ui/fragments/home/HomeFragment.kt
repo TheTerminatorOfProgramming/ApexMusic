@@ -72,6 +72,7 @@ class HomeFragment :
 
     private var _binding: HomeBinding? = null
     private val binding get() = _binding!!
+    private var count = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -108,7 +109,10 @@ class HomeFragment :
 
         if (!IntroPrefs(requireContext()).hasIntroShown) {
             if (!GithubUtils.checkFilesPermission()) {
-                GithubUtils.enableAllFiles(requireContext())
+                if (count == 0) {
+                    count = 1
+                    GithubUtils.enableAllFiles(requireContext())
+                }
             }
         }
     }

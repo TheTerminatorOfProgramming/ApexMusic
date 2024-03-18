@@ -1,40 +1,22 @@
-Apex Music v3.80
+Apex Music v3.90
 
 ==What's New==
 =What's Been Added=
--Mini player option now has a disabled setting
--Header style option now has scroll and no scroll settings
--Scrollbar style option now has auto-hide and disabled settings
--Added option to use a single duration instead of separate durations for fast forward and rewind duration
+-Nothing has been added
 		
 =What's Been Removed=
--Removed the lock screen controls due to a change with google
--Normal grid layout has been removed
--Removed shuffle slide from the intro
+-Nothing has been removed
 
 =What's Been Changed & Updated=
--Library categories dialog now has centered buttons
--Notification actions now have shuffle & repeat set as default
--Track sort order menu has been changed
--Mini player progress bar style option has been changed from a switch to a list
--Mini player text and buttons colors are now set to the accent color
--Changed the main scrollbar to remove the track
--Updated all dialogs to have centered buttons and to use the accent color
--Updated colors on the backup dialog
--Changed the app icon and default colors
--Changed the scrollbar thumb
--Expanded header style option has been renamed to header style and has been changed from a switch to a list
--Show scrollbars option has been renamed to scrollbar style and has been changed from a switch to a list
--Changed the notification icon
--Changed the colors for the id3 lyrics dialog
--Changed some options to be enabled by default
+-Nothing has been changed or updated
 
 =What's Planned To Be Removed/Changed=
 -Embedded lyrics will be changed from using the dialog to the same system as the synced lyrics
 
 ==What's Fixed==
--Back buttons not working on several pages
--Scrollbar will no longer go behind the mini player when in use
+-Cancel button on sleep timer dialog causing a crash
+-Android 12 storage permission
+-Main intro slide welcome message
 
 ==Possible Bugs==
 -App may crash when opening app through the widgets. This is due to a change by google

@@ -33,9 +33,9 @@ class MainSlideFragment(
 
         val appName = String.format(Locale.getDefault(), getString(R.string.app_name)).parseAsHtml()
 
-        desc = view.findViewById(R.id.description) as TextView
+        desc = view.findViewById(R.id.description)!!
 
-        desc?.text = appName
+        desc?.text = String.format(getString(R.string.message_welcome).replace("<br>", "\n"), appName)
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.bottomSheetColorDark))
     }

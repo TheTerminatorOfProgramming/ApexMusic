@@ -245,7 +245,7 @@
     <string name="message_backup_create_success">Backup erfolgreich erstellt.</string>
     <string name="message_limit_tabs">Es sind nicht mehr als 6 Tabs zulässig</string>
     <string name="message_restore_success">Wiederherstellung erfolgreich abgeschlossen.</string>
-    <string name="message_welcome"><![CDATA[Hallo! <br>Willkommen bei %s]]></string>
+    <string name="message_welcome"><![CDATA[Willkommen bei <br> %s]]></string>
     <string name="minimal">Minimal</string>
     <string name="my_top_tracks">Meist gespielt</string>
     <string name="never">Niemals</string>

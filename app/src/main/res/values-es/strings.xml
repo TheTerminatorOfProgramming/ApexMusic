@@ -247,7 +247,7 @@
     <string name="message_backup_create_success">Copia de seguridad creada exitosamente.</string>
     <string name="message_limit_tabs">No se permiten más de 6 pestañas</string>
     <string name="message_restore_success">Restauración completada exitosamente.</string>
-    <string name="message_welcome"><![CDATA[¡Hola! <br>Bienvenido a %s]]></string>
+    <string name="message_welcome"><![CDATA[Bienvenido a <br> %s]]></string>
     <string name="minimal">Mínimo</string>
     <string name="my_top_tracks">Más jugado</string>
     <string name="never">Nunca</string>

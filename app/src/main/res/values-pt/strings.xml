@@ -247,7 +247,7 @@
     <string name="message_backup_create_success">Backup criado com sucesso.</string>
     <string name="message_limit_tabs">Não são permitidas mais de 6 guias</string>
     <string name="message_restore_success">Restauração concluída com sucesso.</string>
-    <string name="message_welcome"><![CDATA[Olá! <br>Bem-vindo ao %s]]></string>
+    <string name="message_welcome"><![CDATA[Bem-vindo a <br> %s]]></string>
     <string name="minimal">Mínimo</string>
     <string name="my_top_tracks">Mais tocado</string>
     <string name="never">Nunca</string>

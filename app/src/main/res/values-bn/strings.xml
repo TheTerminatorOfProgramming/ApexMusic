@@ -245,7 +245,7 @@
     <string name="message_backup_create_success">ব্যাকআপ সফলভাবে তৈরি করা হয়েছে।</string>
     <string name="message_limit_tabs">6টির বেশি ট্যাব অনুমোদিত নয়</string>
     <string name="message_restore_success">পুনরুদ্ধার সফলভাবে সম্পন্ন হয়েছে।</string>
-    <string name="message_welcome"><![CDATA[হ্যালো সেখানে! <br>%s এ স্বাগতম]]></string>
+    <string name="message_welcome"><![CDATA[ স্বাগতম <br> %s]]></string>
     <string name="minimal">ন্যূনতম</string>
     <string name="my_top_tracks">সবচেয়ে বেশি খেলেছে</string>
     <string name="never">কখনই না</string>

@@ -243,7 +243,7 @@
     <string name="message_backup_create_success">Cadangan berhasil dibuat.</string>
     <string name="message_limit_tabs">Tidak lebih dari 6 tab diperbolehkan</string>
     <string name="message_restore_success">Pemulihan berhasil diselesaikan.</string>
-    <string name="message_welcome"><![CDATA[Halo! <br>Selamat datang di %s]]></string>
+    <string name="message_welcome"><![CDATA[Selamat datang di <br> %s]]></string>
     <string name="minimal">Minimal</string>
     <string name="my_top_tracks">Paling banyak dimainkan</string>
     <string name="never">Tidak pernah</string>
