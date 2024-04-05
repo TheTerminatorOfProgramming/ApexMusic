@@ -2,4 +2,6 @@
 <resources>
     <bool name="actions">true</bool>
     <bool name="auto_actions">true</bool>
+    <bool name="extra_controls">true</bool>
+    <bool name="queue_option">false</bool>
 </resources>

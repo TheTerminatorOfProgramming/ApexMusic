@@ -33,19 +33,10 @@ class TintedBottomNavigationView @JvmOverloads constructor(
 
     init {
         if (!isInEditMode) {
-            // If we are in Immersive mode we have to just set empty OnApplyWindowInsetsListener as
-            // bottom, start, and end padding is always applied (with the help of OnApplyWindowInsetsListener) to
-            // BottomNavigationView to dodge the system navigation bar (so we basically clear that listener).
-            if (PreferenceUtil.isFullScreenMode) {
-                setOnApplyWindowInsetsListener { _, insets ->
-                    insets
-                }
-            } else {
-                applyInsetter {
-                    type(navigationBars = true) {
-                        padding(vertical = true)
-                        margin(horizontal = true)
-                    }
+            applyInsetter {
+                type(navigationBars = true) {
+                    padding(vertical = true)
+                    margin(horizontal = true)
                 }
             }
 

@@ -41,6 +41,7 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
+        android:key="equalizers"
         android:title="@string/pref_header_equalizer"
         app:allowDividerBelow="false">
 
@@ -60,6 +61,7 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
+        android:key="autoplays"
         android:title="@string/pref_header_autoplay"
         app:allowDividerBelow="false">
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

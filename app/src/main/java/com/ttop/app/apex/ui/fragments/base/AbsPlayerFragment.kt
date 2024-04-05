@@ -30,6 +30,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -92,93 +93,16 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
         val dialog: AlertDialog = builder.show()
 
-        val textViewMessage = dialog.findViewById(android.R.id.message) as TextView?
-        val textViewTitle = dialog.findViewById(R.id.alertTitle) as TextView?
+        val textViewMessage: TextView? = dialog.findViewById(android.R.id.message)
+        val textViewTitle: TextView? = dialog.findViewById(R.id.alertTitle)
 
-
-        when (PreferenceUtil.fontSizeLyrics) {
-            "12" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 14f
-                textViewMessage!!.textSize = 12f
-                textViewTitle!!.textSize = 16f
-            }
-
-            "13" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 15f
-                textViewMessage!!.textSize = 13f
-                textViewTitle!!.textSize = 17f
-            }
-
-            "14" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 16f
-                textViewMessage!!.textSize = 14f
-                textViewTitle!!.textSize = 18f
-            }
-
-            "15" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 17f
-                textViewMessage!!.textSize = 15f
-                textViewTitle!!.textSize = 19f
-            }
-
-            "16" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 18f
-                textViewMessage!!.textSize = 16f
-                textViewTitle!!.textSize = 20f
-            }
-
-            "17" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 19f
-                textViewMessage!!.textSize = 17f
-                textViewTitle!!.textSize = 21f
-            }
-
-            "18" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 20f
-                textViewMessage!!.textSize = 18f
-                textViewTitle!!.textSize = 22f
-            }
-
-            "19" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 21f
-                textViewMessage!!.textSize = 19f
-                textViewTitle!!.textSize = 23f
-            }
-
-            "20" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 22f
-                textViewMessage!!.textSize = 20f
-                textViewTitle!!.textSize = 24f
-            }
-
-            "21" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 23f
-                textViewMessage!!.textSize = 21f
-                textViewTitle!!.textSize = 25f
-            }
-
-            "22" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 24f
-                textViewMessage!!.textSize = 22f
-                textViewTitle!!.textSize = 26f
-            }
-
-            "23" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 25f
-                textViewMessage!!.textSize = 23f
-                textViewTitle!!.textSize = 27f
-            }
-
-            "24" -> {
-                dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 26f
-                textViewMessage!!.textSize = 24f
-                textViewTitle!!.textSize = 28f
-            }
-        }
+        dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 26f
+        textViewMessage!!.textSize = 24f
+        textViewTitle!!.textSize = 28f
 
         dialog.setCanceledOnTouchOutside(false)
         dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
-        textViewTitle!!.setTextColor(mainActivity.accentColor())
+        textViewTitle.setTextColor(mainActivity.accentColor())
 
         dialog.withCenteredButtons()
     }
@@ -411,7 +335,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Blur -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
@@ -420,7 +343,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Card -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
@@ -432,7 +354,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Classic -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
@@ -441,7 +362,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Peek -> {
                 if (ApexUtil.isTablet) {
@@ -457,7 +377,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Minimal -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)

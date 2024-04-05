@@ -18,11 +18,13 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.TwoStatePreference
+import com.ttop.app.apex.APPBAR_MODE
 import com.ttop.app.apex.HOME_ALBUM_GRID_STYLE
 import com.ttop.app.apex.HOME_ARTIST_GRID_STYLE
 import com.ttop.app.apex.PAUSE_HISTORY
 import com.ttop.app.apex.R
 import com.ttop.app.apex.REMEMBER_LAST_TAB
+import com.ttop.app.apex.SCROLLBAR_STYLE
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_SUGGESTIONS
 import com.ttop.app.apex.util.PreferenceUtil
@@ -55,10 +57,33 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
+
+        val appBar: ATEListPreference? = findPreference(APPBAR_MODE)
+        appBar?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_ui)
+
+        val lastTab: TwoStatePreference? = findPreference(REMEMBER_LAST_TAB)
+        val tabTextMode: ATEListPreference? = findPreference(TAB_TEXT_MODE)
+        val appBar: ATEListPreference? = findPreference(APPBAR_MODE)
+        val scrollbarStyle: ATEListPreference? = findPreference(SCROLLBAR_STYLE)
+
+        if (PreferenceUtil.isSimpleMode) {
+            lastTab?.isVisible = false
+            tabTextMode?.isVisible = false
+            appBar?.isVisible = false
+            scrollbarStyle?.isVisible = false
+        }else {
+            lastTab?.isVisible = true
+            tabTextMode?.isVisible = true
+            appBar?.isVisible = true
+            scrollbarStyle?.isVisible = true
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

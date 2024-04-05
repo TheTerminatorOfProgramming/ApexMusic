@@ -31,6 +31,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar" />
 
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.9"
+        android:background="@color/black_color"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/embedded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="5dp"
+            android:textAlignment="center"/>
+    </ScrollView>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyleQueue"
@@ -63,7 +85,6 @@
                 android:overScrollMode="@integer/overScrollMode"
                 tools:listitem="@layout/item_list" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.fragment.app.FragmentContainerView
@@ -75,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
-        tools:layout="@layout/fragment_md3_player_playback_controls" />
+        tools:layout="@layout/fragment_classic_player_playback_controls" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"

@@ -19,6 +19,7 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.AUTO_ROTATE
 import com.ttop.app.apex.KEEP_SCREEN_ON
@@ -83,6 +84,14 @@ class OtherSettingsFragment : AbsSettingsFragment(),
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_advanced)
+
+        val search: PreferenceCategory? = findPreference("search")
+        val advanced: PreferenceCategory? = findPreference("advanced")
+        val auto: PreferenceCategory? = findPreference("android_auto")
+
+        search?.isVisible = !PreferenceUtil.isSimpleMode
+        advanced?.isVisible = !PreferenceUtil.isSimpleMode
+        auto?.isVisible = !PreferenceUtil.isSimpleMode
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

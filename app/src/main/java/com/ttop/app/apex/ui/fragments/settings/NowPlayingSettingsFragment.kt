@@ -19,6 +19,7 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.ADAPTIVE_COLOR_APP
 import com.ttop.app.apex.ALBUM_COVER_STYLE
@@ -27,21 +28,26 @@ import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.CIRCULAR_ALBUM_ART
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.DURATION_SAME
-import com.ttop.app.apex.EMBED_LYRICS
+import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
 import com.ttop.app.apex.FAST_FORWARD_DURATION
+import com.ttop.app.apex.LYRICS_MODE
+import com.ttop.app.apex.LYRICS_TYPE
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
+import com.ttop.app.apex.QUEUE_STYLE
+import com.ttop.app.apex.QUEUE_STYLE_LAND
 import com.ttop.app.apex.R
 import com.ttop.app.apex.REWIND_DURATION
 import com.ttop.app.apex.SCREEN_ON_LYRICS
 import com.ttop.app.apex.SHUFFLE_STATE
-import com.ttop.app.apex.SYNCED_LYRICS
+import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
 import com.ttop.app.apex.TOGGLE_AUTOPLAY
 import com.ttop.app.apex.VOLUME_CONTROLS
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 
@@ -61,20 +67,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             return@setOnPreferenceChangeListener true
         }
 
-        val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
-        lyrics?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
         val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
         lyricsScreenOn?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
-
-        val embedLyrics: TwoStatePreference? = findPreference(EMBED_LYRICS)
-        embedLyrics?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             true
         }
@@ -89,6 +83,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         colorAnimate?.isChecked = PreferenceUtil.isColorAnimate
         colorAnimate?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            restartActivity()
             true
         }
 
@@ -104,12 +99,14 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            restartActivity()
             true
         }
 
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
         playerBG?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            restartActivity()
             true
         }
 
@@ -117,6 +114,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         volumeControls?.isChecked = PreferenceUtil.isVolumeControls
         volumeControls?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            restartActivity()
             true
         }
 
@@ -159,19 +157,94 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
             true
         }
+
+        val queueStyle: ATEListPreference? = findPreference(QUEUE_STYLE)
+        queueStyle?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
+            true
+        }
+
+        val queueStyleLand: ATEListPreference? = findPreference(QUEUE_STYLE_LAND)
+        queueStyleLand?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
+            true
+        }
+
+        val lyricsType: ATEListPreference? = findPreference(LYRICS_MODE)
+        val coverLyricsType: ATEListPreference? = findPreference(LYRICS_TYPE)
+        lyricsType?.setOnPreferenceChangeListener { _, _ ->
+            when (PreferenceUtil.lyricsMode) {
+                "id3" -> {
+                    coverLyricsType?.isVisible = false
+                }
+                "synced" -> {
+                    coverLyricsType?.isVisible = true
+                }
+                "both" -> {
+                    coverLyricsType?.isVisible = true
+                }
+                "disabled" -> {
+                    coverLyricsType?.isVisible = false
+                }
+            }
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (ApexUtil.isFoldable(requireContext())) {
             addPreferencesFromResource(R.xml.pref_now_playing_screen_foldable)
-        }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
-            addPreferencesFromResource(R.xml.pref_now_playing_screen_tablet)
         }else {
             addPreferencesFromResource(R.xml.pref_now_playing_screen)
         }
 
         val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
         newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
+
+        val coverLyricsType: ATEListPreference? = findPreference(LYRICS_TYPE)
+        when (PreferenceUtil.lyricsMode) {
+            "id3" -> {
+                coverLyricsType?.isVisible = false
+            }
+            "synced" -> {
+                coverLyricsType?.isVisible = true
+            }
+            "both" -> {
+                coverLyricsType?.isVisible = true
+            }
+            "disabled" -> {
+                coverLyricsType?.isVisible = false
+            }
+        }
+
+        val lyrics: PreferenceCategory? = findPreference("lyrics")
+        lyrics?.isVisible = !PreferenceUtil.isSimpleMode
+
+        val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
+        val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
+        val swipeAnywhere: ATEListPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING)
+        val expandPanel: ATEListPreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
+        val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
+        val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
+        val lyricsType: ATEListPreference? = findPreference(LYRICS_MODE)
+
+        if (PreferenceUtil.isSimpleMode) {
+            playerBG?.isVisible = false
+            colorAnimate?.isVisible = false
+            swipeAnywhere?.isVisible = false
+            expandPanel?.isVisible = false
+            carouselEffect?.isVisible = false
+            lyricsScreenOn?.isVisible = false
+            lyricsType?.isVisible = false
+        }else {
+            playerBG?.isVisible = true
+            colorAnimate?.isVisible = true
+            swipeAnywhere?.isVisible = true
+            expandPanel?.isVisible = true
+            carouselEffect?.isVisible = true
+            lyricsScreenOn?.isVisible = true
+            lyricsType?.isVisible = true
+        }
     }
 
     private fun updateAlbumCoverStyleSummary() {
@@ -238,12 +311,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             }
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
-            /*LYRICS -> {
-                val lyrics: TwoStatePreference? = findPreference(SYNCED_LYRICS)
-                if (!PreferenceUtil.showLyrics){
-                    lyrics?.isChecked = false
-                }
-            }*/
+            LYRICS_MODE -> restartActivity()
         }
     }
 }

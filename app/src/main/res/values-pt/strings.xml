@@ -209,6 +209,8 @@
     <string name="horizontal_bottom">Fundo horizontal</string>
     <string name="horizontal_flip">Inversão horizontal</string>
     <string name="horizontal_top">Parte superior horizontal</string>
+    <string name="id3_lyrics">Letra ID3</string>
+    <string name="id3_lyrics_summary">Para que o novo sistema de letras id3 funcione, o recurso de arrastar para recolher nos temas do player será desabilitado, quando as letras id3 forem mostradas. isso se deve a um conflito com a fila do jogador.</string>
     <string name="id3_tags">Etiquetas ID3</string>
     <string name="image">Imagem</string>
     <string name="image_gradient">Imagem gradiente</string>
@@ -240,7 +242,12 @@
     <string name="light_theme_name">Branco brilhante</string>
     <string name="listeners_label">Ouvintes</string>
     <string name="lyrics">Letra da música</string>
+    <string name="lyrics_both">Etiqueta ID3 e Letras sincronizadas</string>
+    <string name="lyrics_id3">Letra da etiqueta ID3</string>
+    <string name="lyrics_message_enabled">Letras ID3 mostradas. Arrastar foi desativado</string>
+    <string name="lyrics_message_disabled">Letras ID3 ocultas. Arrastar foi ativado</string>
     <string name="lyrics_search_summary">Usar termos de pesquisa de letras em tags id3 ou inserir manualmente?</string>
+    <string name="lyrics_synced">Letras sincronizadas</string>
     <string name="manually">Manualmente</string>
     <string name="md_error_label">Erro</string>
     <string name="md_storage_perm_error">Erro de permissão</string>
@@ -362,6 +369,7 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Fonte</string>
     <string name="pref_title_desaturated_color">Cor dessaturada</string>
+    <string name="pref_title_disable_id3_lyrics_message">Desativar mensagens de letras ID3</string>
     <string name="pref_title_disable_widgets">Desativar widgets padrão</string>
     <string name="pref_title_duration">Duração única</string>
     <string name="pref_title_embed_lyrics_view">Letras de ID3 não sincronizadas</string>
@@ -369,7 +377,6 @@
     <string name="pref_title_extra_controls">Controles extras</string>
     <string name="pref_title_fast_forward_duration">Duração da busca de avanço rápido</string>
     <string name="pref_title_font_size">Tamanho da fonte</string>
-    <string name="pref_title_font_size_lyrics">Tamanho da fonte da letra</string>
     <string name="pref_title_gapless_playback">Reprodução sem intervalos</string>
     <string name="pref_title_general_theme">Tema do aplicativo</string>
     <string name="pref_title_hide_update">Ocultar botão de atualização</string>
@@ -378,8 +385,10 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas de lojas de mídia</string>
     <string name="pref_title_last_added_interval">Intervalo da última lista de reprodução adicionada</string>
     <string name="pref_title_lock_screen">Controles de tela de bloqueio</string>
-    <string name="pref_title_lyrics_type">Tipo de capa de letras sincronizadas</string>
+    <string name="pref_title_lyrics_type">Tipo de letra</string>
+    <string name="pref_title_lyrics_type_synced">Tipo de capa de letras sincronizadas</string>
     <string name="pref_title_manage_audio_focus">Sempre jogue</string>
+    <string name="pref_title_md3">Material você</string>
     <string name="pref_title_notification_action_1">Ação de notificação restante</string>
     <string name="pref_title_notification_action_2">Ação de notificação correta</string>
     <string name="pref_title_now_playing_screen_appearance">Tema em reprodução</string>
@@ -395,6 +404,7 @@
     <string name="pref_title_search_action">Ação de pesquisa embaralhada</string>
     <string name="pref_title_search_icon">Pesquisa por voz no cabeçalho</string>
     <string name="pref_title_shuffle_state">Manter o estado aleatório</string>
+    <string name="pref_title_simple_mode">Modo simples</string>
     <string name="pref_title_specific_device">Dispositivo Específico</string>
     <string name="pref_title_stock_equalizer">Use o equalizador do sistema</string>
     <string name="pref_title_suggestions">Mostrar sugestões</string>
@@ -404,6 +414,7 @@
     <string name="pref_title_tab_text_mode">Modo de títulos de guias</string>
     <string name="pref_title_toggle_carousel_effect">Efeito carrossel</string>
     <string name="pref_title_toggle_headset">Reprodução de fone de ouvido com fio</string>
+    <string name="pref_title_transparent_mini_player">Miniplayer transparente</string>
     <string name="pref_title_use_notification_actions_for_auto">Use ações de notificação</string>
     <string name="pref_title_volume_controls">Controles de volume</string>
     <string name="pref_title_whitelist">Lista de permissões de músicas (/pasta de músicas)</string>

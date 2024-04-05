@@ -1,25 +1,31 @@
-Apex Music v3.90
+Apex Music v4.00
 
 ==What's New==
 =What's Been Added=
--Nothing has been added
-		
+-Option to make mini player semi-transparent
+-ID3 (embedded) lyrics are now integrated into most of the player themes. for more info please check the troubleshoot section in the about settings page
+-Added italian and turkish languages
+
 =What's Been Removed=
--Nothing has been removed
+-Lyrics font size option
 
 =What's Been Changed & Updated=
--Nothing has been changed or updated
+-Disabled the alpha selector in the accent color dialog
 
 =What's Planned To Be Removed/Changed=
 -Embedded lyrics will be changed from using the dialog to the same system as the synced lyrics
 
 ==What's Fixed==
--Cancel button on sleep timer dialog causing a crash
--Android 12 storage permission
--Main intro slide welcome message
+-Lyrics dialog refresh button font size
+-Desaturate color option will now work as intended when disabling material you option
+-Lyrics dialog refresh now works correctly
+-Material you follow system theme should now be working as intended
+-Settings crash when changing certain options has been fixed
+-Monochrome icon now works
+-Shuffle button target color
 
 ==Possible Bugs==
--App may crash when opening app through the widgets. This is due to a change by google
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player
 -Some android skins such as funtouch os may experience issues with apex
 -Headset music controls may not work due to a possible bug in apex. the bug should be fixed but needs some additional testing
+-Material you may not work correctly on some android skins like oneui, due to the implementation method of material you into the android skin

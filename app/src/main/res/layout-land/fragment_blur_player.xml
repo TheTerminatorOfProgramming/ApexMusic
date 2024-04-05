@@ -84,6 +84,22 @@
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <ScrollView
+                    android:id="@+id/scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/embedded"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="5dp"
+                        android:textAlignment="center"/>
+                </ScrollView>
             </com.ttop.app.apex.views.HeightFitSquareLayout>
 
             <LinearLayout
@@ -96,7 +112,8 @@
                     android:name="com.ttop.app.apex.ui.fragments.player.blur.BlurPlaybackControlsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    tools:layout="@layout/fragment_blur_player_playback_controls" />
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/playerToolbar"

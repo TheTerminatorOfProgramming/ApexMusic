@@ -24,15 +24,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentBlurPlayerPlaybackControlsBinding
-import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.TintHelper
 
 class BlurPlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_blur_player_playback_controls) {
@@ -119,18 +115,6 @@ class BlurPlaybackControlsFragment :
 
         binding.artist.setTextColor(lastPlaybackControlsColor)
         binding.songInfo.setTextColor(lastDisabledPlaybackControlsColor)
-
-        binding.progressSlider.applyColor(lastPlaybackControlsColor)
-        setFabColor(lastPlaybackControlsColor)
-    }
-
-    private fun setFabColor(i: Int) {
-        TintHelper.setTintAuto(
-            binding.playPauseButton,
-            MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(i)),
-            false
-        )
-        TintHelper.setTintAuto(binding.playPauseButton, i, true)
     }
 
     private fun setUpPlayPauseFab() {

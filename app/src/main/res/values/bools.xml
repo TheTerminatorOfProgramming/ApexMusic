@@ -3,4 +3,6 @@
     <bool name="auto_rotate">false</bool>
     <bool name="actions">false</bool>
     <bool name="auto_actions">false</bool>
+    <bool name="extra_controls">true</bool>
+    <bool name="queue_option">false</bool>
 </resources>

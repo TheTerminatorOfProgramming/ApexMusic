@@ -25,7 +25,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.bundleOf
-import androidx.core.text.parseAsHtml
 import androidx.core.text.toSpannable
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw

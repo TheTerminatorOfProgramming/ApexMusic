@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <array name="pref_album_cover_transform_entries">
         <item>@string/normal</item>
         <item>@string/cascading</item>
@@ -171,11 +171,13 @@
         <item>@string/german</item>
         <item>@string/hindi</item>
         <item>@string/indonesian</item>
+        <item>@string/italian</item>
         <item>@string/japanese</item>
         <item>@string/mandarin</item>
         <item>@string/portuguese</item>
         <item>@string/punjabi</item>
         <item>@string/spanish</item>
+        <item>@string/turkish</item>
     </string-array>
 
     <string-array name="pref_language_codes">
@@ -185,11 +187,13 @@
         <item>de</item>
         <item>hi</item>
         <item>in</item>
+        <item>it</item>
         <item>ja</item>
         <item>zh</item>
         <item>pt</item>
         <item>pa</item>
         <item>es</item>
+        <item>tr</item>
     </string-array>
 
     <string-array name="pref_swipe_gestures_titles">
@@ -319,6 +323,19 @@
     <string-array name="pref_scrollbar_values">
         <item>show_always</item>
         <item>auto_hide</item>
+        <item>disabled</item>
+    </string-array>
+    <array name="pref_lyrics_mode_titles">
+        <item>@string/lyrics_id3</item>
+        <item>@string/lyrics_synced</item>
+        <item>@string/lyrics_both</item>
+        <item>@string/disabled</item>
+    </array>
+
+    <string-array name="pref_lyrics_mode_values">
+        <item>id3</item>
+        <item>synced</item>
+        <item>both</item>
         <item>disabled</item>
     </string-array>
 </resources>

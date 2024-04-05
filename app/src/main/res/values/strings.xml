@@ -209,6 +209,8 @@
     <string name="horizontal_bottom">Horizontal Bottom</string>
     <string name="horizontal_flip">Horizontal flip</string>
     <string name="horizontal_top">Horizontal Top</string>
+    <string name="id3_lyrics">ID3 Lyrics</string>
+    <string name="id3_lyrics_summary">In order for the new id3 lyrics system to work, the drag to collapse on the player themes will be disabled, when the id3 lyrics are shown. this is due to a conflict with the player queue.</string>
     <string name="id3_tags">ID3 Tags</string>
     <string name="image">Image</string>
     <string name="image_gradient">Gradient image</string>
@@ -240,7 +242,12 @@
     <string name="light_theme_name">Bright White</string>
     <string name="listeners_label">Listeners</string>
     <string name="lyrics">Lyrics</string>
+    <string name="lyrics_both">ID3 Tag &amp; Synced Lyrics</string>
+    <string name="lyrics_id3">ID3 Tag Lyrics</string>
+    <string name="lyrics_message_enabled">ID3 lyrics shown. Dragging has been disabled</string>
+    <string name="lyrics_message_disabled">ID3 lyrics hidden. Dragging has been enabled</string>
     <string name="lyrics_search_summary">Use lyrics search terms form id3 tags or enter manually?</string>
+    <string name="lyrics_synced">Synced Lyrics</string>
     <string name="manually">Manually</string>
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Permission error</string>
@@ -362,6 +369,7 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Desaturated Color</string>
+    <string name="pref_title_disable_id3_lyrics_message">Disable ID3 Lyrics Messages</string>
     <string name="pref_title_disable_widgets">Disable Default Widgets</string>
     <string name="pref_title_duration">Single Duration</string>
     <string name="pref_title_embed_lyrics_view">Unsynced ID3 Lyrics</string>
@@ -369,7 +377,6 @@
     <string name="pref_title_extra_controls">Extra Controls</string>
     <string name="pref_title_fast_forward_duration">Fast Forward Seek Duration</string>
     <string name="pref_title_font_size">Font Size</string>
-    <string name="pref_title_font_size_lyrics">Lyrics Font Size</string>
     <string name="pref_title_gapless_playback">Gapless Playback</string>
     <string name="pref_title_general_theme">App Theme</string>
     <string name="pref_title_hide_update">Hide Update Button</string>
@@ -378,8 +385,10 @@
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store Covers</string>
     <string name="pref_title_last_added_interval">Last Added Playlist Interval</string>
     <string name="pref_title_lock_screen">Lock Screen Controls</string>
-    <string name="pref_title_lyrics_type">Synced Lyrics Cover Type</string>
+    <string name="pref_title_lyrics_type">Lyrics Type</string>
+    <string name="pref_title_lyrics_type_synced">Synced Lyrics Cover Type</string>
     <string name="pref_title_manage_audio_focus">Always Play</string>
+    <string name="pref_title_md3">Material You</string>
     <string name="pref_title_notification_action_1">Notification Action Left</string>
     <string name="pref_title_notification_action_2">Notification Action Right</string>
     <string name="pref_title_now_playing_screen_appearance">Now Playing Theme</string>
@@ -395,6 +404,7 @@
     <string name="pref_title_search_action">Shuffled Search Action</string>
     <string name="pref_title_search_icon">Voice Search In Header</string>
     <string name="pref_title_shuffle_state">Keep Shuffle State</string>
+    <string name="pref_title_simple_mode">Simple Mode</string>
     <string name="pref_title_specific_device">Specific Device</string>
     <string name="pref_title_stock_equalizer">Use System Equalizer</string>
     <string name="pref_title_suggestions">Show Suggestions</string>
@@ -404,6 +414,7 @@
     <string name="pref_title_tab_text_mode">Tab Titles Mode</string>
     <string name="pref_title_toggle_carousel_effect">Carousel Effect</string>
     <string name="pref_title_toggle_headset">Wired Headset Playback</string>
+    <string name="pref_title_transparent_mini_player">Transparent Mini Player</string>
     <string name="pref_title_use_notification_actions_for_auto">Use Notification Actions</string>
     <string name="pref_title_volume_controls">Volume Controls</string>
     <string name="pref_title_whitelist">Whitelist Music (/Music Folder)</string>

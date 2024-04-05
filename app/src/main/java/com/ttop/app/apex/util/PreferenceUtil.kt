@@ -218,13 +218,17 @@ object PreferenceUtil {
             BLACK_THEME, false
         )
 
-    val isExtraControls
+    var isExtraControls
         get() = sharedPreferences.getBoolean(
             TOGGLE_ADD_CONTROLS, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(TOGGLE_ADD_CONTROLS, value)
+        }
 
-    val isScreenOnEnabled get() = sharedPreferences.getBoolean(KEEP_SCREEN_ON, false)
-
+    var isScreenOnEnabled
+        get() = sharedPreferences.getBoolean(KEEP_SCREEN_ON, false)
+        set(value) = sharedPreferences.edit { putBoolean(KEEP_SCREEN_ON, value) }
     val isPauseOnZeroVolume get() = sharedPreferences.getBoolean(PAUSE_ON_ZERO_VOLUME, true)
 
     var isSleepTimerFinishMusic
@@ -251,14 +255,17 @@ object PreferenceUtil {
 
     val blurAmount get() = sharedPreferences.getInt(NEW_BLUR_AMOUNT, 25)
 
-    val isCarouselEffect
+    var isCarouselEffect
         get() = sharedPreferences.getBoolean(
             CAROUSEL_EFFECT, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(CAROUSEL_EFFECT, value)
+        }
 
     var isDesaturatedColor
         get() = sharedPreferences.getBoolean(
-            DESATURATED_COLOR, false
+            DESATURATED_COLOR, true
         )
         set(value) = sharedPreferences.edit {
             putBoolean(DESATURATED_COLOR, value)
@@ -406,7 +413,7 @@ object PreferenceUtil {
             } else layoutRes
         }
 
-    val tabTitleMode: Int
+    var tabTitleMode: Int
         get() {
             return when (sharedPreferences.getStringOrDefault(
                 TAB_TEXT_MODE, "0"
@@ -418,7 +425,9 @@ object PreferenceUtil {
                 else -> BottomNavigationView.LABEL_VISIBILITY_LABELED
             }
         }
-
+        set(value) = sharedPreferences.edit {
+            putString(TAB_TEXT_MODE, value.toString())
+        }
 
     var songGridSize
         get() = sharedPreferences.getInt(
@@ -684,8 +693,9 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(SHOW_LYRICS, false)
         set(value) = sharedPreferences.edit { putBoolean(SHOW_LYRICS, value) }
 
-    val rememberLastTab: Boolean
+    var rememberLastTab: Boolean
         get() = sharedPreferences.getBoolean(REMEMBER_LAST_TAB, true)
+        set(value) = sharedPreferences.edit { putBoolean(REMEMBER_LAST_TAB, value) }
 
     var lastTab: Int
         get() = sharedPreferences
@@ -703,8 +713,9 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, true)
         set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
-    val isCustomFont
+    var isCustomFont
         get() = sharedPreferences.getString(CUSTOM_FONT, "default")
+        set(value) = sharedPreferences.edit { putString(CUSTOM_FONT, value) }
 
     val lyricsType: CoverLyricsType
         get() = if (sharedPreferences.getString(LYRICS_TYPE, "0") == "0") {
@@ -731,14 +742,15 @@ object PreferenceUtil {
             putString(APPBAR_MODE, value)}
 
 
-    val lyricsScreenOn
+    var lyricsScreenOn
         get() = sharedPreferences.getBoolean(SCREEN_ON_LYRICS, false)
+        set(value) = sharedPreferences.edit {
+            putBoolean(SCREEN_ON_LYRICS, value)}
 
     var swipeAnywhereToChangeSong
         get() = sharedPreferences.getString(
             SWIPE_ANYWHERE_NOW_PLAYING, "off"
         )
-
         set(value) = sharedPreferences.edit {
             putString(SWIPE_ANYWHERE_NOW_PLAYING, value)}
 
@@ -762,11 +774,13 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(SHOULD_RECREATE_TABS, value)}
 
-    val specificDevice
+    var specificDevice
         get() = sharedPreferences.getBoolean(SPECIFIC_DEVICE, false)
+        set(value) = sharedPreferences.edit { putBoolean(SPECIFIC_DEVICE, value)}
 
-    val bluetoothDevice
+    var bluetoothDevice
         get() = sharedPreferences.getString(BLUETOOTH_DEVICE, "")
+        set(value) = sharedPreferences.edit { putString(BLUETOOTH_DEVICE, value)}
 
     var isQueueHiddenPeek
         get() = sharedPreferences.getBoolean(
@@ -774,11 +788,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(IS_QUEUE_HIDDEN_PEEK, value)}
-
-    val syncedLyrics
-        get() = sharedPreferences.getBoolean(
-            SYNCED_LYRICS, false
-        )
 
     var widgetBackground
         get() = sharedPreferences.getBoolean(
@@ -803,10 +812,12 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putString(TOGGLE_MINI_SWIPE, value)}
 
-    val isAutoplay
+    var isAutoplay
         get() = sharedPreferences.getBoolean(
             TOGGLE_AUTOPLAY, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(TOGGLE_AUTOPLAY, value)}
 
     var isAutoRotate
         get() = sharedPreferences.getBoolean(
@@ -816,20 +827,15 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(AUTO_ROTATE, value)}
 
-    var isEmbedMode
-        get() = sharedPreferences.getBoolean(EMBED_LYRICS, false)
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(EMBED_LYRICS, value)}
-
     var isWidgetPanel
         get() = sharedPreferences.getBoolean(WIDGET_PANEL, false)
 
         set(value) = sharedPreferences.edit {
             putBoolean(WIDGET_PANEL, value)}
 
-    val isExpandPanel
+    var isExpandPanel
         get() = sharedPreferences.getString(EXPAND_NOW_PLAYING_PANEL, "disabled")
+        set(value) = sharedPreferences.edit { putString(EXPAND_NOW_PLAYING_PANEL, value)}
 
     var isDevModeEnabled
         get() = sharedPreferences.getBoolean(DEV_MODE, false)
@@ -872,7 +878,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getString(
             QUEUE_STYLE, "duo"
         )
-
         set(value) = sharedPreferences.edit {
             putString(QUEUE_STYLE, value)}
 
@@ -880,20 +885,20 @@ object PreferenceUtil {
         get() = sharedPreferences.getString(
             QUEUE_STYLE_LAND, "trio"
         )
-
         set(value) = sharedPreferences.edit {
             putString(QUEUE_STYLE, value)}
 
-    val isPlayerBackgroundType
+    var isPlayerBackgroundType
         get() = sharedPreferences.getBoolean(
             PLAYER_BACKGROUND, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(PLAYER_BACKGROUND, value)}
 
     var backupPath
         get() = sharedPreferences.getString(
             BACKUP_PATH, getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
         )
-
         set(value) = sharedPreferences.edit {
             putString(BACKUP_PATH, value)}
 
@@ -908,10 +913,12 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putString(APPBAR_MODE, value)}
 
-    val isColorAnimate
+    var isColorAnimate
         get() = sharedPreferences.getBoolean(
             COLOR_ANIMATE, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(COLOR_ANIMATE, value)}
 
     var isCarConnected
         get() = sharedPreferences.getBoolean(
@@ -926,20 +933,26 @@ object PreferenceUtil {
     val isAutoAction2
         get() = sharedPreferences.getStringOrDefault(AUTO_ACTION_2, "none")
 
-    val isNotificationActionsOnAuto
+    var isNotificationActionsOnAuto
         get() = sharedPreferences.getBoolean(
             USE_NOTI_ACTIONS_AUTO, true
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(USE_NOTI_ACTIONS_AUTO, value)}
 
-    val searchActionShuffle
+    var searchActionShuffle
         get() = sharedPreferences.getBoolean(
             SEARCH_ACTION, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(SEARCH_ACTION, value)}
 
-    val isVoiceSearch
+    var isVoiceSearch
         get() = sharedPreferences.getBoolean(
             SEARCH_ICON_NAVIGATION, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(SEARCH_ICON_NAVIGATION, value)}
 
     var isSearchFromNavigation
         get() = sharedPreferences.getBoolean(
@@ -953,19 +966,16 @@ object PreferenceUtil {
             VOLUME_CONTROLS, false
         )
 
-    val isStockEqualizer
+    var isStockEqualizer
         get() = sharedPreferences.getBoolean(
             EQUALIZER_STOCK, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(EQUALIZER_STOCK, value)}
 
     val fontSize
         get() = sharedPreferences.getString(
             FONT_SIZE, "16"
-        )
-
-    val fontSizeLyrics
-        get() = sharedPreferences.getString(
-            FONT_SIZE_LYRICS, "16"
         )
 
     val keepShuffleState
@@ -986,6 +996,35 @@ object PreferenceUtil {
     val isDurationSame
         get() = sharedPreferences.getBoolean(
             DURATION_SAME, true
+        )
+
+    val isMiniPlayerTransparent
+        get() = sharedPreferences.getBoolean(
+            TRANSPARENT_MINI_PLAYER, false
+        )
+
+    var lyricsMode
+        get() = sharedPreferences.getString(
+            LYRICS_MODE, "disabled"
+        )
+        set(value) = sharedPreferences.edit {
+            putString(LYRICS_MODE, value)}
+
+    var isEmbedLyricsActivated
+        get() = sharedPreferences.getBoolean(
+            EMBED_LYRICS_ACTIVATED, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(EMBED_LYRICS_ACTIVATED, value)}
+
+    val isLyricsMessageDisabled
+        get() = sharedPreferences.getBoolean(
+            DISABLE_MESSAGE_LYRICS, false
+        )
+
+    val isSimpleMode
+        get() = sharedPreferences.getBoolean(
+            SIMPLE_MODE, false
         )
 }
 

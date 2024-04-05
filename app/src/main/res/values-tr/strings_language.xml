@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bengali">Bengalce</string>
+    <string name="english">İngilizce</string>
+    <string name="german">Almanca</string>
+    <string name="hindi">Hintçe</string>
+    <string name="indonesian">Endonezya dili</string>
+    <string name="italian">İtalyan</string>
+    <string name="japanese">Japonca</string>
+    <string name="mandarin">Mandalina</string>
+    <string name="portuguese">Portekizce</string>
+    <string name="punjabi">Pencap</string>
+    <string name="spanish">İspanyol</string>
+    <string name="system_default">Sistem varsayılanı</string>
+    <string name="turkish">Türkçe</string>
+</resources>

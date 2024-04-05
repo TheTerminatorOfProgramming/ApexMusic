@@ -24,6 +24,7 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.AUTO_DOWNLOAD_IMAGES_POLICY
 import com.ttop.app.apex.BLUETOOTH_DEVICE
@@ -38,6 +39,7 @@ import com.ttop.app.apex.SPECIFIC_DEVICE
 import com.ttop.app.apex.TOGGLE_HEADSET
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_PERMISSION_REQUEST
 import com.ttop.app.apex.util.NavigationUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 
 
@@ -45,7 +47,7 @@ import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
  * @author Hemanth S (h4h13).
  */
 
-class AudioSettings : AbsSettingsFragment() {
+class AudioSettingsFragment : AbsSettingsFragment() {
     override fun invalidateSettings() {
         val eqPreference: Preference? = findPreference(EQUALIZER)
         eqPreference?.setOnPreferenceClickListener {
@@ -130,6 +132,12 @@ class AudioSettings : AbsSettingsFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_audio)
+
+        val equalizers: PreferenceCategory? = findPreference("equalizers")
+        val autoplays: PreferenceCategory? = findPreference("autoplays")
+
+        equalizers?.isVisible = !PreferenceUtil.isSimpleMode
+        autoplays?.isVisible = !PreferenceUtil.isSimpleMode
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

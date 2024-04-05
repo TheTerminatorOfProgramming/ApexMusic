@@ -207,6 +207,8 @@
     <string name="horizontal_bottom">क्षैतिज तल</string>
     <string name="horizontal_flip">क्षैतिज पलटा</string>
     <string name="horizontal_top">क्षैतिज शीर्ष</string>
+    <string name="id3_lyrics">आईडी3 गीत</string>
+    <string name="id3_lyrics_summary">नए id3 लिरिक्स सिस्टम को काम करने के लिए, जब id3 लिरिक्स दिखाए जाएंगे तो प्लेयर थीम पर ड्रैग को बंद करना अक्षम कर दिया जाएगा। यह खिलाड़ी कतार के साथ टकराव के कारण है।</string>
     <string name="id3_tags">आईडी3 टैग</string>
     <string name="image">छवि</string>
     <string name="image_gradient">ढाल छवि</string>
@@ -238,7 +240,12 @@
     <string name="light_theme_name">चमकदार सफेद</string>
     <string name="listeners_label">श्रोताओं</string>
     <string name="lyrics">बोल</string>
+    <string name="lyrics_both">आईडी3 टैग और amp; समन्वयित गीत</string>
+    <string name="lyrics_id3">ID3 टैग गीत</string>
+    <string name="lyrics_message_enabled">ID3 गीत दिखाए गए. खींचना अक्षम कर दिया गया है</string>
+    <string name="lyrics_message_disabled">ID3 गीत छिपा हुआ. खींचना सक्षम कर दिया गया है</string>
     <string name="lyrics_search_summary">गीत खोज शब्दों का उपयोग आईडी3 टैग के रूप में करें या मैन्युअल रूप से दर्ज करें?</string>
+    <string name="lyrics_synced">समन्वयित गीत</string>
     <string name="manually">मैन्युअल</string>
     <string name="md_error_label">गलती</string>
     <string name="md_storage_perm_error">अनुमति त्रुटि</string>
@@ -360,6 +367,7 @@
     <string name="pref_title_cross_fade">क्रॉसफ़ेड</string>
     <string name="pref_title_custom_font">फ़ॉन्ट</string>
     <string name="pref_title_desaturated_color">असंतृप्त रंग</string>
+    <string name="pref_title_disable_id3_lyrics_message">ID3 गीत संदेश अक्षम करें</string>
     <string name="pref_title_disable_widgets">डिफ़ॉल्ट विजेट अक्षम करें</string>
     <string name="pref_title_duration">एकल अवधि</string>
     <string name="pref_title_embed_lyrics_view">अनसिंक किए गए ID3 गीत</string>
@@ -367,7 +375,6 @@
     <string name="pref_title_extra_controls">अतिरिक्त नियंत्रण</string>
     <string name="pref_title_fast_forward_duration">तेजी से आगे बढ़ने की अवधि की तलाश करें</string>
     <string name="pref_title_font_size">फ़ॉन्ट आकार</string>
-    <string name="pref_title_font_size_lyrics">गीत फ़ॉन्ट आकार</string>
     <string name="pref_title_gapless_playback">गैपलेस प्लेबैक</string>
     <string name="pref_title_general_theme">ऐप थीम</string>
     <string name="pref_title_hide_update">अद्यतन बटन छिपाएँ</string>
@@ -376,8 +383,10 @@
     <string name="pref_title_ignore_media_store_artwork">मीडिया स्टोर कवर पर ध्यान न दें</string>
     <string name="pref_title_last_added_interval">अंतिम जोड़ा गया प्लेलिस्ट अंतराल</string>
     <string name="pref_title_lock_screen">लॉक स्क्रीन नियंत्रण</string>
-    <string name="pref_title_lyrics_type">सिंक किए गए गीत कवर प्रकार</string>
+    <string name="pref_title_lyrics_type">गीत के प्रकार</string>
+    <string name="pref_title_lyrics_type_synced">सिंक किए गए गीत कवर प्रकार</string>
     <string name="pref_title_manage_audio_focus">हमेशा खेलें</string>
+    <string name="pref_title_md3">सामग्री आप</string>
     <string name="pref_title_notification_action_1">अधिसूचना कार्रवाई शेष</string>
     <string name="pref_title_notification_action_2">अधिसूचना कार्रवाई सही</string>
     <string name="pref_title_now_playing_screen_appearance">अब थीम चल रही है</string>
@@ -392,6 +401,7 @@
     <string name="pref_title_scrollbar_style">स्क्रॉलबार शैली</string>
     <string name="pref_title_search_action">फेरबदल की गई खोज क्रिया</string>
     <string name="pref_title_search_icon">हेडर में ध्वनि खोज</string>
+    <string name="pref_title_simple_mode">सरल प्रकार</string>
     <string name="pref_title_shuffle_state">शफ़ल स्थिति रखें</string>
     <string name="pref_title_specific_device">विशिष्ट उपकरण</string>
     <string name="pref_title_stock_equalizer">सिस्टम इक्वलाइज़र का उपयोग करें</string>
@@ -402,6 +412,7 @@
     <string name="pref_title_tab_text_mode">टैब शीर्षक मोड</string>
     <string name="pref_title_toggle_carousel_effect">हिंडोला प्रभाव</string>
     <string name="pref_title_toggle_headset">वायर्ड हेडसेट प्लेबैक</string>
+    <string name="pref_title_transparent_mini_player">पारदर्शी मिनी प्लेयर</string>
     <string name="pref_title_use_notification_actions_for_auto">अधिसूचना क्रियाओं का उपयोग करें</string>
     <string name="pref_title_volume_controls">वॉल्यूम नियंत्रण</string>
     <string name="pref_title_whitelist">श्वेतसूची संगीत (/संगीत फ़ोल्डर)</string>

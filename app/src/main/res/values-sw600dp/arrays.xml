@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_swipe_gestures_tab_titles">
+    <string-array name="pref_swipe_gestures_titles">
         <item>@string/off</item>
         <item>@string/on</item>
     </string-array>
 
-    <string-array name="pref_swipe_gestures_tab_values">
+    <string-array name="pref_swipe_gestures_values">
         <item>off</item>
         <item>always</item>
     </string-array>
 
-    <string-array name="pref_swipe_anywhere_tab_titles">
+    <string-array name="pref_swipe_anywhere_titles">
         <item>@string/off</item>
         <item>@string/on</item>
     </string-array>
 
-    <string-array name="pref_swipe_anywhere_tab_values">
+    <string-array name="pref_swipe_anywhere_values">
         <item>off</item>
         <item>always</item>
     </string-array>
 
-    <string-array name="pref_queue_style_tab_titles">
+    <string-array name="pref_queue_style_titles">
         <item>@string/duo_vertical</item>
         <item>@string/duo_horizontal</item>
         <item>@string/trio</item>
     </string-array>
 
-    <string-array name="pref_queue_style_tab_values">
+    <string-array name="pref_queue_style_values">
         <item>normal</item>
         <item>duo</item>
         <item>trio</item>
