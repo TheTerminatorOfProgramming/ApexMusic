@@ -36,10 +36,10 @@ class LanguageSlideFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        niceSpinner = view.findViewById(R.id.spinner) as NiceSpinner
+        niceSpinner = view.findViewById(R.id.spinner)!!
         val dataset: List<String> = LinkedList(mutableListOf(getString(R.string.system_default), getString(R.string.bengali),
-            getString(R.string.english), getString(R.string.german), getString(R.string.hindi), getString(R.string.indonesian), getString(R.string.japanese), getString(R.string.mandarin), getString(R.string.portuguese),
-            getString(R.string.punjabi), getString(R.string.spanish)))
+            getString(R.string.english), getString(R.string.german), getString(R.string.hindi), getString(R.string.indonesian), getString(R.string.italian), getString(R.string.japanese), getString(R.string.mandarin), getString(R.string.portuguese),
+            getString(R.string.punjabi), getString(R.string.spanish), getString(R.string.turkish)))
         niceSpinner.attachDataSource(dataset)
 
         when (PreferenceUtil.languageCode) {
@@ -49,11 +49,13 @@ class LanguageSlideFragment(
             "de" -> niceSpinner.selectedIndex = 3
             "hi" -> niceSpinner.selectedIndex = 4
             "in" -> niceSpinner.selectedIndex = 5
-            "ja" -> niceSpinner.selectedIndex = 6
-            "zh" -> niceSpinner.selectedIndex = 7
-            "pt" -> niceSpinner.selectedIndex = 8
-            "pa" -> niceSpinner.selectedIndex = 9
-            "es" -> niceSpinner.selectedIndex = 10
+            "it" -> niceSpinner.selectedIndex = 6
+            "ja" -> niceSpinner.selectedIndex = 7
+            "zh" -> niceSpinner.selectedIndex = 8
+            "pt" -> niceSpinner.selectedIndex = 9
+            "pa" -> niceSpinner.selectedIndex = 10
+            "es" -> niceSpinner.selectedIndex = 11
+            "tr" -> niceSpinner.selectedIndex = 12
         }
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_green_500))
@@ -73,11 +75,13 @@ class LanguageSlideFragment(
             getString(R.string.german) -> itemCode = "de"
             getString(R.string.hindi) -> itemCode = "hi"
             getString(R.string.indonesian) -> itemCode = "in"
+            getString(R.string.italian) -> itemCode = "it"
             getString(R.string.japanese) -> itemCode = "ja"
             getString(R.string.mandarin) -> itemCode = "zh"
             getString(R.string.portuguese) -> itemCode = "pt"
             getString(R.string.punjabi) -> itemCode = "pa"
             getString(R.string.spanish) -> itemCode = "es"
+            getString(R.string.turkish) -> itemCode = "tr"
         }
 
         if (itemCode as? String == "auto") {

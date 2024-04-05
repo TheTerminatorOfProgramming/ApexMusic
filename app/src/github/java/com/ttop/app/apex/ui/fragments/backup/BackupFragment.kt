@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -24,7 +23,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
-import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.getInputLayout
 import com.afollestad.materialdialogs.input.input
 import com.jakewharton.processphoenix.ProcessPhoenix
@@ -235,7 +233,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             alert.show()
             alert.withCenteredButtons()
 
-            val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+            val textViewMessage: TextView? = alert.findViewById(android.R.id.message)
 
             when (PreferenceUtil.fontSize) {
                 "12" -> {

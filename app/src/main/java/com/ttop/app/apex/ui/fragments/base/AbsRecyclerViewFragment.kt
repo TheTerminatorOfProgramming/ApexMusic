@@ -111,44 +111,21 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         }
 
         if (!IntroPrefs(requireContext()).hasIntroShown) {
-            when (BuildConfig.BUILD_TYPE) {
-                "debug" -> {
-                    TapTargetView.showFor(
-                        activity,
-                        TapTarget.forView(
-                            binding.shuffleButton,
-                            getString(R.string.shuffle_button),
-                            getString(R.string.shuffle_button_desc)
-                        )
-                            .targetCircleColor(R.color.black_color)
-                            .tintTarget(false)
-                            .outerCircleColor(com.ttop.app.appthemehelper.R.color.default_debug_color)
-                            .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null))
-                    )
-                }
-                "preview",
-                "release" -> {
-                    TapTargetView.showFor(
-                        activity,
-                        TapTarget.forView(
-                            binding.shuffleButton,
-                            getString(R.string.shuffle_button),
-                            getString(R.string.shuffle_button_desc)
-                        )
-                            .targetCircleColor(R.color.black_color)
-                            .tintTarget(false)
-                            .outerCircleColor(com.ttop.app.appthemehelper.R.color.default_color)
-                            .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null))
-                    )
-                }
-            }
+            TapTargetView.showFor(
+                activity,
+                TapTarget.forView(
+                    binding.shuffleButton,
+                    getString(R.string.shuffle_button),
+                    getString(R.string.shuffle_button_desc)
+                )
+                    .targetCircleColor(R.color.black_color)
+                    .tintTarget(false)
+                    .outerCircleColorInt(accentColor())
+                    .icon(ResourcesCompat.getDrawable(resources, R.drawable.ic_shuffle, null))
+            )
 
             IntroPrefs(requireContext()).hasIntroShown = true
         }
-
-        /*if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-            activity?.recreate()
-        }*/
     }
 
     open fun onShuffleClicked() {

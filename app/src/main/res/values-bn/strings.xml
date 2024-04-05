@@ -207,6 +207,8 @@
     <string name="horizontal_bottom">অনুভূমিক নীচে</string>
     <string name="horizontal_flip">অনুভূমিক উল্টানো</string>
     <string name="horizontal_top">অনুভূমিক শীর্ষ</string>
+    <string name="id3_lyrics">ID3 লিরিক্স</string>
+    <string name="id3_lyrics_summary">নতুন id3 লিরিক্স সিস্টেম কাজ করার জন্য, যখন id3 লিরিক্স দেখানো হয় তখন প্লেয়ার থিমগুলিতে ড্র্যাগ টু কেল্যাপস অক্ষম করা হবে। এটি প্লেয়ার সারির সাথে বিরোধের কারণে।</string>
     <string name="id3_tags">ID3 ট্যাগ</string>
     <string name="image">ছবি</string>
     <string name="image_gradient">গ্রেডিয়েন্ট ইমেজ</string>
@@ -238,7 +240,12 @@
     <string name="light_theme_name">উজ্জ্বল সাদা</string>
     <string name="listeners_label">শ্রোতারা</string>
     <string name="lyrics">গানের কথা</string>
+    <string name="lyrics_both">ID3 ট্যাগ &amp; সিঙ্ক করা লিরিক্স</string>
+    <string name="lyrics_id3">ID3 ট্যাগ লিরিক্স</string>
+    <string name="lyrics_message_enabled">ID3 গান দেখানো হয়েছে. টেনে আনা অক্ষম করা হয়েছে</string>
+    <string name="lyrics_message_disabled">ID3 গান লুকানো. টেনে আনা সক্ষম করা হয়েছে</string>
     <string name="lyrics_search_summary">id3 ট্যাগ আকারে গানের সার্চ টার্ম ব্যবহার করবেন নাকি ম্যানুয়ালি লিখবেন?</string>
+    <string name="lyrics_synced">সিঙ্ক করা লিরিক্স</string>
     <string name="manually">ম্যানুয়ালি</string>
     <string name="md_error_label">ত্রুটি</string>
     <string name="md_storage_perm_error">অনুমতি ত্রুটি</string>
@@ -360,6 +367,7 @@
     <string name="pref_title_cross_fade">ক্রসফেড</string>
     <string name="pref_title_custom_font">হরফ</string>
     <string name="pref_title_desaturated_color">ডিস্যাচুরেটেড কালার</string>
+    <string name="pref_title_disable_id3_lyrics_message">ID3 লিরিক্স মেসেজ অক্ষম করুন</string>
     <string name="pref_title_disable_widgets">ডিফল্ট উইজেট অক্ষম করুন</string>
     <string name="pref_title_duration">একক সময়কাল</string>
     <string name="pref_title_embed_lyrics_view">আনসিঙ্ক করা ID3 লিরিক্স</string>
@@ -367,7 +375,6 @@
     <string name="pref_title_extra_controls">অতিরিক্ত নিয়ন্ত্রণ</string>
     <string name="pref_title_fast_forward_duration">দ্রুত ফরোয়ার্ড অনুসন্ধান সময়কাল</string>
     <string name="pref_title_font_size">অক্ষরের আকার</string>
-    <string name="pref_title_font_size_lyrics">লিরিক্স ফন্ট সাইজ</string>
     <string name="pref_title_gapless_playback">গ্যাপলেস প্লেব্যাক</string>
     <string name="pref_title_general_theme">অ্যাপ থিম</string>
     <string name="pref_title_hide_update">আপডেট বোতাম লুকান</string>
@@ -376,8 +383,10 @@
     <string name="pref_title_ignore_media_store_artwork">মিডিয়া স্টোর কভার উপেক্ষা করুন</string>
     <string name="pref_title_last_added_interval">সর্বশেষ যোগ করা প্লেলিস্ট ব্যবধান</string>
     <string name="pref_title_lock_screen">লক স্ক্রিন নিয়ন্ত্রণ</string>
-    <string name="pref_title_lyrics_type">সিঙ্ক করা লিরিক্স কভার টাইপ</string>
+    <string name="pref_title_lyrics_type">গানের ধরন</string>
+    <string name="pref_title_lyrics_type_synced">সিঙ্ক করা লিরিক্স কভার টাইপ</string>
     <string name="pref_title_manage_audio_focus">সবসময় খেলা</string>
+    <string name="pref_title_md3">উপাদান আপনি</string>
     <string name="pref_title_notification_action_1">বিজ্ঞপ্তি কর্ম বাম</string>
     <string name="pref_title_notification_action_2">বিজ্ঞপ্তি কর্ম অধিকার</string>
     <string name="pref_title_now_playing_screen_appearance">এখন থিম চলছে</string>
@@ -393,6 +402,7 @@
     <string name="pref_title_search_action">এলোমেলো অনুসন্ধান কর্ম</string>
     <string name="pref_title_search_icon">হেডারে ভয়েস অনুসন্ধান</string>
     <string name="pref_title_shuffle_state">শাফেল স্টেট রাখুন</string>
+    <string name="pref_title_simple_mode">সাধারণ ভাব</string>
     <string name="pref_title_specific_device">নির্দিষ্ট ডিভাইস</string>
     <string name="pref_title_stock_equalizer">সিস্টেম ইকুয়ালাইজার ব্যবহার করুন</string>
     <string name="pref_title_suggestions">সাজেশন দেখান</string>
@@ -402,6 +412,7 @@
     <string name="pref_title_tab_text_mode">ট্যাব শিরোনাম মোড</string>
     <string name="pref_title_toggle_carousel_effect">ক্যারোজেল প্রভাব</string>
     <string name="pref_title_toggle_headset">তারযুক্ত হেডসেট প্লেব্যাক</string>
+    <string name="pref_title_transparent_mini_player">স্বচ্ছ মিনি প্লেয়ার</string>
     <string name="pref_title_use_notification_actions_for_auto">বিজ্ঞপ্তি অ্যাকশন ব্যবহার করুন</string>
     <string name="pref_title_volume_controls">ভলিউম কন্ট্রোল</string>
     <string name="pref_title_whitelist">হোয়াইটলিস্ট মিউজিক (/মিউজিক ফোল্ডার)</string>

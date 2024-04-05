@@ -3,8 +3,10 @@ package com.ttop.app.apex.ui.activities
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
+import com.ttop.app.apex.DESATURATED_COLOR
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.ui.fragments.intro.BatterySlideFragment
@@ -20,6 +22,7 @@ import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appintro.AppIntro2
 import com.ttop.app.appintro.AppIntroPageTransformerType
+import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
 
 
@@ -59,25 +62,29 @@ class AppIntroActivity : AppIntro2() {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                 slideNumber = AppIntroUtil.notificationPermission(),
-                required = true)
+                required = true
+            )
         }
         //SD Storage Access
         if (VersionUtils.hasT()) {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_MEDIA_AUDIO),
                 slideNumber = AppIntroUtil.storagePermission(),
-                required = true)
-        }else {
+                required = true
+            )
+        } else {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 slideNumber = AppIntroUtil.storagePermission(),
-                required = true)
+                required = true
+            )
         }
         //Bluetooth
         askForPermissions(
             permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
             slideNumber = AppIntroUtil.bluetoothPermission(),
-            required = true)
+            required = true
+        )
 
         setTransformer(AppIntroPageTransformerType.Flow)
         isVibrate = true
@@ -90,33 +97,32 @@ class AppIntroActivity : AppIntro2() {
         setDotIndicator()
         setSelectedIndicatorColor(applicationContext.accentColor())
     }
+
     public override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
 
-        if (!IntroPrefs(applicationContext).hasIntroSlidesShown) {
-            if (ApexUtil.isFoldable(applicationContext)) {
-                PreferenceManager.setDefaultValues(this, R.xml.pref_general_foldable, false)
-                PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen_foldable, false)
-            }else if (!ApexUtil.isFoldable(applicationContext) && ApexUtil.isTablet){
-                PreferenceManager.setDefaultValues(this, R.xml.pref_general_tablet, false)
-                PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen_tablet, false)
-            }else {
-                PreferenceManager.setDefaultValues(this, R.xml.pref_general, false)
-                PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen, false)
-            }
-            PreferenceManager.setDefaultValues(this, R.xml.pref_advanced, false)
-            PreferenceManager.setDefaultValues(this, R.xml.pref_audio, false)
-            PreferenceManager.setDefaultValues(this, R.xml.pref_images, false)
-            PreferenceManager.setDefaultValues(this, R.xml.pref_labs, false)
-            PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false)
-            PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
 
-            IntroPrefs(applicationContext).hasIntroSlidesShown = true
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        if (ApexUtil.isFoldable(applicationContext)) {
+            PreferenceManager.setDefaultValues(this, R.xml.pref_general_foldable, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen_foldable, false)
         }else {
-            finish()
+            PreferenceManager.setDefaultValues(this, R.xml.pref_general, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen, false)
         }
+        PreferenceManager.setDefaultValues(this, R.xml.pref_advanced, false)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_audio, false)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_images, false)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_labs, false)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
+
+        ThemeStore.prefs(applicationContext).edit {
+            putBoolean(DESATURATED_COLOR, true)
+        }
+
+        IntroPrefs(applicationContext).hasIntroSlidesShown = true
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

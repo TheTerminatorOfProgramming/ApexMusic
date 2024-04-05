@@ -16,7 +16,6 @@ package com.ttop.app.apex.ui.activities
 
 import android.content.ComponentName
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
@@ -26,8 +25,6 @@ import android.provider.MediaStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
-import com.ttop.app.apex.DESATURATED_COLOR
-import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
@@ -54,7 +51,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 
 
-class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+class MainActivity : AbsCastActivity() {
     companion object {
         const val TAG = "MainActivity"
         const val EXPAND_PANEL = "expand_panel"
@@ -203,13 +200,6 @@ class MainActivity : AbsCastActivity(), SharedPreferences.OnSharedPreferenceChan
                 expandPanel()
                 intent?.removeExtra(EXPAND_PANEL)
             }
-        }
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        super.onSharedPreferenceChanged(sharedPreferences, key)
-        when(key) {
-            MATERIAL_YOU, DESATURATED_COLOR -> postRecreate()
         }
     }
 

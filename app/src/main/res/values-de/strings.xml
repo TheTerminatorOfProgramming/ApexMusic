@@ -207,6 +207,8 @@
     <string name="horizontal_bottom">Horizontaler Boden</string>
     <string name="horizontal_flip">Horizontaler Flip</string>
     <string name="horizontal_top">Horizontale Oberseite</string>
+    <string name="id3_lyrics">Songtexte von ID3</string>
+    <string name="id3_lyrics_summary">Damit das neue ID3-Liedtextsystem funktioniert, wird das Ziehen zum Reduzieren der Player-Themen deaktiviert, wenn die ID3-Liedtexte angezeigt werden. Dies liegt an einem Konflikt mit der Spielerwarteschlange.</string>
     <string name="id3_tags">ID3-Tags</string>
     <string name="image">Bild</string>
     <string name="image_gradient">Farbverlaufsbild</string>
@@ -238,7 +240,12 @@
     <string name="light_theme_name">Helles Weiß</string>
     <string name="listeners_label">Zuhörer</string>
     <string name="lyrics">Text</string>
+    <string name="lyrics_both">ID3-Tag &amp; Synchronisierte Liedtexte</string>
+    <string name="lyrics_id3">ID3-Tag-Lyrics</string>
+    <string name="lyrics_message_enabled">ID3-Liedtext wird angezeigt. Das Ziehen wurde deaktiviert</string>
+    <string name="lyrics_message_disabled">ID3-Texte ausgeblendet. Das Ziehen wurde aktiviert</string>
     <string name="lyrics_search_summary">Liedtext-Suchbegriffe aus ID3-Tags verwenden oder manuell eingeben?</string>
+    <string name="lyrics_synced">Synchronisierte Liedtexte</string>
     <string name="manually">Manuell</string>
     <string name="md_error_label">Fehler</string>
     <string name="md_storage_perm_error">Berechtigungsfehler</string>
@@ -360,6 +367,7 @@
     <string name="pref_title_cross_fade">Überblendung</string>
     <string name="pref_title_custom_font">Schriftart</string>
     <string name="pref_title_desaturated_color">Entsättigte Farbe</string>
+    <string name="pref_title_disable_id3_lyrics_message">Deaktivieren Sie ID3-Lyrics-Nachrichten</string>
     <string name="pref_title_disable_widgets">Deaktivieren Sie Standard-Widgets</string>
     <string name="pref_title_duration">Einzelne Dauer</string>
     <string name="pref_title_embed_lyrics_view">Unsynchronisierte ID3-Texte</string>
@@ -367,7 +375,6 @@
     <string name="pref_title_extra_controls">Zusätzliche Kontrollen</string>
     <string name="pref_title_fast_forward_duration">Suchdauer des schnellen Vorlaufs</string>
     <string name="pref_title_font_size">Schriftgröße</string>
-    <string name="pref_title_font_size_lyrics">Schriftgröße des Liedtextes</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_general_theme">App-Theme</string>
     <string name="pref_title_hide_update">Schaltfläche „Aktualisieren“ ausblenden</string>
@@ -376,8 +383,10 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorieren Sie Cover des Media Stores</string>
     <string name="pref_title_last_added_interval">Intervall der zuletzt hinzugefügten Wiedergabeliste</string>
     <string name="pref_title_lock_screen">Steuerelemente für den Sperrbildschirm</string>
-    <string name="pref_title_lyrics_type">Synchronisierter Songtext-Cover-Typ</string>
+    <string name="pref_title_lyrics_type">Liedtexttyp</string>
+    <string name="pref_title_lyrics_type_synced">Synchronisierter Songtext-Cover-Typ</string>
     <string name="pref_title_manage_audio_focus">Immer spielen</string>
+    <string name="pref_title_md3">Material Sie</string>
     <string name="pref_title_notification_action_1">Benachrichtigungsaktion übrig</string>
     <string name="pref_title_notification_action_2">Benachrichtigungsaktionsrecht</string>
     <string name="pref_title_now_playing_screen_appearance">Jetzt abgespieltes Thema</string>
@@ -393,6 +402,7 @@
     <string name="pref_title_search_action">Gemischte Suchaktion</string>
     <string name="pref_title_search_icon">Sprachsuche im Header</string>
     <string name="pref_title_shuffle_state">Behalten Sie den Shuffle-Status bei</string>
+    <string name="pref_title_simple_mode">Einfacher Modus</string>
     <string name="pref_title_specific_device">Spezifisches Gerät</string>
     <string name="pref_title_stock_equalizer">Verwenden Sie den System-Equalizer</string>
     <string name="pref_title_suggestions">Zeige Vorschläge</string>
@@ -402,6 +412,7 @@
     <string name="pref_title_tab_text_mode">Registerkartentitelmodus</string>
     <string name="pref_title_toggle_carousel_effect">Karusselleffekt</string>
     <string name="pref_title_toggle_headset">Wiedergabe über kabelgebundene Headsets</string>
+    <string name="pref_title_transparent_mini_player">Transparenter Mini-Player</string>
     <string name="pref_title_use_notification_actions_for_auto">Verwenden Sie Benachrichtigungsaktionen</string>
     <string name="pref_title_volume_controls">Lautstärkeregler</string>
     <string name="pref_title_whitelist">Musik auf die weiße Liste setzen (/Musikordner)</string>

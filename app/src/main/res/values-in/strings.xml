@@ -205,6 +205,8 @@
     <string name="horizontal_bottom">Bawah Horisontal</string>
     <string name="horizontal_flip">Balik horizontal</string>
     <string name="horizontal_top">Atas Horisontal</string>
+    <string name="id3_lyrics">Lirik ID3</string>
+    <string name="id3_lyrics_summary">Agar sistem lirik id3 yang baru dapat berfungsi, drag untuk menutup tema pemutar akan dinonaktifkan, ketika lirik id3 ditampilkan. hal ini dikarenakan adanya konflik dengan antrian pemain.</string>
     <string name="id3_tags">Tag ID3</string>
     <string name="image">Gambar</string>
     <string name="image_gradient">Gambar gradien</string>
@@ -236,7 +238,12 @@
     <string name="light_theme_name">Putih cerah</string>
     <string name="listeners_label">Pendengar</string>
     <string name="lyrics">Lirik</string>
+    <string name="lyrics_both">Tag ID3 &amp; Lirik yang Disinkronkan</string>
+    <string name="lyrics_id3">Lirik Tag ID3</string>
+    <string name="lyrics_message_enabled">Lirik ID3 ditampilkan. Menyeret telah dinonaktifkan</string>
+    <string name="lyrics_message_disabled">Lirik ID3 disembunyikan. Menyeret telah diaktifkan</string>
     <string name="lyrics_search_summary">Gunakan istilah pencarian lirik dari tag id3 atau masukkan secara manual?</string>
+    <string name="lyrics_synced">Lirik yang Disinkronkan</string>
     <string name="manually">Secara manual</string>
     <string name="md_error_label">Kesalahan</string>
     <string name="md_storage_perm_error">Kesalahan izin</string>
@@ -359,13 +366,13 @@
     <string name="pref_title_custom_font">huruf</string>
     <string name="pref_title_desaturated_color">Warna Desaturasi</string>
     <string name="pref_title_disable_widgets">Nonaktifkan Widget Default</string>
+    <string name="pref_title_disable_id3_lyrics_message">Nonaktifkan Pesan Lirik ID3</string>
     <string name="pref_title_duration">Durasi Tunggal</string>
     <string name="pref_title_embed_lyrics_view">Lirik ID3 Tidak Disinkronkan</string>
     <string name="pref_title_expand_now_playing_panel">Tampilkan Layar Sedang Diputar</string>
     <string name="pref_title_extra_controls">Kontrol Ekstra</string>
     <string name="pref_title_fast_forward_duration">Durasi Pencarian Maju Cepat</string>
     <string name="pref_title_font_size">Ukuran huruf</string>
-    <string name="pref_title_font_size_lyrics">Ukuran Font Lirik</string>
     <string name="pref_title_gapless_playback">Pemutaran Tanpa Celah</string>
     <string name="pref_title_general_theme">Tema Aplikasi</string>
     <string name="pref_title_hide_update">Sembunyikan Tombol Perbarui</string>
@@ -374,8 +381,10 @@
     <string name="pref_title_ignore_media_store_artwork">Abaikan Sampul Toko Media</string>
     <string name="pref_title_last_added_interval">Interval Daftar Putar Terakhir Ditambahkan</string>
     <string name="pref_title_lock_screen">Kontrol Layar Kunci</string>
-    <string name="pref_title_lyrics_type">Jenis Sampul Lirik yang Disinkronkan</string>
+    <string name="pref_title_lyrics_type">Jenis Lirik</string>
+    <string name="pref_title_lyrics_type_synced">Jenis Sampul Lirik yang Disinkronkan</string>
     <string name="pref_title_manage_audio_focus">Selalu Mainkan</string>
+    <string name="pref_title_md3">Materi Anda</string>
     <string name="pref_title_notification_action_1">Tindakan Notifikasi Tersisa</string>
     <string name="pref_title_notification_action_2">Tindakan Notifikasi Benar</string>
     <string name="pref_title_now_playing_screen_appearance">Tema Sedang Dimainkan</string>
@@ -391,6 +400,7 @@
     <string name="pref_title_search_action">Tindakan Pencarian Acak</string>
     <string name="pref_title_search_icon">Pencarian Suara Di Header</string>
     <string name="pref_title_shuffle_state">Pertahankan Status Acak</string>
+    <string name="pref_title_simple_mode">Modus Sederhana</string>
     <string name="pref_title_specific_device">Perangkat Tertentu</string>
     <string name="pref_title_stock_equalizer">Gunakan Ekualiser Sistem</string>
     <string name="pref_title_suggestions">Tampilkan Saran</string>
@@ -400,6 +410,7 @@
     <string name="pref_title_tab_text_mode">Mode Judul Tab</string>
     <string name="pref_title_toggle_carousel_effect">Efek Korsel</string>
     <string name="pref_title_toggle_headset">Pemutaran Headset Berkabel</string>
+    <string name="pref_title_transparent_mini_player">Pemutar Mini Transparan</string>
     <string name="pref_title_use_notification_actions_for_auto">Gunakan Tindakan Pemberitahuan</string>
     <string name="pref_title_volume_controls">Kontrol Volume</string>
     <string name="pref_title_whitelist">Daftar Putih Musik (/Folder Musik)</string>

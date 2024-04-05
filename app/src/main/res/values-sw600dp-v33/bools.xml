@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="actions">true</bool>
+    <bool name="auto_rotate">true</bool>
+    <bool name="extra_controls">false</bool>
+    <bool name="queue_option">true</bool>
+</resources>

@@ -108,6 +108,27 @@
             app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
             app:layout_constraintBottom_toTopOf="@id/space"/>
 
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
+            app:layout_constraintBottom_toTopOf="@id/space"
+            android:background="@color/black_color"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/embedded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="5dp"
+                android:textAlignment="center"/>
+        </ScrollView>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerControlFragment"

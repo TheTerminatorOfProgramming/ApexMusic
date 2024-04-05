@@ -32,6 +32,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/songTotalTime"
         app:layout_constraintStart_toEndOf="@id/songCurrentProgress"
+        android:thumbTint="@color/md_white_1000"
+        android:progressTint="@color/md_white_1000"
+        android:progressBackgroundTint="@color/md_white_1000"
         tools:progress="50" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -163,8 +166,10 @@
         app:layout_constraintEnd_toStartOf="@+id/nextButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/previousButton"
+        app:backgroundTint="@color/md_white_1000"
         app:srcCompat="@drawable/ic_pause"
-        tools:tint="@color/md_black_1000" />
+        tools:tint="@color/md_white_1000"
+        tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/nextButton"

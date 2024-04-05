@@ -95,7 +95,6 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
-
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal. Modified by TTOP
  */
@@ -258,6 +257,7 @@ class MusicService : MediaBrowserServiceCompat(),
                         )
                     }
                 }
+
                 if (BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED == action || BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
                     if (PreferenceUtil.specificDevice){
                         if (device?.address == PreferenceUtil.bluetoothDevice){

@@ -15,10 +15,11 @@
         android:title="@string/pref_title_whitelist"
         app:allowDividerBelow="false"/>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
-    android:layout="@layout/preference_category_title"
-    android:title="@string/pref_header_auto"
-    app:isPreferenceVisible="@bool/auto_actions"
-    app:allowDividerBelow="false">
+        android:layout="@layout/preference_category_title"
+        android:key="android_auto"
+        android:title="@string/pref_header_auto"
+        app:isPreferenceVisible="@bool/auto_actions"
+        app:allowDividerBelow="false">
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="true"
@@ -56,6 +57,7 @@
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
+        android:key="search"
         android:title="@string/pref_header_search"
         app:allowDividerBelow="false">
 
@@ -117,6 +119,7 @@
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
+        android:key="advanced"
         android:title="@string/pref_header_advanced"
         app:allowDividerBelow="false">
 

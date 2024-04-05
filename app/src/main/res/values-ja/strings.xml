@@ -205,6 +205,8 @@
     <string name="horizontal_bottom">水平底部</string>
     <string name="horizontal_flip">水平反転</string>
     <string name="horizontal_top">水平トップ</string>
+    <string name="id3_lyrics">ID3 歌詞</string>
+    <string name="id3_lyrics_summary">新しい id3 歌詞システムが機能するために、id3 歌詞が表示されているときは、プレーヤーのテーマでドラッグして折りたたむことができなくなります。 これはプレーヤーのキューとの競合が原因です。</string>
     <string name="id3_tags">ID3タグ</string>
     <string name="image">画像</string>
     <string name="image_gradient">グラデーション画像</string>
@@ -236,7 +238,12 @@
     <string name="light_theme_name">明るい白色</string>
     <string name="listeners_label">リスナー</string>
     <string name="lyrics">歌詞</string>
+    <string name="lyrics_both">ID3タグ＆ID3タグ 同期された歌詞</string>
+    <string name="lyrics_id3">ID3タグの歌詞</string>
+    <string name="lyrics_message_enabled">ID3の歌詞が表示されます。 ドラッグが無効になっています</string>
+    <string name="lyrics_message_disabled">ID3の歌詞は隠されています。 ドラッグが有効になりました</string>
     <string name="lyrics_search_summary">id3 タグから歌詞検索語を使用しますか、それとも手動で入力しますか?</string>
+    <string name="lyrics_synced">同期された歌詞</string>
     <string name="manually">手動で</string>
     <string name="md_error_label">エラー</string>
     <string name="md_storage_perm_error">許可エラー</string>
@@ -358,6 +365,7 @@
     <string name="pref_title_cross_fade">クロスフェード</string>
     <string name="pref_title_custom_font">フォント</string>
     <string name="pref_title_desaturated_color">彩度の低い色</string>
+    <string name="pref_title_disable_id3_lyrics_message">ID3 歌詞メッセージを無効にする</string>
     <string name="pref_title_disable_widgets">デフォルトのウィジェットを無効にする</string>
     <string name="pref_title_duration">単一期間</string>
     <string name="pref_title_embed_lyrics_view">同期されていない ID3 の歌詞</string>
@@ -365,7 +373,6 @@
     <string name="pref_title_extra_controls">追加のコントロール</string>
     <string name="pref_title_fast_forward_duration">早送りシーク期間</string>
     <string name="pref_title_font_size">フォントサイズ</string>
-    <string name="pref_title_font_size_lyrics">歌詞のフォントサイズ</string>
     <string name="pref_title_gapless_playback">ギャップレス再生</string>
     <string name="pref_title_general_theme">アプリのテーマ</string>
     <string name="pref_title_hide_update">更新ボタンを非表示にする</string>
@@ -374,8 +381,10 @@
     <string name="pref_title_ignore_media_store_artwork">メディア ストアのカバーを無視する</string>
     <string name="pref_title_last_added_interval">最後に追加されたプレイリストの間隔</string>
     <string name="pref_title_lock_screen">ロック画面のコントロール</string>
-    <string name="pref_title_lyrics_type">同期された歌詞カバーのタイプ</string>
+    <string name="pref_title_lyrics_type">歌詞の種類</string>
+    <string name="pref_title_lyrics_type_synced">同期された歌詞カバーのタイプ</string>
     <string name="pref_title_manage_audio_focus">いつでもプレイ</string>
+    <string name="pref_title_md3">マテリアル・ユー</string>
     <string name="pref_title_notification_action_1">通知アクションが残っています</string>
     <string name="pref_title_notification_action_2">通知アクション権限</string>
     <string name="pref_title_now_playing_screen_appearance">再生中のテーマ</string>
@@ -391,6 +400,7 @@
     <string name="pref_title_search_action">シャッフル検索アクション</string>
     <string name="pref_title_search_icon">ヘッダー内の音声検索</string>
     <string name="pref_title_shuffle_state">シャッフル状態を維持する</string>
+    <string name="pref_title_simple_mode">シンプルモード</string>
     <string name="pref_title_specific_device">特定のデバイス</string>
     <string name="pref_title_stock_equalizer">システムイコライザーを使用する</string>
     <string name="pref_title_suggestions">提案を表示</string>
@@ -400,6 +410,7 @@
     <string name="pref_title_tab_text_mode">タブタイトルモード</string>
     <string name="pref_title_toggle_carousel_effect">カルーセル効果</string>
     <string name="pref_title_toggle_headset">有線ヘッドセットの再生</string>
+    <string name="pref_title_transparent_mini_player">透明ミニプレーヤー</string>
     <string name="pref_title_use_notification_actions_for_auto">通知アクションを使用する</string>
     <string name="pref_title_volume_controls">ボリュームコントロール</string>
     <string name="pref_title_whitelist">ホワイトリスト音楽 (/音楽フォルダー)</string>

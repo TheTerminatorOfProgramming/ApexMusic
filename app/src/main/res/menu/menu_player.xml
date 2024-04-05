@@ -94,7 +94,9 @@
     <item
         android:id="@+id/action_go_to_lyrics"
         android:orderInCategory="11"
-        android:title="@string/action_go_to_lyrics" />
+        android:icon="@drawable/ic_lyrics_outline"
+        android:title="@string/action_go_to_lyrics"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_equalizer"
         android:orderInCategory="13"

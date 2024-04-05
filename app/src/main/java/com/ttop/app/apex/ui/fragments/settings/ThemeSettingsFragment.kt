@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
@@ -33,7 +34,6 @@ import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.installLanguageAndRecreate
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ACCENT_COLORS
@@ -70,7 +70,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             materialDialog().show {
                 colorChooser(
                     initialSelection = accentColor,
-                    showAlphaSelector = true,
+                    showAlphaSelector = false,
                     colors = ACCENT_COLORS,
                     subColors = ACCENT_COLORS_SUB,
                     allowCustomArgb = true
@@ -121,7 +121,12 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             if (newValue as Boolean) {
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+            }else {
+                ThemeStore.prefs(requireContext()).edit {
+                    putBoolean(DESATURATED_COLOR, PreferenceUtil.isDesaturatedColor)
+                }
             }
+            restartActivity()
             true
         }
 
@@ -141,6 +146,19 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         fontSize?.setOnPreferenceChangeListener { _, newValue ->
             val value = newValue as String
             ThemeStore.editTheme(requireContext()).fontSize(value).commit()
+            restartActivity()
+            true
+        }
+
+        val customFont: ATEListPreference? = findPreference(CUSTOM_FONT)
+        customFont?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
+            true
+        }
+
+        val progressBarStyle: ATEListPreference? = findPreference(PROGRESS_BAR_STYLE)
+        progressBarStyle?.setOnPreferenceChangeListener { _, _ ->
+            restartActivity()
             true
         }
     }
@@ -170,8 +188,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (ApexUtil.isFoldable(requireContext())) {
             addPreferencesFromResource(R.xml.pref_general_foldable)
-        }else if (!ApexUtil.isFoldable(requireContext()) && ApexUtil.isTablet){
-            addPreferencesFromResource(R.xml.pref_general_tablet)
         }else {
             addPreferencesFromResource(R.xml.pref_general)
         }
@@ -195,6 +211,20 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         if (PreferenceUtil.baseTheme == "light") {
             blackTheme?.isEnabled = false
+        }
+
+        val font: PreferenceCategory? = findPreference("fonts")
+        font?.isVisible = !PreferenceUtil.isSimpleMode
+
+        val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
+        val swipeGestures: ATEListPreference? = findPreference(TOGGLE_MINI_SWIPE)
+
+        if (PreferenceUtil.isSimpleMode) {
+            extraControls?.isVisible = false
+            swipeGestures?.isVisible = false
+        }else {
+            extraControls?.isVisible = true
+            swipeGestures?.isVisible = true
         }
     }
 }

@@ -51,7 +51,9 @@ import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
 import com.ttop.app.apex.util.MusicUtil
@@ -135,7 +137,7 @@ class AlbumCoverPagerAdapter(
 
             val gestureDetector = GestureDetector(activity, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
-                    if (PreferenceUtil.syncedLyrics) {
+                    if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
                         requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
                         if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
@@ -164,7 +166,8 @@ class AlbumCoverPagerAdapter(
 
                 override fun onLongPress(e: MotionEvent) {
                     if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
-                        if (PreferenceUtil.isEmbedMode) {
+                        val nps = listOf(NowPlayingScreen.Adaptive, NowPlayingScreen.Blur, NowPlayingScreen.Classic, NowPlayingScreen.Gradient, NowPlayingScreen.Peek)
+                        if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(PreferenceUtil.nowPlayingScreen) || PreferenceUtil.lyricsMode == "both" && !nps.contains(PreferenceUtil.nowPlayingScreen)) {
                             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                             showLyricsDialog()
                         }
@@ -187,27 +190,29 @@ class AlbumCoverPagerAdapter(
 
         private fun showLyricsDialog() {
             lifecycleScope.launch(Dispatchers.IO) {
-                val data: String? = MusicUtil.getLyrics(song)
+                val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
                 withContext(Dispatchers.Main) {
                     mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
                     val builder = AlertDialog.Builder(requireContext(), R.style.CustomDialogTheme)
-                    builder.setTitle(song.title)
+                    builder.setTitle(MusicPlayerRemote.currentSong.title + " : " + MusicPlayerRemote.currentSong.artistName)
                     builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
 
                     builder.setNegativeButton(R.string.dismiss) { _, _ ->
+                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         mainActivity.keepScreenOn(false)
                         materialDialog().dismiss()
                     }
 
                     builder.setPositiveButton(R.string.action_refresh) { _, _ ->
+                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         materialDialog().dismiss()
                         showLyricsDialog()
                     }
 
                     val dialog: AlertDialog = builder.show()
 
-                    val textViewMessage = dialog.findViewById(android.R.id.message) as TextView?
-                    val textViewTitle = dialog.findViewById(R.id.alertTitle) as TextView?
+                    val textViewMessage: TextView? = dialog.findViewById(android.R.id.message)
+                    val textViewTitle: TextView? = dialog.findViewById(R.id.alertTitle)
 
 
                     textViewTitle?.typeface = Typeface.DEFAULT_BOLD
@@ -249,90 +254,15 @@ class AlbumCoverPagerAdapter(
                         }
                     }
 
-                    when (PreferenceUtil.fontSizeLyrics) {
-                        "12" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 14f
-                            textViewMessage!!.textSize = 12f
-                            textViewTitle!!.textSize = 16f
-                        }
-
-                        "13" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 15f
-                            textViewMessage!!.textSize = 13f
-                            textViewTitle!!.textSize = 17f
-                        }
-
-                        "14" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 16f
-                            textViewMessage!!.textSize = 14f
-                            textViewTitle!!.textSize = 18f
-                        }
-
-                        "15" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 17f
-                            textViewMessage!!.textSize = 15f
-                            textViewTitle!!.textSize = 19f
-                        }
-
-                        "16" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 18f
-                            textViewMessage!!.textSize = 16f
-                            textViewTitle!!.textSize = 20f
-                        }
-
-                        "17" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 19f
-                            textViewMessage!!.textSize = 17f
-                            textViewTitle!!.textSize = 21f
-                        }
-
-                        "18" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 20f
-                            textViewMessage!!.textSize = 18f
-                            textViewTitle!!.textSize = 22f
-                        }
-
-                        "19" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 21f
-                            textViewMessage!!.textSize = 19f
-                            textViewTitle!!.textSize = 23f
-                        }
-
-                        "20" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 22f
-                            textViewMessage!!.textSize = 20f
-                            textViewTitle!!.textSize = 24f
-                        }
-
-                        "21" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 23f
-                            textViewMessage!!.textSize = 21f
-                            textViewTitle!!.textSize = 25f
-                        }
-
-                        "22" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 24f
-                            textViewMessage!!.textSize = 22f
-                            textViewTitle!!.textSize = 26f
-                        }
-
-                        "23" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 25f
-                            textViewMessage!!.textSize = 23f
-                            textViewTitle!!.textSize = 27f
-                        }
-
-                        "24" -> {
-                            dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 26f
-                            textViewMessage!!.textSize = 24f
-                            textViewTitle!!.textSize = 28f
-                        }
-                    }
+                    dialog.getButton(Dialog.BUTTON_NEGATIVE).textSize = 26f
+                    dialog.getButton(Dialog.BUTTON_POSITIVE).textSize = 26f
+                    textViewMessage!!.textSize = 24f
+                    textViewTitle!!.textSize = 28f
 
                     dialog.setCanceledOnTouchOutside(false)
                     dialog.getButton(Dialog.BUTTON_NEGATIVE).accentTextColor()
                     dialog.getButton(Dialog.BUTTON_POSITIVE).accentTextColor()
-                    textViewTitle!!.setTextColor(requireContext().accentColor())
+                    textViewTitle.setTextColor(requireContext().accentColor())
 
                     dialog.withCenteredButtons()
                 }

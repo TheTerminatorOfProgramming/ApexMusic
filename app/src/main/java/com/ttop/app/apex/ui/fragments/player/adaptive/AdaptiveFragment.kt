@@ -16,14 +16,18 @@ package com.ttop.app.apex.ui.fragments.player.adaptive
 
 import android.content.ContentUris
 import android.content.Intent
+import android.content.res.Configuration
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -53,10 +57,13 @@ import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ATHUtil
+import com.ttop.app.appthemehelper.util.ColorUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -64,6 +71,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.get
+import java.lang.StringBuilder
 
 class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
 
@@ -81,6 +89,10 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
     private var playingQueueAdapter: PlayingQueueAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
+
+    private val embed: TextView get() = binding.embedded
+    private val scroll: ScrollView get() = binding.scroll
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAdaptivePlayerBinding.bind(view)
@@ -88,6 +100,25 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
         setUpPlayerToolbar()
         setupRecyclerView()
         binding.playbackControlsFragment.drawAboveSystemBars()
+
+        embed.textSize = 24f
+
+        if (PreferenceUtil.isEmbedLyricsActivated) {
+            if (ApexUtil.isTablet) {
+                binding.playerQueueSheet.visibility = View.GONE
+                scroll.visibility = View.VISIBLE
+            }else {
+                binding.playerQueueSheet.visibility = View.GONE
+                scroll.visibility = View.VISIBLE
+                playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+            }
+        }
+
+        if (PreferenceUtil.lyricsMode == "disabled" || PreferenceUtil.lyricsMode == "synced") {
+            playerToolbar().menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = false
+        }else {
+            playerToolbar().menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = true
+        }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -302,6 +333,34 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                     binding.playerQueueSheet.visibility = View.VISIBLE
                 }
             }
+            R.id.action_go_to_lyrics -> {
+                binding.playerQueueSheet.visibility = View.GONE
+                if (scroll.visibility == View.GONE){
+                    scroll.visibility = View.VISIBLE
+                    if (!PreferenceUtil.isLyricsMessageDisabled) {
+                        showToast(getString(R.string.lyrics_message_enabled))
+                    }
+                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+
+                    if (PreferenceUtil.lyricsScreenOn) {
+                        mainActivity.keepScreenOn(true)
+                    }else {
+                        mainActivity.keepScreenOn(false)
+                    }
+
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    PreferenceUtil.isEmbedLyricsActivated = true
+                }else{
+                    scroll.visibility = View.GONE
+                    if (!PreferenceUtil.isLyricsMessageDisabled) {
+                        showToast(getString(R.string.lyrics_message_disabled))
+                    }
+                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = true
+                    mainActivity.keepScreenOn(false)
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    PreferenceUtil.isEmbedLyricsActivated = false
+                }
+            }
         }
         return false
     }
@@ -422,6 +481,10 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
     override fun onQueueChanged() {
         super.onQueueChanged()
         updateQueue()
+
+        val string = StringBuilder()
+        string.append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
+        embed.text = string.toString()
     }
 
     override fun onServiceConnected() {
@@ -429,12 +492,21 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
         updateIsFavorite()
         updateSong()
         updateQueue()
+
+        val string = StringBuilder()
+        string.append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
+        embed.text = string.toString()
     }
 
     override fun onPlayingMetaChanged() {
         updateIsFavorite()
         updateSong()
         updateQueuePosition()
+
+        val string = StringBuilder()
+        string.append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
+        embed.text = string.toString()
+        scroll.scrollTo(0,0)
     }
 
     private fun updateSong() {
@@ -466,6 +538,120 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             requireActivity()
         )
         playingQueueAdapter?.setTextColor(color.secondaryTextColor)
+
+        val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+
+        if (PreferenceUtil.materialYou) {
+            embed.setBackgroundColor(requireContext().darkAccentColor())
+
+            if (ColorUtil.isColorLight(colorBg)) {
+                embed.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+            } else {
+                embed.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+            }
+        } else {
+            when (PreferenceUtil.baseTheme) {
+                "light" -> {
+                    embed.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.md_black_1000
+                        )
+                    )
+                }
+
+                "dark" -> {
+                    if (PreferenceUtil.isBlackMode) {
+                        embed.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.md_white_1000
+                            )
+                        )
+                    } else {
+                        embed.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.md_white_1000
+                            )
+                        )
+                    }
+                }
+
+                "auto" -> {
+                    when (requireContext().resources?.configuration?.uiMode?.and(
+                        Configuration.UI_MODE_NIGHT_MASK
+                    )) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            if (PreferenceUtil.isBlackMode) {
+                                embed.setTextColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.md_white_1000
+                                    )
+                                )
+                            } else {
+                                embed.setTextColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.md_white_1000
+                                    )
+                                )
+                            }
+                        }
+
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            embed.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.md_black_1000
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (PreferenceUtil.isEmbedLyricsActivated) {
+                if (ApexUtil.isTablet) {
+                    binding.playerQueueSheet.visibility = View.GONE
+                    scroll.visibility = View.VISIBLE
+                }else {
+                    binding.playerQueueSheet.visibility = View.GONE
+                    scroll.visibility = View.VISIBLE
+                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+                }
+            }
+        }else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (PreferenceUtil.isEmbedLyricsActivated) {
+                if (ApexUtil.isTablet) {
+                    binding.playerQueueSheet.visibility = View.GONE
+                    scroll.visibility = View.VISIBLE
+                }else {
+                    binding.playerQueueSheet.visibility = View.GONE
+                    scroll.visibility = View.VISIBLE
+                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+                }
+            }
+        }
     }
 
     override fun onShow() {

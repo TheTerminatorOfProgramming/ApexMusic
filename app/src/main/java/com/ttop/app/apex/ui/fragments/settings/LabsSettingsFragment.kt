@@ -47,6 +47,61 @@ class LabsSettingsFragment : AbsSettingsFragment() {
 
             true
         }
+
+        val transparentMiniPlayer: TwoStatePreference? = findPreference(TRANSPARENT_MINI_PLAYER)
+        transparentMiniPlayer?.isChecked = PreferenceUtil.isMiniPlayerTransparent
+        transparentMiniPlayer?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            restartActivity()
+            true
+        }
+
+        val lyricsMessages: TwoStatePreference? = findPreference(DISABLE_MESSAGE_LYRICS)
+        lyricsMessages?.isChecked = PreferenceUtil.isLyricsMessageDisabled
+        lyricsMessages?.setOnPreferenceChangeListener { _, _ ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            true
+        }
+
+        val simpleMode: TwoStatePreference? = findPreference(SIMPLE_MODE)
+        simpleMode?.isChecked = PreferenceUtil.isSimpleMode
+        simpleMode?.setOnPreferenceChangeListener { _, newValue ->
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            val value = newValue as Boolean
+
+            if (value) {
+                //General
+                PreferenceUtil.isCustomFont = "default"
+                PreferenceUtil.isSwipe = "off"
+                PreferenceUtil.isExtraControls = false
+                //Now Playing
+                PreferenceUtil.isPlayerBackgroundType = false
+                PreferenceUtil.isColorAnimate = false
+                PreferenceUtil.swipeAnywhereToChangeSong = "off"
+                PreferenceUtil.isExpandPanel = "disabled"
+                PreferenceUtil.isCarouselEffect = false
+                PreferenceUtil.lyricsScreenOn = false
+                PreferenceUtil.lyricsMode = "disabled"
+                //Personalize
+                PreferenceUtil.rememberLastTab = false
+                PreferenceUtil.tabTitleMode = 1
+                PreferenceUtil.appBarMode = "simple_no_scroll"
+                PreferenceUtil.scrollbarStyle = "auto_hide"
+                //Audio
+                PreferenceUtil.isStockEqualizer = true
+                PreferenceUtil.isAutoplay = false
+                PreferenceUtil.isBluetoothSpeaker = false
+                PreferenceUtil.specificDevice = false
+                PreferenceUtil.bluetoothDevice = ""
+                //Advanced
+                PreferenceUtil.isNotificationActionsOnAuto = true
+                PreferenceUtil.searchActionShuffle = false
+                PreferenceUtil.isVoiceSearch = false
+                PreferenceUtil.isScreenOnEnabled = false
+                PreferenceUtil.isAutoRotate = false
+            }
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

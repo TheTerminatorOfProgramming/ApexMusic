@@ -213,7 +213,6 @@ fun View.focusAndShowKeyboard() {
  * This will draw our view above the navigation bar instead of behind it by adding margins.
  */
 fun View.drawAboveSystemBars(onlyPortrait: Boolean = true) {
-    if (PreferenceUtil.isFullScreenMode) return
     if (onlyPortrait && ApexUtil.isLandscape) return
     applyInsetter {
         type(navigationBars = true) {
@@ -226,7 +225,6 @@ fun View.drawAboveSystemBars(onlyPortrait: Boolean = true) {
  * This will draw our view above the navigation bar instead of behind it by adding padding.
  */
 fun View.drawAboveSystemBarsWithPadding() {
-    if (PreferenceUtil.isFullScreenMode) return
     applyInsetter {
         type(navigationBars = true) {
             padding()

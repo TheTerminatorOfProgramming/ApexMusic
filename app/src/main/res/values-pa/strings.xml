@@ -207,6 +207,8 @@
     <string name="horizontal_bottom">ਹਰੀਜ਼ੱਟਲ ਥੱਲੇ</string>
     <string name="horizontal_flip">ਹਰੀਜੱਟਲ ਫਲਿੱਪ</string>
     <string name="horizontal_top">ਹਰੀਜ਼ੱਟਲ ਸਿਖਰ</string>
+    <string name="id3_lyrics">ID3 ਬੋਲ</string>
+    <string name="id3_lyrics_summary">ਨਵੇਂ id3 ਬੋਲ ਸਿਸਟਮ ਦੇ ਕੰਮ ਕਰਨ ਲਈ, ਪਲੇਅਰ ਥੀਮ \'ਤੇ ਸਮੇਟਣ ਲਈ ਡਰੈਗ ਨੂੰ ਅਸਮਰੱਥ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ, ਜਦੋਂ id3 ਬੋਲ ਦਿਖਾਏ ਜਾਣਗੇ। ਇਹ ਖਿਡਾਰੀ ਕਤਾਰ ਦੇ ਨਾਲ ਇੱਕ ਟਕਰਾਅ ਦੇ ਕਾਰਨ ਹੈ.</string>
     <string name="id3_tags">ID3 ਟੈਗਸ</string>
     <string name="image">ਚਿੱਤਰ</string>
     <string name="image_gradient">ਗਰੇਡੀਐਂਟ ਚਿੱਤਰ</string>
@@ -238,7 +240,12 @@
     <string name="light_theme_name">ਚਮਕਦਾਰ ਚਿੱਟਾ</string>
     <string name="listeners_label">ਸੁਣਨ ਵਾਲੇ</string>
     <string name="lyrics">ਬੋਲ</string>
+    <string name="lyrics_both">ID3 ਟੈਗ &amp; ਸਿੰਕ ਕੀਤੇ ਬੋਲ</string>
+    <string name="lyrics_id3">ID3 ਟੈਗ ਬੋਲ</string>
+    <string name="lyrics_message_enabled">ID3 ਬੋਲ ਦਿਖਾਏ ਗਏ ਹਨ। ਖਿੱਚਣਾ ਅਸਮਰੱਥ ਕੀਤਾ ਗਿਆ ਹੈ</string>
+    <string name="lyrics_message_disabled">ID3 ਦੇ ਬੋਲ ਲੁਕੇ ਹੋਏ ਹਨ। ਡਰੈਗਿੰਗ ਨੂੰ ਸਮਰੱਥ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
     <string name="lyrics_search_summary">id3 ਟੈਗ ਦੇ ਰੂਪ ਵਿੱਚ ਬੋਲ ਖੋਜ ਸ਼ਬਦਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ ਜਾਂ ਹੱਥੀਂ ਦਰਜ ਕਰੋ?</string>
+    <string name="lyrics_synced">ਸਿੰਕ ਕੀਤੇ ਬੋਲ</string>
     <string name="manually">ਹੱਥੀਂ</string>
     <string name="md_error_label">ਗਲਤੀ</string>
     <string name="md_storage_perm_error">ਇਜਾਜ਼ਤ ਗਲਤੀ</string>
@@ -360,6 +367,7 @@
     <string name="pref_title_cross_fade">ਕਰਾਸਫੇਡ</string>
     <string name="pref_title_custom_font">ਫੌਂਟ</string>
     <string name="pref_title_desaturated_color">ਅਸੰਤ੍ਰਿਪਤ ਰੰਗ</string>
+    <string name="pref_title_disable_id3_lyrics_message">ID3 ਬੋਲ ਸੁਨੇਹੇ ਅਸਮਰੱਥ</string>
     <string name="pref_title_disable_widgets">ਡਿਫੌਲਟ ਵਿਜੇਟਸ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="pref_title_duration">ਸਿੰਗਲ ਅਵਧੀ</string>
     <string name="pref_title_embed_lyrics_view">ਅਣਸਿੰਕ ਕੀਤੇ ID3 ਬੋਲ</string>
@@ -367,7 +375,6 @@
     <string name="pref_title_extra_controls">ਵਾਧੂ ਨਿਯੰਤਰਣ</string>
     <string name="pref_title_fast_forward_duration">ਫਾਸਟ ਫਾਰਵਰਡ ਸੀਕ ਦੀ ਮਿਆਦ</string>
     <string name="pref_title_font_size">ਫੌਂਟ ਦਾ ਆਕਾਰ</string>
-    <string name="pref_title_font_size_lyrics">ਬੋਲ ਫੌਂਟ ਦਾ ਆਕਾਰ</string>
     <string name="pref_title_gapless_playback">ਗੈਪਲੈੱਸ ਪਲੇਬੈਕ</string>
     <string name="pref_title_general_theme">ਐਪ ਥੀਮ</string>
     <string name="pref_title_hide_update">ਅੱਪਡੇਟ ਬਟਨ ਨੂੰ ਲੁਕਾਓ</string>
@@ -376,8 +383,10 @@
     <string name="pref_title_ignore_media_store_artwork">ਮੀਡੀਆ ਸਟੋਰ ਕਵਰਾਂ ਨੂੰ ਅਣਡਿੱਠ ਕਰੋ</string>
     <string name="pref_title_last_added_interval">ਆਖਰੀ ਜੋੜਿਆ ਪਲੇਲਿਸਟ ਅੰਤਰਾਲ</string>
     <string name="pref_title_lock_screen">ਲੌਕ ਸਕ੍ਰੀਨ ਨਿਯੰਤਰਣ</string>
-    <string name="pref_title_lyrics_type">ਸਿੰਕ ਕੀਤੇ ਬੋਲ ਕਵਰ ਦੀ ਕਿਸਮ</string>
+    <string name="pref_title_lyrics_type">ਬੋਲ ਦੀ ਕਿਸਮ</string>
+    <string name="pref_title_lyrics_type_synced">ਸਿੰਕ ਕੀਤੇ ਬੋਲ ਕਵਰ ਦੀ ਕਿਸਮ</string>
     <string name="pref_title_manage_audio_focus">ਹਮੇਸ਼ਾ ਖੇਡੋ</string>
+    <string name="pref_title_md3">ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ</string>
     <string name="pref_title_notification_action_1">ਸੂਚਨਾ ਕਾਰਵਾਈ ਖੱਬੇ</string>
     <string name="pref_title_notification_action_2">ਸੂਚਨਾ ਕਾਰਵਾਈ ਦਾ ਹੱਕ</string>
     <string name="pref_title_now_playing_screen_appearance">ਹੁਣ ਥੀਮ ਚੱਲ ਰਿਹਾ ਹੈ</string>
@@ -393,6 +402,7 @@
     <string name="pref_title_search_action">ਸ਼ਫਲ ਕੀਤੀ ਖੋਜ ਕਾਰਵਾਈ</string>
     <string name="pref_title_search_icon">ਸਿਰਲੇਖ ਵਿੱਚ ਵੌਇਸ ਖੋਜ</string>
     <string name="pref_title_shuffle_state">ਸ਼ਫਲ ਸਟੇਟ ਰੱਖੋ</string>
+    <string name="pref_title_simple_mode">ਸਧਾਰਨ ਮੋਡ</string>
     <string name="pref_title_specific_device">ਖਾਸ ਡਿਵਾਈਸ</string>
     <string name="pref_title_stock_equalizer">ਸਿਸਟਮ ਬਰਾਬਰੀ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="pref_title_suggestions">ਸੁਝਾਅ ਦਿਖਾਓ</string>
@@ -402,6 +412,7 @@
     <string name="pref_title_tab_text_mode">ਟੈਬ ਸਿਰਲੇਖ ਮੋਡ</string>
     <string name="pref_title_toggle_carousel_effect">ਕੈਰੋਜ਼ਲ ਪ੍ਰਭਾਵ</string>
     <string name="pref_title_toggle_headset">ਵਾਇਰਡ ਹੈੱਡਸੈੱਟ ਪਲੇਬੈਕ</string>
+    <string name="pref_title_transparent_mini_player">ਪਾਰਦਰਸ਼ੀ ਮਿੰਨੀ ਪਲੇਅਰ</string>
     <string name="pref_title_use_notification_actions_for_auto">ਸੂਚਨਾ ਕਾਰਵਾਈਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="pref_title_volume_controls">ਵਾਲੀਅਮ ਕੰਟਰੋਲ</string>
     <string name="pref_title_whitelist">ਵਾਈਟਲਿਸਟ ਸੰਗੀਤ (/ਸੰਗੀਤ ਫੋਲਡਰ)</string>

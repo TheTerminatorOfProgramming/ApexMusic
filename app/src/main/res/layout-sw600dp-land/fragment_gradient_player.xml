@@ -28,6 +28,28 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout="@layout/fragment_album_full_cover" />
 
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/black_color"
+            android:scrollbars="none"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/embedded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="5dp"
+                android:textAlignment="center"/>
+        </ScrollView>
+
         <View
             android:id="@+id/mask"
             android:layout_width="0dp"
@@ -71,6 +93,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_default="spread"
             tools:background="@color/md_red_500">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:padding="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/nextSong"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/queueIcon"

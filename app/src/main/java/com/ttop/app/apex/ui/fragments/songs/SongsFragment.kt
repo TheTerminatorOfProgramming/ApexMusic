@@ -1,5 +1,5 @@
 /*
- * Cop()yright (c) 2020 Hemanth Savarla.
+ * Copyright (c) 2020 Hemanth Savarla.
  *
  * Licensed under the GNU General Public License v3
  *

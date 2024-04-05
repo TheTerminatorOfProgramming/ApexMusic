@@ -59,8 +59,27 @@
                 android:overScrollMode="@integer/overScrollMode"
                 tools:listitem="@layout/item_queue_player" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/embedded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="5dp"
+            android:textAlignment="center"/>
+    </ScrollView>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playerAlbumCoverFragment"
@@ -70,9 +89,8 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.4"
-        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        app:layout_constraintStart_toEndOf="@id/middle_guideline"
         app:layout_constraintTop_toBottomOf="@id/statusBarContainer" />
-
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
@@ -81,10 +99,9 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/playerToolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        app:layout_constraintStart_toEndOf="@id/middle_guideline"
         app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
-        tools:layout="@layout/fragment_md3_player_playback_controls" />
-
+        tools:layout="@layout/fragment_classic_player_playback_controls" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"
@@ -93,7 +110,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playerQueueSheet"
+        app:layout_constraintStart_toEndOf="@id/middle_guideline"
         app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
 

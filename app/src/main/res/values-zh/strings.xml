@@ -205,9 +205,11 @@
     <string name="horizontal_bottom">水平底部</string>
     <string name="horizontal_flip">水平翻转</string>
     <string name="horizontal_top">水平顶部</string>
+    <string name="id3_lyrics">歌词 ID3</string>
+    <string name="id3_lyrics_summary">为了使新的 id3 歌词系统正常工作，当显示 id3 歌词时，将禁用播放器主题上的拖动折叠功能。 这是由于与玩家队列冲突造成的。</string>
     <string name="id3_tags">ID3标签</string>
     <string name="image">图像</string>
-    <string name="image_gradient">-</string>
+    <string name="image_gradient">渐变图像</string>
     <string name="image_settings_summary">渐变图像</string>
     <string name="import_label">更改艺术家图像下载设置</string>
     <string name="import_playlist">进口</string>
@@ -236,7 +238,12 @@
     <string name="light_theme_name">许可证</string>
     <string name="listeners_label">明亮的白色</string>
     <string name="lyrics">听众</string>
+    <string name="lyrics_both">ID3标签&amp; 同步歌词</string>
+    <string name="lyrics_id3">ID3 标签歌词</string>
+    <string name="lyrics_message_enabled">显示 ID3 歌词。 拖动已被禁用</string>
+    <string name="lyrics_message_disabled">ID3 歌词已隐藏。 已启用拖动功能</string>
     <string name="lyrics_search_summary">歌词</string>
+    <string name="lyrics_synced">同步歌词</string>
     <string name="manually">使用 id3 标签形式的歌词搜索词还是手动输入？</string>
     <string name="md_error_label">手动</string>
     <string name="md_storage_perm_error">错误</string>
@@ -358,6 +365,7 @@
     <string name="pref_title_cross_fade">自适应颜色</string>
     <string name="pref_title_custom_font">交叉淡入淡出</string>
     <string name="pref_title_desaturated_color">字体</string>
+    <string name="pref_title_disable_id3_lyrics_message">禁用 ID3 歌词消息</string>
     <string name="pref_title_disable_widgets">去饱和颜色</string>
     <string name="pref_title_duration">禁用默认小部件</string>
     <string name="pref_title_embed_lyrics_view">单次持续时间</string>
@@ -365,7 +373,6 @@
     <string name="pref_title_extra_controls">显示正在播放屏幕</string>
     <string name="pref_title_fast_forward_duration">额外的控制</string>
     <string name="pref_title_font_size">快进寻道持续时间</string>
-    <string name="pref_title_font_size_lyrics">字体大小</string>
     <string name="pref_title_gapless_playback">歌词字体大小</string>
     <string name="pref_title_general_theme">无缝播放</string>
     <string name="pref_title_hide_update">应用主题</string>
@@ -374,8 +381,10 @@
     <string name="pref_title_ignore_media_store_artwork">艺术家网格</string>
     <string name="pref_title_last_added_interval">忽略媒体商店封面</string>
     <string name="pref_title_lock_screen">最后添加的播放列表间隔</string>
-    <string name="pref_title_lyrics_type">锁屏控制</string>
+    <string name="pref_title_lyrics_type">歌词类型</string>
+    <string name="pref_title_lyrics_type_synced">锁屏控制</string>
     <string name="pref_title_manage_audio_focus">同步歌词封面类型</string>
+    <string name="pref_title_md3">物质你</string>
     <string name="pref_title_notification_action_1">一直玩</string>
     <string name="pref_title_notification_action_2">通知操作左</string>
     <string name="pref_title_now_playing_screen_appearance">通知行动权</string>
@@ -389,8 +398,9 @@
     <string name="pref_title_rewind_duration">记住最后一个选项卡</string>
     <string name="pref_title_scrollbar_style">倒回搜索持续时间</string>
     <string name="pref_title_search_action">滚动条样式</string>
-    <string name="pref_title_search_icon">-</string>
+    <string name="pref_title_search_icon">标题中的语音搜索</string>
     <string name="pref_title_shuffle_state">随机搜索操作</string>
+    <string name="pref_title_simple_mode">简单模式</string>
     <string name="pref_title_specific_device">标题中的语音搜索</string>
     <string name="pref_title_stock_equalizer">保持随机播放状态</string>
     <string name="pref_title_suggestions">特定设备</string>
@@ -400,6 +410,7 @@
     <string name="pref_title_tab_text_mode">滑动手势</string>
     <string name="pref_title_toggle_carousel_effect">同步歌词</string>
     <string name="pref_title_toggle_headset">选项卡标题模式</string>
+    <string name="pref_title_transparent_mini_player">透明迷你播放器</string>
     <string name="pref_title_use_notification_actions_for_auto">轮播效果</string>
     <string name="pref_title_volume_controls">有线耳机播放</string>
     <string name="pref_title_whitelist">使用通知操作</string>
@@ -498,7 +509,7 @@
     <string name="top_artists">今天</string>
     <string name="track_hint">热门专辑</string>
     <string name="track_list">顶尖艺术家</string>
-    <string name="trio">轨道（2 代表轨道 2，3004 代表 CD3 轨道 4）</string>
+    <string name="trio">轨道（2 代表轨道 2，3004 代表 CD3 轨道 4 </string>
     <string name="troubleshoot">追踪号码</string>
     <string name="unknown">三人组</string>
     <string name="unlabeled">故障排除</string>
@@ -516,7 +527,7 @@
     <string name="what_do_you_want_to_share">网站</string>
     <string name="x_has_been_set_as_ringtone">查看我们的网站</string>
     <string name="x_selected">你想分享什么？</string>
-    <string name="year">将 %1$s 设置为您的铃声。</string>
+    <string name="year">将 %1$s 设置为您的铃声</string>
     <string name="yes">%1$d 已选择</string>
     <string name="you_have_to_select_at_least_one_category">年</string>
 </resources>

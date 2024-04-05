@@ -107,6 +107,7 @@
             app:defaultValue="false"
             app:key="toggle_add_controls"
             app:title="@string/pref_title_extra_controls"
+            app:isPreferenceVisible="@bool/extra_controls"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference

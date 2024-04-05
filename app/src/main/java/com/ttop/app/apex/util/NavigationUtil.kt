@@ -26,6 +26,7 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.audioSessionId
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.DriveModeActivity
 import com.ttop.app.apex.ui.activities.LicenseActivity
 import com.ttop.app.apex.ui.activities.WhatsNewFragment
@@ -57,8 +58,9 @@ object NavigationUtil {
         }
     }
     private fun integratedEqualizer(activity: Activity, fragmentManager: FragmentManager, title: String) {
+        val musicService = MusicPlayerRemote.musicService
         val fragment = DialogEqualizerFragment.newBuilder()
-            .setAudioSessionId(MusicPlayerRemote.audioSessionId)
+            .setAudioSessionId(musicService!!.audioSessionId)
             .themeColor(ContextCompat.getColor(activity, R.color.md_blue_500))
             .textColor(ContextCompat.getColor(activity, R.color.md_white_1000))
             .title(title)

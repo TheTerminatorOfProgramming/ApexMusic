@@ -42,34 +42,19 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDE
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_SETTLING
 import com.google.android.material.bottomsheet.BottomSheetBehavior.from
-import com.ttop.app.apex.ADAPTIVE_COLOR_APP
 import com.ttop.app.apex.ALBUM_COVER_STYLE
 import com.ttop.app.apex.ALBUM_COVER_TRANSFORM
-import com.ttop.app.apex.APPBAR_MODE
 import com.ttop.app.apex.AUTO_ROTATE
-import com.ttop.app.apex.BLACK_THEME
 import com.ttop.app.apex.CAROUSEL_EFFECT
-import com.ttop.app.apex.COLOR_ANIMATE
-import com.ttop.app.apex.CUSTOM_FONT
-import com.ttop.app.apex.EMBED_LYRICS
-import com.ttop.app.apex.FONT_SIZE
-import com.ttop.app.apex.GENERAL_THEME
+import com.ttop.app.apex.EMBED_LYRICS_ACTIVATED
 import com.ttop.app.apex.KEEP_SCREEN_ON
 import com.ttop.app.apex.LIBRARY_CATEGORIES
-import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
-import com.ttop.app.apex.PLAYER_BACKGROUND
-import com.ttop.app.apex.PROGRESS_BAR_STYLE
-import com.ttop.app.apex.QUEUE_STYLE
-import com.ttop.app.apex.QUEUE_STYLE_LAND
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SCREEN_ON_LYRICS
-import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
-import com.ttop.app.apex.TOGGLE_FULL_SCREEN
-import com.ttop.app.apex.VOLUME_CONTROLS
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
 import com.ttop.app.apex.extensions.currentFragment
 import com.ttop.app.apex.extensions.darkAccentColor
@@ -160,7 +145,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     private val bottomSheetCallbackList by lazy {
         object : BottomSheetBehavior.BottomSheetCallback() {
-
+            var oldOffSet = 0f
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 setMiniPlayerAlphaProgress(slideOffset)
                 navigationBarColorAnimator?.cancel()
@@ -171,6 +156,22 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         navigationBarColor
                     ) as Int
                 )
+
+                val inRangeExpanding = oldOffSet < slideOffset
+                val inRangeCollapsing = oldOffSet > slideOffset
+                oldOffSet = slideOffset
+
+                if (inRangeCollapsing) {
+                    if (PreferenceUtil.isMiniPlayerTransparent) {
+                        binding.slidingPanel.alpha = 0.7f
+                    }
+                }
+
+                if (inRangeExpanding) {
+                    if (PreferenceUtil.isMiniPlayerTransparent) {
+                        binding.slidingPanel.alpha = 1f
+                    }
+                }
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -184,6 +185,16 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
                             keepScreenOn(true)
                         }
+
+                        if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.isEmbedLyricsActivated) {
+                            keepScreenOn(true)
+                        }
+
+                        if (PreferenceUtil.isEmbedLyricsActivated) {
+                            bottomSheetBehavior.isDraggable = false
+                        }else {
+                            bottomSheetBehavior.isDraggable = true
+                        }
                     }
                     STATE_COLLAPSED -> {
                         onPanelCollapsed()
@@ -191,10 +202,15 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             keepScreenOn(false)
                         }
 
+                        if ((PreferenceUtil.lyricsScreenOn && PreferenceUtil.isEmbedLyricsActivated) || !PreferenceUtil.isScreenOnEnabled) {
+                            keepScreenOn(false)
+                        }
+
                         if (PreferenceUtil.isWidgetPanel && ApexUtil.isTablet) {
                             PreferenceUtil.isWidgetPanel = false
                             postRecreate()
                         }
+                        bottomSheetBehavior.isDraggable = true
                     }
                     STATE_SETTLING, STATE_DRAGGING -> {
                         if (fromNotification) {
@@ -251,7 +267,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
         binding.slidingPanel.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
         navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
-
+        binding.slidingPanel.alpha = 1f
         navigationBarColor = surfaceColor()
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -274,6 +290,15 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
         if (bottomSheetBehavior.state == STATE_EXPANDED) {
             setMiniPlayerAlphaProgress(1f)
+            if (PreferenceUtil.isMiniPlayerTransparent) {
+                binding.slidingPanel.alpha = 1f
+            }
+        }
+
+        if (PreferenceUtil.isMiniPlayerTransparent) {
+            if (bottomSheetBehavior.state == STATE_COLLAPSED) {
+                binding.slidingPanel.alpha = 0.7f
+            }
         }
 
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
@@ -298,6 +323,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 miniPlayerFragment?.setUpButtons()
             }
             NOW_PLAYING_SCREEN_ID -> {
+                val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
+
+                if (!nps.contains(PreferenceUtil.nowPlayingScreen)) {
+                    PreferenceUtil.isEmbedLyricsActivated = false
+                }
+
                 chooseFragmentForTheme()
                 binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
                     height = if (nowPlayingScreen != Peek) {
@@ -325,27 +356,25 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 navigationView.labelVisibilityMode = PreferenceUtil.tabTitleMode
             }
 
-            TOGGLE_FULL_SCREEN,
-            PROGRESS_BAR_STYLE,
-            EMBED_LYRICS,
-            QUEUE_STYLE,
-            QUEUE_STYLE_LAND,
-            VOLUME_CONTROLS,
-            PLAYER_BACKGROUND,
-            COLOR_ANIMATE,
-            ADAPTIVE_COLOR_APP,
-            FONT_SIZE,
-            CUSTOM_FONT,
-            GENERAL_THEME,
-            BLACK_THEME,
-            SHUFFLE_STATE,
-            APPBAR_MODE,
-            MATERIAL_YOU -> {
-                recreate()
+            EMBED_LYRICS_ACTIVATED -> {
+                bottomSheetBehavior.isDraggable = !PreferenceUtil.isEmbedLyricsActivated
             }
 
             SCREEN_ON_LYRICS -> {
-                keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics || PreferenceUtil.isScreenOnEnabled)
+                when (PreferenceUtil.lyricsMode) {
+                    "id3" -> {
+                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.isEmbedLyricsActivated || PreferenceUtil.isScreenOnEnabled)
+                    }
+                    "synced" -> {
+                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics || PreferenceUtil.isScreenOnEnabled)
+                    }
+                    "both" -> {
+                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics || bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.isEmbedLyricsActivated || PreferenceUtil.isScreenOnEnabled)
+                    }
+                    "disabled" -> {
+                        keepScreenOn(PreferenceUtil.isScreenOnEnabled)
+                    }
+                }
             }
             KEEP_SCREEN_ON -> {
                 maybeSetScreenOn()
@@ -393,12 +422,30 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         setLightNavigationBarAuto()
         setTaskDescriptionColor(taskColor)
         //playerFragment?.onHide()
+        if (PreferenceUtil.isMiniPlayerTransparent) {
+            binding.slidingPanel.alpha = 0.7f
+        }
+
+        val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
+
+        if (!nps.contains(PreferenceUtil.nowPlayingScreen)) {
+            PreferenceUtil.isEmbedLyricsActivated = false
+        }
     }
 
     open fun onPanelExpanded() {
         setMiniPlayerAlphaProgress(1F)
         onPaletteColorChanged()
         //playerFragment?.onShow()
+        if (PreferenceUtil.isMiniPlayerTransparent) {
+            binding.slidingPanel.alpha = 1f
+        }
+
+        if (PreferenceUtil.isEmbedLyricsActivated) {
+            bottomSheetBehavior.isDraggable = false
+        }else {
+            bottomSheetBehavior.isDraggable = true
+        }
     }
 
     private fun setupSlidingUpPanel() {

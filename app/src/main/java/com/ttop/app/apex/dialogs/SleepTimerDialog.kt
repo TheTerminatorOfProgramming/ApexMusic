@@ -31,7 +31,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
-import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textview.MaterialTextView
 import com.ttop.app.apex.R

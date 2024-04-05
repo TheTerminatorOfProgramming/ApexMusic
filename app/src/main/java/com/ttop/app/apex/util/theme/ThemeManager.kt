@@ -1,6 +1,7 @@
 package com.ttop.app.apex.util.theme
 
 import android.content.Context
+import android.content.res.Configuration
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatDelegate
 import com.ttop.app.apex.R
@@ -34,7 +35,12 @@ fun Context.getThemeResValue(): Int =
             }
             AUTO -> {
                 if (PreferenceUtil.materialYou) {
-                    R.style.Theme_Apex_MD3
+                    when (applicationContext?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> R.style.Theme_Apex_MD3_Dark
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> R.style.Theme_Apex_MD3_Light
+                        else ->  R.style.Theme_Apex_MD3_Dark
+                    }
                 }else {
                     R.style.Theme_Apex_FollowSystem
                 }

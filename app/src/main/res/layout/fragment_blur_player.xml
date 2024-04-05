@@ -39,16 +39,37 @@
         <include layout="@layout/status_bar" />
     </FrameLayout>
 
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/playerAlbumCoverFragment"
-        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/albumCoverLyrics"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusBarContainer" />
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/playerAlbumCoverFragment"
+            android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/embedded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="5dp"
+                android:textAlignment="center"/>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
@@ -93,8 +114,8 @@
         app:layout_constraintBottom_toTopOf="@id/playerToolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
-        tools:layout="@layout/fragment_player_playback_controls" />
+        app:layout_constraintTop_toBottomOf="@id/albumCoverLyrics"
+        tools:layout="@layout/fragment_blur_player_playback_controls" />
 
 
     <com.google.android.material.appbar.MaterialToolbar
