@@ -162,7 +162,6 @@
     <string name="enabled">ਸਮਰਥਿਤ</string>
     <string name="enter_text">ਟੈਕਸਟ ਦਰਜ ਕਰੋ</string>
     <string name="equalizer">ਬਰਾਬਰੀ ਕਰਨ ਵਾਲਾ</string>
-    <string name="equalizer_apex">ਸਿਖਰ ਬਰਾਬਰੀ ਕਰਨ ਵਾਲਾ</string>
     <string name="error_create_backup">ਬੈਕਅੱਪ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਿਆ</string>
     <string name="error_delete_backup">ਬੈਕਅੱਪ ਨੂੰ ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ</string>
     <string name="error_load_failed">ਲੋਡ ਅਸਫਲ ਰਿਹਾ</string>
@@ -332,7 +331,6 @@
     <string name="pref_header_autoplay">ਸਵੈ ਚਾਲ</string>
     <string name="pref_header_blacklist">ਬਲੈਕਲਿਸਟ</string>
     <string name="pref_header_controls">ਨਿਯੰਤਰਣ</string>
-    <string name="pref_header_equalizer">ਬਰਾਬਰੀ ਕਰਨ ਵਾਲਾ</string>
     <string name="pref_header_filter">ਟ੍ਰੈਕ ਮਿਆਦ ਫਿਲਟਰ</string>
     <string name="pref_header_general">ਥੀਮ</string>
     <string name="pref_header_images">ਚਿੱਤਰ</string>
@@ -412,12 +410,10 @@
     <string name="pref_title_tab_text_mode">ਟੈਬ ਸਿਰਲੇਖ ਮੋਡ</string>
     <string name="pref_title_toggle_carousel_effect">ਕੈਰੋਜ਼ਲ ਪ੍ਰਭਾਵ</string>
     <string name="pref_title_toggle_headset">ਵਾਇਰਡ ਹੈੱਡਸੈੱਟ ਪਲੇਬੈਕ</string>
-    <string name="pref_title_transparent_mini_player">ਪਾਰਦਰਸ਼ੀ ਮਿੰਨੀ ਪਲੇਅਰ</string>
+    <string name="pref_title_transparent_mini_player">ਅਰਧ-ਪਾਰਦਰਸ਼ੀ ਮਿੰਨੀ ਪਲੇਅਰ</string>
     <string name="pref_title_use_notification_actions_for_auto">ਸੂਚਨਾ ਕਾਰਵਾਈਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
-    <string name="pref_title_volume_controls">ਵਾਲੀਅਮ ਕੰਟਰੋਲ</string>
     <string name="pref_title_whitelist">ਵਾਈਟਲਿਸਟ ਸੰਗੀਤ (/ਸੰਗੀਤ ਫੋਲਡਰ)</string>
-    <string name="pref_title_widget_background">ਪਾਰਦਰਸ਼ੀ ਵਿਜੇਟਸ</string>
-    <string name="pref_title_widget_buttons_color">ਅਡੈਪਟਿਵ ਬਟਨ</string>
+    <string name="pref_title_widget_style">ਪਾਰਦਰਸ਼ੀ ਵਿਜੇਟਸ</string>
     <string name="queue">ਕਤਾਰ ਚੱਲ ਰਹੀ ਹੈ</string>
     <string name="recent_albums">ਹਾਲੀਆ ਐਲਬਮਾਂ</string>
     <string name="recent_artists">ਹਾਲੀਆ ਕਲਾਕਾਰ</string>
@@ -519,7 +515,7 @@
     <string name="up_next">ਅਗਲਾ</string>
     <string name="update_image">ਚਿੱਤਰ ਅੱਪਡੇਟ ਕਰੋ</string>
     <string name="update_notify">ਸੂਚਨਾ ਅੱਪਡੇਟ ਕਰੋ</string>
-    <string name="updating">ਅੱਪਡੇਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...</string>
+    <string name="updating">ਅੱਪਡੇਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
     <string name="user_images_description">ਉਪਭੋਗਤਾ ਚਿੱਤਰ</string>
     <string name="version">ਸੰਸਕਰਣ</string>
     <string name="vertical_flip">ਵਰਟੀਕਲ ਫਲਿੱਪ</string>

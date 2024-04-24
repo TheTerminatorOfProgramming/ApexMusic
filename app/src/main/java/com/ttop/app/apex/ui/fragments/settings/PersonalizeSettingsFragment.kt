@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
@@ -30,7 +31,7 @@ import com.ttop.app.apex.TOGGLE_SUGGESTIONS
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 
-class PersonalizeSettingsFragment : AbsSettingsFragment() {
+class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun invalidateSettings() {
 
@@ -70,18 +71,15 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
 
         val lastTab: TwoStatePreference? = findPreference(REMEMBER_LAST_TAB)
         val tabTextMode: ATEListPreference? = findPreference(TAB_TEXT_MODE)
-        val appBar: ATEListPreference? = findPreference(APPBAR_MODE)
         val scrollbarStyle: ATEListPreference? = findPreference(SCROLLBAR_STYLE)
 
         if (PreferenceUtil.isSimpleMode) {
             lastTab?.isVisible = false
             tabTextMode?.isVisible = false
-            appBar?.isVisible = false
             scrollbarStyle?.isVisible = false
         }else {
             lastTab?.isVisible = true
             tabTextMode?.isVisible = true
-            appBar?.isVisible = true
             scrollbarStyle?.isVisible = true
         }
     }
@@ -102,6 +100,17 @@ class PersonalizeSettingsFragment : AbsSettingsFragment() {
         tabTextMode?.setOnPreferenceChangeListener { prefs, newValue ->
             setSummary(prefs, newValue)
             true
+        }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            TAB_TEXT_MODE -> {
+                val tabTextMode: ATEListPreference? = findPreference(TAB_TEXT_MODE)
+                if (tabTextMode != null) {
+                    tabTextMode.summary = PreferenceUtil.tabTitleMode.toString()
+                }
+            }
         }
     }
 }

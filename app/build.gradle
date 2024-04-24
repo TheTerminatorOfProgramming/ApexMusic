@@ -15,8 +15,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.ttop.app.apex"
-        versionCode 400
-        versionName '4.00'
+        versionCode 410
+        versionName '4.10'
     }
     signingConfigs {
         release {
@@ -79,19 +79,6 @@ android {
     }
 }
 
-def getProperties(String fileName) {
-    final Properties properties = new Properties()
-    def file = rootProject.file(fileName)
-    if (file.exists()) {
-        file.withInputStream { stream -> properties.load(stream) }
-    }
-    return properties
-}
-
-static def getProperty(Properties properties, String name) {
-    return properties.getProperty(name) ?: "$name missing"
-}
-
 dependencies {
     implementation project(':appthemehelper')
     implementation project(':appIntro')
@@ -107,7 +94,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
     implementation 'androidx.palette:palette-ktx:1.0.0'
 
-    implementation 'androidx.mediarouter:mediarouter:1.6.0'
+    implementation 'androidx.mediarouter:mediarouter:1.7.0'
     //Cast Dependencies
     implementation 'com.google.android.gms:play-services-cast-framework:21.4.0'
     //WebServer by NanoHttpd

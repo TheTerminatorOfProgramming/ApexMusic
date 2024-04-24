@@ -53,7 +53,6 @@ import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
 import com.ttop.app.apex.util.MusicUtil

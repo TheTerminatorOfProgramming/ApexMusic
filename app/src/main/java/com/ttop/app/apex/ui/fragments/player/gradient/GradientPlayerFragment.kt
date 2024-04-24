@@ -22,11 +22,8 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
-import android.media.AudioManager
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
@@ -37,8 +34,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -76,13 +71,11 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -140,7 +133,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     }
 
     private fun setupFavourite() {
-        binding.playbackControlsFragment.songFavourite.setOnClickListener {
+        binding.songFavourite.setOnClickListener {
             toggleFavorite(MusicPlayerRemote.currentSong)
         }
     }
@@ -182,7 +175,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         setupSheet()
         setupMenu()
         setupFavourite()
-        setupVolButtons()
 
         ViewCompat.setOnApplyWindowInsetsListener(
             (binding.container)
@@ -199,14 +191,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             }
         }
 
-        if (!PreferenceUtil.isVolumeControls) {
-            binding.playbackControlsFragment.volUpButton.visibility = View.GONE
-            binding.playbackControlsFragment.volDownButton.visibility = View.GONE
-        }else {
-            binding.playbackControlsFragment.volUpButton.visibility = View.VISIBLE
-            binding.playbackControlsFragment.volDownButton.visibility = View.VISIBLE
-        }
-
         embed.textSize = 24f
 
         if (PreferenceUtil.isEmbedLyricsActivated) {
@@ -220,7 +204,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             playerToolbar()?.menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = true
         }
 
-        binding.close.setOnClickListener {
+        binding.playbackControlsFragment.close.setOnClickListener {
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -301,7 +285,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                 return true
             }
             R.id.action_equalizer -> {
-                NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
+                NavigationUtil.openEqualizer(requireActivity())
                 return true
             }
             R.id.action_sleep_timer -> {
@@ -366,51 +350,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         return false
     }
 
-    private fun setupVolButtons() {
-        val mAudioManager: AudioManager = context?.getSystemService()!!
-
-        var lastUpClick: Long
-        var lastDownClick: Long
-
-        binding.playbackControlsFragment.volUpButton.setOnClickListener {
-            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
-
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            lastUpClick = System.currentTimeMillis()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (System.currentTimeMillis() - lastUpClick >= 500) {
-                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-                    val currentVolumeTotal = 100 * currentVolume / maxVolume
-
-                    val newVol = getString(R.string.new_volume)
-
-                    showToast("$newVol: $currentVolumeTotal%")
-                }
-            }, 500)
-        }
-
-        binding.playbackControlsFragment.volDownButton.setOnClickListener {
-            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
-
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            lastDownClick = System.currentTimeMillis()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (System.currentTimeMillis() - lastDownClick >= 500) {
-                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-                    val currentVolumeTotal = 100 * currentVolume / maxVolume
-
-                    showToast("New Volume: $currentVolumeTotal%")
-                }
-            }, 500)
-        }
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     private fun setupSheet() {
         getQueuePanel().addBottomSheetCallback(bottomSheetCallbackList)
@@ -447,13 +386,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     }
 
     override fun onBackPressed(): Boolean {
-        var wasExpanded = false
-        if (getQueuePanel().state == STATE_EXPANDED) {
-            wasExpanded = getQueuePanel().state == STATE_EXPANDED
-            getQueuePanel().state = STATE_COLLAPSED
-            return wasExpanded
-        }
-        return wasExpanded
+        return false
     }
 
     override fun toolbarIconColor(): Int {
@@ -508,12 +441,12 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             lastPlaybackControlsColor,
             PorterDuff.Mode.SRC_IN
         )
-        binding.playbackControlsFragment.songFavourite.setColorFilter(
+        binding.songFavourite.setColorFilter(
             lastPlaybackControlsColor,
             PorterDuff.Mode.SRC_IN
         )
         binding.queueIcon.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
-        binding.close.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
+        binding.playbackControlsFragment.close.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
         binding.playbackControlsFragment.playerMenu.setColorFilter(
             lastPlaybackControlsColor,
             PorterDuff.Mode.SRC_IN
@@ -529,14 +462,11 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
 
         binding.playbackControlsFragment.progressSlider.applyColor(lastPlaybackControlsColor.ripAlpha())
 
-        binding.playbackControlsFragment.volUpButton.setColorFilter(lastPlaybackControlsColor)
-        binding.playbackControlsFragment.volDownButton.setColorFilter(lastPlaybackControlsColor)
-
         updateRepeatState()
         updateShuffleState()
         updatePrevNextColor()
 
-        embed.setBackgroundColor(color.backgroundColor)
+        scroll.setBackgroundColor(color.backgroundColor)
         embed.setTextColor(lastPlaybackControlsColor)
     }
 
@@ -554,7 +484,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                 } else {
                     if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
                 }
-                binding.playbackControlsFragment.songFavourite.apply {
+                binding.songFavourite.apply {
                     setImageResource(icon)
                     drawable.also {
                         if (it is AnimatedVectorDrawable) {
@@ -676,17 +606,17 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     }
 
     private fun setUpShuffleButton() {
-        binding.shuffleButton.setOnClickListener { MusicPlayerRemote.toggleShuffleMode() }
+        binding.playbackControlsFragment.shuffleButton.setOnClickListener { MusicPlayerRemote.toggleShuffleMode() }
     }
 
-    fun updateShuffleState() {
+    private fun updateShuffleState() {
         when (MusicPlayerRemote.shuffleMode) {
             MusicService.SHUFFLE_MODE_SHUFFLE ->
-                binding.shuffleButton.setColorFilter(
+                binding.playbackControlsFragment.shuffleButton.setColorFilter(
                     lastPlaybackControlsColor,
                     PorterDuff.Mode.SRC_IN
                 )
-            else -> binding.shuffleButton.setColorFilter(
+            else -> binding.playbackControlsFragment.shuffleButton.setColorFilter(
                 lastDisabledPlaybackControlsColor,
                 PorterDuff.Mode.SRC_IN
             )
@@ -694,28 +624,28 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     }
 
     private fun setUpRepeatButton() {
-        binding.repeatButton.setOnClickListener { MusicPlayerRemote.cycleRepeatMode() }
+        binding.playbackControlsFragment.repeatButton.setOnClickListener { MusicPlayerRemote.cycleRepeatMode() }
     }
 
-    fun updateRepeatState() {
+    private fun updateRepeatState() {
         when (MusicPlayerRemote.repeatMode) {
             MusicService.REPEAT_MODE_NONE -> {
-                binding.repeatButton.setImageResource(R.drawable.ic_repeat)
-                binding.repeatButton.setColorFilter(
+                binding.playbackControlsFragment.repeatButton.setImageResource(R.drawable.ic_repeat)
+                binding.playbackControlsFragment.repeatButton.setColorFilter(
                     lastDisabledPlaybackControlsColor,
                     PorterDuff.Mode.SRC_IN
                 )
             }
             MusicService.REPEAT_MODE_ALL -> {
-                binding.repeatButton.setImageResource(R.drawable.ic_repeat)
-                binding.repeatButton.setColorFilter(
+                binding.playbackControlsFragment.repeatButton.setImageResource(R.drawable.ic_repeat)
+                binding.playbackControlsFragment.repeatButton.setColorFilter(
                     lastPlaybackControlsColor,
                     PorterDuff.Mode.SRC_IN
                 )
             }
             MusicService.REPEAT_MODE_THIS -> {
-                binding.repeatButton.setImageResource(R.drawable.ic_repeat_one)
-                binding.repeatButton.setColorFilter(
+                binding.playbackControlsFragment.repeatButton.setImageResource(R.drawable.ic_repeat_one)
+                binding.playbackControlsFragment.repeatButton.setColorFilter(
                     lastPlaybackControlsColor,
                     PorterDuff.Mode.SRC_IN
                 )

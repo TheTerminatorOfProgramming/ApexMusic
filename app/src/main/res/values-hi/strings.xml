@@ -162,7 +162,6 @@
     <string name="enabled">सक्रिय</string>
     <string name="enter_text">पाठ दर्ज करें</string>
     <string name="equalizer">तुल्यकारक</string>
-    <string name="equalizer_apex">शीर्ष तुल्यकारक</string>
     <string name="error_create_backup">बैकअप नहीं बनाया जा सका</string>
     <string name="error_delete_backup">बैकअप हटाया नहीं जा सका</string>
     <string name="error_load_failed">लोड विफल हो गया</string>
@@ -332,7 +331,6 @@
     <string name="pref_header_autoplay">स्वत: प्ले</string>
     <string name="pref_header_blacklist">काला सूची में डालना</string>
     <string name="pref_header_controls">नियंत्रण</string>
-    <string name="pref_header_equalizer">तुल्यकारक</string>
     <string name="pref_header_filter">ट्रैक अवधि फ़िल्टर</string>
     <string name="pref_header_general">विषय</string>
     <string name="pref_header_images">इमेजिस</string>
@@ -412,12 +410,10 @@
     <string name="pref_title_tab_text_mode">टैब शीर्षक मोड</string>
     <string name="pref_title_toggle_carousel_effect">हिंडोला प्रभाव</string>
     <string name="pref_title_toggle_headset">वायर्ड हेडसेट प्लेबैक</string>
-    <string name="pref_title_transparent_mini_player">पारदर्शी मिनी प्लेयर</string>
+    <string name="pref_title_transparent_mini_player">अर्ध-पारदर्शी मिनी प्लेयर</string>
     <string name="pref_title_use_notification_actions_for_auto">अधिसूचना क्रियाओं का उपयोग करें</string>
-    <string name="pref_title_volume_controls">वॉल्यूम नियंत्रण</string>
     <string name="pref_title_whitelist">श्वेतसूची संगीत (/संगीत फ़ोल्डर)</string>
-    <string name="pref_title_widget_background">पारदर्शी विजेट</string>
-    <string name="pref_title_widget_buttons_color">अनुकूली बटन</string>
+    <string name="pref_title_widget_style">पारदर्शी विजेट</string>
     <string name="queue">कतार बजाना</string>
     <string name="recent_albums">हाल के एल्बम</string>
     <string name="recent_artists">हाल के कलाकार</string>

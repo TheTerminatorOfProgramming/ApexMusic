@@ -15,6 +15,7 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.Manifest.permission.BLUETOOTH_CONNECT
+import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
@@ -30,7 +31,6 @@ import com.ttop.app.apex.AUTO_DOWNLOAD_IMAGES_POLICY
 import com.ttop.app.apex.BLUETOOTH_DEVICE
 import com.ttop.app.apex.BLUETOOTH_PLAYBACK
 import com.ttop.app.apex.EQUALIZER
-import com.ttop.app.apex.EQUALIZER_STOCK
 import com.ttop.app.apex.GAP_LESS_PLAYBACK
 import com.ttop.app.apex.MANAGE_AUDIO_FOCUS
 import com.ttop.app.apex.PAUSE_ON_ZERO_VOLUME
@@ -48,10 +48,11 @@ import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
  */
 
 class AudioSettingsFragment : AbsSettingsFragment() {
+
     override fun invalidateSettings() {
         val eqPreference: Preference? = findPreference(EQUALIZER)
         eqPreference?.setOnPreferenceClickListener {
-            NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
+            NavigationUtil.openEqualizer(requireActivity())
             true
         }
 
@@ -122,21 +123,12 @@ class AudioSettingsFragment : AbsSettingsFragment() {
 
         bluetoothDevice?.entries = name.toTypedArray()
         bluetoothDevice?.entryValues = address.toTypedArray()
-
-        val stockEqualizer: TwoStatePreference? = findPreference(EQUALIZER_STOCK)
-        stockEqualizer?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_audio)
 
-        val equalizers: PreferenceCategory? = findPreference("equalizers")
         val autoplays: PreferenceCategory? = findPreference("autoplays")
-
-        equalizers?.isVisible = !PreferenceUtil.isSimpleMode
         autoplays?.isVisible = !PreferenceUtil.isSimpleMode
     }
 

@@ -325,6 +325,7 @@
         <item>auto_hide</item>
         <item>disabled</item>
     </string-array>
+
     <array name="pref_lyrics_mode_titles">
         <item>@string/lyrics_id3</item>
         <item>@string/lyrics_synced</item>

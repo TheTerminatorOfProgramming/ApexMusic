@@ -39,25 +39,11 @@
         android:title="@string/pref_keep_pause_on_zero_volume_title"
         app:allowDividerBelow="false"/>
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
-        android:layout="@layout/preference_category_title"
-        android:key="equalizers"
-        android:title="@string/pref_header_equalizer"
-        app:allowDividerBelow="false">
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
-            android:key="equalizer_stock"
-            android:layout="@layout/list_item_view_switch"
-            android:title="@string/pref_title_stock_equalizer"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreference
-            android:key="equalizer"
-            android:layout="@layout/list_item_view_no_title"
-            android:title="@string/equalizer"
-            app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreference
+        android:key="equalizer"
+        android:layout="@layout/list_item_view_no_title"
+        android:title="@string/equalizer"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"

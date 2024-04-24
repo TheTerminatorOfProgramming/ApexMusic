@@ -162,7 +162,6 @@
     <string name="enabled">Etkinleştirilmiş</string>
     <string name="enter_text">Metni Girin</string>
     <string name="equalizer">Ekolayzer</string>
-    <string name="equalizer_apex">Apeks ekolayzır</string>
     <string name="error_create_backup">Yedekleme oluşturulamadı</string>
     <string name="error_delete_backup">Yedekleme silinemedi</string>
     <string name="error_load_failed">Yükleme başarısız</string>
@@ -332,7 +331,6 @@
     <string name="pref_header_autoplay">Otomatik oynatma</string>
     <string name="pref_header_blacklist">Kara liste</string>
     <string name="pref_header_controls">Kontroller</string>
-    <string name="pref_header_equalizer">Ekolayzer</string>
     <string name="pref_header_filter">Parça Süresi Filtresi</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_images">Görüntüler</string>
@@ -412,12 +410,10 @@
     <string name="pref_title_tab_text_mode">Sekme Başlıkları Modu</string>
     <string name="pref_title_toggle_carousel_effect">Atlıkarınca Etkisi</string>
     <string name="pref_title_toggle_headset">Kablolu Kulaklıktan Oynatma</string>
-    <string name="pref_title_transparent_mini_player">Şeffaf Mini Oynatıcı</string>
+    <string name="pref_title_transparent_mini_player">Yarı Şeffaf Mini Oynatıcı</string>
     <string name="pref_title_use_notification_actions_for_auto">Bildirim İşlemlerini Kullan</string>
-    <string name="pref_title_volume_controls">Ses Seviyesi Kontrolleri</string>
     <string name="pref_title_whitelist">Beyaz Liste Müzik (/Müzik Klasörü)</string>
-    <string name="pref_title_widget_background">Şeffaf Widget\'lar</string>
-    <string name="pref_title_widget_buttons_color">Uyarlanabilir Düğmeler</string>
+    <string name="pref_title_widget_style">Şeffaf Widget\'lar</string>
     <string name="queue">Oynatma Sırası</string>
     <string name="recent_albums">Son albümler</string>
     <string name="recent_artists">Son sanatçılar</string>

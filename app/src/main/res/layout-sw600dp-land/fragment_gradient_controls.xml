@@ -26,7 +26,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/progressSlider"
         app:layout_constraintEnd_toStartOf="@+id/playerMenu"
-        app:layout_constraintStart_toEndOf="@+id/songFavourite"
+        app:layout_constraintStart_toEndOf="@+id/close"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
@@ -61,7 +61,7 @@
             android:textColor="@color/md_white_1000"
             app:layout_constraintBottom_toTopOf="@+id/progressSlider"
             app:layout_constraintEnd_toStartOf="@+id/playerMenu"
-            app:layout_constraintStart_toEndOf="@+id/songFavourite"
+            app:layout_constraintStart_toEndOf="@+id/close"
             app:layout_constraintTop_toBottomOf="@+id/text"
             tools:layout_editor_absoluteX="48dp"
             tools:text="@tools:sample/lorem/random"
@@ -69,7 +69,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/songFavourite"
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
@@ -77,7 +77,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/titleContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/titleContainer"
-        app:srcCompat="@drawable/ic_favorite_border"
+        app:srcCompat="@drawable/ic_keyboard_arrow_down_black"
         tools:tint="@color/md_black_1000" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -120,35 +120,19 @@
         tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volUpButton"
+        android:id="@+id/repeatButton"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
-        android:padding="16dp"
+        android:padding="12dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/previousButton"
         app:layout_constraintEnd_toStartOf="@+id/previousButton"
         app:layout_constraintTop_toTopOf="@+id/previousButton"
-        android:layout_marginEnd="40dp"
-        app:srcCompat="@drawable/ic_add"
+        android:layout_marginEnd="10dp"
+        app:srcCompat="@drawable/ic_repeat"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volDownButton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="?attr/roundSelector"
-        android:padding="16dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-        app:layout_constraintStart_toEndOf="@+id/nextButton"
-        app:layout_constraintTop_toTopOf="@+id/nextButton"
-        android:layout_marginStart="40dp"
-        app:srcCompat="@drawable/ic_minus"
-        tools:ignore="MissingPrefix"
-        tools:tint="@color/md_black_1000" />
-
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/previousButton"
         android:layout_width="wrap_content"
@@ -190,6 +174,21 @@
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/shuffleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/roundSelector"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintStart_toEndOf="@+id/nextButton"
+        app:layout_constraintTop_toTopOf="@+id/nextButton"
+        android:layout_marginStart="10dp"
+        app:srcCompat="@drawable/ic_shuffle"
+        tools:ignore="MissingPrefix"
+        tools:tint="@color/md_black_1000" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/songInfo"
         android:layout_width="match_parent"
@@ -204,7 +203,6 @@
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
         android:textColor="@color/md_white_1000"
-        app:layout_constraintTop_toBottomOf="@+id/playPauseButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -43,7 +43,6 @@ import com.ttop.app.apex.SCREEN_ON_LYRICS
 import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
 import com.ttop.app.apex.TOGGLE_AUTOPLAY
-import com.ttop.app.apex.VOLUME_CONTROLS
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -105,14 +104,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
         playerBG?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            restartActivity()
-            true
-        }
-
-        val volumeControls: TwoStatePreference? = findPreference(VOLUME_CONTROLS)
-        volumeControls?.isChecked = PreferenceUtil.isVolumeControls
-        volumeControls?.setOnPreferenceChangeListener { _, _ ->
             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             restartActivity()
             true

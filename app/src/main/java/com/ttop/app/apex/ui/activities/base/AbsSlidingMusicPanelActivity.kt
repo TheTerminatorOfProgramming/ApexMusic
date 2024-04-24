@@ -65,11 +65,8 @@ import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.maybeSetScreenOn
 import com.ttop.app.apex.extensions.peekHeightAnimate
-import com.ttop.app.apex.extensions.setLightNavigationBar
-import com.ttop.app.apex.extensions.setLightNavigationBarAuto
 import com.ttop.app.apex.extensions.setLightStatusBar
 import com.ttop.app.apex.extensions.setLightStatusBarAuto
-import com.ttop.app.apex.extensions.setNavigationBarColorPreOreo
 import com.ttop.app.apex.extensions.setTaskDescriptionColor
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.surfaceColor
@@ -118,7 +115,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private var nowPlayingScreen: NowPlayingScreen? = null
     private var taskColor: Int = 0
     private var paletteColor: Int = Color.WHITE
-    private var navigationBarColor = 0
 
     private var panelStateBefore: Int? = null
     private var panelStateCurrent: Int? = null
@@ -149,13 +145,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 setMiniPlayerAlphaProgress(slideOffset)
                 navigationBarColorAnimator?.cancel()
-                setNavigationBarColorPreOreo(
-                    argbEvaluator.evaluate(
-                        slideOffset,
-                        surfaceColor(),
-                        navigationBarColor
-                    ) as Int
-                )
 
                 val inRangeExpanding = oldOffSet < slideOffset
                 val inRangeCollapsing = oldOffSet > slideOffset
@@ -165,11 +154,44 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isMiniPlayerTransparent) {
                         binding.slidingPanel.alpha = 0.7f
                     }
+                    window.navigationBarColor = darkAccentColor()
                 }
 
                 if (inRangeExpanding) {
                     if (PreferenceUtil.isMiniPlayerTransparent) {
                         binding.slidingPanel.alpha = 1f
+                    }
+
+                    when (PreferenceUtil.nowPlayingScreen) {
+                        Adaptive -> {
+                            window.navigationBarColor = surfaceColor()
+                        }
+                        Blur -> {
+                            window.navigationBarColor = Color.BLACK
+                        }
+                        Card -> {
+                            window.navigationBarColor = Color.BLACK
+                        }
+                        Classic -> {
+                            if (PreferenceUtil.isAdaptiveColor) {
+                                window.navigationBarColor = paletteColor
+                            }else {
+                                window.navigationBarColor = surfaceColor()
+                            }
+                        }
+                        Gradient -> {
+                            window.navigationBarColor = paletteColor
+                        }
+                        Minimal -> {
+                            window.navigationBarColor = paletteColor
+                        }
+                        Peek -> {
+                            if (PreferenceUtil.isAdaptiveColor) {
+                                window.navigationBarColor = paletteColor
+                            }else {
+                                window.navigationBarColor = darkAccentColor()
+                            }
+                        }
                     }
                 }
             }
@@ -220,6 +242,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     }
                     STATE_HIDDEN -> {
                         MusicPlayerRemote.clearQueue()
+                        window.navigationBarColor = darkAccentColor()
                     }
                     else -> {
                         logD("Do a flip")
@@ -268,9 +291,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         binding.slidingPanel.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
         navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
         binding.slidingPanel.alpha = 1f
-        navigationBarColor = surfaceColor()
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+        window.navigationBarColor = darkAccentColor()
     }
 
     private fun setupBottomSheet() {
@@ -293,6 +317,46 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             if (PreferenceUtil.isMiniPlayerTransparent) {
                 binding.slidingPanel.alpha = 1f
             }
+
+            when (PreferenceUtil.nowPlayingScreen) {
+                Adaptive -> {
+                    window.navigationBarColor = surfaceColor()
+                }
+                Blur -> {
+                    window.navigationBarColor = Color.BLACK
+                }
+                Card -> {
+                    window.navigationBarColor = Color.BLACK
+                }
+                Classic -> {
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = surfaceColor()
+                    }
+                }
+                Gradient -> {
+                    window.navigationBarColor = paletteColor
+                }
+                Minimal -> {
+                    window.navigationBarColor = paletteColor
+                }
+                Peek -> {
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = darkAccentColor()
+                    }
+                }
+            }
+        }
+
+        if (bottomSheetBehavior.state == STATE_COLLAPSED) {
+            window.navigationBarColor = darkAccentColor()
+        }
+
+        if (bottomSheetBehavior.state == STATE_HIDDEN) {
+            window.navigationBarColor = darkAccentColor()
         }
 
         if (PreferenceUtil.isMiniPlayerTransparent) {
@@ -419,7 +483,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         setMiniPlayerAlphaProgress(0F)
         // restore values
         setLightStatusBarAuto()
-        setLightNavigationBarAuto()
         setTaskDescriptionColor(taskColor)
         //playerFragment?.onHide()
         if (PreferenceUtil.isMiniPlayerTransparent) {
@@ -431,6 +494,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         if (!nps.contains(PreferenceUtil.nowPlayingScreen)) {
             PreferenceUtil.isEmbedLyricsActivated = false
         }
+        window?.navigationBarColor = darkAccentColor()
     }
 
     open fun onPanelExpanded() {
@@ -445,6 +509,38 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             bottomSheetBehavior.isDraggable = false
         }else {
             bottomSheetBehavior.isDraggable = true
+        }
+
+        when (PreferenceUtil.nowPlayingScreen) {
+            Adaptive -> {
+                window.navigationBarColor = surfaceColor()
+            }
+            Blur -> {
+                window.navigationBarColor = Color.BLACK
+            }
+            Card -> {
+                window.navigationBarColor = Color.BLACK
+            }
+            Classic -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    window.navigationBarColor = paletteColor
+                }else {
+                    window.navigationBarColor = surfaceColor()
+                }
+            }
+            Gradient -> {
+                window.navigationBarColor = paletteColor
+            }
+            Minimal -> {
+                window.navigationBarColor = paletteColor
+            }
+            Peek -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    window.navigationBarColor = paletteColor
+                }else {
+                    window.navigationBarColor = darkAccentColor()
+                }
+            }
         }
     }
 
@@ -506,17 +602,43 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     private fun onPaletteColorChanged() {
         if (panelState == STATE_EXPANDED) {
-            navigationBarColor = surfaceColor()
             setTaskDescColor(paletteColor)
             val isColorLight = paletteColor.isColorLight
-            if (nowPlayingScreen == Card || nowPlayingScreen == Blur) {
-                navigationBarColor = Color.BLACK
-                setLightStatusBar(false)
-                setLightNavigationBar(true)
-            } else if (nowPlayingScreen == Minimal || nowPlayingScreen == Gradient || nowPlayingScreen == Classic) {
-                navigationBarColor = paletteColor
-                setLightNavigationBar(isColorLight)
-                setLightStatusBar(isColorLight)
+            when (PreferenceUtil.nowPlayingScreen) {
+                Adaptive -> {
+                    window.navigationBarColor = surfaceColor()
+                }
+                Blur -> {
+                    window.navigationBarColor = Color.BLACK
+                    setLightStatusBar(false)
+                }
+                Card -> {
+                    window.navigationBarColor = Color.BLACK
+                    setLightStatusBar(false)
+                }
+                Classic -> {
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = surfaceColor()
+                    }
+                    setLightStatusBar(isColorLight)
+                }
+                Gradient -> {
+                    window.navigationBarColor = paletteColor
+                    setLightStatusBar(isColorLight)
+                }
+                Minimal -> {
+                    window.navigationBarColor = paletteColor
+                    setLightStatusBar(isColorLight)
+                }
+                Peek -> {
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = darkAccentColor()
+                    }
+                }
             }
         }
     }

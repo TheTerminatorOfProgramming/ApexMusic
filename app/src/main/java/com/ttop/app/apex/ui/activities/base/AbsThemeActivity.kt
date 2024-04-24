@@ -29,7 +29,6 @@ import com.ttop.app.apex.extensions.installSplitCompat
 import com.ttop.app.apex.extensions.maybeSetScreenOn
 import com.ttop.app.apex.extensions.setEdgeToEdgeOrImmersive
 import com.ttop.app.apex.extensions.setImmersiveFullscreen
-import com.ttop.app.apex.extensions.setLightNavigationBarAuto
 import com.ttop.app.apex.extensions.setLightStatusBarAuto
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.util.PreferenceUtil
@@ -48,7 +47,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         super.onCreate(savedInstanceState)
         setEdgeToEdgeOrImmersive()
         maybeSetScreenOn()
-        setLightNavigationBarAuto()
         setLightStatusBarAuto(surfaceColor())
 
         window.decorView.isForceDarkAllowed = false

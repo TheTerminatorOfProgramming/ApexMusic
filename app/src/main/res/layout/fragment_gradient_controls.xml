@@ -26,7 +26,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/progressSlider"
         app:layout_constraintEnd_toStartOf="@+id/playerMenu"
-        app:layout_constraintStart_toEndOf="@+id/songFavourite"
+        app:layout_constraintStart_toEndOf="@+id/close"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
@@ -61,7 +61,7 @@
             android:textColor="@color/md_white_1000"
             app:layout_constraintBottom_toTopOf="@+id/progressSlider"
             app:layout_constraintEnd_toStartOf="@+id/playerMenu"
-            app:layout_constraintStart_toEndOf="@+id/songFavourite"
+            app:layout_constraintStart_toEndOf="@+id/close"
             app:layout_constraintTop_toBottomOf="@+id/text"
             tools:layout_editor_absoluteX="48dp"
             tools:text="@tools:sample/lorem/random"
@@ -69,7 +69,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/songFavourite"
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
@@ -77,7 +77,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/titleContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/titleContainer"
-        app:srcCompat="@drawable/ic_favorite_border"
+        app:srcCompat="@drawable/ic_keyboard_arrow_down_black"
         tools:tint="@color/md_black_1000" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -120,17 +120,16 @@
         tools:text="@tools:sample/date/hhmmss" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volUpButton"
+        android:id="@+id/repeatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
-        android:padding="16dp"
+        android:padding="12dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/previousButton"
         app:layout_constraintEnd_toStartOf="@+id/previousButton"
         app:layout_constraintTop_toTopOf="@+id/previousButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_add"
+        app:srcCompat="@drawable/ic_repeat"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 
@@ -176,17 +175,16 @@
         tools:tint="@color/md_black_1000" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/volDownButton"
+        android:id="@+id/shuffleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/roundSelector"
-        android:padding="16dp"
+        android:padding="12dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/nextButton"
         app:layout_constraintStart_toEndOf="@+id/nextButton"
         app:layout_constraintTop_toTopOf="@+id/nextButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_minus"
+        app:srcCompat="@drawable/ic_shuffle"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
 

@@ -164,7 +164,6 @@
     <string name="enabled">Activado</string>
     <string name="enter_text">Ingrese texto</string>
     <string name="equalizer">Igualada</string>
-    <string name="equalizer_apex">Ecualizador de ápice</string>
     <string name="error_create_backup">No se pudo crear la copia de seguridad</string>
     <string name="error_delete_backup">No se pudo eliminar la copia de seguridad</string>
     <string name="error_load_failed">Carga fallida</string>
@@ -334,7 +333,6 @@
     <string name="pref_header_autoplay">Auto-reproducción</string>
     <string name="pref_header_blacklist">Lista negra</string>
     <string name="pref_header_controls">Control S</string>
-    <string name="pref_header_equalizer">Igualada</string>
     <string name="pref_header_filter">Filtro de duración de pista</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_images">Imágenes</string>
@@ -414,12 +412,10 @@
     <string name="pref_title_tab_text_mode">Modo de títulos de pestañas</string>
     <string name="pref_title_toggle_carousel_effect">Efecto carrusel</string>
     <string name="pref_title_toggle_headset">Reproducción de auriculares con cable</string>
-    <string name="pref_title_transparent_mini_player">Mini reproductor transparente</string>
+    <string name="pref_title_transparent_mini_player">Mini reproductor semitransparente</string>
     <string name="pref_title_use_notification_actions_for_auto">Usar acciones de notificación</string>
-    <string name="pref_title_volume_controls">Controles de volumen</string>
-    <string name="pref_title_whitelist">Música en la lista blanca (/carpeta de música)</string>
-    <string name="pref_title_widget_background">Widgets transparentes</string>
-    <string name="pref_title_widget_buttons_color">Botones adaptables</string>
+    <string name="pref_title_whitelist">Música en la lista blanca (/carpeta de música)</string>+
+    <string name="pref_title_widget_style">Widgets transparentes</string>
     <string name="queue">Cola de reproducción</string>
     <string name="recent_albums">Álbumes recientes</string>
     <string name="recent_artists">Artistas recientes</string>

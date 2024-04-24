@@ -292,7 +292,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                 return true
             }
             R.id.action_equalizer -> {
-                NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
+                NavigationUtil.openEqualizer(requireActivity())
                 return true
             }
             R.id.action_sleep_timer -> {
@@ -542,7 +542,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
         val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
 
         if (PreferenceUtil.materialYou) {
-            embed.setBackgroundColor(requireContext().darkAccentColor())
+            scroll.setBackgroundColor(requireContext().darkAccentColor())
 
             if (ColorUtil.isColorLight(colorBg)) {
                 embed.setTextColor(

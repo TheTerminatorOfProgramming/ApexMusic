@@ -264,7 +264,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                 return true
             }
             R.id.action_equalizer -> {
-                NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
+                NavigationUtil.openEqualizer(requireActivity())
                 return true
             }
             R.id.action_sleep_timer -> {

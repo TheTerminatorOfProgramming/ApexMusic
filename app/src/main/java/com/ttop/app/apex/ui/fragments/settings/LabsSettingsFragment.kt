@@ -39,6 +39,8 @@ class LabsSettingsFragment : AbsSettingsFragment() {
 
             val value = newValue as Boolean
 
+            bigWidgetState(requireContext(), value)
+
             classicWidgetState(requireContext(), value)
 
             circleWidgetState(requireContext(), value)
@@ -85,10 +87,8 @@ class LabsSettingsFragment : AbsSettingsFragment() {
                 //Personalize
                 PreferenceUtil.rememberLastTab = false
                 PreferenceUtil.tabTitleMode = 1
-                PreferenceUtil.appBarMode = "simple_no_scroll"
                 PreferenceUtil.scrollbarStyle = "auto_hide"
                 //Audio
-                PreferenceUtil.isStockEqualizer = true
                 PreferenceUtil.isAutoplay = false
                 PreferenceUtil.isBluetoothSpeaker = false
                 PreferenceUtil.specificDevice = false
@@ -106,6 +106,23 @@ class LabsSettingsFragment : AbsSettingsFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_labs)
+    }
+
+    private fun bigWidgetState(context: Context, state: Boolean) {
+        val pm: PackageManager = context.packageManager
+
+        val newState = if (state) {
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+        }else {
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        }
+
+        pm.setComponentEnabledSetting(
+            ComponentName(
+                context,
+                AppWidgetBig::class.java
+            ), newState, PackageManager.DONT_KILL_APP
+        )
     }
 
     private fun classicWidgetState(context: Context, state: Boolean) {

@@ -1,81 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="status_bar_padding">24dp</dimen>
-    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="about_card_radius">16dp</dimen>
+    <dimen name="adaptive_icon_padding">12dp</dimen>
+    <dimen name="adaptive_icon_size">46dp</dimen>
 
-    <dimen name="progress_container_height">20dp</dimen>
+    <dimen name="app_widget_big_min_height">110dp</dimen>
+    <dimen name="app_widget_big_min_width">250dp</dimen>
+    <dimen name="app_widget_circle_max_height">250dp</dimen>
+    <dimen name="app_widget_circle_max_width">250dp</dimen>
+    <dimen name="app_widget_circle_min_height">100dp</dimen>
+    <dimen name="app_widget_circle_min_width">180dp</dimen>
+    <dimen name="app_widget_classic_height">115dp</dimen>
+    <dimen name="app_widget_classic_min_height">40dp</dimen>
+    <dimen name="app_widget_classic_min_width">250dp</dimen>
+    <dimen name="app_widget_full_min_height">180dp</dimen>
+    <dimen name="app_widget_full_min_width">250dp</dimen>
 
-    <dimen name="tab_height">48dp</dimen>
-
-    <dimen name="notification_big_image_size">112dp</dimen>
-
-    <dimen name="list_item_image_icon_padding">8dp</dimen>
-
-    <dimen name="mini_player_height">56dp</dimen>
     <dimen name="bottom_nav_height">80dp</dimen>
     <dimen name="bottom_nav_mini_player_height">136dp</dimen>
 
-    <dimen name="app_widget_classic_height">115dp</dimen>
-    <dimen name="app_widget_queue_height">100dp</dimen>
-    <dimen name="app_widget_classic_image_size">96dp</dimen>
-    <dimen name="app_widget_classic_min_width">250dp</dimen>
-    <dimen name="app_widget_classic_min_height">40dp</dimen>
-
-    <dimen name="app_widget_small_button_height">48dp</dimen>
-    <dimen name="app_widget_small_image_size">48dp</dimen>
-    <dimen name="app_widget_small_min_width">250dp</dimen>
-    <dimen name="app_widget_small_min_height">40dp</dimen>
-
-    <dimen name="app_widget_big_min_width">250dp</dimen>
-    <dimen name="app_widget_big_min_height">110dp</dimen>
-
-    <dimen name="app_widget_full_min_width">250dp</dimen>
-    <dimen name="app_widget_full_min_height">180dp</dimen>
-
-    <dimen name="app_widget_card_image_size">56dp</dimen>
-    <dimen name="app_widget_card_min_width">250dp</dimen>
-    <dimen name="app_widget_card_buttons_width">128dp</dimen>
-    <dimen name="app_widget_card_radius">2dp</dimen>
-    <dimen name="now_playing_top_margin">12dp</dimen>
-
-    <dimen name="app_widget_circle_min_width">180dp</dimen>
-    <dimen name="app_widget_circle_min_height">100dp</dimen>
-    <dimen name="app_widget_circle_max_width">250dp</dimen>
-    <dimen name="app_widget_circle_max_height">250dp</dimen>
-
-    <dimen name="icon_notification_dimen">32dp</dimen>
-    <dimen name="toolbar_margin_horizontal">8dp</dimen>
-    <dimen name="toolbar_height">48dp</dimen>
-    <dimen name="item_song_height">60dp</dimen>
     <dimen name="button_padding_vertical">10dp</dimen>
-    <dimen name="list_pref_guideline_begin">56dp</dimen>
-    <dimen name="pref_title_padding">72dp</dimen>
-    <dimen name="slider_thumb_radius">6dp</dimen>
-    <dimen name="slider_track_height">3dp</dimen>
-    <dimen name="adaptive_icon_size">46dp</dimen>
-    <dimen name="adaptive_icon_padding">12dp</dimen>
-    <dimen name="about_card_radius">16dp</dimen>
-
-    <dimen name="normal_lyrics_padding">20dp</dimen>
-    <dimen name="lyrics_text_size">18sp</dimen>
-    <dimen name="indicator_radius">10dp</dimen>
-    <dimen name="lyrics_dialog_radius">20dp</dimen>
-
-    <dimen name="m3_card_corner_radius">16dp</dimen>
-    <dimen name="m3_card_medium_radius">24dp</dimen>
-    <dimen name="m3_card_large_radius">40dp</dimen>
-    <dimen name="m3_dialog_corner_size">28dp</dimen>
-    <dimen name="padding_album_cover">16dp</dimen>
-
-    <dimen name="seekbar_padding">16dp</dimen>
-    <dimen name="cast_mini_controller_height">64dp</dimen>
-    <dimen name="cast_mini_controller_image_size">48dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="item_width">200dp</dimen>
-    <dimen name="app_bar_height">200dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="container_margin">8dp</dimen>
     <dimen name="container_horizontal_margin">16dp</dimen>
-
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="icon_notification_dimen">32dp</dimen>
+    <dimen name="indicator_radius">10dp</dimen>
+    <dimen name="item_song_height">60dp</dimen>
+    <dimen name="list_pref_guideline_begin">56dp</dimen>
+    <dimen name="m3_card_corner_radius">16dp</dimen>
+    <dimen name="m3_card_large_radius">40dp</dimen>
+    <dimen name="m3_card_medium_radius">24dp</dimen>
+    <dimen name="m3_dialog_corner_size">28dp</dimen>
+    <dimen name="mini_player_height">56dp</dimen>
+    <dimen name="notification_big_image_size">112dp</dimen>
+    <dimen name="now_playing_top_margin">12dp</dimen>
+    <dimen name="padding_album_cover">16dp</dimen>
+    <dimen name="pref_title_padding">72dp</dimen>
+    <dimen name="progress_container_height">20dp</dimen>
+    <dimen name="seekbar_padding">16dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="toolbar_height">48dp</dimen>
+    <dimen name="toolbar_margin_horizontal">8dp</dimen>
+    <dimen name="status_bar_padding">24dp</dimen>
 </resources>

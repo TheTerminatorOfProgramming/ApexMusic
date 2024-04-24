@@ -189,7 +189,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                 return true
             }
             R.id.action_equalizer -> {
-                NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
+                NavigationUtil.openEqualizer(requireActivity())
                 return true
             }
             R.id.action_sleep_timer -> {
@@ -266,8 +266,9 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                         if (!PreferenceUtil.isLyricsMessageDisabled) {
                             showToast(getString(R.string.lyrics_message_enabled))
                         }
-                        playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
-                        playerToolbar().menu?.findItem(R.id.now_playing)?.isEnabled = false
+
+                        //playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+                        //playerToolbar().menu?.findItem(R.id.now_playing)?.isEnabled = false
 
                         if (PreferenceUtil.lyricsScreenOn) {
                             mainActivity.keepScreenOn(true)
@@ -282,8 +283,10 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                         if (!PreferenceUtil.isLyricsMessageDisabled) {
                             showToast(getString(R.string.lyrics_message_disabled))
                         }
-                        playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = true
-                        playerToolbar().menu?.findItem(R.id.now_playing)?.isEnabled = true
+
+                        //playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = true
+                        //playerToolbar().menu?.findItem(R.id.now_playing)?.isEnabled = true
+
                         mainActivity.keepScreenOn(false)
                         requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         PreferenceUtil.isEmbedLyricsActivated = false
@@ -312,7 +315,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             }else {
                 binding.playerQueueSheet.visibility = View.GONE
                 scroll.visibility = View.VISIBLE
-                playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+                //playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
             }
         }
 
@@ -500,7 +503,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
         get() = lastColor
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
-        lastColor = color.primaryTextColor
+        lastColor = color.backgroundColor
         toolbarColor = color.secondaryTextColor
         libraryViewModel.updateColor(color.primaryTextColor)
         controlsFragment.setColor(color)
@@ -538,10 +541,10 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
 
         if (PreferenceUtil.materialYou) {
             if (PreferenceUtil.isAdaptiveColor) {
-                embed.setBackgroundColor(color.backgroundColor)
+                scroll.setBackgroundColor(color.backgroundColor)
                 embed.setTextColor(color.secondaryTextColor)
             }else {
-                embed.setBackgroundColor(requireContext().darkAccentColor())
+                scroll.setBackgroundColor(requireContext().darkAccentColor())
 
                 if (ColorUtil.isColorLight(colorBg)) {
                     embed.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
@@ -551,7 +554,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
             }
         }else {
             if (PreferenceUtil.isAdaptiveColor) {
-                embed.setBackgroundColor(color.backgroundColor)
+                scroll.setBackgroundColor(color.backgroundColor)
                 embed.setTextColor(color.secondaryTextColor)
             }else {
                 if (ApexUtil.isTablet) {
@@ -601,7 +604,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                 }else {
                     binding.playerQueueSheet.visibility = View.GONE
                     scroll.visibility = View.VISIBLE
-                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+                    //playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
                 }
             }
         }else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -612,7 +615,7 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                 }else {
                     binding.playerQueueSheet.visibility = View.GONE
                     scroll.visibility = View.VISIBLE
-                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
+                    //playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
                 }
             }
         }

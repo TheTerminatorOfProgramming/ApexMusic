@@ -55,12 +55,6 @@ class AdaptivePlaybackControlsFragment :
 
     override val previousButton: ImageButton
         get() = binding.previousButton
-
-    override val volUp: ImageButton
-        get() = binding.volUpButton
-
-    override val volDown: ImageButton
-        get() = binding.volDownButton
     
     override val songTotalTime: TextView
         get() = binding.songTotalTime
@@ -73,14 +67,6 @@ class AdaptivePlaybackControlsFragment :
         _binding = FragmentAdaptivePlayerPlaybackControlsBinding.bind(view)
 
         setUpPlayPauseFab()
-
-        if (!PreferenceUtil.isVolumeControls) {
-            volUp.visibility = View.GONE
-            volDown.visibility = View.GONE
-        }else {
-            volUp.visibility = View.VISIBLE
-            volDown.visibility = View.VISIBLE
-        }
     }
 
     private fun updateSong() {
@@ -149,9 +135,6 @@ class AdaptivePlaybackControlsFragment :
         )
         TintHelper.setTintAuto(binding.playPauseButton, colorFinal, true)
         binding.progressSlider.applyColor(colorFinal)
-
-        binding.volUpButton.setColorFilter(colorFinal)
-        binding.volDownButton.setColorFilter(colorFinal)
     }
 
     private fun updatePlayPauseColor() {

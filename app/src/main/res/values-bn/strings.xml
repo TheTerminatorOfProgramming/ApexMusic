@@ -162,7 +162,6 @@
     <string name="enabled">সক্রিয়</string>
     <string name="enter_text">লেখা অন্তর্ভুক্ত করুন</string>
     <string name="equalizer">ইকুয়ালাইজার</string>
-    <string name="equalizer_apex">এপেক্স ইকুয়ালাইজার</string>
     <string name="error_create_backup">ব্যাকআপ তৈরি করা যায়নি</string>
     <string name="error_delete_backup">ব্যাকআপ মুছে ফেলা যায়নি</string>
     <string name="error_load_failed">লোড ব্যর্থ হয়েছে</string>
@@ -332,7 +331,6 @@
     <string name="pref_header_autoplay">স্বয়ংক্রিয় চালু</string>
     <string name="pref_header_blacklist">কালো তালিকা</string>
     <string name="pref_header_controls">নিয়ন্ত্রণ করে</string>
-    <string name="pref_header_equalizer">ইকুয়ালাইজার</string>
     <string name="pref_header_filter">ট্র্যাক সময়কাল ফিল্টার</string>
     <string name="pref_header_general">থিম</string>
     <string name="pref_header_images">ছবি</string>
@@ -412,12 +410,10 @@
     <string name="pref_title_tab_text_mode">ট্যাব শিরোনাম মোড</string>
     <string name="pref_title_toggle_carousel_effect">ক্যারোজেল প্রভাব</string>
     <string name="pref_title_toggle_headset">তারযুক্ত হেডসেট প্লেব্যাক</string>
-    <string name="pref_title_transparent_mini_player">স্বচ্ছ মিনি প্লেয়ার</string>
+    <string name="pref_title_transparent_mini_player">আধা-স্বচ্ছ মিনি প্লেয়ার</string>
     <string name="pref_title_use_notification_actions_for_auto">বিজ্ঞপ্তি অ্যাকশন ব্যবহার করুন</string>
-    <string name="pref_title_volume_controls">ভলিউম কন্ট্রোল</string>
     <string name="pref_title_whitelist">হোয়াইটলিস্ট মিউজিক (/মিউজিক ফোল্ডার)</string>
-    <string name="pref_title_widget_background">স্বচ্ছ উইজেট</string>
-    <string name="pref_title_widget_buttons_color">অভিযোজিত বোতাম</string>
+    <string name="pref_title_widget_style">স্বচ্ছ উইজেট</string>
     <string name="queue">বাজানো সারি</string>
     <string name="recent_albums">সাম্প্রতিক অ্যালবাম</string>
     <string name="recent_artists">সাম্প্রতিক শিল্পী</string>

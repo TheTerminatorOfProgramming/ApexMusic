@@ -138,6 +138,7 @@ class MusicService : MediaBrowserServiceCompat(),
 
     @JvmField
     var position = -1
+    private val appWidgetBig = AppWidgetBig.instance
     private val appWidgetCircle = AppWidgetCircle.instance
     private val appWidgetClassic = AppWidgetClassic.instance
     private val appWidgetFull = AppWidgetFull.instance
@@ -148,6 +149,9 @@ class MusicService : MediaBrowserServiceCompat(),
 
             if (command != null) {
                 when (command) {
+                    AppWidgetBig.NAME -> {
+                        appWidgetBig.performUpdate(this@MusicService, ids)
+                    }
                     AppWidgetClassic.NAME -> {
                         appWidgetClassic.performUpdate(this@MusicService, ids)
                     }
@@ -735,6 +739,7 @@ class MusicService : MediaBrowserServiceCompat(),
                         update()
                     }
                     ACTION_UPDATE -> {
+                        appWidgetBig.notifyThemeChange(this@MusicService)
                         appWidgetClassic.notifyThemeChange(this@MusicService)
                         appWidgetCircle.notifyThemeChange(this@MusicService)
                         appWidgetFull.notifyThemeChange(this@MusicService)
@@ -1468,10 +1473,12 @@ class MusicService : MediaBrowserServiceCompat(),
 
         when (applicationContext.resources?.configuration?.uiMode?.and(UI_MODE_NIGHT_MASK)) {
             UI_MODE_NIGHT_YES -> {
+                appWidgetBig.notifyThemeChange(this)
                 appWidgetClassic.notifyThemeChange(this)
                 appWidgetFull.notifyThemeChange(this)
             }
             UI_MODE_NIGHT_NO -> {
+                appWidgetBig.notifyThemeChange(this)
                 appWidgetClassic.notifyThemeChange(this)
                 appWidgetFull.notifyThemeChange(this)
             }
@@ -1480,6 +1487,7 @@ class MusicService : MediaBrowserServiceCompat(),
 
     private fun sendChangeInternal(what: String) {
         sendBroadcast(Intent(what))
+        appWidgetBig.notifyChange(this, what)
         appWidgetClassic.notifyChange(this, what)
         appWidgetFull.notifyChange(this, what)
         appWidgetCircle.notifyChange(this, what)
@@ -1797,6 +1805,7 @@ class MusicService : MediaBrowserServiceCompat(),
     fun updateWidget() {
         val hideTimelineRunnable = Runnable {
             if (playingQueue.isNotEmpty()) {
+                appWidgetBig.performUpdate(this@MusicService, null)
                 appWidgetClassic.performUpdate(this@MusicService, null)
                 appWidgetFull.performUpdate(this@MusicService, null)
             }

@@ -164,7 +164,6 @@
     <string name="enabled">Enabled</string>
     <string name="enter_text">Enter Text</string>
     <string name="equalizer">Equalizer</string>
-    <string name="equalizer_apex">Apex equalizer</string>
     <string name="error_create_backup">Couldn\u2019t create backup</string>
     <string name="error_delete_backup">Couldn\u2019t delete backup</string>
     <string name="error_load_failed">Load failed</string>
@@ -334,7 +333,6 @@
     <string name="pref_header_autoplay">AutoPlay</string>
     <string name="pref_header_blacklist">Blacklist</string>
     <string name="pref_header_controls">Controls</string>
-    <string name="pref_header_equalizer">Equalizer</string>
     <string name="pref_header_filter">Track Duration Filter</string>
     <string name="pref_header_general">Theme</string>
     <string name="pref_header_images">Images</string>
@@ -414,12 +412,10 @@
     <string name="pref_title_tab_text_mode">Tab Titles Mode</string>
     <string name="pref_title_toggle_carousel_effect">Carousel Effect</string>
     <string name="pref_title_toggle_headset">Wired Headset Playback</string>
-    <string name="pref_title_transparent_mini_player">Transparent Mini Player</string>
+    <string name="pref_title_transparent_mini_player">Semi-Transparent Mini Player</string>
     <string name="pref_title_use_notification_actions_for_auto">Use Notification Actions</string>
-    <string name="pref_title_volume_controls">Volume Controls</string>
     <string name="pref_title_whitelist">Whitelist Music (/Music Folder)</string>
-    <string name="pref_title_widget_background">Transparent Widgets</string>
-    <string name="pref_title_widget_buttons_color">Adaptive Buttons</string>
+    <string name="pref_title_widget_style">Transparent Widgets</string>
     <string name="queue">Playing Queue</string>
     <string name="recent_albums">Recent albums</string>
     <string name="recent_artists">Recent artists</string>

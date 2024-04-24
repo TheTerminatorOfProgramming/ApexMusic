@@ -160,7 +160,6 @@
     <string name="enabled">启用</string>
     <string name="enter_text">输入文字</string>
     <string name="equalizer">均衡器</string>
-    <string name="equalizer_apex">顶点均衡器</string>
     <string name="error_create_backup">无法创建备份</string>
     <string name="error_delete_backup">无法删除备份</string>
     <string name="error_load_failed">加载失败</string>
@@ -330,7 +329,6 @@
     <string name="pref_header_autoplay">安卓汽车</string>
     <string name="pref_header_blacklist">自动播放</string>
     <string name="pref_header_controls">黑名单</string>
-    <string name="pref_header_equalizer">控制</string>
     <string name="pref_header_filter">均衡器</string>
     <string name="pref_header_general">曲目持续时间过滤器</string>
     <string name="pref_header_images">主题</string>
@@ -410,12 +408,10 @@
     <string name="pref_title_tab_text_mode">滑动手势</string>
     <string name="pref_title_toggle_carousel_effect">同步歌词</string>
     <string name="pref_title_toggle_headset">选项卡标题模式</string>
-    <string name="pref_title_transparent_mini_player">透明迷你播放器</string>
+    <string name="pref_title_transparent_mini_player">半透明迷你播放器</string>
     <string name="pref_title_use_notification_actions_for_auto">轮播效果</string>
-    <string name="pref_title_volume_controls">有线耳机播放</string>
     <string name="pref_title_whitelist">使用通知操作</string>
-    <string name="pref_title_widget_background">音量控制</string>
-    <string name="pref_title_widget_buttons_color">白名单音乐（/音乐文件夹）</string>
+    <string name="pref_title_widget_style">音量控制</string>
     <string name="queue">透明小部件</string>
     <string name="recent_albums">自适应按钮</string>
     <string name="recent_artists">播放队列</string>

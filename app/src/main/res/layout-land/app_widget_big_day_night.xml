@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_widget_big"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/app_widget_background"
+    android:backgroundTint="?attr/colorSurface"
+    android:theme="@style/Theme.Material3.DynamicColors.DayNight">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/app_widget_background"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/backgrounds/scenic[6]"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <RelativeLayout
+            android:id="@+id/media_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/button_prev"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/app_widget_buttons_circular"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_skip_previous"
+                tools:tint="@color/md_white_1000" />
+
+            <ImageButton
+                android:id="@+id/button_toggle_play_pause"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/button_prev"
+                android:background="@drawable/app_widget_buttons_circular"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_play_arrow_outline_small"
+                tools:tint="@color/md_white_1000" />
+
+            <ImageButton
+                android:id="@+id/button_next"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@id/button_toggle_play_pause"
+                android:background="@drawable/app_widget_buttons_circular"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_skip_next_outline"
+                tools:tint="@color/md_white_1000" />
+
+            <ImageButton
+                android:id="@+id/button_update"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/button_next"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/app_widget_buttons_circular"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_refresh"
+                tools:tint="@color/md_white_1000" />
+
+            <ImageButton
+                android:id="@+id/button_open"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/button_next"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/app_widget_buttons_circular"
+                android:scaleType="fitCenter"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/app_icon_white"
+                tools:tint="@color/md_white_1000" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/media_titles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/media_actions"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textAppearance="@style/TextViewSubtitle3"
+                android:textColor="@color/md_white_1000"
+                android:layout_gravity="center"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/songText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextViewNormal3"
+                android:textColor="@color/md_white_1000"
+                tools:text="02:54/06:34" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

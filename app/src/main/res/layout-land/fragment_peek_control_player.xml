@@ -40,7 +40,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toBottomOf="@id/volumeFragmentContainer"
+        app:layout_constraintTop_toBottomOf="@id/songInfo"
         tools:progress="50"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -137,16 +137,6 @@
         app:srcCompat="@drawable/ic_shuffle"
         tools:ignore="MissingPrefix"
         tools:tint="@color/md_black_1000" />
-
-    <FrameLayout
-        android:id="@+id/volumeFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_weight="0"
-        app:layout_constraintTop_toBottomOf="@id/songInfo"
-        tools:background="@color/md_red_400"
-        tools:layout_height="52dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/titleArtist"

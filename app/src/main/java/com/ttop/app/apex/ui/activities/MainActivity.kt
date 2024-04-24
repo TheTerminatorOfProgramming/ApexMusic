@@ -26,6 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
 import com.ttop.app.apex.R
+import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
@@ -80,6 +81,13 @@ class MainActivity : AbsCastActivity() {
         }
 
         if (PreferenceUtil.isDisableWidgets) {
+            //Big Widget
+            packageManager.setComponentEnabledSetting(
+                ComponentName(
+                    applicationContext,
+                    AppWidgetBig::class.java
+                ), COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
             //Classic Widget
             packageManager.setComponentEnabledSetting(
                 ComponentName(

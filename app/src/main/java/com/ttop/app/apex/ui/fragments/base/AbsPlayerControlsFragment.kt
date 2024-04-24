@@ -17,11 +17,7 @@ package com.ttop.app.apex.ui.fragments.base
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
-import android.media.AudioManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.HapticFeedbackConstants
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
@@ -30,20 +26,14 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.MusicSeekSkipTouchListener
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
-import com.ttop.app.apex.ui.fragments.other.VolumeFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -78,10 +68,6 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     open val nextButton: ImageButton? = null
 
     open val previousButton: ImageButton? = null
-
-    open val volUp: ImageButton? = null
-
-    open val volDown: ImageButton? = null
 
     open val songTotalTime: TextView? = null
 
@@ -214,23 +200,12 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
             .start()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val nps = PreferenceUtil.nowPlayingScreen
-        val npsVolButtons = listOf(NowPlayingScreen.Adaptive, NowPlayingScreen.Gradient)
-
-        if (!npsVolButtons.contains(nps)) {
-            hideVolumeIfAvailable()
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         setUpProgressSlider()
         setUpPrevNext()
         setUpShuffleButton()
         setUpRepeatButton()
-        setupVolButtons()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -285,62 +260,6 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                 )
             }
         }
-    }
-
-    private fun setupVolButtons() {
-        val mAudioManager: AudioManager = context?.getSystemService()!!
-
-        var lastUpClick: Long
-        var lastDownClick: Long
-
-        volUp?.setOnClickListener {
-            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
-
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            lastUpClick = System.currentTimeMillis()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (System.currentTimeMillis() - lastUpClick >= 500) {
-                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-                    val currentVolumeTotal = 100 * currentVolume / maxVolume
-
-                    showToast("New Volume: $currentVolumeTotal%")
-                }
-            }, 500)
-        }
-
-        volDown?.setOnClickListener {
-            mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
-
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-
-            lastDownClick = System.currentTimeMillis()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (System.currentTimeMillis() - lastDownClick >= 500) {
-                    val currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-                    val maxVolume: Int = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-                    val currentVolumeTotal = 100 * currentVolume / maxVolume
-
-                    val newVol = getString(R.string.new_volume)
-                    showToast("$newVol: $currentVolumeTotal%")
-                }
-            }, 500)
-        }
-    }
-
-    protected var volumeFragment: VolumeFragment? = null
-
-    private fun hideVolumeIfAvailable() {
-        if (PreferenceUtil.isVolumeControls) {
-            childFragmentManager.commit {
-                replace<VolumeFragment>(R.id.volumeFragmentContainer)
-            }
-            childFragmentManager.executePendingTransactions()
-        }
-        volumeFragment = whichFragment(R.id.volumeFragmentContainer)
     }
 
     override fun onResume() {

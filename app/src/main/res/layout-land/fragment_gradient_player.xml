@@ -52,9 +52,9 @@
                 android:id="@+id/embedded"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/transparent"
                 android:paddingStart="4dp"
-                android:paddingEnd="5dp"
-                android:textAlignment="center"/>
+                android:paddingEnd="5dp" />
         </ScrollView>
 
         <View
@@ -75,8 +75,7 @@
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/middle_guideline"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/middle_guideline" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -100,17 +99,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_default="spread"
             tools:background="@color/md_red_500">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:padding="14dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/nextSong"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_keyboard_arrow_down_black" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/queueIcon"
@@ -138,40 +126,16 @@
                 app:layout_constraintStart_toEndOf="@id/queueIcon"
                 app:layout_constraintTop_toTopOf="@id/queueIcon" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/repeatButton"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/songFavourite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/roundSelector"
-                android:clickable="true"
-                android:focusable="true"
+                android:layout_weight="0"
                 android:padding="14dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="@+id/previousButton"
-                app:layout_constraintEnd_toStartOf="@+id/previousButton"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/nextSong"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/previousButton"
-                app:srcCompat="@drawable/ic_repeat"
-                tools:ignore="MissingPrefix"
-                tools:tint="@color/md_black_1000" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/shuffleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/roundSelector"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="14dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="@+id/nextButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/nextButton"
-                app:layout_constraintTop_toTopOf="@+id/nextButton"
-                app:srcCompat="@drawable/ic_shuffle"
-                tools:ignore="MissingPrefix"
+                app:srcCompat="@drawable/ic_favorite_border"
                 tools:tint="@color/md_black_1000" />
 
         </LinearLayout>

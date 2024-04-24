@@ -106,7 +106,6 @@ class ClassicPlaybackControlsFragment :
 
         if (PreferenceUtil.isAdaptiveColor) {
             binding.progressSlider.applyColor(color.secondaryTextColor)
-            volumeFragment?.tint(color.secondaryTextColor)
             binding.title.setTextColor(color.secondaryTextColor)
             binding.artist.setTextColor(color.secondaryTextColor)
             binding.songInfo.setTextColor(color.secondaryTextColor)
@@ -128,7 +127,6 @@ class ClassicPlaybackControlsFragment :
             }
         }else {
             binding.progressSlider.applyColor(colorFinal)
-            volumeFragment?.tint(colorFinal)
             TintHelper.setTintAuto(
                 binding.playPauseButton,
                 MaterialValueHelper.getPrimaryTextColor(

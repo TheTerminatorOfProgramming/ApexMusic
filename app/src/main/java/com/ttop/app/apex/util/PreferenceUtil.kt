@@ -789,12 +789,12 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(IS_QUEUE_HIDDEN_PEEK, value)}
 
-    var widgetBackground
+    var widgetStyle
         get() = sharedPreferences.getBoolean(
-            WIDGET_BACKGROUND, false
+            WIDGET_STYLE, false
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(WIDGET_BACKGROUND, value)}
+            putBoolean(WIDGET_STYLE, value)}
 
     var progressBarStyle
         get() = sharedPreferences.getStringOrDefault(
@@ -859,13 +859,6 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(INTERNET_CONNECTED, value)}
-
-    var buttonColorOnWidgets
-        get() = sharedPreferences.getBoolean(
-            WIDGET_BUTTON_COLOR, true
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(WIDGET_BUTTON_COLOR, value)}
 
     var isTimerCancelled
         get() = sharedPreferences.getBoolean(
@@ -960,18 +953,6 @@ object PreferenceUtil {
 
         set(value) = sharedPreferences.edit {
             putBoolean(SEARCH_FROM_NAVIGATION, value)}
-
-    val isVolumeControls
-        get() = sharedPreferences.getBoolean(
-            VOLUME_CONTROLS, false
-        )
-
-    var isStockEqualizer
-        get() = sharedPreferences.getBoolean(
-            EQUALIZER_STOCK, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(EQUALIZER_STOCK, value)}
 
     val fontSize
         get() = sharedPreferences.getString(

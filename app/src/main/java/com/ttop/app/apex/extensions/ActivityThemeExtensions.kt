@@ -3,7 +3,6 @@ package com.ttop.app.apex.extensions
 import android.app.ActivityManager
 import android.graphics.Color
 import android.view.View
-import android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -140,23 +139,6 @@ fun AppCompatActivity.setLightStatusBarAuto(bgColor: Int) {
     setLightStatusBar(bgColor.isColorLight)
 }
 
-@Suppress("Deprecation")
-fun AppCompatActivity.setLightNavigationBar(enabled: Boolean) {
-    val decorView = window.decorView
-    var systemUiVisibility = decorView.systemUiVisibility
-    systemUiVisibility = if (enabled) {
-        systemUiVisibility or SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-    } else {
-        systemUiVisibility and SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
-    }
-    decorView.systemUiVisibility = systemUiVisibility
-}
-
-fun AppCompatActivity.setLightNavigationBarAuto() {
-    setLightNavigationBar(surfaceColor().isColorLight)
-}
-
-
 /**
  * This will set the color of the view with the id "status_bar" on KitKat and Lollipop. On
  * Lollipop if no such view is found it will set the statusbar color using the native method.
@@ -171,10 +153,6 @@ fun AppCompatActivity.setStatusBarColor(color: Int) {
         window.statusBarColor = color
     }
     setLightStatusBarAuto(surfaceColor())
-}
-
-fun AppCompatActivity.setNavigationBarColorPreOreo(color: Int) {
-    window.navigationBarColor = ColorUtil.darkenColor(color)
 }
 
 fun AppCompatActivity.hideSoftKeyboard() {

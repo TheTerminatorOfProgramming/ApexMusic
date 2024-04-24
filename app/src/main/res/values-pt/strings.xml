@@ -164,7 +164,6 @@
     <string name="enabled">Habilitado</string>
     <string name="enter_text">Insira o texto</string>
     <string name="equalizer">Equalizador</string>
-    <string name="equalizer_apex">Equalizador de ápice</string>
     <string name="error_create_backup">Não foi possível criar o backup</string>
     <string name="error_delete_backup">Não foi possível excluir o backup</string>
     <string name="error_load_failed">Erro de carregamento</string>
@@ -334,7 +333,6 @@
     <string name="pref_header_autoplay">Reprodução automática</string>
     <string name="pref_header_blacklist">Lista negra</string>
     <string name="pref_header_controls">Controles</string>
-    <string name="pref_header_equalizer">Equalizador</string>
     <string name="pref_header_filter">Filtro de duração da trilha</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_images">Imagens</string>
@@ -414,12 +412,10 @@
     <string name="pref_title_tab_text_mode">Modo de títulos de guias</string>
     <string name="pref_title_toggle_carousel_effect">Efeito carrossel</string>
     <string name="pref_title_toggle_headset">Reprodução de fone de ouvido com fio</string>
-    <string name="pref_title_transparent_mini_player">Miniplayer transparente</string>
+    <string name="pref_title_transparent_mini_player">Miniplayer semitransparente</string>
     <string name="pref_title_use_notification_actions_for_auto">Use ações de notificação</string>
-    <string name="pref_title_volume_controls">Controles de volume</string>
     <string name="pref_title_whitelist">Lista de permissões de músicas (/pasta de músicas)</string>
-    <string name="pref_title_widget_background">Widgets transparentes</string>
-    <string name="pref_title_widget_buttons_color">Botões adaptativos</string>
+    <string name="pref_title_widget_style">Widgets transparentes</string>
     <string name="queue">Fila de jogo</string>
     <string name="recent_albums">Álbuns recentes</string>
     <string name="recent_artists">Artistas recentes</string>

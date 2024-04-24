@@ -162,7 +162,6 @@
     <string name="enabled">Ermöglicht</string>
     <string name="enter_text">Text eingeben</string>
     <string name="equalizer">Equalizer</string>
-    <string name="equalizer_apex">Apex-Ausgleich</string>
     <string name="error_create_backup">Backup konnte nicht erstellt werden</string>
     <string name="error_delete_backup">Das Backup konnte nicht gelöscht werden</string>
     <string name="error_load_failed">Laden fehlgeschlagen</string>
@@ -332,7 +331,6 @@
     <string name="pref_header_autoplay">Automatisches Abspielen</string>
     <string name="pref_header_blacklist">Schwarze Liste</string>
     <string name="pref_header_controls">Kontrollen</string>
-    <string name="pref_header_equalizer">Equalizer</string>
     <string name="pref_header_filter">Filter für die Verfolgungsdauer</string>
     <string name="pref_header_general">Thema</string>
     <string name="pref_header_images">Bilder</string>
@@ -412,12 +410,10 @@
     <string name="pref_title_tab_text_mode">Registerkartentitelmodus</string>
     <string name="pref_title_toggle_carousel_effect">Karusselleffekt</string>
     <string name="pref_title_toggle_headset">Wiedergabe über kabelgebundene Headsets</string>
-    <string name="pref_title_transparent_mini_player">Transparenter Mini-Player</string>
+    <string name="pref_title_transparent_mini_player">Halbtransparenter Mini-Player</string>
     <string name="pref_title_use_notification_actions_for_auto">Verwenden Sie Benachrichtigungsaktionen</string>
-    <string name="pref_title_volume_controls">Lautstärkeregler</string>
     <string name="pref_title_whitelist">Musik auf die weiße Liste setzen (/Musikordner)</string>
-    <string name="pref_title_widget_background">Transparente Widgets</string>
-    <string name="pref_title_widget_buttons_color">Adaptive Tasten</string>
+    <string name="pref_title_widget_style">Transparente Widgets</string>
     <string name="queue">Warteschlange spielen</string>
     <string name="recent_albums">Aktuelle Alben</string>
     <string name="recent_artists">Aktuelle Künstler</string>

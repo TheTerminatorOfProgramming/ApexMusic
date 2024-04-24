@@ -153,10 +153,10 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
 
         if (PreferenceUtil.materialYou) {
             if (PreferenceUtil.isAdaptiveColor) {
-                embed.setBackgroundColor(color.backgroundColor)
+                scroll.setBackgroundColor(color.backgroundColor)
                 embed.setTextColor(color.secondaryTextColor)
             }else {
-                embed.setBackgroundColor(requireContext().darkAccentColor())
+                scroll.setBackgroundColor(requireContext().darkAccentColor())
 
                 if (ColorUtil.isColorLight(colorBg)) {
                     embed.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
@@ -166,7 +166,7 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
             }
         }else {
             if (PreferenceUtil.isAdaptiveColor) {
-                embed.setBackgroundColor(color.backgroundColor)
+                scroll.setBackgroundColor(color.backgroundColor)
                 embed.setTextColor(color.secondaryTextColor)
             }else {
                 if (ApexUtil.isTablet) {
@@ -383,7 +383,7 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
                 return true
             }
             R.id.action_equalizer -> {
-                NavigationUtil.openEqualizer(requireActivity(), childFragmentManager, requireActivity().getString(R.string.equalizer_apex))
+                NavigationUtil.openEqualizer(requireActivity())
                 return true
             }
             R.id.action_sleep_timer -> {

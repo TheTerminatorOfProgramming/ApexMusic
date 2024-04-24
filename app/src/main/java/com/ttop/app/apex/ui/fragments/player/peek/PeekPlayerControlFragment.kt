@@ -133,8 +133,6 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
         binding.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
-        volumeFragment?.tint(controlsColor)
-
         if (PreferenceUtil.isAdaptiveColor) {
             if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
                 lastPlaybackControlsColor =

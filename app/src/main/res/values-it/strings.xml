@@ -163,7 +163,6 @@
     <string name="enabled">Abilitato</string>
     <string name="enter_text">Inserire il testo</string>
     <string name="equalizer">Equalizzatore</string>
-    <string name="equalizer_apex">Equalizzatore Apex</string>
     <string name="error_create_backup">Impossibile creare il backup</string>
     <string name="error_delete_backup">Impossibile eliminare il backup</string>
     <string name="error_load_failed">Caricamento non riuscito</string>
@@ -333,7 +332,6 @@
     <string name="pref_header_autoplay">Riproduzione automatica</string>
     <string name="pref_header_blacklist">Lista nera</string>
     <string name="pref_header_controls">Controlli</string>
-    <string name="pref_header_equalizer">Equalizzatore</string>
     <string name="pref_header_filter">Filtro durata traccia</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_images">immagini</string>
@@ -413,12 +411,10 @@
     <string name="pref_title_tab_text_mode">Modalità Titoli delle schede</string>
     <string name="pref_title_toggle_carousel_effect">Effetto carosello</string>
     <string name="pref_title_toggle_headset">Riproduzione con cuffia cablata</string>
-    <string name="pref_title_transparent_mini_player">Mini lettore trasparente</string>
+    <string name="pref_title_transparent_mini_player">Mini lettore semitrasparente</string>
     <string name="pref_title_use_notification_actions_for_auto">Utilizza azioni di notifica</string>
-    <string name="pref_title_volume_controls">Controlli del volume</string>
     <string name="pref_title_whitelist">Musica nella lista bianca (/cartella Musica)</string>
-    <string name="pref_title_widget_background">Widget trasparenti</string>
-    <string name="pref_title_widget_buttons_color">Pulsanti adattivi</string>
+    <string name="pref_title_widget_style">Widget trasparenti</string>
     <string name="queue">Coda di gioco</string>
     <string name="recent_albums">Album recenti</string>
     <string name="recent_artists">Artisti recenti</string>

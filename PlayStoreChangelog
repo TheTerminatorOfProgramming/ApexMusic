@@ -1,28 +1,30 @@
-Apex Music v4.00
+Apex Music v4.10
 
 ==What's New==
 =What's Been Added=
--Option to make mini player semi-transparent
--ID3 (embedded) lyrics are now integrated into most of the player themes. for more info please check the troubleshoot section in the about settings page
--Added italian and turkish languages
+-Added new widget
 
 =What's Been Removed=
--Lyrics font size option
+-Adaptive buttons option (widgets) has been removed
+-Volume control option (NOTE: this will not be re-added as the volume control uses too much screen space for foldable cover displays)
+-Integrated equalizer. device equalizer can still be used
 
 =What's Been Changed & Updated=
--Disabled the alpha selector in the accent color dialog
+-Gradient player theme layout has been changed
+-Widgets buttons colors have been changed
+-Full widget is no longer resizable. use the big widget if you want a smaller widget
+-Updated dependencies
+-Started preparation for android 15 update
+-Blur and classic player themes have been updated so that the seekbar is closer to the bottom of the screen
 
 =What's Planned To Be Removed/Changed=
--Embedded lyrics will be changed from using the dialog to the same system as the synced lyrics
+-Nothing is planned to be changed or removed
 
 ==What's Fixed==
--Lyrics dialog refresh button font size
--Desaturate color option will now work as intended when disabling material you option
--Lyrics dialog refresh now works correctly
--Material you follow system theme should now be working as intended
--Settings crash when changing certain options has been fixed
--Monochrome icon now works
--Shuffle button target color
+-Semi-transparent mini-player option now has the correct title
+-The extra controls option visibility has been fixed
+-Gradient player theme back arrow now works as intended
+-Navigation bar color
 
 ==Possible Bugs==
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player
