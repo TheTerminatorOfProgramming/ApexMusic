@@ -1,30 +1,20 @@
-Apex Music v4.10
+Apex Music v4.20
 
 ==What's New==
 =What's Been Added=
--Added new widget
+-Nothing has been added
 
 =What's Been Removed=
--Adaptive buttons option (widgets) has been removed
--Volume control option (NOTE: this will not be re-added as the volume control uses too much screen space for foldable cover displays)
--Integrated equalizer. device equalizer can still be used
+-Nothing has been removed
 
 =What's Been Changed & Updated=
--Gradient player theme layout has been changed
--Widgets buttons colors have been changed
--Full widget is no longer resizable. use the big widget if you want a smaller widget
--Updated dependencies
--Started preparation for android 15 update
--Blur and classic player themes have been updated so that the seekbar is closer to the bottom of the screen
+-Nothing has been changed or updated
 
 =What's Planned To Be Removed/Changed=
 -Nothing is planned to be changed or removed
 
 ==What's Fixed==
--Semi-transparent mini-player option now has the correct title
--The extra controls option visibility has been fixed
--Gradient player theme back arrow now works as intended
--Navigation bar color
+-Minor bugs
 
 ==Possible Bugs==
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player

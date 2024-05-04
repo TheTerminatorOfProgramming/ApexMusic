@@ -1160,7 +1160,6 @@ class MusicService : MediaBrowserServiceCompat(),
             .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, null)
             .putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, playingQueue.size.toLong())
 
-        val deviceManu = Build.MANUFACTURER
         when (Build.VERSION.SDK_INT) {
             Build.VERSION_CODES.S, Build.VERSION_CODES.TIRAMISU -> {
                 Glide.with(this)
@@ -1200,41 +1199,39 @@ class MusicService : MediaBrowserServiceCompat(),
             }
 
             Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
-                if (deviceManu == "samsung") {
-                    Glide.with(this)
-                        .asBitmap()
-                        .songCoverOptions(song)
-                        .load(getSongModel(song))
-                        .transition(getDefaultTransition())
-                        .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                            override fun onLoadFailed(errorDrawable: Drawable?) {
-                                super.onLoadFailed(errorDrawable)
-                                metaData.putBitmap(
-                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                    BitmapFactory.decodeResource(
-                                        resources,
-                                        R.drawable.default_audio_art
-                                    )
+                Glide.with(this)
+                    .asBitmap()
+                    .songCoverOptions(song)
+                    .load(getSongModel(song))
+                    .transition(getDefaultTransition())
+                    .into(object : CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
+                            super.onLoadFailed(errorDrawable)
+                            metaData.putBitmap(
+                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                BitmapFactory.decodeResource(
+                                    resources,
+                                    R.drawable.default_audio_art
                                 )
-                                mediaSession?.setMetadata(metaData.build())
-                                onCompletion()
-                            }
+                            )
+                            mediaSession?.setMetadata(metaData.build())
+                            onCompletion()
+                        }
 
-                            override fun onResourceReady(
-                                resource: Bitmap,
-                                transition: Transition<in Bitmap?>?,
-                            ) {
-                                metaData.putBitmap(
-                                    MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                    resource
-                                )
-                                mediaSession?.setMetadata(metaData.build())
-                                onCompletion()
-                            }
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap?>?,
+                        ) {
+                            metaData.putBitmap(
+                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                                resource
+                            )
+                            mediaSession?.setMetadata(metaData.build())
+                            onCompletion()
+                        }
 
-                            override fun onLoadCleared(placeholder: Drawable?) {}
-                        })
-                }
+                        override fun onLoadCleared(placeholder: Drawable?) {}
+                    })
             }
         }
     }
@@ -1282,9 +1279,6 @@ class MusicService : MediaBrowserServiceCompat(),
                 }
             }
             QUEUE_CHANGED -> {
-                //REMOVE IN v3.70
-                //mediaSession?.setQueueTitle(getString(R.string.now_playing_queue))
-                //mediaSession?.setQueue(playingQueue.toMediaSessionQueue())
                 updateMediaSessionMetaData(::updateMediaSessionPlaybackState) // because playing queue size might have changed
                 saveQueues()
                 if (playingQueue.size > 0) {
