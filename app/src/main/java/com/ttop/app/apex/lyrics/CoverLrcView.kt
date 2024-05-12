@@ -175,7 +175,9 @@ class CoverLrcView @JvmOverloads constructor(
 
             override fun onDoubleTap(e: MotionEvent): Boolean {
                 if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
-                    rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                        rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    }
                     PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
                 }
                 return super.onDoubleTap(e)

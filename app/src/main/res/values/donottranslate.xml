@@ -18,20 +18,7 @@
 
     <string name="download_policy">always</string>
 
-    <string name="font_barlow_name">Barlow</string>
-    <string name="font_drexs_name">Drexs</string>
-    <string name="font_hermanoalto_name">Hermanoalto</string>
-    <string name="font_jura_name">Jura</string>
-    <string name="font_nothing_name">Nothing</string>
-    <string name="font_pencil_name">Pencil</string>
     <string name="font_apex_name">Apex</string>
-    <string name="font_binjay_name">Binjay</string>
-    <string name="font_hiatus_name">Hiatus</string>
-    <string name="font_caviar_name">Caviar Dreams</string>
-    <string name="font_neue_name">Neue Bureau</string>
-    <string name="font_dancing_name">Dancing Script</string>
-    <string name="font_teko_name">Teko</string>
-    <string name="font_sixty_name">Sixty Four</string>
 
     <string name="app_widget_big_name">Big</string>
     <string name="app_widget_classic_name">Classic</string>

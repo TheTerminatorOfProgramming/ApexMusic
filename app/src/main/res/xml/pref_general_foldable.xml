@@ -37,15 +37,11 @@
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_title_custom_font"
         app:allowDividerBelow="false">
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="default"
-            android:key="custom_font"
-            android:entries="@array/pref_font_list_titles"
-            android:entryValues="@array/pref_font_list_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            android:layout="@layout/list_item_view"
-            android:title="@string/pref_title_custom_font"
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:key="apex_font"
+            app:title="Use Apex Font"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference

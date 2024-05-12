@@ -52,9 +52,13 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
@@ -137,7 +141,9 @@ class AlbumCoverPagerAdapter(
             val gestureDetector = GestureDetector(activity, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
                     if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
                         PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
                         if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
                             mainActivity.keepScreenOn(true)
@@ -167,7 +173,9 @@ class AlbumCoverPagerAdapter(
                     if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
                         val nps = listOf(NowPlayingScreen.Adaptive, NowPlayingScreen.Blur, NowPlayingScreen.Classic, NowPlayingScreen.Gradient, NowPlayingScreen.Peek)
                         if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(PreferenceUtil.nowPlayingScreen) || PreferenceUtil.lyricsMode == "both" && !nps.contains(PreferenceUtil.nowPlayingScreen)) {
-                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                            }
                             showLyricsDialog()
                         }
                     }
@@ -197,13 +205,17 @@ class AlbumCoverPagerAdapter(
                     builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
 
                     builder.setNegativeButton(R.string.dismiss) { _, _ ->
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
                         mainActivity.keepScreenOn(false)
                         materialDialog().dismiss()
                     }
 
                     builder.setPositiveButton(R.string.action_refresh) { _, _ ->
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
                         materialDialog().dismiss()
                         showLyricsDialog()
                     }
@@ -270,8 +282,61 @@ class AlbumCoverPagerAdapter(
 
         private fun getLayoutWithPlayerTheme(): Int {
             return when (PreferenceUtil.nowPlayingScreen) {
-                Card, Minimal, Gradient -> R.layout.fragment_album_full_cover
-                else -> {
+                Adaptive -> {
+                    if (PreferenceUtil.isCarouselEffect) {
+                        R.layout.fragment_album_carousel_cover
+                    } else {
+                        when (PreferenceUtil.albumCoverStyle) {
+                            AlbumCoverStyle.Normal -> R.layout.fragment_album_cover
+                            AlbumCoverStyle.Flat -> R.layout.fragment_album_flat_cover
+                            AlbumCoverStyle.Circle -> R.layout.fragment_album_circle_cover
+                            AlbumCoverStyle.Card -> R.layout.fragment_album_card_cover
+                            AlbumCoverStyle.Full -> R.layout.fragment_album_full_cover
+                            AlbumCoverStyle.FullCard -> R.layout.fragment_album_full_card_cover
+                            AlbumCoverStyle.Peek -> R.layout.fragment_album_peek
+                        }
+                    }
+                }
+                Blur -> {
+                    if (PreferenceUtil.isCarouselEffect) {
+                        R.layout.fragment_album_carousel_cover
+                    } else {
+                        when (PreferenceUtil.albumCoverStyle) {
+                            AlbumCoverStyle.Normal -> R.layout.fragment_album_cover
+                            AlbumCoverStyle.Flat -> R.layout.fragment_album_flat_cover
+                            AlbumCoverStyle.Circle -> R.layout.fragment_album_circle_cover
+                            AlbumCoverStyle.Card -> R.layout.fragment_album_card_cover
+                            AlbumCoverStyle.Full -> R.layout.fragment_album_full_cover
+                            AlbumCoverStyle.FullCard -> R.layout.fragment_album_full_card_cover
+                            AlbumCoverStyle.Peek -> R.layout.fragment_album_peek
+                        }
+                    }
+                }
+                Card -> {
+                    R.layout.fragment_album_full_cover
+                }
+                Classic -> {
+                    if (PreferenceUtil.isCarouselEffect) {
+                        R.layout.fragment_album_carousel_cover
+                    } else {
+                        when (PreferenceUtil.albumCoverStyle) {
+                            AlbumCoverStyle.Normal -> R.layout.fragment_album_cover
+                            AlbumCoverStyle.Flat -> R.layout.fragment_album_flat_cover
+                            AlbumCoverStyle.Circle -> R.layout.fragment_album_circle_cover
+                            AlbumCoverStyle.Card -> R.layout.fragment_album_card_cover
+                            AlbumCoverStyle.Full -> R.layout.fragment_album_full_cover
+                            AlbumCoverStyle.FullCard -> R.layout.fragment_album_full_card_cover
+                            AlbumCoverStyle.Peek -> R.layout.fragment_album_peek
+                        }
+                    }
+                }
+                Gradient -> {
+                    R.layout.fragment_album_full_cover
+                }
+                Minimal -> {
+                    R.layout.fragment_album_full_cover
+                }
+                Peek -> {
                     if (PreferenceUtil.isCarouselEffect) {
                         R.layout.fragment_album_carousel_cover
                     } else {

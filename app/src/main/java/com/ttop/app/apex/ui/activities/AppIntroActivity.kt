@@ -9,6 +9,7 @@ import androidx.preference.PreferenceManager
 import com.ttop.app.apex.DESATURATED_COLOR
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.intro.BatterySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothAutoPlaySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothSlideFragment
@@ -119,6 +120,10 @@ class AppIntroActivity : AppIntro2() {
 
         ThemeStore.prefs(applicationContext).edit {
             putBoolean(DESATURATED_COLOR, true)
+        }
+
+        PreferenceManager.getDefaultSharedPreferences(this).edit {
+            putInt(MusicService.SAVED_SHUFFLE_MODE, 1)
         }
 
         IntroPrefs(applicationContext).hasIntroSlidesShown = true

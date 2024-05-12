@@ -61,14 +61,10 @@
         app:isPreferenceVisible="@bool/queue_option"
         app:allowDividerBelow="false"/>
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-        android:defaultValue="off"
-        android:key="swipe_anywhere_now_playing"
-        android:entries="@array/pref_swipe_anywhere_titles"
-        android:entryValues="@array/pref_swipe_anywhere_values"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        android:layout="@layout/list_item_view"
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="swipe_anywhere_now_playing_non_foldable"
+        android:layout="@layout/list_item_view_switch"
         android:title="@string/pref_title_swipe_anywhere_now_playing"
         app:allowDividerBelow="false"/>
 
@@ -137,6 +133,7 @@
             android:key="album_cover_style_id"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_album_cover_style"
+            android:dependency="carousel_effect"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
@@ -146,6 +143,7 @@
             android:key="album_cover_transform"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_title_album_cover_transform"
+            android:dependency="carousel_effect"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -153,6 +151,7 @@
             app:defaultValue="false"
             app:key="carousel_effect"
             app:title="@string/pref_title_toggle_carousel_effect"
+            android:disableDependentsState="true"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
@@ -180,12 +179,10 @@
             android:title="@string/pref_title_lyrics_type"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:defaultValue="0"
-            android:entries="@array/pref_lyrics_type_entries"
-            android:entryValues="@array/pref_lyrics_type_values"
-            android:key="lyrics_type"
-            android:layout="@layout/list_item_view"
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="lyrics_types"
+            android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_lyrics_type_synced"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>

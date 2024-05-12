@@ -377,6 +377,7 @@
     <string name="pref_title_font_size">Font Size</string>
     <string name="pref_title_gapless_playback">Gapless Playback</string>
     <string name="pref_title_general_theme">App Theme</string>
+    <string name="pref_title_haptic_feedback">Disable Haptic Feedback</string>
     <string name="pref_title_hide_update">Hide Update Button</string>
     <string name="pref_title_home_album_grid_style">Album Grid</string>
     <string name="pref_title_home_artist_grid_style">Artist Grid</string>
@@ -384,7 +385,7 @@
     <string name="pref_title_last_added_interval">Last Added Playlist Interval</string>
     <string name="pref_title_lock_screen">Lock Screen Controls</string>
     <string name="pref_title_lyrics_type">Lyrics Type</string>
-    <string name="pref_title_lyrics_type_synced">Synced Lyrics Cover Type</string>
+    <string name="pref_title_lyrics_type_synced">Synced Lyrics Over Cover</string>
     <string name="pref_title_manage_audio_focus">Always Play</string>
     <string name="pref_title_md3">Material You</string>
     <string name="pref_title_notification_action_1">Notification Action Left</string>

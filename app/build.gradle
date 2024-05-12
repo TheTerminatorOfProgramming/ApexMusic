@@ -15,8 +15,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.ttop.app.apex"
-        versionCode 420
-        versionName '4.20'
+        versionCode 430
+        versionName '4.30'
     }
     signingConfigs {
         release {

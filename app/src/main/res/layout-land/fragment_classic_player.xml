@@ -49,8 +49,8 @@
                     android:layout_height="match_parent"
                     app:shapeAppearanceOverlay="@style/NPSCornerCardView"
                     app:behavior_hideable="false"
-                    android:alpha="0.8"
-                    android:backgroundTint="@color/black_color"
+                    android:alpha="1.0"
+                    android:backgroundTint="@color/transparent"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp"
                     android:visibility="gone"
@@ -77,7 +77,8 @@
                     android:id="@+id/scroll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/black_color"
+                    android:alpha="1.0"
+                    android:backgroundTint="@color/transparent"
                     android:scrollbars="none"
                     android:visibility="gone">
 

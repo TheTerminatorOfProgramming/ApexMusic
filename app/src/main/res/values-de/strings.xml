@@ -375,6 +375,7 @@
     <string name="pref_title_font_size">Schriftgröße</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_general_theme">App-Theme</string>
+    <string name="pref_title_haptic_feedback">Haptisches Feedback deaktivieren</string>
     <string name="pref_title_hide_update">Schaltfläche „Aktualisieren“ ausblenden</string>
     <string name="pref_title_home_album_grid_style">Albumraster</string>
     <string name="pref_title_home_artist_grid_style">Künstlerraster</string>
@@ -382,7 +383,7 @@
     <string name="pref_title_last_added_interval">Intervall der zuletzt hinzugefügten Wiedergabeliste</string>
     <string name="pref_title_lock_screen">Steuerelemente für den Sperrbildschirm</string>
     <string name="pref_title_lyrics_type">Liedtexttyp</string>
-    <string name="pref_title_lyrics_type_synced">Synchronisierter Songtext-Cover-Typ</string>
+    <string name="pref_title_lyrics_type_synced">Synchronisierte Songtexte über dem Cover</string>
     <string name="pref_title_manage_audio_focus">Immer spielen</string>
     <string name="pref_title_md3">Material Sie</string>
     <string name="pref_title_notification_action_1">Benachrichtigungsaktion übrig</string>

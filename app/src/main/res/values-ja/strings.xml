@@ -373,6 +373,7 @@
     <string name="pref_title_font_size">フォントサイズ</string>
     <string name="pref_title_gapless_playback">ギャップレス再生</string>
     <string name="pref_title_general_theme">アプリのテーマ</string>
+    <string name="pref_title_haptic_feedback">触覚フィードバックを無効にする</string>
     <string name="pref_title_hide_update">更新ボタンを非表示にする</string>
     <string name="pref_title_home_album_grid_style">アルバムグリッド</string>
     <string name="pref_title_home_artist_grid_style">アーティストグリッド</string>
@@ -380,7 +381,7 @@
     <string name="pref_title_last_added_interval">最後に追加されたプレイリストの間隔</string>
     <string name="pref_title_lock_screen">ロック画面のコントロール</string>
     <string name="pref_title_lyrics_type">歌詞の種類</string>
-    <string name="pref_title_lyrics_type_synced">同期された歌詞カバーのタイプ</string>
+    <string name="pref_title_lyrics_type_synced">カバーの上に歌詞を同期</string>
     <string name="pref_title_manage_audio_focus">いつでもプレイ</string>
     <string name="pref_title_md3">マテリアル・ユー</string>
     <string name="pref_title_notification_action_1">通知アクションが残っています</string>

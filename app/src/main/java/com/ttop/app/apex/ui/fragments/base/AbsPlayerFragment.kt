@@ -110,7 +110,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         item: MenuItem,
     ): Boolean {
         val song = MusicPlayerRemote.currentSong
-        //requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -122,7 +122,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 return true
             }
             R.id.action_share -> {
@@ -347,7 +349,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
-                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
             }
             NowPlayingScreen.Gradient -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
@@ -385,7 +386,11 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
     override fun onStart() {
         super.onStart()
-        addSwipeDetector()
+        if (ApexUtil.isFoldable(requireContext())) {
+            addSwipeDetector()
+        }else {
+            addSwipeDetectorNonFoldable()
+        }
     }
 
     fun addSwipeDetector() {
@@ -406,6 +411,20 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }else {
                     null
                 }
+            }else {
+                null
+            }
+        )
+    }
+
+    fun addSwipeDetectorNonFoldable() {
+        view?.setOnTouchListener(
+            if (PreferenceUtil.swipeAnywhereToChangeSongNonFoldable) {
+                SwipeDetector(
+                    requireContext(),
+                    playerAlbumCoverFragment?.viewPager,
+                    requireView()
+                )
             }else {
                 null
             }

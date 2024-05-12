@@ -375,6 +375,7 @@
     <string name="pref_title_font_size">Yazı Boyutu</string>
     <string name="pref_title_gapless_playback">Boşluksuz Oynatma</string>
     <string name="pref_title_general_theme">Uygulama Teması</string>
+    <string name="pref_title_haptic_feedback">Dokunsal Geri Bildirimi Devre Dışı Bırak</string>
     <string name="pref_title_hide_update">Güncelleme Düğmesini Gizle</string>
     <string name="pref_title_home_album_grid_style">Albüm Tablosu</string>
     <string name="pref_title_home_artist_grid_style">Sanatçı Tablosu</string>
@@ -382,7 +383,7 @@
     <string name="pref_title_last_added_interval">Son Eklenen Oynatma Listesi Aralığı</string>
     <string name="pref_title_lock_screen">Kilit Ekranı Kontrolleri</string>
     <string name="pref_title_lyrics_type">Şarkı Sözü Türü</string>
-    <string name="pref_title_lyrics_type_synced">Senkronize Şarkı Sözleri Kapak Türü</string>
+    <string name="pref_title_lyrics_type_synced">Kapak Üzerinde Senkronize Şarkı Sözleri</string>
     <string name="pref_title_manage_audio_focus">Her Zaman Oyna</string>
     <string name="pref_title_md3">Malzeme Siz</string>
     <string name="pref_title_notification_action_1">Bildirim Eylemi Sol</string>

@@ -184,60 +184,8 @@ object ApexUtil {
     }
 
     fun updateSimpleAppBarTitleTextAppearance(context: Context, simpleToolbarLayout: MaterialToolbar){
-        if (PreferenceUtil.isCustomFont == "barlow") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BarlowThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "jura") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.JuraThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "caviar") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.CaviarDreamsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "pencil") {
-           simpleToolbarLayout.setTitleTextAppearance(context, R.style.PencilThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "drexs") {
-           simpleToolbarLayout.setTitleTextAppearance(context, R.style.DrexsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hermanoalto") {
-           simpleToolbarLayout.setTitleTextAppearance(context, R.style.HermanoaltoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "nothing") {
-           simpleToolbarLayout.setTitleTextAppearance(context, R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "binjay") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.BinjayThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hiatus") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.HiatusThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "apex") {
+        if (PreferenceUtil.isApexFont) {
             simpleToolbarLayout.setTitleTextAppearance(context, R.style.ApexThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "neue") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.NeueBureauThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "dancing") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.DancingScriptThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "teko") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.TekoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "sixty") {
-            simpleToolbarLayout.setTitleTextAppearance(context, R.style.SixtyFourThemeOverlay)
         }
 
         when (PreferenceUtil.fontSize) {
@@ -298,60 +246,8 @@ object ApexUtil {
 
     fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
         //Expanded
-        if (PreferenceUtil.isCustomFont == "barlow") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BarlowThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "jura") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.JuraThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "caviar") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "pencil") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.PencilThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "drexs") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.DrexsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hermanoalto") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.HermanoaltoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "nothing") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "binjay") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.BinjayThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hiatus") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.HiatusThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "apex") {
+        if (PreferenceUtil.isApexFont) {
             collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ApexThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "neue") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.NeueBureauThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "dancing") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.DancingScriptThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "teako") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.TekoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "sixty") {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.SixtyFourThemeOverlay)
         }
 
         when (PreferenceUtil.fontSize) {
@@ -409,60 +305,8 @@ object ApexUtil {
         }
 
         //Collapsed
-        if (PreferenceUtil.isCustomFont == "barlow") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BarlowThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "jura") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.JuraThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "caviar") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CaviarDreamsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "pencil") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.PencilThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "drexs") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.DrexsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hermanoalto") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.HermanoaltoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "nothing") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "binjay") {
-             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.BinjayThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hiatus") {
-             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.HiatusThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "apex") {
+        if (PreferenceUtil.isApexFont) {
             collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ApexThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "neue") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.NeueBureauThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "dancing") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.DancingScriptThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "teko") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.TekoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "sixty") {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.SixtyFourThemeOverlay)
         }
 
         when (PreferenceUtil.fontSize) {

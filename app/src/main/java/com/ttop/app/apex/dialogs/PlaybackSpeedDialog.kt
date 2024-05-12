@@ -38,7 +38,9 @@ class PlaybackSpeedDialog : DialogFragment() {
 
         materialDialog(R.string.playback_settings).apply {
             setPositiveButton(R.string.save) { _, _ ->
-                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 updatePlaybackAndPitch(
                     binding.playbackSpeedSlider.value,
                     binding.playbackPitchSlider.value
@@ -46,12 +48,16 @@ class PlaybackSpeedDialog : DialogFragment() {
             }
 
             setNegativeButton(R.string.dismiss) {_, _ ->
-                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 dialog.dismiss()
             }
 
             setNeutralButton(R.string.reset_action) {_, _ ->
-                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                     updatePlaybackAndPitch(
                         1F,
                         1F

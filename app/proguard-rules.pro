@@ -69,3 +69,5 @@
 -keep class com.ttop.app.apex.network.model.** { *; }
 -keep class com.ttop.app.apex.model.** { *; }
 -keep class com.google.android.material.bottomsheet.** { *; }
+
+-ignorewarnings

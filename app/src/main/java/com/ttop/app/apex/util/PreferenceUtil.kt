@@ -713,15 +713,15 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, true)
         set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
-    var isCustomFont
-        get() = sharedPreferences.getString(CUSTOM_FONT, "default")
-        set(value) = sharedPreferences.edit { putString(CUSTOM_FONT, value) }
+    var isApexFont
+        get() = sharedPreferences.getBoolean(APEX_FONT, false)
+        set(value) = sharedPreferences.edit { putBoolean(APEX_FONT, value) }
 
-    val lyricsType: CoverLyricsType
-        get() = if (sharedPreferences.getString(LYRICS_TYPE, "0") == "0") {
-            CoverLyricsType.REPLACE_COVER
-        } else {
+    val lyricsTypes: CoverLyricsType
+        get() = if (sharedPreferences.getBoolean(LYRICS_TYPES, false)) {
             CoverLyricsType.OVER_COVER
+        } else {
+            CoverLyricsType.REPLACE_COVER
         }
 
     var playbackSpeed
@@ -1007,6 +1007,25 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             SIMPLE_MODE, false
         )
+
+    val isHapticFeedbackDisabled
+        get() = sharedPreferences.getBoolean(
+            HAPTIC_FEEDBACK, false
+        )
+
+    var swipeAnywhereToChangeSongNonFoldable
+        get() = sharedPreferences.getBoolean(
+            SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE, value)}
+
+    var isSwipeNonFoldable
+        get() = sharedPreferences.getBoolean(
+            TOGGLE_MINI_SWIPE_NON_FOLDABLE, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(TOGGLE_MINI_SWIPE_NON_FOLDABLE, value)}
 }
 
 enum class CoverLyricsType {

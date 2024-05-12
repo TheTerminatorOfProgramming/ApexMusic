@@ -110,6 +110,9 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             }else {
                 binding.playerQueueSheet.visibility = View.GONE
                 scroll.visibility = View.VISIBLE
+
+                binding.playerAlbumCoverFragment.alpha = 0f
+
                 playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
             }
         }
@@ -139,7 +142,9 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
             binding.playerToolbar.setNavigationOnClickListener {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             ToolbarContentTintHelper.colorizeToolbar(this, surfaceColor(), requireActivity())
@@ -219,7 +224,9 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
-        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -227,7 +234,9 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 return true
             }
             R.id.action_share -> {
@@ -329,8 +338,12 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
             R.id.action_queue -> {
                 if (binding.playerQueueSheet.visibility == View.VISIBLE){
                     binding.playerQueueSheet.visibility = View.GONE
+
+                    binding.playerAlbumCoverFragment.alpha = 1f
                 }else{
                     binding.playerQueueSheet.visibility = View.VISIBLE
+
+                    binding.playerAlbumCoverFragment.alpha = 0f
                 }
             }
             R.id.action_go_to_lyrics -> {
@@ -348,7 +361,11 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                         mainActivity.keepScreenOn(false)
                     }
 
-                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    binding.playerAlbumCoverFragment.alpha = 0f
+
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    }
                     PreferenceUtil.isEmbedLyricsActivated = true
                 }else{
                     scroll.visibility = View.GONE
@@ -356,8 +373,13 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                         showToast(getString(R.string.lyrics_message_disabled))
                     }
                     playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = true
+
+                    binding.playerAlbumCoverFragment.alpha = 1f
+
                     mainActivity.keepScreenOn(false)
-                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    }
                     PreferenceUtil.isEmbedLyricsActivated = false
                 }
             }
@@ -637,6 +659,9 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                 }else {
                     binding.playerQueueSheet.visibility = View.GONE
                     scroll.visibility = View.VISIBLE
+
+                    binding.playerAlbumCoverFragment.alpha = 0f
+
                     playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
                 }
             }
@@ -648,6 +673,9 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                 }else {
                     binding.playerQueueSheet.visibility = View.GONE
                     scroll.visibility = View.VISIBLE
+
+                    binding.playerAlbumCoverFragment.alpha = 0f
+
                     playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
                 }
             }

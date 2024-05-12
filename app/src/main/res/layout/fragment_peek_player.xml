@@ -107,7 +107,8 @@
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
-            android:background="@color/black_color"
+            android:alpha="1.0"
+            android:backgroundTint="@color/transparent"
             android:scrollbars="none"
             android:visibility="gone">
 

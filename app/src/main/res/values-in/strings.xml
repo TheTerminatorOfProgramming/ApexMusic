@@ -373,6 +373,7 @@
     <string name="pref_title_font_size">Ukuran huruf</string>
     <string name="pref_title_gapless_playback">Pemutaran Tanpa Celah</string>
     <string name="pref_title_general_theme">Tema Aplikasi</string>
+    <string name="pref_title_haptic_feedback">Nonaktifkan Umpan Balik Haptic</string>
     <string name="pref_title_hide_update">Sembunyikan Tombol Perbarui</string>
     <string name="pref_title_home_album_grid_style">Kotak Album</string>
     <string name="pref_title_home_artist_grid_style">Kotak Artis</string>
@@ -380,7 +381,7 @@
     <string name="pref_title_last_added_interval">Interval Daftar Putar Terakhir Ditambahkan</string>
     <string name="pref_title_lock_screen">Kontrol Layar Kunci</string>
     <string name="pref_title_lyrics_type">Jenis Lirik</string>
-    <string name="pref_title_lyrics_type_synced">Jenis Sampul Lirik yang Disinkronkan</string>
+    <string name="pref_title_lyrics_type_synced">Lirik yang Disinkronkan Di Sampul</string>
     <string name="pref_title_manage_audio_focus">Selalu Mainkan</string>
     <string name="pref_title_md3">Materi Anda</string>
     <string name="pref_title_notification_action_1">Tindakan Notifikasi Tersisa</string>

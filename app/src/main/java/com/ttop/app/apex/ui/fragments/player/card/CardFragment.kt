@@ -27,6 +27,7 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -105,7 +106,9 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
             setNavigationOnClickListener {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             setOnMenuItemClickListener(this@CardFragment)

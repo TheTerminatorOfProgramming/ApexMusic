@@ -109,13 +109,17 @@ class SleepTimerDialog : DialogFragment() {
         })
 
         binding.shouldFinishLastSong.setOnClickListener {
-            dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
         }
 
         materialDialog(R.string.action_sleep_timer).apply {
             timerUpdater.start()
             setPositiveButton(R.string.action_set) { _, _ ->
-                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 PreferenceUtil.isSleepTimerFinishMusic = shouldFinishLastSong.isChecked
                 val minutes = seekArcProgress
                 val pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT)
@@ -137,7 +141,9 @@ class SleepTimerDialog : DialogFragment() {
 
             setNegativeButton(R.string.action_cancel) { _, _ ->
                 timerUpdater.cancel()
-                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 val previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE)
                 val am = requireContext().getSystemService<AlarmManager>()
                 am?.cancel(previous)
@@ -160,7 +166,9 @@ class SleepTimerDialog : DialogFragment() {
             }
 
             setNeutralButton(R.string.dismiss) { _, _ ->
-                dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 dialog.dismiss()
             }
             setView(binding.root)

@@ -76,7 +76,11 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val disableUpdate: TwoStatePreference? = findPreference(DISABLE_UPDATE)
         disableUpdate?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            }
 
             appWidgetClassic.notifyThemeChange(musicService)
             appWidgetFull.notifyThemeChange(musicService)
@@ -85,7 +89,11 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val widgetBackground: TwoStatePreference? = findPreference(WIDGET_STYLE)
         widgetBackground?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            }
             true
         }
     }

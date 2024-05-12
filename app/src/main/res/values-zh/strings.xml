@@ -373,6 +373,7 @@
     <string name="pref_title_font_size">快进寻道持续时间</string>
     <string name="pref_title_gapless_playback">歌词字体大小</string>
     <string name="pref_title_general_theme">无缝播放</string>
+    <string name="pref_title_haptic_feedback">禁用触觉反馈</string>
     <string name="pref_title_hide_update">应用主题</string>
     <string name="pref_title_home_album_grid_style">隐藏更新按钮</string>
     <string name="pref_title_home_artist_grid_style">专辑网格</string>
@@ -380,7 +381,7 @@
     <string name="pref_title_last_added_interval">忽略媒体商店封面</string>
     <string name="pref_title_lock_screen">最后添加的播放列表间隔</string>
     <string name="pref_title_lyrics_type">歌词类型</string>
-    <string name="pref_title_lyrics_type_synced">锁屏控制</string>
+    <string name="pref_title_lyrics_type_synced">封面同步歌词</string>
     <string name="pref_title_manage_audio_focus">同步歌词封面类型</string>
     <string name="pref_title_md3">物质你</string>
     <string name="pref_title_notification_action_1">一直玩</string>

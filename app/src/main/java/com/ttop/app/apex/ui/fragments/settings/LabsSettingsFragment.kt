@@ -35,7 +35,9 @@ class LabsSettingsFragment : AbsSettingsFragment() {
         val disableWidgets: TwoStatePreference? = findPreference(DISABLE_WIDGETS)
         disableWidgets?.isChecked = PreferenceUtil.isDisableWidgets
         disableWidgets?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
 
             val value = newValue as Boolean
 
@@ -53,7 +55,9 @@ class LabsSettingsFragment : AbsSettingsFragment() {
         val transparentMiniPlayer: TwoStatePreference? = findPreference(TRANSPARENT_MINI_PLAYER)
         transparentMiniPlayer?.isChecked = PreferenceUtil.isMiniPlayerTransparent
         transparentMiniPlayer?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             restartActivity()
             true
         }
@@ -61,25 +65,31 @@ class LabsSettingsFragment : AbsSettingsFragment() {
         val lyricsMessages: TwoStatePreference? = findPreference(DISABLE_MESSAGE_LYRICS)
         lyricsMessages?.isChecked = PreferenceUtil.isLyricsMessageDisabled
         lyricsMessages?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val simpleMode: TwoStatePreference? = findPreference(SIMPLE_MODE)
         simpleMode?.isChecked = PreferenceUtil.isSimpleMode
         simpleMode?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             val value = newValue as Boolean
 
             if (value) {
                 //General
-                PreferenceUtil.isCustomFont = "default"
+                PreferenceUtil.isApexFont = false
                 PreferenceUtil.isSwipe = "off"
+                PreferenceUtil.isSwipeNonFoldable = false
                 PreferenceUtil.isExtraControls = false
                 //Now Playing
                 PreferenceUtil.isPlayerBackgroundType = false
                 PreferenceUtil.isColorAnimate = false
                 PreferenceUtil.swipeAnywhereToChangeSong = "off"
+                PreferenceUtil.swipeAnywhereToChangeSongNonFoldable = false
                 PreferenceUtil.isExpandPanel = "disabled"
                 PreferenceUtil.isCarouselEffect = false
                 PreferenceUtil.lyricsScreenOn = false

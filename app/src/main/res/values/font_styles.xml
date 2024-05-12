@@ -1,76 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Normal -->
-    <style name="BarlowThemeOverlay">
-        <item name="fontFamily">@font/barlow</item>
-        <item name="android:fontFamily">@font/barlow</item>
-    </style>
-
-    <style name="JuraThemeOverlay">
-        <item name="fontFamily">@font/jura</item>
-        <item name="android:fontFamily">@font/jura</item>
-    </style>
-
-    <style name="PencilThemeOverlay">
-        <item name="fontFamily">@font/pencil</item>
-        <item name="android:fontFamily">@font/pencil</item>
-    </style>
-
-    <style name="DrexsThemeOverlay">
-        <item name="fontFamily">@font/drexs</item>
-        <item name="android:fontFamily">@font/drexs</item>
-    </style>
-
-    <style name="HermanoaltoThemeOverlay">
-        <item name="fontFamily">@font/hermanoalto_chisel</item>
-        <item name="android:fontFamily">@font/hermanoalto_chisel</item>
-    </style>
-
-    <style name="NothingThemeOverlay">
-        <item name="fontFamily">@font/nothing</item>
-        <item name="android:fontFamily">@font/nothing</item>
-    </style>
-
-    <style name="BinjayThemeOverlay">
-        <item name="fontFamily">@font/binjay</item>
-        <item name="android:fontFamily">@font/binjay</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="HiatusThemeOverlay">
-        <item name="fontFamily">@font/hiatus</item>
-        <item name="android:fontFamily">@font/hiatus</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
     <style name="ApexThemeOverlay">
         <item name="fontFamily">@font/apex</item>
         <item name="android:fontFamily">@font/apex</item>
-    </style>
-
-    <style name="CaviarDreamsThemeOverlay">
-        <item name="fontFamily">@font/caviardreams</item>
-        <item name="android:fontFamily">@font/caviardreams</item>
-    </style>
-
-    <style name="NeueBureauThemeOverlay">
-        <item name="fontFamily">@font/neuebureaugrotesk</item>
-        <item name="android:fontFamily">@font/neuebureaugrotesk</item>
-    </style>
-
-    <style name="DancingScriptThemeOverlay">
-        <item name="fontFamily">@font/dancingscript</item>
-        <item name="android:fontFamily">@font/dancingscript</item>
-    </style>
-
-    <style name="TekoThemeOverlay">
-        <item name="fontFamily">@font/teko</item>
-        <item name="android:fontFamily">@font/teko</item>
-    </style>
-
-    <style name="SixtyFourThemeOverlay">
-        <item name="fontFamily">@font/sixtyfour</item>
-        <item name="android:fontFamily">@font/sixtyfour</item>
     </style>
     <!--Font Size-->
     <style name="FontSize12">

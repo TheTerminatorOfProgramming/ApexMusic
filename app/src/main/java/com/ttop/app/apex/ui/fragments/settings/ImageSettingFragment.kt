@@ -40,7 +40,9 @@ class ImageSettingFragment : AbsSettingsFragment() {
         val ignoreMediaStore: TwoStatePreference? = findPreference(IGNORE_MEDIA_STORE_ARTWORK)
         ignoreMediaStore?.isChecked = PreferenceUtil.isIgnoreMediaStoreArtwork
         ignoreMediaStore?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
     }

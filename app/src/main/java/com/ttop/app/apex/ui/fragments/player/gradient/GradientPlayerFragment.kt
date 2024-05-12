@@ -205,7 +205,9 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         }
 
         binding.playbackControlsFragment.close.setOnClickListener {
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
@@ -220,7 +222,9 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
                 return true
             }
             R.id.action_share -> {
@@ -332,7 +336,9 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                         mainActivity.keepScreenOn(false)
                     }
                     binding.mask.visibility = View.GONE
-                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
                     PreferenceUtil.isEmbedLyricsActivated = true
                 }else{
                     scroll.visibility = View.GONE
@@ -342,7 +348,9 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                     mainActivity.keepScreenOn(false)
 
                     binding.mask.visibility = View.VISIBLE
-                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
                     PreferenceUtil.isEmbedLyricsActivated = false
                 }
             }

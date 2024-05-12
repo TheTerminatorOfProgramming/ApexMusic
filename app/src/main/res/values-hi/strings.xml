@@ -375,6 +375,7 @@
     <string name="pref_title_font_size">फ़ॉन्ट आकार</string>
     <string name="pref_title_gapless_playback">गैपलेस प्लेबैक</string>
     <string name="pref_title_general_theme">ऐप थीम</string>
+    <string name="pref_title_haptic_feedback">हैप्टिक फीडबैक अक्षम करें</string>
     <string name="pref_title_hide_update">अद्यतन बटन छिपाएँ</string>
     <string name="pref_title_home_album_grid_style">एल्बम ग्रिड</string>
     <string name="pref_title_home_artist_grid_style">कलाकार ग्रिड</string>
@@ -382,7 +383,7 @@
     <string name="pref_title_last_added_interval">अंतिम जोड़ा गया प्लेलिस्ट अंतराल</string>
     <string name="pref_title_lock_screen">लॉक स्क्रीन नियंत्रण</string>
     <string name="pref_title_lyrics_type">गीत के प्रकार</string>
-    <string name="pref_title_lyrics_type_synced">सिंक किए गए गीत कवर प्रकार</string>
+    <string name="pref_title_lyrics_type_synced">कवर पर सिंक किए गए गीत</string>
     <string name="pref_title_manage_audio_focus">हमेशा खेलें</string>
     <string name="pref_title_md3">सामग्री आप</string>
     <string name="pref_title_notification_action_1">अधिसूचना कार्रवाई शेष</string>

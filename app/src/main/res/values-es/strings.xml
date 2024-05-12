@@ -377,6 +377,7 @@
     <string name="pref_title_font_size">Tamaño de fuente</string>
     <string name="pref_title_gapless_playback">Reproducción sin pausas</string>
     <string name="pref_title_general_theme">Tema de la aplicación</string>
+    <string name="pref_title_haptic_feedback">Deshabilitar la retroalimentación háptica</string>
     <string name="pref_title_hide_update">Ocultar botón de actualización</string>
     <string name="pref_title_home_album_grid_style">Cuadrícula del álbum</string>
     <string name="pref_title_home_artist_grid_style">Cuadrícula de artistas</string>
@@ -384,7 +385,7 @@
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción agregada</string>
     <string name="pref_title_lock_screen">Controles de pantalla de bloqueo</string>
     <string name="pref_title_lyrics_type">Tipo de letra</string>
-    <string name="pref_title_lyrics_type_synced">Tipo de portada de letras sincronizadas</string>
+    <string name="pref_title_lyrics_type_synced">Letras sincronizadas sobre la portada</string>
     <string name="pref_title_manage_audio_focus">Siempre juega</string>
     <string name="pref_title_md3">material usted</string>
     <string name="pref_title_notification_action_1">Acción de notificación restante</string>

@@ -375,6 +375,7 @@
     <string name="pref_title_font_size">অক্ষরের আকার</string>
     <string name="pref_title_gapless_playback">গ্যাপলেস প্লেব্যাক</string>
     <string name="pref_title_general_theme">অ্যাপ থিম</string>
+    <string name="pref_title_haptic_feedback">হ্যাপটিক ফিডব্যাক অক্ষম করুন</string>
     <string name="pref_title_hide_update">আপডেট বোতাম লুকান</string>
     <string name="pref_title_home_album_grid_style">অ্যালবাম গ্রিড</string>
     <string name="pref_title_home_artist_grid_style">শিল্পী গ্রিড</string>
@@ -382,7 +383,7 @@
     <string name="pref_title_last_added_interval">সর্বশেষ যোগ করা প্লেলিস্ট ব্যবধান</string>
     <string name="pref_title_lock_screen">লক স্ক্রিন নিয়ন্ত্রণ</string>
     <string name="pref_title_lyrics_type">গানের ধরন</string>
-    <string name="pref_title_lyrics_type_synced">সিঙ্ক করা লিরিক্স কভার টাইপ</string>
+    <string name="pref_title_lyrics_type_synced">কভার ওভার সিঙ্ক করা গান</string>
     <string name="pref_title_manage_audio_focus">সবসময় খেলা</string>
     <string name="pref_title_md3">উপাদান আপনি</string>
     <string name="pref_title_notification_action_1">বিজ্ঞপ্তি কর্ম বাম</string>

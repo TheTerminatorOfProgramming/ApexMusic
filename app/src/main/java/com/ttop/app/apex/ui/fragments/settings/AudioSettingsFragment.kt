@@ -58,31 +58,41 @@ class AudioSettingsFragment : AbsSettingsFragment() {
 
         val pause: TwoStatePreference? = findPreference(PAUSE_ON_ZERO_VOLUME)
         pause?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val manageAudio: TwoStatePreference? = findPreference(MANAGE_AUDIO_FOCUS)
         manageAudio?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val gapless: TwoStatePreference? = findPreference(GAP_LESS_PLAYBACK)
         gapless?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val autoplay: TwoStatePreference? = findPreference(TOGGLE_HEADSET)
         autoplay?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val bluetoothPreference: Preference? = findPreference(BLUETOOTH_PLAYBACK)
         bluetoothPreference?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             val value = newValue as Boolean
 
             if (value) {
@@ -98,7 +108,9 @@ class AudioSettingsFragment : AbsSettingsFragment() {
 
         val specificDevice : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
         specificDevice?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 

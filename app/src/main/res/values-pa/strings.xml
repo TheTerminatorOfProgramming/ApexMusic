@@ -375,6 +375,7 @@
     <string name="pref_title_font_size">ਫੌਂਟ ਦਾ ਆਕਾਰ</string>
     <string name="pref_title_gapless_playback">ਗੈਪਲੈੱਸ ਪਲੇਬੈਕ</string>
     <string name="pref_title_general_theme">ਐਪ ਥੀਮ</string>
+    <string name="pref_title_haptic_feedback">ਹੈਪਟਿਕ ਫੀਡਬੈਕ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="pref_title_hide_update">ਅੱਪਡੇਟ ਬਟਨ ਨੂੰ ਲੁਕਾਓ</string>
     <string name="pref_title_home_album_grid_style">ਐਲਬਮ ਗਰਿੱਡ</string>
     <string name="pref_title_home_artist_grid_style">ਕਲਾਕਾਰ ਗਰਿੱਡ</string>
@@ -382,7 +383,7 @@
     <string name="pref_title_last_added_interval">ਆਖਰੀ ਜੋੜਿਆ ਪਲੇਲਿਸਟ ਅੰਤਰਾਲ</string>
     <string name="pref_title_lock_screen">ਲੌਕ ਸਕ੍ਰੀਨ ਨਿਯੰਤਰਣ</string>
     <string name="pref_title_lyrics_type">ਬੋਲ ਦੀ ਕਿਸਮ</string>
-    <string name="pref_title_lyrics_type_synced">ਸਿੰਕ ਕੀਤੇ ਬੋਲ ਕਵਰ ਦੀ ਕਿਸਮ</string>
+    <string name="pref_title_lyrics_type_synced">ਕਵਰ ਉੱਤੇ ਸਮਕਾਲੀ ਬੋਲ</string>
     <string name="pref_title_manage_audio_focus">ਹਮੇਸ਼ਾ ਖੇਡੋ</string>
     <string name="pref_title_md3">ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ</string>
     <string name="pref_title_notification_action_1">ਸੂਚਨਾ ਕਾਰਵਾਈ ਖੱਬੇ</string>

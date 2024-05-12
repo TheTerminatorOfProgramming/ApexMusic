@@ -97,7 +97,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)
         blackTheme?.setOnPreferenceChangeListener { _, _ ->
             ThemeStore.markChanged(requireContext())
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             requireActivity().setTheme(PreferenceUtil.themeResFromPrefValue("black"))
             DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
             restartActivity()
@@ -106,7 +108,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val desaturatedColor: ATESwitchPreference? = findPreference(DESATURATED_COLOR)
         desaturatedColor?.setOnPreferenceChangeListener { _, value ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             val desaturated = value as Boolean
             ThemeStore.prefs(requireContext()).edit {
                 putBoolean(DESATURATED_COLOR, desaturated)
@@ -118,7 +122,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val materialYou: ATESwitchPreference? = findPreference(MATERIAL_YOU)
         materialYou?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             if (newValue as Boolean) {
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
             }else {
@@ -132,7 +138,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
         extraControls?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
@@ -150,15 +158,26 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val customFont: ATEListPreference? = findPreference(CUSTOM_FONT)
-        customFont?.setOnPreferenceChangeListener { _, _ ->
+        val progressBarStyle: ATEListPreference? = findPreference(PROGRESS_BAR_STYLE)
+        progressBarStyle?.setOnPreferenceChangeListener { _, _ ->
             restartActivity()
             true
         }
 
-        val progressBarStyle: ATEListPreference? = findPreference(PROGRESS_BAR_STYLE)
-        progressBarStyle?.setOnPreferenceChangeListener { _, _ ->
+        val apexFont: TwoStatePreference? = findPreference(APEX_FONT)
+        apexFont?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             restartActivity()
+            true
+        }
+
+        val swipeGesturesNonFoldable: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE_NON_FOLDABLE)
+        swipeGesturesNonFoldable?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
     }
@@ -218,13 +237,16 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
         val swipeGestures: ATEListPreference? = findPreference(TOGGLE_MINI_SWIPE)
+        val swipeGesturesNonFoldable: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE_NON_FOLDABLE)
 
         if (PreferenceUtil.isSimpleMode) {
             extraControls?.isVisible = false
             swipeGestures?.isVisible = false
+            swipeGesturesNonFoldable?.isVisible = false
         }else {
             extraControls?.isVisible = true
             swipeGestures?.isVisible = true
+            swipeGesturesNonFoldable?.isVisible = true
         }
     }
 }

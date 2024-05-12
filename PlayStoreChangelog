@@ -1,23 +1,30 @@
-Apex Music v4.20
+Apex Music v4.30
 
 ==What's New==
 =What's Been Added=
--Nothing has been added
+-Option to disable haptic feedback
 
 =What's Been Removed=
--Nothing has been removed
+-Fonts have been removed except for the apex font
 
 =What's Been Changed & Updated=
--Nothing has been changed or updated
+-Player queue and lyrics design has been updated
+-Updated dependencies
+-Adaptive color option is now disabled for the gradient player theme
+-Any options that uses a list of two items is now a toggle switch
 
 =What's Planned To Be Removed/Changed=
 -Nothing is planned to be changed or removed
 
 ==What's Fixed==
 -Minor bugs
+-Card player theme now has lyrics support readde
+-Shuffle on by default
+-Carousel style has now changed and fixes the issue of appearing as if it is not working
 
 ==Possible Bugs==
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player
 -Some android skins such as funtouch os may experience issues with apex
 -Headset music controls may not work due to a possible bug in apex. the bug should be fixed but needs some additional testing
 -Material you may not work correctly on some android skins like oneui, due to the implementation method of material you into the android skin
+-If you are experiencing any bugs, try reinstalling the app

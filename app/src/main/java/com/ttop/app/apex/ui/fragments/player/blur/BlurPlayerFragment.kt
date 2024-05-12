@@ -182,7 +182,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
             binding.playerToolbar.setNavigationOnClickListener {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)
@@ -191,7 +193,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val song = MusicPlayerRemote.currentSong
-        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -199,7 +203,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
             }
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                }
                 return true
             }
             R.id.action_share -> {
@@ -322,7 +328,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                             mainActivity.keepScreenOn(false)
                         }
 
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
                         PreferenceUtil.isEmbedLyricsActivated = true
                     }else{
                         binding.playerQueueSheet.visibility = View.VISIBLE
@@ -332,7 +340,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                             showToast(getString(R.string.lyrics_message_disabled))
                         }
                         mainActivity.keepScreenOn(false)
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
                         PreferenceUtil.isEmbedLyricsActivated = false
                     }
                 }else {
@@ -351,7 +361,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                             mainActivity.keepScreenOn(false)
                         }
 
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
                         PreferenceUtil.isEmbedLyricsActivated = true
                     }else{
                         binding.playerAlbumCoverFragment.visibility = View.VISIBLE
@@ -361,7 +373,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                         }
                         playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = true
                         mainActivity.keepScreenOn(false)
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
                         PreferenceUtil.isEmbedLyricsActivated = false
                     }
                 }

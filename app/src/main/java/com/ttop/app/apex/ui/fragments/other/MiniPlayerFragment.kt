@@ -53,6 +53,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     val mainActivity: MainActivity
         get() = activity as MainActivity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         progressViewUpdateHelper = MusicProgressViewUpdateHelper(this)
@@ -60,17 +61,18 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.actionNext ->  {
+            R.id.actionNext -> {
                 if (PreferenceUtil.isAutoplay) {
                     MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                 } else {
                     MusicPlayerRemote.playNextSong()
                 }
             }
-            R.id.actionPrevious ->  {
+
+            R.id.actionPrevious -> {
                 if (PreferenceUtil.isAutoplay) {
                     MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                }else {
+                } else {
                     MusicPlayerRemote.playPreviousSong()
                 }
             }
@@ -126,7 +128,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         if (PreferenceUtil.materialYou) {
             binding.actionNext.setColorFilter(binding.progressBar.indicatorColor[0])
             binding.actionPrevious.setColorFilter(binding.progressBar.indicatorColor[0])
-        }else {
+        } else {
             binding.actionNext.setColorFilter(accentColor())
             binding.actionPrevious.setColorFilter(accentColor())
         }
@@ -153,7 +155,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
         if (PreferenceUtil.materialYou) {
             binding.miniPlayerPlayPauseButton.setColorFilter(binding.progressBar.indicatorColor[0])
-        }else {
+        } else {
             binding.miniPlayerPlayPauseButton.setColorFilter(accentColor())
         }
     }
@@ -167,9 +169,19 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         val text = song.artistName.toSpannable()
 
         if (PreferenceUtil.materialYou) {
-            title.setSpan(ForegroundColorSpan(binding.progressBar.indicatorColor[0]), 0, title.length, 0)
-            text.setSpan(ForegroundColorSpan(binding.progressBar.indicatorColor[0]), 0, text.length, 0)
-        }else {
+            title.setSpan(
+                ForegroundColorSpan(binding.progressBar.indicatorColor[0]),
+                0,
+                title.length,
+                0
+            )
+            text.setSpan(
+                ForegroundColorSpan(binding.progressBar.indicatorColor[0]),
+                0,
+                text.length,
+                0
+            )
+        } else {
             title.setSpan(ForegroundColorSpan(accentColor()), 0, title.length, 0)
             text.setSpan(ForegroundColorSpan(accentColor()), 0, text.length, 0)
         }
@@ -181,7 +193,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
         if (PreferenceUtil.materialYou) {
             binding.miniPlayerTitle.setTextColor(binding.progressBar.indicatorColor[0])
-        }else {
+        } else {
             binding.miniPlayerTitle.setTextColor(accentColor())
         }
     }
@@ -250,27 +262,8 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                     velocityX: Float,
                     velocityY: Float
                 ): Boolean {
-                    if (PreferenceUtil.isSwipe == "always") {
-                        if (abs(velocityX) > abs(velocityY)) {
-                            if (velocityX < 0) {
-                                if (PreferenceUtil.isAutoplay) {
-                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                                } else {
-                                    MusicPlayerRemote.playNextSong()
-                                }
-                                return true
-                            } else if (velocityX > 0) {
-                                if (PreferenceUtil.isAutoplay) {
-                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                                }else {
-                                    MusicPlayerRemote.playPreviousSong()
-                                }
-                                return true
-                            }
-                        }
-                        return false
-                    }else if (PreferenceUtil.isSwipe == "tab") {
-                        if (ApexUtil.isTablet) {
+                    if (ApexUtil.isFoldable(activity)) {
+                        if (PreferenceUtil.isSwipe == "always") {
                             if (abs(velocityX) > abs(velocityY)) {
                                 if (velocityX < 0) {
                                     if (PreferenceUtil.isAutoplay) {
@@ -282,7 +275,49 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                                 } else if (velocityX > 0) {
                                     if (PreferenceUtil.isAutoplay) {
                                         MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                                    }else {
+                                    } else {
+                                        MusicPlayerRemote.playPreviousSong()
+                                    }
+                                    return true
+                                }
+                            }
+                            return false
+                        } else if (PreferenceUtil.isSwipe == "tab") {
+                            if (ApexUtil.isTablet) {
+                                if (abs(velocityX) > abs(velocityY)) {
+                                    if (velocityX < 0) {
+                                        if (PreferenceUtil.isAutoplay) {
+                                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                        } else {
+                                            MusicPlayerRemote.playNextSong()
+                                        }
+                                        return true
+                                    } else if (velocityX > 0) {
+                                        if (PreferenceUtil.isAutoplay) {
+                                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                        } else {
+                                            MusicPlayerRemote.playPreviousSong()
+                                        }
+                                        return true
+                                    }
+                                }
+                                return false
+                            }
+                        }
+                    } else {
+                        if (PreferenceUtil.isSwipeNonFoldable) {
+                            if (abs(velocityX) > abs(velocityY)) {
+                                if (velocityX < 0) {
+                                    if (PreferenceUtil.isAutoplay) {
+                                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
+                                    } else {
+                                        MusicPlayerRemote.playNextSong()
+                                    }
+                                    return true
+                                } else if (velocityX > 0) {
+                                    if (PreferenceUtil.isAutoplay) {
+                                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
+                                    } else {
                                         MusicPlayerRemote.playPreviousSong()
                                     }
                                     return true

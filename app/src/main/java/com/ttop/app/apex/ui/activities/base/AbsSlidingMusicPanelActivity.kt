@@ -53,6 +53,7 @@ import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SCREEN_ON_LYRICS
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
+import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
@@ -411,6 +412,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             }
             SWIPE_ANYWHERE_NOW_PLAYING -> {
                 playerFragment.addSwipeDetector()
+            }
+            SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE -> {
+                playerFragment.addSwipeDetectorNonFoldable()
             }
             LIBRARY_CATEGORIES -> {
                 updateTabs()

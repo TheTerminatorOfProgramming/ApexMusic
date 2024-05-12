@@ -37,13 +37,17 @@ class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnS
 
         val suggestions: TwoStatePreference? = findPreference(TOGGLE_SUGGESTIONS)
         suggestions?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val pauseHistory: TwoStatePreference? = findPreference(PAUSE_HISTORY)
         pauseHistory?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
@@ -55,7 +59,9 @@ class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnS
             lastTab?.isEnabled = true
         }
         lastTab?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 

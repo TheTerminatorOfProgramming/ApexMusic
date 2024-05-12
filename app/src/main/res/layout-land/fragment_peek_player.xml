@@ -116,7 +116,8 @@
             app:layout_constraintEnd_toEndOf="@id/middle_guideline"
             app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
             app:layout_constraintBottom_toTopOf="@id/space"
-            android:background="@color/black_color"
+            android:alpha="1.0"
+            android:backgroundTint="@color/transparent"
             android:scrollbars="none"
             android:visibility="gone">
 

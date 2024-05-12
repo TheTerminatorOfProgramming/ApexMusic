@@ -31,7 +31,7 @@ import com.ttop.app.apex.DURATION_SAME
 import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
 import com.ttop.app.apex.FAST_FORWARD_DURATION
 import com.ttop.app.apex.LYRICS_MODE
-import com.ttop.app.apex.LYRICS_TYPE
+import com.ttop.app.apex.LYRICS_TYPES
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
@@ -42,6 +42,7 @@ import com.ttop.app.apex.REWIND_DURATION
 import com.ttop.app.apex.SCREEN_ON_LYRICS
 import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
+import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TOGGLE_AUTOPLAY
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.ApexUtil
@@ -62,26 +63,34 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
         carouselEffect?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             return@setOnPreferenceChangeListener true
         }
 
         val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
         lyricsScreenOn?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
         autoplay?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
         val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
         colorAnimate?.isChecked = PreferenceUtil.isColorAnimate
         colorAnimate?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             restartActivity()
             true
         }
@@ -92,26 +101,31 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 NowPlayingScreen.Adaptive,
                 NowPlayingScreen.Card,
                 NowPlayingScreen.Classic,
-                NowPlayingScreen.Gradient,
                 NowPlayingScreen.Peek,
             )
 
         adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             restartActivity()
             true
         }
 
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
         playerBG?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             restartActivity()
             true
         }
 
         val shuffleState: ATESwitchPreference? = findPreference(SHUFFLE_STATE)
         shuffleState?.setOnPreferenceChangeListener { _, _ ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
 
@@ -136,7 +150,9 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         rwdDuration?.isEnabled = !PreferenceUtil.isDurationSame
 
         durationSame?.setOnPreferenceChangeListener { _, newValue ->
-            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
 
             val enabled = newValue as Boolean
 
@@ -161,8 +177,15 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
+        val coverLyricsType: ATESwitchPreference? = findPreference(LYRICS_TYPES)
+        coverLyricsType?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            true
+        }
+
         val lyricsType: ATEListPreference? = findPreference(LYRICS_MODE)
-        val coverLyricsType: ATEListPreference? = findPreference(LYRICS_TYPE)
         lyricsType?.setOnPreferenceChangeListener { _, _ ->
             when (PreferenceUtil.lyricsMode) {
                 "id3" -> {
@@ -180,6 +203,14 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             }
             true
         }
+
+        val swipeAnywhereNonFoldable: ATESwitchPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE)
+        swipeAnywhereNonFoldable?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -192,7 +223,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
         newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
 
-        val coverLyricsType: ATEListPreference? = findPreference(LYRICS_TYPE)
+        val coverLyricsType: ATESwitchPreference? = findPreference(LYRICS_TYPES)
         when (PreferenceUtil.lyricsMode) {
             "id3" -> {
                 coverLyricsType?.isVisible = false
@@ -214,6 +245,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
         val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
         val swipeAnywhere: ATEListPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING)
+        val swipeAnywhereNonFoldable: ATESwitchPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE)
         val expandPanel: ATEListPreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
         val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
         val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
@@ -223,6 +255,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             playerBG?.isVisible = false
             colorAnimate?.isVisible = false
             swipeAnywhere?.isVisible = false
+            swipeAnywhereNonFoldable?.isVisible = false
             expandPanel?.isVisible = false
             carouselEffect?.isVisible = false
             lyricsScreenOn?.isVisible = false
@@ -231,10 +264,17 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             playerBG?.isVisible = true
             colorAnimate?.isVisible = true
             swipeAnywhere?.isVisible = true
+            swipeAnywhereNonFoldable?.isVisible = true
             expandPanel?.isVisible = true
             carouselEffect?.isVisible = true
             lyricsScreenOn?.isVisible = true
             lyricsType?.isVisible = true
+        }
+
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Card || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Gradient || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Minimal) {
+            if (PreferenceUtil.isCarouselEffect) {
+                carouselEffect?.isChecked = false
+            }
         }
     }
 
@@ -253,7 +293,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 NowPlayingScreen.Adaptive,
                 NowPlayingScreen.Card,
                 NowPlayingScreen.Classic,
-                NowPlayingScreen.Gradient,
                 NowPlayingScreen.Peek
             )
 
@@ -263,6 +302,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
         newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
+
+        val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Card || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Gradient || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Minimal) {
+            if (PreferenceUtil.isCarouselEffect) {
+                carouselEffect?.isChecked = false
+            }
+        }
     }
 
     private fun updateAlbumCoverStyle() {

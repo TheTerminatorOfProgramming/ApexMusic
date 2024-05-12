@@ -28,7 +28,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
-import com.ttop.app.apex.LYRICS_TYPE
+import com.ttop.app.apex.LYRICS_TYPES
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SHOW_LYRICS
 import com.ttop.app.apex.adapter.album.AlbumCoverPagerAdapter
@@ -125,9 +125,6 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
                 MusicPlayerRemote.resumePlaying()
                 true
             }
-            /*setOnClickListener {
-                goToLyrics(requireActivity())
-            }*/
         }
     }
 
@@ -202,7 +199,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
                     progressViewUpdateHelper?.stop()
                 }
             }
-            LYRICS_TYPE -> {
+            LYRICS_TYPES -> {
                 maybeInitLyrics()
             }
         }
@@ -222,7 +219,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         binding.coverLyrics.isVisible = false
         binding.lyricsView.isVisible = false
         binding.viewPager.isVisible = true
-        val lyrics: View = if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
+        val lyrics: View = if (PreferenceUtil.lyricsTypes == CoverLyricsType.REPLACE_COVER) {
             ObjectAnimator.ofFloat(viewPager, View.ALPHA, if (visible) 0F else 1F).start()
             lrcView
         } else {
@@ -242,7 +239,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         // Don't show lyrics container for below conditions
         if (lyricViewNpsList.contains(nps) && PreferenceUtil.showLyrics) {
             showLyrics(true)
-            if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
+            if (PreferenceUtil.lyricsTypes == CoverLyricsType.REPLACE_COVER) {
                 progressViewUpdateHelper?.start()
             }
         } else {

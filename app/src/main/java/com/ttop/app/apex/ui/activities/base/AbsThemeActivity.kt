@@ -58,60 +58,8 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             setDefaultNightMode(getNightMode())
         }
 
-        if (PreferenceUtil.isCustomFont == "barlow") {
-            setTheme(R.style.BarlowThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "jura") {
-            setTheme(R.style.JuraThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "caviar") {
-            setTheme(R.style.CaviarDreamsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "pencil") {
-            setTheme(R.style.PencilThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "drexs") {
-            setTheme(R.style.DrexsThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hermanoalto") {
-            setTheme(R.style.HermanoaltoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "nothing") {
-            setTheme(R.style.NothingThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "hiatus") {
-            setTheme(R.style.HiatusThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "apex") {
+        if (PreferenceUtil.isApexFont) {
             setTheme(R.style.ApexThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "binjay") {
-            setTheme(R.style.BinjayThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "neue") {
-            setTheme(R.style.NeueBureauThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "dancing") {
-            setTheme(R.style.DancingScriptThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "teko") {
-            setTheme(R.style.TekoThemeOverlay)
-        }
-
-        if (PreferenceUtil.isCustomFont == "sixty") {
-            setTheme(R.style.SixtyFourThemeOverlay)
         }
 
         setTheme(R.style.CircleFABOverlay)
