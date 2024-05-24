@@ -32,7 +32,6 @@ import com.ttop.app.apex.BLUETOOTH_DEVICE
 import com.ttop.app.apex.BLUETOOTH_PLAYBACK
 import com.ttop.app.apex.EQUALIZER
 import com.ttop.app.apex.GAP_LESS_PLAYBACK
-import com.ttop.app.apex.MANAGE_AUDIO_FOCUS
 import com.ttop.app.apex.PAUSE_ON_ZERO_VOLUME
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SPECIFIC_DEVICE
@@ -58,14 +57,6 @@ class AudioSettingsFragment : AbsSettingsFragment() {
 
         val pause: TwoStatePreference? = findPreference(PAUSE_ON_ZERO_VOLUME)
         pause?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val manageAudio: TwoStatePreference? = findPreference(MANAGE_AUDIO_FOCUS)
-        manageAudio?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }

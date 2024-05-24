@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="bengali">Bengali</string>
+    <string name="bengali">Bengalisch</string>
     <string name="english">Englisch</string>
     <string name="german">Deutsch</string>
-    <string name="hindi">Hindi</string>
+    <string name="hindi">Hannah</string>
     <string name="indonesian">Indonesisch</string>
     <string name="italian">Italienisch</string>
-    <string name="japanese">japanisch</string>
+    <string name="japanese">Japanisch</string>
     <string name="mandarin">Mandarin</string>
     <string name="portuguese">Portugiesisch</string>
     <string name="punjabi">Punjabi</string>
     <string name="spanish">Spanisch</string>
-    <string name="system_default">Systemfehler</string>
+    <string name="system_default">Systemstandard</string>
+    <string name="turkish">Türkisch</string>
 </resources>

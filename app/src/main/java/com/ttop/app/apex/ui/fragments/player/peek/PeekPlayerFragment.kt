@@ -251,9 +251,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                             mainActivity.keepScreenOn(false)
                         }
 
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
                         PreferenceUtil.isEmbedLyricsActivated = true
                     }else{
                         binding.playerQueueSheet.visibility = View.VISIBLE
@@ -262,9 +259,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                             showToast(getString(R.string.lyrics_message_disabled))
                         }
                         mainActivity.keepScreenOn(false)
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
                         PreferenceUtil.isEmbedLyricsActivated = false
                     }
                 }else {
@@ -286,9 +280,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
 
                         binding.playerAlbumCoverFragment.alpha = 0f
 
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
                         PreferenceUtil.isEmbedLyricsActivated = true
                     }else{
                         scroll.visibility = View.GONE
@@ -299,9 +290,6 @@ class PeekPlayerFragment : AbsPlayerFragment(R.layout.fragment_peek_player),
                         binding.playerAlbumCoverFragment.alpha = 1f
 
                         mainActivity.keepScreenOn(false)
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
                         PreferenceUtil.isEmbedLyricsActivated = false
                     }
                 }

@@ -77,6 +77,7 @@
     <string name="appbar_mode_expanded_no_scroll">ਵਿਸਤ੍ਰਿਤ (ਕੋਈ ਸਕ੍ਰੌਲ ਨਹੀਂ)</string>
     <string name="appbar_mode_simple">ਆਸਾਨ</string>
     <string name="appbar_mode_simple_no_scroll">ਸਧਾਰਨ (ਕੋਈ ਸਕ੍ਰੌਲ ਨਹੀਂ)</string>
+    <string name="apex_font">ਐਪੈਕਸ ਫੌਂਟ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="apex_music">ਸਿਖਰ ਸੰਗੀਤ</string>
     <string name="app_share">ਹੇ ਇਸ ਸ਼ਾਨਦਾਰ ਸੰਗੀਤ ਪਲੇਅਰ ਨੂੰ ਇੱਥੇ ਦੇਖੋ: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">ਸ਼ਫਲ</string>
@@ -90,10 +91,10 @@
     <string name="auto_hide">ਆਟੋ-ਲੁਕਾਓ</string>
     <string name="backup_restore_settings_summary">ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ, ਪਲੇਲਿਸਟਾਂ ਦਾ ਬੈਕਅੱਪ ਅਤੇ ਰੀਸਟੋਰ ਕਰੋ</string>
     <string name="backup_restore_title"><![CDATA[ਬੈਕਅੱਪ ਅਤੇ ਰੀਸਟੋਰ]]></string>
-    <string name="backup_open_path">ਮੌਜੂਦਾ ਮਾਰਗ ਖੋਲ੍ਹੋ</string>
+    <string name="backup_open_path">ਖੁੱਲ੍ਹਾ ਮਾਰਗ</string>
     <string name="backup_path">ਬੈਕਅੱਪ ਮਾਰਗ</string>
     <string name="backup_path_desc">ਕੀ ਤੁਸੀਂ ਮੌਜੂਦਾ ਬੈਕਅੱਪ ਮਾਰਗ ਨੂੰ ਖੋਲ੍ਹਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਨਵਾਂ ਬੈਕਅੱਪ ਮਾਰਗ ਚੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-    <string name="backup_select_path">ਨਵਾਂ ਮਾਰਗ ਚੁਣੋ</string>
+    <string name="backup_select_path">ਪਾਥ ਚੁਣੋ</string>
     <string name="backup_title">ਬੈਕਅੱਪ</string>
     <string name="battery_optimize">ਬੈਟਰੀ ਓਪਟੀਮਾਈਜੇਸ਼ਨ ਪਹਿਲਾਂ ਹੀ ਅਯੋਗ ਹੈ!</string>
     <string name="battery_optimize_disabled">ਬੈਟਰੀ ਓਪਟੀਮਾਈਜੇਸ਼ਨ ਅਯੋਗ ਹੈ</string>
@@ -131,6 +132,8 @@
     <string name="create_action">ਬਣਾਓ</string>
     <string name="create_new_backup">ਬਣਾਓ</string>
     <string name="credit_title">ਵਿਕਾਸਕਾਰ &amp; ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
+    <string name="crowdin">ਭੀੜ</string>
+    <string name="crowdin_summary">ਭੀੜ \'ਤੇ ਇਸ ਐਪ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰੋ</string>
     <string name="currently_listening_to_x_by_x">ਵਰਤਮਾਨ ਵਿੱਚ %2$s ਦੁਆਰਾ %1$s ਨੂੰ ਸੁਣਿਆ ਜਾ ਰਿਹਾ ਹੈ।</string>
     <string name="custom_artist_images">ਕਸਟਮ ਕਲਾਕਾਰ ਚਿੱਤਰ</string>
     <string name="customactivityoncrash_error_activity_error_details_share">ਕਰੈਸ਼ ਰਿਪੋਰਟ ਸਾਂਝੀ ਕਰੋ</string>
@@ -254,7 +257,6 @@
     <string name="message_welcome"><![CDATA[ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ <br> %s]]> </string>
     <string name="minimal">ਨਿਊਨਤਮ</string>
     <string name="my_top_tracks">ਸਭ ਤੋਂ ਵੱਧ ਖੇਡਿਆ ਗਿਆ</string>
-    <string name="never">ਕਦੇ ਨਹੀਂ</string>
     <string name="new_music_mix">ਨਵਾਂ ਸੰਗੀਤ ਮਿਕਸ</string>
     <string name="new_playlist_title">ਨਵੀਂ ਪਲੇਲਿਸਟ</string>
     <string name="new_start_directory">%s ਨਵੀਂ ਸਟਾਰਟ ਡਾਇਰੈਕਟਰੀ ਹੈ।</string>
@@ -384,7 +386,6 @@
     <string name="pref_title_lock_screen">ਲੌਕ ਸਕ੍ਰੀਨ ਨਿਯੰਤਰਣ</string>
     <string name="pref_title_lyrics_type">ਬੋਲ ਦੀ ਕਿਸਮ</string>
     <string name="pref_title_lyrics_type_synced">ਕਵਰ ਉੱਤੇ ਸਮਕਾਲੀ ਬੋਲ</string>
-    <string name="pref_title_manage_audio_focus">ਹਮੇਸ਼ਾ ਖੇਡੋ</string>
     <string name="pref_title_md3">ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ</string>
     <string name="pref_title_notification_action_1">ਸੂਚਨਾ ਕਾਰਵਾਈ ਖੱਬੇ</string>
     <string name="pref_title_notification_action_2">ਸੂਚਨਾ ਕਾਰਵਾਈ ਦਾ ਹੱਕ</string>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="all_files_summary">Erlauben Sie Apex Music den Zugriff auf alle Dateien auf dem Gerät. Diese Berechtigung ist erforderlich, um Apex-Backups automatisch zu erkennen</string>
-    <string name="all_files_title">Berechtigung „Alle Dateien verwalten“</string>
+    <string name="all_files_summary">Erlaube Zugriff auf alle Dateien auf dem Gerät auf Spitzenmusik. Diese Berechtigung wird benötigt, um Spitzen-Backups automatisch zu erkennen</string>
+    <string name="all_files_title">Alle Dateiberechtigungen verwalten</string>
 </resources>

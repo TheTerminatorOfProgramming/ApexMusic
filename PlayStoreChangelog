@@ -1,26 +1,29 @@
-Apex Music v4.30
+Apex Music v4.40
 
 ==What's New==
 =What's Been Added=
--Option to disable haptic feedback
+-Nothing has been added
 
 =What's Been Removed=
--Fonts have been removed except for the apex font
+-Always play option. this option was used to manage audio focus
 
 =What's Been Changed & Updated=
--Player queue and lyrics design has been updated
+-Audio fade option has been moved to labs
+-Bluetooth autoplay and wired autoplay will now not attempt to play if the queue is empty
+-If apex can not play a song and shows the "couldn't play song" error, the next song is played
+-Carousel style has has been slightly changed
+-Translations for chinese simplified, german, italian, japanese, portuguese and spanish have been updated using crowdin
 -Updated dependencies
--Adaptive color option is now disabled for the gradient player theme
--Any options that uses a list of two items is now a toggle switch
 
 =What's Planned To Be Removed/Changed=
 -Nothing is planned to be changed or removed
 
 ==What's Fixed==
 -Minor bugs
--Card player theme now has lyrics support readde
--Shuffle on by default
--Carousel style has now changed and fixes the issue of appearing as if it is not working
+-Show now playing screen option should now be working correctly
+-Show lyrics button no longer has double haptic feedback
+-Widgets now display correctly
+-Notification action defaults now work
 
 ==Possible Bugs==
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player

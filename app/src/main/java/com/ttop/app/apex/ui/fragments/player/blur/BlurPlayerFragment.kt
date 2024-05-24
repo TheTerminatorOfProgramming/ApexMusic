@@ -328,9 +328,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                             mainActivity.keepScreenOn(false)
                         }
 
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                        }
                         PreferenceUtil.isEmbedLyricsActivated = true
                     }else{
                         binding.playerQueueSheet.visibility = View.VISIBLE
@@ -340,9 +337,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                             showToast(getString(R.string.lyrics_message_disabled))
                         }
                         mainActivity.keepScreenOn(false)
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                        }
+
                         PreferenceUtil.isEmbedLyricsActivated = false
                     }
                 }else {
@@ -361,9 +356,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                             mainActivity.keepScreenOn(false)
                         }
 
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                        }
                         PreferenceUtil.isEmbedLyricsActivated = true
                     }else{
                         binding.playerAlbumCoverFragment.visibility = View.VISIBLE
@@ -373,9 +365,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                         }
                         playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = true
                         mainActivity.keepScreenOn(false)
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                        }
+
                         PreferenceUtil.isEmbedLyricsActivated = false
                     }
                 }

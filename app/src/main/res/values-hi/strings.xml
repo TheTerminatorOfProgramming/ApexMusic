@@ -77,6 +77,7 @@
     <string name="appbar_mode_expanded_no_scroll">विस्तारित (कोई स्क्रॉल नहीं)</string>
     <string name="appbar_mode_simple">सरल</string>
     <string name="appbar_mode_simple_no_scroll">सरल (कोई स्क्रॉल नहीं)</string>
+    <string name="apex_font">एपेक्स फ़ॉन्ट का प्रयोग करें</string>
     <string name="apex_music">शीर्ष संगीत</string>
     <string name="app_share">अरे इस शानदार म्यूजिक प्लेयर को यहां देखें: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">मिश्रण</string>
@@ -90,10 +91,10 @@
     <string name="auto_hide">खुद से छिपना</string>
     <string name="backup_restore_settings_summary">अपनी सेटिंग्स, प्लेलिस्ट का बैकअप लें और उन्हें पुनर्स्थापित करें</string>
     <string name="backup_restore_title"><![CDATA[बैकअप और पुनर्स्थापना]]></string>
-    <string name="backup_open_path">वर्तमान पथ खोलें</string>
+    <string name="backup_open_path">खुला पथ</string>
     <string name="backup_path">बैकअप पथ</string>
     <string name="backup_path_desc">क्या आप वर्तमान बैकअप पथ खोलना चाहेंगे या नया बैकअप पथ चुनना चाहेंगे?</string>
-    <string name="backup_select_path">नया पथ चुनें</string>
+    <string name="backup_select_path">पथ चुनें</string>
     <string name="backup_title">बैकअप</string>
     <string name="battery_optimize">बैटरी अनुकूलन पहले से ही अक्षम है!</string>
     <string name="battery_optimize_disabled">बैटरी अनुकूलन अक्षम</string>
@@ -131,6 +132,8 @@
     <string name="create_action">बनाएं</string>
     <string name="create_new_backup">बनाएं</string>
     <string name="credit_title">डेवलपर्स एवं amp; योगदानकर्ताओं</string>
+    <string name="crowdin">भीड़</string>
+    <string name="crowdin_summary">क्राउडइन पर इस ऐप का अनुवाद करने में सहायता करें</string>
     <string name="currently_listening_to_x_by_x">वर्तमान में %2$s द्वारा %1$s सुन रहा हूँ।</string>
     <string name="custom_artist_images">कस्टम कलाकार छवियाँ</string>
     <string name="customactivityoncrash_error_activity_error_details_share">क्रैश रिपोर्ट साझा करें</string>
@@ -254,7 +257,6 @@
     <string name="message_welcome"><![CDATA[<br> %s]]> में आपका स्वागत है</string>
     <string name="minimal">कम से कम</string>
     <string name="my_top_tracks">सबसे ज्यादा खेला हुआ</string>
-    <string name="never">कभी नहीं</string>
     <string name="new_music_mix">नया संगीत मिश्रण</string>
     <string name="new_playlist_title">नई प्लेलिस्ट</string>
     <string name="new_start_directory">%s नई प्रारंभ निर्देशिका है.</string>
@@ -384,7 +386,6 @@
     <string name="pref_title_lock_screen">लॉक स्क्रीन नियंत्रण</string>
     <string name="pref_title_lyrics_type">गीत के प्रकार</string>
     <string name="pref_title_lyrics_type_synced">कवर पर सिंक किए गए गीत</string>
-    <string name="pref_title_manage_audio_focus">हमेशा खेलें</string>
     <string name="pref_title_md3">सामग्री आप</string>
     <string name="pref_title_notification_action_1">अधिसूचना कार्रवाई शेष</string>
     <string name="pref_title_notification_action_2">अधिसूचना कार्रवाई सही</string>

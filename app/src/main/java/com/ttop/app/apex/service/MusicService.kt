@@ -249,14 +249,18 @@ class MusicService : MediaBrowserServiceCompat(),
                         if (connected){
                             Handler(Looper.getMainLooper()).postDelayed(
                                 Runnable {
-                                    play()
+                                    if (playingQueue.isNotEmpty()) {
+                                        play()
+                                    }
                                 }, 1000
                             )
                         }
                     }else{
                         Handler(Looper.getMainLooper()).postDelayed(
                             Runnable {
-                                play()
+                                if (playingQueue.isNotEmpty()) {
+                                    play()
+                                }
                             }, 1000
                         )
                     }
@@ -285,7 +289,9 @@ class MusicService : MediaBrowserServiceCompat(),
                         1 -> if (currentSong != emptySong) {
                             Handler(Looper.getMainLooper()).postDelayed(
                                 Runnable {
-                                    play()
+                                    if (playingQueue.isNotEmpty()) {
+                                        play()
+                                    }
                                 }, 1000
                             )
                         } else {
@@ -694,7 +700,7 @@ class MusicService : MediaBrowserServiceCompat(),
             CAR_CONNECTED,
             AUTO_ACTION_1,
             AUTO_ACTION_2,
-            USE_NOTI_ACTIONS_AUTO-> {
+            USE_NOTIFY_ACTIONS_AUTO-> {
                 update()
             }
         }
@@ -891,6 +897,7 @@ class MusicService : MediaBrowserServiceCompat(),
                 } else {
                     runOnUiThread {
                         showToast(R.string.unplayable_file)
+                        playNextSong(true)
                     }
                 }
             }
@@ -914,7 +921,7 @@ class MusicService : MediaBrowserServiceCompat(),
             } else {
                 runOnUiThread {
                     showToast(R.string.unplayable_file)
-                    MusicPlayerRemote.playNextSong()
+                    playNextSong(true)
                 }
             }
         }

@@ -363,9 +363,6 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
 
                     binding.playerAlbumCoverFragment.alpha = 0f
 
-                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                    }
                     PreferenceUtil.isEmbedLyricsActivated = true
                 }else{
                     scroll.visibility = View.GONE
@@ -377,9 +374,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                     binding.playerAlbumCoverFragment.alpha = 1f
 
                     mainActivity.keepScreenOn(false)
-                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                    }
+
                     PreferenceUtil.isEmbedLyricsActivated = false
                 }
             }

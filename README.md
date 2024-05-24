@@ -113,6 +113,10 @@ favorite songs.
 -  Smart Auto Playlists - Recently played, most played and history
 -  Build your playlist on the go
 ___
+## Social Links
+Telegram: https://t.me/ApexMusicSupport
+Crowdin: https://crowdin.com/project/apexmusic
+
 ## Disclaimer
 Apex Music has only been tested on OneUI and AOSP Devices. Other Devices have not been tested and may cause issues including OneUI Core/Android Go Devices.
 

@@ -49,21 +49,21 @@
     </string-array>
 
     <string-array name="pref_notification_action_list_titles">
+        <item>@string/disabled</item>
         <item>@string/repeat</item>
         <item>@string/shuffle</item>
         <item>@string/update_notify</item>
         <item>@string/close</item>
         <item>@string/clear_playing_queue</item>
-        <item>@string/none</item>
     </string-array>
 
     <string-array name="pref_notification_action_list_values">
+        <item>none</item>
         <item>repeat</item>
         <item>shuffle</item>
         <item>update</item>
         <item>quit</item>
         <item>clear_queue</item>
-        <item>none</item>
     </string-array>
 
     <string-array name="pref_home_grid_style_list_titles">
@@ -91,15 +91,15 @@
     </array>
 
     <array name="pref_auto_download_images_titles">
+        <item>@string/disabled</item>
         <item>@string/always</item>
         <item>@string/only_on_wifi</item>
-        <item>@string/never</item>
     </array>
 
     <array name="pref_auto_download_images_values">
+        <item>never</item>
         <item>always</item>
         <item>only_wifi</item>
-        <item>never</item>
     </array>
 
     <string-array name="pref_playlists_last_added_interval_titles">
@@ -163,17 +163,17 @@
     </string-array>
 
     <string-array name="pref_auto_action_list_titles">
+        <item>@string/disabled</item>
         <item>@string/repeat</item>
         <item>@string/shuffle</item>
         <item>@string/clear_playing_queue</item>
-        <item>@string/none</item>
     </string-array>
 
     <string-array name="pref_auto_action_list_values">
+        <item>none</item>
         <item>repeat</item>
         <item>shuffle</item>
         <item>clear_queue</item>
-        <item>none</item>
     </string-array>
 
     <string-array name="pref_font_size_titles">
@@ -209,29 +209,29 @@
     </string-array>
 
     <string-array name="pref_expand_panel_titles">
+        <item>@string/disabled</item>
         <item>@string/show_player_from_notification</item>
         <item>@string/show_player_on_app_launch</item>
-        <item>@string/disabled</item>
     </string-array>
 
     <string-array name="pref_expand_panel_values">
+        <item>disabled</item>
         <item>default</item>
         <item>enhanced</item>
-        <item>disabled</item>
     </string-array>
 
     <string-array name="pref_progress_bar_style_titles">
+        <item>@string/disabled</item>
         <item>@string/circular</item>
         <item>@string/horizontal_top</item>
         <item>@string/horizontal_bottom</item>
-        <item>@string/disabled</item>
     </string-array>
 
     <string-array name="pref_progress_bar_style_values">
+        <item>disabled</item>
         <item>circular</item>
         <item>horizontal_top</item>
         <item>horizontal_bottom</item>
-        <item>disabled</item>
     </string-array>
 
     <array name="pref_appbar_mode_titles">
@@ -249,22 +249,22 @@
     </string-array>
 
     <array name="pref_scrollbar_titles">
+        <item>@string/disabled</item>
         <item>@string/show_always</item>
         <item>@string/auto_hide</item>
-        <item>@string/disabled</item>
     </array>
 
     <string-array name="pref_scrollbar_values">
+        <item>disabled</item>
         <item>show_always</item>
         <item>auto_hide</item>
-        <item>disabled</item>
     </string-array>
 
     <array name="pref_lyrics_mode_titles">
+        <item>@string/disabled</item>
         <item>@string/lyrics_id3</item>
         <item>@string/lyrics_synced</item>
         <item>@string/lyrics_both</item>
-        <item>@string/disabled</item>
     </array>
 
     <string-array name="pref_lyrics_mode_values">

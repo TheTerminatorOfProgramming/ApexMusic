@@ -18,7 +18,6 @@ import androidx.media.AudioManagerCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.service.playback.Playback
-import com.ttop.app.apex.util.PreferenceUtil.isAudioFocusEnabled
 import com.ttop.app.apex.util.PreferenceUtil.playbackPitch
 import com.ttop.app.apex.util.PreferenceUtil.playbackSpeed
 
@@ -57,10 +56,8 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
             }
             AudioManager.AUDIOFOCUS_LOSS -> {
                 // Lost focus for an unbounded amount of time: stop playback and release media playback
-                if (!isAudioFocusEnabled) {
-                    pause()
-                    callbacks?.onPlayStateChanged()
-                }
+                pause()
+                callbacks?.onPlayStateChanged()
             }
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
                 // Lost focus for a short time, but we have to stop

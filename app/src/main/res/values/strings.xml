@@ -77,6 +77,7 @@
     <string name="appbar_mode_expanded_no_scroll">Expanded (No Scroll)</string>
     <string name="appbar_mode_simple">Simple</string>
     <string name="appbar_mode_simple_no_scroll">Simple (No Scroll)</string>
+    <string name="apex_font">Use Apex Font</string>
     <string name="apex_music">Apex Music</string>
     <string name="app_share">Hey check out this cool music player at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
@@ -92,10 +93,10 @@
     <string name="backup_restore_title">
         <![CDATA[Backup & Restore]]>
     </string>
-    <string name="backup_open_path">Open Current Path</string>
+    <string name="backup_open_path">Open Path</string>
     <string name="backup_path">Backup Path</string>
     <string name="backup_path_desc">Would you like to open the current backup path or select a new backup path?</string>
-    <string name="backup_select_path">Select New Path</string>
+    <string name="backup_select_path">Select Path</string>
     <string name="backup_title">Backups</string>
     <string name="battery_optimize">Battery Optimization Already Disabled!</string>
     <string name="battery_optimize_disabled">Battery Optimization Disabled</string>
@@ -133,6 +134,8 @@
     <string name="create_action">Create</string>
     <string name="create_new_backup">Create</string>
     <string name="credit_title">Developers &amp; Contributors</string>
+    <string name="crowdin">Crowdin</string>
+    <string name="crowdin_summary">Help translate this app on crowdin</string>
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
     <string name="custom_artist_images">Custom Artist Images</string>
     <string name="customactivityoncrash_error_activity_error_details_share">Share Crash Report</string>
@@ -256,7 +259,6 @@
     <string name="message_welcome"><![CDATA[Welcome to <br> %s]]></string>
     <string name="minimal">Minimal</string>
     <string name="my_top_tracks">Most played</string>
-    <string name="never">Never</string>
     <string name="new_music_mix">New Music Mix</string>
     <string name="new_playlist_title">New playlist</string>
     <string name="new_start_directory">%s is the new start directory.</string>
@@ -386,7 +388,6 @@
     <string name="pref_title_lock_screen">Lock Screen Controls</string>
     <string name="pref_title_lyrics_type">Lyrics Type</string>
     <string name="pref_title_lyrics_type_synced">Synced Lyrics Over Cover</string>
-    <string name="pref_title_manage_audio_focus">Always Play</string>
     <string name="pref_title_md3">Material You</string>
     <string name="pref_title_notification_action_1">Notification Action Left</string>
     <string name="pref_title_notification_action_2">Notification Action Right</string>

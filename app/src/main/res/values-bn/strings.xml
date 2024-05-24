@@ -77,6 +77,7 @@
     <string name="appbar_mode_expanded_no_scroll">প্রসারিত (কোন স্ক্রল নেই)</string>
     <string name="appbar_mode_simple">সরল</string>
     <string name="appbar_mode_simple_no_scroll">সহজ (কোন স্ক্রল নেই)</string>
+    <string name="apex_font">অ্যাপেক্স ফন্ট ব্যবহার করুন</string>
     <string name="apex_music">এপেক্স মিউজিক</string>
     <string name="app_share">আরে এই দুর্দান্ত মিউজিক প্লেয়ারটি এখানে দেখুন: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">অদলবদল</string>
@@ -90,10 +91,10 @@
     <string name="auto_hide">স্বয়ং চামড়া</string>
     <string name="backup_restore_settings_summary">আপনার সেটিংস, প্লেলিস্টগুলি ব্যাকআপ এবং পুনরুদ্ধার করুন</string>
     <string name="backup_restore_title"><![CDATA[ব্যাকআপ এবং পুনরুদ্ধার]]></string>
-    <string name="backup_open_path">বর্তমান পথ খুলুন</string>
+    <string name="backup_open_path">খোলা পথ</string>
     <string name="backup_path">ব্যাকআপ পাথ</string>
     <string name="backup_path_desc">আপনি কি বর্তমান ব্যাকআপ পথ খুলতে চান বা একটি নতুন ব্যাকআপ পথ নির্বাচন করতে চান?</string>
-    <string name="backup_select_path">নতুন পথ নির্বাচন করুন</string>
+    <string name="backup_select_path">পথ নির্বাচন করুন</string>
     <string name="backup_title">ব্যাকআপ</string>
     <string name="battery_optimize">ব্যাটারি অপ্টিমাইজেশান ইতিমধ্যে অক্ষম!</string>
     <string name="battery_optimize_disabled">ব্যাটারি অপ্টিমাইজেশান নিষ্ক্রিয়</string>
@@ -254,7 +255,6 @@
     <string name="message_welcome"><![CDATA[ স্বাগতম <br> %s]]></string>
     <string name="minimal">ন্যূনতম</string>
     <string name="my_top_tracks">সবচেয়ে বেশি খেলেছে</string>
-    <string name="never">কখনই না</string>
     <string name="new_music_mix">নতুন মিউজিক মিক্স</string>
     <string name="new_playlist_title">নতুন তালিকা</string>
     <string name="new_start_directory">%s হল নতুন স্টার্ট ডিরেক্টরি।</string>
@@ -384,7 +384,6 @@
     <string name="pref_title_lock_screen">লক স্ক্রিন নিয়ন্ত্রণ</string>
     <string name="pref_title_lyrics_type">গানের ধরন</string>
     <string name="pref_title_lyrics_type_synced">কভার ওভার সিঙ্ক করা গান</string>
-    <string name="pref_title_manage_audio_focus">সবসময় খেলা</string>
     <string name="pref_title_md3">উপাদান আপনি</string>
     <string name="pref_title_notification_action_1">বিজ্ঞপ্তি কর্ম বাম</string>
     <string name="pref_title_notification_action_2">বিজ্ঞপ্তি কর্ম অধিকার</string>

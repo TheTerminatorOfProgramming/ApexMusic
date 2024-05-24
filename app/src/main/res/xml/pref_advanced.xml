@@ -23,7 +23,7 @@
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="true"
-        android:key="use_noti_actions_auto"
+        android:key="use_notify_actions_auto"
         android:layout="@layout/list_item_view_switch"
         android:title="@string/pref_title_use_notification_actions_for_auto"
         android:disableDependentsState="true"
@@ -39,7 +39,7 @@
         android:positiveButtonText="@null"
         app:isPreferenceVisible="@bool/actions"
         android:title="@string/pref_title_auto_action_1"
-        android:dependency="use_noti_actions_auto"
+        android:dependency="use_notify_actions_auto"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
@@ -52,7 +52,7 @@
         android:positiveButtonText="@null"
         app:isPreferenceVisible="@bool/actions"
         android:title="@string/pref_title_auto_action_2"
-        android:dependency="use_noti_actions_auto"
+        android:dependency="use_notify_actions_auto"
         app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory

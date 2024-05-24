@@ -18,6 +18,13 @@
         app:isPreferenceVisible="true"
         app:allowDividerBelow="false">
 
+        <com.ttop.app.apex.preferences.DurationPreference
+            android:defaultValue="0"
+            android:key="audio_fade_duration"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_audio_fade"
+            app:allowDividerBelow="false"/>
+
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="transparent_mini_player"

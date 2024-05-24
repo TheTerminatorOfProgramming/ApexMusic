@@ -336,9 +336,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                         mainActivity.keepScreenOn(false)
                     }
                     binding.mask.visibility = View.GONE
-                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
+
                     PreferenceUtil.isEmbedLyricsActivated = true
                 }else{
                     scroll.visibility = View.GONE
@@ -348,9 +346,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                     mainActivity.keepScreenOn(false)
 
                     binding.mask.visibility = View.VISIBLE
-                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
+
                     PreferenceUtil.isEmbedLyricsActivated = false
                 }
             }

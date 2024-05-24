@@ -74,7 +74,7 @@ object RingtoneManager {
         alert.show()
         alert.withCenteredButtons()
 
-        val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+        val textViewMessage: TextView? = alert.findViewById(android.R.id.message)
 
         when (PreferenceUtil.fontSize) {
             "12" -> {

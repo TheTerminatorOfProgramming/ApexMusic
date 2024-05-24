@@ -75,6 +75,7 @@
     <string name="appbar_mode_expanded_no_scroll">Diperluas (Tanpa Gulir)</string>
     <string name="appbar_mode_simple">Sederhana</string>
     <string name="appbar_mode_simple_no_scroll">Sederhana (Tanpa Gulir)</string>
+    <string name="apex_font">Gunakan Font Apex</string>
     <string name="apex_music">Musik Puncak</string>
     <string name="app_share">Hai, lihat pemutar musik keren ini di: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Acak</string>
@@ -88,10 +89,10 @@
     <string name="auto_hide">Sembunyi otomatis</string>
     <string name="backup_restore_settings_summary">Cadangkan dan pulihkan pengaturan Anda, daftar putar</string>
     <string name="backup_restore_title"><![CDATA[Pencadangan &Pemulihan]]></string>
-    <string name="backup_open_path">Buka Jalur Saat Ini</string>
+    <string name="backup_open_path">Buka Jalur</string>
     <string name="backup_path">Jalur Cadangan</string>
     <string name="backup_path_desc">Apakah Anda ingin membuka jalur pencadangan saat ini atau memilih jalur pencadangan baru?</string>
-    <string name="backup_select_path">Pilih Jalur Baru</string>
+    <string name="backup_select_path">Pilih Jalur</string>
     <string name="backup_title">Cadangan</string>
     <string name="battery_optimize">Pengoptimalan Baterai Sudah Dinonaktifkan!</string>
     <string name="battery_optimize_disabled">Pengoptimalan Baterai Dinonaktifkan</string>
@@ -129,6 +130,8 @@
     <string name="create_action">Membuat</string>
     <string name="create_new_backup">Membuat</string>
     <string name="credit_title">Pengembang &amp; Kontributor</string>
+    <string name="crowdin">kerumunan</string>
+    <string name="crowdin_summary">Bantu terjemahkan aplikasi ini di crowdin</string>
     <string name="currently_listening_to_x_by_x">Sedang mendengarkan %1$s oleh %2$s.</string>
     <string name="custom_artist_images">Gambar Artis Kustom</string>
     <string name="customactivityoncrash_error_activity_error_details_share">Bagikan Laporan Kerusakan</string>
@@ -252,7 +255,6 @@
     <string name="message_welcome"><![CDATA[Selamat datang di <br> %s]]></string>
     <string name="minimal">Minimal</string>
     <string name="my_top_tracks">Paling banyak dimainkan</string>
-    <string name="never">Tidak pernah</string>
     <string name="new_music_mix">Campuran Musik Baru</string>
     <string name="new_playlist_title">Daftar putar baru</string>
     <string name="new_start_directory">%s adalah direktori awal yang baru.</string>
@@ -382,7 +384,6 @@
     <string name="pref_title_lock_screen">Kontrol Layar Kunci</string>
     <string name="pref_title_lyrics_type">Jenis Lirik</string>
     <string name="pref_title_lyrics_type_synced">Lirik yang Disinkronkan Di Sampul</string>
-    <string name="pref_title_manage_audio_focus">Selalu Mainkan</string>
     <string name="pref_title_md3">Materi Anda</string>
     <string name="pref_title_notification_action_1">Tindakan Notifikasi Tersisa</string>
     <string name="pref_title_notification_action_2">Tindakan Notifikasi Benar</string>

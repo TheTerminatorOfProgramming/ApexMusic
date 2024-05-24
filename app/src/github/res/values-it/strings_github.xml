@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="all_files_summary">Consenti l\'accesso a tutti i file sul dispositivo per Apex Music. Questa autorizzazione è necessaria per rilevare automaticamente i backup Apex</string>
-    <string name="all_files_title">Gestisci tutti i permessi dei file</string>
+    <string name="all_files_summary">Consenti l\'accesso a tutti i file sul dispositivo per apex music. Questa autorizzazione è necessaria per rilevare automaticamente i backup apex</string>
+    <string name="all_files_title">Gestisci Tutti I File Permessi</string>
 </resources>

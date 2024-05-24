@@ -286,11 +286,6 @@ object PreferenceUtil {
             TOGGLE_FULL_SCREEN, false
         )
 
-    val isAudioFocusEnabled
-        get() = sharedPreferences.getBoolean(
-            MANAGE_AUDIO_FOCUS, false
-        )
-
     fun isAllowedToDownloadMetadata(context: Context): Boolean {
         return when (autoDownloadImagesPolicy) {
             "always" -> true
@@ -844,10 +839,10 @@ object PreferenceUtil {
             putBoolean(DEV_MODE, value)}
 
     val isAction1
-        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "none")
+        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "repeat")
 
     val isAction2
-        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_2, "none")
+        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_2, "shuffle")
 
     val isDisableWidgets
         get() = sharedPreferences.getBoolean(DISABLE_WIDGETS, false)
@@ -928,10 +923,10 @@ object PreferenceUtil {
 
     var isNotificationActionsOnAuto
         get() = sharedPreferences.getBoolean(
-            USE_NOTI_ACTIONS_AUTO, true
+            USE_NOTIFY_ACTIONS_AUTO, true
         )
         set(value) = sharedPreferences.edit {
-            putBoolean(USE_NOTI_ACTIONS_AUTO, value)}
+            putBoolean(USE_NOTIFY_ACTIONS_AUTO, value)}
 
     var searchActionShuffle
         get() = sharedPreferences.getBoolean(

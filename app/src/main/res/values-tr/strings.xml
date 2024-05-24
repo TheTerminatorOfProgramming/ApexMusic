@@ -77,6 +77,7 @@
     <string name="appbar_mode_expanded_no_scroll">Genişletilmiş (Kaydırma Yok)</string>
     <string name="appbar_mode_simple">Basit</string>
     <string name="appbar_mode_simple_no_scroll">Basit (Kaydırma Yok)</string>
+    <string name="apex_font">Apex Yazı Tipini Kullan</string>
     <string name="apex_music">Apex Müzik</string>
     <string name="app_share">Hey, şu adresteki harika müzik çalara bir göz at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Karıştır</string>
@@ -90,10 +91,10 @@
     <string name="auto_hide">Otomatik gizleme</string>
     <string name="backup_restore_settings_summary">Ayarlarınızı, çalma listelerinizi yedekleyin ve geri yükleyin</string>
     <string name="backup_restore_title"><![CDATA[Yedekle ve Geri Yükle]]></string>
-    <string name="backup_open_path">Geçerli Yolu Aç</string>
+    <string name="backup_open_path">Yolu Aç</string>
     <string name="backup_path">Yedekleme Yolu</string>
     <string name="backup_path_desc">Mevcut yedekleme yolunu açmak mı yoksa yeni bir yedekleme yolu mu seçmek istiyorsunuz?</string>
-    <string name="backup_select_path">Yeni Yol Seçin</string>
+    <string name="backup_select_path">Yol Seçin</string>
     <string name="backup_title">Yedeklemeler</string>
     <string name="battery_optimize">Pil Optimizasyonu Zaten Devre Dışı Bırakıldı!</string>
     <string name="battery_optimize_disabled">Pil Optimizasyonu Devre Dışı</string>
@@ -131,6 +132,8 @@
     <string name="create_action">Yaratmak</string>
     <string name="create_new_backup">Yaratmak</string>
     <string name="credit_title">Geliştiriciler ve Katkıda Bulunanlar</string>
+    <string name="crowdin">Kalabalık</string>
+    <string name="crowdin_summary">Bu uygulamanın Crowdin\'de çevrilmesine yardımcı olun</string>
     <string name="currently_listening_to_x_by_x">Şu anda %2$s\'ın %1$s şarkısını dinliyorum.</string>
     <string name="custom_artist_images">Özel Sanatçı Görselleri</string>
     <string name="customactivityoncrash_error_activity_error_details_share">Çökme Raporunu Paylaşın</string>
@@ -254,7 +257,6 @@
     <string name="message_welcome"><![CDATA[<br> %s\'e hoş geldiniz]]></string>
     <string name="minimal">En az</string>
     <string name="my_top_tracks">En çok oynanan</string>
-    <string name="never">Asla</string>
     <string name="new_music_mix">Yeni Müzik Mix\'i</string>
     <string name="new_playlist_title">Yeni oynatma listesi</string>
     <string name="new_start_directory">%s yeni başlangıç dizinidir.</string>
@@ -384,7 +386,6 @@
     <string name="pref_title_lock_screen">Kilit Ekranı Kontrolleri</string>
     <string name="pref_title_lyrics_type">Şarkı Sözü Türü</string>
     <string name="pref_title_lyrics_type_synced">Kapak Üzerinde Senkronize Şarkı Sözleri</string>
-    <string name="pref_title_manage_audio_focus">Her Zaman Oyna</string>
     <string name="pref_title_md3">Malzeme Siz</string>
     <string name="pref_title_notification_action_1">Bildirim Eylemi Sol</string>
     <string name="pref_title_notification_action_2">Bildirim Eylem Hakkı</string>

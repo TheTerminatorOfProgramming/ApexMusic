@@ -306,7 +306,7 @@ class AppWidgetCircle : BaseAppWidget() {
         val action = Intent(context, MainActivity::class.java)
             .putExtra(
                 MainActivity.EXPAND_PANEL,
-                PreferenceUtil.isExpandPanel == "default"
+                PreferenceUtil.isExpandPanel != "disabled"
             )
 
         val serviceName = ComponentName(context, MusicService::class.java)

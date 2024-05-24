@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 430,
-      "versionName": "4.30",
+      "versionCode": 440,
+      "versionName": "4.40",
       "outputFile": "app-playstore-release.apk"
     }
   ],

@@ -48,7 +48,7 @@
                 android:background="@drawable/app_widget_buttons_circular_daynight"
                 android:scaleType="fitCenter"
                 tools:src="@drawable/ic_skip_previous_outline_small"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
@@ -58,7 +58,7 @@
                 android:scaleType="fitCenter"
                 android:layout_centerInParent="true"
                 tools:src="@drawable/ic_play_arrow_outline_small"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
                 android:id="@+id/button_next"
@@ -69,7 +69,7 @@
                 android:background="@drawable/app_widget_buttons_circular_daynight"
                 android:scaleType="fitCenter"
                 tools:src="@drawable/ic_skip_next_outline_small"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
         </RelativeLayout>
 
@@ -83,7 +83,7 @@
             android:scaleType="fitCenter"
             android:layout_marginEnd="5dp"
             tools:src="@drawable/ic_refresh"
-            tools:tint="@color/ate_secondary_text_dark" />
+            tools:tint="?android:attr/textColorPrimary" />
 
         <LinearLayout
             android:id="@+id/media_titles"
@@ -102,7 +102,7 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewSubtitle3"
-                android:textColor="@color/md_white_1000"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
                 tools:text="Title" />
 
@@ -114,7 +114,7 @@
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewNormal3"
-                android:textColor="@color/md_white_1000"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
                 tools:text="Text" />
 
@@ -126,7 +126,7 @@
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewNormal3"
-                android:textColor="@color/md_white_1000"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
                 tools:text="02:54/06:34" />
         </LinearLayout>

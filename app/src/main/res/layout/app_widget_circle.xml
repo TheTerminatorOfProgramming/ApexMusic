@@ -27,7 +27,8 @@
         android:clickable="false"
         android:padding="14dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_favorite_border" />
+        android:src="@drawable/ic_favorite_border"
+        tools:tint="?android:attr/textColorPrimary"/>
 
     <ImageButton
         android:id="@+id/button_toggle_play_pause"
@@ -44,5 +45,6 @@
         android:clickable="false"
         android:padding="18dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_play_arrow" />
+        android:src="@drawable/ic_play_arrow"
+        tools:tint="?android:attr/textColorPrimary"/>
 </RelativeLayout>

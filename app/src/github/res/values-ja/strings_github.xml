@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="all_files_summary">apex music へのデバイス上のすべてのファイルへのアクセスを許可します。 この権限は、apex バックアップを自動検出するために必要です</string>
-    <string name="all_files_title">すべてのファイルの管理権限</string>
+    <string name="all_files_summary">端末上のすべてのファイルへのアクセスを許可します。この権限は、自動的に Apex バックアップを検出するために必要です。</string>
+    <string name="all_files_title">すべてのファイル権限を管理</string>
 </resources>

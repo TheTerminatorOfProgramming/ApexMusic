@@ -28,7 +28,7 @@ import com.ttop.app.apex.LAST_ADDED_CUTOFF
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SEARCH_ACTION
 import com.ttop.app.apex.SEARCH_ICON_NAVIGATION
-import com.ttop.app.apex.USE_NOTI_ACTIONS_AUTO
+import com.ttop.app.apex.USE_NOTIFY_ACTIONS_AUTO
 import com.ttop.app.apex.WHITELIST_MUSIC
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
@@ -70,7 +70,7 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val useNotiActionsAuto: TwoStatePreference? = findPreference(USE_NOTI_ACTIONS_AUTO)
+        val useNotiActionsAuto: TwoStatePreference? = findPreference(USE_NOTIFY_ACTIONS_AUTO)
         useNotiActionsAuto?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)

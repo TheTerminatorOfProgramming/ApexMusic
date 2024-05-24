@@ -134,6 +134,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardTroubleshoot.forceClose.setOnClickListener(this)
 
         binding.aboutContent.cardApexInfo.telegramLink.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.crowdinLink.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -271,6 +272,9 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.telegramLink -> {
                 goToTelegramGroup()
             }
+            R.id.crowdinLink -> {
+                goToCrowdin()
+            }
         }
     }
 
@@ -288,6 +292,12 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         } catch (e: Exception) {
             showToast(e.message.toString())
         }
+    }
+
+    private fun goToCrowdin() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("https://crowdin.com/project/apexmusic")
+        startActivity(intent)
     }
 
     private fun getAppVersion(): String {

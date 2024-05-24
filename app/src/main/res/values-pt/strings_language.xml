@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="bengali">bengali</string>
-    <string name="english">Inglês</string>
-    <string name="german">Alemão</string>
+    <string name="english">Portuguese-Brazil</string>
+    <string name="german">alemão</string>
     <string name="hindi">hindi</string>
     <string name="indonesian">indonésio</string>
     <string name="italian">italiano</string>
     <string name="japanese">japonês</string>
-    <string name="mandarin">Mandarim</string>
+    <string name="mandarin">Mandarin</string>
     <string name="portuguese">Português</string>
-    <string name="punjabi">punjabi</string>
-    <string name="spanish">Espanhol</string>
-    <string name="system_default">Sistema padrão</string>
+    <string name="punjabi">Punjabi</string>
+    <string name="spanish">espanhol</string>
+    <string name="system_default">Padrão do Sistema</string>
+    <string name="turkish">Turco</string>
 </resources>

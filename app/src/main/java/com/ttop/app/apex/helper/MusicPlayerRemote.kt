@@ -479,6 +479,7 @@ object MusicPlayerRemote : KoinComponent {
             } else {
                 try {
                     context.showToast(R.string.unplayable_file)
+                    playNextSong()
                 } catch (e: Exception) {
                     logE("The file is not listed in the media store")
                 }

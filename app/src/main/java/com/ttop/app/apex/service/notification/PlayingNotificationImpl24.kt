@@ -49,7 +49,7 @@ class PlayingNotificationImpl24(
 
     init {
         val action = Intent(context, MainActivity::class.java)
-        action.putExtra(MainActivity.EXPAND_PANEL, PreferenceUtil.isExpandPanel == "default")
+        action.putExtra(MainActivity.EXPAND_PANEL, PreferenceUtil.isExpandPanel != "disabled")
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         val clickIntent =
             PendingIntent.getActivity(

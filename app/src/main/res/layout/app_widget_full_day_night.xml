@@ -36,7 +36,7 @@
         android:background="@drawable/app_widget_buttons_circular_daynight"
         android:scaleType="fitCenter"
         tools:src="@drawable/ic_refresh"
-        tools:tint="@color/ate_secondary_text_dark" />
+        tools:tint="?android:attr/textColorPrimary" />
 
     <LinearLayout
         android:id="@+id/media_actions"
@@ -105,7 +105,7 @@
                 android:background="@drawable/app_widget_buttons_circular_daynight"
                 android:scaleType="fitCenter"
                 tools:src="@drawable/ic_skip_previous_outline_small"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
@@ -115,7 +115,7 @@
                 android:scaleType="fitCenter"
                 android:layout_centerInParent="true"
                 tools:src="@drawable/ic_play_arrow_outline_small"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
             <ImageButton
                 android:id="@+id/button_next"
@@ -126,7 +126,7 @@
                 android:background="@drawable/app_widget_buttons_circular_daynight"
                 android:scaleType="fitCenter"
                 tools:src="@drawable/ic_skip_next_outline_small"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
         </RelativeLayout>
 

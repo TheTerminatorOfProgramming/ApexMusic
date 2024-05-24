@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="pref_swipe_gestures_foldable_titles">
-        <item>@string/off</item>
+        <item>@string/disabled</item>
         <item>@string/tab_only</item>
         <item>@string/always</item>
     </string-array>
@@ -13,7 +13,7 @@
     </string-array>
 
     <string-array name="pref_swipe_anywhere_foldable_titles">
-        <item>@string/off</item>
+        <item>@string/disabled</item>
         <item>@string/tab_only</item>
         <item>@string/always</item>
     </string-array>
