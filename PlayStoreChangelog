@@ -1,28 +1,21 @@
-Apex Music v4.50
+Apex Music v4.51
 
 ==What's New==
 =What's Been Added=
--French language
--Persistent notification option for android 12 & android 13
--Link to wiki in about settings
+-Nothing has been added
 
 =What's Been Removed=
--Synced lyrics cover type option
+-Nothing has been removed
 
 =What's Been Changed & Updated=
--Updated dependencies
--Audio fade option has been moved back into the audio settings
--Whitelist option
--Developer options are now more secure
+-Nothing has been changed or updated
 
 =What's Planned To Be Removed/Changed=
 -Audio fade and crossfade options need to be fixed as they cause headset controls to be unresponsive
 
 ==What's Fixed==
--Lyrics option now works as intended
--Now playing queue text color has been fixed when adaptive color is disabled
--Adaptive player theme adaptive color now works has been improved
--Synced lyrics have been improved
+-Biometric permission
+-Developer options security
 
 ==Possible Bugs==
 -Audio fade and crossfade options causes headset controls to be unresponsive. use these options with caution

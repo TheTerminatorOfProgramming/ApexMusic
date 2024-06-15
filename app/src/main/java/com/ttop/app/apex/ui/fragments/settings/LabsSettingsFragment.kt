@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.app.KeyguardManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
@@ -24,13 +25,22 @@ import androidx.biometric.BiometricPrompt.ERROR_CANCELED
 import androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON
 import androidx.biometric.BiometricPrompt.ERROR_USER_CANCELED
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.*
-import com.ttop.app.apex.appwidgets.*
+import com.ttop.app.apex.DISABLE_MESSAGE_LYRICS
+import com.ttop.app.apex.DISABLE_MESSAGE_LYRICS_SYNCED
+import com.ttop.app.apex.DISABLE_WIDGETS
+import com.ttop.app.apex.R
+import com.ttop.app.apex.SIMPLE_MODE
+import com.ttop.app.apex.TRANSPARENT_MINI_PLAYER
+import com.ttop.app.apex.appwidgets.AppWidgetBig
+import com.ttop.app.apex.appwidgets.AppWidgetCircle
+import com.ttop.app.apex.appwidgets.AppWidgetClassic
+import com.ttop.app.apex.appwidgets.AppWidgetFull
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.ApexUtil.checkAndAuthenticate
 import com.ttop.app.apex.util.PreferenceUtil
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+
 
 /**
  * @author Hemanth S (h4h13).
@@ -131,6 +141,8 @@ class LabsSettingsFragment : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        val keyguardManager = requireContext().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+
         var biometricPrompt: BiometricPrompt? = null
         val executor: Executor = Executors.newSingleThreadExecutor();
         val callback: BiometricPrompt.AuthenticationCallback =
@@ -141,7 +153,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
                         activity?.supportFragmentManager?.popBackStack()
                     }
                 }
-
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     addPreferencesFromResource(R.xml.pref_labs)
                 }
@@ -153,7 +164,11 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             }
 
         biometricPrompt = BiometricPrompt(requireActivity(), executor, callback)
-        checkAndAuthenticate(requireContext(), biometricPrompt)
+        if (keyguardManager.isKeyguardSecure) {
+            checkAndAuthenticate(requireContext(), biometricPrompt)
+        }else {
+            addPreferencesFromResource(R.xml.pref_labs)
+        }
     }
 
     private fun bigWidgetState(context: Context, state: Boolean) {

@@ -397,15 +397,13 @@ object ApexUtil {
     fun checkAndAuthenticate(context: Context, biometricPrompt: BiometricPrompt) {
         val biometricManager: BiometricManager = BiometricManager.from(context)
         when (biometricManager.canAuthenticate(BIOMETRIC_STRONG)) {
-            BiometricManager.BIOMETRIC_SUCCESS -> {
+            BiometricManager.BIOMETRIC_SUCCESS,
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED,
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE-> {
                 val promptInfo = buildBiometricPrompt(context)
                 biometricPrompt.authenticate(promptInfo)
             }
-
-            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> context.showToast("Biometric Authentication currently unavailable")
-            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> context.showToast("Your device doesn't support Biometric Authentication")
-            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> context.showToast("Your device doesn't have any fingerprint enrolled")
-            else -> context.showToast("Your device authentication has an unspecified error")
+            else -> context.showToast(context.getString(R.string.md_error_label))
         }
     }
 }
