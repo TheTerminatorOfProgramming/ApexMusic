@@ -165,7 +165,11 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
                     when (PreferenceUtil.nowPlayingScreen) {
                         Adaptive -> {
-                            window.navigationBarColor = surfaceColor()
+                            if (PreferenceUtil.isAdaptiveColor) {
+                                window.navigationBarColor = paletteColor
+                            }else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
                         Blur -> {
                             window.navigationBarColor = Color.BLACK
@@ -321,7 +325,11 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
             when (PreferenceUtil.nowPlayingScreen) {
                 Adaptive -> {
-                    window.navigationBarColor = surfaceColor()
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = surfaceColor()
+                    }
                 }
                 Blur -> {
                     window.navigationBarColor = Color.BLACK
@@ -517,7 +525,11 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
         when (PreferenceUtil.nowPlayingScreen) {
             Adaptive -> {
-                window.navigationBarColor = surfaceColor()
+                if (PreferenceUtil.isAdaptiveColor) {
+                    window.navigationBarColor = paletteColor
+                }else {
+                    window.navigationBarColor = surfaceColor()
+                }
             }
             Blur -> {
                 window.navigationBarColor = Color.BLACK
@@ -610,7 +622,11 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             val isColorLight = paletteColor.isColorLight
             when (PreferenceUtil.nowPlayingScreen) {
                 Adaptive -> {
-                    window.navigationBarColor = surfaceColor()
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = surfaceColor()
+                    }
                 }
                 Blur -> {
                     window.navigationBarColor = Color.BLACK

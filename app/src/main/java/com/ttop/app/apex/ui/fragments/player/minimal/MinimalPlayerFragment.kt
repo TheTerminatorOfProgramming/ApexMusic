@@ -273,7 +273,6 @@ class TinyPlayerFragment : AbsPlayerFragment(R.layout.fragment_minimal_player),
             return gestureDetector.onTouchEvent(event)
         }
 
-        @Suppress("Deprecation")
         private fun vibrate() {
             val v = requireContext().getSystemService<Vibrator>()
             v?.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.DEFAULT_AMPLITUDE))

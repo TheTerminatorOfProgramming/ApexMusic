@@ -1,4 +1,4 @@
-Apex Music v4.51
+Apex Music v4.55
 
 ==What's New==
 =What's Been Added=
@@ -14,8 +14,8 @@ Apex Music v4.51
 -Audio fade and crossfade options need to be fixed as they cause headset controls to be unresponsive
 
 ==What's Fixed==
--Biometric permission
--Developer options security
+-Synced lyrics double tap
+-Adaptive player theme
 
 ==Possible Bugs==
 -Audio fade and crossfade options causes headset controls to be unresponsive. use these options with caution

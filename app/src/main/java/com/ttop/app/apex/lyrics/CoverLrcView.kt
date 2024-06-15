@@ -28,6 +28,7 @@ import android.text.format.DateUtils
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
+import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -35,6 +36,7 @@ import android.widget.Scroller
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withSave
 import com.ttop.app.apex.R
+import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.*
 import java.io.File
 import java.lang.Runnable
@@ -170,6 +172,16 @@ class CoverLrcView @JvmOverloads constructor(
                     return true
                 }
                 return super.onSingleTapConfirmed(e)
+            }
+
+            override fun onDoubleTap(e: MotionEvent): Boolean {
+                if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                        rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    }
+                    PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
+                }
+                return super.onDoubleTap(e)
             }
         }
 

@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 451,
-      "versionName": "4.51",
+      "versionCode": 455,
+      "versionName": "4.55",
       "outputFile": "app-playstore-release.apk"
     }
   ],
