@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="rate_app">评价应用程序</string>
-    <string name="rate_on_google_play_summary">喜欢这个应用程序吗？ 请在 Google Play 商店中告诉我们如何让它变得更好</string>
+    <string name="rate_app">为应用评分</string>
+    <string name="rate_on_google_play_summary">喜欢这个应用吗？让我们在 Google Play 商店知道我们如何才能使它变得更好？</string>
+    <string name="play_store_edition">Play Store 版</string>
+    <string name="play_store_edition_beta">Play Store 版：测试版</string>
+    <string name="play_store_edition_debug">Play Store 版：创建</string>
+    <string name="play_store_edition_preview">Play Store 版：预览</string>
+    <string name="play_store_edition_release">Play Store 版：稳定版</string>
 </resources>

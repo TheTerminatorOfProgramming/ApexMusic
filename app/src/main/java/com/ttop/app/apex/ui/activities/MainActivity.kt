@@ -51,7 +51,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 
-
 class MainActivity : AbsCastActivity() {
     companion object {
         const val TAG = "MainActivity"
@@ -114,13 +113,26 @@ class MainActivity : AbsCastActivity() {
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
 
         //UN-CODE IF DISTRIBUTING TO USER TO TEST. TIME IS 24 HOUR
-        //val validUntil = "7/2/2024 0000"
-        //val sdf = SimpleDateFormat("dd/MM/yyyy HHmm", Locale.getDefault())
-        //val strDate: Date? = sdf.parse(validUntil)
-        //if (Date().after(strDate)) {
-        //    val id = Process.myPid()
-        //    Process.killProcess(id)
-        //}
+        /*val validUntil = "16/6/2024 0000"
+        val sdf = SimpleDateFormat("dd/MM/yyyy HHmm", Locale.getDefault())
+        val strDate: Date? = sdf.parse(validUntil)
+        if (Date().after(strDate)) {
+            val id = android.os.Process.myPid()
+            android.os.Process.killProcess(id)
+        }*/
+
+        //GET SD CARDS PATHS (INTERNAL AND EXTERNAL)
+        /*val rootPaths = ArrayList<String>()
+        val rootsStorage = ContextCompat.getExternalFilesDirs(applicationContext, null)
+        for (i in rootsStorage.indices) {
+            val root = rootsStorage[i].absolutePath.replace(
+                "/Android/data/" + applicationContext.packageName + "/files",
+                ""
+            )
+            rootPaths.add(root)
+        }
+
+        applicationContext.showToast(rootPaths.size.toString())*/
     }
 
     private fun setupNavigationController() {

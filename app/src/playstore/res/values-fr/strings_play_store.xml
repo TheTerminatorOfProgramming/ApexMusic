@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rate_app">Noter l\'application</string>
+    <string name="rate_on_google_play_summary">Vous aimez cette application ? Faites-nous savoir dans le Google Play Store comment nous pouvons la rendre encore meilleure</string>
+    <string name="play_store_edition">Édition Play Store</string>
+    <string name="play_store_edition_beta">Édition Play Store : bêta</string>
+    <string name="play_store_edition_debug">Édition Play Store : Créer</string>
+    <string name="play_store_edition_preview">Édition Play Store : aperçu</string>
+    <string name="play_store_edition_release">Édition Play Store : Stable</string>
+</resources>

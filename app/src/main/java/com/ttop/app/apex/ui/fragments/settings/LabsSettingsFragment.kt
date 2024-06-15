@@ -19,11 +19,18 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricPrompt.ERROR_CANCELED
+import androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON
+import androidx.biometric.BiometricPrompt.ERROR_USER_CANCELED
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.*
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.util.ApexUtil.checkAndAuthenticate
 import com.ttop.app.apex.util.PreferenceUtil
-
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 /**
  * @author Hemanth S (h4h13).
@@ -65,6 +72,15 @@ class LabsSettingsFragment : AbsSettingsFragment() {
         val lyricsMessages: TwoStatePreference? = findPreference(DISABLE_MESSAGE_LYRICS)
         lyricsMessages?.isChecked = PreferenceUtil.isLyricsMessageDisabled
         lyricsMessages?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            true
+        }
+
+        val syncedLyricsMessages: TwoStatePreference? = findPreference(DISABLE_MESSAGE_LYRICS_SYNCED)
+        syncedLyricsMessages?.isChecked = PreferenceUtil.isSyncedLyricsMessageDisabled
+        syncedLyricsMessages?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
@@ -115,7 +131,29 @@ class LabsSettingsFragment : AbsSettingsFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_labs)
+        var biometricPrompt: BiometricPrompt? = null
+        val executor: Executor = Executors.newSingleThreadExecutor();
+        val callback: BiometricPrompt.AuthenticationCallback =
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    if (errorCode == ERROR_NEGATIVE_BUTTON || errorCode == ERROR_CANCELED || errorCode == ERROR_USER_CANCELED) {
+                        biometricPrompt?.cancelAuthentication()
+                        activity?.supportFragmentManager?.popBackStack()
+                    }
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    addPreferencesFromResource(R.xml.pref_labs)
+                }
+
+                override fun onAuthenticationFailed() {
+                    biometricPrompt?.cancelAuthentication()
+                    activity?.supportFragmentManager?.popBackStack()
+                }
+            }
+
+        biometricPrompt = BiometricPrompt(requireActivity(), executor, callback)
+        checkAndAuthenticate(requireContext(), biometricPrompt)
     }
 
     private fun bigWidgetState(context: Context, state: Boolean) {
@@ -176,7 +214,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
             PackageManager.COMPONENT_ENABLED_STATE_DISABLED
         }else {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-
         }
 
         pm.setComponentEnabledSetting(

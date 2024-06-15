@@ -59,21 +59,8 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="MusicProgressSliderParent">
-        <item name="android:progressDrawable">@android:color/transparent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:thumb">@drawable/slider_thumb</item>
-    </style>
-
     <!-- content description is necessary to find the overflow button later in the layout-->
     <style name="Widget.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:contentDescription">@string/abc_action_menu_overflow_description</item>
-    </style>
-
-    <style name="FabParent">
-        <item name="borderWidth">0dp</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

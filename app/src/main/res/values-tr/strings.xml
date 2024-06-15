@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <string name="about_album_label">Hakkında</string>
     <string name="about_settings_summary">Ekip, sosyal bağlantılar</string>
@@ -45,7 +45,7 @@
     <string name="action_set">Başlangıç</string>
     <string name="action_set_as_ringtone">Ses tonu olarak ayarla</string>
     <string name="action_set_as_start_directory">Başlangıç dizini olarak ayarla</string>
-    <string name="action_settings">Ayarlar</string>
+    <string name="action_settings">"Ayarlar"</string>
     <string name="action_share">Paylaşmak</string>
     <string name="action_shuffle_all">Tümünü karıştır</string>
     <string name="action_shuffle_playlist">Çalma listesini karıştır</string>
@@ -57,9 +57,9 @@
     <string name="action_update">Bildirimi güncelle</string>
     <string name="adaptive">Uyarlanabilir</string>
     <string name="add_action">Eklemek</string>
-    <string name="add_playlist_title">Oynatma listesine ekle</string>
+    <string name="add_playlist_title">"Oynatma listesine ekle"</string>
     <string name="added_song_count_to_playlist">%2$s listesine %1$d Parça eklendi</string>
-    <string name="added_title_to_playing_queue">Oynatma sırasına 1 başlık eklendi.</string>
+    <string name="added_title_to_playing_queue">"Oynatma sırasına 1 başlık eklendi."</string>
     <string name="added_x_titles_to_playing_queue">Oynatma sırasına %1$d başlık eklendi.</string>
     <string name="album">Albüm</string>
     <plurals name="albumSongs">
@@ -77,7 +77,6 @@
     <string name="appbar_mode_expanded_no_scroll">Genişletilmiş (Kaydırma Yok)</string>
     <string name="appbar_mode_simple">Basit</string>
     <string name="appbar_mode_simple_no_scroll">Basit (Kaydırma Yok)</string>
-    <string name="apex_font">Apex Yazı Tipini Kullan</string>
     <string name="apex_music">Apex Müzik</string>
     <string name="app_share">Hey, şu adresteki harika müzik çalara bir göz at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Karıştır</string>
@@ -101,7 +100,8 @@
     <string name="battery_summary">Ön plan hizmetinin doğru çalışması için uygulamanın pil optimizasyonunu devre dışı bırakması gerekiyor</string>
     <string name="battery_title">Pil Optimizasyonunu Devre Dışı Bırak</string>
     <string name="biography">Biyografi</string>
-    <string name="biometrics">BİYOMETRİ TESPİT EDİLDİ</string>
+    <string name="biometric_authenticate_description">Devam etmek için lütfen kendinizi doğrulayın!</string>
+    <string name="biometric_authenticate_subtitle">Kimlik doğrulama</string>
     <string name="black_theme_name">Jet Siyahı</string>
     <string name="blacklist">Kara liste</string>
     <string name="bluetooth_summary">Uygulamanın, Bluetooth cihazlarını kontrol edebilmesi için yakındaki cihazların iznine ihtiyacı var</string>
@@ -176,7 +176,6 @@
     <string name="flat">Düz</string>
     <string name="folders">Klasörler</string>
     <string name="follow_system">Sistemi Takip Et</string>
-    <string name="font_default_name">Sistem Yazı Tipi</string>
     <string name="force_close">Kapatmaya Zorla</string>
     <string name="force_close_summary">Apex müzikte bir sorun yaşanıyorsa sorunu çözmek için bu seçeneği kullanın</string>
     <string name="full">Tam dolu</string>
@@ -260,18 +259,16 @@
     <string name="new_music_mix">Yeni Müzik Mix\'i</string>
     <string name="new_playlist_title">Yeni oynatma listesi</string>
     <string name="new_start_directory">%s yeni başlangıç dizinidir.</string>
-    <string name="new_volume">Yeni Cilt</string>
     <string name="no">HAYIR</string>
     <string name="no_albums">Albümünüz yok</string>
     <string name="no_artists">Hiç sanatçınız yok</string>
-    <string name="no_audio_ID">Önce bir parçayı çalın, ardından tekrar deneyin.</string>
+    <string name="no_audio_ID">"Önce bir parçayı çalın, ardından tekrar deneyin."</string>
     <string name="no_genres">Hiçbir türünüz yok</string>
     <string name="no_lyrics_found">şarkı sözü bulunamadı</string>
     <string name="no_playing_queue">Çalınan parça yok</string>
     <string name="no_playlists">Oynatma listeniz yok</string>
     <string name="no_results">Sonuç yok</string>
     <string name="no_songs">Hiç iziniz yok</string>
-    <string name="none">Hiçbiri</string>
     <string name="normal">Normal</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> medya deposunda listelenmiyor.]]></string>
     <string name="not_recently_played">Yakın zamanda oynanmadı</string>
@@ -289,7 +286,6 @@
     <string name="only_on_wifi">Yalnızca Wi-Fi\'de</string>
     <string name="other_settings_summary">Diğer özellikler</string>
     <string name="others">Gelişmiş</string>
-    <string name="over_cover">Üst Kapak</string>
     <string name="past_three_months">Son 3 ay</string>
     <string name="path">Yol:\u0020</string>
     <string name="peek">Dikizlemek</string>
@@ -307,11 +303,6 @@
     <string name="personalize">Kişiselleştir</string>
     <string name="personalize_settings_summary">Kitaplığınızı ve kilit ekranınızı özelleştirin</string>
     <string name="pick_from_local_storage">Yerel depodan seç</string>
-    <string name="play_store_edition">Play Store Sürümü</string>
-    <string name="play_store_edition_beta">Play Store Sürümü: Beta</string>
-    <string name="play_store_edition_debug">Play Store Sürümü: Derleme</string>
-    <string name="play_store_edition_preview">Play Store Sürümü: Önizleme</string>
-    <string name="play_store_edition_release">Play Store Sürümü: Kararlı</string>
     <string name="playlist_name_empty_cant">Oynatma listesi adı boş olamaz</string>
     <string name="playlist_name_empty_shouldnt">Oynatma listesi adı boş olmamalıdır</string>
     <string name="playback_pitch">Saha</string>
@@ -368,9 +359,9 @@
     <string name="pref_title_custom_font">Yazı tipi</string>
     <string name="pref_title_desaturated_color">Doygunluğu Giderilmiş Renk</string>
     <string name="pref_title_disable_id3_lyrics_message">ID3 Şarkı Sözü Mesajlarını Devre Dışı Bırak</string>
+    <string name="pref_title_disable_synced_lyrics_message">Senkronize Şarkı Sözü Mesajlarını Devre Dışı Bırak</string>
     <string name="pref_title_disable_widgets">Varsayılan Widget\'ları Devre Dışı Bırak</string>
     <string name="pref_title_duration">Tek Süre</string>
-    <string name="pref_title_embed_lyrics_view">Senkronize Edilmemiş ID3 Şarkı Sözleri</string>
     <string name="pref_title_expand_now_playing_panel">Şimdi Yürütülüyor Ekranını Göster</string>
     <string name="pref_title_extra_controls">Ekstra Kontroller</string>
     <string name="pref_title_fast_forward_duration">Hızlı İleri Arama Süresi</string>
@@ -383,12 +374,11 @@
     <string name="pref_title_home_artist_grid_style">Sanatçı Tablosu</string>
     <string name="pref_title_ignore_media_store_artwork">Medya Mağazası Kapaklarını Yoksay</string>
     <string name="pref_title_last_added_interval">Son Eklenen Oynatma Listesi Aralığı</string>
-    <string name="pref_title_lock_screen">Kilit Ekranı Kontrolleri</string>
     <string name="pref_title_lyrics_type">Şarkı Sözü Türü</string>
-    <string name="pref_title_lyrics_type_synced">Kapak Üzerinde Senkronize Şarkı Sözleri</string>
     <string name="pref_title_md3">Malzeme Siz</string>
     <string name="pref_title_notification_action_1">Bildirim Eylemi Sol</string>
     <string name="pref_title_notification_action_2">Bildirim Eylem Hakkı</string>
+    <string name="pref_title_notification_persistent">Sürekli Bildirim</string>
     <string name="pref_title_now_playing_screen_appearance">Şimdi Çalınıyor Teması</string>
     <string name="pref_title_open_source_licences">Açık Kaynak Lisansları</string>
     <string name="pref_title_pause_history">Geçmişi Duraklat</string>
@@ -404,11 +394,9 @@
     <string name="pref_title_shuffle_state">Karışık Durumunu Koru</string>
     <string name="pref_title_simple_mode">Basit mod</string>
     <string name="pref_title_specific_device">Belirli Cihaz</string>
-    <string name="pref_title_stock_equalizer">Sistem Ekolayzerini Kullan</string>
     <string name="pref_title_suggestions">Önerileri göster</string>
     <string name="pref_title_swipe_anywhere_now_playing">Parçayı Değiştirmek İçin Herhangi Bir Yere Kaydırın</string>
     <string name="pref_title_swipe_gestures">Kaydırma Hareketleri</string>
-    <string name="pref_title_synced_lyrics">Senkronize Şarkı Sözleri</string>
     <string name="pref_title_tab_text_mode">Sekme Başlıkları Modu</string>
     <string name="pref_title_toggle_carousel_effect">Atlıkarınca Etkisi</string>
     <string name="pref_title_toggle_headset">Kablolu Kulaklıktan Oynatma</string>
@@ -429,7 +417,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[<b>%1$d</b> parça çalma listesinden kaldırılsın mı?]]></string>
     <string name="rename_playlist_title">Çalma listesini yeniden adlandır</string>
     <string name="repeat">Tekrarlamak</string>
-    <string name="replace_cover">Kapağı Değiştirin</string>
     <string name="reset_action">Sıfırla</string>
     <string name="reset_settings">Ayarları Sıfırla</string>
     <string name="reset_settings_msg">Ayarlar Varsayılana Sıfırlansın mı?\n\nBu, Karıştırma, Bluetooth Otomatik Oynatma ayarı ve daha fazlası dahil TÜM ayarları sıfırlayacaktır\n\nBu Uygulama, Sıfırlama İşlemini Tamamlamak için Yeniden Başlayacaktır!</string>
@@ -461,9 +448,7 @@
     <string name="show_player_on_app_launch">Her Zaman Uygulama Başlatıldığında Göster</string>
     <string name="shuffle">Karıştır</string>
     <string name="shuffle_button">Karışık Düğmesi</string>
-    <string name="shuffle_button_desc">Karışık bir oynatma sırası oluşturmak için bunu kullanın</string>
-    <string name="shuffle_mode">Karışık Modunu Kullan</string>
-    <string name="shuffle_mode_summary">Karışık modunu varsayılan olarak etkinleştir</string>
+    <string name="shuffle_button_desc">Karışık çalma sırası oluşturmak için bunu kullanın. Daha fazla bilgi için apex music wiki\'sini ziyaret edin!</string>
     <string name="simple">Basit</string>
     <string name="sleep_timer_canceled">Uyku zamanlayıcısı iptal edildi.</string>
     <string name="sleep_timer_set">Uyku zamanlayıcısı şu andan itibaren %d dakika sonrasına ayarlandı.</string>
@@ -493,7 +478,6 @@
     <string name="stack">Yığın</string>
     <string name="suggestion_songs">Öneriler</string>
     <string name="support_development">Destek ve Gelişim</string>
-    <string name="swipe_to_unlock">Kilidi açmak için kaydırın</string>
     <string name="tab_only">Yalnızca Tablet Modu</string>
     <string name="telegram_group">Telgraf</string>
     <string name="telegram_group_summary">Hataları tartışmak, önerilerde bulunmak, gösteriş yapmak ve daha fazlasını yapmak için Telegram grubuna katılın</string>
@@ -507,7 +491,7 @@
     <string name="today">Bugün</string>
     <string name="top_albums">En iyi albümler</string>
     <string name="top_artists">En iyi sanatçılar</string>
-    <string name="track_hint">Parça (parça 2 için 2 veya CD3 parça 4 için 3004)</string>
+    <string name="track_hint">"Parça (parça 2 için 2 veya CD3 parça 4 için 3004)"</string>
     <string name="track_list">Parça numarası</string>
     <string name="trio">üçlü</string>
     <string name="troubleshoot">Sorun giderme</string>
@@ -525,6 +509,8 @@
     <string name="website">İnternet sitesi</string>
     <string name="website_summary">Web sitemizi göz atın</string>
     <string name="what_do_you_want_to_share">Neyi paylaşmak istiyorsunuz?</string>
+    <string name="wiki">Viki</string>
+    <string name="wiki_summary">Yardıma mı ihtiyacınız var? Wiki sayfamıza göz atın!</string>
     <string name="x_has_been_set_as_ringtone">%1$s\'ı zil sesiniz olarak ayarlayın.</string>
     <string name="x_selected">%1$d seçildi</string>
     <string name="year">Yıl</string>

@@ -6,6 +6,14 @@
         android:title="@string/pref_header_notification"
         app:allowDividerBelow="false">
 
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="persistent_notification"
+            android:layout="@layout/list_item_view_switch"
+            android:title="@string/pref_title_notification_persistent"
+            app:isPreferenceVisible="@bool/persistent_notification"
+            app:allowDividerBelow="false"/>
+
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="repeat"
             android:entries="@array/pref_notification_action_list_titles"

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_files_summary">Autoriser l\'accès à tous les fichiers de l\'appareil à la musique apex. Cette autorisation est nécessaire pour détecter automatiquement les sauvegardes apex</string>
+    <string name="all_files_title">Gérer toutes les autorisations de fichiers</string>
+</resources>

@@ -15,7 +15,6 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.Manifest.permission.BLUETOOTH_CONNECT
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
@@ -40,7 +39,6 @@ import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-
 
 /**
  * @author Hemanth S (h4h13).

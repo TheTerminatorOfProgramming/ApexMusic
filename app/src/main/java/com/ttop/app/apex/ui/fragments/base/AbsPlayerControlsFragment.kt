@@ -215,7 +215,9 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     }
 
     private fun setUpShuffleButton() {
-        shuffleButton.setOnClickListener { MusicPlayerRemote.toggleShuffleMode() }
+        shuffleButton.setOnClickListener {
+            MusicPlayerRemote.toggleShuffleMode()
+        }
     }
 
     private fun setUpRepeatButton() {

@@ -122,6 +122,7 @@
         <item>@string/system_default</item>
         <item>@string/bengali</item>
         <item>@string/english</item>
+        <item>@string/french</item>
         <item>@string/german</item>
         <item>@string/hindi</item>
         <item>@string/indonesian</item>
@@ -138,6 +139,7 @@
         <item>auto</item>
         <item>bn</item>
         <item>en</item>
+        <item>fr</item>
         <item>de</item>
         <item>hi</item>
         <item>in</item>
@@ -268,9 +270,21 @@
     </array>
 
     <string-array name="pref_lyrics_mode_values">
+        <item>disabled</item>
         <item>id3</item>
         <item>synced</item>
         <item>both</item>
+    </string-array>
+
+    <array name="pref_whitelist_titles">
+        <item>@string/disabled</item>
+        <item>@string/internal_storage</item>
+        <item>@string/sd_card</item>
+    </array>
+
+    <string-array name="pref_whitelist_values">
         <item>disabled</item>
+        <item>internal</item>
+        <item>external</item>
     </string-array>
 </resources>

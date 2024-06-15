@@ -13,13 +13,6 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/cover_lyrics"
-        android:name="com.ttop.app.apex.ui.fragments.player.CoverLyricsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical" />
-
     <com.bosphere.fadingedgelayout.FadingEdgeLayout
         android:id="@+id/fading_edge_layout"
         android:layout_width="match_parent"

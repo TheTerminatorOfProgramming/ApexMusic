@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        android:defaultValue="disabled"
+        android:entries="@array/pref_whitelist_titles"
+        android:entryValues="@array/pref_whitelist_values"
+        android:key="whitelist"
+        android:layout="@layout/list_item_view"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_whitelist"
+        app:allowDividerBelow="false"/>
 
     <com.ttop.app.apex.preferences.BlacklistPreference
         android:key="blacklist"
@@ -8,12 +18,6 @@
         android:title="@string/pref_header_blacklist"
         app:allowDividerBelow="false"/>
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="true"
-        android:key="whitelist_music"
-        android:layout="@layout/list_item_view_switch"
-        android:title="@string/pref_title_whitelist"
-        app:allowDividerBelow="false"/>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:key="android_auto"

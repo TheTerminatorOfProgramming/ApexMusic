@@ -1,33 +1,32 @@
-Apex Music v4.40
+Apex Music v4.50
 
 ==What's New==
 =What's Been Added=
--Nothing has been added
+-French language
+-Persistent notification option for android 12 & android 13
+-Link to wiki in about settings
 
 =What's Been Removed=
--Always play option. this option was used to manage audio focus
+-Synced lyrics cover type option
 
 =What's Been Changed & Updated=
--Audio fade option has been moved to labs
--Bluetooth autoplay and wired autoplay will now not attempt to play if the queue is empty
--If apex can not play a song and shows the "couldn't play song" error, the next song is played
--Carousel style has has been slightly changed
--Translations for chinese simplified, german, italian, japanese, portuguese and spanish have been updated using crowdin
 -Updated dependencies
+-Audio fade option has been moved back into the audio settings
+-Whitelist option
+-Developer options are now more secure
 
 =What's Planned To Be Removed/Changed=
--Nothing is planned to be changed or removed
+-Audio fade and crossfade options need to be fixed as they cause headset controls to be unresponsive
 
 ==What's Fixed==
--Minor bugs
--Show now playing screen option should now be working correctly
--Show lyrics button no longer has double haptic feedback
--Widgets now display correctly
--Notification action defaults now work
+-Lyrics option now works as intended
+-Now playing queue text color has been fixed when adaptive color is disabled
+-Adaptive player theme adaptive color now works has been improved
+-Synced lyrics have been improved
 
 ==Possible Bugs==
+-Audio fade and crossfade options causes headset controls to be unresponsive. use these options with caution
 -When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player
 -Some android skins such as funtouch os may experience issues with apex
--Headset music controls may not work due to a possible bug in apex. the bug should be fixed but needs some additional testing
 -Material you may not work correctly on some android skins like oneui, due to the implementation method of material you into the android skin
 -If you are experiencing any bugs, try reinstalling the app

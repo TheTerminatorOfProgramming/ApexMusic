@@ -92,11 +92,20 @@ class PlayingQueueAdapter(
                     holder.menu?.setColorFilter(lastColor)
                     imageView.setColorFilter(lastColor)
                 }else {
-                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
-                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
+                    if (ColorUtil.isColorLight(colorBg)) {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                        holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                        imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    }else {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    }
                 }
             }
             NowPlayingScreen.Blur -> {
@@ -170,11 +179,20 @@ class PlayingQueueAdapter(
                             imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
                         }
                     }else {
-                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                        holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
-                        imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
+                        if (ColorUtil.isColorLight(colorBg)) {
+                            holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                            imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                        }else {
+                            holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        }
                     }
                 }
             }
@@ -228,11 +246,20 @@ class PlayingQueueAdapter(
                 }
             }
             else -> {
-                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
-                holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
-                imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
+                if (ColorUtil.isColorLight(colorBg)) {
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_black_1000))
+                }else {
+                    holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.text2?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    imageView.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                }
             }
         }
     }

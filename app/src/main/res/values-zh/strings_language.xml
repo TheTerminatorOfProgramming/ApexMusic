@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="bengali">孟加拉语</string>
-    <string name="english">Distr.</string>
+    <string name="english">英语</string>
+    <string name="french">法文</string>
     <string name="german">德文</string>
     <string name="hindi">印地文</string>
     <string name="indonesian">印尼语</string>
     <string name="italian">意大利语</string>
     <string name="japanese">日语</string>
-    <string name="mandarin">Mandarin</string>
+    <string name="mandarin">普通话</string>
     <string name="portuguese">葡萄牙文</string>
-    <string name="punjabi">Punjabi</string>
+    <string name="punjabi">旁遮普语</string>
     <string name="spanish">西班牙语</string>
     <string name="system_default">系统默认</string>
     <string name="turkish">土耳其语</string>

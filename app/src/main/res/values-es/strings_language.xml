@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="bengali">Bengalí</string>
+    <string name="bengali">bengalí</string>
     <string name="english">Inglés</string>
+    <string name="french">Francés</string>
     <string name="german">Alemán</string>
     <string name="hindi">Hindú</string>
-    <string name="indonesian">Indonesio/a</string>
+    <string name="indonesian">Indonesio</string>
     <string name="italian">Italiano</string>
     <string name="japanese">Japonés</string>
-    <string name="mandarin">Mandarin</string>
+    <string name="mandarin">Mandarín</string>
     <string name="portuguese">Portugués</string>
     <string name="punjabi">Punjabi</string>
     <string name="spanish">Español</string>

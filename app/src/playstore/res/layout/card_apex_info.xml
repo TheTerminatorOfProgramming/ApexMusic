@@ -106,5 +106,18 @@
             app:listItemSummary="@string/crowdin_summary"
             app:listItemTitle="@string/crowdin" />
 
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/wikiLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/crowdinLink"
+            app:listItemIcon="@drawable/ic_help"
+            app:listItemSummary="@string/wiki_summary"
+            app:listItemTitle="@string/wiki" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -331,7 +331,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     override fun onResume() {
         super.onResume()
 
-        when(PreferenceUtil.nowPlayingScreen) {
+        when (PreferenceUtil.nowPlayingScreen) {
             NowPlayingScreen.Adaptive -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)

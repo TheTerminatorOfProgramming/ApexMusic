@@ -53,7 +53,6 @@ abstract class PlayingNotification(context: Context) :
                 notificationChannel.enableLights(false)
                 notificationChannel.enableVibration(false)
                 notificationChannel.setShowBadge(false)
-
                 notificationManager.createNotificationChannel(notificationChannel)
             }
         }

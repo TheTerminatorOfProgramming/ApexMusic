@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="gapless_playback"
-        android:layout="@layout/list_item_view_switch"
-        android:title="@string/pref_title_gapless_playback"
+    <com.ttop.app.apex.preferences.DurationPreference
+        android:defaultValue="0"
+        android:key="audio_fade_duration"
+        android:layout="@layout/list_item_view"
+        android:title="@string/pref_title_audio_fade"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
@@ -16,6 +16,13 @@
         android:max="12"
         android:title="@string/pref_title_cross_fade"
         app:showSeekBarValue="true"
+        app:allowDividerBelow="false"/>
+
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="gapless_playback"
+        android:layout="@layout/list_item_view_switch"
+        android:title="@string/pref_title_gapless_playback"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

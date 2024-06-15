@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="rate_app">Beri nilai aplikasi</string>
-    <string name="rate_on_google_play_summary">Suka aplikasi ini? Beri tahu kami di Google Play Store bagaimana kami dapat membuatnya lebih baik</string>
+    <string name="rate_app">Beri penilaian pada aplikasi</string>
+    <string name="rate_on_google_play_summary">Suka aplikasi ini? Beri tahu kami di Google Play Store agar kami dapat membuatnya lebih baik lagi</string>
+    <string name="play_store_edition">Edisi Play Store</string>
+    <string name="play_store_edition_beta">Edisi Play Store: Beta</string>
+    <string name="play_store_edition_debug">Edisi Play Store: Bangun</string>
+    <string name="play_store_edition_preview">Edisi Play Store: Pratinjau</string>
+    <string name="play_store_edition_release">Edisi Play Store: Stabil</string>
 </resources>

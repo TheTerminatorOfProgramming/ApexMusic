@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rate_app">Uygulamayı oyla</string>
+    <string name="rate_on_google_play_summary">Bu uygulamayı sevdiniz mi? Google Play Store\'da bize nasıl daha iyi hale getirebileceğimizi bildirin</string>
+    <string name="play_store_edition">Play Store Sürümü</string>
+    <string name="play_store_edition_beta">Play Store Sürümü: Beta</string>
+    <string name="play_store_edition_debug">Play Store Sürümü: Yapı</string>
+    <string name="play_store_edition_preview">Play Store Sürümü: Önizleme</string>
+    <string name="play_store_edition_release">Play Store Sürümü: Kararlı</string>
+</resources>

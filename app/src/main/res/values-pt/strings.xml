@@ -63,14 +63,14 @@
     <string name="added_x_titles_to_playing_queue">Títulos %1$d adicionados à fila de reprodução</string>
     <string name="album">Álbum</string>
     <plurals name="albumSongs">
-        <item quantity="one">Acompanhar %d</item>
+        <item quantity="one">Acompanhar%d</item>
         <item quantity="other">Acompanhamentos</item>
         <item quantity="many">Acompanhamentos</item>
     </plurals>
     <string name="album_artist">Artista do álbum</string>
     <string name="albums">álbuns</string>
     <plurals name="albums">
-        <item quantity="one">Álbum %d</item>
+        <item quantity="one">Álbum%d</item>
         <item quantity="other">álbuns</item>
         <item quantity="many">álbuns</item>
     </plurals>
@@ -79,7 +79,6 @@
     <string name="appbar_mode_expanded_no_scroll">Expandido (Sem Scroll)</string>
     <string name="appbar_mode_simple">Simples</string>
     <string name="appbar_mode_simple_no_scroll">Simples (Sem Scroll)</string>
-    <string name="apex_font">Usar fonte Apex</string>
     <string name="apex_music">Música de Apex</string>
     <string name="app_share">Ei, veja este player de música legal em: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Aleatório</string>
@@ -103,7 +102,8 @@
     <string name="battery_summary">O aplicativo precisa desativar a otimização da bateria para que o serviço em primeiro plano funcione corretamente</string>
     <string name="battery_title">Desativar Otimização da bateria</string>
     <string name="biography">Biografia</string>
-    <string name="biometrics">BIOMETRICAS DETECTADAS</string>
+    <string name="biometric_authenticate_description">Por favor, autentique-se para continuar.</string>
+    <string name="biometric_authenticate_subtitle">Autenticação</string>
     <string name="black_theme_name">Jato Preto</string>
     <string name="blacklist">Lista Negra</string>
     <string name="bluetooth_summary">O aplicativo precisa de permissão de dispositivos próximos para verificar por dispositivos bluetooth</string>
@@ -178,7 +178,6 @@
     <string name="flat">Fixo</string>
     <string name="folders">Pastas</string>
     <string name="follow_system">Seguir sistema</string>
-    <string name="font_default_name">Fonte do sistema</string>
     <string name="force_close">Forçar fechamento</string>
     <string name="force_close_summary">Se a música apex está enfrentando um problema, use esta opção para tentar corrigir o problema</string>
     <string name="full">Completo</string>
@@ -262,7 +261,6 @@
     <string name="new_music_mix">Novo Mix de Música</string>
     <string name="new_playlist_title">Nova playlist</string>
     <string name="new_start_directory">%s é o novo diretório inicial.</string>
-    <string name="new_volume">Novo Volume</string>
     <string name="no">Não</string>
     <string name="no_albums">Você não possui álbuns</string>
     <string name="no_artists">Você não tem artistas</string>
@@ -273,7 +271,6 @@
     <string name="no_playlists">Você não tem playlists</string>
     <string name="no_results">Nenhum resultado</string>
     <string name="no_songs">Você não tem nenhuma faixa</string>
-    <string name="none">Nenhuma</string>
     <string name="normal">normal</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> não está listado na loja de mídia.]]></string>
     <string name="not_recently_played">Não reproduzido recentemente</string>
@@ -291,7 +288,6 @@
     <string name="only_on_wifi">Somente no Wi-Fi</string>
     <string name="other_settings_summary">Outros recursos</string>
     <string name="others">Avançado</string>
-    <string name="over_cover">Sobre a capa</string>
     <string name="past_three_months">Últimos 3 meses</string>
     <string name="path">Caminho:\u0020</string>
     <string name="peek">Espiar</string>
@@ -309,11 +305,6 @@
     <string name="personalize">Personalizar</string>
     <string name="personalize_settings_summary">Personalizar sua biblioteca e tela de bloqueio</string>
     <string name="pick_from_local_storage">Escolher do armazenamento local</string>
-    <string name="play_store_edition">Edição Play Store</string>
-    <string name="play_store_edition_beta">Edição Play Store: Beta</string>
-    <string name="play_store_edition_debug">Edição Play Store: Build</string>
-    <string name="play_store_edition_preview">Edição Play Store: Pré-visualização</string>
-    <string name="play_store_edition_release">Edição Play Store: Estável</string>
     <string name="playlist_name_empty_cant">Nome da playlist não pode estar vazio</string>
     <string name="playlist_name_empty_shouldnt">O nome da lista de reprodução não deve estar vazio</string>
     <string name="playback_pitch">Tom</string>
@@ -370,9 +361,9 @@
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Cor Dessaturada</string>
     <string name="pref_title_disable_id3_lyrics_message">Desativar Mensagens de Letras ID3</string>
+    <string name="pref_title_disable_synced_lyrics_message">Desativar Mensagens de Letras Sincronizadas</string>
     <string name="pref_title_disable_widgets">Desativar Widgets Padrão</string>
     <string name="pref_title_duration">Duração Única</string>
-    <string name="pref_title_embed_lyrics_view">Letras não sincronizadas do ID3</string>
     <string name="pref_title_expand_now_playing_panel">Mostrar Tela de reprodução atual</string>
     <string name="pref_title_extra_controls">Controles extras</string>
     <string name="pref_title_fast_forward_duration">Duração da Busca Rápida</string>
@@ -385,12 +376,11 @@
     <string name="pref_title_home_artist_grid_style">Grade de Artista</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas da Media Store</string>
     <string name="pref_title_last_added_interval">Último intervalo adicionado</string>
-    <string name="pref_title_lock_screen">Controles de Tela de Bloqueio</string>
     <string name="pref_title_lyrics_type">Tipo de letra</string>
-    <string name="pref_title_lyrics_type_synced">Letras sincronizadas sobre capa</string>
     <string name="pref_title_md3">Material de que você</string>
     <string name="pref_title_notification_action_1">Ação de Notificação à Esquerda</string>
     <string name="pref_title_notification_action_2">Ação da Notificação à Direita</string>
+    <string name="pref_title_notification_persistent">Notificação persistente</string>
     <string name="pref_title_now_playing_screen_appearance">Tema reproduzindo agora</string>
     <string name="pref_title_open_source_licences">Licenças de código aberto</string>
     <string name="pref_title_pause_history">Pausar Histórico</string>
@@ -406,11 +396,9 @@
     <string name="pref_title_shuffle_state">Manter estado aleatório</string>
     <string name="pref_title_simple_mode">Modo Simples</string>
     <string name="pref_title_specific_device">Dispositivo Específico</string>
-    <string name="pref_title_stock_equalizer">Usar Equalizador do Sistema</string>
     <string name="pref_title_suggestions">Exibir sugestões</string>
     <string name="pref_title_swipe_anywhere_now_playing">Deslize em qualquer lugar para alterar a faixa</string>
     <string name="pref_title_swipe_gestures">Gestos de deslize</string>
-    <string name="pref_title_synced_lyrics">Letra sincronizada</string>
     <string name="pref_title_tab_text_mode">Modo de Títulos</string>
     <string name="pref_title_toggle_carousel_effect">Efeito de Carrossel</string>
     <string name="pref_title_toggle_headset">Reprodução por Fone de ouvido</string>
@@ -431,7 +419,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[Remover <b>%1$d</b> faixas da playlist?]]></string>
     <string name="rename_playlist_title">Renomear playlist</string>
     <string name="repeat">Repetir</string>
-    <string name="replace_cover">Substituir a capa</string>
     <string name="reset_action">Reset</string>
     <string name="reset_settings">Reiniciar configurações</string>
     <string name="reset_settings_msg">Redefinir as configurações para o padrão?\n\nIsso irá redefinir TODAS as configurações, incluindo Shuffle, Configuração de Reprodução Automática Bluetooth e muito mais\n\nEste aplicativo irá reiniciar para completar o processo de redefinição!</string>
@@ -463,9 +450,7 @@
     <string name="show_player_on_app_launch">Sempre Mostrar ao iniciar o aplicativo</string>
     <string name="shuffle">Aleatório</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Use isto para criar uma fila de reprodução embaralhada</string>
-    <string name="shuffle_mode">Use Shuffle Mode</string>
-    <string name="shuffle_mode_summary">Ativar modo aleatório como padrão</string>
+    <string name="shuffle_button_desc">Use isso para criar uma fila de reprodução embaralhada. Para mais informações, visite o wiki apex!</string>
     <string name="simple">Simples</string>
     <string name="sleep_timer_canceled">Timer cancelado.</string>
     <string name="sleep_timer_set">Timer definido para %d minutos a partir de agora.</string>
@@ -495,7 +480,6 @@
     <string name="stack">Pilha</string>
     <string name="suggestion_songs">Sugestões</string>
     <string name="support_development">Suporte &amp; Desenvolvimento</string>
-    <string name="swipe_to_unlock">Deslize para desbloquear</string>
     <string name="tab_only">Modo Tablet Apenas</string>
     <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Junte-se ao grupo do Telegram para discutir problemas, fazer sugestões, exibir e muito mais</string>
@@ -527,6 +511,8 @@
     <string name="website">site</string>
     <string name="website_summary">Confira nosso site</string>
     <string name="what_do_you_want_to_share">O que você quer compartilhar?</string>
+    <string name="wiki">Documentação</string>
+    <string name="wiki_summary">Precisa de ajuda? Confira a nossa página wiki!</string>
     <string name="x_has_been_set_as_ringtone">Definir %1$s como seu toque.</string>
     <string name="x_selected">%1$d selecionado</string>
     <string name="year">ano</string>

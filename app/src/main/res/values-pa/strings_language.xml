@@ -2,6 +2,7 @@
 <resources>
     <string name="bengali">ਬੰਗਾਲੀ</string>
     <string name="english">ਅੰਗਰੇਜ਼ੀ</string>
+    <string name="french">ਫਰਾਂਸੀਸੀ</string>
     <string name="german">ਜਰਮਨ</string>
     <string name="hindi">ਹਿੰਦੀ</string>
     <string name="indonesian">ਇੰਡੋਨੇਸ਼ੀਆਈ</string>
@@ -12,4 +13,5 @@
     <string name="punjabi">ਪੰਜਾਬੀ</string>
     <string name="spanish">ਸਪੇਨੀ</string>
     <string name="system_default">ਸਿਸਟਮ ਪੂਰਵ-ਨਿਰਧਾਰਤ</string>
+    <string name="turkish">ਤੁਰਕੀ</string>
 </resources>

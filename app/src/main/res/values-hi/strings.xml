@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <string name="about_album_label">%s के बारे में</string>
     <string name="about_settings_summary">टीम, सामाजिक संपर्क</string>
@@ -45,7 +45,7 @@
     <string name="action_set">शुरू</string>
     <string name="action_set_as_ringtone">रिंगटोन के रूप में सेट करें</string>
     <string name="action_set_as_start_directory">आरंभ निर्देशिका के रूप में सेट करें</string>
-    <string name="action_settings">समायोजन</string>
+    <string name="action_settings">"समायोजन"</string>
     <string name="action_share">शेयर करना</string>
     <string name="action_shuffle_all">सब फेरबदल करें</string>
     <string name="action_shuffle_playlist">प्लेलिस्ट शफ़ल करें</string>
@@ -57,9 +57,9 @@
     <string name="action_update">अद्यतन अधिसूचना</string>
     <string name="adaptive">अनुकूली</string>
     <string name="add_action">जोड़ना</string>
-    <string name="add_playlist_title">प्लेलिस्ट में जोड़ें</string>
+    <string name="add_playlist_title">"प्लेलिस्ट में जोड़ें"</string>
     <string name="added_song_count_to_playlist">%1$d ट्रैक को %2$s में जोड़ा गया</string>
-    <string name="added_title_to_playing_queue">खेल कतार में 1 शीर्षक जोड़ा गया।</string>
+    <string name="added_title_to_playing_queue">"खेल कतार में 1 शीर्षक जोड़ा गया।"</string>
     <string name="added_x_titles_to_playing_queue">खेल कतार में %1$d शीर्षक जोड़े गए।</string>
     <string name="album">एल्बम</string>
     <plurals name="albumSongs">
@@ -77,7 +77,6 @@
     <string name="appbar_mode_expanded_no_scroll">विस्तारित (कोई स्क्रॉल नहीं)</string>
     <string name="appbar_mode_simple">सरल</string>
     <string name="appbar_mode_simple_no_scroll">सरल (कोई स्क्रॉल नहीं)</string>
-    <string name="apex_font">एपेक्स फ़ॉन्ट का प्रयोग करें</string>
     <string name="apex_music">शीर्ष संगीत</string>
     <string name="app_share">अरे इस शानदार म्यूजिक प्लेयर को यहां देखें: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">मिश्रण</string>
@@ -101,7 +100,8 @@
     <string name="battery_summary">फ़ोरग्राउंड सेवा के सही ढंग से काम करने के लिए ऐप को बैटरी ऑप्टिमाइज़ेशन को अक्षम करना होगा</string>
     <string name="battery_title">बैटरी अनुकूलन अक्षम करें</string>
     <string name="biography">जीवनी</string>
-    <string name="biometrics">बायोमेट्रिक्स का पता चला</string>
+    <string name="biometric_authenticate_description">कृपया जारी रखने के लिए स्वयं को प्रमाणित करें!</string>
+    <string name="biometric_authenticate_subtitle">प्रमाणीकरण</string>
     <string name="black_theme_name">पूरा काला</string>
     <string name="blacklist">काला सूची में डालना</string>
     <string name="bluetooth_summary">ब्लूटूथ डिवाइस की जांच करने के लिए ऐप को आस-पास के डिवाइस की अनुमति की आवश्यकता होती है</string>
@@ -176,7 +176,6 @@
     <string name="flat">समतल</string>
     <string name="folders">फ़ोल्डर</string>
     <string name="follow_system">सिस्टम का पालन करें</string>
-    <string name="font_default_name">सिस्टम फ़ॉन्ट</string>
     <string name="force_close">ज़बर्दस्ती बंद करना</string>
     <string name="force_close_summary">यदि एपेक्स म्यूजिक में कोई समस्या आ रही है तो समस्या को ठीक करने के लिए इस विकल्प का उपयोग करें</string>
     <string name="full">भरा हुआ</string>
@@ -254,24 +253,22 @@
     <string name="message_backup_create_success">बैकअप सफलतापूर्वक बनाया गया.</string>
     <string name="message_limit_tabs">6 से अधिक टैब की अनुमति नहीं है</string>
     <string name="message_restore_success">पुनर्स्थापना सफलतापूर्वक पूर्ण हुई.</string>
-    <string name="message_welcome"><![CDATA[<br> %s]]> में आपका स्वागत है</string>
+    <string name="message_welcome"><![CDATA[में आपका स्वागत है <br> %s]]></string>
     <string name="minimal">कम से कम</string>
     <string name="my_top_tracks">सबसे ज्यादा खेला हुआ</string>
     <string name="new_music_mix">नया संगीत मिश्रण</string>
     <string name="new_playlist_title">नई प्लेलिस्ट</string>
     <string name="new_start_directory">%s नई प्रारंभ निर्देशिका है.</string>
-    <string name="new_volume">नया वॉल्यूम</string>
     <string name="no">नहीं</string>
     <string name="no_albums">आपके पास कोई एल्बम नहीं है</string>
     <string name="no_artists">आपके पास कोई कलाकार नहीं है</string>
-    <string name="no_audio_ID">पहले कोई ट्रैक चलाएँ, फिर पुनः प्रयास करें।</string>
+    <string name="no_audio_ID">"पहले कोई ट्रैक चलाएँ, फिर पुनः प्रयास करें।"</string>
     <string name="no_genres">आपकी कोई शैली नहीं है</string>
     <string name="no_lyrics_found">कोई गीत नहीं मिला</string>
     <string name="no_playing_queue">कोई ट्रैक नहीं चल रहा है</string>
     <string name="no_playlists">आपके पास कोई प्लेलिस्ट नहीं है</string>
     <string name="no_results">कोई परिणाम नहीं</string>
     <string name="no_songs">आपके पास कोई ट्रैक नहीं है</string>
-    <string name="none">कोई नहीं</string>
     <string name="normal">सामान्य</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> मीडिया स्टोर में सूचीबद्ध नहीं है।]]></string>
     <string name="not_recently_played">हाल ही में नहीं खेला गया</string>
@@ -289,7 +286,6 @@
     <string name="only_on_wifi">केवल वाई-फ़ाई पर</string>
     <string name="other_settings_summary">अन्य सुविधाओं</string>
     <string name="others">विकसित</string>
-    <string name="over_cover">ओवर कवर</string>
     <string name="past_three_months">पिछले 3 महीने</string>
     <string name="path">पथ:\u0020</string>
     <string name="peek">तिरछी</string>
@@ -307,11 +303,6 @@
     <string name="personalize">वैयक्तिकृत करें</string>
     <string name="personalize_settings_summary">अपनी लाइब्रेरी और लॉक स्क्रीन को कस्टमाइज़ करें</string>
     <string name="pick_from_local_storage">स्थानीय भंडारण से चुनें</string>
-    <string name="play_store_edition">प्ले स्टोर संस्करण</string>
-    <string name="play_store_edition_beta">प्ले स्टोर संस्करण: बीटा</string>
-    <string name="play_store_edition_debug">प्ले स्टोर संस्करण: बिल्ड</string>
-    <string name="play_store_edition_preview">प्ले स्टोर संस्करण: पूर्वावलोकन</string>
-    <string name="play_store_edition_release">प्ले स्टोर संस्करण: स्थिर</string>
     <string name="playlist_name_empty_cant">प्लेलिस्ट का नाम खाली नहीं हो सकता</string>
     <string name="playlist_name_empty_shouldnt">प्लेलिस्ट का नाम खाली नहीं होना चाहिए</string>
     <string name="playback_pitch">आवाज़ का उतार-चढ़ाव</string>
@@ -368,9 +359,9 @@
     <string name="pref_title_custom_font">फ़ॉन्ट</string>
     <string name="pref_title_desaturated_color">असंतृप्त रंग</string>
     <string name="pref_title_disable_id3_lyrics_message">ID3 गीत संदेश अक्षम करें</string>
+    <string name="pref_title_disable_synced_lyrics_message">सिंक किए गए गीत संदेश अक्षम करें</string>
     <string name="pref_title_disable_widgets">डिफ़ॉल्ट विजेट अक्षम करें</string>
     <string name="pref_title_duration">एकल अवधि</string>
-    <string name="pref_title_embed_lyrics_view">अनसिंक किए गए ID3 गीत</string>
     <string name="pref_title_expand_now_playing_panel">अभी चल रही स्क्रीन दिखाएँ</string>
     <string name="pref_title_extra_controls">अतिरिक्त नियंत्रण</string>
     <string name="pref_title_fast_forward_duration">तेजी से आगे बढ़ने की अवधि की तलाश करें</string>
@@ -383,12 +374,11 @@
     <string name="pref_title_home_artist_grid_style">कलाकार ग्रिड</string>
     <string name="pref_title_ignore_media_store_artwork">मीडिया स्टोर कवर पर ध्यान न दें</string>
     <string name="pref_title_last_added_interval">अंतिम जोड़ा गया प्लेलिस्ट अंतराल</string>
-    <string name="pref_title_lock_screen">लॉक स्क्रीन नियंत्रण</string>
     <string name="pref_title_lyrics_type">गीत के प्रकार</string>
-    <string name="pref_title_lyrics_type_synced">कवर पर सिंक किए गए गीत</string>
     <string name="pref_title_md3">सामग्री आप</string>
     <string name="pref_title_notification_action_1">अधिसूचना कार्रवाई शेष</string>
     <string name="pref_title_notification_action_2">अधिसूचना कार्रवाई सही</string>
+    <string name="pref_title_notification_persistent">निरंतर अधिसूचना</string>
     <string name="pref_title_now_playing_screen_appearance">अब थीम चल रही है</string>
     <string name="pref_title_open_source_licences">ओपन सोर्स लाइसेंस</string>
     <string name="pref_title_pause_history">इतिहास रोकें</string>
@@ -401,14 +391,12 @@
     <string name="pref_title_scrollbar_style">स्क्रॉलबार शैली</string>
     <string name="pref_title_search_action">फेरबदल की गई खोज क्रिया</string>
     <string name="pref_title_search_icon">हेडर में ध्वनि खोज</string>
-    <string name="pref_title_simple_mode">सरल प्रकार</string>
     <string name="pref_title_shuffle_state">शफ़ल स्थिति रखें</string>
+    <string name="pref_title_simple_mode">सरल प्रकार</string>
     <string name="pref_title_specific_device">विशिष्ट उपकरण</string>
-    <string name="pref_title_stock_equalizer">सिस्टम इक्वलाइज़र का उपयोग करें</string>
     <string name="pref_title_suggestions">सुझावों को दिखाओ</string>
     <string name="pref_title_swipe_anywhere_now_playing">ट्रैक बदलने के लिए कहीं भी स्वाइप करें</string>
     <string name="pref_title_swipe_gestures">स्वाइप जेस्चर</string>
-    <string name="pref_title_synced_lyrics">समन्वयित गीत</string>
     <string name="pref_title_tab_text_mode">टैब शीर्षक मोड</string>
     <string name="pref_title_toggle_carousel_effect">हिंडोला प्रभाव</string>
     <string name="pref_title_toggle_headset">वायर्ड हेडसेट प्लेबैक</string>
@@ -429,7 +417,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[प्लेलिस्ट से <b>%1$d</b> ट्रैक हटाएं?]]></string>
     <string name="rename_playlist_title">प्लेलिस्ट का नाम बदलें</string>
     <string name="repeat">दोहराना</string>
-    <string name="replace_cover">कवर बदलें</string>
     <string name="reset_action">रीसेट</string>
     <string name="reset_settings">सेटिंग्स फिर से करिए</string>
     <string name="reset_settings_msg">सेटिंग्स को डिफ़ॉल्ट पर रीसेट करें?\n\nयह शफ़ल, ब्लूटूथ ऑटोप्ले सेटिंग और अन्य सहित सभी सेटिंग्स को रीसेट कर देगा\n\nयह ऐप रीसेट प्रक्रिया को पूरा करने के लिए पुनरारंभ होगा!</string>
@@ -461,9 +448,7 @@
     <string name="show_player_on_app_launch">ऐप लॉन्च पर हमेशा दिखाएं</string>
     <string name="shuffle">मिश्रण</string>
     <string name="shuffle_button">शफ़ल बटन</string>
-    <string name="shuffle_button_desc">एक शफ़ल प्लेइंग कतार बनाने के लिए इसका उपयोग करें</string>
-    <string name="shuffle_mode">शफ़ल मोड का उपयोग करें</string>
-    <string name="shuffle_mode_summary">शफ़ल मोड को डिफ़ॉल्ट के रूप में सक्षम करें</string>
+    <string name="shuffle_button_desc">इसका उपयोग एक शफल प्लेइंग कतार बनाने के लिए करें। अधिक जानकारी के लिए एपेक्स म्यूजिक विकी पर जाएं!</string>
     <string name="simple">सरल</string>
     <string name="sleep_timer_canceled">स्लीप टाइमर रद्द कर दिया गया.</string>
     <string name="sleep_timer_set">अब से %d मिनट के लिए स्लीप टाइमर सेट किया गया है।</string>
@@ -493,7 +478,6 @@
     <string name="stack">ढेर</string>
     <string name="suggestion_songs">सुझाव</string>
     <string name="support_development">समर्थन एवं समर्थन विकास</string>
-    <string name="swipe_to_unlock">अनलॉक करने के लिए स्वाइप करें</string>
     <string name="tab_only">केवल टेबलेट मोड</string>
     <string name="telegram_group">तार</string>
     <string name="telegram_group_summary">बग पर चर्चा करने, सुझाव देने, दिखावा करने और बहुत कुछ करने के लिए टेलीग्राम समूह में शामिल हों</string>
@@ -507,7 +491,7 @@
     <string name="today">आज</string>
     <string name="top_albums">शीर्ष एल्बम</string>
     <string name="top_artists">शीर्ष कलाकार</string>
-    <string name="track_hint">ट्रैक (ट्रैक 2 के लिए 2 या सीडी3 ट्रैक 4 के लिए 3004)</string>
+    <string name="track_hint">"ट्रैक (ट्रैक 2 के लिए 2 या सीडी3 ट्रैक 4 के लिए 3004)"</string>
     <string name="track_list">ट्रैक संख्या</string>
     <string name="trio">तिकड़ी</string>
     <string name="troubleshoot">समस्याओं का निवारण</string>
@@ -525,6 +509,8 @@
     <string name="website">वेबसाइट</string>
     <string name="website_summary">हमारी वेबसाइट देखो</string>
     <string name="what_do_you_want_to_share">आप क्या साझा करना चाहते हैं?</string>
+    <string name="wiki">विकि</string>
+    <string name="wiki_summary">मदद की ज़रूरत है? हमारा विकी पृष्ठ देखें!</string>
     <string name="x_has_been_set_as_ringtone">%1$s को अपनी रिंगटोन के रूप में सेट करें।</string>
     <string name="x_selected">%1$d चयनित</string>
     <string name="year">वर्ष</string>

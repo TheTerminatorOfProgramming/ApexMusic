@@ -79,7 +79,6 @@
     <string name="appbar_mode_expanded_no_scroll">Espanso (No Scorrimento)</string>
     <string name="appbar_mode_simple">Semplice</string>
     <string name="appbar_mode_simple_no_scroll">Semplice (No Scorrimento)</string>
-    <string name="apex_font">Usa Carattere Apex</string>
     <string name="apex_music">Apex Music</string>
     <string name="app_share">Ehi dai un\'occhiata a questo fantastico lettore musicale su: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Mischia</string>
@@ -103,7 +102,8 @@
     <string name="battery_summary">L\'app deve disabilitare l\'ottimizzazione della batteria affinché il servizio di primo piano funzioni correttamente</string>
     <string name="battery_title">Disabilita Ottimizzazione Batteria</string>
     <string name="biography">Biografia</string>
-    <string name="biometrics">BIOMETRICA DETTAGLIATA</string>
+    <string name="biometric_authenticate_description">Si prega di Autenticarsi Per Continuare!</string>
+    <string name="biometric_authenticate_subtitle">Autenticazione</string>
     <string name="black_theme_name">Jet Black</string>
     <string name="blacklist">Blacklist</string>
     <string name="bluetooth_summary">L\'app ha bisogno dell\'autorizzazione per i dispositivi nelle vicinanze per controllare i dispositivi bluetooth</string>
@@ -178,7 +178,6 @@
     <string name="flat">Piatto</string>
     <string name="folders">Cartelle</string>
     <string name="follow_system">Segui Il Sistema</string>
-    <string name="font_default_name">Carattere Di Sistema</string>
     <string name="force_close">Forza Chiusura</string>
     <string name="force_close_summary">Se la musica apex sta vivendo un problema quindi utilizzare questa opzione per provare a risolvere il problema</string>
     <string name="full">Pieno</string>
@@ -262,7 +261,6 @@
     <string name="new_music_mix">Nuovo Mix Musicale</string>
     <string name="new_playlist_title">Nuova playlist</string>
     <string name="new_start_directory">%s è la nuova directory di inizio.</string>
-    <string name="new_volume">Nuovo Volume</string>
     <string name="no">No</string>
     <string name="no_albums">Non hai album</string>
     <string name="no_artists">Non hai artisti</string>
@@ -273,7 +271,6 @@
     <string name="no_playlists">Non hai nessuna playlist</string>
     <string name="no_results">Nessun risultato</string>
     <string name="no_songs">Non hai tracce</string>
-    <string name="none">Nessuno</string>
     <string name="normal">Normale</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> non è elencato nel media store.]]></string>
     <string name="not_recently_played">Non riprodotto di recente</string>
@@ -291,7 +288,6 @@
     <string name="only_on_wifi">Solo su Wi-Fi</string>
     <string name="other_settings_summary">Altre caratteristiche</string>
     <string name="others">Avanzate</string>
-    <string name="over_cover">Copertina Sopra</string>
     <string name="past_three_months">Ultimi 3 mesi</string>
     <string name="path">Percorso:\u0020</string>
     <string name="peek">Peek</string>
@@ -309,11 +305,6 @@
     <string name="personalize">Personalizza</string>
     <string name="personalize_settings_summary">Personalizza la libreria e la schermata di blocco</string>
     <string name="pick_from_local_storage">Scegli dalla memoria locale</string>
-    <string name="play_store_edition">Edizione Play Store</string>
-    <string name="play_store_edition_beta">Edizione Play Store: Beta</string>
-    <string name="play_store_edition_debug">Edizione Play Store: Costruisci</string>
-    <string name="play_store_edition_preview">Edizione Play Store: Anteprima</string>
-    <string name="play_store_edition_release">Edizione Play Store: Stabile</string>
     <string name="playlist_name_empty_cant">Il nome della playlist non può essere vuoto</string>
     <string name="playlist_name_empty_shouldnt">Il nome della playlist non dovrebbe essere vuoto</string>
     <string name="playback_pitch">Pitch</string>
@@ -370,9 +361,9 @@
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Colore Desaturato</string>
     <string name="pref_title_disable_id3_lyrics_message">Disabilita I Messaggi Di Testo Id3</string>
+    <string name="pref_title_disable_synced_lyrics_message">Disabilita Testi Sincronizzati</string>
     <string name="pref_title_disable_widgets">Disabilita Widget Predefiniti</string>
     <string name="pref_title_duration">Durata Singola</string>
-    <string name="pref_title_embed_lyrics_view">Testo ID3 Non Sincronizzato</string>
     <string name="pref_title_expand_now_playing_panel">Mostra Schermata In Riproduzione</string>
     <string name="pref_title_extra_controls">Controlli Extra</string>
     <string name="pref_title_fast_forward_duration">Durata Ricerca Avanti Veloce</string>
@@ -385,12 +376,11 @@
     <string name="pref_title_home_artist_grid_style">Griglia Dell\'Artista</string>
     <string name="pref_title_ignore_media_store_artwork">Ignora Copertine Media Store</string>
     <string name="pref_title_last_added_interval">Intervallo Ultima Scaletta Aggiunta</string>
-    <string name="pref_title_lock_screen">Controlli Blocco Schermo</string>
     <string name="pref_title_lyrics_type">Tipo Di Testo</string>
-    <string name="pref_title_lyrics_type_synced">Cover Cover Dei Testi Sincronizzati</string>
     <string name="pref_title_md3">Materiale Tu</string>
     <string name="pref_title_notification_action_1">Azione Di Notifica Sinistra</string>
     <string name="pref_title_notification_action_2">Azione Di Notifica Destra</string>
+    <string name="pref_title_notification_persistent">Notifica Persistente</string>
     <string name="pref_title_now_playing_screen_appearance">Tema In Riproduzione</string>
     <string name="pref_title_open_source_licences">Licenze Open Source</string>
     <string name="pref_title_pause_history">Cronologia Pausa</string>
@@ -406,11 +396,9 @@
     <string name="pref_title_shuffle_state">Mantieni Stato Casuale</string>
     <string name="pref_title_simple_mode">Modalità Semplice</string>
     <string name="pref_title_specific_device">Dispositivo Specifico</string>
-    <string name="pref_title_stock_equalizer">Usa Equalizzatore Di Sistema</string>
     <string name="pref_title_suggestions">Mostra Suggerimenti</string>
     <string name="pref_title_swipe_anywhere_now_playing">Scorri Ovunque Per Cambiare La Traccia</string>
     <string name="pref_title_swipe_gestures">Gesti Scorrimento</string>
-    <string name="pref_title_synced_lyrics">Testo Sincronizzato</string>
     <string name="pref_title_tab_text_mode">Modalità Titoli Scheda</string>
     <string name="pref_title_toggle_carousel_effect">Effetto Carosello</string>
     <string name="pref_title_toggle_headset">Riproduzione Cuffie Cablate</string>
@@ -431,7 +419,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[Rimuovere le tracce <b>%1$d</b> dalla scaletta?]]></string>
     <string name="rename_playlist_title">Rinomina playlist</string>
     <string name="repeat">Ripeti</string>
-    <string name="replace_cover">Sostituisci Copertina</string>
     <string name="reset_action">Reset</string>
     <string name="reset_settings">Reimposta Impostazioni</string>
     <string name="reset_settings_msg">Ripristinare le impostazioni predefinite?\n\nQuesto ripristinerà TUTTE le impostazioni incluso Shuffle, Impostazione di Autoplay Bluetooth e altro\n\nQuesta app verrà riavviata per completare il processo di resetta!</string>
@@ -463,9 +450,7 @@
     <string name="show_player_on_app_launch">Mostra Sempre All\'Avvio Dell\'App</string>
     <string name="shuffle">Mischia</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Usa questo per creare una coda di riproduzione mischiata</string>
-    <string name="shuffle_mode">Use Shuffle Mode</string>
-    <string name="shuffle_mode_summary">Abilita modalità casuale come predefinita</string>
+    <string name="shuffle_button_desc">Usalo per creare una coda di riproduzione mischiata. Per maggiori informazioni visita il wiki di musica apex!</string>
     <string name="simple">Semplice</string>
     <string name="sleep_timer_canceled">Timer di sospensione annullato.</string>
     <string name="sleep_timer_set">Timer di spegnimento impostato per %d minuti da ora.</string>
@@ -495,7 +480,6 @@
     <string name="stack">Pila</string>
     <string name="suggestion_songs">Suggerimenti</string>
     <string name="support_development">Supporto &amp; Sviluppo</string>
-    <string name="swipe_to_unlock">Scorri per sbloccare</string>
     <string name="tab_only">Solo Modalità Tablet</string>
     <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Unisciti al gruppo Telegram per discutere di bug, fare suggerimenti, mostrare e altro ancora</string>
@@ -527,6 +511,8 @@
     <string name="website">Sito</string>
     <string name="website_summary">Scopri il nostro sito web</string>
     <string name="what_do_you_want_to_share">Che cosa vuoi condividere?</string>
+    <string name="wiki">Wiki</string>
+    <string name="wiki_summary">Hai bisogno di aiuto? Dai un\'occhiata alla nostra pagina wiki!</string>
     <string name="x_has_been_set_as_ringtone">Imposta %1$s come suoneria.</string>
     <string name="x_selected">%1$d selezionato</string>
     <string name="year">Anno</string>

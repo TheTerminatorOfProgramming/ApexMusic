@@ -18,6 +18,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Looper
 import android.text.Layout
@@ -27,7 +28,6 @@ import android.text.format.DateUtils
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -35,7 +35,6 @@ import android.widget.Scroller
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withSave
 import com.ttop.app.apex.R
-import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.*
 import java.io.File
 import java.lang.Runnable
@@ -109,7 +108,7 @@ class CoverLrcView @JvmOverloads constructor(
                 e1: MotionEvent?,
                 e2: MotionEvent,
                 distanceX: Float,
-                distanceY: Float,
+                distanceY: Float
             ): Boolean {
                 if (mOffset == getOffset(0) && distanceY < 0F) {
                     return super.onScroll(e1, e2, distanceX, distanceY)
@@ -129,7 +128,7 @@ class CoverLrcView @JvmOverloads constructor(
                 e1: MotionEvent?,
                 e2: MotionEvent,
                 velocityX: Float,
-                velocityY: Float,
+                velocityY: Float
             ): Boolean {
                 if (hasLrc()) {
                     mScroller!!.fling(
@@ -171,16 +170,6 @@ class CoverLrcView @JvmOverloads constructor(
                     return true
                 }
                 return super.onSingleTapConfirmed(e)
-            }
-
-            override fun onDoubleTap(e: MotionEvent): Boolean {
-                if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
-                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                        rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                    }
-                    PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                }
-                return super.onDoubleTap(e)
             }
         }
 
@@ -286,6 +275,11 @@ class CoverLrcView @JvmOverloads constructor(
         postInvalidate()
     }
 
+    fun setPlayDrawableColor(normalColor: Int) {
+        mPlayDrawable?.setColorFilter(normalColor, PorterDuff.Mode.SRC_IN)
+        postInvalidate()
+    }
+
     fun setDraggable(draggable: Boolean, onPlayClickListener: OnPlayClickListener?) {
         mOnPlayClickListener = if (draggable) {
             requireNotNull(onPlayClickListener) { "if draggable == true, onPlayClickListener must not be null" }
@@ -385,7 +379,7 @@ class CoverLrcView @JvmOverloads constructor(
             val timeText = LrcUtils.formatTime(mLrcEntryList[centerLine].time)
             val timeX = (width - mTimeTextWidth / 2).toFloat()
             val timeY = centerY - (mTimeFontMetrics!!.descent + mTimeFontMetrics!!.ascent) / 2
-            canvas.drawText(timeText, timeX, timeY, mTimePaint)
+            //canvas.drawText(timeText, timeX, timeY, mTimePaint) //shows time-text
         }
         canvas.translate(0f, mOffset)
         var y = 0f

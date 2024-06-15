@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="about_card_radius">16dp</dimen>
     <dimen name="adaptive_icon_padding">12dp</dimen>
     <dimen name="adaptive_icon_size">46dp</dimen>
-
     <dimen name="app_widget_big_min_height">110dp</dimen>
-    <dimen name="app_widget_big_min_width">250dp</dimen>
     <dimen name="app_widget_circle_max_height">250dp</dimen>
     <dimen name="app_widget_circle_max_width">250dp</dimen>
     <dimen name="app_widget_circle_min_height">100dp</dimen>
@@ -16,13 +13,10 @@
     <dimen name="app_widget_classic_min_width">250dp</dimen>
     <dimen name="app_widget_full_min_height">180dp</dimen>
     <dimen name="app_widget_full_min_width">250dp</dimen>
-
     <dimen name="bottom_nav_height">80dp</dimen>
     <dimen name="bottom_nav_mini_player_height">136dp</dimen>
-
     <dimen name="button_padding_vertical">10dp</dimen>
     <dimen name="container_horizontal_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="icon_notification_dimen">32dp</dimen>
     <dimen name="indicator_radius">10dp</dimen>
     <dimen name="item_song_height">60dp</dimen>

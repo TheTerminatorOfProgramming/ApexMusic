@@ -75,7 +75,6 @@
     <string name="appbar_mode_expanded_no_scroll">拡張（スクロールなし）</string>
     <string name="appbar_mode_simple">単純な</string>
     <string name="appbar_mode_simple_no_scroll">シンプル（スクロールなし）</string>
-    <string name="apex_font">Apex フォントを使用する</string>
     <string name="apex_music">Apex音楽</string>
     <string name="app_share">Hey check out this cool music player: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">シャッフル</string>
@@ -99,7 +98,8 @@
     <string name="battery_summary">フォアグラウンドサービスが正常に動作するためには、アプリがバッテリー最適化を無効にする必要があります</string>
     <string name="battery_title">バッテリー最適化を無効にする</string>
     <string name="biography">来歴</string>
-    <string name="biometrics">生物学的検出済み</string>
+    <string name="biometric_authenticate_description">続けるには認証を行ってください！</string>
+    <string name="biometric_authenticate_subtitle">認証</string>
     <string name="black_theme_name">ジェットブラック</string>
     <string name="blacklist">ブラック リスト</string>
     <string name="bluetooth_summary">Bluetoothデバイスを確認するには、近くの端末の許可が必要です</string>
@@ -174,7 +174,6 @@
     <string name="flat">フラット</string>
     <string name="folders">フォルダ</string>
     <string name="follow_system">システムをフォロー</string>
-    <string name="font_default_name">システムフォント</string>
     <string name="force_close">強制閉じる</string>
     <string name="force_close_summary">問題が発生している場合は、このオプションを使用して問題を解決してください</string>
     <string name="full">フル</string>
@@ -258,7 +257,6 @@
     <string name="new_music_mix">新しい音楽ミックス</string>
     <string name="new_playlist_title">新規プレイリスト</string>
     <string name="new_start_directory">%s が新しい開始ディレクトリです。</string>
-    <string name="new_volume">新しいボリューム</string>
     <string name="no">いいえ</string>
     <string name="no_albums">アルバムがありません</string>
     <string name="no_artists">アーティストがいません。</string>
@@ -269,7 +267,6 @@
     <string name="no_playlists">プレイリストがありません</string>
     <string name="no_results">結果がありません</string>
     <string name="no_songs">トラックがありません</string>
-    <string name="none">なし</string>
     <string name="normal">標準</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> はメディアストアに記載されていません。]]></string>
     <string name="not_recently_played">最近再生されていません</string>
@@ -287,7 +284,6 @@
     <string name="only_on_wifi">Wi-Fi接続のみ</string>
     <string name="other_settings_summary">その他の機能</string>
     <string name="others">高度な設定</string>
-    <string name="over_cover">カバー以上</string>
     <string name="past_three_months">過去 3 ヶ月</string>
     <string name="path">パス:\u0020</string>
     <string name="peek">Peek</string>
@@ -305,11 +301,6 @@
     <string name="personalize">個人設定</string>
     <string name="personalize_settings_summary">ライブラリとロック画面を編集する</string>
     <string name="pick_from_local_storage">ローカルストレージから選択</string>
-    <string name="play_store_edition">Play Store Edition</string>
-    <string name="play_store_edition_beta">Play Store Edition: Beta</string>
-    <string name="play_store_edition_debug">Play ストア エディション: ビルド</string>
-    <string name="play_store_edition_preview">Play ストア エディション: プレビュー</string>
-    <string name="play_store_edition_release">Playストア版：安定版</string>
     <string name="playlist_name_empty_cant">プレイリスト名を空にすることはできません</string>
     <string name="playlist_name_empty_shouldnt">プレイリスト名は空にする必要があります</string>
     <string name="playback_pitch">Pitch</string>
@@ -366,9 +357,9 @@
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">非飽和色</string>
     <string name="pref_title_disable_id3_lyrics_message">ID3の歌詞メッセージを無効にする</string>
+    <string name="pref_title_disable_synced_lyrics_message">同期された歌詞メッセージを無効にする</string>
     <string name="pref_title_disable_widgets">デフォルトのウィジェットを無効にする</string>
     <string name="pref_title_duration">単一時間</string>
-    <string name="pref_title_embed_lyrics_view">同期されていないID3の歌詞</string>
     <string name="pref_title_expand_now_playing_panel">再生中の画面を表示</string>
     <string name="pref_title_extra_controls">追加コントロール</string>
     <string name="pref_title_fast_forward_duration">高速転送シーク時間</string>
@@ -381,12 +372,11 @@
     <string name="pref_title_home_artist_grid_style">アーティストグリッド</string>
     <string name="pref_title_ignore_media_store_artwork">メディアストアのカバーを無視</string>
     <string name="pref_title_last_added_interval">最後に追加したプレイリストの間隔</string>
-    <string name="pref_title_lock_screen">ロック画面コントロール</string>
     <string name="pref_title_lyrics_type">歌詞の種類</string>
-    <string name="pref_title_lyrics_type_synced">カバーに同期された歌詞</string>
     <string name="pref_title_md3">自分の素材</string>
     <string name="pref_title_notification_action_1">通知アクション左</string>
     <string name="pref_title_notification_action_2">通知アクション右</string>
+    <string name="pref_title_notification_persistent">永続的な通知</string>
     <string name="pref_title_now_playing_screen_appearance">再生中のテーマ</string>
     <string name="pref_title_open_source_licences">オープンソース ライセンス</string>
     <string name="pref_title_pause_history">一時停止履歴</string>
@@ -402,11 +392,9 @@
     <string name="pref_title_shuffle_state">シャッフル状態を維持</string>
     <string name="pref_title_simple_mode">シンプルモード</string>
     <string name="pref_title_specific_device">特定のデバイス</string>
-    <string name="pref_title_stock_equalizer">システムイコライザを使用</string>
     <string name="pref_title_suggestions">候補を表示</string>
     <string name="pref_title_swipe_anywhere_now_playing">トラックを変更するにはどこでもスワイプ</string>
     <string name="pref_title_swipe_gestures">スワイプジェスチャー</string>
-    <string name="pref_title_synced_lyrics">同期した歌詞</string>
     <string name="pref_title_tab_text_mode">タブタイトルモード</string>
     <string name="pref_title_toggle_carousel_effect">カルーセルの効果</string>
     <string name="pref_title_toggle_headset">有線ヘッドセット再生</string>
@@ -427,7 +415,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[プレイリストから <b>%1$d</b> トラックを削除しますか？]]></string>
     <string name="rename_playlist_title">プレイリストの名前を変更</string>
     <string name="repeat">繰り返し</string>
-    <string name="replace_cover">カバーを交換する</string>
     <string name="reset_action">Reset</string>
     <string name="reset_settings">設定をリセット</string>
     <string name="reset_settings_msg">設定をデフォルトに戻す？\n\nシャッフル、Bluetooth自動再生設定など、すべての設定がリセットされます\n\nこのアプリはリセットプロセスを完了するために再起動します！</string>
@@ -459,9 +446,7 @@
     <string name="show_player_on_app_launch">アプリ起動時に常に表示</string>
     <string name="shuffle">シャッフル</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">これを使用して、シャッフルされた再生キューを作成します</string>
-    <string name="shuffle_mode">Use Shuffle Mode</string>
-    <string name="shuffle_mode_summary">デフォルトでシャッフルモードを有効にする</string>
+    <string name="shuffle_button_desc">これを使用して、シャッフルされた再生キューを作成します。詳細については、Apex Music Wiki をご覧ください。</string>
     <string name="simple">単純な</string>
     <string name="sleep_timer_canceled">スリープタイマーをキャンセルしました。</string>
     <string name="sleep_timer_set">%d 分後にスリープタイマーを設定しました。</string>
@@ -491,7 +476,6 @@
     <string name="stack">スタック</string>
     <string name="suggestion_songs">候補</string>
     <string name="support_development">&amp; 開発をサポート</string>
-    <string name="swipe_to_unlock">スワイプしてロック解除</string>
     <string name="tab_only">タブレットモードのみ</string>
     <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Telegramグループに参加してバグの議論、提案、公表などを行いましょう。</string>
@@ -523,6 +507,8 @@
     <string name="website">ウェブサイト</string>
     <string name="website_summary">私たちのウェブサイトをチェックしてください</string>
     <string name="what_do_you_want_to_share">何を共有しますか？</string>
+    <string name="wiki">ウィキ</string>
+    <string name="wiki_summary">ヘルプが必要ですか? ウィキページをご覧ください!</string>
     <string name="x_has_been_set_as_ringtone">%1$s を着信音に設定しました。</string>
     <string name="x_selected">%1$d を選択しました</string>
     <string name="year">年</string>

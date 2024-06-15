@@ -77,7 +77,6 @@
     <string name="appbar_mode_expanded_no_scroll">Expanded (No Scroll)</string>
     <string name="appbar_mode_simple">Simple</string>
     <string name="appbar_mode_simple_no_scroll">Simple (No Scroll)</string>
-    <string name="apex_font">Use Apex Font</string>
     <string name="apex_music">Apex Music</string>
     <string name="app_share">Hey check out this cool music player at: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
@@ -103,7 +102,8 @@
     <string name="battery_summary">The app needs to disable the battery optimisation in order for the foreground service to work correctly</string>
     <string name="battery_title">Disable Battery Optimisation</string>
     <string name="biography">Biography</string>
-    <string name="biometrics">BIOMETRICS DETECTED</string>
+    <string name="biometric_authenticate_description">Please Authenticate Yourself To Continue!</string>
+    <string name="biometric_authenticate_subtitle">Authentication</string>
     <string name="black_theme_name">Jet Black</string>
     <string name="blacklist">Blacklist</string>
     <string name="bluetooth_summary">The app needs nearby devices permission to check for bluetooth devices</string>
@@ -178,7 +178,6 @@
     <string name="flat">Flat</string>
     <string name="folders">Folders</string>
     <string name="follow_system">Follow System</string>
-    <string name="font_default_name">System Font</string>
     <string name="force_close">Force Close</string>
     <string name="force_close_summary">If apex music is experiencing an issue then use this option to try and fix the issue</string>
     <string name="full">Full</string>
@@ -262,7 +261,6 @@
     <string name="new_music_mix">New Music Mix</string>
     <string name="new_playlist_title">New playlist</string>
     <string name="new_start_directory">%s is the new start directory.</string>
-    <string name="new_volume">New Volume</string>
     <string name="no">No</string>
     <string name="no_albums">You have no albums</string>
     <string name="no_artists">You have no artists</string>
@@ -273,7 +271,6 @@
     <string name="no_playlists">You have no playlists</string>
     <string name="no_results">No results</string>
     <string name="no_songs">You have no tracks</string>
-    <string name="none">None</string>
     <string name="normal">Normal</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is not listed in the media store.]]></string>
     <string name="not_recently_played">Not recently played</string>
@@ -291,7 +288,6 @@
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="other_settings_summary">Other features</string>
     <string name="others">Advanced</string>
-    <string name="over_cover">Over Cover</string>
     <string name="past_three_months">Past 3 months</string>
     <string name="path">Path:\u0020</string>
     <string name="peek">Peek</string>
@@ -309,11 +305,6 @@
     <string name="personalize">Personalize</string>
     <string name="personalize_settings_summary">Customize your library and lock screen</string>
     <string name="pick_from_local_storage">Pick from local storage</string>
-    <string name="play_store_edition">Play Store Edition</string>
-    <string name="play_store_edition_beta">Play Store Edition: Beta</string>
-    <string name="play_store_edition_debug">Play Store Edition: Build</string>
-    <string name="play_store_edition_preview">Play Store Edition: Preview</string>
-    <string name="play_store_edition_release">Play Store Edition: Stable</string>
     <string name="playlist_name_empty_cant">Playlist name can\'t be empty</string>
     <string name="playlist_name_empty_shouldnt">Playlist name should\'nt be empty</string>
     <string name="playback_pitch">Pitch</string>
@@ -370,9 +361,9 @@
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Desaturated Color</string>
     <string name="pref_title_disable_id3_lyrics_message">Disable ID3 Lyrics Messages</string>
+    <string name="pref_title_disable_synced_lyrics_message">Disable Synced Lyrics Messages</string>
     <string name="pref_title_disable_widgets">Disable Default Widgets</string>
     <string name="pref_title_duration">Single Duration</string>
-    <string name="pref_title_embed_lyrics_view">Unsynced ID3 Lyrics</string>
     <string name="pref_title_expand_now_playing_panel">Show Now Playing Screen</string>
     <string name="pref_title_extra_controls">Extra Controls</string>
     <string name="pref_title_fast_forward_duration">Fast Forward Seek Duration</string>
@@ -385,12 +376,11 @@
     <string name="pref_title_home_artist_grid_style">Artist Grid</string>
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store Covers</string>
     <string name="pref_title_last_added_interval">Last Added Playlist Interval</string>
-    <string name="pref_title_lock_screen">Lock Screen Controls</string>
     <string name="pref_title_lyrics_type">Lyrics Type</string>
-    <string name="pref_title_lyrics_type_synced">Synced Lyrics Over Cover</string>
     <string name="pref_title_md3">Material You</string>
     <string name="pref_title_notification_action_1">Notification Action Left</string>
     <string name="pref_title_notification_action_2">Notification Action Right</string>
+    <string name="pref_title_notification_persistent">Persistent Notification</string>
     <string name="pref_title_now_playing_screen_appearance">Now Playing Theme</string>
     <string name="pref_title_open_source_licences">Open Source Licences</string>
     <string name="pref_title_pause_history">Pause History</string>
@@ -406,11 +396,9 @@
     <string name="pref_title_shuffle_state">Keep Shuffle State</string>
     <string name="pref_title_simple_mode">Simple Mode</string>
     <string name="pref_title_specific_device">Specific Device</string>
-    <string name="pref_title_stock_equalizer">Use System Equalizer</string>
     <string name="pref_title_suggestions">Show Suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Swipe Anywhere To Change Track</string>
     <string name="pref_title_swipe_gestures">Swipe Gestures</string>
-    <string name="pref_title_synced_lyrics">Synced Lyrics</string>
     <string name="pref_title_tab_text_mode">Tab Titles Mode</string>
     <string name="pref_title_toggle_carousel_effect">Carousel Effect</string>
     <string name="pref_title_toggle_headset">Wired Headset Playback</string>
@@ -431,7 +419,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[Remove <b>%1$d</b> tracks from the playlist?]]></string>
     <string name="rename_playlist_title">Rename playlist</string>
     <string name="repeat">Repeat</string>
-    <string name="replace_cover">Replace Cover</string>
     <string name="reset_action">Reset</string>
     <string name="reset_settings">Reset Settings</string>
     <string name="reset_settings_msg">Reset Settings to Default?\n\nThis will reset ALL settings including Shuffle, Bluetooth Autoplay setting and more\n\nThis App Will Restart to Complete the Reset Process!</string>
@@ -463,9 +450,7 @@
     <string name="show_player_on_app_launch">Always Show On App Launch</string>
     <string name="shuffle">Shuffle</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Use this to create a shuffled playing queue</string>
-    <string name="shuffle_mode">Use Shuffle Mode</string>
-    <string name="shuffle_mode_summary">Enable Shuffle mode as default</string>
+    <string name="shuffle_button_desc">Use this to create a shuffled playing queue. for more info visit the apex music wiki!</string>
     <string name="simple">Simple</string>
     <string name="sleep_timer_canceled">Sleep timer canceled.</string>
     <string name="sleep_timer_set">Sleep timer set for %d minutes from now.</string>
@@ -495,7 +480,6 @@
     <string name="stack">Stack</string>
     <string name="suggestion_songs">Suggestions</string>
     <string name="support_development">Support &amp; Development</string>
-    <string name="swipe_to_unlock">Swipe to unlock</string>
     <string name="tab_only">Tablet Mode Only</string>
     <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Join the Telegram group to discuss bugs, make suggestions, show off and more</string>
@@ -527,6 +511,8 @@
     <string name="website">Website</string>
     <string name="website_summary">Check out our Website</string>
     <string name="what_do_you_want_to_share">What do you want to share?</string>
+    <string name="wiki">Wiki</string>
+    <string name="wiki_summary">Need Help? Check out our wiki page!</string>
     <string name="x_has_been_set_as_ringtone">Set %1$s as your ringtone.</string>
     <string name="x_selected">%1$d selected</string>
     <string name="year">Year</string>

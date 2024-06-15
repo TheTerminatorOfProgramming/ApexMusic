@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <string name="about_album_label">Tentang %s</string>
     <string name="about_settings_summary">Tim, hubungan sosial</string>
@@ -45,7 +45,7 @@
     <string name="action_set">Awal</string>
     <string name="action_set_as_ringtone">Tetapkan sebagai nada dering</string>
     <string name="action_set_as_start_directory">Tetapkan sebagai direktori awal</string>
-    <string name="action_settings">Pengaturan</string>
+    <string name="action_settings">"Pengaturan"</string>
     <string name="action_share">Membagikan</string>
     <string name="action_shuffle_all">Kocok semuanya</string>
     <string name="action_shuffle_playlist">Acak daftar putar</string>
@@ -57,9 +57,9 @@
     <string name="action_update">Perbarui pemberitahuan</string>
     <string name="adaptive">adaptif</string>
     <string name="add_action">Menambahkan</string>
-    <string name="add_playlist_title">Tambahkan ke Daftar Putar</string>
+    <string name="add_playlist_title">"Tambahkan ke Daftar Putar"</string>
     <string name="added_song_count_to_playlist">Menambahkan %1$d Lagu ke %2$s</string>
-    <string name="added_title_to_playing_queue">Menambahkan 1 judul ke antrean pemutaran.</string>
+    <string name="added_title_to_playing_queue">"Menambahkan 1 judul ke antrean pemutaran."</string>
     <string name="added_x_titles_to_playing_queue">Menambahkan %1$d judul ke antrean pemutaran.</string>
     <string name="album">Album</string>
     <plurals name="albumSongs">
@@ -75,7 +75,6 @@
     <string name="appbar_mode_expanded_no_scroll">Diperluas (Tanpa Gulir)</string>
     <string name="appbar_mode_simple">Sederhana</string>
     <string name="appbar_mode_simple_no_scroll">Sederhana (Tanpa Gulir)</string>
-    <string name="apex_font">Gunakan Font Apex</string>
     <string name="apex_music">Musik Puncak</string>
     <string name="app_share">Hai, lihat pemutar musik keren ini di: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Acak</string>
@@ -99,7 +98,8 @@
     <string name="battery_summary">Aplikasi perlu menonaktifkan pengoptimalan baterai agar layanan latar depan berfungsi dengan benar</string>
     <string name="battery_title">Nonaktifkan Pengoptimalan Baterai</string>
     <string name="biography">Biografi</string>
-    <string name="biometrics">BIOMETRIK TERDETEKSI</string>
+    <string name="biometric_authenticate_description">Harap Autentikasi Diri Anda Untuk Melanjutkan!</string>
+    <string name="biometric_authenticate_subtitle">Autentikasi</string>
     <string name="black_theme_name">Hitam pekat</string>
     <string name="blacklist">Daftar Hitam</string>
     <string name="bluetooth_summary">Aplikasi ini memerlukan izin perangkat terdekat untuk memeriksa perangkat bluetooth</string>
@@ -174,7 +174,6 @@
     <string name="flat">Datar</string>
     <string name="folders">Folder</string>
     <string name="follow_system">Ikuti Sistem</string>
-    <string name="font_default_name">Font Sistem</string>
     <string name="force_close">Tutup Paksa</string>
     <string name="force_close_summary">Jika musik apex mengalami masalah, gunakan opsi ini untuk mencoba dan memperbaiki masalah tersebut</string>
     <string name="full">Penuh</string>
@@ -258,18 +257,16 @@
     <string name="new_music_mix">Campuran Musik Baru</string>
     <string name="new_playlist_title">Daftar putar baru</string>
     <string name="new_start_directory">%s adalah direktori awal yang baru.</string>
-    <string name="new_volume">Jilid Baru</string>
     <string name="no">TIDAK</string>
     <string name="no_albums">Anda tidak memiliki album</string>
     <string name="no_artists">Anda tidak memiliki artis</string>
-    <string name="no_audio_ID">Putar trek terlebih dahulu, lalu coba lagi.</string>
+    <string name="no_audio_ID">"Putar trek terlebih dahulu, lalu coba lagi."</string>
     <string name="no_genres">Anda tidak memiliki genre</string>
     <string name="no_lyrics_found">Lirik tidak ditemukan</string>
     <string name="no_playing_queue">Tidak ada trek yang diputar</string>
     <string name="no_playlists">Anda tidak memiliki daftar putar</string>
     <string name="no_results">Tidak ada hasil</string>
     <string name="no_songs">Anda tidak memiliki jejak</string>
-    <string name="none">Tidak ada</string>
     <string name="normal">Normal</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> tidak terdaftar di toko media.]]></string>
     <string name="not_recently_played">Belum lama ini diputar</string>
@@ -287,7 +284,6 @@
     <string name="only_on_wifi">Hanya di Wi-Fi</string>
     <string name="other_settings_summary">Fitur lainnya</string>
     <string name="others">Canggih</string>
-    <string name="over_cover">Di Atas Penutup</string>
     <string name="past_three_months">3 bulan terakhir</string>
     <string name="path">Jalur:\u0020</string>
     <string name="peek">Mengintip</string>
@@ -305,11 +301,6 @@
     <string name="personalize">Personalisasi</string>
     <string name="personalize_settings_summary">Sesuaikan perpustakaan dan layar kunci Anda</string>
     <string name="pick_from_local_storage">Pilih dari penyimpanan lokal</string>
-    <string name="play_store_edition">Edisi Play Store</string>
-    <string name="play_store_edition_beta">Edisi Play Store: Beta</string>
-    <string name="play_store_edition_debug">Edisi Play Store: Bangun</string>
-    <string name="play_store_edition_preview">Edisi Play Store: Pratinjau</string>
-    <string name="play_store_edition_release">Edisi Play Store: Stabil</string>
     <string name="playlist_name_empty_cant">Nama daftar putar wajib diisi</string>
     <string name="playlist_name_empty_shouldnt">Nama daftar putar wajib diisi</string>
     <string name="playback_pitch">Melempar</string>
@@ -365,10 +356,10 @@
     <string name="pref_title_cross_fade">memudar silang</string>
     <string name="pref_title_custom_font">huruf</string>
     <string name="pref_title_desaturated_color">Warna Desaturasi</string>
-    <string name="pref_title_disable_widgets">Nonaktifkan Widget Default</string>
     <string name="pref_title_disable_id3_lyrics_message">Nonaktifkan Pesan Lirik ID3</string>
+    <string name="pref_title_disable_synced_lyrics_message">Nonaktifkan Pesan Lirik yang Disinkronkan</string>
+    <string name="pref_title_disable_widgets">Nonaktifkan Widget Default</string>
     <string name="pref_title_duration">Durasi Tunggal</string>
-    <string name="pref_title_embed_lyrics_view">Lirik ID3 Tidak Disinkronkan</string>
     <string name="pref_title_expand_now_playing_panel">Tampilkan Layar Sedang Diputar</string>
     <string name="pref_title_extra_controls">Kontrol Ekstra</string>
     <string name="pref_title_fast_forward_duration">Durasi Pencarian Maju Cepat</string>
@@ -381,12 +372,11 @@
     <string name="pref_title_home_artist_grid_style">Kotak Artis</string>
     <string name="pref_title_ignore_media_store_artwork">Abaikan Sampul Toko Media</string>
     <string name="pref_title_last_added_interval">Interval Daftar Putar Terakhir Ditambahkan</string>
-    <string name="pref_title_lock_screen">Kontrol Layar Kunci</string>
     <string name="pref_title_lyrics_type">Jenis Lirik</string>
-    <string name="pref_title_lyrics_type_synced">Lirik yang Disinkronkan Di Sampul</string>
     <string name="pref_title_md3">Materi Anda</string>
     <string name="pref_title_notification_action_1">Tindakan Notifikasi Tersisa</string>
     <string name="pref_title_notification_action_2">Tindakan Notifikasi Benar</string>
+    <string name="pref_title_notification_persistent">Pemberitahuan Berkelanjutan</string>
     <string name="pref_title_now_playing_screen_appearance">Tema Sedang Dimainkan</string>
     <string name="pref_title_open_source_licences">Lisensi Sumber Terbuka</string>
     <string name="pref_title_pause_history">Jeda Riwayat</string>
@@ -402,11 +392,9 @@
     <string name="pref_title_shuffle_state">Pertahankan Status Acak</string>
     <string name="pref_title_simple_mode">Modus Sederhana</string>
     <string name="pref_title_specific_device">Perangkat Tertentu</string>
-    <string name="pref_title_stock_equalizer">Gunakan Ekualiser Sistem</string>
     <string name="pref_title_suggestions">Tampilkan Saran</string>
     <string name="pref_title_swipe_anywhere_now_playing">Gesek Ke Mana Saja Untuk Mengubah Lagu</string>
     <string name="pref_title_swipe_gestures">Gerakan Gesek</string>
-    <string name="pref_title_synced_lyrics">Lirik yang Disinkronkan</string>
     <string name="pref_title_tab_text_mode">Mode Judul Tab</string>
     <string name="pref_title_toggle_carousel_effect">Efek Korsel</string>
     <string name="pref_title_toggle_headset">Pemutaran Headset Berkabel</string>
@@ -427,7 +415,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[Hapus <b>%1$d</b> lagu dari daftar putar?]]></string>
     <string name="rename_playlist_title">Ganti nama daftar putar</string>
     <string name="repeat">Mengulang</string>
-    <string name="replace_cover">Ganti Penutup</string>
     <string name="reset_action">Mengatur ulang</string>
     <string name="reset_settings">Atur Ulang Pengaturan</string>
     <string name="reset_settings_msg">Atur Ulang Pengaturan ke Default?\n\nIni akan mengatur ulang SEMUA pengaturan termasuk Acak, pengaturan Putar Otomatis Bluetooth, dan lainnya\n\nAplikasi Ini Akan Dimulai Ulang untuk Menyelesaikan Proses Reset!</string>
@@ -459,9 +446,7 @@
     <string name="show_player_on_app_launch">Selalu Tampilkan Saat Peluncuran Aplikasi</string>
     <string name="shuffle">Acak</string>
     <string name="shuffle_button">Tombol Acak</string>
-    <string name="shuffle_button_desc">Gunakan ini untuk membuat antrean pemutaran yang diacak</string>
-    <string name="shuffle_mode">Gunakan Mode Acak</string>
-    <string name="shuffle_mode_summary">Aktifkan mode Acak sebagai default</string>
+    <string name="shuffle_button_desc">Butuh Bantuan? Lihat halaman wiki kami!</string>
     <string name="simple">Sederhana</string>
     <string name="sleep_timer_canceled">Pengatur waktu tidur dibatalkan.</string>
     <string name="sleep_timer_set">Pengatur waktu tidur disetel selama %d menit dari sekarang.</string>
@@ -491,7 +476,6 @@
     <string name="stack">Tumpukan</string>
     <string name="suggestion_songs">Saran</string>
     <string name="support_development">Dukungan &amp; Perkembangan</string>
-    <string name="swipe_to_unlock">Gesek untuk membuka kunci</string>
     <string name="tab_only">Hanya Mode Tablet</string>
     <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Bergabunglah dengan grup Telegram untuk mendiskusikan bug, memberikan saran, pamer, dan banyak lagi</string>
@@ -505,7 +489,7 @@
     <string name="today">Hari ini</string>
     <string name="top_albums">Album teratas</string>
     <string name="top_artists">Artis papan atas</string>
-    <string name="track_hint">Track (2 untuk track 2 atau 3004 untuk CD3 track 4)</string>
+    <string name="track_hint">"Track (2 untuk track 2 atau 3004 untuk CD3 track 4)"</string>
     <string name="track_list">Nomor pelacak</string>
     <string name="trio">Trio</string>
     <string name="troubleshoot">Memecahkan masalah</string>
@@ -523,6 +507,8 @@
     <string name="website">Situs web</string>
     <string name="website_summary">Kunjungi Situs Web kami</string>
     <string name="what_do_you_want_to_share">Apa yang ingin Anda bagikan?</string>
+    <string name="wiki">Wiki</string>
+    <string name="wiki_summary">Butuh Bantuan? Lihat halaman wiki kami!</string>
     <string name="x_has_been_set_as_ringtone">Tetapkan %1$s sebagai nada dering Anda.</string>
     <string name="x_selected">%1$d dipilih</string>
     <string name="year">Tahun</string>

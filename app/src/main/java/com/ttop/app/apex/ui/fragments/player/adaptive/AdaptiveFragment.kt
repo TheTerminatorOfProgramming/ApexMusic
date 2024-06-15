@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.player.adaptive
 
+import android.animation.ValueAnimator
 import android.content.ContentUris
 import android.content.Intent
 import android.content.res.Configuration
@@ -80,10 +81,10 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
     override fun playerToolbar(): Toolbar {
         return binding.playerToolbar
     }
-
+    private var toolbarColor: Int =0
     private var lastColor: Int = 0
     private lateinit var playbackControlsFragment: AdaptivePlaybackControlsFragment
-
+    private var valueAnimator: ValueAnimator? = null
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
@@ -138,6 +139,10 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
         }
     }
 
+    private fun colorize(i: Int) {
+        binding.colorGradientBackground.setBackgroundColor(i)
+    }
+
     private fun setUpPlayerToolbar() {
         binding.playerToolbar.apply {
             inflateMenu(R.menu.menu_player)
@@ -148,8 +153,6 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             ToolbarContentTintHelper.colorizeToolbar(this, surfaceColor(), requireActivity())
-            setTitleTextColor(textColorPrimary())
-            setSubtitleTextColor(textColorSecondary())
             setOnMenuItemClickListener(this@AdaptiveFragment)
 
             when (PreferenceUtil.fontSize) {
@@ -547,13 +550,29 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         playbackControlsFragment.setColor(color)
+        toolbarColor = color.secondaryTextColor
         lastColor = color.primaryTextColor
         libraryViewModel.updateColor(color.primaryTextColor)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
-            colorControlNormal(),
+            toolbarIconColor(),
             requireActivity()
         )
+
+        if (PreferenceUtil.isAdaptiveColor) {
+            colorize(color.backgroundColor)
+        }
+
+        binding.playerToolbar.apply {
+            if (PreferenceUtil.isAdaptiveColor) {
+                setTitleTextColor(toolbarColor)
+                setSubtitleTextColor(toolbarColor)
+            }else {
+                setTitleTextColor(textColorPrimary())
+                setSubtitleTextColor(textColorSecondary())
+            }
+        }
+
         playingQueueAdapter?.setTextColor(color.secondaryTextColor)
 
         val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
@@ -693,9 +712,12 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player) {
         _binding = null
     }
 
-    override fun toolbarIconColor(): Int {
-        return colorControlNormal()
-    }
+    override fun toolbarIconColor() =
+        if (PreferenceUtil.isAdaptiveColor) {
+            toolbarColor
+        }else {
+            colorControlNormal()
+        }
 
     override val paletteColor: Int
         get() = lastColor

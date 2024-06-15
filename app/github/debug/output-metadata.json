@@ -1,0 +1,21 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.ttop.app.apex.beta",
+  "variantName": "githubDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 450,
+      "versionName": "4.50BETA",
+      "outputFile": "app-github-debug.apk"
+    }
+  ],
+  "elementType": "File",
+  "minSdkVersionForDexing": 31
+}

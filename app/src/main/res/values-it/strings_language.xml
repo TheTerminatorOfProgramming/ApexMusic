@@ -2,6 +2,7 @@
 <resources>
     <string name="bengali">Bengalese</string>
     <string name="english">Inglese</string>
+    <string name="french">Francese</string>
     <string name="german">Tedesco</string>
     <string name="hindi">Hindi</string>
     <string name="indonesian">Indonesiano</string>

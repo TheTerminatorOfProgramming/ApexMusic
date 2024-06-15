@@ -115,16 +115,8 @@ class ClassicPlaybackControlsFragment :
             binding.playPauseButton.setColorFilter(color.backgroundColor)
             binding.playPauseCard.setCardBackgroundColor(color.secondaryTextColor)
 
-            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
-            if (ColorUtil.isColorLight(colorBg)) {
-                lastPlaybackControlsColor = color.secondaryTextColor
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
-            } else {
-                lastPlaybackControlsColor = color.secondaryTextColor
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
-            }
+            lastPlaybackControlsColor = color.secondaryTextColor
+            lastDisabledPlaybackControlsColor = com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor)
         }else {
             binding.progressSlider.applyColor(colorFinal)
             TintHelper.setTintAuto(

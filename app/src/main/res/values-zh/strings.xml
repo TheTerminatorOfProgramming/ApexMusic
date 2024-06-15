@@ -75,7 +75,6 @@
     <string name="appbar_mode_expanded_no_scroll">扩展 (无滚动)</string>
     <string name="appbar_mode_simple">简单的</string>
     <string name="appbar_mode_simple_no_scroll">简单(无滚动)</string>
-    <string name="apex_font">使用 Apex 字体</string>
     <string name="apex_music">Apex 音乐</string>
     <string name="app_share">嘿，看看这个很酷的音乐播放器： https://play.google.com/store/apps/details？ id=%s</string>
     <string name="app_shortcut_shuffle_all_short">随机播放</string>
@@ -99,7 +98,8 @@
     <string name="battery_summary">应用需要禁用电池优化才能正常工作</string>
     <string name="battery_title">禁用电池优化</string>
     <string name="biography">履历</string>
-    <string name="biometrics">生物保护</string>
+    <string name="biometric_authenticate_description">请验证您是否继续！</string>
+    <string name="biometric_authenticate_subtitle">认证</string>
     <string name="black_theme_name">纯黑</string>
     <string name="blacklist">黑名单</string>
     <string name="bluetooth_summary">应用程序需要附近的设备权限来检查蓝牙设备</string>
@@ -174,7 +174,6 @@
     <string name="flat">平板</string>
     <string name="folders">文件夹</string>
     <string name="follow_system">跟随系统</string>
-    <string name="font_default_name">系统字体</string>
     <string name="force_close">强制关闭</string>
     <string name="force_close_summary">如果顶级音乐出现问题，请使用此选项来尝试解决此问题</string>
     <string name="full">完整的</string>
@@ -258,7 +257,6 @@
     <string name="new_music_mix">新建音乐组合</string>
     <string name="new_playlist_title">新播放列表</string>
     <string name="new_start_directory">%s 是新的起始目录。</string>
-    <string name="new_volume">新建音量</string>
     <string name="no">否</string>
     <string name="no_albums">您没有相册</string>
     <string name="no_artists">您没有艺人</string>
@@ -269,7 +267,6 @@
     <string name="no_playlists">您没有播放列表</string>
     <string name="no_results">没有结果</string>
     <string name="no_songs">您没有曲目</string>
-    <string name="none">无</string>
     <string name="normal">普通的</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> 没有在媒体商店中列出。]]></string>
     <string name="not_recently_played">最近未播放</string>
@@ -287,7 +284,6 @@
     <string name="only_on_wifi">仅在 Wi-Fi 上</string>
     <string name="other_settings_summary">其他功能</string>
     <string name="others">高级版</string>
-    <string name="over_cover">超越封面</string>
     <string name="past_three_months">过去 3 个月</string>
     <string name="path">位置：\u0020</string>
     <string name="peek">佩克</string>
@@ -305,11 +301,6 @@
     <string name="personalize">个性化</string>
     <string name="personalize_settings_summary">自定义您的知识库和锁定屏幕</string>
     <string name="pick_from_local_storage">从本地存储中选择</string>
-    <string name="play_store_edition">Play Store 版</string>
-    <string name="play_store_edition_beta">Play Store 版：测试版</string>
-    <string name="play_store_edition_debug">Play Store 版：创建</string>
-    <string name="play_store_edition_preview">Play Store 版：预览</string>
-    <string name="play_store_edition_release">Play Store 版：稳定版</string>
     <string name="playlist_name_empty_cant">播放列表名称不能为空</string>
     <string name="playlist_name_empty_shouldnt">播放列表名称不能为空</string>
     <string name="playback_pitch">音调</string>
@@ -366,9 +357,9 @@
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">降落颜色</string>
     <string name="pref_title_disable_id3_lyrics_message">禁用 ID3 歌词消息</string>
+    <string name="pref_title_disable_synced_lyrics_message">禁用同步歌词</string>
     <string name="pref_title_disable_widgets">禁用默认部件</string>
     <string name="pref_title_duration">单时长</string>
-    <string name="pref_title_embed_lyrics_view">未同步 ID3 歌词</string>
     <string name="pref_title_expand_now_playing_panel">显示正在播放屏幕</string>
     <string name="pref_title_extra_controls">额外控制</string>
     <string name="pref_title_fast_forward_duration">快速寻找持续时间</string>
@@ -381,12 +372,11 @@
     <string name="pref_title_home_artist_grid_style">艺术家网格</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体存储封面</string>
     <string name="pref_title_last_added_interval">最后添加的播放列表间隔</string>
-    <string name="pref_title_lock_screen">锁屏控制</string>
     <string name="pref_title_lyrics_type">歌词类型</string>
-    <string name="pref_title_lyrics_type_synced">在封面上同步歌词</string>
     <string name="pref_title_md3">您的材料</string>
     <string name="pref_title_notification_action_1">通知左侧动作</string>
     <string name="pref_title_notification_action_2">右侧通知操作</string>
+    <string name="pref_title_notification_persistent">持续通知</string>
     <string name="pref_title_now_playing_screen_appearance">正在播放主题</string>
     <string name="pref_title_open_source_licences">开源许可证</string>
     <string name="pref_title_pause_history">暂停历史</string>
@@ -402,11 +392,9 @@
     <string name="pref_title_shuffle_state">保持随机状态</string>
     <string name="pref_title_simple_mode">简单模式</string>
     <string name="pref_title_specific_device">特定设备</string>
-    <string name="pref_title_stock_equalizer">使用系统均衡器</string>
     <string name="pref_title_suggestions">显示建议</string>
     <string name="pref_title_swipe_anywhere_now_playing">向任何地方滑动以更改音轨</string>
     <string name="pref_title_swipe_gestures">滑动手势</string>
-    <string name="pref_title_synced_lyrics">已同步歌词</string>
     <string name="pref_title_tab_text_mode">标签标题模式</string>
     <string name="pref_title_toggle_carousel_effect">旋转效果</string>
     <string name="pref_title_toggle_headset">有线耳机播放</string>
@@ -427,7 +415,6 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[从播放列表中移除 <b>%1$d</b> 曲目？]]></string>
     <string name="rename_playlist_title">重命名播放列表</string>
     <string name="repeat">重复</string>
-    <string name="replace_cover">替换封面</string>
     <string name="reset_action">Reset</string>
     <string name="reset_settings">重置设置</string>
     <string name="reset_settings_msg">重置设置为默认吗？\n\n这将重置所有设置，包括乱序设置 蓝牙自动播放设置和更多\n\n此应用将重启以完成重置过程！</string>
@@ -459,9 +446,7 @@
     <string name="show_player_on_app_launch">应用启动时总是显示</string>
     <string name="shuffle">随机播放</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">用它来创建一个随机播放队列</string>
-    <string name="shuffle_mode">Use Shuffle Mode</string>
-    <string name="shuffle_mode_summary">默认启用随机模式</string>
+    <string name="shuffle_button_desc">用它来创建一个随机播放队列。要了解更多信息，请访问顶级音乐wiki！</string>
     <string name="simple">简单的</string>
     <string name="sleep_timer_canceled">睡眠计时器已取消。</string>
     <string name="sleep_timer_set">从现在起，睡眠计时器设置为 %d 分钟。</string>
@@ -491,7 +476,6 @@
     <string name="stack">堆栈...</string>
     <string name="suggestion_songs">建议</string>
     <string name="support_development">支持 &amp; 开发</string>
-    <string name="swipe_to_unlock">滑动解锁</string>
     <string name="tab_only">仅绘图板模式</string>
     <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">加入 Telegram 群組讨论漏洞，提出建议，顯示更多</string>
@@ -523,6 +507,8 @@
     <string name="website">网址</string>
     <string name="website_summary">查看我们的网站</string>
     <string name="what_do_you_want_to_share">您想分享什么？</string>
+    <string name="wiki">维基</string>
+    <string name="wiki_summary">需要帮助？看看我们的维基页面！</string>
     <string name="x_has_been_set_as_ringtone">设置 %1$s 为您的铃声。</string>
     <string name="x_selected">已选择 %1$d</string>
     <string name="year">年份</string>

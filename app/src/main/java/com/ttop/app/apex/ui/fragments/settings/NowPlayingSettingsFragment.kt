@@ -31,7 +31,6 @@ import com.ttop.app.apex.DURATION_SAME
 import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
 import com.ttop.app.apex.FAST_FORWARD_DURATION
 import com.ttop.app.apex.LYRICS_MODE
-import com.ttop.app.apex.LYRICS_TYPES
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
@@ -87,6 +86,12 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
         colorAnimate?.isChecked = PreferenceUtil.isColorAnimate
+
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
+            colorAnimate?.isEnabled = false
+            colorAnimate?.isChecked = false
+        }
+
         colorAnimate?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -113,6 +118,11 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         }
 
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
+            playerBG?.isEnabled = false
+            playerBG?.isChecked = false
+        }
+
         playerBG?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -177,33 +187,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val coverLyricsType: ATESwitchPreference? = findPreference(LYRICS_TYPES)
-        coverLyricsType?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val lyricsType: ATEListPreference? = findPreference(LYRICS_MODE)
-        lyricsType?.setOnPreferenceChangeListener { _, _ ->
-            when (PreferenceUtil.lyricsMode) {
-                "id3" -> {
-                    coverLyricsType?.isVisible = false
-                }
-                "synced" -> {
-                    coverLyricsType?.isVisible = true
-                }
-                "both" -> {
-                    coverLyricsType?.isVisible = true
-                }
-                "disabled" -> {
-                    coverLyricsType?.isVisible = false
-                }
-            }
-            true
-        }
-
         val swipeAnywhereNonFoldable: ATESwitchPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE)
         swipeAnywhereNonFoldable?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
@@ -222,22 +205,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
         newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
-
-        val coverLyricsType: ATESwitchPreference? = findPreference(LYRICS_TYPES)
-        when (PreferenceUtil.lyricsMode) {
-            "id3" -> {
-                coverLyricsType?.isVisible = false
-            }
-            "synced" -> {
-                coverLyricsType?.isVisible = true
-            }
-            "both" -> {
-                coverLyricsType?.isVisible = true
-            }
-            "disabled" -> {
-                coverLyricsType?.isVisible = false
-            }
-        }
 
         val lyrics: PreferenceCategory? = findPreference("lyrics")
         lyrics?.isVisible = !PreferenceUtil.isSimpleMode
@@ -298,6 +265,18 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         if (adaptiveColor?.isEnabled == false) {
             adaptiveColor.isChecked = false
+        }
+
+        val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
+            colorAnimate?.isEnabled = false
+            colorAnimate?.isChecked = false
+        }
+
+        val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
+            playerBG?.isEnabled = false
+            playerBG?.isChecked = false
         }
 
         val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)

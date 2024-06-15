@@ -697,8 +697,8 @@ object PreferenceUtil {
             .getInt(LAST_USED_TAB, 0)
         set(value) = sharedPreferences.edit { putInt(LAST_USED_TAB, value) }
 
-    val isWhiteList: Boolean
-        get() = sharedPreferences.getBoolean(WHITELIST_MUSIC, true)
+    val isWhiteList
+        get() = sharedPreferences.getString(WHITELIST, "internal")
 
     val crossFadeDuration
         get() = sharedPreferences
@@ -711,13 +711,6 @@ object PreferenceUtil {
     var isApexFont
         get() = sharedPreferences.getBoolean(APEX_FONT, false)
         set(value) = sharedPreferences.edit { putBoolean(APEX_FONT, value) }
-
-    val lyricsTypes: CoverLyricsType
-        get() = if (sharedPreferences.getBoolean(LYRICS_TYPES, false)) {
-            CoverLyricsType.OVER_COVER
-        } else {
-            CoverLyricsType.REPLACE_COVER
-        }
 
     var playbackSpeed
         get() = sharedPreferences
@@ -998,6 +991,11 @@ object PreferenceUtil {
             DISABLE_MESSAGE_LYRICS, false
         )
 
+    val isSyncedLyricsMessageDisabled
+        get() = sharedPreferences.getBoolean(
+            DISABLE_MESSAGE_LYRICS_SYNCED, false
+        )
+
     val isSimpleMode
         get() = sharedPreferences.getBoolean(
             SIMPLE_MODE, false
@@ -1021,8 +1019,9 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(TOGGLE_MINI_SWIPE_NON_FOLDABLE, value)}
-}
 
-enum class CoverLyricsType {
-    REPLACE_COVER, OVER_COVER
+    val isNotificationPersistent
+        get() = sharedPreferences.getBoolean(
+            PERSISTENT_NOTIFICATION, false
+        )
 }

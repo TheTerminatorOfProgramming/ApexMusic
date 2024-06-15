@@ -134,20 +134,17 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
         binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
         if (PreferenceUtil.isAdaptiveColor) {
-            if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
-                lastPlaybackControlsColor =
-                    color.secondaryTextColor
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
-            } else {
-                lastPlaybackControlsColor =
-                    color.secondaryTextColor
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
-            }
+            lastPlaybackControlsColor = color.secondaryTextColor
+            lastDisabledPlaybackControlsColor = com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor)
+
             binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
             binding.songTotalTime.setTextColor(color.secondaryTextColor)
-        }else {
+
+            binding.titleArtist?.setTextColor(color.secondaryTextColor)
+            binding.title?.setTextColor(color.secondaryTextColor)
+            binding.artist?.setTextColor(color.secondaryTextColor)
+            binding.songInfo.setTextColor(color.secondaryTextColor)
+        } else {
             if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
                 lastPlaybackControlsColor =
                     MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
@@ -162,21 +159,91 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
 
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {
-                binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
-                binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
-            }else {
-                binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
-                binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.songCurrentProgress.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+                binding.songTotalTime.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+
+                binding.titleArtist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+                binding.title?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+                binding.artist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+                binding.songInfo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_black_1000
+                    )
+                )
+            } else {
+                binding.songCurrentProgress.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+                binding.songTotalTime.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+
+                binding.titleArtist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+                binding.title?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+                binding.artist?.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
+                binding.songInfo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_white_1000
+                    )
+                )
             }
         }
 
-        if (PreferenceUtil.isAdaptiveColor) {
+        /*if (PreferenceUtil.isAdaptiveColor) {
             binding.titleArtist?.setTextColor(color.secondaryTextColor)
             binding.title?.setTextColor(color.secondaryTextColor)
             binding.artist?.setTextColor(color.secondaryTextColor)
             binding.songInfo.setTextColor(color.secondaryTextColor)
 
-        }else {
+        } else {
             val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
             if (ColorUtil.isColorLight(colorBg)) {
                 binding.titleArtist?.setTextColor(
@@ -229,7 +296,7 @@ class PeekPlayerControlFragment : AbsPlayerControlsFragment(R.layout.fragment_pe
                     )
                 )
             }
-        }
+        }*/
 
         updateRepeatState()
         updateShuffleState()

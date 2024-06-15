@@ -38,7 +38,7 @@ class LanguageSlideFragment(
 
         niceSpinner = view.findViewById(R.id.spinner)!!
         val dataset: List<String> = LinkedList(mutableListOf(getString(R.string.system_default), getString(R.string.bengali),
-            getString(R.string.english), getString(R.string.german), getString(R.string.hindi), getString(R.string.indonesian), getString(R.string.italian), getString(R.string.japanese), getString(R.string.mandarin), getString(R.string.portuguese),
+            getString(R.string.english), getString(R.string.french), getString(R.string.german), getString(R.string.hindi), getString(R.string.indonesian), getString(R.string.italian), getString(R.string.japanese), getString(R.string.mandarin), getString(R.string.portuguese),
             getString(R.string.punjabi), getString(R.string.spanish), getString(R.string.turkish)))
         niceSpinner.attachDataSource(dataset)
 
@@ -46,16 +46,17 @@ class LanguageSlideFragment(
             "auto" -> niceSpinner.selectedIndex = 0
             "bn" -> niceSpinner.selectedIndex = 1
             "en" -> niceSpinner.selectedIndex = 2
-            "de" -> niceSpinner.selectedIndex = 3
-            "hi" -> niceSpinner.selectedIndex = 4
-            "in" -> niceSpinner.selectedIndex = 5
-            "it" -> niceSpinner.selectedIndex = 6
-            "ja" -> niceSpinner.selectedIndex = 7
-            "zh" -> niceSpinner.selectedIndex = 8
-            "pt" -> niceSpinner.selectedIndex = 9
-            "pa" -> niceSpinner.selectedIndex = 10
-            "es" -> niceSpinner.selectedIndex = 11
-            "tr" -> niceSpinner.selectedIndex = 12
+            "fr" -> niceSpinner.selectedIndex = 3
+            "de" -> niceSpinner.selectedIndex = 4
+            "hi" -> niceSpinner.selectedIndex = 5
+            "in" -> niceSpinner.selectedIndex = 6
+            "it" -> niceSpinner.selectedIndex = 7
+            "ja" -> niceSpinner.selectedIndex = 8
+            "zh" -> niceSpinner.selectedIndex = 9
+            "pt" -> niceSpinner.selectedIndex = 10
+            "pa" -> niceSpinner.selectedIndex = 11
+            "es" -> niceSpinner.selectedIndex = 12
+            "tr" -> niceSpinner.selectedIndex = 13
         }
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_green_500))
@@ -72,6 +73,7 @@ class LanguageSlideFragment(
             getString(R.string.system_default) -> itemCode = "auto"
             getString(R.string.bengali) -> itemCode = "bn"
             getString(R.string.english) -> itemCode = "en"
+            getString(R.string.english) -> itemCode = "fr"
             getString(R.string.german) -> itemCode = "de"
             getString(R.string.hindi) -> itemCode = "hi"
             getString(R.string.indonesian) -> itemCode = "in"

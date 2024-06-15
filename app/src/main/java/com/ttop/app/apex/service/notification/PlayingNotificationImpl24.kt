@@ -40,6 +40,7 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 @SuppressLint("RestrictedApi")
 class PlayingNotificationImpl24(
@@ -88,6 +89,11 @@ class PlayingNotificationImpl24(
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
+        if (!VersionUtils.hasUpsideDownCake()) {
+            setOngoing(PreferenceUtil.isNotificationPersistent)
+        }else{
+            setOngoing(false)
+        }
         addAction(toggleFavoriteOrUpdate)
         addAction(previousAction)
         addAction(playPauseAction)

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bengali">Bengalais</string>
+    <string name="english">Anglais</string>
+    <string name="french">Français</string>
+    <string name="german">Allemand</string>
+    <string name="hindi">Hindi</string>
+    <string name="indonesian">Indonésien</string>
+    <string name="italian">Italien</string>
+    <string name="japanese">Japonais</string>
+    <string name="mandarin">Mandarin</string>
+    <string name="portuguese">Portugais</string>
+    <string name="punjabi">Pendjabi</string>
+    <string name="spanish">Espagnol</string>
+    <string name="system_default">Par défaut du système</string>
+    <string name="turkish">Turc</string>
+</resources>

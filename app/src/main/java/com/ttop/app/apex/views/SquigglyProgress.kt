@@ -215,6 +215,7 @@ class SquigglyProgress : Drawable() {
         canvas.restore()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun getOpacity(): Int {
         return PixelFormat.TRANSLUCENT
     }

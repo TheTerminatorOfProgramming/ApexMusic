@@ -30,17 +30,22 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON
 import androidx.core.net.toUri
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.DecimalFormat
-import java.util.*
-
+import java.util.Collections
 
 object ApexUtil {
     fun formatValue(numValue: Float): String {
@@ -377,6 +382,30 @@ object ApexUtil {
             //for check internet over Bluetooth
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
             else -> false
+        }
+    }
+
+    private fun buildBiometricPrompt(context: Context): BiometricPrompt.PromptInfo {
+        return BiometricPrompt.PromptInfo.Builder()
+            .setTitle(context.getString(R.string.developer_mode))
+            .setSubtitle(context.getString(R.string.biometric_authenticate_subtitle))
+            .setDescription(context.getString(R.string.biometric_authenticate_description))
+            .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
+            .build()
+    }
+
+    fun checkAndAuthenticate(context: Context, biometricPrompt: BiometricPrompt) {
+        val biometricManager: BiometricManager = BiometricManager.from(context)
+        when (biometricManager.canAuthenticate(BIOMETRIC_STRONG)) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+                val promptInfo = buildBiometricPrompt(context)
+                biometricPrompt.authenticate(promptInfo)
+            }
+
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> context.showToast("Biometric Authentication currently unavailable")
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> context.showToast("Your device doesn't support Biometric Authentication")
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> context.showToast("Your device doesn't have any fingerprint enrolled")
+            else -> context.showToast("Your device authentication has an unspecified error")
         }
     }
 }

@@ -57,7 +57,6 @@ import com.ttop.app.apex.extensions.uri
 import com.ttop.app.apex.glide.ApexGlideExtension.getDefaultTransition
 import com.ttop.app.apex.glide.ApexGlideExtension.getSongModel
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
-import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.ShuffleHelper.makeShuffleList
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.model.Song.Companion.emptySong
@@ -880,10 +879,20 @@ class MusicService : MediaBrowserServiceCompat(),
 
     fun playPreviousSong(force: Boolean) {
         playSongAt(getPreviousPosition(force))
+        /*if (songProgressMillis < 5000) {
+            seek(0)
+        }else{
+            playSongAt(getPreviousPosition(force))
+        }*/
     }
 
     fun playPreviousSongAuto(force: Boolean, isPlaying: Boolean) {
         playSongAtImpl(getPreviousPosition(force), isPlaying)
+        /*if (songProgressMillis < 5000) {
+            seek(0)
+        }else{
+            playSongAtImpl(getPreviousPosition(force), isPlaying)
+        }*/
     }
 
     fun playSongAt(position: Int) {
@@ -1811,7 +1820,7 @@ class MusicService : MediaBrowserServiceCompat(),
                 appWidgetFull.performUpdate(this@MusicService, null)
             }
         }
-        scheduler.scheduleAtFixedRate(hideTimelineRunnable, 0, 1000, TimeUnit.MILLISECONDS)
+        scheduler.scheduleWithFixedDelay(hideTimelineRunnable, 0, 1000, TimeUnit.MILLISECONDS)
     }
 
     private fun setupMediaSession() {

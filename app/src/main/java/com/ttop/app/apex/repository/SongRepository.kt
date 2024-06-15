@@ -20,6 +20,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.AudioColumns
 import android.provider.MediaStore.Audio.Media
+import androidx.core.content.ContextCompat
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.Constants.IS_MUSIC
 import com.ttop.app.apex.Constants.baseProjection
@@ -174,21 +175,53 @@ class RealSongRepository(private val context: Context) : SongRepository {
                 IS_MUSIC
             }
 
-            // Whitelist
-            if (PreferenceUtil.isWhiteList) {
-                selectionFinal =
-                    selectionFinal + " AND " + Constants.DATA + " LIKE ?"
-                selectionValuesFinal = addSelectionValues(
-                    selectionValuesFinal, arrayListOf(
-                        getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).canonicalPath
-                    )
+            val rootPaths = ArrayList<String>()
+            val rootsStorage = ContextCompat.getExternalFilesDirs(context, null)
+            for (i in rootsStorage.indices) {
+                val root = rootsStorage[i].absolutePath.replace(
+                    "/Android/data/" + context.packageName + "/files",
+                    ""
                 )
-            } else {
-                // Blacklist
-                val paths = BlacklistStore.getInstance(context).paths
-                if (paths.isNotEmpty()) {
-                    selectionFinal = generateBlacklistSelection(selectionFinal, paths.size)
-                    selectionValuesFinal = addSelectionValues(selectionValuesFinal, paths)
+                rootPaths.add(root)
+            }
+
+            // Whitelist
+            when (PreferenceUtil.isWhiteList) {
+                "internal"-> {
+                    selectionFinal =
+                        selectionFinal + " AND " + Constants.DATA + " LIKE ?"
+                    selectionValuesFinal = addSelectionValues(
+                        selectionValuesFinal, arrayListOf(
+                            getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).canonicalPath
+                        )
+                    )
+                }
+                "external"-> {
+                    if (rootPaths.size > 1) {
+                        selectionFinal =
+                            selectionFinal + " AND " + Constants.DATA + " LIKE ?"
+                        selectionValuesFinal = addSelectionValues(
+                            selectionValuesFinal, arrayListOf(
+                                rootPaths[1] + "/music"
+                            )
+                        )
+                    }else {
+                        selectionFinal =
+                            selectionFinal + " AND " + Constants.DATA + " LIKE ?"
+                        selectionValuesFinal = addSelectionValues(
+                            selectionValuesFinal, arrayListOf(
+                                getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).canonicalPath
+                            )
+                        )
+                    }
+                }
+                else-> {
+                    // Blacklist
+                    val paths = BlacklistStore.getInstance(context).paths
+                    if (paths.isNotEmpty()) {
+                        selectionFinal = generateBlacklistSelection(selectionFinal, paths.size)
+                        selectionValuesFinal = addSelectionValues(selectionValuesFinal, paths)
+                    }
                 }
             }
 

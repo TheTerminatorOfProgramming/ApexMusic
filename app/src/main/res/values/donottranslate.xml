@@ -13,8 +13,6 @@
     <string name="empty_text_emoji" translatable="false">&#128561;</string>
 
     <string name="sort_order_album_artist">@string/album_artist</string>
-    <string name="widgetScreen" translatable="false">widgetScreen</string>
-
 
     <string name="download_policy">always</string>
 

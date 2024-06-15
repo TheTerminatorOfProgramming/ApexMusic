@@ -51,7 +51,6 @@ import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
@@ -151,11 +150,14 @@ class AlbumCoverPagerAdapter(
                             mainActivity.keepScreenOn(false)
                         }
 
-                        if (PreferenceUtil.showLyrics) {
-                            showToast(getString(R.string.cover_lyrics_on))
-                        }else {
-                            showToast(getString(R.string.cover_lyrics_off))
+                        if (!PreferenceUtil.isSyncedLyricsMessageDisabled) {
+                            if (PreferenceUtil.showLyrics) {
+                                showToast(getString(R.string.cover_lyrics_on))
+                            }else {
+                                showToast(getString(R.string.cover_lyrics_off))
+                            }
                         }
+
                     }
                     return super.onDoubleTap(e)
                 }
@@ -171,7 +173,7 @@ class AlbumCoverPagerAdapter(
 
                 override fun onLongPress(e: MotionEvent) {
                     if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
-                        val nps = listOf(NowPlayingScreen.Adaptive, NowPlayingScreen.Blur, NowPlayingScreen.Classic, NowPlayingScreen.Gradient, NowPlayingScreen.Peek)
+                        val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
                         if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(PreferenceUtil.nowPlayingScreen) || PreferenceUtil.lyricsMode == "both" && !nps.contains(PreferenceUtil.nowPlayingScreen)) {
                             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)

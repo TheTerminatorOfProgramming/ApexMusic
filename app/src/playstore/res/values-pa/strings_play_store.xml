@@ -2,4 +2,9 @@
 <resources>
     <string name="rate_app">ਐਪ ਨੂੰ ਦਰਜਾ ਦਿਓ</string>
     <string name="rate_on_google_play_summary">ਕੀ ਇਹ ਐਪ ਪਸੰਦ ਹੈ? ਸਾਨੂੰ ਗੂਗਲ ਪਲੇ ਸਟੋਰ ਵਿੱਚ ਦੱਸੋ ਕਿ ਅਸੀਂ ਇਸਨੂੰ ਹੋਰ ਬਿਹਤਰ ਕਿਵੇਂ ਬਣਾ ਸਕਦੇ ਹਾਂ</string>
+    <string name="play_store_edition">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ</string>
+    <string name="play_store_edition_beta">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ: ਬੀਟਾ</string>
+    <string name="play_store_edition_debug">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ: ਬਿਲਡ</string>
+    <string name="play_store_edition_preview">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ: ਪੂਰਵਦਰਸ਼ਨ</string>
+    <string name="play_store_edition_release">ਪਲੇ ਸਟੋਰ ਐਡੀਸ਼ਨ: ਸਥਿਰ</string>
 </resources>

@@ -2,6 +2,7 @@
 <resources>
     <string name="bengali">बंगाली</string>
     <string name="english">अंग्रेज़ी</string>
+    <string name="french">फ्रेंच</string>
     <string name="german">जर्मन</string>
     <string name="hindi">हिंदी</string>
     <string name="indonesian">इन्डोनेशियाई</string>
@@ -12,4 +13,5 @@
     <string name="punjabi">पंजाबी</string>
     <string name="spanish">स्पैनिश</string>
     <string name="system_default">प्रणालीगत चूक</string>
+    <string name="turkish">तुर्क</string>
 </resources>

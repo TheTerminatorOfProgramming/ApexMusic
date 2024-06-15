@@ -29,7 +29,6 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.SEARCH_ACTION
 import com.ttop.app.apex.SEARCH_ICON_NAVIGATION
 import com.ttop.app.apex.USE_NOTIFY_ACTIONS_AUTO
-import com.ttop.app.apex.WHITELIST_MUSIC
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
 import com.ttop.app.apex.util.PreferenceUtil
@@ -44,14 +43,6 @@ class OtherSettingsFragment : AbsSettingsFragment(),
     private val libraryViewModel by activityViewModel<LibraryViewModel>()
 
     override fun invalidateSettings() {
-        val whitelist: TwoStatePreference? = findPreference(WHITELIST_MUSIC)
-        whitelist?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
         val autoRotate: TwoStatePreference? = findPreference(AUTO_ROTATE)
         autoRotate?.setOnPreferenceChangeListener { _, newValue ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {

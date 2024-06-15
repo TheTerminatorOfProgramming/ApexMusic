@@ -107,16 +107,12 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun setUpView() {
-
-
         binding.aboutContent.cardApexInfo.appGithub.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.appShare.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.websiteLink.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.appRate.setOnClickListener(this)
-
         binding.aboutContent.cardOther.changelog.setOnClickListener(this)
         binding.aboutContent.cardOther.openSource.setOnClickListener(this)
-
         binding.aboutContent.cardPermissions.storagePermission.text = checkStoragePermission()
         binding.aboutContent.cardPermissions.btPermission.text = checkBtPermission()
         binding.aboutContent.cardPermissions.batteryPermission.text = checkBatteryOptimization()
@@ -127,10 +123,9 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             binding.aboutContent.cardOther.version.setOnClickListener(this)
         }
         binding.aboutContent.cardOther.devMode.setOnClickListener(this)
-
         binding.aboutContent.cardTroubleshoot.forceClose.setOnClickListener(this)
-
         binding.aboutContent.cardApexInfo.crowdinLink.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.wikiLink.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -271,10 +266,13 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.crowdinLink -> {
                 goToCrowdin()
             }
+            R.id.wikiLink -> {
+                goToWiki()
+            }
         }
     }
 
-    fun goToWebPage() {
+    private fun goToWebPage() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("https://theterminatorofprogramming.github.io/")
         startActivity(intent)
@@ -293,6 +291,12 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private fun goToCrowdin() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("https://crowdin.com/project/apexmusic")
+        startActivity(intent)
+    }
+
+    private fun goToWiki() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("https://github.com/TheTerminatorOfProgramming/ApexMusic/wiki")
         startActivity(intent)
     }
 

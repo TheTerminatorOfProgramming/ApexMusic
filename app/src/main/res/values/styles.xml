@@ -50,14 +50,6 @@
 
     <style name="Theme.Apex.MD3.Black" parent="@style/Theme.Apex.MD3.Dark" />
 
-    <style name="Theme.AppWidget" parent="@android:style/Theme.DeviceDefault.DayNight">
-        <item name="colorSurface">@android:color/system_accent1_50</item>
-    </style>
-
-    <style name="Theme.Apex.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
-
-    <style name="Theme.Apex.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
-
     <style name="OverFlowButton">
         <item name="srcCompat">@drawable/ic_more_vert</item>
         <item name="android:layout_width">48dp</item>
@@ -66,10 +58,6 @@
         <item name="android:background">?attr/roundSelector</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:focusable">false</item>
-    </style>
-
-    <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
-        <item name="android:padding">0dp</item>
     </style>
 
     <style name="Toolbar" parent="Widget.Material3.Toolbar">
@@ -111,8 +99,6 @@
     <style name="TextViewStyleIm" parent="android:Widget.Material.TextView">
         <item name="android:hyphenationFrequency">none</item>
     </style>
-
-    <style name="Fab" parent="FabParent" />
 
     <style name="TextViewNormal" parent="">
         <item name="android:textSize">14sp</item>
@@ -226,11 +212,6 @@
         <item name="android:paddingTop">16dp</item>
     </style>
 
-    <style name="AppTextAppearance.MaterialAlertDialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
-        <item name="android:textAppearance">@style/TextViewHeadline6</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="MaterialButtonTheme" parent="Widget.Material3.Button">
         <item name="cornerRadius">6dp</item>
         <item name="iconGravity">textStart</item>
@@ -279,10 +260,6 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
-    <style name="circleImageView" parent="ShapeAppearance.MaterialComponents">
-        <item name="cornerSize">40dp</item>
-    </style>
-
     <style name="SearchChipStyle" parent="Widget.Material3.Chip.Filter">
         <item name="android:checked">false</item>
         <item name="android:textSize">16sp</item>
@@ -290,12 +267,6 @@
         <item name="chipEndPadding">10dp</item>
         <item name="chipMinHeight">40dp</item>
         <item name="chipStartPadding">10dp</item>
-    </style>
-    <!--Bottom Sheet Dialog Style-->
-    <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
     </style>
 
     <style name="HomeActionButton" parent="Widget.Material3.Button.ElevatedButton.Icon">
@@ -336,22 +307,11 @@
         </item>
     </style>
 
-    <style name="RoundedFABOverlay">
-        <item name="floatingActionButtonStyle">
-            @style/Widget.Material3.FloatingActionButton.Primary
-        </item>
-    </style>
-
     <style name="Theme.AppWidget.Transparent" parent="" >
         <item name="colorSurface">#00ffffff</item>
     </style>
 
     <style name="ShapeAppearance.Material3.Circle" parent="">
-        <item name="cornerSize">50%</item>
-    </style>
-
-    <style name="circleImageView1" parent="">
-        <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
 

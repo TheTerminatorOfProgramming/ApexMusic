@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="rate_app">एप्लिकेशन की श्रेणी बताओ</string>
-    <string name="rate_on_google_play_summary">क्या आपको यह ऐप पसंद है? आइए Google Play Store में जानें कि हम इसे और बेहतर कैसे बना सकते हैं</string>
+    <string name="rate_on_google_play_summary">क्या आपको यह ऐप पसंद आया? Google Play Store पर हमें बताएं कि हम इसे और बेहतर कैसे बना सकते हैं</string>
+    <string name="play_store_edition">प्ले स्टोर संस्करण</string>
+    <string name="play_store_edition_beta">प्ले स्टोर संस्करण: बीटा</string>
+    <string name="play_store_edition_debug">प्ले स्टोर संस्करण: बिल्ड</string>
+    <string name="play_store_edition_preview">प्ले स्टोर संस्करण: पूर्वावलोकन</string>
+    <string name="play_store_edition_release">प्ले स्टोर संस्करण: स्थिर</string>
 </resources>

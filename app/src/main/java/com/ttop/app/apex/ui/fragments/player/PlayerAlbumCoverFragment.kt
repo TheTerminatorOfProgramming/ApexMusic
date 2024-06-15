@@ -28,14 +28,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
-import com.ttop.app.apex.LYRICS_TYPES
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SHOW_LYRICS
 import com.ttop.app.apex.adapter.album.AlbumCoverPagerAdapter
 import com.ttop.app.apex.adapter.album.AlbumCoverPagerAdapter.AlbumCoverFragment
 import com.ttop.app.apex.databinding.FragmentPlayerAlbumCoverBinding
-import com.ttop.app.apex.extensions.isColorLight
-import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.lyrics.CoverLrcView
@@ -44,12 +42,10 @@ import com.ttop.app.apex.transform.CarousalPagerTransformer
 import com.ttop.app.apex.transform.ParallaxPagerTransformer
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
-import com.ttop.app.apex.util.CoverLyricsType
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -74,8 +70,6 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     private var progressViewUpdateHelper: MusicProgressViewUpdateHelper? = null
 
     private val lrcView: CoverLrcView get() = binding.lyricsView
-
-
 
     var lyrics: Lyrics? = null
 
@@ -199,9 +193,6 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
                     progressViewUpdateHelper?.stop()
                 }
             }
-            LYRICS_TYPES -> {
-                maybeInitLyrics()
-            }
         }
     }
 
@@ -212,20 +203,16 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
             setTimelineColor(primaryColor)
             setNormalColor(secondaryColor)
             setTimelineTextColor(primaryColor)
+            setPlayDrawableColor(com.ttop.app.apex.util.ColorUtil.getComplimentColor(primaryColor))
         }
     }
 
     private fun showLyrics(visible: Boolean) {
-        binding.coverLyrics.isVisible = false
         binding.lyricsView.isVisible = false
         binding.viewPager.isVisible = true
-        val lyrics: View = if (PreferenceUtil.lyricsTypes == CoverLyricsType.REPLACE_COVER) {
-            ObjectAnimator.ofFloat(viewPager, View.ALPHA, if (visible) 0F else 1F).start()
-            lrcView
-        } else {
-            ObjectAnimator.ofFloat(viewPager, View.ALPHA, 1F).start()
-            binding.coverLyrics
-        }
+
+        val lyrics: View = lrcView
+        ObjectAnimator.ofFloat(viewPager, View.ALPHA, if (visible) 0F else 1F).start()
         ObjectAnimator.ofFloat(lyrics, View.ALPHA, if (visible) 1F else 0F).apply {
             doOnEnd {
                 lyrics.isVisible = visible
@@ -237,11 +224,10 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     private fun maybeInitLyrics() {
         val nps = PreferenceUtil.nowPlayingScreen
         // Don't show lyrics container for below conditions
+
         if (lyricViewNpsList.contains(nps) && PreferenceUtil.showLyrics) {
             showLyrics(true)
-            if (PreferenceUtil.lyricsTypes == CoverLyricsType.REPLACE_COVER) {
-                progressViewUpdateHelper?.start()
-            }
+            progressViewUpdateHelper?.start()
         } else {
             showLyrics(false)
             progressViewUpdateHelper?.stop()
@@ -289,18 +275,16 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
 
     private fun notifyColorChange(color: MediaNotificationProcessor) {
         callbacks?.onColorChanged(color)
-        val primaryColor = MaterialValueHelper.getPrimaryTextColor(
-            requireContext(),
-            surfaceColor().isColorLight
-        )
-        val secondaryColor = MaterialValueHelper.getSecondaryDisabledTextColor(
-            requireContext(),
-            surfaceColor().isColorLight
-        )
-
         when (PreferenceUtil.nowPlayingScreen) {
             Blur -> setLRCViewColors(Color.WHITE, ColorUtil.withAlpha(Color.WHITE, 0.5f))
-            else -> setLRCViewColors(primaryColor, secondaryColor)
+            Gradient -> setLRCViewColors(color.secondaryTextColor, color.secondaryTextColor)
+            else -> {
+                if (PreferenceUtil.isAdaptiveColor) {
+                    setLRCViewColors(color.secondaryTextColor, color.secondaryTextColor)
+                }else {
+                    setLRCViewColors(accentColor(), accentColor())
+                }
+            }
         }
     }
 
@@ -320,5 +304,5 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     }
 
     private val lyricViewNpsList =
-        listOf(Blur, Classic, Adaptive, Card, Gradient)
+        listOf(Blur, Classic, Adaptive, Card, Gradient, Peek)
 }
