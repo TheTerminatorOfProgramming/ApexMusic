@@ -67,22 +67,6 @@ class AppWidgetBig : BaseAppWidget() {
             RemoteViews(context.packageName, R.layout.app_widget_big_day_night)
         }
 
-        appWidgetView.setImageViewBitmap(
-            R.id.button_update,
-            context.getTintedDrawable(
-                R.drawable.ic_refresh,
-                MaterialValueHelper.getPrimaryTextColor(context, false)
-            ).toBitmap()
-        )
-
-        appWidgetView.setImageViewBitmap(
-            R.id.button_open,
-            context.getTintedDrawable(
-                R.drawable.app_icon_white,
-                MaterialValueHelper.getPrimaryTextColor(context, false)
-            ).toBitmap()
-        )
-
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
 
@@ -109,6 +93,22 @@ class AppWidgetBig : BaseAppWidget() {
             ).toBitmap()
         )
 
+        appWidgetView.setImageViewBitmap(
+            R.id.button_update,
+            context.getTintedDrawable(
+                R.drawable.ic_refresh,
+                secondaryColor
+            ).toBitmap()
+        )
+
+        appWidgetView.setImageViewBitmap(
+            R.id.button_open,
+            context.getTintedDrawable(
+                R.drawable.app_icon_white,
+                secondaryColor
+            ).toBitmap()
+        )
+
         linkButtons(context, appWidgetView)
 
         pushUpdate(context, appWidgetIds, appWidgetView)
@@ -123,22 +123,6 @@ class AppWidgetBig : BaseAppWidget() {
         }else {
             RemoteViews(service.packageName, R.layout.app_widget_big_day_night)
         }
-
-        appWidgetView.setImageViewBitmap(
-            R.id.button_update,
-            service.getTintedDrawable(
-                R.drawable.ic_refresh,
-                MaterialValueHelper.getPrimaryTextColor(service, false)
-            ).toBitmap()
-        )
-
-        appWidgetView.setImageViewBitmap(
-            R.id.button_open,
-            service.getTintedDrawable(
-                R.drawable.app_icon_white,
-                MaterialValueHelper.getPrimaryTextColor(service, false)
-            ).toBitmap()
-        )
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
@@ -198,6 +182,20 @@ class AppWidgetBig : BaseAppWidget() {
             R.id.button_toggle_play_pause,
             service.getTintedDrawable(
                 R.drawable.ic_play_arrow_small,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
+        )
+        appWidgetView.setImageViewBitmap(
+            R.id.refresh_button,
+            service.getTintedDrawable(
+                R.drawable.ic_refresh,
+                MaterialValueHelper.getSecondaryTextColor(service, true)
+            ).toBitmap()
+        )
+        appWidgetView.setImageViewBitmap(
+            R.id.button_open,
+            service.getTintedDrawable(
+                R.drawable.app_icon_white,
                 MaterialValueHelper.getSecondaryTextColor(service, true)
             ).toBitmap()
         )
@@ -276,13 +274,6 @@ class AppWidgetBig : BaseAppWidget() {
                             ).toBitmap()
                         )
 
-                        appWidgetView.setImageViewBitmap(
-                            R.id.button_open, service.getTintedDrawable(
-                                R.drawable.app_icon_white,
-                                ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                            ).toBitmap()
-                        )
-
                         if (bitmap == null) {
                             createDefaultCircle(service, appWidgetView, appWidgetIds, playPauseRes)
                         }else {
@@ -336,6 +327,8 @@ class AppWidgetBig : BaseAppWidget() {
         target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
             .load(R.drawable.default_album_art_round)
             .transform(BlurTransformation.Builder(service).build())
+            .placeholder(R.drawable.default_album_art_round)
+            .error(R.drawable.default_album_art_round)
             .into(object : CustomTarget<BitmapPaletteWrapper>(
                 imageSize,
                 imageSize
@@ -390,13 +383,6 @@ class AppWidgetBig : BaseAppWidget() {
                     appWidgetView.setImageViewBitmap(
                         R.id.button_update, service.getTintedDrawable(
                             R.drawable.ic_refresh,
-                            ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                        ).toBitmap()
-                    )
-
-                    appWidgetView.setImageViewBitmap(
-                        R.id.button_open, service.getTintedDrawable(
-                            R.drawable.app_icon_white,
                             ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
                         ).toBitmap()
                     )

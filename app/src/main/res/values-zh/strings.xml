@@ -376,7 +376,6 @@
     <string name="pref_title_md3">您的材料</string>
     <string name="pref_title_notification_action_1">通知左侧动作</string>
     <string name="pref_title_notification_action_2">右侧通知操作</string>
-    <string name="pref_title_notification_persistent">持续通知</string>
     <string name="pref_title_now_playing_screen_appearance">正在播放主题</string>
     <string name="pref_title_open_source_licences">开源许可证</string>
     <string name="pref_title_pause_history">暂停历史</string>

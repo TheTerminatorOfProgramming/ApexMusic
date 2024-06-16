@@ -1,21 +1,22 @@
-Apex Music v4.55
+Apex Music v4.56
 
 ==What's New==
 =What's Been Added=
 -Nothing has been added
 
 =What's Been Removed=
--Nothing has been removed
+-Persistent notification option
 
 =What's Been Changed & Updated=
--Nothing has been changed or updated
+-ID3 and synced lyrics will now disable when the lyrics type option is set to disabled
+-Navigation bar color on player themes
+-Classic player theme layout
 
 =What's Planned To Be Removed/Changed=
 -Audio fade and crossfade options need to be fixed as they cause headset controls to be unresponsive
 
 ==What's Fixed==
--Synced lyrics double tap
--Adaptive player theme
+-Big widget crash when clearing playing queue
 
 ==Possible Bugs==
 -Audio fade and crossfade options causes headset controls to be unresponsive. use these options with caution

@@ -67,8 +67,8 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         playbackControlsFragment.setColor(color)
-        lastColor = color.primaryTextColor
-        libraryViewModel.updateColor(color.primaryTextColor)
+        lastColor = color.secondaryTextColor
+        libraryViewModel.updateColor(color.secondaryTextColor)
         ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
     }
 

@@ -5,5 +5,4 @@
     <bool name="auto_actions">false</bool>
     <bool name="extra_controls">true</bool>
     <bool name="queue_option">false</bool>
-    <bool name="persistent_notification">true</bool>
 </resources>

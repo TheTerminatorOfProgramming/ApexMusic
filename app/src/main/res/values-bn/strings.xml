@@ -378,7 +378,6 @@
     <string name="pref_title_md3">উপাদান আপনি</string>
     <string name="pref_title_notification_action_1">বিজ্ঞপ্তি কর্ম বাম</string>
     <string name="pref_title_notification_action_2">বিজ্ঞপ্তি কর্ম অধিকার</string>
-    <string name="pref_title_notification_persistent">অবিরাম বিজ্ঞপ্তি</string>
     <string name="pref_title_now_playing_screen_appearance">এখন থিম চলছে</string>
     <string name="pref_title_open_source_licences">ওপেন সোর্স লাইসেন্স</string>
     <string name="pref_title_pause_history">ইতিহাস থামান</string>

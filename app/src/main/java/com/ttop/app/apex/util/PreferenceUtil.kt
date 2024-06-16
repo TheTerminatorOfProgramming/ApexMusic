@@ -1019,9 +1019,4 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(TOGGLE_MINI_SWIPE_NON_FOLDABLE, value)}
-
-    val isNotificationPersistent
-        get() = sharedPreferences.getBoolean(
-            PERSISTENT_NOTIFICATION, false
-        )
 }

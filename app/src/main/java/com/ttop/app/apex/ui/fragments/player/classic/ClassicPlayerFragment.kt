@@ -125,9 +125,9 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         controlsFragment.setColor(color)
-        lastColor = color.backgroundColor
+        lastColor = color.secondaryTextColor
         toolbarColor = color.secondaryTextColor
-        libraryViewModel.updateColor(color.backgroundColor)
+        libraryViewModel.updateColor(color.secondaryTextColor)
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,

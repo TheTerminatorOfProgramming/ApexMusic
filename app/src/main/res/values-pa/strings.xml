@@ -378,7 +378,6 @@
     <string name="pref_title_md3">ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ</string>
     <string name="pref_title_notification_action_1">ਸੂਚਨਾ ਕਾਰਵਾਈ ਖੱਬੇ</string>
     <string name="pref_title_notification_action_2">ਸੂਚਨਾ ਕਾਰਵਾਈ ਦਾ ਹੱਕ</string>
-    <string name="pref_title_notification_persistent">অবিরাম বিজ্ঞপ্তি</string>
     <string name="pref_title_now_playing_screen_appearance">ਹੁਣ ਥੀਮ ਚੱਲ ਰਿਹਾ ਹੈ</string>
     <string name="pref_title_open_source_licences">ਓਪਨ ਸੋਰਸ ਲਾਇਸੰਸ</string>
     <string name="pref_title_pause_history">ਇਤਿਹਾਸ ਨੂੰ ਰੋਕੋ</string>

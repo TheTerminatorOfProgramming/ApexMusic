@@ -43,6 +43,7 @@ import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TOGGLE_AUTOPLAY
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -191,6 +192,15 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         swipeAnywhereNonFoldable?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            true
+        }
+
+        val lyricsType: ATEListPreference? = findPreference(LYRICS_MODE)
+        lyricsType?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue == "disabled") {
+                PreferenceUtil.showLyrics = false
+                PreferenceUtil.isEmbedLyricsActivated = false
             }
             true
         }

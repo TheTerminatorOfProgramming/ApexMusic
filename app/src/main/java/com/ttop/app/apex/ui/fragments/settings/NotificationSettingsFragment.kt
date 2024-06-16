@@ -22,7 +22,6 @@ import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.DISABLE_UPDATE
 import com.ttop.app.apex.NOTIFICATION_ACTION_1
 import com.ttop.app.apex.NOTIFICATION_ACTION_2
-import com.ttop.app.apex.PERSISTENT_NOTIFICATION
 import com.ttop.app.apex.R
 import com.ttop.app.apex.WIDGET_STYLE
 import com.ttop.app.apex.appwidgets.AppWidgetBig
@@ -88,14 +87,6 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val widgetBackground: TwoStatePreference? = findPreference(WIDGET_STYLE)
         widgetBackground?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val persistentNotification: TwoStatePreference? = findPreference(PERSISTENT_NOTIFICATION)
-        persistentNotification?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }

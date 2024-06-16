@@ -380,7 +380,6 @@
     <string name="pref_title_md3">Matériel Vous</string>
     <string name="pref_title_notification_action_1">Action de notification restante</string>
     <string name="pref_title_notification_action_2">Action de notification Droite</string>
-    <string name="pref_title_notification_persistent">Notification persistante</string>
     <string name="pref_title_now_playing_screen_appearance">Thème en cours de lecture</string>
     <string name="pref_title_open_source_licences">Licences Open Source</string>
     <string name="pref_title_pause_history">Mettre en pause l\'historique</string>

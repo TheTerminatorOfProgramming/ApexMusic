@@ -380,7 +380,6 @@
     <string name="pref_title_md3">Materiale Tu</string>
     <string name="pref_title_notification_action_1">Azione Di Notifica Sinistra</string>
     <string name="pref_title_notification_action_2">Azione Di Notifica Destra</string>
-    <string name="pref_title_notification_persistent">Notifica Persistente</string>
     <string name="pref_title_now_playing_screen_appearance">Tema In Riproduzione</string>
     <string name="pref_title_open_source_licences">Licenze Open Source</string>
     <string name="pref_title_pause_history">Cronologia Pausa</string>

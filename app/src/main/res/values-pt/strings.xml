@@ -380,7 +380,6 @@
     <string name="pref_title_md3">Material de que você</string>
     <string name="pref_title_notification_action_1">Ação de Notificação à Esquerda</string>
     <string name="pref_title_notification_action_2">Ação da Notificação à Direita</string>
-    <string name="pref_title_notification_persistent">Notificação persistente</string>
     <string name="pref_title_now_playing_screen_appearance">Tema reproduzindo agora</string>
     <string name="pref_title_open_source_licences">Licenças de código aberto</string>
     <string name="pref_title_pause_history">Pausar Histórico</string>

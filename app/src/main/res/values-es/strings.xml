@@ -380,7 +380,6 @@
     <string name="pref_title_md3">Material que usted</string>
     <string name="pref_title_notification_action_1">Acción de notificación izquierda</string>
     <string name="pref_title_notification_action_2">Acción de notificación derecha</string>
-    <string name="pref_title_notification_persistent">Notificación persistente</string>
     <string name="pref_title_now_playing_screen_appearance">Ahora reproduciendo tema</string>
     <string name="pref_title_open_source_licences">Licencias de código abierto</string>
     <string name="pref_title_pause_history">Pausar historial</string>

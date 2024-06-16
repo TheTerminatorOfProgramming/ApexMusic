@@ -378,7 +378,6 @@
     <string name="pref_title_md3">सामग्री आप</string>
     <string name="pref_title_notification_action_1">अधिसूचना कार्रवाई शेष</string>
     <string name="pref_title_notification_action_2">अधिसूचना कार्रवाई सही</string>
-    <string name="pref_title_notification_persistent">निरंतर अधिसूचना</string>
     <string name="pref_title_now_playing_screen_appearance">अब थीम चल रही है</string>
     <string name="pref_title_open_source_licences">ओपन सोर्स लाइसेंस</string>
     <string name="pref_title_pause_history">इतिहास रोकें</string>

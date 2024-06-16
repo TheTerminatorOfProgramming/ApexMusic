@@ -378,7 +378,6 @@
     <string name="pref_title_md3">Material</string>
     <string name="pref_title_notification_action_1">Benachrichtigungsaktion links</string>
     <string name="pref_title_notification_action_2">Benachrichtigungsaktion rechts</string>
-    <string name="pref_title_notification_persistent">Dauerhafte Benachrichtigung</string>
     <string name="pref_title_now_playing_screen_appearance">Abspielen des Themes</string>
     <string name="pref_title_open_source_licences">Open Source Lizenzen</string>
     <string name="pref_title_pause_history">Verlauf pausieren</string>

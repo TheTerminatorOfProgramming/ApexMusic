@@ -89,11 +89,6 @@ class PlayingNotificationImpl24(
         setContentIntent(clickIntent)
         setDeleteIntent(deleteIntent)
         setShowWhen(false)
-        if (!VersionUtils.hasUpsideDownCake()) {
-            setOngoing(PreferenceUtil.isNotificationPersistent)
-        }else{
-            setOngoing(false)
-        }
         addAction(toggleFavoriteOrUpdate)
         addAction(previousAction)
         addAction(playPauseAction)

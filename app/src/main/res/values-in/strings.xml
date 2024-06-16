@@ -376,7 +376,6 @@
     <string name="pref_title_md3">Materi Anda</string>
     <string name="pref_title_notification_action_1">Tindakan Notifikasi Tersisa</string>
     <string name="pref_title_notification_action_2">Tindakan Notifikasi Benar</string>
-    <string name="pref_title_notification_persistent">Pemberitahuan Berkelanjutan</string>
     <string name="pref_title_now_playing_screen_appearance">Tema Sedang Dimainkan</string>
     <string name="pref_title_open_source_licences">Lisensi Sumber Terbuka</string>
     <string name="pref_title_pause_history">Jeda Riwayat</string>

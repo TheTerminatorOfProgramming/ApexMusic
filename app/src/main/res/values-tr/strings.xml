@@ -378,7 +378,6 @@
     <string name="pref_title_md3">Malzeme Siz</string>
     <string name="pref_title_notification_action_1">Bildirim Eylemi Sol</string>
     <string name="pref_title_notification_action_2">Bildirim Eylem Hakkı</string>
-    <string name="pref_title_notification_persistent">Sürekli Bildirim</string>
     <string name="pref_title_now_playing_screen_appearance">Şimdi Çalınıyor Teması</string>
     <string name="pref_title_open_source_licences">Açık Kaynak Lisansları</string>
     <string name="pref_title_pause_history">Geçmişi Duraklat</string>

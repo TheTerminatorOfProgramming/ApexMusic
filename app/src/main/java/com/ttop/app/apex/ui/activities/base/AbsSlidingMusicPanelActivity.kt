@@ -57,6 +57,7 @@ import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.currentFragment
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.dip
@@ -168,20 +169,24 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
                             }else {
-                                window.navigationBarColor = surfaceColor()
+                                window.navigationBarColor = accentColor()
                             }
                         }
                         Blur -> {
                             window.navigationBarColor = Color.BLACK
                         }
                         Card -> {
-                            window.navigationBarColor = Color.BLACK
+                            if (PreferenceUtil.isAdaptiveColor) {
+                                window.navigationBarColor = paletteColor
+                            }else {
+                                window.navigationBarColor = accentColor()
+                            }
                         }
                         Classic -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
                             }else {
-                                window.navigationBarColor = surfaceColor()
+                                window.navigationBarColor = accentColor()
                             }
                         }
                         Gradient -> {
@@ -194,7 +199,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
                             }else {
-                                window.navigationBarColor = darkAccentColor()
+                                window.navigationBarColor = accentColor()
                             }
                         }
                     }
@@ -328,20 +333,24 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     }else {
-                        window.navigationBarColor = surfaceColor()
+                        window.navigationBarColor = accentColor()
                     }
                 }
                 Blur -> {
                     window.navigationBarColor = Color.BLACK
                 }
                 Card -> {
-                    window.navigationBarColor = Color.BLACK
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = accentColor()
+                    }
                 }
                 Classic -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     }else {
-                        window.navigationBarColor = surfaceColor()
+                        window.navigationBarColor = accentColor()
                     }
                 }
                 Gradient -> {
@@ -354,7 +363,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     }else {
-                        window.navigationBarColor = darkAccentColor()
+                        window.navigationBarColor = accentColor()
                     }
                 }
             }
@@ -528,20 +537,24 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 }else {
-                    window.navigationBarColor = surfaceColor()
+                    window.navigationBarColor = accentColor()
                 }
             }
             Blur -> {
                 window.navigationBarColor = Color.BLACK
             }
             Card -> {
-                window.navigationBarColor = Color.BLACK
+                if (PreferenceUtil.isAdaptiveColor) {
+                    window.navigationBarColor = paletteColor
+                }else {
+                    window.navigationBarColor = accentColor()
+                }
             }
             Classic -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 }else {
-                    window.navigationBarColor = surfaceColor()
+                    window.navigationBarColor = accentColor()
                 }
             }
             Gradient -> {
@@ -554,7 +567,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 }else {
-                    window.navigationBarColor = darkAccentColor()
+                    window.navigationBarColor = accentColor()
                 }
             }
         }
@@ -625,7 +638,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     }else {
-                        window.navigationBarColor = surfaceColor()
+                        window.navigationBarColor = accentColor()
                     }
                 }
                 Blur -> {
@@ -633,14 +646,18 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     setLightStatusBar(false)
                 }
                 Card -> {
-                    window.navigationBarColor = Color.BLACK
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        window.navigationBarColor = paletteColor
+                    }else {
+                        window.navigationBarColor = accentColor()
+                    }
                     setLightStatusBar(false)
                 }
                 Classic -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     }else {
-                        window.navigationBarColor = surfaceColor()
+                        window.navigationBarColor = accentColor()
                     }
                     setLightStatusBar(isColorLight)
                 }
@@ -656,7 +673,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     }else {
-                        window.navigationBarColor = darkAccentColor()
+                        window.navigationBarColor = accentColor()
                     }
                 }
             }

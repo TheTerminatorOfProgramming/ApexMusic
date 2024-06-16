@@ -376,7 +376,6 @@
     <string name="pref_title_md3">自分の素材</string>
     <string name="pref_title_notification_action_1">通知アクション左</string>
     <string name="pref_title_notification_action_2">通知アクション右</string>
-    <string name="pref_title_notification_persistent">永続的な通知</string>
     <string name="pref_title_now_playing_screen_appearance">再生中のテーマ</string>
     <string name="pref_title_open_source_licences">オープンソース ライセンス</string>
     <string name="pref_title_pause_history">一時停止履歴</string>
