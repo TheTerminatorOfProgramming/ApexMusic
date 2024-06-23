@@ -45,6 +45,7 @@ import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ColorUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -126,27 +127,85 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         binding.viewPager.addOnPageChangeListener(this)
         val nps = PreferenceUtil.nowPlayingScreen
 
-        if (nps == Gradient) {
-            binding.viewPager.offscreenPageLimit = 2
-        } else if (PreferenceUtil.isCarouselEffect) {
-            val metrics = resources.displayMetrics
-            val ratio = metrics.heightPixels.toFloat() / metrics.widthPixels.toFloat()
-            binding.viewPager.clipToPadding = false
-            val padding =
-                if (ratio >= 1.777f) {
-                    40
+        when (nps) {
+            Adaptive -> {
+                binding.viewPager.offscreenPageLimit = 2
+            }
+            Blur -> {
+                if (PreferenceUtil.isCarouselEffect) {
+                    val metrics = resources.displayMetrics
+                    val ratio = metrics.heightPixels.toFloat() / metrics.widthPixels.toFloat()
+                    binding.viewPager.clipToPadding = false
+                    val padding =
+                        if (ratio >= 1.777f) {
+                            40
+                        } else {
+                            100
+                        }
+                    binding.viewPager.setPadding(padding, 0, padding, 0)
+                    binding.viewPager.pageMargin = 0
+                    binding.viewPager.setPageTransformer(false, CarousalPagerTransformer(requireContext()))
                 } else {
-                    100
+                    binding.viewPager.offscreenPageLimit = 2
+                    binding.viewPager.setPageTransformer(
+                        true,
+                        PreferenceUtil.albumCoverTransform
+                    )
                 }
-            binding.viewPager.setPadding(padding, 0, padding, 0)
-            binding.viewPager.pageMargin = 0
-            binding.viewPager.setPageTransformer(false, CarousalPagerTransformer(requireContext()))
-        } else {
-            binding.viewPager.offscreenPageLimit = 2
-            binding.viewPager.setPageTransformer(
-                true,
-                PreferenceUtil.albumCoverTransform
-            )
+            }
+            Card -> {
+                binding.viewPager.offscreenPageLimit = 2
+            }
+            Classic -> {
+                if (PreferenceUtil.isCarouselEffect) {
+                    val metrics = resources.displayMetrics
+                    val ratio = metrics.heightPixels.toFloat() / metrics.widthPixels.toFloat()
+                    binding.viewPager.clipToPadding = false
+                    val padding =
+                        if (ratio >= 1.777f) {
+                            40
+                        } else {
+                            100
+                        }
+                    binding.viewPager.setPadding(padding, 0, padding, 0)
+                    binding.viewPager.pageMargin = 0
+                    binding.viewPager.setPageTransformer(false, CarousalPagerTransformer(requireContext()))
+                } else {
+                    binding.viewPager.offscreenPageLimit = 2
+                    binding.viewPager.setPageTransformer(
+                        true,
+                        PreferenceUtil.albumCoverTransform
+                    )
+                }
+            }
+            Gradient -> {
+                binding.viewPager.offscreenPageLimit = 2
+            }
+            Minimal -> {
+                binding.viewPager.offscreenPageLimit = 2
+            }
+            Peek -> {
+                if (PreferenceUtil.isCarouselEffect) {
+                    val metrics = resources.displayMetrics
+                    val ratio = metrics.heightPixels.toFloat() / metrics.widthPixels.toFloat()
+                    binding.viewPager.clipToPadding = false
+                    val padding =
+                        if (ratio >= 1.777f) {
+                            40
+                        } else {
+                            100
+                        }
+                    binding.viewPager.setPadding(padding, 0, padding, 0)
+                    binding.viewPager.pageMargin = 0
+                    binding.viewPager.setPageTransformer(false, CarousalPagerTransformer(requireContext()))
+                } else {
+                    binding.viewPager.offscreenPageLimit = 2
+                    binding.viewPager.setPageTransformer(
+                        true,
+                        PreferenceUtil.albumCoverTransform
+                    )
+                }
+            }
         }
     }
 
@@ -203,7 +262,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
             setTimelineColor(primaryColor)
             setNormalColor(secondaryColor)
             setTimelineTextColor(primaryColor)
-            setPlayDrawableColor(com.ttop.app.apex.util.ColorUtil.getComplimentColor(primaryColor))
+            setPlayDrawableColor(primaryColor)
         }
     }
 
@@ -276,13 +335,18 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     private fun notifyColorChange(color: MediaNotificationProcessor) {
         callbacks?.onColorChanged(color)
         when (PreferenceUtil.nowPlayingScreen) {
-            Blur -> setLRCViewColors(Color.WHITE, ColorUtil.withAlpha(Color.WHITE, 0.5f))
-            Gradient -> setLRCViewColors(color.secondaryTextColor, color.secondaryTextColor)
+            Blur -> setLRCViewColors(Color.WHITE, Color.BLACK)
+            Gradient -> setLRCViewColors(com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor), color.secondaryTextColor)
             else -> {
                 if (PreferenceUtil.isAdaptiveColor) {
-                    setLRCViewColors(color.secondaryTextColor, color.secondaryTextColor)
+                    setLRCViewColors(com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor), color.secondaryTextColor)
                 }else {
-                    setLRCViewColors(accentColor(), accentColor())
+                    val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+                    if (ColorUtil.isColorLight(colorBg)) {
+                        setLRCViewColors(accentColor(), Color.BLACK)
+                    }else {
+                        setLRCViewColors(accentColor(), Color.WHITE)
+                    }
                 }
             }
         }

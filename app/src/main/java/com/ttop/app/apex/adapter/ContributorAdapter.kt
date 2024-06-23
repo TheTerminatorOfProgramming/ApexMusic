@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.openUrl
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.model.Contributor
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.views.ApexShapeableImageView

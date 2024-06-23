@@ -155,37 +155,38 @@ class PlaylistsFragment :
         subMenu.clear()
         createId(
             subMenu,
-            R.id.action_song_sort_order_asc,
-            R.string.sort_order_a_z,
+            R.id.action_song_sort_order_desc,
+            R.string.sort_order_z_a,
             order == PlaylistSortOrder.PLAYLIST_A_Z
         )
         createId(
             subMenu,
-            R.id.action_song_sort_order_desc,
-            R.string.sort_order_z_a,
+            R.id.action_song_sort_order_asc,
+            R.string.sort_order_a_z,
             order == PlaylistSortOrder.PLAYLIST_Z_A
-        )
-        createId(
-            subMenu,
-            R.id.action_playlist_sort_order,
-            R.string.sort_order_num_songs_asc,
-            order == PlaylistSortOrder.PLAYLIST_SONG_COUNT
         )
         createId(
             subMenu,
             R.id.action_playlist_sort_order_desc,
             R.string.sort_order_num_songs_desc,
+            order == PlaylistSortOrder.PLAYLIST_SONG_COUNT
+        )
+        createId(
+            subMenu,
+            R.id.action_playlist_sort_order,
+            R.string.sort_order_num_songs_asc,
             order == PlaylistSortOrder.PLAYLIST_SONG_COUNT_DESC
         )
+
         subMenu.setGroupCheckable(0, true, true)
     }
 
     private fun handleSortOrderMenuItem(item: MenuItem): Boolean {
         val sortOrder: String = when (item.itemId) {
-            R.id.action_song_sort_order_asc -> PlaylistSortOrder.PLAYLIST_A_Z
-            R.id.action_song_sort_order_desc -> PlaylistSortOrder.PLAYLIST_Z_A
-            R.id.action_playlist_sort_order -> PlaylistSortOrder.PLAYLIST_SONG_COUNT
-            R.id.action_playlist_sort_order_desc -> PlaylistSortOrder.PLAYLIST_SONG_COUNT_DESC
+            R.id.action_song_sort_order_desc -> PlaylistSortOrder.PLAYLIST_A_Z
+            R.id.action_song_sort_order_asc ->  PlaylistSortOrder.PLAYLIST_Z_A
+            R.id.action_playlist_sort_order -> PlaylistSortOrder.PLAYLIST_SONG_COUNT_DESC
+            R.id.action_playlist_sort_order_desc -> PlaylistSortOrder.PLAYLIST_SONG_COUNT
             else -> PreferenceUtil.playlistSortOrder
         }
         if (sortOrder != PreferenceUtil.playlistSortOrder) {

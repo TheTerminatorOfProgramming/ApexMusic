@@ -100,7 +100,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbarContainer" />
 
-        <ScrollView
+        <com.ttop.app.fastscroller.FastScrollNestedScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -119,7 +119,7 @@
                 android:background="@color/transparent"
                 android:paddingStart="4dp"
                 android:paddingEnd="5dp" />
-        </ScrollView>
+        </com.ttop.app.fastscroller.FastScrollNestedScrollView>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playbackControlsFragment"

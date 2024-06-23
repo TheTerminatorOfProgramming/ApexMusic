@@ -40,7 +40,6 @@ import com.ttop.app.apex.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
 import com.ttop.app.apex.service.MusicService.Companion.TOGGLE_FAVORITE
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 @SuppressLint("RestrictedApi")
 class PlayingNotificationImpl24(

@@ -85,7 +85,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <ScrollView
+                <com.ttop.app.fastscroller.FastScrollNestedScrollView
                     android:id="@+id/scroll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -99,7 +99,7 @@
                         android:background="@color/transparent"
                         android:paddingStart="4dp"
                         android:paddingEnd="5dp" />
-                </ScrollView>
+                </com.ttop.app.fastscroller.FastScrollNestedScrollView>
             </com.ttop.app.apex.views.HeightFitSquareLayout>
 
             <LinearLayout

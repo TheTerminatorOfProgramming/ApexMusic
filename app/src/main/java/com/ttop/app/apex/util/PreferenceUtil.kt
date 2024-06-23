@@ -248,12 +248,18 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             BLUETOOTH_PLAYBACK, false
         )
-
         set(value) = sharedPreferences.edit {
             putBoolean(BLUETOOTH_PLAYBACK, value)
         }
 
-    val blurAmount get() = sharedPreferences.getInt(NEW_BLUR_AMOUNT, 25)
+    var blurAmount
+        get() = sharedPreferences.getInt(
+        NEW_BLUR_AMOUNT, 25
+        )
+        set(value) = sharedPreferences.edit {
+            putInt(NEW_BLUR_AMOUNT, value)
+        }
+
 
     var isCarouselEffect
         get() = sharedPreferences.getBoolean(
@@ -337,8 +343,17 @@ object PreferenceUtil {
             putInt(ARTIST_GRID_STYLE, value.id)
         }
 
-    val filterLengthMin get() = sharedPreferences.getInt(FILTER_SONG_MIN, 0)
-    val filterLengthMax get() = sharedPreferences.getInt(FILTER_SONG_MAX, 10)
+    var filterLengthMin get() = sharedPreferences.getInt(
+        FILTER_SONG_MIN, 0)
+        set(value) = sharedPreferences.edit {
+            putInt(FILTER_SONG_MIN, value)
+        }
+
+    var filterLengthMax get() = sharedPreferences.getInt(
+        FILTER_SONG_MAX, 10)
+        set(value) = sharedPreferences.edit {
+            putInt(FILTER_SONG_MAX, value)
+        }
 
     var lastVersion
         // This was stored as an integer before now it's a long, so avoid a ClassCastException
@@ -700,9 +715,10 @@ object PreferenceUtil {
     val isWhiteList
         get() = sharedPreferences.getString(WHITELIST, "internal")
 
-    val crossFadeDuration
+    var crossFadeDuration
         get() = sharedPreferences
             .getInt(CROSS_FADE_DURATION, 0)
+        set(value) = sharedPreferences.edit { putInt(CROSS_FADE_DURATION, value) }
 
     var materialYou
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, true)
@@ -952,15 +968,24 @@ object PreferenceUtil {
             SHUFFLE_STATE, false
         )
 
-    val rewindDuration
+    var rewindDuration
         get() = sharedPreferences.getInt(
         REWIND_DURATION, 10
         )
+        set(value) = sharedPreferences.edit {
+            putInt(REWIND_DURATION, value)
+        }
 
-    val fastForwardDuration
+
+    var fastForwardDuration
         get() = sharedPreferences.getInt(
             FAST_FORWARD_DURATION, 10
         )
+        set(value) = sharedPreferences.edit {
+            putInt(FAST_FORWARD_DURATION, value)
+        }
+
+
 
     val isDurationSame
         get() = sharedPreferences.getBoolean(
@@ -978,18 +1003,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putString(LYRICS_MODE, value)}
-
-    var isEmbedLyricsActivated
-        get() = sharedPreferences.getBoolean(
-            EMBED_LYRICS_ACTIVATED, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(EMBED_LYRICS_ACTIVATED, value)}
-
-    val isLyricsMessageDisabled
-        get() = sharedPreferences.getBoolean(
-            DISABLE_MESSAGE_LYRICS, false
-        )
 
     val isSyncedLyricsMessageDisabled
         get() = sharedPreferences.getBoolean(
@@ -1019,4 +1032,11 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(TOGGLE_MINI_SWIPE_NON_FOLDABLE, value)}
+
+    var customToolbarAction
+        get() = sharedPreferences.getString(
+            CUSTOMIZABLE_TOOLBAR_ACTION, "disabled"
+        )
+        set(value) = sharedPreferences.edit {
+            putString(CUSTOMIZABLE_TOOLBAR_ACTION, value) }
 }

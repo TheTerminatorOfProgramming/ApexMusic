@@ -18,7 +18,6 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -28,12 +27,12 @@ import android.provider.MediaStore
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -77,6 +76,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.fastscroller.FastScrollNestedScrollView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -101,7 +101,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     private val binding get() = _binding!!
 
     private val embed: TextView get() = binding.embedded
-    private val scroll: ScrollView get() = binding.scroll
+    private val scroll: FastScrollNestedScrollView get() = binding.scroll
 
     private val bottomSheetCallbackList = object : BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -149,7 +149,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             popupMenu.menu.removeItem(R.id.action_fast_forward)
             popupMenu.menu.findItem(R.id.action_toggle_favorite).isVisible = false
 
-
             popupMenu.show()
         }
     }
@@ -193,22 +192,83 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
 
         embed.textSize = 24f
 
-        if (PreferenceUtil.isEmbedLyricsActivated) {
-            scroll.visibility = View.VISIBLE
-            binding.mask.visibility = View.GONE
-        }
-
-        if (PreferenceUtil.lyricsMode == "disabled" || PreferenceUtil.lyricsMode == "synced") {
-            playerToolbar()?.menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = false
-        }else {
-            playerToolbar()?.menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = true
-        }
+        playerToolbar()?.menu?.findItem(R.id.action_go_to_lyrics)?.isVisible =
+            !(PreferenceUtil.lyricsMode == "disabled" || PreferenceUtil.lyricsMode == "synced")
 
         binding.playbackControlsFragment.close.setOnClickListener {
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+
+            mainActivity.collapsePanel()
+        }
+
+        val song = MusicPlayerRemote.currentSong
+        when (PreferenceUtil.customToolbarAction) {
+            "disabled" -> {
+                binding.customizableToolbarAction.visibility = View.GONE
+            }
+            "add_to_playlist" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_playlist_add))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val playlists = get<RealRepository>().fetchPlaylists()
+                        withContext(Dispatchers.Main) {
+                            AddToPlaylistDialog.create(playlists, song)
+                                .show(childFragmentManager, "ADD_PLAYLIST")
+                        }
+                    }
+                }
+            }
+            "details" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_details))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    SongDetailDialog.create(song).show(childFragmentManager, "SONG_DETAIL")
+                }
+            }
+            "equalizer" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_equalizer))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    NavigationUtil.openEqualizer(requireActivity())
+                }
+            }
+            "playback_settings" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_playback_speed))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
+                }
+            }
+            "save_playing_queue" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_save))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    CreatePlaylistDialog.create(ArrayList(MusicPlayerRemote.playingQueue))
+                        .show(childFragmentManager, "ADD_TO_PLAYLIST")
+                }
+            }
+            "share" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_share))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    SongShareDialog.create(song).show(childFragmentManager, "SHARE_SONG")
+                }
+            }
         }
     }
 
@@ -233,12 +293,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             }
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
-                return true
-            }
-            R.id.action_reorder -> {
-                if (binding.playerQueueSheet.visibility == View.VISIBLE) {
-                    playingQueueAdapter?.setButtonsActivate()
-                }
                 return true
             }
             R.id.action_delete_from_device -> {
@@ -326,9 +380,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             R.id.action_go_to_lyrics -> {
                 if (scroll.visibility == View.GONE){
                     scroll.visibility = View.VISIBLE
-                    if (!PreferenceUtil.isLyricsMessageDisabled) {
-                        showToast(getString(R.string.lyrics_message_enabled))
-                    }
 
                     if (PreferenceUtil.lyricsScreenOn) {
                         mainActivity.keepScreenOn(true)
@@ -336,18 +387,12 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                         mainActivity.keepScreenOn(false)
                     }
                     binding.mask.visibility = View.GONE
-
-                    PreferenceUtil.isEmbedLyricsActivated = true
                 }else{
                     scroll.visibility = View.GONE
-                    if (!PreferenceUtil.isLyricsMessageDisabled) {
-                        showToast(getString(R.string.lyrics_message_disabled))
-                    }
+
                     mainActivity.keepScreenOn(false)
 
                     binding.mask.visibility = View.VISIBLE
-
-                    PreferenceUtil.isEmbedLyricsActivated = false
                 }
             }
         }
@@ -397,26 +442,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         return Color.WHITE
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            if (PreferenceUtil.isEmbedLyricsActivated) {
-                scroll.visibility = View.VISIBLE
-                binding.mask.visibility = View.GONE
-            }else {
-                binding.mask.visibility = View.VISIBLE
-            }
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            if (PreferenceUtil.isEmbedLyricsActivated) {
-                scroll.visibility = View.VISIBLE
-                binding.mask.visibility = View.GONE
-            }else {
-                binding.mask.visibility = View.VISIBLE
-            }
-        }
-    }
-
     override val paletteColor: Int
         get() = lastColor
 
@@ -449,6 +474,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             lastPlaybackControlsColor,
             PorterDuff.Mode.SRC_IN
         )
+        binding.customizableToolbarAction.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
         binding.queueIcon.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
         binding.playbackControlsFragment.close.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
         binding.playbackControlsFragment.playerMenu.setColorFilter(
@@ -507,10 +533,10 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         updateQueue()
         updateIsFavoriteIcon()
 
+        val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         val string = StringBuilder()
-        string.append("\n").append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
-        embed.text = string.toString()
-
+        string.append(data).append("\n")
+        embed.text = (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
     }
 
     override fun onPlayStateChanged() {
@@ -531,9 +557,11 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         updateQueuePosition()
         updateIsFavoriteIcon()
 
+        val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         val string = StringBuilder()
-        string.append("\n").append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
-        embed.text = string.toString()
+        string.append(data).append("\n")
+        embed.text = (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+
         scroll.scrollTo(0,0)
     }
 
@@ -546,9 +574,10 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         updateLabel()
         playingQueueAdapter?.swapDataSet(MusicPlayerRemote.playingQueue)
 
+        val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         val string = StringBuilder()
-        string.append("\n").append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
-        embed.text = string.toString()
+        string.append(data).append("\n")
+        embed.text = (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
     }
 
     private fun updateSong() {

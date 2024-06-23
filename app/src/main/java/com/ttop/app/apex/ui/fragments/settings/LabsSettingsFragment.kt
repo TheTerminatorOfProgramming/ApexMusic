@@ -25,7 +25,6 @@ import androidx.biometric.BiometricPrompt.ERROR_CANCELED
 import androidx.biometric.BiometricPrompt.ERROR_NEGATIVE_BUTTON
 import androidx.biometric.BiometricPrompt.ERROR_USER_CANCELED
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.DISABLE_MESSAGE_LYRICS
 import com.ttop.app.apex.DISABLE_MESSAGE_LYRICS_SYNCED
 import com.ttop.app.apex.DISABLE_WIDGETS
 import com.ttop.app.apex.R
@@ -35,7 +34,6 @@ import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.ApexUtil.checkAndAuthenticate
 import com.ttop.app.apex.util.PreferenceUtil
 import java.util.concurrent.Executor
@@ -76,15 +74,6 @@ class LabsSettingsFragment : AbsSettingsFragment() {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
             restartActivity()
-            true
-        }
-
-        val lyricsMessages: TwoStatePreference? = findPreference(DISABLE_MESSAGE_LYRICS)
-        lyricsMessages?.isChecked = PreferenceUtil.isLyricsMessageDisabled
-        lyricsMessages?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
             true
         }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_files_summary">Permite accesul la toate fişierele de pe dispozitiv la apex muzică. Această permisiune este necesară pentru a detecta automat copiile de rezervă apex</string>
+    <string name="all_files_title">Gestionați toate permisiunile fișierelor</string>
+</resources>

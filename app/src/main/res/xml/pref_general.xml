@@ -41,7 +41,7 @@
             android:layout="@layout/list_item_view_switch"
             app:defaultValue="false"
             app:key="apex_font"
-            app:title="Use Apex Font"
+            app:title="@string/use_apex_font"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference

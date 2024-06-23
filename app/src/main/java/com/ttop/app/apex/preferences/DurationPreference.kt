@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
+import android.view.HapticFeedbackConstants
 import android.widget.TextView
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
@@ -46,6 +47,9 @@ class DurationPreferenceDialog : DialogFragment() {
             addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
                 if (fromUser) {
                     updateText(value.toInt(), binding.duration)
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                        performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    }
                 }
             })
         }
@@ -61,7 +65,8 @@ class DurationPreferenceDialog : DialogFragment() {
 
     private fun updateText(value: Int, duration: TextView) {
         var durationText = "$value ms"
-        if (value == 0) durationText += " / Off"
+        val off = getString(R.string.off)
+        if (value == 0) durationText += " / $off"
         duration.text = durationText
     }
 

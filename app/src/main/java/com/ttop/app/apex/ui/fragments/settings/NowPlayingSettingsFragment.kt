@@ -27,6 +27,7 @@ import com.ttop.app.apex.ALBUM_COVER_TRANSFORM
 import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.CIRCULAR_ALBUM_ART
 import com.ttop.app.apex.COLOR_ANIMATE
+import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION
 import com.ttop.app.apex.DURATION_SAME
 import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
 import com.ttop.app.apex.FAST_FORWARD_DURATION
@@ -43,12 +44,10 @@ import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TOGGLE_AUTOPLAY
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 
 /**
@@ -140,23 +139,21 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val rwdDuration: ATESeekBarPreference? = findPreference(REWIND_DURATION)
-        rwdDuration?.min = 5
+        val rwdDuration: Preference? = findPreference(REWIND_DURATION)
 
-        val ffDuration: ATESeekBarPreference? = findPreference(FAST_FORWARD_DURATION)
-        ffDuration?.min = 5
+        val ffDuration: Preference? = findPreference(FAST_FORWARD_DURATION)
         ffDuration?.setOnPreferenceChangeListener { _, newValue ->
             val duration = newValue as Int
 
             if (PreferenceUtil.isDurationSame) {
-                rwdDuration!!.value = duration
+                PreferenceUtil.rewindDuration = duration
             }
             true
         }
 
         val durationSame: ATESwitchPreference? = findPreference(DURATION_SAME)
         if (PreferenceUtil.isDurationSame) {
-            rwdDuration!!.value = ffDuration!!.value
+            PreferenceUtil.rewindDuration =  PreferenceUtil.fastForwardDuration
         }
         rwdDuration?.isEnabled = !PreferenceUtil.isDurationSame
 
@@ -168,9 +165,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             val enabled = newValue as Boolean
 
             if (enabled) {
-                rwdDuration!!.value = ffDuration!!.value
+                PreferenceUtil.rewindDuration =  PreferenceUtil.fastForwardDuration
             }
-
             rwdDuration?.isEnabled = !enabled
 
             true
@@ -200,7 +196,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         lyricsType?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue == "disabled") {
                 PreferenceUtil.showLyrics = false
-                PreferenceUtil.isEmbedLyricsActivated = false
             }
             true
         }
@@ -213,7 +208,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             addPreferencesFromResource(R.xml.pref_now_playing_screen)
         }
 
-        val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
+        val newBlur: Preference? = findPreference(NEW_BLUR_AMOUNT)
         newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
 
         val lyrics: PreferenceCategory? = findPreference("lyrics")
@@ -248,10 +243,13 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             lyricsType?.isVisible = true
         }
 
-        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Card || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Gradient || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Minimal) {
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Card || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Gradient || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Minimal) {
             if (PreferenceUtil.isCarouselEffect) {
                 carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
             }
+        }else {
+            carouselEffect?.isEnabled = true
         }
     }
 
@@ -289,25 +287,44 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             playerBG?.isChecked = false
         }
 
-        val newBlur: ATESeekBarPreference? = findPreference(NEW_BLUR_AMOUNT)
+        val newBlur: Preference? = findPreference(NEW_BLUR_AMOUNT)
         newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
 
         val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
-        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Card || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Gradient || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Minimal) {
-            if (PreferenceUtil.isCarouselEffect) {
-                carouselEffect?.isChecked = false
-            }
-        }
-    }
-
-    private fun updateAlbumCoverStyle() {
-        val preference: Preference? = findPreference(ALBUM_COVER_STYLE)
+        val customToolbar: Preference? = findPreference(CUSTOMIZABLE_TOOLBAR_ACTION)
         when (PreferenceUtil.nowPlayingScreen) {
-            NowPlayingScreen.Card, NowPlayingScreen.Minimal, NowPlayingScreen.Gradient -> {
-                preference?.isEnabled = false
+            NowPlayingScreen.Adaptive -> {
+                carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
+                customToolbar?.isEnabled = false
+                PreferenceUtil.customToolbarAction = "disabled"
             }
-            else -> {
-                preference?.isEnabled = true
+            NowPlayingScreen.Blur -> {
+                carouselEffect?.isEnabled = true
+                customToolbar?.isEnabled = true
+            }
+            NowPlayingScreen.Card -> {
+                carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
+                customToolbar?.isEnabled = true
+            }
+            NowPlayingScreen.Classic -> {
+                carouselEffect?.isEnabled = true
+                customToolbar?.isEnabled = true
+            }
+            NowPlayingScreen.Gradient -> {
+                carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
+                customToolbar?.isEnabled = true
+            }
+            NowPlayingScreen.Minimal -> {
+                carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
+                customToolbar?.isEnabled = true
+            }
+            NowPlayingScreen.Peek -> {
+                carouselEffect?.isEnabled = true
+                customToolbar?.isEnabled = true
             }
         }
     }
@@ -321,7 +338,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             setSummary(albumPrefs, newValue)
             true
         }
-        updateAlbumCoverStyle()
+        updateNowPlayingScreenSummary()
     }
 
     override fun onDestroyView() {
@@ -333,11 +350,11 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         when (key) {
             NOW_PLAYING_SCREEN_ID -> {
                 updateNowPlayingScreenSummary()
-                updateAlbumCoverStyle()
             }
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
-            LYRICS_MODE -> restartActivity()
+            LYRICS_MODE,
+            CUSTOMIZABLE_TOOLBAR_ACTION -> restartActivity()
         }
     }
 }

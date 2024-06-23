@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar" />
 
-    <ScrollView
+    <com.ttop.app.fastscroller.FastScrollNestedScrollView
         android:id="@+id/scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -39,7 +39,7 @@
         android:backgroundTint="@color/transparent"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.40"
+        app:layout_constraintHeight_percent="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar"
         android:visibility="gone">
@@ -51,7 +51,7 @@
             android:background="@color/transparent"
             android:paddingStart="4dp"
             android:paddingEnd="5dp" />
-    </ScrollView>
+    </com.ttop.app.fastscroller.FastScrollNestedScrollView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
@@ -59,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.40"
+        app:layout_constraintHeight_percent="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar"
         app:shapeAppearanceOverlay="@style/NPSCornerCardView"

@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_sleep_timer"
-        android:icon="@drawable/ic_sleep_timer"
         android:orderInCategory="0"
         android:title="@string/action_sleep_timer"
+        android:icon="@drawable/ic_sleep_timer"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_toggle_favorite"
         android:checkable="true"
-        android:icon="@drawable/ic_favorite_border"
         android:orderInCategory="2"
         android:title="@string/favorites"
+        android:icon="@drawable/ic_favorite_border"
         app:showAsAction="always" />
     <item
         android:id="@+id/now_playing"
-        android:icon="@drawable/ic_queue_music"
         android:orderInCategory="3"
         android:title="@string/now_playing_queue"
+        android:icon="@drawable/ic_queue_music"
         app:showAsAction="always" />
 
     <item
@@ -27,7 +27,12 @@
         android:title="@string/action_queue"
         android:icon="@drawable/ic_queue_music"
         app:showAsAction="always"/>
-
+    <item
+        android:id="@+id/action_go_to_lyrics"
+        android:orderInCategory="4"
+        android:icon="@drawable/ic_lyrics_outline"
+        android:title="@string/action_go_to_lyrics"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_playback_speed"
         android:icon="@drawable/ic_playback_speed"
@@ -39,11 +44,6 @@
         android:icon="@drawable/ic_drive_eta"
         android:orderInCategory="4"
         android:title="@string/drive_mode" />
-    <item
-        android:id="@+id/action_reorder"
-        android:title="@string/action_reorder"
-        android:orderInCategory="4"
-        app:showAsAction="never" />
     <item
         android:id="@+id/action_go_to_album"
         android:icon="@drawable/ic_album"
@@ -69,15 +69,18 @@
     <item
         android:id="@+id/action_add_to_playlist"
         android:orderInCategory="5"
-        android:title="@string/action_add_to_playlist" />
+        android:icon="@drawable/ic_playlist_add"
+        android:title="@string/action_add_to_playlist"/>
     <item
         android:id="@+id/action_save_playing_queue"
         android:orderInCategory="6"
         android:title="@string/action_save_playing_queue"
+        android:icon="@drawable/ic_save"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_share"
         android:orderInCategory="7"
+        android:icon="@drawable/ic_share"
         android:title="@string/action_share" />
     <item
         android:id="@+id/action_set_as_ringtone"
@@ -90,17 +93,13 @@
     <item
         android:id="@+id/action_details"
         android:orderInCategory="10"
+        android:icon="@drawable/ic_details"
         android:title="@string/action_details" />
-    <item
-        android:id="@+id/action_go_to_lyrics"
-        android:orderInCategory="11"
-        android:icon="@drawable/ic_lyrics_outline"
-        android:title="@string/action_go_to_lyrics"
-        app:showAsAction="always"/>
     <item
         android:id="@+id/action_equalizer"
         android:orderInCategory="13"
         android:title="@string/equalizer"
+        android:icon="@drawable/ic_equalizer"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_delete_from_device"

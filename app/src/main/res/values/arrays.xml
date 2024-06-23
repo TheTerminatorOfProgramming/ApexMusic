@@ -131,6 +131,7 @@
         <item>@string/mandarin</item>
         <item>@string/portuguese</item>
         <item>@string/punjabi</item>
+        <item>@string/romanian</item>
         <item>@string/spanish</item>
         <item>@string/turkish</item>
     </string-array>
@@ -148,6 +149,7 @@
         <item>zh</item>
         <item>pt</item>
         <item>pa</item>
+        <item>ro</item>
         <item>es</item>
         <item>tr</item>
     </string-array>
@@ -286,5 +288,25 @@
         <item>disabled</item>
         <item>internal</item>
         <item>external</item>
+    </string-array>
+
+    <string-array name="pref_customizable_toolbar_titles">
+        <item>@string/disabled</item>
+        <item>@string/action_add_to_playlist</item>
+        <item>@string/action_details</item>
+        <item>@string/equalizer</item>
+        <item>@string/playback_settings</item>
+        <item>@string/action_save_playing_queue</item>
+        <item>@string/action_share</item>
+    </string-array>
+
+    <string-array name="pref_customizable_toolbar_values">
+        <item>disabled</item>
+        <item>add_to_playlist</item>
+        <item>details</item>
+        <item>equalizer</item>
+        <item>playback_settings</item>
+        <item>save_playing_queue</item>
+        <item>share</item>
     </string-array>
 </resources>

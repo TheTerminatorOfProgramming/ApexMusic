@@ -17,7 +17,6 @@ package com.ttop.app.apex.ui.fragments.player.blur
 import android.content.ContentUris
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -27,7 +26,6 @@ import android.provider.MediaStore
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -79,6 +77,7 @@ import com.ttop.app.apex.util.PreferenceUtil.blurAmount
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import com.ttop.app.fastscroller.FastScrollNestedScrollView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -109,7 +108,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
     private val binding get() = _binding!!
 
     private val embed: TextView get() = binding.embedded
-    private val scroll: ScrollView get() = binding.scroll
+    private val scroll: FastScrollNestedScrollView get() = binding.scroll
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -122,52 +121,10 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         embed.textSize = 24f
         embed.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
 
-        if (PreferenceUtil.isEmbedLyricsActivated) {
-            if (ApexUtil.isTablet) {
-                binding.playerQueueSheet.visibility = View.GONE
-                scroll.visibility = View.VISIBLE
-            }else {
-                binding.playerQueueSheet.visibility = View.GONE
-                binding.playerAlbumCoverFragment.visibility = View.GONE
-                scroll.visibility = View.VISIBLE
-                playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
-            }
-        }
-
         if (PreferenceUtil.lyricsMode == "disabled" || PreferenceUtil.lyricsMode == "synced") {
             playerToolbar().menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = false
         }else {
             playerToolbar().menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = true
-        }
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            if (PreferenceUtil.isEmbedLyricsActivated) {
-                if (ApexUtil.isTablet) {
-                    binding.playerQueueSheet.visibility = View.GONE
-                    scroll.visibility = View.VISIBLE
-                }else {
-                    binding.playerQueueSheet.visibility = View.GONE
-                    binding.playerAlbumCoverFragment.visibility = View.GONE
-                    scroll.visibility = View.VISIBLE
-                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
-                }
-            }
-        }else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            if (PreferenceUtil.isEmbedLyricsActivated) {
-                if (ApexUtil.isTablet) {
-                    binding.playerQueueSheet.visibility = View.GONE
-                    scroll.visibility = View.VISIBLE
-                }else {
-                    binding.playerQueueSheet.visibility = View.GONE
-                    binding.playerAlbumCoverFragment.visibility = View.GONE
-                    scroll.visibility = View.VISIBLE
-                    playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
-                }
-            }
         }
     }
 
@@ -185,10 +142,70 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
                     requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 }
-                requireActivity().onBackPressedDispatcher.onBackPressed()
+
+                mainActivity.collapsePanel()
             }
             ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)
         }.setOnMenuItemClickListener(this)
+
+        when (PreferenceUtil.customToolbarAction) {
+            "disabled" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "add_to_playlist" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "details" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "equalizer" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "playback_settings" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "save_playing_queue" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "share" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            }
+        }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -214,12 +231,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
             }
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
-                return true
-            }
-            R.id.action_reorder -> {
-                if (binding.playerQueueSheet.visibility == View.VISIBLE) {
-                    playingQueueAdapter?.setButtonsActivate()
-                }
                 return true
             }
             R.id.action_delete_from_device -> {
@@ -306,10 +317,13 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
             }
             R.id.action_queue -> {
                 if (!ApexUtil.isTablet) {
+                    scroll.visibility = View.GONE
                     if (binding.playerQueueSheet.visibility == View.VISIBLE){
                         binding.playerQueueSheet.visibility = View.GONE
+                        binding.playerAlbumCoverFragment.alpha = 1f
                     }else{
                         binding.playerQueueSheet.visibility = View.VISIBLE
+                        binding.playerAlbumCoverFragment.alpha = 0f
                     }
                 }
             }
@@ -318,37 +332,22 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                     if (binding.playerQueueSheet.visibility == View.VISIBLE){
                         binding.playerQueueSheet.visibility = View.GONE
                         scroll.visibility = View.VISIBLE
-                        if (!PreferenceUtil.isLyricsMessageDisabled) {
-                            showToast(getString(R.string.lyrics_message_enabled))
-                        }
 
                         if (PreferenceUtil.lyricsScreenOn) {
                             mainActivity.keepScreenOn(true)
                         }else {
                             mainActivity.keepScreenOn(false)
                         }
-
-                        PreferenceUtil.isEmbedLyricsActivated = true
                     }else{
                         binding.playerQueueSheet.visibility = View.VISIBLE
-                        binding.playerAlbumCoverFragment.visibility = View.VISIBLE
                         scroll.visibility = View.GONE
-                        if (!PreferenceUtil.isLyricsMessageDisabled) {
-                            showToast(getString(R.string.lyrics_message_disabled))
-                        }
-                        mainActivity.keepScreenOn(false)
 
-                        PreferenceUtil.isEmbedLyricsActivated = false
+                        mainActivity.keepScreenOn(false)
                     }
                 }else {
                     binding.playerQueueSheet.visibility = View.GONE
                     if (scroll.visibility == View.GONE){
-                        binding.playerAlbumCoverFragment.visibility = View.GONE
                         scroll.visibility = View.VISIBLE
-                        if (!PreferenceUtil.isLyricsMessageDisabled) {
-                            showToast(getString(R.string.lyrics_message_enabled))
-                        }
-                        playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = false
 
                         if (PreferenceUtil.lyricsScreenOn) {
                             mainActivity.keepScreenOn(true)
@@ -356,17 +355,13 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                             mainActivity.keepScreenOn(false)
                         }
 
-                        PreferenceUtil.isEmbedLyricsActivated = true
+                        binding.playerAlbumCoverFragment.alpha = 0f
                     }else{
-                        binding.playerAlbumCoverFragment.visibility = View.VISIBLE
                         scroll.visibility = View.GONE
-                        if (!PreferenceUtil.isLyricsMessageDisabled) {
-                            showToast(getString(R.string.lyrics_message_disabled))
-                        }
-                        playerToolbar().menu?.findItem(R.id.action_queue)?.isEnabled = true
-                        mainActivity.keepScreenOn(false)
 
-                        PreferenceUtil.isEmbedLyricsActivated = false
+                        binding.playerAlbumCoverFragment.alpha = 1f
+
+                        mainActivity.keepScreenOn(false)
                     }
                 }
             }
@@ -544,9 +539,10 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         super.onQueueChanged()
         updateQueue()
 
+        val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         val string = StringBuilder()
-        string.append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
-        embed.text = string.toString()
+        string.append(data).append("\n")
+        embed.text = (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
     }
 
     override fun onServiceConnected() {
@@ -554,9 +550,10 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         updateBlur()
         updateQueue()
 
+        val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         val string = StringBuilder()
-        string.append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
-        embed.text = string.toString()
+        string.append(data).append("\n")
+        embed.text = (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
     }
 
     override fun onPlayingMetaChanged() {
@@ -564,9 +561,11 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         updateBlur()
         updateQueuePosition()
 
+        val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         val string = StringBuilder()
-        string.append(MusicUtil.getLyrics(MusicPlayerRemote.currentSong)).append("\n")
-        embed.text = string.toString()
+        string.append(data).append("\n")
+        embed.text = (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+
         scroll.scrollTo(0,0)
     }
 

@@ -70,6 +70,10 @@ class SleepTimerDialog : DialogFragment() {
         timerUpdater = TimerUpdater()
         _binding = DialogSleepTimerBinding.inflate(layoutInflater)
 
+        //val defaultText = getString(R.string.remaining) + ":"
+
+        //binding.remainingTime.text = defaultText
+
         val finishMusic = PreferenceUtil.isSleepTimerFinishMusic
 
         shouldFinishLastSong.apply {
@@ -240,7 +244,8 @@ class SleepTimerDialog : DialogFragment() {
         }
 
         override fun onFinish() {
-            remaining.text = getString(R.string.remaining)
+            val defaultText = getString(R.string.remaining) + ":"
+            remaining.text = defaultText
         }
     }
 }

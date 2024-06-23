@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">Oynatma sırasından kaldır</string>
     <string name="action_remove_from_playlist">Oynatma listesinden kaldır</string>
     <string name="action_rename">Yeniden isimlendirmek</string>
-    <string name="action_reorder">Yeniden sıralamayı değiştir</string>
     <string name="action_rewind">10 saniyeyi geri sar</string>
     <string name="action_save_playing_queue">Oynatma sırasını kaydet</string>
     <string name="action_scan">Tara</string>
@@ -132,6 +131,7 @@
     <string name="create_action">Yaratmak</string>
     <string name="create_new_backup">Yaratmak</string>
     <string name="credit_title">Geliştiriciler ve Katkıda Bulunanlar</string>
+    <string name="cross_fade_duration">Çapraz geçiş süresi</string>
     <string name="crowdin">Kalabalık</string>
     <string name="crowdin_summary">Bu uygulamanın Crowdin\'de çevrilmesine yardımcı olun</string>
     <string name="currently_listening_to_x_by_x">Şu anda %2$s\'ın %1$s şarkısını dinliyorum.</string>
@@ -243,8 +243,6 @@
     <string name="lyrics">Şarkı sözleri</string>
     <string name="lyrics_both">ID3 Etiketi ve amp; Senkronize Şarkı Sözleri</string>
     <string name="lyrics_id3">ID3 Etiketi Şarkı Sözleri</string>
-    <string name="lyrics_message_enabled">ID3 şarkı sözleri gösteriliyor. Sürükleme devre dışı bırakıldı</string>
-    <string name="lyrics_message_disabled">ID3 şarkı sözleri gizlendi. Sürükleme etkinleştirildi</string>
     <string name="lyrics_search_summary">Şarkı sözü arama terimlerini id3 etiketlerinden mi kullanacaksınız yoksa manuel olarak mı gireceksiniz?</string>
     <string name="lyrics_synced">Senkronize Şarkı Sözleri</string>
     <string name="manually">Manuel olarak</string>
@@ -358,7 +356,6 @@
     <string name="pref_title_cross_fade">Çapraz solma</string>
     <string name="pref_title_custom_font">Yazı tipi</string>
     <string name="pref_title_desaturated_color">Doygunluğu Giderilmiş Renk</string>
-    <string name="pref_title_disable_id3_lyrics_message">ID3 Şarkı Sözü Mesajlarını Devre Dışı Bırak</string>
     <string name="pref_title_disable_synced_lyrics_message">Senkronize Şarkı Sözü Mesajlarını Devre Dışı Bırak</string>
     <string name="pref_title_disable_widgets">Varsayılan Widget\'ları Devre Dışı Bırak</string>
     <string name="pref_title_duration">Tek Süre</string>
@@ -376,6 +373,7 @@
     <string name="pref_title_last_added_interval">Son Eklenen Oynatma Listesi Aralığı</string>
     <string name="pref_title_lyrics_type">Şarkı Sözü Türü</string>
     <string name="pref_title_md3">Malzeme Siz</string>
+    <string name="pref_title_menu_option">Özelleştirilebilir Araç Çubuğu Eylemi</string>
     <string name="pref_title_notification_action_1">Bildirim Eylemi Sol</string>
     <string name="pref_title_notification_action_2">Bildirim Eylem Hakkı</string>
     <string name="pref_title_now_playing_screen_appearance">Şimdi Çalınıyor Teması</string>
@@ -468,9 +466,6 @@
     <string name="sort_order_num_songs">Parça sayısı ↑</string>
     <string name="sort_order_num_songs_asc">Parça sayısı ↑</string>
     <string name="sort_order_num_songs_desc">Parça sayısı ↓</string>
-    <string name="sort_order_year">Yıl</string>
-    <string name="sort_order_year_asc">Yıl ↑</string>
-    <string name="sort_order_year_desc">Yıl ↓</string>
     <string name="sort_order_z_a">Azalan</string>
     <string name="speech_not_supported">Üzgünüm! Cihazınız konuşma girişini desteklemiyor</string>
     <string name="speech_prompt">Kütüphanenizde arama yapın</string>
@@ -501,6 +496,7 @@
     <string name="update_image">Resmi güncelle</string>
     <string name="update_notify">Bildirimi Güncelle</string>
     <string name="updating">Güncelleniyor…</string>
+    <string name="use_apex_font">Apex Yazı Tipini Kullan</string>
     <string name="user_images_description">Kullanıcı Görselleri</string>
     <string name="version">Sürüm</string>
     <string name="vertical_flip">Dikey çevirme</string>

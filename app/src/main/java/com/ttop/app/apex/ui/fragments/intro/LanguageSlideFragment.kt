@@ -39,7 +39,7 @@ class LanguageSlideFragment(
         niceSpinner = view.findViewById(R.id.spinner)!!
         val dataset: List<String> = LinkedList(mutableListOf(getString(R.string.system_default), getString(R.string.bengali),
             getString(R.string.english), getString(R.string.french), getString(R.string.german), getString(R.string.hindi), getString(R.string.indonesian), getString(R.string.italian), getString(R.string.japanese), getString(R.string.mandarin), getString(R.string.portuguese),
-            getString(R.string.punjabi), getString(R.string.spanish), getString(R.string.turkish)))
+            getString(R.string.punjabi), getString(R.string.romanian), getString(R.string.spanish), getString(R.string.turkish)))
         niceSpinner.attachDataSource(dataset)
 
         when (PreferenceUtil.languageCode) {
@@ -55,8 +55,9 @@ class LanguageSlideFragment(
             "zh" -> niceSpinner.selectedIndex = 9
             "pt" -> niceSpinner.selectedIndex = 10
             "pa" -> niceSpinner.selectedIndex = 11
-            "es" -> niceSpinner.selectedIndex = 12
-            "tr" -> niceSpinner.selectedIndex = 13
+            "ro" -> niceSpinner.selectedIndex = 12
+            "es" -> niceSpinner.selectedIndex = 13
+            "tr" -> niceSpinner.selectedIndex = 14
         }
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_green_500))
@@ -82,6 +83,7 @@ class LanguageSlideFragment(
             getString(R.string.mandarin) -> itemCode = "zh"
             getString(R.string.portuguese) -> itemCode = "pt"
             getString(R.string.punjabi) -> itemCode = "pa"
+            getString(R.string.romanian) -> itemCode = "ro"
             getString(R.string.spanish) -> itemCode = "es"
             getString(R.string.turkish) -> itemCode = "tr"
         }

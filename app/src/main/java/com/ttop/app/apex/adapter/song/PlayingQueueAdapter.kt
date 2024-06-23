@@ -77,11 +77,7 @@ class PlayingQueueAdapter(
 
         imageviewDragView = imageView
 
-        if (activate) {
-            imageView.visibility = View.VISIBLE
-        } else {
-            imageView.visibility = View.GONE
-        }
+        imageView.visibility = View.VISIBLE
 
         when (PreferenceUtil.nowPlayingScreen){
             NowPlayingScreen.Adaptive -> {

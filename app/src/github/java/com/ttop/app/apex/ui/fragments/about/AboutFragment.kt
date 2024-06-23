@@ -196,6 +196,8 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     binding.aboutContent.cardOther.devMode.visibility = View.GONE
 
                     binding.aboutContent.cardOther.version.isClickable = true
+
+                    activity?.recreate()
                 }
 
                 builder.setNegativeButton(R.string.no) { _, _ ->
@@ -203,7 +205,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 val alert = builder.create()
                 alert.show()
 
-                val textViewMessage = alert.findViewById(android.R.id.message) as TextView?
+                val textViewMessage: TextView? = alert.findViewById(android.R.id.message)
 
                 when (PreferenceUtil.fontSize) {
                     "12" -> {
@@ -321,24 +323,25 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 e.printStackTrace()
             }
         } else {
-            //Preview
-            try {
-                return requireContext().packageManager.getPackageInfo(
-                    requireContext().packageName,
-                    0
-                ).versionName + " " + getString(R.string.github_edition)
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
+            if (BuildConfig.BUILD_TYPE.equals("preview")) {
+                try {
+                    return requireContext().packageManager.getPackageInfo(
+                        requireContext().packageName,
+                        0
+                    ).versionName + " " + getString(R.string.github_edition_preview)
+                } catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
+            }else {
+                try {
+                    return requireContext().packageManager.getPackageInfo(
+                        requireContext().packageName,
+                        0
+                    ).versionName + " " + getString(R.string.github_edition)
+                } catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
             }
-            //Release Candidate
-            /*try {
-                return requireContext().packageManager.getPackageInfo(
-                    requireContext().packageName,
-                    0
-                ).versionName + " " + getString(R.string.github_edition) + " Release Candidate 02"
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }*/
         }
 
         return getString(R.string.unknown)

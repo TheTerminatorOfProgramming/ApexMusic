@@ -33,7 +33,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Remaining:"
         android:textAppearance="@style/TextViewSubtitle1"/>
 
     <com.google.android.material.checkbox.MaterialCheckBox

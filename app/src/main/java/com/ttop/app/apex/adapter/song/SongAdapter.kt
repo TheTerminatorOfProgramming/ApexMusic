@@ -160,11 +160,11 @@ open class SongAdapter(
 
     override fun getPopupText(view: View, position: Int): String {
         val sectionName: String? = when (PreferenceUtil.songSortOrder) {
-            SortOrder.SongSortOrder.SONG_DEFAULT -> return MusicUtil.getSectionName(dataSet[position].title, true)
+            SortOrder.SongSortOrder.SONG_DEFAULT, SortOrder.SongSortOrder.SONG_DEFAULT_DESC -> return MusicUtil.getSectionName(dataSet[position].title, true)
             SortOrder.SongSortOrder.SONG_A_Z, SortOrder.SongSortOrder.SONG_Z_A -> dataSet[position].title
             SortOrder.SongSortOrder.SONG_ALBUM -> dataSet[position].albumName
             SortOrder.SongSortOrder.SONG_ARTIST -> dataSet[position].artistName
-            SortOrder.SongSortOrder.SONG_YEAR -> return MusicUtil.getYearString(dataSet[position].year)
+            SortOrder.SongSortOrder.SONG_YEAR, SortOrder.SongSortOrder.SONG_YEAR_DESC -> return MusicUtil.getYearString(dataSet[position].year)
             SortOrder.SongSortOrder.COMPOSER -> dataSet[position].composer
             SortOrder.SongSortOrder.SONG_ALBUM_ARTIST -> dataSet[position].albumArtist
             else -> {

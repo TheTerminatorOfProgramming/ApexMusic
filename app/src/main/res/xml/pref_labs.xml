@@ -26,13 +26,6 @@
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
-            android:key="disable_message_lyrics"
-            android:layout="@layout/list_item_view_switch"
-            android:title="@string/pref_title_disable_id3_lyrics_message"
-            app:allowDividerBelow="false"/>
-
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="false"
             android:key="disable_message_lyrics_synced"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_disable_synced_lyrics_message"

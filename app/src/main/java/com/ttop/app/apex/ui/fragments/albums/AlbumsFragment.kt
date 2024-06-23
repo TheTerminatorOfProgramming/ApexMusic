@@ -177,18 +177,19 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
     ) {
         val currentSortOrder: String? = getSortOrder()
         sortOrderMenu.clear()
-        sortOrderMenu.add(
-            0,
-            R.id.action_album_sort_order_asc,
-            0,
-            R.string.sort_order_a_z
-        ).isChecked =
-            currentSortOrder.equals(AlbumSortOrder.ALBUM_A_Z)
+
         sortOrderMenu.add(
             0,
             R.id.action_album_sort_order_desc,
-            1,
+            0,
             R.string.sort_order_z_a
+        ).isChecked =
+            currentSortOrder.equals(AlbumSortOrder.ALBUM_A_Z)
+        sortOrderMenu.add(
+            1,
+            R.id.action_album_sort_order_asc,
+            0,
+            R.string.sort_order_a_z
         ).isChecked =
             currentSortOrder.equals(AlbumSortOrder.ALBUM_Z_A)
         sortOrderMenu.add(
@@ -202,7 +203,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             0,
             R.id.action_album_sort_order_year,
             3,
-            R.string.sort_order_year
+            R.string.year
         ).isChecked =
             currentSortOrder.equals(AlbumSortOrder.ALBUM_YEAR)
         sortOrderMenu.add(
@@ -230,9 +231,9 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
                 subMenu.findItem(R.id.action_layout_gradient_image).isChecked = true
         }
 
-        if (getGridSize() < 2){
+        /*if (getGridSize() < 2){
             subMenu.findItem(R.id.action_layout_circular).isChecked = true
-        }
+        }*/
     }
 
     private fun setUpGridSizeMenu(
@@ -286,8 +287,8 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
         item: MenuItem
     ): Boolean {
         val sortOrder: String = when (item.itemId) {
-            R.id.action_album_sort_order_asc -> AlbumSortOrder.ALBUM_A_Z
-            R.id.action_album_sort_order_desc -> AlbumSortOrder.ALBUM_Z_A
+            R.id.action_album_sort_order_desc -> AlbumSortOrder.ALBUM_A_Z
+            R.id.action_album_sort_order_asc -> AlbumSortOrder.ALBUM_Z_A
             R.id.action_album_sort_order_artist -> AlbumSortOrder.ALBUM_ARTIST
             R.id.action_album_sort_order_year -> AlbumSortOrder.ALBUM_YEAR
             R.id.action_album_sort_order_num_songs -> AlbumSortOrder.ALBUM_NUMBER_OF_SONGS

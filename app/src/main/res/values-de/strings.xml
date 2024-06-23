@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">Aus der Warteschlange entfernen</string>
     <string name="action_remove_from_playlist">Aus Wiedergabeliste entfernen</string>
     <string name="action_rename">Umbenennen</string>
-    <string name="action_reorder">Umschalten</string>
     <string name="action_rewind">10 Sekunden zurückziehen</string>
     <string name="action_save_playing_queue">Playlist speichern</string>
     <string name="action_scan">Scannen</string>
@@ -132,6 +131,7 @@
     <string name="create_action">Anlegen</string>
     <string name="create_new_backup">Anlegen</string>
     <string name="credit_title">Entwickler &amp; Mitwirkende</string>
+    <string name="cross_fade_duration">Überblendungsdauer</string>
     <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Hilf dabei, diese App auf Crowdin zu übersetzen</string>
     <string name="currently_listening_to_x_by_x">Hört gerade %1$s von %2$s an.</string>
@@ -243,8 +243,6 @@
     <string name="lyrics">Songtext</string>
     <string name="lyrics_both">ID3 Tag &amp; synchronisierte Songtexte</string>
     <string name="lyrics_id3">ID3 Tag Songtexte</string>
-    <string name="lyrics_message_enabled">ID3 Songtexte angezeigt. Das Ziehen wurde deaktiviert</string>
-    <string name="lyrics_message_disabled">ID3 Songtexte versteckt. Ziehen wurde aktiviert</string>
     <string name="lyrics_search_summary">Verwenden Sie Songtext-Suchbegriffe aus id3-Tags oder geben Sie manuell ein?</string>
     <string name="lyrics_synced">Synchronisierte Songtexte</string>
     <string name="manually">Manuell</string>
@@ -358,14 +356,13 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Desaturatierte Farbe</string>
-    <string name="pref_title_disable_id3_lyrics_message">ID3 Lyrics Nachrichten deaktivieren</string>
     <string name="pref_title_disable_synced_lyrics_message">Synchronisierte Lyrics Nachrichten deaktivieren</string>
     <string name="pref_title_disable_widgets">Standard Widgets deaktivieren</string>
     <string name="pref_title_duration">Einzelne Dauer</string>
     <string name="pref_title_expand_now_playing_panel">Jetzt Abspielbildschirm anzeigen</string>
     <string name="pref_title_extra_controls">Zusätzliche Steuerelemente</string>
     <string name="pref_title_fast_forward_duration">Schnelle Weiterleitungsdauer</string>
-    <string name="pref_title_font_size">Font Size</string>
+    <string name="pref_title_font_size">Schriftgröße</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_general_theme">App-Theme</string>
     <string name="pref_title_haptic_feedback">Haptisches Feedback deaktivieren</string>
@@ -376,6 +373,7 @@
     <string name="pref_title_last_added_interval">Zuletzt hinzugefügtes Playlist-Intervall</string>
     <string name="pref_title_lyrics_type">Songtext-Typ</string>
     <string name="pref_title_md3">Material</string>
+    <string name="pref_title_menu_option">Anpassbare Toolbar Aktion</string>
     <string name="pref_title_notification_action_1">Benachrichtigungsaktion links</string>
     <string name="pref_title_notification_action_2">Benachrichtigungsaktion rechts</string>
     <string name="pref_title_now_playing_screen_appearance">Abspielen des Themes</string>
@@ -468,9 +466,6 @@
     <string name="sort_order_num_songs">Spuranzahl &lt;unk&gt;</string>
     <string name="sort_order_num_songs_asc">Spuranzahl &lt;unk&gt;</string>
     <string name="sort_order_num_songs_desc">Spuranzahl &lt;unk&gt;</string>
-    <string name="sort_order_year">Jahr</string>
-    <string name="sort_order_year_asc">Jahr &lt;unk&gt;</string>
-    <string name="sort_order_year_desc">Jahr &lt;unk&gt;</string>
     <string name="sort_order_z_a">Absteigend</string>
     <string name="speech_not_supported">Entschuldigung! Ihr Gerät unterstützt keine Spracheingabe</string>
     <string name="speech_prompt">Durchsuche deine Bibliothek</string>
@@ -501,6 +496,7 @@
     <string name="update_image">Bild aktualisieren</string>
     <string name="update_notify">Benachrichtigung aktualisieren</string>
     <string name="updating">Aktualisiere…</string>
+    <string name="use_apex_font">Apex Schriftart verwenden</string>
     <string name="user_images_description">Benutzerbilder</string>
     <string name="version">Version</string>
     <string name="vertical_flip">Vertikal drehen</string>

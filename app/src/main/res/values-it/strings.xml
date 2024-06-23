@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">Rimuovi dalla coda di riproduzione</string>
     <string name="action_remove_from_playlist">Rimuovi dalla playlist</string>
     <string name="action_rename">Rinomina</string>
-    <string name="action_reorder">Attiva/disattiva riordino</string>
     <string name="action_rewind">Riavvolgi 10s</string>
     <string name="action_save_playing_queue">Salva coda di riproduzione</string>
     <string name="action_scan">Scansione</string>
@@ -134,6 +133,7 @@
     <string name="create_action">Crea</string>
     <string name="create_new_backup">Crea</string>
     <string name="credit_title">Sviluppatori &amp; Contributori</string>
+    <string name="cross_fade_duration">Durata dissolvenza incrociata</string>
     <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Aiuta a tradurre questa app su crowdin</string>
     <string name="currently_listening_to_x_by_x">Attualmente in ascolto di %1$s da %2$s.</string>
@@ -245,8 +245,6 @@
     <string name="lyrics">Testi</string>
     <string name="lyrics_both">ID3 Tag &amp; Testo Sincronizzato</string>
     <string name="lyrics_id3">Testo Etichetta ID3</string>
-    <string name="lyrics_message_enabled">Testo ID3 mostrato. Il trascinamento è stato disabilitato</string>
-    <string name="lyrics_message_disabled">Testo ID3 nascosto. Il trascinamento è stato abilitato</string>
     <string name="lyrics_search_summary">Utilizzare i termini di ricerca del testo id3 tag modulo o inserire manualmente?</string>
     <string name="lyrics_synced">Testo Sincronizzato</string>
     <string name="manually">Manualmente</string>
@@ -360,14 +358,13 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Colore Desaturato</string>
-    <string name="pref_title_disable_id3_lyrics_message">Disabilita I Messaggi Di Testo Id3</string>
     <string name="pref_title_disable_synced_lyrics_message">Disabilita Testi Sincronizzati</string>
     <string name="pref_title_disable_widgets">Disabilita Widget Predefiniti</string>
     <string name="pref_title_duration">Durata Singola</string>
     <string name="pref_title_expand_now_playing_panel">Mostra Schermata In Riproduzione</string>
     <string name="pref_title_extra_controls">Controlli Extra</string>
     <string name="pref_title_fast_forward_duration">Durata Ricerca Avanti Veloce</string>
-    <string name="pref_title_font_size">Font Size</string>
+    <string name="pref_title_font_size">Dimensione del font</string>
     <string name="pref_title_gapless_playback">Riproduzione Senza Gapless</string>
     <string name="pref_title_general_theme">Tema App</string>
     <string name="pref_title_haptic_feedback">Disabilita Feedback Haptic</string>
@@ -378,6 +375,7 @@
     <string name="pref_title_last_added_interval">Intervallo Ultima Scaletta Aggiunta</string>
     <string name="pref_title_lyrics_type">Tipo Di Testo</string>
     <string name="pref_title_md3">Materiale Tu</string>
+    <string name="pref_title_menu_option">Azione Barra Strumenti Personalizzabile</string>
     <string name="pref_title_notification_action_1">Azione Di Notifica Sinistra</string>
     <string name="pref_title_notification_action_2">Azione Di Notifica Destra</string>
     <string name="pref_title_now_playing_screen_appearance">Tema In Riproduzione</string>
@@ -470,9 +468,6 @@
     <string name="sort_order_num_songs">Conteggio traccia ↑</string>
     <string name="sort_order_num_songs_asc">Conteggio traccia ↑</string>
     <string name="sort_order_num_songs_desc">Conteggio traccia ↓</string>
-    <string name="sort_order_year">Anno</string>
-    <string name="sort_order_year_asc">Anno ↑</string>
-    <string name="sort_order_year_desc">Anno ↓</string>
     <string name="sort_order_z_a">Decrescente</string>
     <string name="speech_not_supported">Spiacenti! Il tuo dispositivo non supporta l\'input vocale</string>
     <string name="speech_prompt">Cerca nella tua biblioteca</string>
@@ -503,6 +498,7 @@
     <string name="update_image">Aggiorna immagine</string>
     <string name="update_notify">Aggiorna Notifica</string>
     <string name="updating">Aggiornamento…</string>
+    <string name="use_apex_font">Usa Carattere Apex</string>
     <string name="user_images_description">Immagini Utente</string>
     <string name="version">Versione</string>
     <string name="vertical_flip">Riflessione verticale</string>

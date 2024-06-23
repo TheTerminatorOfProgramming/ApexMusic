@@ -25,6 +25,7 @@ import android.provider.MediaStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
+import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
@@ -35,6 +36,7 @@ import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.findNavController
 import com.ttop.app.apex.extensions.hideStatusBar
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SearchQueryHelper.getSongs
 import com.ttop.app.apex.interfaces.IScrollHelper
@@ -50,6 +52,11 @@ import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+
 
 class MainActivity : AbsCastActivity() {
     companion object {
@@ -111,28 +118,6 @@ class MainActivity : AbsCastActivity() {
         }
 
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
-
-        //UN-CODE IF DISTRIBUTING TO USER TO TEST. TIME IS 24 HOUR
-        /*val validUntil = "16/6/2024 0000"
-        val sdf = SimpleDateFormat("dd/MM/yyyy HHmm", Locale.getDefault())
-        val strDate: Date? = sdf.parse(validUntil)
-        if (Date().after(strDate)) {
-            val id = android.os.Process.myPid()
-            android.os.Process.killProcess(id)
-        }*/
-
-        //GET SD CARDS PATHS (INTERNAL AND EXTERNAL)
-        /*val rootPaths = ArrayList<String>()
-        val rootsStorage = ContextCompat.getExternalFilesDirs(applicationContext, null)
-        for (i in rootsStorage.indices) {
-            val root = rootsStorage[i].absolutePath.replace(
-                "/Android/data/" + applicationContext.packageName + "/files",
-                ""
-            )
-            rootPaths.add(root)
-        }
-
-        applicationContext.showToast(rootPaths.size.toString())*/
     }
 
     private fun setupNavigationController() {

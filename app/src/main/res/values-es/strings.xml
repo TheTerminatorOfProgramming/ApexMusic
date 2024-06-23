@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
     <string name="action_remove_from_playlist">Eliminar de la lista</string>
     <string name="action_rename">Renombrar</string>
-    <string name="action_reorder">Cambiar orden</string>
     <string name="action_rewind">Rebobinar 10 s</string>
     <string name="action_save_playing_queue">Guardar cola de reproducción</string>
     <string name="action_scan">Escanear</string>
@@ -65,14 +64,12 @@
     <plurals name="albumSongs">
         <item quantity="one">Pista</item>
         <item quantity="other">Pistas</item>
-        <item quantity="many">Pistas</item>
     </plurals>
     <string name="album_artist">Artista del álbum</string>
     <string name="albums">Albumes</string>
     <plurals name="albums">
         <item quantity="one">Álbum</item>
         <item quantity="other">Albumes</item>
-        <item quantity="many">Albumes</item>
     </plurals>
     <string name="always">Siempre</string>
     <string name="appbar_mode_expanded">Ampliado</string>
@@ -134,6 +131,7 @@
     <string name="create_action">Crear</string>
     <string name="create_new_backup">Crear</string>
     <string name="credit_title">Desarrolladores &amp; Colaboradores</string>
+    <string name="cross_fade_duration">Duración del crossfade</string>
     <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Ayuda a traducir esta aplicación en crowdin</string>
     <string name="currently_listening_to_x_by_x">Actualmente escuchando %1$s por %2$s.</string>
@@ -166,7 +164,7 @@
     <string name="empty">Vaciar</string>
     <string name="enabled">Activado</string>
     <string name="enter_text">Ingresar texto</string>
-    <string name="equalizer">Ecualizador</string>
+    <string name="equalizer">Equalizador</string>
     <string name="error_create_backup">No se pudo crear la copia de seguridad</string>
     <string name="error_delete_backup">No se pudo borrar la copia de seguridad</string>
     <string name="error_load_failed">Carga fallida</string>
@@ -245,8 +243,6 @@
     <string name="lyrics">Letras</string>
     <string name="lyrics_both">Etiqueta ID3 &amp; Letras sincronizadas</string>
     <string name="lyrics_id3">Letras de la etiqueta ID3</string>
-    <string name="lyrics_message_enabled">ID3 letras mostradas. Arrastre ha sido desactivado</string>
-    <string name="lyrics_message_disabled">ID3 letras ocultas. Se ha habilitado el arrastre</string>
     <string name="lyrics_search_summary">¿Usar etiquetas id3 de los términos de búsqueda de letras o introducir manualmente?</string>
     <string name="lyrics_synced">Letras sincronizadas</string>
     <string name="manually">Manualmente</string>
@@ -360,14 +356,13 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Color desaturado</string>
-    <string name="pref_title_disable_id3_lyrics_message">Desactivar mensajes de letras ID3</string>
     <string name="pref_title_disable_synced_lyrics_message">Deshabilitar mensajes de letras sincronizadas</string>
     <string name="pref_title_disable_widgets">Desactivar Widgets por defecto</string>
     <string name="pref_title_duration">Duración única</string>
     <string name="pref_title_expand_now_playing_panel">Mostrar la pantalla de reproducción</string>
     <string name="pref_title_extra_controls">Controles adicionales</string>
     <string name="pref_title_fast_forward_duration">Duración de búsqueda rápida</string>
-    <string name="pref_title_font_size">Font Size</string>
+    <string name="pref_title_font_size">Tamaño de fuente</string>
     <string name="pref_title_gapless_playback">Reproducción sin plumas</string>
     <string name="pref_title_general_theme">Tema App</string>
     <string name="pref_title_haptic_feedback">Desactivar Comentarios Hápticos</string>
@@ -378,6 +373,7 @@
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
     <string name="pref_title_lyrics_type">Tipo de letra</string>
     <string name="pref_title_md3">Material que usted</string>
+    <string name="pref_title_menu_option">Acción de la barra de herramientas personalizable</string>
     <string name="pref_title_notification_action_1">Acción de notificación izquierda</string>
     <string name="pref_title_notification_action_2">Acción de notificación derecha</string>
     <string name="pref_title_now_playing_screen_appearance">Ahora reproduciendo tema</string>
@@ -470,9 +466,6 @@
     <string name="sort_order_num_songs">Recuento de pistas?</string>
     <string name="sort_order_num_songs_asc">Recuento de pistas?</string>
     <string name="sort_order_num_songs_desc">Recuento de pistas?</string>
-    <string name="sort_order_year">Año</string>
-    <string name="sort_order_year_asc">Año:</string>
-    <string name="sort_order_year_desc">Año:</string>
     <string name="sort_order_z_a">Descendente</string>
     <string name="speech_not_supported">¡Lo sentimos! Tu dispositivo no admite entrada de voz</string>
     <string name="speech_prompt">Busca en tu biblioteca</string>
@@ -503,6 +496,7 @@
     <string name="update_image">Actualizar imagen</string>
     <string name="update_notify">Actualizar notificación</string>
     <string name="updating">Actualizando…</string>
+    <string name="use_apex_font">Usar fuente Apex</string>
     <string name="user_images_description">Imágenes de usuario</string>
     <string name="version">Versión</string>
     <string name="vertical_flip">Giro vertical</string>

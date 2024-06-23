@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">从播放队列移除</string>
     <string name="action_remove_from_playlist">从播放列表删除</string>
     <string name="action_rename">重命名：</string>
-    <string name="action_reorder">切换重新排序</string>
     <string name="action_rewind">倒退10秒</string>
     <string name="action_save_playing_queue">保存播放队列</string>
     <string name="action_scan">扫描</string>
@@ -130,6 +129,7 @@
     <string name="create_action">创建</string>
     <string name="create_new_backup">创建</string>
     <string name="credit_title">开发者 &amp; 贡献者</string>
+    <string name="cross_fade_duration">交叉淡入淡出时长</string>
     <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">帮助在crowdin 上翻译这个应用</string>
     <string name="currently_listening_to_x_by_x">目前正在通过 %2$s 收听 %1$s。</string>
@@ -241,8 +241,6 @@
     <string name="lyrics">歌词</string>
     <string name="lyrics_both">ID3 标签 &amp; 同步歌词</string>
     <string name="lyrics_id3">ID3 标签歌词</string>
-    <string name="lyrics_message_enabled">显示了 ID3 歌词。拖动已被禁用</string>
-    <string name="lyrics_message_disabled">隐藏了 ID3 歌词。拖动已启用</string>
     <string name="lyrics_search_summary">使用歌词搜索词表单id3标签或手动输入？</string>
     <string name="lyrics_synced">已同步歌词</string>
     <string name="manually">手动操作</string>
@@ -356,14 +354,13 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">降落颜色</string>
-    <string name="pref_title_disable_id3_lyrics_message">禁用 ID3 歌词消息</string>
     <string name="pref_title_disable_synced_lyrics_message">禁用同步歌词</string>
     <string name="pref_title_disable_widgets">禁用默认部件</string>
     <string name="pref_title_duration">单时长</string>
     <string name="pref_title_expand_now_playing_panel">显示正在播放屏幕</string>
     <string name="pref_title_extra_controls">额外控制</string>
     <string name="pref_title_fast_forward_duration">快速寻找持续时间</string>
-    <string name="pref_title_font_size">Font Size</string>
+    <string name="pref_title_font_size">字体大小</string>
     <string name="pref_title_gapless_playback">无缝播放</string>
     <string name="pref_title_general_theme">应用主题</string>
     <string name="pref_title_haptic_feedback">禁用触发反馈</string>
@@ -374,6 +371,7 @@
     <string name="pref_title_last_added_interval">最后添加的播放列表间隔</string>
     <string name="pref_title_lyrics_type">歌词类型</string>
     <string name="pref_title_md3">您的材料</string>
+    <string name="pref_title_menu_option">可自定义工具栏动作</string>
     <string name="pref_title_notification_action_1">通知左侧动作</string>
     <string name="pref_title_notification_action_2">右侧通知操作</string>
     <string name="pref_title_now_playing_screen_appearance">正在播放主题</string>
@@ -466,9 +464,6 @@
     <string name="sort_order_num_songs">曲目计数 ↑</string>
     <string name="sort_order_num_songs_asc">曲目计数 ↑</string>
     <string name="sort_order_num_songs_desc">曲目计数 ↓</string>
-    <string name="sort_order_year">年份</string>
-    <string name="sort_order_year_asc">圣诞年</string>
-    <string name="sort_order_year_desc">年月</string>
     <string name="sort_order_z_a">降序</string>
     <string name="speech_not_supported">对不起！您的设备不支持语音输入</string>
     <string name="speech_prompt">搜索您的库</string>
@@ -499,6 +494,7 @@
     <string name="update_image">更新图像</string>
     <string name="update_notify">更新通知</string>
     <string name="updating">正在更新…</string>
+    <string name="use_apex_font">使用 Apex 字体</string>
     <string name="user_images_description">用户图像</string>
     <string name="version">版本</string>
     <string name="vertical_flip">垂直翻转</string>

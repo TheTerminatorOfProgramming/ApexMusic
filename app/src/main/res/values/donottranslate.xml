@@ -16,8 +16,6 @@
 
     <string name="download_policy">always</string>
 
-    <string name="font_apex_name">Apex</string>
-
     <string name="app_widget_big_name">Big</string>
     <string name="app_widget_classic_name">Classic</string>
     <string name="app_widget_full_name">Full</string>

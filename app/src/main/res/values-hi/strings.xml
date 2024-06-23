@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">खेल कतार से हटाएँ</string>
     <string name="action_remove_from_playlist">प्लेलिस्ट से हटाएँ</string>
     <string name="action_rename">नाम बदलें</string>
-    <string name="action_reorder">पुनः क्रम टॉगल करें</string>
     <string name="action_rewind">10 को रिवाइंड करें</string>
     <string name="action_save_playing_queue">खेल कतार सहेजें</string>
     <string name="action_scan">स्कैन</string>
@@ -132,6 +131,7 @@
     <string name="create_action">बनाएं</string>
     <string name="create_new_backup">बनाएं</string>
     <string name="credit_title">डेवलपर्स एवं amp; योगदानकर्ताओं</string>
+    <string name="cross_fade_duration">क्रॉसफ़ेड अवधि</string>
     <string name="crowdin">भीड़</string>
     <string name="crowdin_summary">क्राउडइन पर इस ऐप का अनुवाद करने में सहायता करें</string>
     <string name="currently_listening_to_x_by_x">वर्तमान में %2$s द्वारा %1$s सुन रहा हूँ।</string>
@@ -243,8 +243,6 @@
     <string name="lyrics">बोल</string>
     <string name="lyrics_both">आईडी3 टैग और amp; समन्वयित गीत</string>
     <string name="lyrics_id3">ID3 टैग गीत</string>
-    <string name="lyrics_message_enabled">ID3 गीत दिखाए गए. खींचना अक्षम कर दिया गया है</string>
-    <string name="lyrics_message_disabled">ID3 गीत छिपा हुआ. खींचना सक्षम कर दिया गया है</string>
     <string name="lyrics_search_summary">गीत खोज शब्दों का उपयोग आईडी3 टैग के रूप में करें या मैन्युअल रूप से दर्ज करें?</string>
     <string name="lyrics_synced">समन्वयित गीत</string>
     <string name="manually">मैन्युअल</string>
@@ -358,7 +356,6 @@
     <string name="pref_title_cross_fade">क्रॉसफ़ेड</string>
     <string name="pref_title_custom_font">फ़ॉन्ट</string>
     <string name="pref_title_desaturated_color">असंतृप्त रंग</string>
-    <string name="pref_title_disable_id3_lyrics_message">ID3 गीत संदेश अक्षम करें</string>
     <string name="pref_title_disable_synced_lyrics_message">सिंक किए गए गीत संदेश अक्षम करें</string>
     <string name="pref_title_disable_widgets">डिफ़ॉल्ट विजेट अक्षम करें</string>
     <string name="pref_title_duration">एकल अवधि</string>
@@ -376,6 +373,7 @@
     <string name="pref_title_last_added_interval">अंतिम जोड़ा गया प्लेलिस्ट अंतराल</string>
     <string name="pref_title_lyrics_type">गीत के प्रकार</string>
     <string name="pref_title_md3">सामग्री आप</string>
+    <string name="pref_title_menu_option">अनुकूलन योग्य टूलबार क्रिया</string>
     <string name="pref_title_notification_action_1">अधिसूचना कार्रवाई शेष</string>
     <string name="pref_title_notification_action_2">अधिसूचना कार्रवाई सही</string>
     <string name="pref_title_now_playing_screen_appearance">अब थीम चल रही है</string>
@@ -468,9 +466,6 @@
     <string name="sort_order_num_songs">ट्रैक गिनती ↑</string>
     <string name="sort_order_num_songs_asc">ट्रैक गिनती ↑</string>
     <string name="sort_order_num_songs_desc">ट्रैक गिनती ↓</string>
-    <string name="sort_order_year">वर्ष</string>
-    <string name="sort_order_year_asc">वर्ष ↑</string>
-    <string name="sort_order_year_desc">वर्ष ↓</string>
     <string name="sort_order_z_a">अवरोही</string>
     <string name="speech_not_supported">क्षमा मांगना! आपका उपकरण वाक् इनपुट का समर्थन नहीं करता</string>
     <string name="speech_prompt">अपनी लाइब्रेरी खोजें</string>
@@ -501,6 +496,7 @@
     <string name="update_image">छवि अद्यतन करें</string>
     <string name="update_notify">अद्यतन अधिसूचना</string>
     <string name="updating">अपडेट हो रहा है…</string>
+    <string name="use_apex_font">एपेक्स फ़ॉन्ट का उपयोग करें</string>
     <string name="user_images_description">उपयोगकर्ता छवियाँ</string>
     <string name="version">संस्करण</string>
     <string name="vertical_flip">लंबवत फ्लिप</string>

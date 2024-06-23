@@ -78,7 +78,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
     private var playerAlbumCoverFragment: PlayerAlbumCoverFragment? = null
 
-    private fun goToLyrics() {
+   private fun goToLyrics() {
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
         val builder = AlertDialog.Builder(requireContext())
@@ -110,7 +110,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         item: MenuItem,
     ): Boolean {
         val song = MusicPlayerRemote.currentSong
-
+        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")

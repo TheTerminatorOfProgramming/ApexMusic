@@ -8,14 +8,11 @@
         android:title="@string/pref_title_audio_fade"
         app:allowDividerBelow="false"/>
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+    <com.ttop.app.apex.preferences.CrossFadePreference
         android:defaultValue="0"
         android:key="cross_fade_duration"
-        android:layout="@layout/list_item_view_seekbar"
-        app:ateKey_pref_unit="s"
-        android:max="12"
+        android:layout="@layout/list_item_view"
         android:title="@string/pref_title_cross_fade"
-        app:showSeekBarValue="true"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bengali">Bengaleză</string>
+    <string name="english">Română</string>
+    <string name="french">Franceză</string>
+    <string name="german">Germană</string>
+    <string name="hindi">Hindi</string>
+    <string name="indonesian">Indoneziană</string>
+    <string name="italian">Italiană</string>
+    <string name="japanese">Japoneză</string>
+    <string name="mandarin">Mandarin</string>
+    <string name="portuguese">Portugheză</string>
+    <string name="punjabi">Punjabi</string>
+    <string name="romanian">Românesc</string>
+    <string name="spanish">Spaniolă</string>
+    <string name="system_default">Implicit sistem</string>
+    <string name="turkish">Turcă</string>
+</resources>

@@ -12,7 +12,7 @@
             android:title="@string/sort_order_album" />
         <item
             android:id="@+id/action_sort_order_year"
-            android:title="@string/sort_order_year" />
+            android:title="@string/year" />
         <item
             android:id="@+id/action_sort_order_song_duration"
             android:title="@string/song_duration" />

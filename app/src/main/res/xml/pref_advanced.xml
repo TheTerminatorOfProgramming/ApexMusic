@@ -101,24 +101,18 @@
         android:title="@string/pref_header_filter"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+        <com.ttop.app.apex.preferences.FilterMinPreference
             android:defaultValue="0"
             android:key="filter_song_min"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="10"
+            android:layout="@layout/list_item_view"
             android:title="@string/pref_filter_song_min_title"
-            app:ateKey_pref_unit="′"
-            app:showSeekBarValue="true"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
-            android:defaultValue="10"
+        <com.ttop.app.apex.preferences.FilterMaxPreference
+            android:defaultValue="0"
             android:key="filter_song_max"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="10"
+            android:layout="@layout/list_item_view"
             android:title="@string/pref_filter_song_max_title"
-            app:ateKey_pref_unit="′"
-            app:showSeekBarValue="true"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory

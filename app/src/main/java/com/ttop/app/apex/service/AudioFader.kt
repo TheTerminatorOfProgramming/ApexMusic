@@ -12,17 +12,12 @@ import com.ttop.app.apex.util.PreferenceUtil
 class AudioFader {
     companion object {
         fun createFadeAnimator(
-            context: Context,
             fadeInMp: MediaPlayer,
             fadeOutMp: MediaPlayer,
             endAction: (animator: Animator) -> Unit, /* Code to run when Animator Ends*/
         ): Animator? {
-            // Get Global animator scale
-            val animScale = Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f)
-
-            // Set duration according to the global animation scale, so cross-fade actually lasts for the duration set by the user
-            val duration = (PreferenceUtil.crossFadeDuration * 1000 ) / animScale
-            if (duration == 0F) {
+            val duration = PreferenceUtil.crossFadeDuration * 1000
+            if (duration == 0) {
                 return null
             }
             return ValueAnimator.ofFloat(0f, 1f).apply {

@@ -29,12 +29,24 @@ import com.ttop.app.apex.preferences.AlbumCoverStylePreference
 import com.ttop.app.apex.preferences.AlbumCoverStylePreferenceDialog
 import com.ttop.app.apex.preferences.BlacklistPreference
 import com.ttop.app.apex.preferences.BlacklistPreferenceDialog
+import com.ttop.app.apex.preferences.BlurPreference
+import com.ttop.app.apex.preferences.BlurPreferenceDialog
+import com.ttop.app.apex.preferences.CrossFadePreference
+import com.ttop.app.apex.preferences.CrossFadePreferenceDialog
 import com.ttop.app.apex.preferences.DurationPreference
 import com.ttop.app.apex.preferences.DurationPreferenceDialog
+import com.ttop.app.apex.preferences.FilterMaxPreference
+import com.ttop.app.apex.preferences.FilterMaxPreferenceDialog
+import com.ttop.app.apex.preferences.FilterMinPreference
+import com.ttop.app.apex.preferences.FilterMinPreferenceDialog
 import com.ttop.app.apex.preferences.LibraryPreference
 import com.ttop.app.apex.preferences.LibraryPreferenceDialog
 import com.ttop.app.apex.preferences.NowPlayingScreenPreference
 import com.ttop.app.apex.preferences.NowPlayingScreenPreferenceDialog
+import com.ttop.app.apex.preferences.SeekFwdPreference
+import com.ttop.app.apex.preferences.SeekFwdPreferenceDialog
+import com.ttop.app.apex.preferences.SeekRwdPreference
+import com.ttop.app.apex.preferences.SeekRwdPreferenceDialog
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat
@@ -102,6 +114,30 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
             }
             is DurationPreference -> {
                 val fragment = DurationPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is CrossFadePreference -> {
+                val fragment = CrossFadePreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is FilterMinPreference -> {
+                val fragment = FilterMinPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is FilterMaxPreference -> {
+                val fragment = FilterMaxPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is SeekFwdPreference -> {
+                val fragment = SeekFwdPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is SeekRwdPreference -> {
+                val fragment = SeekRwdPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is BlurPreference -> {
+                val fragment = BlurPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
             else -> super.onDisplayPreferenceDialog(preference)

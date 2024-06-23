@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">ਖੇਡਣ ਵਾਲੀ ਕਤਾਰ ਤੋਂ ਹਟਾਓ</string>
     <string name="action_remove_from_playlist">ਪਲੇਲਿਸਟ ਤੋਂ ਹਟਾਓ</string>
     <string name="action_rename">ਨਾਮ ਬਦਲੋ</string>
-    <string name="action_reorder">ਮੁੜ-ਕ੍ਰਮ ਟੌਗਲ ਕਰੋ</string>
     <string name="action_rewind">10s ਰੀਵਾਈਂਡ ਕਰੋ</string>
     <string name="action_save_playing_queue">ਖੇਡਣ ਵਾਲੀ ਕਤਾਰ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰੋ</string>
     <string name="action_scan">ਸਕੈਨ ਕਰੋ</string>
@@ -132,6 +131,7 @@
     <string name="create_action">ਬਣਾਓ</string>
     <string name="create_new_backup">ਬਣਾਓ</string>
     <string name="credit_title">ਵਿਕਾਸਕਾਰ &amp; ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
+    <string name="cross_fade_duration">ਕਰਾਸਫੇਡ ਦੀ ਮਿਆਦ</string>
     <string name="crowdin">ਭੀੜ</string>
     <string name="crowdin_summary">ਭੀੜ \'ਤੇ ਇਸ ਐਪ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰੋ</string>
     <string name="currently_listening_to_x_by_x">ਵਰਤਮਾਨ ਵਿੱਚ %2$s ਦੁਆਰਾ %1$s ਨੂੰ ਸੁਣਿਆ ਜਾ ਰਿਹਾ ਹੈ।</string>
@@ -243,8 +243,6 @@
     <string name="lyrics">ਬੋਲ</string>
     <string name="lyrics_both">ID3 ਟੈਗ &amp; ਸਿੰਕ ਕੀਤੇ ਬੋਲ</string>
     <string name="lyrics_id3">ID3 ਟੈਗ ਬੋਲ</string>
-    <string name="lyrics_message_enabled">ID3 ਬੋਲ ਦਿਖਾਏ ਗਏ ਹਨ। ਖਿੱਚਣਾ ਅਸਮਰੱਥ ਕੀਤਾ ਗਿਆ ਹੈ</string>
-    <string name="lyrics_message_disabled">ID3 ਦੇ ਬੋਲ ਲੁਕੇ ਹੋਏ ਹਨ। ਡਰੈਗਿੰਗ ਨੂੰ ਸਮਰੱਥ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
     <string name="lyrics_search_summary">id3 ਟੈਗ ਦੇ ਰੂਪ ਵਿੱਚ ਬੋਲ ਖੋਜ ਸ਼ਬਦਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ ਜਾਂ ਹੱਥੀਂ ਦਰਜ ਕਰੋ?</string>
     <string name="lyrics_synced">ਸਿੰਕ ਕੀਤੇ ਬੋਲ</string>
     <string name="manually">ਹੱਥੀਂ</string>
@@ -358,7 +356,6 @@
     <string name="pref_title_cross_fade">ਕਰਾਸਫੇਡ</string>
     <string name="pref_title_custom_font">ਫੌਂਟ</string>
     <string name="pref_title_desaturated_color">ਅਸੰਤ੍ਰਿਪਤ ਰੰਗ</string>
-    <string name="pref_title_disable_id3_lyrics_message">ID3 ਬੋਲ ਸੁਨੇਹੇ ਅਸਮਰੱਥ</string>
     <string name="pref_title_disable_synced_lyrics_message">সিঙ্ক করা লিরিক্স মেসেজ অক্ষম করুন</string>
     <string name="pref_title_disable_widgets">ਡਿਫੌਲਟ ਵਿਜੇਟਸ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="pref_title_duration">ਸਿੰਗਲ ਅਵਧੀ</string>
@@ -376,6 +373,7 @@
     <string name="pref_title_last_added_interval">ਆਖਰੀ ਜੋੜਿਆ ਪਲੇਲਿਸਟ ਅੰਤਰਾਲ</string>
     <string name="pref_title_lyrics_type">ਬੋਲ ਦੀ ਕਿਸਮ</string>
     <string name="pref_title_md3">ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ</string>
+    <string name="pref_title_menu_option">ਅਨੁਕੂਲਿਤ ਟੂਲਬਾਰ ਐਕਸ਼ਨ</string>
     <string name="pref_title_notification_action_1">ਸੂਚਨਾ ਕਾਰਵਾਈ ਖੱਬੇ</string>
     <string name="pref_title_notification_action_2">ਸੂਚਨਾ ਕਾਰਵਾਈ ਦਾ ਹੱਕ</string>
     <string name="pref_title_now_playing_screen_appearance">ਹੁਣ ਥੀਮ ਚੱਲ ਰਿਹਾ ਹੈ</string>
@@ -468,9 +466,6 @@
     <string name="sort_order_num_songs">ਟਰੈਕ ਗਿਣਤੀ ↑</string>
     <string name="sort_order_num_songs_asc">ਟਰੈਕ ਗਿਣਤੀ ↑</string>
     <string name="sort_order_num_songs_desc">ਟਰੈਕ ਗਿਣਤੀ ↓</string>
-    <string name="sort_order_year">ਸਾਲ</string>
-    <string name="sort_order_year_asc">ਸਾਲ ↑</string>
-    <string name="sort_order_year_desc">ਸਾਲ ↓</string>
     <string name="sort_order_z_a">ਉਤਰਦੇ ਹੋਏ</string>
     <string name="speech_not_supported">ਮਾਫ ਕਰਨਾ! ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਸਪੀਚ ਇਨਪੁੱਟ ਦਾ ਸਮਰਥਨ ਨਹੀਂ ਕਰਦੀ ਹੈ</string>
     <string name="speech_prompt">ਆਪਣੀ ਲਾਇਬ੍ਰੇਰੀ ਖੋਜੋ</string>
@@ -501,6 +496,7 @@
     <string name="update_image">ਚਿੱਤਰ ਅੱਪਡੇਟ ਕਰੋ</string>
     <string name="update_notify">ਸੂਚਨਾ ਅੱਪਡੇਟ ਕਰੋ</string>
     <string name="updating">ਅੱਪਡੇਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <string name="use_apex_font">ਐਪੈਕਸ ਫੌਂਟ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="user_images_description">ਉਪਭੋਗਤਾ ਚਿੱਤਰ</string>
     <string name="version">ਸੰਸਕਰਣ</string>
     <string name="vertical_flip">ਵਰਟੀਕਲ ਫਲਿੱਪ</string>

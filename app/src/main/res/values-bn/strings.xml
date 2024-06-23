@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">বাজানো সারি থেকে সরান</string>
     <string name="action_remove_from_playlist">প্লেলিস্ট থেকে সরান</string>
     <string name="action_rename">নাম পরিবর্তন করুন</string>
-    <string name="action_reorder">রি-অর্ডার টগল করুন</string>
     <string name="action_rewind">10 সেকেন্ড রিওয়াইন্ড করুন</string>
     <string name="action_save_playing_queue">খেলার সারি সংরক্ষণ করুন</string>
     <string name="action_scan">স্ক্যান</string>
@@ -132,6 +131,7 @@
     <string name="create_action">সৃষ্টি</string>
     <string name="create_new_backup">সৃষ্টি</string>
     <string name="credit_title">বিকাশকারী এবং অবদানকারী</string>
+    <string name="cross_fade_duration">ক্রসফেডের সময়কাল</string>
     <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Crowdin-এ এই অ্যাপটি অনুবাদ করতে সাহায্য করুন</string>
     <string name="currently_listening_to_x_by_x">বর্তমানে %2$s দ্বারা %1$s শুনছেন৷</string>
@@ -243,8 +243,6 @@
     <string name="lyrics">গানের কথা</string>
     <string name="lyrics_both">ID3 ট্যাগ &amp; সিঙ্ক করা লিরিক্স</string>
     <string name="lyrics_id3">ID3 ট্যাগ লিরিক্স</string>
-    <string name="lyrics_message_enabled">ID3 গান দেখানো হয়েছে. টেনে আনা অক্ষম করা হয়েছে</string>
-    <string name="lyrics_message_disabled">ID3 গান লুকানো. টেনে আনা সক্ষম করা হয়েছে</string>
     <string name="lyrics_search_summary">id3 ট্যাগ আকারে গানের সার্চ টার্ম ব্যবহার করবেন নাকি ম্যানুয়ালি লিখবেন?</string>
     <string name="lyrics_synced">সিঙ্ক করা লিরিক্স</string>
     <string name="manually">ম্যানুয়ালি</string>
@@ -358,7 +356,6 @@
     <string name="pref_title_cross_fade">ক্রসফেড</string>
     <string name="pref_title_custom_font">হরফ</string>
     <string name="pref_title_desaturated_color">ডিস্যাচুরেটেড কালার</string>
-    <string name="pref_title_disable_id3_lyrics_message">ID3 লিরিক্স মেসেজ অক্ষম করুন</string>
     <string name="pref_title_disable_synced_lyrics_message">সিঙ্ক করা লিরিক্স মেসেজ অক্ষম করুন</string>
     <string name="pref_title_disable_widgets">ডিফল্ট উইজেট অক্ষম করুন</string>
     <string name="pref_title_duration">একক সময়কাল</string>
@@ -376,6 +373,7 @@
     <string name="pref_title_last_added_interval">সর্বশেষ যোগ করা প্লেলিস্ট ব্যবধান</string>
     <string name="pref_title_lyrics_type">গানের ধরন</string>
     <string name="pref_title_md3">উপাদান আপনি</string>
+    <string name="pref_title_menu_option">কাস্টমাইজযোগ্য টুলবার অ্যাকশন</string>
     <string name="pref_title_notification_action_1">বিজ্ঞপ্তি কর্ম বাম</string>
     <string name="pref_title_notification_action_2">বিজ্ঞপ্তি কর্ম অধিকার</string>
     <string name="pref_title_now_playing_screen_appearance">এখন থিম চলছে</string>
@@ -468,9 +466,6 @@
     <string name="sort_order_num_songs">ট্র্যাক গণনা ↑</string>
     <string name="sort_order_num_songs_asc">ট্র্যাক গণনা ↑</string>
     <string name="sort_order_num_songs_desc">ট্র্যাক গণনা ↓</string>
-    <string name="sort_order_year">বছর</string>
-    <string name="sort_order_year_asc">বছর ↑</string>
-    <string name="sort_order_year_desc">বছর ↓</string>
     <string name="sort_order_z_a">অবরোহী</string>
     <string name="speech_not_supported">দুঃখিত! আপনার ডিভাইস স্পিচ ইনপুট সমর্থন করে না</string>
     <string name="speech_prompt">আপনার লাইব্রেরি অনুসন্ধান করুন</string>
@@ -501,6 +496,7 @@
     <string name="update_image">ইমেজ আপডেট করুন</string>
     <string name="update_notify">আপডেট বিজ্ঞপ্তি</string>
     <string name="updating">আপডেট হচ্ছে…</string>
+    <string name="use_apex_font">অ্যাপেক্স ফন্ট ব্যবহার করুন</string>
     <string name="user_images_description">ব্যবহারকারী ইমেজ</string>
     <string name="version">সংস্করণ</string>
     <string name="vertical_flip">উল্লম্ব উল্টানো</string>

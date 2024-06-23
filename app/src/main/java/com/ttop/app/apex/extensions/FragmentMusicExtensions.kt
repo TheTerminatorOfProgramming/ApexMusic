@@ -19,7 +19,11 @@ fun getSongInfo(song: Song): String {
             if (audioHeader.isLossless) {
                 string.append(audioHeader.bitsPerSample).append("-bit").append(" • ")
             }
-            string.append(audioHeader.bitRate).append(" kb/s").append(" • ")
+
+            if (!audioHeader.format.contains("opus",true)) {
+                string.append(audioHeader.bitRate).append(" kb/s").append(" • ")
+            }
+
             string.append(ApexUtil.frequencyCount(audioHeader.sampleRate.toInt()))
                 .append(" kHz")
             string.toString()

@@ -101,43 +101,6 @@ class AdaptivePlaybackControlsFragment :
         updateShuffleState()
     }
 
-    /*override fun setColor(color: MediaNotificationProcessor) {
-        if (ColorUtil.isColorLight(
-                ATHUtil.resolveColor(
-                    requireContext(),
-                    android.R.attr.windowBackground
-                )
-            )
-        ) {
-            lastPlaybackControlsColor = MaterialValueHelper.getSecondaryTextColor(activity, true)
-            lastDisabledPlaybackControlsColor =
-                MaterialValueHelper.getSecondaryDisabledTextColor(activity, true)
-        } else {
-            lastPlaybackControlsColor = MaterialValueHelper.getPrimaryTextColor(activity, false)
-            lastDisabledPlaybackControlsColor =
-                MaterialValueHelper.getPrimaryDisabledTextColor(activity, false)
-        }
-
-        updateRepeatState()
-        updateShuffleState()
-        updatePrevNextColor()
-        updatePlayPauseColor()
-
-        val colorFinal = if (PreferenceUtil.isAdaptiveColor) {
-            color.secondaryTextColor
-        } else {
-            accentColor()
-        }.ripAlpha()
-
-        TintHelper.setTintAuto(
-            binding.playPauseButton,
-            MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(colorFinal)),
-            false
-        )
-        TintHelper.setTintAuto(binding.playPauseButton, colorFinal, true)
-        binding.progressSlider.applyColor(colorFinal)
-    }*/
-
     override fun setColor(color: MediaNotificationProcessor) {
         val controlsColor =
             if (PreferenceUtil.isAdaptiveColor) {

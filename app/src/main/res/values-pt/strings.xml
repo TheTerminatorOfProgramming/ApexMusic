@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">Remover da fila de reprodução</string>
     <string name="action_remove_from_playlist">Remover da playlist</string>
     <string name="action_rename">Renomear</string>
-    <string name="action_reorder">Alternar reordenação</string>
     <string name="action_rewind">Retroceder 10s</string>
     <string name="action_save_playing_queue">Salvar fila de reprodução</string>
     <string name="action_scan">Escanear</string>
@@ -134,6 +133,7 @@
     <string name="create_action">Crio</string>
     <string name="create_new_backup">Crio</string>
     <string name="credit_title">Desenvolvedores &amp; Colaboradores</string>
+    <string name="cross_fade_duration">Duração do crossfade</string>
     <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Ajude a traduzir este aplicativo no Crowdin</string>
     <string name="currently_listening_to_x_by_x">Atualmente ouvindo %1$s por %2$s.</string>
@@ -245,8 +245,6 @@
     <string name="lyrics">Letras</string>
     <string name="lyrics_both">ID3 Tag &amp; Letras sincronizadas</string>
     <string name="lyrics_id3">Letra de Tag ID3</string>
-    <string name="lyrics_message_enabled">Letras ID3 mostradas. Arrastar foi desativado</string>
-    <string name="lyrics_message_disabled">Letras do ID3 ocultas. Arrastar foi ativado</string>
     <string name="lyrics_search_summary">Usar os termos de busca de letras com tags id3 ou inserir manualmente?</string>
     <string name="lyrics_synced">Letra sincronizada</string>
     <string name="manually">Manualmente</string>
@@ -360,14 +358,13 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Cor Dessaturada</string>
-    <string name="pref_title_disable_id3_lyrics_message">Desativar Mensagens de Letras ID3</string>
     <string name="pref_title_disable_synced_lyrics_message">Desativar Mensagens de Letras Sincronizadas</string>
     <string name="pref_title_disable_widgets">Desativar Widgets Padrão</string>
     <string name="pref_title_duration">Duração Única</string>
     <string name="pref_title_expand_now_playing_panel">Mostrar Tela de reprodução atual</string>
     <string name="pref_title_extra_controls">Controles extras</string>
     <string name="pref_title_fast_forward_duration">Duração da Busca Rápida</string>
-    <string name="pref_title_font_size">Font Size</string>
+    <string name="pref_title_font_size">Tamanho da fonte</string>
     <string name="pref_title_gapless_playback">Reprodução contínua</string>
     <string name="pref_title_general_theme">Tema do aplicativo</string>
     <string name="pref_title_haptic_feedback">Desativar Feedback háptico</string>
@@ -378,6 +375,7 @@
     <string name="pref_title_last_added_interval">Último intervalo adicionado</string>
     <string name="pref_title_lyrics_type">Tipo de letra</string>
     <string name="pref_title_md3">Material de que você</string>
+    <string name="pref_title_menu_option">Ação Personalizável da Barra</string>
     <string name="pref_title_notification_action_1">Ação de Notificação à Esquerda</string>
     <string name="pref_title_notification_action_2">Ação da Notificação à Direita</string>
     <string name="pref_title_now_playing_screen_appearance">Tema reproduzindo agora</string>
@@ -470,9 +468,6 @@
     <string name="sort_order_num_songs">Contagem de faixa +</string>
     <string name="sort_order_num_songs_asc">Contagem de faixa +</string>
     <string name="sort_order_num_songs_desc">Contagem de monitoramento +</string>
-    <string name="sort_order_year">ano</string>
-    <string name="sort_order_year_asc">Ano Britânico</string>
-    <string name="sort_order_year_desc">Ano +</string>
     <string name="sort_order_z_a">Descendente</string>
     <string name="speech_not_supported">Desculpe! Seu dispositivo não suporta entrada de fala</string>
     <string name="speech_prompt">Pesquisar na sua biblioteca</string>
@@ -503,6 +498,7 @@
     <string name="update_image">Atualizar imagem</string>
     <string name="update_notify">Notificação de Atualização</string>
     <string name="updating">Atualizando…</string>
+    <string name="use_apex_font">Usar fonte Apex</string>
     <string name="user_images_description">Imagens do usuário</string>
     <string name="version">Versão</string>
     <string name="vertical_flip">Jogar verticalmente</string>

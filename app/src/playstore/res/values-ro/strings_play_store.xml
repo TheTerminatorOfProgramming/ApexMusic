@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rate_app">Evaluează aplicația</string>
+    <string name="rate_on_google_play_summary">Îți place această aplicație? Spune-ne în magazinul Google Play cum o putem face și mai bună</string>
+    <string name="play_store_edition">Ediția Magazinului Play</string>
+    <string name="play_store_edition_beta">Ediția Magazinului Play : Beta</string>
+    <string name="play_store_edition_debug">Ediția Magazinului Play : Construire</string>
+    <string name="play_store_edition_preview">Ediția Magazinului Play : Previzualizare</string>
+    <string name="play_store_edition_release">Ediția Magazinului Play : Stable</string>
+</resources>

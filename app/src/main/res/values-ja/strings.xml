@@ -37,7 +37,6 @@
     <string name="action_remove_from_playing_queue">再生キューから削除</string>
     <string name="action_remove_from_playlist">プレイリストから削除</string>
     <string name="action_rename">名前の変更</string>
-    <string name="action_reorder">順序変更を切り替える</string>
     <string name="action_rewind">10秒巻き戻し</string>
     <string name="action_save_playing_queue">再生キューを保存</string>
     <string name="action_scan">スキャン</string>
@@ -130,6 +129,7 @@
     <string name="create_action">作成</string>
     <string name="create_new_backup">作成</string>
     <string name="credit_title">開発者および貢献者</string>
+    <string name="cross_fade_duration">クロスフェードの長さ</string>
     <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">混雑時にこのアプリの翻訳を手伝ってください</string>
     <string name="currently_listening_to_x_by_x">現在 %1$s の %2$sを聴いています。</string>
@@ -241,8 +241,6 @@
     <string name="lyrics">歌詞</string>
     <string name="lyrics_both">ID3タグと同期された歌詞</string>
     <string name="lyrics_id3">ID3 タグの歌詞</string>
-    <string name="lyrics_message_enabled">ID3の歌詞が表示されています。ドラッグは無効になっています</string>
-    <string name="lyrics_message_disabled">ID3の歌詞を非表示にしました。ドラッグは有効になっています</string>
     <string name="lyrics_search_summary">歌詞検索語フォームID3タグを使用するか、手動で入力しますか？</string>
     <string name="lyrics_synced">同期した歌詞</string>
     <string name="manually">手動で</string>
@@ -356,14 +354,13 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">非飽和色</string>
-    <string name="pref_title_disable_id3_lyrics_message">ID3の歌詞メッセージを無効にする</string>
     <string name="pref_title_disable_synced_lyrics_message">同期された歌詞メッセージを無効にする</string>
     <string name="pref_title_disable_widgets">デフォルトのウィジェットを無効にする</string>
     <string name="pref_title_duration">単一時間</string>
     <string name="pref_title_expand_now_playing_panel">再生中の画面を表示</string>
     <string name="pref_title_extra_controls">追加コントロール</string>
     <string name="pref_title_fast_forward_duration">高速転送シーク時間</string>
-    <string name="pref_title_font_size">Font Size</string>
+    <string name="pref_title_font_size">フォントサイズ</string>
     <string name="pref_title_gapless_playback">ギャップレス再生</string>
     <string name="pref_title_general_theme">アプリのテーマ</string>
     <string name="pref_title_haptic_feedback">振動フィードバックを無効にする</string>
@@ -374,6 +371,7 @@
     <string name="pref_title_last_added_interval">最後に追加したプレイリストの間隔</string>
     <string name="pref_title_lyrics_type">歌詞の種類</string>
     <string name="pref_title_md3">自分の素材</string>
+    <string name="pref_title_menu_option">カスタマイズ可能なツールバーアクション</string>
     <string name="pref_title_notification_action_1">通知アクション左</string>
     <string name="pref_title_notification_action_2">通知アクション右</string>
     <string name="pref_title_now_playing_screen_appearance">再生中のテーマ</string>
@@ -466,9 +464,6 @@
     <string name="sort_order_num_songs">線路の数を記録します。</string>
     <string name="sort_order_num_songs_asc">線路の数を記録します。</string>
     <string name="sort_order_num_songs_desc">トラックカウントのだと思う(&amp;H)</string>
-    <string name="sort_order_year">年</string>
-    <string name="sort_order_year_asc">Year ホンジュラス</string>
-    <string name="sort_order_year_desc">Year Roxo</string>
     <string name="sort_order_z_a">降順</string>
     <string name="speech_not_supported">申し訳ありません！お使いのデバイスは音声入力をサポートしていません</string>
     <string name="speech_prompt">ライブラリを検索</string>
@@ -498,7 +493,8 @@
     <string name="up_next">次へ</string>
     <string name="update_image">画像を更新</string>
     <string name="update_notify">通知を更新</string>
-    <string name="updating">更新中...</string>
+    <string name="updating">更新中…</string>
+    <string name="use_apex_font">Apexフォントを使用する</string>
     <string name="user_images_description">ユーザー画像</string>
     <string name="version">バージョン</string>
     <string name="vertical_flip">垂直反転</string>

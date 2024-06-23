@@ -8,14 +8,11 @@
         android:title="@string/pref_title_now_playing_screen_appearance"
         app:allowDividerBelow="false"/>
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
-        android:defaultValue="12"
+    <com.ttop.app.apex.preferences.BlurPreference
+        android:defaultValue="25"
         android:key="new_blur_amount"
-        android:layout="@layout/list_item_view_seekbar"
-        android:max="25"
+        android:layout="@layout/list_item_view"
         android:title="@string/pref_blur_amount_title"
-        app:ateKey_pref_unit="px"
-        app:showSeekBarValue="true"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -79,6 +76,17 @@
         app:title="@string/pref_title_expand_now_playing_panel"
         app:allowDividerBelow="false"/>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        android:defaultValue="disabled"
+        android:key="customizable_toolbar_action"
+        android:entries="@array/pref_customizable_toolbar_titles"
+        android:entryValues="@array/pref_customizable_toolbar_values"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:layout="@layout/list_item_view"
+        app:title="@string/pref_title_menu_option"
+        app:allowDividerBelow="false"/>
+
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_controls"
@@ -97,24 +105,18 @@
             app:title="@string/pref_title_shuffle_state"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+        <com.ttop.app.apex.preferences.SeekFwdPreference
             android:defaultValue="10"
             android:key="fast_forward_duration"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="30"
+            android:layout="@layout/list_item_view"
             android:title="@string/pref_title_fast_forward_duration"
-            app:ateKey_pref_unit="s"
-            app:showSeekBarValue="true"
             app:allowDividerBelow="false"/>
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+        <com.ttop.app.apex.preferences.SeekRwdPreference
             android:defaultValue="10"
             android:key="rewind_duration"
-            android:layout="@layout/list_item_view_seekbar"
-            android:max="30"
+            android:layout="@layout/list_item_view"
             android:title="@string/pref_title_rewind_duration"
-            app:ateKey_pref_unit="s"
-            app:showSeekBarValue="true"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

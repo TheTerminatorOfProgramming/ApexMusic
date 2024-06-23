@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout="@layout/fragment_album_full_cover" />
 
-        <ScrollView
+        <com.ttop.app.fastscroller.FastScrollNestedScrollView
             android:id="@+id/scroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -55,7 +55,7 @@
                 android:background="@color/transparent"
                 android:paddingStart="4dp"
                 android:paddingEnd="5dp" />
-        </ScrollView>
+        </com.ttop.app.fastscroller.FastScrollNestedScrollView>
 
         <View
             android:id="@+id/mask"
@@ -138,6 +138,17 @@
                 app:srcCompat="@drawable/ic_favorite_border"
                 tools:tint="@color/md_black_1000" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/customizableToolbarAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:padding="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/nextSong"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_favorite_border"
+                tools:tint="@color/md_black_1000" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

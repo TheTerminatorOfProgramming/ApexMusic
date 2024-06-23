@@ -17,6 +17,7 @@ package com.ttop.app.apex.ui.fragments.player.card
 import android.graphics.Color
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.ttop.app.apex.R
@@ -29,6 +30,7 @@ import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -62,14 +64,18 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
     }
 
     override fun toolbarIconColor(): Int {
-        return Color.WHITE
+        return if (PreferenceUtil.isAdaptiveColor) {
+            lastColor
+        }else {
+            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
+        }
     }
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         playbackControlsFragment.setColor(color)
         lastColor = color.secondaryTextColor
         libraryViewModel.updateColor(color.secondaryTextColor)
-        ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
+        ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, toolbarIconColor(), activity)
     }
 
     override fun toggleFavorite(song: Song) {
@@ -97,9 +103,9 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
         val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
             whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment.setCallbacks(this)
-        GlobalScope.launch {
+        /*GlobalScope.launch {
             playerAlbumCoverFragment.removeSlideEffect()
-        }
+        }*/
     }
 
     private fun setUpPlayerToolbar() {
@@ -109,11 +115,71 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
                     requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 }
-                requireActivity().onBackPressedDispatcher.onBackPressed()
+
+                mainActivity.collapsePanel()
             }
             setOnMenuItemClickListener(this@CardFragment)
 
             ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)
+        }
+
+        when (PreferenceUtil.customToolbarAction) {
+            "disabled" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "add_to_playlist" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "details" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "equalizer" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "playback_settings" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "save_playing_queue" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+            "share" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            }
         }
     }
 

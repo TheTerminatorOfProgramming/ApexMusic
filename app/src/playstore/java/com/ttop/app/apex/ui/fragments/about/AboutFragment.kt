@@ -316,24 +316,25 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 e.printStackTrace()
             }
         } else {
-            //Preview
-            try {
-                return requireContext().packageManager.getPackageInfo(
-                    requireContext().packageName,
-                    0
-                ).versionName + " Google Play Edition"
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
+            if (BuildConfig.BUILD_TYPE.equals("preview")) {
+                try {
+                    return requireContext().packageManager.getPackageInfo(
+                        requireContext().packageName,
+                        0
+                    ).versionName+ " " + getString(R.string.play_store_edition_preview)
+                } catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
+            }else {
+                try {
+                    return requireContext().packageManager.getPackageInfo(
+                        requireContext().packageName,
+                        0
+                    ).versionName + " " + getString(R.string.play_store_edition)
+                } catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
             }
-            //Release Candidate
-            /*try {
-                return requireContext().packageManager.getPackageInfo(
-                    requireContext().packageName,
-                    0
-                ).versionName + " " + getString(R.string.play_store_edition) + " Release Candidate 02"
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }*/
         }
 
         return "Unknown"

@@ -69,11 +69,6 @@
         <item name="titleMarginStart">16dp</item>
     </style>
 
-    <style name="mcab_overflow_style" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="srcCompat">@drawable/ic_more_vert</item>
-        <item name="android:tint">?colorSurface</item>
-    </style>
-
     <style name="ToolbarTextAppearanceNormal">
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
@@ -90,21 +85,11 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="BottomSheetItemTextAppearance" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="android:breakStrategy">simple</item>
-        <item name="android:hyphenationFrequency">none</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
     <style name="TextViewStyleIm" parent="android:Widget.Material.TextView">
         <item name="android:hyphenationFrequency">none</item>
     </style>
 
     <style name="TextViewNormal" parent="">
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="TextViewNormalCompress" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -169,6 +154,17 @@
         <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="CornerCardView">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
     </style>
 
     <style name="TabQueueTopCornerCardView">
@@ -245,7 +241,6 @@
         <item name="android:drawablePadding">5dp</item>
         <item name="android:minWidth">0dip</item>
     </style>
-
 
     <style name="MaterialCardViewStroke">
         <item name="cardUseCompatPadding">true</item>
@@ -325,10 +320,6 @@
 
     <style name="SquigglySlider" parent="Base.SquigglySlider">
         <item name="android:progressDrawable">@drawable/media_squiggly_progress</item>
-    </style>
-
-    <style name="SquigglySlider.Tablet" parent="Base.SquigglySlider">
-    <item name="android:scaleY">1.5</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">

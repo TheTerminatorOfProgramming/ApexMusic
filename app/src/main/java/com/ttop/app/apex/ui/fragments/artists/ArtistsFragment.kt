@@ -199,15 +199,15 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         sortOrderMenu.clear()
         sortOrderMenu.add(
             0,
-            R.id.action_artist_sort_order_asc,
-            0,
-            R.string.sort_order_a_z
-        ).isChecked = currentSortOrder.equals(ArtistSortOrder.ARTIST_A_Z)
-        sortOrderMenu.add(
-            0,
             R.id.action_artist_sort_order_desc,
             1,
             R.string.sort_order_z_a
+        ).isChecked = currentSortOrder.equals(ArtistSortOrder.ARTIST_A_Z)
+        sortOrderMenu.add(
+            0,
+            R.id.action_artist_sort_order_asc,
+            1,
+            R.string.sort_order_a_z
         ).isChecked = currentSortOrder.equals(ArtistSortOrder.ARTIST_Z_A)
         sortOrderMenu.setGroupCheckable(0, true, true)
     }
@@ -226,9 +226,9 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
                 true
         }
 
-        if (getGridSize() < 2){
+        /*if (getGridSize() < 2){
             subMenu.findItem(R.id.action_layout_circular).isChecked = true
-        }
+        }*/
     }
 
     private fun setUpGridSizeMenu(
@@ -297,8 +297,8 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         item: MenuItem
     ): Boolean {
         val sortOrder: String = when (item.itemId) {
-            R.id.action_artist_sort_order_asc -> ArtistSortOrder.ARTIST_A_Z
-            R.id.action_artist_sort_order_desc -> ArtistSortOrder.ARTIST_Z_A
+            R.id.action_artist_sort_order_desc -> ArtistSortOrder.ARTIST_A_Z
+            R.id.action_artist_sort_order_asc -> ArtistSortOrder.ARTIST_Z_A
             else -> PreferenceUtil.artistSortOrder
         }
         if (sortOrder != PreferenceUtil.artistSortOrder) {

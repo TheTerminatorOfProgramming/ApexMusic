@@ -1,6 +1,7 @@
 package com.ttop.app.apex.ui.fragments
 
 import android.annotation.SuppressLint
+import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -42,8 +43,12 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                         var seekingDuration = MusicPlayerRemote.songProgressMillis
                         if (next) {
                             seekingDuration += (PreferenceUtil.fastForwardDuration * 1000) * (counter.floorDiv(2) + 1)
+                            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                               v?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                            }
                         } else {
                             seekingDuration -= (PreferenceUtil.rewindDuration * 1000) * (counter.floorDiv(2) + 1)
+                            v?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         }
                         withContext(Dispatchers.Main) {
                             MusicPlayerRemote.seekTo(seekingDuration)

@@ -140,89 +140,91 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     }
 
     private fun setUpSortOrderMenu(sortOrderMenu: SubMenu) {
+        val yearAsc = context?.getString(R.string.year)+ " ↑"
+        val yearDesc = context?.getString(R.string.year)+ " ↓"
         val currentSortOrder: String? = getSortOrder()
         sortOrderMenu.clear()
-        sortOrderMenu.add(
-            0,
-            R.id.action_song_sort_order_asc,
-            0,
-            R.string.sort_order_a_z
-        ).isChecked =
-            currentSortOrder == SongSortOrder.SONG_A_Z
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_desc,
             0,
             R.string.sort_order_z_a
         ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_A_Z
+        sortOrderMenu.add(
+            0,
+            R.id.action_song_sort_order_asc,
+            1,
+            R.string.sort_order_a_z
+        ).isChecked =
             currentSortOrder == SongSortOrder.SONG_Z_A
         sortOrderMenu.add(
             0,
-            R.id.action_song_default_sort_order,
-            0,
-            R.string.sort_order_default
-        ).isChecked =
-            currentSortOrder == SongSortOrder.SONG_DEFAULT
-        sortOrderMenu.add(
-            0,
             R.id.action_song_default_sort_order_desc,
-            1,
+            2,
             R.string.sort_order_default_desc
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_DEFAULT_DESC
         sortOrderMenu.add(
             0,
+            R.id.action_song_default_sort_order,
+            3,
+            R.string.sort_order_default
+        ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_DEFAULT
+        sortOrderMenu.add(
+            0,
             R.id.action_song_sort_order_artist,
-            2,
+            4,
             R.string.sort_order_artist
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_ARTIST
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_album_artist,
-            3,
+            5,
             R.string.album_artist
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_ALBUM_ARTIST
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_album,
-            4,
+            6,
             R.string.sort_order_album
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_ALBUM
         sortOrderMenu.add(
             0,
-            R.id.action_song_sort_order_year,
-            5,
-            R.string.sort_order_year_asc
-        ).isChecked =
-            currentSortOrder == SongSortOrder.SONG_YEAR
-        sortOrderMenu.add(
-            0,
             R.id.action_song_sort_order_year_desc,
-            5,
-            R.string.sort_order_year_desc
+            7,
+            yearDesc
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_YEAR_DESC
         sortOrderMenu.add(
             0,
+            R.id.action_song_sort_order_year,
+            8,
+            yearAsc
+        ).isChecked =
+            currentSortOrder == SongSortOrder.SONG_YEAR
+        sortOrderMenu.add(
+            0,
             R.id.action_song_sort_order_date,
-            6,
+            9,
             R.string.sort_order_date
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_DATE
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_date_modified,
-            7,
+            10,
             R.string.sort_order_date_modified
         ).isChecked =
             currentSortOrder == SongSortOrder.SONG_DATE_MODIFIED
         sortOrderMenu.add(
             0,
             R.id.action_song_sort_order_composer,
-            8,
+            11,
             R.string.sort_order_composer
         ).isChecked =
             currentSortOrder == SongSortOrder.COMPOSER
@@ -242,9 +244,9 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
                 subMenu.findItem(R.id.action_layout_gradient_image).isChecked = true
         }
 
-        if (getGridSize() < 2){
+        /*if (getGridSize() < 2){
             subMenu.findItem(R.id.action_layout_circular).isChecked = true
-        }
+        }*/
     }
 
     private fun setUpGridSizeMenu(gridSizeMenu: SubMenu) {
@@ -294,15 +296,15 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
 
     private fun handleSortOrderMenuItem(item: MenuItem): Boolean {
         val sortOrder: String = when (item.itemId) {
-            R.id.action_song_default_sort_order -> SongSortOrder.SONG_DEFAULT
-            R.id.action_song_default_sort_order_desc -> SongSortOrder.SONG_DEFAULT_DESC
-            R.id.action_song_sort_order_asc -> SongSortOrder.SONG_A_Z
-            R.id.action_song_sort_order_desc -> SongSortOrder.SONG_Z_A
+            R.id.action_song_default_sort_order -> SongSortOrder.SONG_DEFAULT_DESC
+            R.id.action_song_default_sort_order_desc -> SongSortOrder.SONG_DEFAULT
+            R.id.action_song_sort_order_asc -> SongSortOrder.SONG_Z_A
+            R.id.action_song_sort_order_desc -> SongSortOrder.SONG_A_Z
             R.id.action_song_sort_order_artist -> SongSortOrder.SONG_ARTIST
             R.id.action_song_sort_order_album_artist -> SongSortOrder.SONG_ALBUM_ARTIST
             R.id.action_song_sort_order_album -> SongSortOrder.SONG_ALBUM
-            R.id.action_song_sort_order_year -> SongSortOrder.SONG_YEAR
-            R.id.action_song_sort_order_year_desc -> SongSortOrder.SONG_YEAR_DESC
+            R.id.action_song_sort_order_year -> SongSortOrder.SONG_YEAR_DESC
+            R.id.action_song_sort_order_year_desc -> SongSortOrder.SONG_YEAR
             R.id.action_song_sort_order_date -> SongSortOrder.SONG_DATE
             R.id.action_song_sort_order_composer -> SongSortOrder.COMPOSER
             R.id.action_song_sort_order_date_modified -> SongSortOrder.SONG_DATE_MODIFIED

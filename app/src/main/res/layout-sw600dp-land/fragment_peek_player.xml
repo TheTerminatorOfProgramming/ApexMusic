@@ -55,7 +55,7 @@
             app:layout_constraintGuide_percent="0.5"
             android:layout_height="match_parent"/>
 
-        <ScrollView
+        <com.ttop.app.fastscroller.FastScrollNestedScrollView
             android:id="@+id/scroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -73,7 +73,7 @@
                 android:background="@color/transparent"
                 android:paddingStart="4dp"
                 android:paddingEnd="5dp" />
-        </ScrollView>
+        </com.ttop.app.fastscroller.FastScrollNestedScrollView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/playerQueueSheet"
