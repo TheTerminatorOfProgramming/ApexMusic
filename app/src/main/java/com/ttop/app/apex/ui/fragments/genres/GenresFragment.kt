@@ -17,7 +17,6 @@ package com.ttop.app.apex.ui.fragments.genres
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -29,12 +28,10 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.GenreAdapter
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.interfaces.IGenreClickListener
-import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.PreferenceUtil
 
 class
 GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
@@ -67,9 +64,7 @@ GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
         menu.removeItem(R.id.action_grid_size)
         menu.removeItem(R.id.action_layout_type)
         menu.removeItem(R.id.action_sort_order)
-        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, false))) {
-            menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        }
+
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
     }

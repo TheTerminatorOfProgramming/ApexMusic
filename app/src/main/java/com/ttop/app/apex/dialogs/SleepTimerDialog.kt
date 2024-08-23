@@ -31,6 +31,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.textview.MaterialTextView
 import com.ttop.app.apex.R
@@ -69,10 +70,6 @@ class SleepTimerDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         timerUpdater = TimerUpdater()
         _binding = DialogSleepTimerBinding.inflate(layoutInflater)
-
-        //val defaultText = getString(R.string.remaining) + ":"
-
-        //binding.remainingTime.text = defaultText
 
         val finishMusic = PreferenceUtil.isSleepTimerFinishMusic
 
@@ -212,14 +209,11 @@ class SleepTimerDialog : DialogFragment() {
             positiveButton = d.getButton(Dialog.BUTTON_POSITIVE) as Button
             negativeButton = d.getButton(Dialog.BUTTON_NEGATIVE) as Button
             dismissButton = d.getButton(Dialog.BUTTON_NEUTRAL) as Button
-            if (PreferenceUtil.isTimerCancelled) {
-                negativeButton!!.isEnabled = false
-            }
-            positiveButton!!.accentTextColor()
-            if (!PreferenceUtil.isTimerCancelled) {
-                negativeButton!!.accentTextColor()
-            }
 
+            negativeButton!!.isVisible = !PreferenceUtil.isTimerCancelled
+
+            positiveButton!!.accentTextColor()
+            negativeButton!!.accentTextColor()
             dismissButton!!.accentTextColor()
 
             positiveButton!!.textSize = 13f
@@ -236,16 +230,22 @@ class SleepTimerDialog : DialogFragment() {
 
         override fun onTick(millisUntilFinished: Long) {
             if (PreferenceUtil.isTimerCancelled) {
+                negativeButton!!.isVisible = false
                 super.cancel()
             }else {
                 val remainingTime = "${getString(R.string.remaining)}: ${MusicUtil.getReadableDurationString(millisUntilFinished)}"
                 remaining.text =  remainingTime
+                negativeButton!!.isVisible = true
+            }
+
+            if (millisUntilFinished == 1L) {
+                negativeButton!!.isVisible = false
+                remaining.text = ""
             }
         }
 
         override fun onFinish() {
-            val defaultText = getString(R.string.remaining) + ":"
-            remaining.text = defaultText
+            remaining.text = ""
         }
     }
 }

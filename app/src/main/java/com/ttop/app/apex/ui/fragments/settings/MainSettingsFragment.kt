@@ -23,8 +23,6 @@ import androidx.navigation.fragment.findNavController
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMainSettingsBinding
 import com.ttop.app.apex.extensions.drawAboveSystemBarsWithPadding
-import com.ttop.app.apex.util.PreferenceUtil
-
 
 class MainSettingsFragment : Fragment(), View.OnClickListener {
 
@@ -43,7 +41,6 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
                 R.id.aboutSettings -> R.id.action_mainSettingsFragment_to_aboutActivity
                 R.id.nowPlayingSettings -> R.id.action_mainSettingsFragment_to_nowPlayingSettingsFragment
                 R.id.backup_restore_settings -> R.id.action_mainSettingsFragment_to_backupFragment
-                R.id.labsSettings -> R.id.action_mainSettingsFragment_to_labsFragment
                 else -> R.id.action_mainSettingsFragment_to_themeSettingsFragment
             }
         )
@@ -73,15 +70,7 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
 
         binding.aboutSettings.setOnClickListener(this)
 
-        binding.labsSettings.setOnClickListener(this)
-
         binding.container.drawAboveSystemBarsWithPadding()
-
-        if (PreferenceUtil.isDevModeEnabled) {
-            binding.labsSettings.visibility = View.VISIBLE
-        }else {
-            binding.labsSettings.visibility = View.GONE
-        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

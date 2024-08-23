@@ -2,4 +2,5 @@
 <resources>
     <string name="all_files_summary">ਡਿਵਾਈਸ ਦੀਆਂ ਸਾਰੀਆਂ ਫਾਈਲਾਂ ਨੂੰ ਸਰਵੋਤਮ ਸੰਗੀਤ ਤੱਕ ਪਹੁੰਚ ਦੀ ਆਗਿਆ ਦਿਓ। ਇਹ ਅਨੁਮਤੀ ਸਿਖਰ ਦੇ ਬੈਕਅੱਪ ਨੂੰ ਆਟੋ ਖੋਜਣ ਲਈ ਲੋੜੀਂਦੀ ਹੈ</string>
     <string name="all_files_title">ਸਾਰੀਆਂ ਫਾਈਲਾਂ ਦੀ ਇਜਾਜ਼ਤ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
+    <string name="all_files_granted">ਪਹਿਲਾਂ ਹੀ ਮਨਜ਼ੂਰ ਸਾਰੀਆਂ ਫਾਈਲਾਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ!</string>
 </resources>

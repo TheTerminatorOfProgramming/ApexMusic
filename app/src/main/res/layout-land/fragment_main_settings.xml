@@ -11,8 +11,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/mini_player_height">
+        android:orientation="vertical" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/row1"
@@ -260,17 +259,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintGuide_percent="1"
                 android:orientation="vertical"/>
-            <com.ttop.app.apex.views.SettingListItemView
-                android:id="@+id/labsSettings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/guideline02"
-                app:layout_constraintEnd_toStartOf="@id/guideline12"
-                app:layout_constraintTop_toTopOf="parent"
-                app:settingListItemIcon="@drawable/ic_code"
-                app:settingListItemIconColor="@color/md_grey_400"
-                app:settingListItemText="@string/labs_summary"
-                app:settingListItemTitle="@string/labs_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

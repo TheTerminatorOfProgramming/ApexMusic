@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.provider.Settings
+import androidx.core.content.ContextCompat
+import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
 object GithubUtils {
 
@@ -20,7 +22,7 @@ object GithubUtils {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }else {
-            context.showToast("MANAGE_ALL_FILES Permission Already Granted!")
+            context.showToast(ContextCompat.getString(context, R.string.all_files_granted))
         }
     }
 

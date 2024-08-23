@@ -87,6 +87,13 @@
         app:title="@string/pref_title_menu_option"
         app:allowDividerBelow="false"/>
 
+    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:defaultValue="false"
+        android:key="nav_bar_black"
+        android:layout="@layout/list_item_view_switch"
+        android:title="@string/pref_title_black_nav_bar"
+        app:allowDividerBelow="false"/>
+
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_controls"
@@ -103,6 +110,13 @@
             app:defaultValue="true"
             app:key="shuffle_state"
             app:title="@string/pref_title_shuffle_state"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="true"
+            app:key="disable_queue"
+            app:title="@string/pref_title_disable_queue"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.apex.preferences.SeekFwdPreference
@@ -167,7 +181,7 @@
             android:defaultValue="false"
             android:key="screen_on_lyrics"
             android:layout="@layout/list_item_view_switch"
-            android:title="@string/pref_keep_screen_on_title"
+            android:title="@string/pref_title_keep_screen_on"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference

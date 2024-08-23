@@ -62,5 +62,6 @@
     <!-- content description is necessary to find the overflow button later in the layout-->
     <style name="Widget.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:contentDescription">@string/abc_action_menu_overflow_description</item>
+        <item name="android:tint">@color/menu_tint</item>
     </style>
 </resources>

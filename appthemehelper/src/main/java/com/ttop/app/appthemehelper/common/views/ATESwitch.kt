@@ -17,7 +17,7 @@ class ATESwitch @JvmOverloads constructor(
 ) : MaterialSwitch(context, attrs, defStyleAttr) {
 
     init {
-        if (!isInEditMode && !ThemeStore.isMD3Enabled(context)) {
+        if (!isInEditMode) {
             ATH.setTint(this, ThemeStore.accentColor(context))
         }
     }

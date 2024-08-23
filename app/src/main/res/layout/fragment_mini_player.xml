@@ -86,7 +86,6 @@
                 android:background="?roundSelector"
                 android:scaleType="center"
                 app:srcCompat="@drawable/ic_pause"
-                app:tint="?attr/colorControlNormal"
                 tools:ignore="ContentDescription" />
         </FrameLayout>
 

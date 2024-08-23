@@ -107,6 +107,17 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/lrcFragment"
+            android:name="com.ttop.app.apex.ui.fragments.player.LRCFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/middle_guideline"
+            android:visibility="gone"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"

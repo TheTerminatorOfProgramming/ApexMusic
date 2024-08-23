@@ -19,13 +19,13 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.TwoStatePreference
-import com.ttop.app.apex.APPBAR_MODE
+import com.ttop.app.apex.APP_BAR_COLOR
+import com.ttop.app.apex.DISABLE_APP_BAR_SCROLL
 import com.ttop.app.apex.HOME_ALBUM_GRID_STYLE
 import com.ttop.app.apex.HOME_ARTIST_GRID_STYLE
 import com.ttop.app.apex.PAUSE_HISTORY
 import com.ttop.app.apex.R
 import com.ttop.app.apex.REMEMBER_LAST_TAB
-import com.ttop.app.apex.SCROLLBAR_STYLE
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_SUGGESTIONS
 import com.ttop.app.apex.util.PreferenceUtil
@@ -34,7 +34,6 @@ import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun invalidateSettings() {
-
         val suggestions: TwoStatePreference? = findPreference(TOGGLE_SUGGESTIONS)
         suggestions?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
@@ -65,8 +64,20 @@ class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnS
             true
         }
 
-        val appBar: ATEListPreference? = findPreference(APPBAR_MODE)
-        appBar?.setOnPreferenceChangeListener { _, _ ->
+        val disableAppBarScroll: TwoStatePreference? = findPreference(DISABLE_APP_BAR_SCROLL)
+        disableAppBarScroll?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            restartActivity()
+            true
+        }
+
+        val appBarColor: TwoStatePreference? = findPreference(APP_BAR_COLOR)
+        appBarColor?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             restartActivity()
             true
         }
@@ -74,20 +85,6 @@ class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnS
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_ui)
-
-        val lastTab: TwoStatePreference? = findPreference(REMEMBER_LAST_TAB)
-        val tabTextMode: ATEListPreference? = findPreference(TAB_TEXT_MODE)
-        val scrollbarStyle: ATEListPreference? = findPreference(SCROLLBAR_STYLE)
-
-        if (PreferenceUtil.isSimpleMode) {
-            lastTab?.isVisible = false
-            tabTextMode?.isVisible = false
-            scrollbarStyle?.isVisible = false
-        }else {
-            lastTab?.isVisible = true
-            tabTextMode?.isVisible = true
-            scrollbarStyle?.isVisible = true
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

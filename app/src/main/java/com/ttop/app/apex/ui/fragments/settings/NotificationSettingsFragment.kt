@@ -14,12 +14,16 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.content.ComponentName
+import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.DISABLE_UPDATE
+import com.ttop.app.apex.DISABLE_WIDGETS
 import com.ttop.app.apex.NOTIFICATION_ACTION_1
 import com.ttop.app.apex.NOTIFICATION_ACTION_2
 import com.ttop.app.apex.R
@@ -92,6 +96,21 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             }
             true
         }
+
+        val disableWidgets: TwoStatePreference? = findPreference(DISABLE_WIDGETS)
+        disableWidgets?.isChecked = PreferenceUtil.isDisableWidgets
+        disableWidgets?.setOnPreferenceChangeListener { _, newValue ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+
+            bigWidgetState(requireContext(), newValue as Boolean)
+            classicWidgetState(requireContext(), newValue)
+            circleWidgetState(requireContext(), newValue)
+            fullWidgetState(requireContext(), newValue)
+
+            true
+        }
     }
 
     override fun onResume() {
@@ -106,5 +125,73 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_notification)
+    }
+
+    private fun bigWidgetState(context: Context, state: Boolean) {
+        val pm: PackageManager = context.packageManager
+
+        val newState = if (state) {
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+        }else {
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        }
+
+        pm.setComponentEnabledSetting(
+            ComponentName(
+                context,
+                AppWidgetBig::class.java
+            ), newState, PackageManager.DONT_KILL_APP
+        )
+    }
+
+    private fun classicWidgetState(context: Context, state: Boolean) {
+        val pm: PackageManager = context.packageManager
+
+        val newState = if (state) {
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+        }else {
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        }
+
+        pm.setComponentEnabledSetting(
+            ComponentName(
+                context,
+                AppWidgetClassic::class.java
+            ), newState, PackageManager.DONT_KILL_APP
+        )
+    }
+
+    private fun circleWidgetState(context: Context, state: Boolean) {
+        val pm: PackageManager = context.packageManager
+
+        val newState = if (state) {
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+        }else {
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        }
+
+        pm.setComponentEnabledSetting(
+            ComponentName(
+                context,
+                AppWidgetCircle::class.java
+            ), newState, PackageManager.DONT_KILL_APP
+        )
+    }
+
+    private fun fullWidgetState(context: Context, state: Boolean) {
+        val pm: PackageManager = context.packageManager
+
+        val newState = if (state) {
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+        }else {
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        }
+
+        pm.setComponentEnabledSetting(
+            ComponentName(
+                context,
+                AppWidgetFull::class.java
+            ), newState, PackageManager.DONT_KILL_APP
+        )
     }
 }

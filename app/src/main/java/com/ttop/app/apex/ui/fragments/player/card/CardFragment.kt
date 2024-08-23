@@ -14,12 +14,12 @@
  */
 package com.ttop.app.apex.ui.fragments.player.card
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentCardPlayerBinding
 import com.ttop.app.apex.extensions.drawAboveSystemBars
@@ -30,11 +30,8 @@ import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.ATHUtil
 import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
     override fun playerToolbar(): Toolbar {
@@ -67,7 +64,7 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
         return if (PreferenceUtil.isAdaptiveColor) {
             lastColor
         }else {
-            ATHUtil.resolveColor(requireContext(), androidx.appcompat.R.attr.colorControlNormal)
+            ContextCompat.getColor(requireContext(), R.color.md_white_1000)
         }
     }
 
@@ -120,7 +117,7 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
             }
             setOnMenuItemClickListener(this@CardFragment)
 
-            ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)
+            //ToolbarContentTintHelper.colorizeToolbar(this, Color.WHITE, activity)
         }
 
         when (PreferenceUtil.customToolbarAction) {

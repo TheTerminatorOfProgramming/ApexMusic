@@ -2,7 +2,6 @@
 <resources>
     <string name="about_album_label">关于 %s</string>
     <string name="about_settings_summary">团队，社交链接</string>
-    <string name="accent_color">主色调</string>
     <string name="action_about">关于</string>
     <string name="action_add_to_blacklist">添加到黑名单</string>
     <string name="action_add_to_favorites">添加到收藏夹</string>
@@ -70,10 +69,6 @@
         <item quantity="other">相册</item>
     </plurals>
     <string name="always">总是显示</string>
-    <string name="appbar_mode_expanded">扩展</string>
-    <string name="appbar_mode_expanded_no_scroll">扩展 (无滚动)</string>
-    <string name="appbar_mode_simple">简单的</string>
-    <string name="appbar_mode_simple_no_scroll">简单(无滚动)</string>
     <string name="apex_music">Apex 音乐</string>
     <string name="app_share">嘿，看看这个很酷的音乐播放器： https://play.google.com/store/apps/details？ id=%s</string>
     <string name="app_shortcut_shuffle_all_short">随机播放</string>
@@ -99,8 +94,8 @@
     <string name="biography">履历</string>
     <string name="biometric_authenticate_description">请验证您是否继续！</string>
     <string name="biometric_authenticate_subtitle">认证</string>
-    <string name="black_theme_name">纯黑</string>
     <string name="blacklist">黑名单</string>
+    <string name="bluetooth_delay">蓝牙延迟</string>
     <string name="bluetooth_summary">应用程序需要附近的设备权限来检查蓝牙设备</string>
     <string name="bluetooth_title">附近设备</string>
     <string name="blur">Blur</string>
@@ -115,17 +110,17 @@
     <string name="changelog_summary">查看新功能</string>
     <string name="choose_restore_title">选择要恢复的内容</string>
     <string name="circular">圆形</string>
+    <string name="circular_no_track">圆形(无曲目)</string>
     <string name="classic">经典</string>
     <string name="clear_action">清空</string>
     <string name="clear_blacklist">清除黑名单</string>
     <string name="clear_history">清除历史记录</string>
     <string name="clear_playing_queue">清除队列</string>
+    <string name="clear_playing_queue_notification">清除队列</string>
     <string name="close">关闭</string>
     <string name="colors">颜色</string>
     <string name="composer">作曲家</string>
     <string name="could_not_write_tags_to_file">无法将标签写入音乐文件！</string>
-    <string name="cover_lyrics_off">隐藏封面歌词</string>
-    <string name="cover_lyrics_on">显示封面歌词</string>
     <string name="create_action">创建</string>
     <string name="create_new_backup">创建</string>
     <string name="credit_title">开发者 &amp; 贡献者</string>
@@ -143,10 +138,6 @@
     <string name="denied">被拒绝</string>
     <string name="depth">深度：</string>
     <string name="design">设计</string>
-    <string name="dev_options_off">禁用开发者选项？</string>
-    <string name="dev_options_on">开发者选项已启用！</string>
-    <string name="dev_options_on_already">开发者选项已启用！</string>
-    <string name="developer_mode">开发者选项</string>
     <string name="dialog_message_set_ringtone">允许Apex 音乐修改音频设置</string>
     <string name="dialog_title_set_ringtone">设置铃声</string>
     <string name="disable_battery_optimize">禁用电池优化</string>
@@ -206,8 +197,6 @@
     <string name="horizontal_bottom">水平底部</string>
     <string name="horizontal_flip">水平翻转</string>
     <string name="horizontal_top">水平顶部</string>
-    <string name="id3_lyrics">ID3 歌词</string>
-    <string name="id3_lyrics_summary">为了让新的 id3 歌词系统正常运行， 当显示 id3 歌词时，拖动以折叠播放器主题将被禁用。 这是由于与玩家队列发生冲突。</string>
     <string name="id3_tags">ID3 标签</string>
     <string name="image">图片</string>
     <string name="image_gradient">Gradient image</string>
@@ -229,8 +218,6 @@
     <string name="label_sampling_rate">采样率</string>
     <string name="label_track_length">长度</string>
     <string name="labeled">已标记</string>
-    <string name="labs_summary">开发者选项</string>
-    <string name="labs_title">开发者选项</string>
     <string name="language_dl_failed">语言下载失败</string>
     <string name="last_added">最近添加</string>
     <string name="last_song">最后曲目</string>
@@ -238,6 +225,7 @@
     <string name="licenses">许可协议</string>
     <string name="light_theme_name">亮白色</string>
     <string name="listeners_label">监听器</string>
+    <string name="live">居住</string>
     <string name="lyrics">歌词</string>
     <string name="lyrics_both">ID3 标签 &amp; 同步歌词</string>
     <string name="lyrics_id3">ID3 标签歌词</string>
@@ -323,8 +311,6 @@
     <string name="pref_header_filter">曲目持续时间过滤器</string>
     <string name="pref_header_general">主题</string>
     <string name="pref_header_images">图像</string>
-    <string name="pref_header_labs_default_widgets">默认部件</string>
-    <string name="pref_header_labs_other_options">其他选项</string>
     <string name="pref_header_language">语言</string>
     <string name="pref_header_library">书库</string>
     <string name="pref_header_lyrics">歌词</string>
@@ -333,29 +319,32 @@
     <string name="pref_header_playlists">播放列表</string>
     <string name="pref_header_search">搜索</string>
     <string name="pref_header_widgets">小部件</string>
-    <string name="pref_keep_pause_on_zero_volume_title">零时暂停</string>
-    <string name="pref_keep_screen_on_title">保持屏幕开启</string>
-    <string name="pref_language_name">选择语言</string>
     <string name="pref_summary_open_source_licences">开源软件许可证详细信息</string>
     <string name="pref_summary_permissions_edit">修改与此应用相关的权限</string>
+    <string name="pref_title_accent_color">强调色</string>
     <string name="pref_title_album_cover_style">专辑封面主题</string>
     <string name="pref_title_album_cover_transform">相册封面跳过</string>
-    <string name="pref_title_appbar_mode">标题样式</string>
+    <string name="pref_title_apex_font">使用 Apex 字体</string>
+    <string name="pref_title_appbar_color">删除标题颜色</string>
+    <string name="pref_title_appbar_disable_scroll">禁用页眉卷轴</string>
     <string name="pref_title_audio_fade">淡入音频</string>
     <string name="pref_title_auto_action_1">离开Android 自动操作</string>
     <string name="pref_title_auto_action_2">Right Android 自动操作</string>
     <string name="pref_title_auto_download_artist_images">自动下载艺人图像</string>
     <string name="pref_title_auto_play">保持游戏状态</string>
     <string name="pref_title_auto_rotate">屏幕旋转</string>
+    <string name="pref_title_black_nav_bar">黑色导航栏</string>
+    <string name="pref_title_black_theme">乌黑</string>
+    <string name="pref_title_bluetooth_delay">蓝牙延迟</string>
     <string name="pref_title_bluetooth_device">蓝牙设备</string>
     <string name="pref_title_bluetooth_playback">蓝牙播放</string>
     <string name="pref_title_color_animate">颜色动画</string>
     <string name="pref_title_colored_app">自适应颜色</string>
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
-    <string name="pref_title_desaturated_color">降落颜色</string>
-    <string name="pref_title_disable_synced_lyrics_message">禁用同步歌词</string>
-    <string name="pref_title_disable_widgets">禁用默认部件</string>
+    <string name="pref_title_desaturated_color">降低颜色饱和度</string>
+    <string name="pref_title_disable_queue">禁用播放器队列</string>
+    <string name="pref_title_disable_widgets">禁用小部件</string>
     <string name="pref_title_duration">单时长</string>
     <string name="pref_title_expand_now_playing_panel">显示正在播放屏幕</string>
     <string name="pref_title_extra_controls">额外控制</string>
@@ -368,6 +357,9 @@
     <string name="pref_title_home_album_grid_style">相册网格</string>
     <string name="pref_title_home_artist_grid_style">艺术家网格</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体存储封面</string>
+    <string name="pref_title_keep_pause_on_zero">无音量时暂停</string>
+    <string name="pref_title_keep_screen_on">保持屏幕开启</string>
+    <string name="pref_title_language_name">选择语言</string>
     <string name="pref_title_last_added_interval">最后添加的播放列表间隔</string>
     <string name="pref_title_lyrics_type">歌词类型</string>
     <string name="pref_title_md3">您的材料</string>
@@ -387,7 +379,6 @@
     <string name="pref_title_search_action">随机搜索操作</string>
     <string name="pref_title_search_icon">语音搜索页眉中</string>
     <string name="pref_title_shuffle_state">保持随机状态</string>
-    <string name="pref_title_simple_mode">简单模式</string>
     <string name="pref_title_specific_device">特定设备</string>
     <string name="pref_title_suggestions">显示建议</string>
     <string name="pref_title_swipe_anywhere_now_playing">向任何地方滑动以更改音轨</string>
@@ -396,10 +387,12 @@
     <string name="pref_title_toggle_carousel_effect">旋转效果</string>
     <string name="pref_title_toggle_headset">有线耳机播放</string>
     <string name="pref_title_transparent_mini_player">半透明迷你播放器</string>
+    <string name="pref_title_transparent_widgets">透明小部件</string>
     <string name="pref_title_use_notification_actions_for_auto">使用通知操作</string>
     <string name="pref_title_whitelist">白名单音乐 (/音乐文件夹)</string>
-    <string name="pref_title_widget_style">透明小部件</string>
+    <string name="proceed">继续</string>
     <string name="queue">播放队列</string>
+    <string name="queue_short">队列</string>
     <string name="recent_albums">最近的专辑</string>
     <string name="recent_artists">最近的艺人</string>
     <string name="remaining">剩余时间</string>
@@ -413,6 +406,7 @@
     <string name="rename_playlist_title">重命名播放列表</string>
     <string name="repeat">重复</string>
     <string name="reset_action">Reset</string>
+    <string name="reset_categories">重置库类别</string>
     <string name="reset_settings">重置设置</string>
     <string name="reset_settings_msg">重置设置为默认吗？\n\n这将重置所有设置，包括乱序设置 蓝牙自动播放设置和更多\n\n此应用将重启以完成重置过程！</string>
     <string name="reset_artist_image">重置艺人图像</string>
@@ -467,7 +461,7 @@
     <string name="sort_order_z_a">降序</string>
     <string name="speech_not_supported">对不起！您的设备不支持语音输入</string>
     <string name="speech_prompt">搜索您的库</string>
-    <string name="stack">堆栈...</string>
+    <string name="stack">堆栈…</string>
     <string name="suggestion_songs">建议</string>
     <string name="support_development">支持 &amp; 开发</string>
     <string name="tab_only">仅绘图板模式</string>
@@ -494,10 +488,11 @@
     <string name="update_image">更新图像</string>
     <string name="update_notify">更新通知</string>
     <string name="updating">正在更新…</string>
-    <string name="use_apex_font">使用 Apex 字体</string>
     <string name="user_images_description">用户图像</string>
     <string name="version">版本</string>
     <string name="vertical_flip">垂直翻转</string>
+    <string name="warning_fade">警告！可能会导致意外的播放问题</string>
+    <string name="warning_fade_cancelled">更改已恢复</string>
     <string name="web_search">网络搜索</string>
     <string name="website">网址</string>
     <string name="website_summary">查看我们的网站</string>

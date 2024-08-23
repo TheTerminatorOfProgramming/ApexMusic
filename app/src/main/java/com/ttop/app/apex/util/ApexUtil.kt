@@ -35,7 +35,6 @@ import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.net.toUri
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
@@ -248,127 +247,6 @@ object ApexUtil {
 
     }
 
-    fun updateCollapsableAppBarTitleTextAppearance(collapsingToolbarLayout: CollapsingToolbarLayout){
-        //Expanded
-        if (PreferenceUtil.isApexFont) {
-            collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ApexThemeOverlay)
-        }
-
-        when (PreferenceUtil.fontSize) {
-            "12" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize22)
-            }
-
-            "13" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize13)
-            }
-
-            "14" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize24)
-            }
-
-            "15" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize25)
-            }
-
-            "16" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize26)
-            }
-
-            "17" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize27)
-            }
-
-            "18" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize28)
-            }
-
-            "19" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize29)
-            }
-
-            "20" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize30)
-            }
-
-            "21" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize31)
-            }
-
-            "22" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize32)
-            }
-
-            "23" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize33)
-            }
-
-            "24" -> {
-                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.FontSize34)
-            }
-        }
-
-        //Collapsed
-        if (PreferenceUtil.isApexFont) {
-            collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.ApexThemeOverlay)
-        }
-
-        when (PreferenceUtil.fontSize) {
-            "12" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize18)
-            }
-
-            "13" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize19)
-            }
-
-            "14" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize20)
-            }
-
-            "15" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize21)
-            }
-
-            "16" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize22)
-            }
-
-            "17" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize23)
-            }
-
-            "18" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize24)
-            }
-
-            "19" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize25)
-            }
-
-            "20" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize26)
-            }
-
-            "21" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize27)
-            }
-
-            "22" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize28)
-            }
-
-            "23" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize29)
-            }
-
-            "24" -> {
-                collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.FontSize30)
-            }
-        }
-
-    }
-
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val nw = connectivityManager.activeNetwork ?: return false
@@ -384,22 +262,22 @@ object ApexUtil {
         }
     }
 
-    private fun buildBiometricPrompt(context: Context): BiometricPrompt.PromptInfo {
+    private fun buildBiometricPrompt(context: Context, title: Int): BiometricPrompt.PromptInfo {
         return BiometricPrompt.PromptInfo.Builder()
-            .setTitle(context.getString(R.string.developer_mode))
+            .setTitle(context.getString(title))
             .setSubtitle(context.getString(R.string.biometric_authenticate_subtitle))
             .setDescription(context.getString(R.string.biometric_authenticate_description))
             .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
             .build()
     }
 
-    fun checkAndAuthenticate(context: Context, biometricPrompt: BiometricPrompt) {
+    fun checkAndAuthenticate(context: Context, biometricPrompt: BiometricPrompt, title: Int) {
         val biometricManager: BiometricManager = BiometricManager.from(context)
         when (biometricManager.canAuthenticate(BIOMETRIC_STRONG)) {
             BiometricManager.BIOMETRIC_SUCCESS,
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED,
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE-> {
-                val promptInfo = buildBiometricPrompt(context)
+                val promptInfo = buildBiometricPrompt(context, title)
                 biometricPrompt.authenticate(promptInfo)
             }
             else -> context.showToast(context.getString(R.string.md_error_label))

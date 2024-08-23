@@ -38,7 +38,9 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.SearchAdapter
 import com.ttop.app.apex.databinding.FragmentSearchBinding
 import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.Job
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -154,11 +156,21 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
     }
 
     private fun checkForMargins() {
-        if (mainActivity.isBottomNavVisible) {
             binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = dip(R.dimen.bottom_nav_height)
+                bottomMargin = if (ApexUtil.isTablet) {
+                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                        ApexUtil.dpToMargin(64)
+                    }else {
+                        ApexUtil.dpToMargin(0)
+                    }
+                }else {
+                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                        ApexUtil.dpToMargin(144)
+                    }else {
+                        ApexUtil.dpToMargin(80)
+                    }
+                }
             }
-        }
     }
 
     private fun setupRecyclerView() {
@@ -234,6 +246,11 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
 
     override fun onResume() {
         super.onResume()
+        checkForMargins()
+    }
+
+    override fun onQueueChanged() {
+        super.onQueueChanged()
         checkForMargins()
     }
 

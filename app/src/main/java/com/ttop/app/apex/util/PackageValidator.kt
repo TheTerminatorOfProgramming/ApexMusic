@@ -167,15 +167,15 @@ class PackageValidator(
     private fun buildCallerInfo(callingPackage: String): CallerPackageInfo? {
         val packageInfo = getPackageInfo(callingPackage) ?: return null
 
-        val appName = packageInfo.applicationInfo.loadLabel(packageManager).toString()
-        val uid = packageInfo.applicationInfo.uid
+        val appName = packageInfo.applicationInfo!!.loadLabel(packageManager).toString()
+        val uid = packageInfo.applicationInfo!!.uid
         val signature = getSignature(packageInfo)
 
         val requestedPermissions = packageInfo.requestedPermissions
         val permissionFlags = packageInfo.requestedPermissionsFlags
         val activePermissions = mutableSetOf<String>()
         requestedPermissions?.forEachIndexed { index, permission ->
-            if (permissionFlags[index] and REQUESTED_PERMISSION_GRANTED != 0) {
+            if (permissionFlags!![index] and REQUESTED_PERMISSION_GRANTED != 0) {
                 activePermissions += permission
             }
         }
@@ -209,10 +209,10 @@ class PackageValidator(
     private fun getSignature(packageInfo: PackageInfo): String? {
         // Security best practices dictate that an app should be signed with exactly one (1)
         // signature. Because of this, if there are multiple signatures, reject it.
-        return if (packageInfo.signatures == null || packageInfo.signatures.size != 1) {
+        return if (packageInfo.signatures == null || packageInfo.signatures!!.size != 1) {
             null
         } else {
-            val certificate = packageInfo.signatures[0].toByteArray()
+            val certificate = packageInfo.signatures!![0].toByteArray()
             getSignatureSha256(certificate)
         }
     }

@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="@integer/overScrollMode"
-            android:paddingBottom="@dimen/mini_player_height"
             tools:itemCount="10"
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/item_album_card"

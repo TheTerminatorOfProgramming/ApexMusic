@@ -54,7 +54,7 @@
         <item>@string/shuffle</item>
         <item>@string/update_notify</item>
         <item>@string/close</item>
-        <item>@string/clear_playing_queue</item>
+        <item>@string/clear_playing_queue_notification</item>
     </string-array>
 
     <string-array name="pref_notification_action_list_values">
@@ -227,6 +227,7 @@
     <string-array name="pref_progress_bar_style_titles">
         <item>@string/disabled</item>
         <item>@string/circular</item>
+        <item>@string/circular_no_track</item>
         <item>@string/horizontal_top</item>
         <item>@string/horizontal_bottom</item>
     </string-array>
@@ -234,22 +235,9 @@
     <string-array name="pref_progress_bar_style_values">
         <item>disabled</item>
         <item>circular</item>
+        <item>circular_no_track</item>
         <item>horizontal_top</item>
         <item>horizontal_bottom</item>
-    </string-array>
-
-    <array name="pref_appbar_mode_titles">
-        <item>@string/appbar_mode_simple</item>
-        <item>@string/appbar_mode_simple_no_scroll</item>
-        <item>@string/appbar_mode_expanded</item>
-        <item>@string/appbar_mode_expanded_no_scroll</item>
-    </array>
-
-    <string-array name="pref_appbar_mode_values">
-        <item>simple</item>
-        <item>simple_no_scroll</item>
-        <item>expanded</item>
-        <item>expanded_no_scroll</item>
     </string-array>
 
     <array name="pref_scrollbar_titles">

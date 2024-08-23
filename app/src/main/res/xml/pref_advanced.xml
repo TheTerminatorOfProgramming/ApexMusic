@@ -125,7 +125,7 @@
             android:defaultValue="false"
             android:key="keep_screen_on"
             android:layout="@layout/list_item_view_switch"
-            android:title="@string/pref_keep_screen_on_title"
+            android:title="@string/pref_title_keep_screen_on"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

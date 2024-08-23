@@ -2,4 +2,5 @@
 <resources>
     <color name="m3_accent_color">@android:color/system_accent1_200</color>
     <color name="m3_selection_color">@android:color/system_accent1_500</color>
+    <color name="menu_tint">@color/md_white_1000</color>
 </resources>

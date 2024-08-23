@@ -87,9 +87,75 @@
 
     <h3>Possible Android OS Incompatibility/Issues</h3>
     <ul>
-        <li><u><b>If you are experiencing any bugs, try reinstalling the app</b></u></li>
+        <li><u><b>If you are experiencing any bugs, try reinstalling the app first before reporting the issue</b></u></li>
         <li><b>Some android skins such as funtouch os may experience issues with apex</b></li>
-        <li><b>Material you may not work correctly on some android skins like oneui, due to the implementation method of material you into the android skin</b></li>
+        <li><b>Material you may not work correctly on some android skins due to the implementation method of material you into the android skin</b></li>
+    </ul>
+</div>
+<div>
+    <h5>August 8th 2024</h5>
+    <h2>v4.70</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>New player theme: live</li>
+        <li>New option to change navigation bar black on player themes</li>
+        <li>New option to disable the queue in the player themes</li>
+        <li>New option to change the delay for bluetooth devices before autoplaying</li>
+        <li><b>Android 15</b> Support</li>
+        <li>Warning dialogs added for the audio fade and crossfade options</li>
+        <li>New option to disable the scroll for the appbar header</li>
+        <li>New option to remove the header color</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Ability to add or remove settings from the BottomNavigationBar</li>
+        <li>Developer mode section in settings</li>
+        <li>Simple and expanded header style. see below for more info</li>
+        <li>ID3 lyrics troubleshoot from the about settings</li>
+        <li>Header style option. simple header style is now the default</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Updated player themes images</li>
+        <li>Queue has been added to the BottomNavigationView</li>
+        <li>Settings & queue BottomNavigationView options are fixed and cannot be unchecked in the library categories option</li>
+        <li>Language intro page has been redesigned and will now only be shown on Android 13+</li>
+        <li>Animated BottomNavigationView icons have been changed to static icons</li>
+        <li>Semi-transparent mini player option has been moved to the user interface settings</li>
+        <li>Disable default widgets option has been moved to the notification & widgets settings</li>
+        <li>Crossfade maximum value has been changed from 12 to 10</li>
+        <li>Bluetooth autoplay has been optimised</li>
+        <li>Rewind and fade forward seek duration options intervals have been changed</li>
+        <li>Progress bar style option now has added circular (no track) option</li>
+        <li>Header now uses the accent color for the background</li>
+        <li>Mini player is now hidden when in the settings</li>
+        <li>Synced lyrics positioning has been changed for the blur, classic & peek play themes when using a tablet or foldable</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Final <b>Android 15</b> testing (due to be completed by the end of 2024)</li>
+        <li>Search library category will be removed in a future release</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Adaptive color, color gradient & color animation enabled/disabled state when changing player themes</li>
+        <li>Menu colors after changing ui theme</li>
+        <li>Synced lyrics colors</li>
+        <li>Toolbar color when adaptive color and gradient background is enabled</li>
+        <li>Misc player themes bugs</li>
+        <li>Sleep timer misc issues</li>
+        <li>Intro screens now extend underneath the display cutout</li>
+        <li>Material you colors now work on samsung devices</li>
+        <li>LRC files will now work if stored in a separate folder called "lyrics" in the apex directory (downloads folder by default)</li>
+        <li>Synced lyrics will be disabled when lyrics mode changed to either disabled or id3</li>
+        <li>Default backup and lyrics path has been fixed and the folders are now created during the initial setup</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Notification may not always update when using the audio fade and crossfade options</li>
+        <li>Crash when changing from settings tab to queue tab (rare)</li>
+        <li>Audio fade and crossfade options may cause headset controls and playback notification to be unresponsive</li>
     </ul>
 </div>
 <div>
@@ -136,6 +202,7 @@
         <li>Notification may not always update when using the audio fade and crossfade options</li>
     </ul>
 </div>
+
 <div>
     <h5>June 16th 2024</h5>
     <h2>v4.56</h2>
@@ -395,7 +462,7 @@
     </ul>
     <h3>What's Fixed</h3>
     <ul>
-        <li>Semi-transparent mini-player option now has the correct title</li>
+        <li>Semi-transparent mini player option now has the correct title</li>
         <li>The extra controls option visibility has been fixed</li>
         <li>Gradient player theme back arrow now works as intended</li>
         <li>Navigation bar color</li>

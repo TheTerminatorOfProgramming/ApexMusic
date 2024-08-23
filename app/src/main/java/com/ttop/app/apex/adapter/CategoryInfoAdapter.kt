@@ -54,6 +54,17 @@ class CategoryInfoAdapter : RecyclerView.Adapter<CategoryInfoAdapter.ViewHolder>
         holder.binding.checkbox.isChecked = categoryInfo.visible
         holder.binding.title.text =
             holder.binding.title.resources.getString(categoryInfo.category.stringRes)
+
+        if (holder.binding.title.text == holder.itemView.context.getString(R.string.action_settings)) {
+            holder.binding.checkbox.isChecked = true
+            holder.itemView.isEnabled = false
+        }
+
+        if (holder.binding.title.text == holder.itemView.context.getString(R.string.queue_short)) {
+            holder.binding.checkbox.isChecked = true
+            holder.itemView.isEnabled = false
+        }
+
         holder.itemView.setOnClickListener {
             if (!(categoryInfo.visible && isLastCheckedCategory(categoryInfo))) {
                 categoryInfo.visible = !categoryInfo.visible

@@ -54,6 +54,7 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.ReloadType
+import com.ttop.app.apex.ui.fragments.player.LRCFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
@@ -69,7 +70,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.math.abs
 
 abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout),
-    Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks {
+    Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks, LRCFragment.Callbacks {
 
     val libraryViewModel: LibraryViewModel by activityViewModel()
 
@@ -78,7 +79,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
     private var playerAlbumCoverFragment: PlayerAlbumCoverFragment? = null
 
-   private fun goToLyrics() {
+    private var lrcFragment: LRCFragment? = null
+
+    private fun goToLyrics() {
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
         mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
         val builder = AlertDialog.Builder(requireContext())
@@ -326,6 +329,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         playerAlbumCoverFragment = whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment?.setCallbacks(this)
 
+        lrcFragment = whichFragment(R.id.lrcFragment)
+        lrcFragment?.setCallbacks(this)
+
         view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
     }
 
@@ -376,6 +382,14 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                         playerToolbar()?.menu?.removeItem(R.id.now_playing)
                     }
                 }
+
+                playerToolbar()?.menu?.removeItem(R.id.action_rewind)
+                playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
+            }
+            NowPlayingScreen.Live -> {
+                playerToolbar()?.menu?.removeItem(R.id.action_queue)
+                playerToolbar()?.menu?.removeItem(R.id.now_playing)
+                playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
 
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)

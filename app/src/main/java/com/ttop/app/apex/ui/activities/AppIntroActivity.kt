@@ -25,6 +25,7 @@ import com.ttop.app.appintro.AppIntro2
 import com.ttop.app.appintro.AppIntroPageTransformerType
 import com.ttop.app.appthemehelper.ThemeStore
 import com.ttop.app.appthemehelper.util.VersionUtils
+import java.io.File
 
 
 class AppIntroActivity : AppIntro2() {
@@ -34,8 +35,10 @@ class AppIntroActivity : AppIntro2() {
         //MAIN SLIDE
         addSlide(MainSlideFragment.newInstance())
 
-        //LANGUAGE SLIDE
-        addSlide(LanguageSlideFragment.newInstance())
+        if (VersionUtils.hasT()) {
+            //LANGUAGE SLIDE
+            addSlide(LanguageSlideFragment.newInstance())
+        }
 
         //NOTIFICATION SLIDE
         if (VersionUtils.hasT()) {
@@ -114,7 +117,6 @@ class AppIntroActivity : AppIntro2() {
         PreferenceManager.setDefaultValues(this, R.xml.pref_advanced, false)
         PreferenceManager.setDefaultValues(this, R.xml.pref_audio, false)
         PreferenceManager.setDefaultValues(this, R.xml.pref_images, false)
-        PreferenceManager.setDefaultValues(this, R.xml.pref_labs, false)
         PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false)
         PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
 
@@ -124,6 +126,19 @@ class AppIntroActivity : AppIntro2() {
 
         PreferenceManager.getDefaultSharedPreferences(this).edit {
             putInt(MusicService.SAVED_SHUFFLE_MODE, 1)
+        }
+
+        val backupDir = PreferenceUtil.backupPath?.let { File(it) }
+        val lyricsDir = File(PreferenceUtil.lyricsPath + "/Apex/Lyrics/")
+
+        if (backupDir != null) {
+            if (!backupDir.exists()){
+                backupDir.mkdirs()
+            }
+        }
+
+        if (!lyricsDir.exists()){
+            lyricsDir.mkdirs()
         }
 
         IntroPrefs(applicationContext).hasIntroSlidesShown = true

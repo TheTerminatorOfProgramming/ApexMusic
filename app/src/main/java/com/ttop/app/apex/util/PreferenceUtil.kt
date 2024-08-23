@@ -38,9 +38,10 @@ object PreferenceUtil {
         CategoryInfo(CategoryInfo.Category.Artists, true),
         CategoryInfo(CategoryInfo.Category.Playlists, false),
         CategoryInfo(CategoryInfo.Category.Genres, false),
-        CategoryInfo(CategoryInfo.Category.Folder, true),
+        CategoryInfo(CategoryInfo.Category.Folder, false),
         CategoryInfo(CategoryInfo.Category.Search, false),
-        CategoryInfo(CategoryInfo.Category.Settings,false)
+        CategoryInfo(CategoryInfo.Category.Settings,true),
+        CategoryInfo(CategoryInfo.Category.PlayingQueue,true)
     )
 
     var libraryCategory: List<CategoryInfo>
@@ -202,7 +203,7 @@ object PreferenceUtil {
     val isIgnoreMediaStoreArtwork
         get() = sharedPreferences.getBoolean(
             IGNORE_MEDIA_STORE_ARTWORK,
-            false
+            true
         )
 
     var isInitializedBlacklist
@@ -277,10 +278,13 @@ object PreferenceUtil {
             putBoolean(DESATURATED_COLOR, value)
         }
 
-    val isGapLessPlayback
+    var isGapLessPlayback
         get() = sharedPreferences.getBoolean(
             GAP_LESS_PLAYBACK, false
         )
+        set(value) = sharedPreferences.edit {
+            putBoolean(GAP_LESS_PLAYBACK, value)
+        }
 
     val isAdaptiveColor
         get() = sharedPreferences.getBoolean(
@@ -313,7 +317,7 @@ object PreferenceUtil {
             // We can directly use "first" kotlin extension function here but
             // there maybe layout id stored in this so to avoid a crash we use
             // "firstOrNull"
-            return GridStyle.values().firstOrNull { gridStyle ->
+            return GridStyle.entries.firstOrNull { gridStyle ->
                 gridStyle.id == id
             } ?: GridStyle.Circular
         }
@@ -324,7 +328,7 @@ object PreferenceUtil {
     var albumGridStyle: GridStyle
         get() {
             val id: Int = sharedPreferences.getInt(ALBUM_GRID_STYLE, 3)
-            return GridStyle.values().firstOrNull { gridStyle ->
+            return GridStyle.entries.firstOrNull { gridStyle ->
                 gridStyle.id == id
             } ?: GridStyle.Circular
         }
@@ -335,7 +339,7 @@ object PreferenceUtil {
     var artistGridStyle: GridStyle
         get() {
             val id: Int = sharedPreferences.getInt(ARTIST_GRID_STYLE, 3)
-            return GridStyle.values().firstOrNull { gridStyle ->
+            return GridStyle.entries.firstOrNull { gridStyle ->
                 gridStyle.id == id
             } ?: GridStyle.Circular
         }
@@ -596,7 +600,7 @@ object PreferenceUtil {
     var albumCoverStyle: AlbumCoverStyle
         get() {
             val id: Int = sharedPreferences.getInt(ALBUM_COVER_STYLE, 0)
-            for (albumCoverStyle in AlbumCoverStyle.values()) {
+            for (albumCoverStyle in AlbumCoverStyle.entries) {
                 if (albumCoverStyle.id == id) {
                     return albumCoverStyle
                 }
@@ -609,7 +613,7 @@ object PreferenceUtil {
     var nowPlayingScreen: NowPlayingScreen
         get() {
             val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 3)
-            for (nowPlayingScreen in NowPlayingScreen.values()) {
+            for (nowPlayingScreen in NowPlayingScreen.entries) {
                 if (nowPlayingScreen.id == id) {
                     return nowPlayingScreen
                 }
@@ -738,14 +742,6 @@ object PreferenceUtil {
             .getFloat(PLAYBACK_PITCH, 1F)
         set(value) = sharedPreferences.edit { putFloat(PLAYBACK_PITCH, value) }
 
-    var appBarMode
-        get() = sharedPreferences.getStringOrDefault(
-            APPBAR_MODE, "simple"
-        )
-        set(value) = sharedPreferences.edit {
-            putString(APPBAR_MODE, value)}
-
-
     var lyricsScreenOn
         get() = sharedPreferences.getBoolean(SCREEN_ON_LYRICS, false)
         set(value) = sharedPreferences.edit {
@@ -841,12 +837,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getString(EXPAND_NOW_PLAYING_PANEL, "disabled")
         set(value) = sharedPreferences.edit { putString(EXPAND_NOW_PLAYING_PANEL, value)}
 
-    var isDevModeEnabled
-        get() = sharedPreferences.getBoolean(DEV_MODE, false)
-
-        set(value) = sharedPreferences.edit {
-            putBoolean(DEV_MODE, value)}
-
     val isAction1
         get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "repeat")
 
@@ -894,7 +884,7 @@ object PreferenceUtil {
 
     var backupPath
         get() = sharedPreferences.getString(
-            BACKUP_PATH, getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+            BACKUP_PATH, getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + File.separator + "Apex" + File.separator + "Backups"
         )
         set(value) = sharedPreferences.edit {
             putString(BACKUP_PATH, value)}
@@ -908,7 +898,7 @@ object PreferenceUtil {
             SCROLLBAR_STYLE, "auto_hide"
         )
         set(value) = sharedPreferences.edit {
-            putString(APPBAR_MODE, value)}
+            putString(SCROLLBAR_STYLE, value)}
 
     var isColorAnimate
         get() = sharedPreferences.getBoolean(
@@ -1004,16 +994,6 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putString(LYRICS_MODE, value)}
 
-    val isSyncedLyricsMessageDisabled
-        get() = sharedPreferences.getBoolean(
-            DISABLE_MESSAGE_LYRICS_SYNCED, false
-        )
-
-    val isSimpleMode
-        get() = sharedPreferences.getBoolean(
-            SIMPLE_MODE, false
-        )
-
     val isHapticFeedbackDisabled
         get() = sharedPreferences.getBoolean(
             HAPTIC_FEEDBACK, false
@@ -1039,4 +1019,53 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putString(CUSTOMIZABLE_TOOLBAR_ACTION, value) }
+
+    var isNavBarBlack
+        get() = sharedPreferences.getBoolean(
+            NAV_BAR_BLACK, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(NAV_BAR_BLACK, value)}
+
+    var isPlayerQueueEnabled
+        get() = sharedPreferences.getBoolean(
+            DISABLE_QUEUE, true
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(DISABLE_QUEUE, value)}
+
+    var bluetoothDelay
+        get() = sharedPreferences.getInt(
+            BLUETOOTH_DELAY, 1000
+        )
+        set(value) = sharedPreferences.edit {
+            putInt(BLUETOOTH_DELAY, value)}
+
+    var lyricsPath
+        get() = sharedPreferences.getString(
+            LYRICS_PATH, getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        )
+        set(value) = sharedPreferences.edit {
+            putString(LYRICS_PATH, value)}
+
+    var showLyricsTablet
+        get() = sharedPreferences.getBoolean(
+            SHOW_LYRICS_TABLET, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(SHOW_LYRICS_TABLET, value)}
+
+    var disableAppBarScroll
+        get() = sharedPreferences.getBoolean(
+            DISABLE_APP_BAR_SCROLL, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(DISABLE_APP_BAR_SCROLL, value)}
+
+    var appbarColor
+        get() = sharedPreferences.getBoolean(
+            APP_BAR_COLOR, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(APP_BAR_COLOR, value)}
 }

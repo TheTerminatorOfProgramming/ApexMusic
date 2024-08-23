@@ -2,10 +2,12 @@ package com.ttop.app.apex.preferences
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.HapticFeedbackConstants
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
@@ -17,6 +19,7 @@ import com.ttop.app.apex.extensions.centeredColorButtons
 
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
@@ -36,7 +39,6 @@ class DurationPreference @JvmOverloads constructor(
 }
 
 class DurationPreferenceDialog : DialogFragment() {
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = PreferenceDialogAudioFadeBinding.inflate(layoutInflater)
 
@@ -71,7 +73,25 @@ class DurationPreferenceDialog : DialogFragment() {
     }
 
     private fun updateDuration(duration: Int) {
-        PreferenceUtil.audioFadeDuration = duration
+        val dialogClickListener =
+            DialogInterface.OnClickListener { _, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        PreferenceUtil.audioFadeDuration = duration
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                        showToast(getString(R.string.warning_fade_cancelled))
+                    }
+                }
+            }
+
+        if (duration != 0) {
+            val builder: AlertDialog.Builder? = context?.let { AlertDialog.Builder(it) }
+            builder?.setMessage(getString(R.string.warning_fade))?.setPositiveButton(getString(R.string.proceed), dialogClickListener)
+                ?.setNegativeButton(getString(R.string.action_cancel), dialogClickListener)?.show()
+        }else {
+            PreferenceUtil.audioFadeDuration = duration
+        }
     }
 
     companion object {

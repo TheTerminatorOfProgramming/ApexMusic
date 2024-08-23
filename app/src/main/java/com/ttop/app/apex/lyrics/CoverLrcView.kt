@@ -42,9 +42,6 @@ import java.io.File
 import java.lang.Runnable
 import kotlin.math.abs
 
-/**
- * 歌词 Created by wcy on 2015/11/9.
- */
 @SuppressLint("StaticFieldLeak")
 class CoverLrcView @JvmOverloads constructor(
     context: Context?,
@@ -179,8 +176,15 @@ class CoverLrcView @JvmOverloads constructor(
                     if (!PreferenceUtil.isHapticFeedbackDisabled) {
                         rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     }
+
                     PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
+                    PreferenceUtil.showLyricsTablet = PreferenceUtil.showLyrics
+                }else {
+                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                        rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    }
                 }
+
                 return super.onDoubleTap(e)
             }
         }
@@ -306,6 +310,10 @@ class CoverLrcView @JvmOverloads constructor(
             mDefaultLabel = label
             invalidate()
         }
+    }
+
+    fun getLabel(): String? {
+        return mDefaultLabel
     }
 
     fun loadLrc(lrcFile: File) {
@@ -467,7 +475,9 @@ class CoverLrcView @JvmOverloads constructor(
     }
 
     private fun onLrcLoaded(entryList: List<LrcEntry>?) {
-        if (entryList != null && entryList.isNotEmpty()) {
+        mLrcEntryList.clear()
+
+        if (!entryList.isNullOrEmpty()) {
             mLrcEntryList.addAll(entryList)
         }
         mLrcEntryList.sort()

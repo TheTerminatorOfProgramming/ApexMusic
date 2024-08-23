@@ -28,10 +28,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.ttop.app.apex.util.PreferenceUtil
 
-fun Fragment.getIntRes(@IntegerRes int: Int): Int {
-    return resources.getInteger(int)
-}
-
 fun Context.getIntRes(@IntegerRes int: Int): Int {
     return resources.getInteger(int)
 }
@@ -89,18 +85,10 @@ fun Fragment.showToastLong(message: String, duration: Int = Toast.LENGTH_LONG) {
     Toast.makeText(requireContext(), message, duration).show()
 }
 
-fun Context.getDrawableCompat(@DrawableRes drawableRes: Int): Drawable {
-    return AppCompatResources.getDrawable(this, drawableRes)!!
-}
-
 fun Fragment.getDrawableCompat(@DrawableRes drawableRes: Int): Drawable {
     return AppCompatResources.getDrawable(requireContext(), drawableRes)!!
 }
 
 fun Fragment.applyToolbar(toolbar: MaterialToolbar) {
     (requireActivity() as AppCompatActivity).applyToolbar(toolbar)
-}
-
-fun Fragment.dip(@DimenRes id: Int): Int {
-    return resources.getDimensionPixelSize(id)
 }

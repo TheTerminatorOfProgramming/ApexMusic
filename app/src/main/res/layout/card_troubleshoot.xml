@@ -41,18 +41,5 @@
             app:listItemIcon="@drawable/ic_close"
             app:listItemSummary="@string/force_close_summary"
             app:listItemTitle="@string/force_close" />
-
-        <com.ttop.app.apex.views.ListItemView
-            android:id="@+id/id3_lyrics"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/force_close"
-            app:listItemIcon="@drawable/ic_lyrics_outline"
-            app:listItemSummary="@string/id3_lyrics_summary"
-            app:listItemTitle="@string/id3_lyrics" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

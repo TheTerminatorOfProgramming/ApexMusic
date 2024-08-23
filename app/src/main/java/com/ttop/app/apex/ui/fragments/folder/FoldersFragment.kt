@@ -44,11 +44,11 @@ import com.ttop.app.apex.adapter.Storage
 import com.ttop.app.apex.adapter.StorageAdapter
 import com.ttop.app.apex.adapter.StorageClickListener
 import com.ttop.app.apex.databinding.FragmentFolderBinding
-import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
+import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.openQueue
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
@@ -60,6 +60,7 @@ import com.ttop.app.apex.misc.WrappedAsyncTaskLoader
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.providers.BlacklistStore
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.FileUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
@@ -102,6 +103,11 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         }
     }
     private var storageItems = ArrayList<Storage>()
+
+    override fun onQueueChanged() {
+        super.onQueueChanged()
+        checkForMargins()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -359,8 +365,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         menu.add(0, R.id.action_go_to_start_directory, 1, R.string.action_go_to_start_directory)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
-        menu.add(0, R.id.action_settings, 2, R.string.action_settings)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         menu.removeItem(R.id.action_grid_size)
         menu.removeItem(R.id.action_layout_type)
         menu.removeItem(R.id.action_sort_order)
@@ -392,15 +396,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 }
                 return true
             }
-
-            R.id.action_settings -> {
-                findNavController().navigate(
-                    R.id.settings_fragment,
-                    null,
-                    navOptions
-                )
-                return true
-            }
         }
         return false
     }
@@ -411,9 +406,19 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     private fun checkForMargins() {
-        if (mainActivity.isBottomNavVisible) {
-            binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = dip(R.dimen.bottom_nav_height)
+        binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = if (ApexUtil.isTablet) {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    ApexUtil.dpToMargin(64)
+                } else {
+                    ApexUtil.dpToMargin(0)
+                }
+            } else {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    ApexUtil.dpToMargin(144)
+                } else {
+                    ApexUtil.dpToMargin(80)
+                }
             }
         }
     }

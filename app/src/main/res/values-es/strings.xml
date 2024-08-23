@@ -2,7 +2,6 @@
 <resources>
     <string name="about_album_label">Acerca de %s</string>
     <string name="about_settings_summary">Equipos, enlaces sociales</string>
-    <string name="accent_color">Color de acento</string>
     <string name="action_about">Acerca de</string>
     <string name="action_add_to_blacklist">Añadir a lista negra</string>
     <string name="action_add_to_favorites">Añadir a favoritos</string>
@@ -64,18 +63,16 @@
     <plurals name="albumSongs">
         <item quantity="one">Pista</item>
         <item quantity="other">Pistas</item>
+        <item quantity="many">Pistas</item>
     </plurals>
     <string name="album_artist">Artista del álbum</string>
     <string name="albums">Albumes</string>
     <plurals name="albums">
         <item quantity="one">Álbum</item>
         <item quantity="other">Albumes</item>
+        <item quantity="many">Albumes</item>
     </plurals>
     <string name="always">Siempre</string>
-    <string name="appbar_mode_expanded">Ampliado</string>
-    <string name="appbar_mode_expanded_no_scroll">Ampliado (sin desplazamiento)</string>
-    <string name="appbar_mode_simple">Simple</string>
-    <string name="appbar_mode_simple_no_scroll">Simple (sin desplazamiento)</string>
     <string name="apex_music">Música Apex</string>
     <string name="app_share">Hola echa un vistazo a este fantástico reproductor de música en: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Aleatorio</string>
@@ -101,8 +98,8 @@
     <string name="biography">Biografía</string>
     <string name="biometric_authenticate_description">¡Por favor, autentifícate para continuar!</string>
     <string name="biometric_authenticate_subtitle">Autenticación</string>
-    <string name="black_theme_name">Jet Black</string>
     <string name="blacklist">Lista negra</string>
+    <string name="bluetooth_delay">Retraso de Bluetooth</string>
     <string name="bluetooth_summary">La aplicación necesita permiso de dispositivos cercanos para buscar dispositivos bluetooth</string>
     <string name="bluetooth_title">Dispositivos cercanos</string>
     <string name="blur">Blur</string>
@@ -117,17 +114,17 @@
     <string name="changelog_summary">Echa un vistazo a lo que es nuevo</string>
     <string name="choose_restore_title">Elige qué restaurar</string>
     <string name="circular">Circular</string>
+    <string name="circular_no_track">Circular (sin pista)</string>
     <string name="classic">Clásico</string>
     <string name="clear_action">Claro</string>
     <string name="clear_blacklist">Borrar lista negra</string>
     <string name="clear_history">Borrar historial</string>
     <string name="clear_playing_queue">Limpiar cola</string>
+    <string name="clear_playing_queue_notification">Limpiar cola</string>
     <string name="close">Cerrar</string>
     <string name="colors">Colores</string>
     <string name="composer">Compositor</string>
     <string name="could_not_write_tags_to_file">¡No se pudo escribir etiquetas en el archivo de música!</string>
-    <string name="cover_lyrics_off">Carátulas ocultas</string>
-    <string name="cover_lyrics_on">Mostrar carátulas</string>
     <string name="create_action">Crear</string>
     <string name="create_new_backup">Crear</string>
     <string name="credit_title">Desarrolladores &amp; Colaboradores</string>
@@ -145,10 +142,6 @@
     <string name="denied">Denegado</string>
     <string name="depth">Profundidad</string>
     <string name="design">diseño</string>
-    <string name="dev_options_off">¿Deshabilitar opciones de desarrollador?</string>
-    <string name="dev_options_on">Opciones de desarrollador activadas!</string>
-    <string name="dev_options_on_already">Opciones de desarrollador ya habilitadas!</string>
-    <string name="developer_mode">Opciones de desarrollador</string>
     <string name="dialog_message_set_ringtone">Permitir que Apex Music modifique la configuración de audio</string>
     <string name="dialog_title_set_ringtone">Establecer tono</string>
     <string name="disable_battery_optimize">Desactivar optimización de batería</string>
@@ -164,7 +157,7 @@
     <string name="empty">Vaciar</string>
     <string name="enabled">Activado</string>
     <string name="enter_text">Ingresar texto</string>
-    <string name="equalizer">Equalizador</string>
+    <string name="equalizer">Ecualizador</string>
     <string name="error_create_backup">No se pudo crear la copia de seguridad</string>
     <string name="error_delete_backup">No se pudo borrar la copia de seguridad</string>
     <string name="error_load_failed">Carga fallida</string>
@@ -208,8 +201,6 @@
     <string name="horizontal_bottom">Tomo horizontal</string>
     <string name="horizontal_flip">Giro horizontal</string>
     <string name="horizontal_top">Arriba horizontal</string>
-    <string name="id3_lyrics">Letras ID3</string>
-    <string name="id3_lyrics_summary">Para que funcione el nuevo sistema de letras id3 el arrastre para colapsar en los temas del reproductor se desactivará, cuando se muestren las letras id3. esto se debe a un conflicto con la cola de jugadores.</string>
     <string name="id3_tags">Etiquetas ID3</string>
     <string name="image">Imagen</string>
     <string name="image_gradient">Gradient image</string>
@@ -231,8 +222,6 @@
     <string name="label_sampling_rate">Tasa de muestreo</string>
     <string name="label_track_length">Longitud</string>
     <string name="labeled">Etiquetado</string>
-    <string name="labs_summary">Opciones de desarrollador</string>
-    <string name="labs_title">Opciones de desarrollador</string>
     <string name="language_dl_failed">Descarga de idioma fallida</string>
     <string name="last_added">Último añadido</string>
     <string name="last_song">Última pista</string>
@@ -240,6 +229,7 @@
     <string name="licenses">Licencias</string>
     <string name="light_theme_name">Blanco brillante</string>
     <string name="listeners_label">Escuchadores</string>
+    <string name="live">Vivir</string>
     <string name="lyrics">Letras</string>
     <string name="lyrics_both">Etiqueta ID3 &amp; Letras sincronizadas</string>
     <string name="lyrics_id3">Letras de la etiqueta ID3</string>
@@ -325,8 +315,6 @@
     <string name="pref_header_filter">Filtro de duración de la pista</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_images">Imágenes</string>
-    <string name="pref_header_labs_default_widgets">Widgets por defecto</string>
-    <string name="pref_header_labs_other_options">Otras opciones</string>
     <string name="pref_header_language">Idioma</string>
     <string name="pref_header_library">Biblioteca</string>
     <string name="pref_header_lyrics">Letras</string>
@@ -335,29 +323,32 @@
     <string name="pref_header_playlists">Listas</string>
     <string name="pref_header_search">Buscar</string>
     <string name="pref_header_widgets">Widgets</string>
-    <string name="pref_keep_pause_on_zero_volume_title">Pausar en cero</string>
-    <string name="pref_keep_screen_on_title">Mantener pantalla encendida</string>
-    <string name="pref_language_name">Seleccionar Idioma</string>
     <string name="pref_summary_open_source_licences">Detalles de la licencia para software de código abierto</string>
     <string name="pref_summary_permissions_edit">Modificar permisos relacionados con esta aplicación</string>
+    <string name="pref_title_accent_color">Color de acento</string>
     <string name="pref_title_album_cover_style">Tema de portada del álbum</string>
     <string name="pref_title_album_cover_transform">Omitir portada de álbum</string>
-    <string name="pref_title_appbar_mode">Estilo de cabecera</string>
+    <string name="pref_title_apex_font">Utilice la fuente Apex</string>
+    <string name="pref_title_appbar_color">Encabezado de descoloración</string>
+    <string name="pref_title_appbar_disable_scroll">Deshabilitar el desplazamiento del encabezado</string>
     <string name="pref_title_audio_fade">Desvanecer audio</string>
     <string name="pref_title_auto_action_1">Acción automática de Android izquierda</string>
     <string name="pref_title_auto_action_2">Auto acción derecha de Android</string>
     <string name="pref_title_auto_download_artist_images">Autodescargar imágenes del artista</string>
     <string name="pref_title_auto_play">Mantener estado de juego</string>
     <string name="pref_title_auto_rotate">Rotación de pantalla</string>
+    <string name="pref_title_black_nav_bar">Barra de navegación negra</string>
+    <string name="pref_title_black_theme">Negro azabache</string>
+    <string name="pref_title_bluetooth_delay">Retraso de Bluetooth</string>
     <string name="pref_title_bluetooth_device">Dispositivo Bluetooth</string>
     <string name="pref_title_bluetooth_playback">Reproducción Bluetooth</string>
     <string name="pref_title_color_animate">Animación de color</string>
     <string name="pref_title_colored_app">Color Adaptivo</string>
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
-    <string name="pref_title_desaturated_color">Color desaturado</string>
-    <string name="pref_title_disable_synced_lyrics_message">Deshabilitar mensajes de letras sincronizadas</string>
-    <string name="pref_title_disable_widgets">Desactivar Widgets por defecto</string>
+    <string name="pref_title_desaturated_color">Desaturar el color</string>
+    <string name="pref_title_disable_queue">Desactivar cola de jugadores</string>
+    <string name="pref_title_disable_widgets">Deshabilitar widgets</string>
     <string name="pref_title_duration">Duración única</string>
     <string name="pref_title_expand_now_playing_panel">Mostrar la pantalla de reproducción</string>
     <string name="pref_title_extra_controls">Controles adicionales</string>
@@ -370,6 +361,9 @@
     <string name="pref_title_home_album_grid_style">Rejilla de Álbum</string>
     <string name="pref_title_home_artist_grid_style">Rejilla de Artista</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar Tienda de Medios</string>
+    <string name="pref_title_keep_pause_on_zero">Pausa en cero</string>
+    <string name="pref_title_keep_screen_on">Mantener la pantalla encendida</string>
+    <string name="pref_title_language_name">Seleccione idioma</string>
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
     <string name="pref_title_lyrics_type">Tipo de letra</string>
     <string name="pref_title_md3">Material que usted</string>
@@ -389,7 +383,6 @@
     <string name="pref_title_search_action">Acción de búsqueda aleada</string>
     <string name="pref_title_search_icon">Búsqueda por voz en el encabezado</string>
     <string name="pref_title_shuffle_state">Mantener estado aleatorio</string>
-    <string name="pref_title_simple_mode">Modo simple</string>
     <string name="pref_title_specific_device">Dispositivo específico</string>
     <string name="pref_title_suggestions">Mostrar sugerencias</string>
     <string name="pref_title_swipe_anywhere_now_playing">Desliza en cualquier lugar para cambiar la pista</string>
@@ -398,10 +391,12 @@
     <string name="pref_title_toggle_carousel_effect">Efecto de carrusel</string>
     <string name="pref_title_toggle_headset">Reproducción de auriculares con cable</string>
     <string name="pref_title_transparent_mini_player">Mini reproductor semi transparente</string>
+    <string name="pref_title_transparent_widgets">Widgets transparentes</string>
     <string name="pref_title_use_notification_actions_for_auto">Usar acciones de notificación</string>
     <string name="pref_title_whitelist">Música en lista blanca (/Carpeta de música)</string>
-    <string name="pref_title_widget_style">Widgets transparentes</string>
+    <string name="proceed">Continuar</string>
     <string name="queue">Reproduciendo cola</string>
+    <string name="queue_short">Cola</string>
     <string name="recent_albums">Álbumes recientes</string>
     <string name="recent_artists">Artistas recientes</string>
     <string name="remaining">Restante</string>
@@ -415,6 +410,7 @@
     <string name="rename_playlist_title">Renombrar lista</string>
     <string name="repeat">Repetir</string>
     <string name="reset_action">Reset</string>
+    <string name="reset_categories">Categorías de la biblioteca Restablecer</string>
     <string name="reset_settings">Restablecer ajustes</string>
     <string name="reset_settings_msg">¿Restablecer ajustes por defecto?\n\nEsto restablecerá TODOS los ajustes incluyendo el Mezclado, Configuración de reproducción automática Bluetooth y más\n\n¡Esta aplicación se reiniciará para completar el proceso de reinicio!</string>
     <string name="reset_artist_image">Restablecer imagen del artista</string>
@@ -496,10 +492,11 @@
     <string name="update_image">Actualizar imagen</string>
     <string name="update_notify">Actualizar notificación</string>
     <string name="updating">Actualizando…</string>
-    <string name="use_apex_font">Usar fuente Apex</string>
     <string name="user_images_description">Imágenes de usuario</string>
     <string name="version">Versión</string>
     <string name="vertical_flip">Giro vertical</string>
+    <string name="warning_fade">¡Advertencia! Puede causar problemas inesperados con la reproducción</string>
+    <string name="warning_fade_cancelled">Cambios revertidos</string>
     <string name="web_search">Búsqueda web</string>
     <string name="website">Sitio web</string>
     <string name="website_summary">Echa un vistazo a nuestra página web</string>

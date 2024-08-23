@@ -66,7 +66,6 @@ import com.ttop.app.apex.providers.MusicPlaybackQueueStore
 import com.ttop.app.apex.providers.SongPlayCountStore
 import com.ttop.app.apex.service.notification.PlayingNotification
 import com.ttop.app.apex.service.notification.PlayingNotificationImpl24
-import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil.isFavorite
@@ -123,11 +122,6 @@ class MusicService : MediaBrowserServiceCompat(),
     private val scheduler: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
 
     private lateinit var playbackManager: PlaybackManager
-
-    val playback: Playback? get() = playbackManager.playback
-
-    private val audioManager: AudioManager
-        get() = applicationContext.getSystemService()!!
 
     private var mPackageValidator: PackageValidator? = null
     private val mMusicProvider = get<AutoMusicProvider>(AutoMusicProvider::class.java)
@@ -243,15 +237,13 @@ class MusicService : MediaBrowserServiceCompat(),
                     if(PreferenceUtil.specificDevice){
                         if (device?.address == PreferenceUtil.bluetoothDevice){
                             connected = true
-                        }
 
-                        if (connected){
                             Handler(Looper.getMainLooper()).postDelayed(
                                 Runnable {
-                                    if (playingQueue.isNotEmpty()) {
+                                    if (playingQueue.isNotEmpty() && !isPlaying) {
                                         play()
                                     }
-                                }, 1000
+                                }, PreferenceUtil.bluetoothDelay.toLong()
                             )
                         }
                     }else{
@@ -260,7 +252,7 @@ class MusicService : MediaBrowserServiceCompat(),
                                 if (playingQueue.isNotEmpty()) {
                                     play()
                                 }
-                            }, 1000
+                            }, PreferenceUtil.bluetoothDelay.toLong()
                         )
                     }
                 }
@@ -269,6 +261,7 @@ class MusicService : MediaBrowserServiceCompat(),
                     if (PreferenceUtil.specificDevice){
                         if (device?.address == PreferenceUtil.bluetoothDevice){
                             connected = false
+                            pause(true)
                         }
                     }
                 }

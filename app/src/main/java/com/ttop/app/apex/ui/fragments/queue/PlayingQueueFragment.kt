@@ -102,7 +102,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
             recyclerViewDragDropManager?.attachRecyclerView(this)
             recyclerViewSwipeManager?.attachRecyclerView(this)
         }
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
 
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -158,7 +158,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
 
     private fun resetToCurrentPosition() {
         binding.recyclerView.stopScroll()
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
     }
 
     override fun onPause() {
@@ -201,6 +201,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
             binding.clearQueue.iconTint = this
         }
         binding.appBarLayout.pinWhenScrolled()
+
         binding.appBarLayout.toolbar.apply {
             setNavigationOnClickListener {
                 findNavController().navigateUp()

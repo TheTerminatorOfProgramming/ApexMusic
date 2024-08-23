@@ -39,7 +39,7 @@
             android:defaultValue="false"
             android:key="widget_style"
             android:layout="@layout/list_item_view_switch"
-            android:title="@string/pref_title_widget_style"
+            android:title="@string/pref_title_transparent_widgets"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -47,6 +47,13 @@
             android:key="disable_update"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_hide_update"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="disable_widgets"
+            android:layout="@layout/list_item_view_switch"
+            android:title="@string/pref_title_disable_widgets"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

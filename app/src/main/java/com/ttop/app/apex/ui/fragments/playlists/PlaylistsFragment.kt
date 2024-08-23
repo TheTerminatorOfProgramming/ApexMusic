@@ -32,7 +32,6 @@ import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.interfaces.IPlaylistClickListener
-import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.util.ApexUtil
@@ -86,9 +85,6 @@ class PlaylistsFragment :
         menu.removeItem(R.id.action_layout_type)
         menu.add(0, R.id.action_add_to_playlist, 0, R.string.new_playlist_title)
         menu.add(0, R.id.action_import_playlist, 0, R.string.import_playlist)
-        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, false))) {
-            menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
-        }
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu!!)
         MenuCompat.setGroupDividerEnabled(menu, true)
         //Setting up cast button

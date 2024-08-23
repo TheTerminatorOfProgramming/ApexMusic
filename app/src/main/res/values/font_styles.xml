@@ -63,16 +63,4 @@
     <style name="FontSize30">
         <item name="android:textSize">30sp</item>
     </style>
-    <style name="FontSize31">
-        <item name="android:textSize">31sp</item>
-    </style>
-    <style name="FontSize32">
-        <item name="android:textSize">32sp</item>
-    </style>
-    <style name="FontSize33">
-        <item name="android:textSize">33sp</item>
-    </style>
-    <style name="FontSize34">
-        <item name="android:textSize">34sp</item>
-    </style>
 </resources>

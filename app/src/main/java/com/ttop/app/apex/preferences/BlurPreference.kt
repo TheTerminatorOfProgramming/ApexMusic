@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogBlurBinding
-import com.ttop.app.apex.databinding.PreferenceDialogCrossFadeBinding
 import com.ttop.app.apex.extensions.addAccentColor
 import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
@@ -43,10 +42,10 @@ class BlurPreferenceDialog : DialogFragment() {
         binding.slider.apply {
             addAccentColor()
             value = PreferenceUtil.blurAmount.toFloat()
-            updateText(value.toInt(), binding.duration)
+            updateText(value.toInt(), binding.blur)
             addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
                 if (fromUser) {
-                    updateText(value.toInt(), binding.duration)
+                    updateText(value.toInt(), binding.blur)
                     if (!PreferenceUtil.isHapticFeedbackDisabled) {
                         performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     }
@@ -57,19 +56,19 @@ class BlurPreferenceDialog : DialogFragment() {
 
         return materialDialog(R.string.pref_blur_amount_title)
             .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.save) { _, _ -> updateDuration(binding.slider.value.toInt()) }
+            .setPositiveButton(R.string.save) { _, _ -> updateBlur(binding.slider.value.toInt()) }
             .setView(binding.root)
             .create()
             .centeredColorButtons()
     }
 
-    private fun updateText(value: Int, duration: TextView) {
+    private fun updateText(value: Int, blur: TextView) {
         val durationText = "$value"
-        duration.text = durationText
+        blur.text = durationText
     }
 
-    private fun updateDuration(duration: Int) {
-        PreferenceUtil.blurAmount = duration
+    private fun updateBlur(blur: Int) {
+        PreferenceUtil.blurAmount = blur
     }
 
     companion object {

@@ -2,7 +2,6 @@
 <resources>
     <string name="about_album_label">%s के बारे में</string>
     <string name="about_settings_summary">टीम, सामाजिक संपर्क</string>
-    <string name="accent_color">स्वरोंका रंग</string>
     <string name="action_about">के बारे में</string>
     <string name="action_add_to_blacklist">ब्लैकलिस्ट में जोड़ें</string>
     <string name="action_add_to_favorites">पसंदीदा में जोड़े</string>
@@ -72,10 +71,6 @@
         <item quantity="other">एलबम</item>
     </plurals>
     <string name="always">हमेशा</string>
-    <string name="appbar_mode_expanded">विस्तारित</string>
-    <string name="appbar_mode_expanded_no_scroll">विस्तारित (कोई स्क्रॉल नहीं)</string>
-    <string name="appbar_mode_simple">सरल</string>
-    <string name="appbar_mode_simple_no_scroll">सरल (कोई स्क्रॉल नहीं)</string>
     <string name="apex_music">शीर्ष संगीत</string>
     <string name="app_share">अरे इस शानदार म्यूजिक प्लेयर को यहां देखें: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">मिश्रण</string>
@@ -101,8 +96,8 @@
     <string name="biography">जीवनी</string>
     <string name="biometric_authenticate_description">कृपया जारी रखने के लिए स्वयं को प्रमाणित करें!</string>
     <string name="biometric_authenticate_subtitle">प्रमाणीकरण</string>
-    <string name="black_theme_name">पूरा काला</string>
     <string name="blacklist">काला सूची में डालना</string>
+    <string name="bluetooth_delay">ब्लूटूथ विलंब</string>
     <string name="bluetooth_summary">ब्लूटूथ डिवाइस की जांच करने के लिए ऐप को आस-पास के डिवाइस की अनुमति की आवश्यकता होती है</string>
     <string name="bluetooth_title">निकट के उपकरण</string>
     <string name="blur">कलंक</string>
@@ -117,17 +112,17 @@
     <string name="changelog_summary">देखें नया क्या है</string>
     <string name="choose_restore_title">चुनें कि क्या पुनर्स्थापित करना है</string>
     <string name="circular">परिपत्र</string>
+    <string name="circular_no_track">परिपत्र (कोई ट्रैक नहीं)</string>
     <string name="classic">क्लासिक</string>
     <string name="clear_action">स्पष्ट</string>
     <string name="clear_blacklist">काली सूची साफ़ करें</string>
     <string name="clear_history">इतिहास मिटा दें</string>
     <string name="clear_playing_queue">कतार साफ़ करें</string>
+    <string name="clear_playing_queue_notification">कतार साफ़ करें</string>
     <string name="close">बंद करना</string>
     <string name="colors">रंग की</string>
     <string name="composer">संगीतकार</string>
     <string name="could_not_write_tags_to_file">संगीत फ़ाइल में टैग नहीं लिखा जा सका!</string>
-    <string name="cover_lyrics_off">कवर गीत छिपा हुआ</string>
-    <string name="cover_lyrics_on">कवर गीत दिखाए गए</string>
     <string name="create_action">बनाएं</string>
     <string name="create_new_backup">बनाएं</string>
     <string name="credit_title">डेवलपर्स एवं amp; योगदानकर्ताओं</string>
@@ -145,10 +140,6 @@
     <string name="denied">अस्वीकृत</string>
     <string name="depth">गहराई</string>
     <string name="design">डिज़ाइन</string>
-    <string name="dev_options_off">डेवलपर विकल्प अक्षम करें?</string>
-    <string name="dev_options_on">डेवलपर विकल्प सक्षम!</string>
-    <string name="dev_options_on_already">डेवलपर विकल्प पहले से ही सक्षम हैं!</string>
-    <string name="developer_mode">डेवलपर विकल्प</string>
     <string name="dialog_message_set_ringtone">एपेक्स म्यूज़िक को ऑडियो सेटिंग्स संशोधित करने की अनुमति दें</string>
     <string name="dialog_title_set_ringtone">रिंगटोन सेट करें</string>
     <string name="disable_battery_optimize">बैटरी अनुकूलन अक्षम करें</string>
@@ -208,8 +199,6 @@
     <string name="horizontal_bottom">क्षैतिज तल</string>
     <string name="horizontal_flip">क्षैतिज पलटा</string>
     <string name="horizontal_top">क्षैतिज शीर्ष</string>
-    <string name="id3_lyrics">आईडी3 गीत</string>
-    <string name="id3_lyrics_summary">नए id3 लिरिक्स सिस्टम को काम करने के लिए, जब id3 लिरिक्स दिखाए जाएंगे तो प्लेयर थीम पर ड्रैग को बंद करना अक्षम कर दिया जाएगा। यह खिलाड़ी कतार के साथ टकराव के कारण है।</string>
     <string name="id3_tags">आईडी3 टैग</string>
     <string name="image">छवि</string>
     <string name="image_gradient">ढाल छवि</string>
@@ -231,8 +220,6 @@
     <string name="label_sampling_rate">नमूना दर</string>
     <string name="label_track_length">लंबाई</string>
     <string name="labeled">लेबल किए गए</string>
-    <string name="labs_summary">डेवलपर विकल्प</string>
-    <string name="labs_title">डेवलपर विकल्प</string>
     <string name="language_dl_failed">भाषा डाउनलोड विफल रहा</string>
     <string name="last_added">अंतिम बार जोड़ा गया</string>
     <string name="last_song">आखिरी ट्रैक</string>
@@ -240,6 +227,7 @@
     <string name="licenses">लाइसेंस</string>
     <string name="light_theme_name">चमकदार सफेद</string>
     <string name="listeners_label">श्रोताओं</string>
+    <string name="live">रहना</string>
     <string name="lyrics">बोल</string>
     <string name="lyrics_both">आईडी3 टैग और amp; समन्वयित गीत</string>
     <string name="lyrics_id3">ID3 टैग गीत</string>
@@ -325,8 +313,6 @@
     <string name="pref_header_filter">ट्रैक अवधि फ़िल्टर</string>
     <string name="pref_header_general">विषय</string>
     <string name="pref_header_images">इमेजिस</string>
-    <string name="pref_header_labs_default_widgets">डिफ़ॉल्ट विजेट</string>
-    <string name="pref_header_labs_other_options">अन्य विकल्प</string>
     <string name="pref_header_language">भाषा</string>
     <string name="pref_header_library">पुस्तकालय</string>
     <string name="pref_header_lyrics">बोल</string>
@@ -335,20 +321,23 @@
     <string name="pref_header_playlists">प्लेलिस्ट</string>
     <string name="pref_header_search">खोज</string>
     <string name="pref_header_widgets">विजेट</string>
-    <string name="pref_keep_pause_on_zero_volume_title">शून्य पर रुकें</string>
-    <string name="pref_keep_screen_on_title">स्क्रीन ऑन करो</string>
-    <string name="pref_language_name">भाषा चुने</string>
     <string name="pref_summary_open_source_licences">ओपन सोर्स सॉफ़्टवेयर के लिए लाइसेंस विवरण</string>
     <string name="pref_summary_permissions_edit">इस ऐप से संबंधित अनुमतियाँ संशोधित करें</string>
+    <string name="pref_title_accent_color">उच्चारण रंग</string>
     <string name="pref_title_album_cover_style">एल्बम कवर थीम</string>
     <string name="pref_title_album_cover_transform">एल्बम कवर छोड़ें</string>
-    <string name="pref_title_appbar_mode">शीर्ष लेख शैली</string>
-    <string name="pref_title_audio_fade">फीका ऑडियो</string>
+    <string name="pref_title_apex_font">एपेक्स फ़ॉन्ट का उपयोग करें</string>
+    <string name="pref_title_appbar_color">हेडर का रंग हटाना</string>
+    <string name="pref_title_appbar_disable_scroll">हेडर स्क्रॉल अक्षम करें</string>
+    <string name="pref_title_audio_fade">ऑडियो फीका करें</string>
     <string name="pref_title_auto_action_1">बाएं एंड्रॉइड ऑटो एक्शन</string>
     <string name="pref_title_auto_action_2">सही एंड्रॉइड ऑटो एक्शन</string>
     <string name="pref_title_auto_download_artist_images">कलाकार छवियाँ स्वतः डाउनलोड करें</string>
     <string name="pref_title_auto_play">प्ले स्टेट रखें</string>
     <string name="pref_title_auto_rotate">स्क्रीन को घुमाना</string>
+    <string name="pref_title_black_nav_bar">काला नेविगेशन बार</string>
+    <string name="pref_title_black_theme">पूरा काला</string>
+    <string name="pref_title_bluetooth_delay">ब्लूटूथ विलंब</string>
     <string name="pref_title_bluetooth_device">ब्लूटूथ डिवाइस</string>
     <string name="pref_title_bluetooth_playback">ब्लूटूथ प्लेबैक</string>
     <string name="pref_title_color_animate">रंग एनीमेशन</string>
@@ -356,8 +345,8 @@
     <string name="pref_title_cross_fade">क्रॉसफ़ेड</string>
     <string name="pref_title_custom_font">फ़ॉन्ट</string>
     <string name="pref_title_desaturated_color">असंतृप्त रंग</string>
-    <string name="pref_title_disable_synced_lyrics_message">सिंक किए गए गीत संदेश अक्षम करें</string>
-    <string name="pref_title_disable_widgets">डिफ़ॉल्ट विजेट अक्षम करें</string>
+    <string name="pref_title_disable_queue">प्लेयर कतार अक्षम करें</string>
+    <string name="pref_title_disable_widgets">विजेट अक्षम करें</string>
     <string name="pref_title_duration">एकल अवधि</string>
     <string name="pref_title_expand_now_playing_panel">अभी चल रही स्क्रीन दिखाएँ</string>
     <string name="pref_title_extra_controls">अतिरिक्त नियंत्रण</string>
@@ -370,6 +359,9 @@
     <string name="pref_title_home_album_grid_style">एल्बम ग्रिड</string>
     <string name="pref_title_home_artist_grid_style">कलाकार ग्रिड</string>
     <string name="pref_title_ignore_media_store_artwork">मीडिया स्टोर कवर पर ध्यान न दें</string>
+    <string name="pref_title_keep_pause_on_zero">वॉल्यूम शून्य होने पर संगीत रोकें</string>
+    <string name="pref_title_keep_screen_on">स्क्रीन ऑन करो</string>
+    <string name="pref_title_language_name">भाषा चुने</string>
     <string name="pref_title_last_added_interval">अंतिम जोड़ा गया प्लेलिस्ट अंतराल</string>
     <string name="pref_title_lyrics_type">गीत के प्रकार</string>
     <string name="pref_title_md3">सामग्री आप</string>
@@ -389,7 +381,6 @@
     <string name="pref_title_search_action">फेरबदल की गई खोज क्रिया</string>
     <string name="pref_title_search_icon">हेडर में ध्वनि खोज</string>
     <string name="pref_title_shuffle_state">शफ़ल स्थिति रखें</string>
-    <string name="pref_title_simple_mode">सरल प्रकार</string>
     <string name="pref_title_specific_device">विशिष्ट उपकरण</string>
     <string name="pref_title_suggestions">सुझावों को दिखाओ</string>
     <string name="pref_title_swipe_anywhere_now_playing">ट्रैक बदलने के लिए कहीं भी स्वाइप करें</string>
@@ -398,10 +389,12 @@
     <string name="pref_title_toggle_carousel_effect">हिंडोला प्रभाव</string>
     <string name="pref_title_toggle_headset">वायर्ड हेडसेट प्लेबैक</string>
     <string name="pref_title_transparent_mini_player">अर्ध-पारदर्शी मिनी प्लेयर</string>
+    <string name="pref_title_transparent_widgets">पारदर्शी विजेट</string>
     <string name="pref_title_use_notification_actions_for_auto">अधिसूचना क्रियाओं का उपयोग करें</string>
     <string name="pref_title_whitelist">श्वेतसूची संगीत (/संगीत फ़ोल्डर)</string>
-    <string name="pref_title_widget_style">पारदर्शी विजेट</string>
+    <string name="proceed">आगे बढ़ना</string>
     <string name="queue">कतार बजाना</string>
+    <string name="queue_short">कतार</string>
     <string name="recent_albums">हाल के एल्बम</string>
     <string name="recent_artists">हाल के कलाकार</string>
     <string name="remaining">शेष</string>
@@ -415,6 +408,7 @@
     <string name="rename_playlist_title">प्लेलिस्ट का नाम बदलें</string>
     <string name="repeat">दोहराना</string>
     <string name="reset_action">रीसेट</string>
+    <string name="reset_categories">लाइब्रेरी श्रेणियाँ रीसेट करें</string>
     <string name="reset_settings">सेटिंग्स फिर से करिए</string>
     <string name="reset_settings_msg">सेटिंग्स को डिफ़ॉल्ट पर रीसेट करें?\n\nयह शफ़ल, ब्लूटूथ ऑटोप्ले सेटिंग और अन्य सहित सभी सेटिंग्स को रीसेट कर देगा\n\nयह ऐप रीसेट प्रक्रिया को पूरा करने के लिए पुनरारंभ होगा!</string>
     <string name="reset_artist_image">कलाकार छवि रीसेट करें</string>
@@ -496,10 +490,11 @@
     <string name="update_image">छवि अद्यतन करें</string>
     <string name="update_notify">अद्यतन अधिसूचना</string>
     <string name="updating">अपडेट हो रहा है…</string>
-    <string name="use_apex_font">एपेक्स फ़ॉन्ट का उपयोग करें</string>
     <string name="user_images_description">उपयोगकर्ता छवियाँ</string>
     <string name="version">संस्करण</string>
     <string name="vertical_flip">लंबवत फ्लिप</string>
+    <string name="warning_fade">चेतावनी! प्लेबैक में अप्रत्याशित समस्याएँ आ सकती हैं</string>
+    <string name="warning_fade_cancelled">परिवर्तन वापस लिए गए</string>
     <string name="web_search">वेब खोज</string>
     <string name="website">वेबसाइट</string>
     <string name="website_summary">हमारी वेबसाइट देखो</string>

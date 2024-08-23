@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.fragments.other
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -24,9 +25,11 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.text.toSpannable
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.ttop.app.apex.PROGRESS_BAR_STYLE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMiniPlayerBinding
 import com.ttop.app.apex.extensions.accentColor
@@ -41,11 +44,12 @@ import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.appthemehelper.util.ColorUtil
 import kotlin.math.abs
 
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
-    MusicProgressViewUpdateHelper.Callback, View.OnClickListener {
+    MusicProgressViewUpdateHelper.Callback, View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var _binding: FragmentMiniPlayerBinding? = null
     private val binding get() = _binding!!
@@ -84,7 +88,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         _binding = FragmentMiniPlayerBinding.bind(view)
 
         when (PreferenceUtil.progressBarStyle) {
-            "circular" -> {
+            "circular", "circular_no_track"-> {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.progressBarHorizontalTop.visibility = View.GONE
                 binding.progressBarHorizontalBottom.visibility = View.GONE
@@ -125,18 +129,25 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         binding.actionNext.setOnClickListener(this)
         binding.actionPrevious.setOnClickListener(this)
 
-        if (PreferenceUtil.materialYou) {
-            binding.actionNext.setColorFilter(binding.progressBar.indicatorColor[0])
-            binding.actionPrevious.setColorFilter(binding.progressBar.indicatorColor[0])
-        } else {
-            binding.actionNext.setColorFilter(accentColor())
-            binding.actionPrevious.setColorFilter(accentColor())
-        }
+        binding.actionNext.setColorFilter(accentColor())
+        binding.actionPrevious.setColorFilter(accentColor())
     }
 
     private fun setUpMiniPlayer() {
         setUpPlayPauseButton()
-        binding.progressBar.accentColor()
+
+        val colorFinal = ColorUtil.withAlpha(accentColor(), 0.4F)
+
+        binding.progressBar.setIndicatorColor(accentColor())
+
+        if (PreferenceUtil.progressBarStyle == "circular") {
+            binding.progressBar.trackColor = colorFinal
+        }
+
+        if (PreferenceUtil.progressBarStyle == "circular_no_track") {
+            binding.progressBar.trackColor = ContextCompat.getColor(requireContext(), R.color.transparent)
+        }
+
         binding.progressBarHorizontalTop.supportProgressTintList = context?.let {
             ThemeStore.accentColor(
                 it
@@ -153,11 +164,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private fun setUpPlayPauseButton() {
         binding.miniPlayerPlayPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
 
-        if (PreferenceUtil.materialYou) {
-            binding.miniPlayerPlayPauseButton.setColorFilter(binding.progressBar.indicatorColor[0])
-        } else {
-            binding.miniPlayerPlayPauseButton.setColorFilter(accentColor())
-        }
+        binding.miniPlayerPlayPauseButton.setColorFilter(accentColor())
     }
 
     private fun updateSongTitle() {
@@ -236,6 +243,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     override fun onResume() {
         super.onResume()
+        PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
         progressViewUpdateHelper.start()
     }
 
@@ -343,6 +351,49 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
 
     override fun onDestroyView() {
         super.onDestroyView()
+        PreferenceUtil.unregisterOnSharedPreferenceChangedListener(this)
         _binding = null
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            PROGRESS_BAR_STYLE -> {
+                when (PreferenceUtil.progressBarStyle) {
+                    "circular", "circular_no_track" -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.progressBarHorizontalTop.visibility = View.GONE
+                        binding.progressBarHorizontalBottom.visibility = View.GONE
+
+                        val colorFinal = ColorUtil.withAlpha(accentColor(), 0.4F)
+
+                        if (PreferenceUtil.progressBarStyle == "circular") {
+                            binding.progressBar.trackColor = colorFinal
+                        }
+
+                        if (PreferenceUtil.progressBarStyle == "circular_no_track") {
+                            binding.progressBar.trackColor = ContextCompat.getColor(requireContext(), R.color.transparent)
+                        }
+                    }
+
+                    "horizontal_top" -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarHorizontalTop.visibility = View.VISIBLE
+                        binding.progressBarHorizontalBottom.visibility = View.GONE
+                    }
+
+                    "horizontal_bottom" -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarHorizontalTop.visibility = View.GONE
+                        binding.progressBarHorizontalBottom.visibility = View.VISIBLE
+                    }
+
+                    "disabled" -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarHorizontalTop.visibility = View.GONE
+                        binding.progressBarHorizontalBottom.visibility = View.GONE
+                    }
+                }
+            }
+        }
     }
 }

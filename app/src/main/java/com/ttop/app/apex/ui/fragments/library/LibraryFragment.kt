@@ -102,10 +102,6 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
 
-        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-            menu.removeItem(R.id.action_settings)
-        }
-
         if (!ApexUtil.isTablet) {
             menu.removeItem(R.id.action_refresh)
         }
@@ -113,11 +109,6 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> findNavController().navigate(
-                R.id.settings_fragment,
-                null,
-                navOptions
-            )
             R.id.action_import_playlist -> ImportPlaylistDialog().show(
                 childFragmentManager,
                 "ImportPlaylist"

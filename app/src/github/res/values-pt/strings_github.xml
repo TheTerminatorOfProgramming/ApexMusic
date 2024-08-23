@@ -2,4 +2,5 @@
 <resources>
     <string name="all_files_summary">Permitir o acesso a todos os arquivos no dispositivo para música apex. Essa permissão é necessária para detectar backups automáticos</string>
     <string name="all_files_title">Gerenciar todos os arquivos de permissão</string>
+    <string name="all_files_granted">Gerenciar Permissões de Todos os Arquivos já concedido!</string>
 </resources>

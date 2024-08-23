@@ -184,12 +184,6 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         }
         binding.playbackControlsFragment.root.drawAboveSystemBars()
 
-        binding.queueIcon.setOnClickListener {
-            if (binding.playerQueueSheet.visibility == View.VISIBLE) {
-                playingQueueAdapter?.setButtonsActivate()
-            }
-        }
-
         embed.textSize = 24f
 
         playerToolbar()?.menu?.findItem(R.id.action_go_to_lyrics)?.isVisible =
@@ -269,6 +263,15 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                     SongShareDialog.create(song).show(childFragmentManager, "SHARE_SONG")
                 }
             }
+        }
+
+        binding.queueIcon.setOnClickListener {
+            if (getQueuePanel().state == STATE_EXPANDED) {
+                getQueuePanel().state = STATE_COLLAPSED
+            }else {
+                getQueuePanel().state = STATE_EXPANDED
+            }
+
         }
     }
 
@@ -451,6 +454,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         binding.mask.backgroundTintList = ColorStateList.valueOf(color.backgroundColor)
         binding.colorBackground.setBackgroundColor(color.backgroundColor)
         binding.playerQueueSheet.setBackgroundColor(ColorUtil.darkenColor(color.backgroundColor))
+        binding.container.setBackgroundColor(color.backgroundColor)
 
         lastPlaybackControlsColor = color.primaryTextColor
 
@@ -739,7 +743,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             recyclerViewDragDropManager?.attachRecyclerView(this)
         }
 
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
     }
 
     override fun onDestroyView() {
@@ -766,7 +770,7 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
 
     private fun resetToCurrentPosition() {
         binding.recyclerView.stopScroll()
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
     }
 
     private fun setUpProgressSlider() {

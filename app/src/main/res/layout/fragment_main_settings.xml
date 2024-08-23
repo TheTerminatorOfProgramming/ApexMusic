@@ -11,8 +11,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/mini_player_height">
+        android:orientation="vertical" >
         <com.ttop.app.apex.views.SettingListItemView
             android:id="@+id/generalSettings"
             android:layout_width="match_parent"
@@ -93,14 +92,5 @@
             app:settingListItemIconColor="@color/md_light_green_A400"
             app:settingListItemText="@string/about_settings_summary"
             app:settingListItemTitle="@string/action_about" />
-
-        <com.ttop.app.apex.views.SettingListItemView
-            android:id="@+id/labsSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:settingListItemIcon="@drawable/ic_code"
-            app:settingListItemIconColor="@color/md_grey_400"
-            app:settingListItemText="@string/labs_summary"
-            app:settingListItemTitle="@string/labs_title" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

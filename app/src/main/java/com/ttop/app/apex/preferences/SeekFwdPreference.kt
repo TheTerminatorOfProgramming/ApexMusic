@@ -11,7 +11,6 @@ import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
-import com.ttop.app.apex.databinding.PreferenceDialogCrossFadeBinding
 import com.ttop.app.apex.databinding.PreferenceDialogSeekBinding
 import com.ttop.app.apex.extensions.addAccentColor
 import com.ttop.app.apex.extensions.centeredColorButtons

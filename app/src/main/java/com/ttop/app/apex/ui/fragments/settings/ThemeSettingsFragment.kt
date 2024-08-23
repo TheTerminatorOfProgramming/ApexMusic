@@ -24,7 +24,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
@@ -66,7 +65,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
         val accentColorPref: ATEColorPreference? = findPreference(ACCENT_COLOR)
         val accentColor = ThemeStore.accentColor(requireContext())
         accentColorPref?.setColor(accentColor, ColorUtil.darkenColor(accentColor))
-        accentColorPref?.setOnPreferenceClickListener {
+        val hexColor = String.format("#%06X", (0xFFFFFF and accentColor))
+        setSummary(accentColorPref!!, hexColor)
+        accentColorPref.setOnPreferenceClickListener {
             materialDialog().show {
                 colorChooser(
                     initialSelection = accentColor,
@@ -77,6 +78,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 ) { _, color ->
                     ThemeStore.editTheme(requireContext()).accentColor(color).commit()
                     DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+                    setSummary(accentColorPref, hexColor)
                     restartActivity()
                 }
                 negativeButton(res = R.string.reset_action) {
@@ -158,12 +160,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val progressBarStyle: ATEListPreference? = findPreference(PROGRESS_BAR_STYLE)
-        progressBarStyle?.setOnPreferenceChangeListener { _, _ ->
-            restartActivity()
-            true
-        }
-
         val apexFont: TwoStatePreference? = findPreference(APEX_FONT)
         apexFont?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
@@ -175,6 +171,14 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val swipeGesturesNonFoldable: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE_NON_FOLDABLE)
         swipeGesturesNonFoldable?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            true
+        }
+
+        val transparentMiniPlayer: TwoStatePreference? = findPreference(TRANSPARENT_MINI_PLAYER)
+        transparentMiniPlayer?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
@@ -230,23 +234,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         if (PreferenceUtil.baseTheme == "light") {
             blackTheme?.isEnabled = false
-        }
-
-        val font: PreferenceCategory? = findPreference("fonts")
-        font?.isVisible = !PreferenceUtil.isSimpleMode
-
-        val extraControls: TwoStatePreference? = findPreference(TOGGLE_ADD_CONTROLS)
-        val swipeGestures: ATEListPreference? = findPreference(TOGGLE_MINI_SWIPE)
-        val swipeGesturesNonFoldable: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE_NON_FOLDABLE)
-
-        if (PreferenceUtil.isSimpleMode) {
-            extraControls?.isVisible = false
-            swipeGestures?.isVisible = false
-            swipeGesturesNonFoldable?.isVisible = false
-        }else {
-            extraControls?.isVisible = true
-            swipeGestures?.isVisible = true
-            swipeGesturesNonFoldable?.isVisible = true
         }
     }
 }

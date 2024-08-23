@@ -40,7 +40,6 @@ import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.generalThemeValue
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -56,6 +55,7 @@ import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Live
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
 import com.ttop.app.apex.util.MusicUtil
@@ -143,22 +143,17 @@ class AlbumCoverPagerAdapter(
                         if (!PreferenceUtil.isHapticFeedbackDisabled) {
                             requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         }
+
                         PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                        if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics) {
+                        PreferenceUtil.showLyricsTablet = PreferenceUtil.showLyrics
+
+                        if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) {
                             mainActivity.keepScreenOn(true)
-                        } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics) {
+                        } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics && !PreferenceUtil.showLyricsTablet) {
                             mainActivity.keepScreenOn(false)
                         }
-
-                        if (!PreferenceUtil.isSyncedLyricsMessageDisabled) {
-                            if (PreferenceUtil.showLyrics) {
-                                showToast(getString(R.string.cover_lyrics_on))
-                            }else {
-                                showToast(getString(R.string.cover_lyrics_off))
-                            }
-                        }
-
                     }
+
                     return super.onDoubleTap(e)
                 }
 
@@ -173,12 +168,14 @@ class AlbumCoverPagerAdapter(
 
                 override fun onLongPress(e: MotionEvent) {
                     if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
-                        val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
-                        if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(PreferenceUtil.nowPlayingScreen) || PreferenceUtil.lyricsMode == "both" && !nps.contains(PreferenceUtil.nowPlayingScreen)) {
-                            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        if (PreferenceUtil.nowPlayingScreen != Live) {
+                            val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
+                            if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(PreferenceUtil.nowPlayingScreen) || PreferenceUtil.lyricsMode == "both" && !nps.contains(PreferenceUtil.nowPlayingScreen)) {
+                                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                                }
+                                showLyricsDialog()
                             }
-                            showLyricsDialog()
                         }
                     }
                     super.onLongPress(e)
@@ -329,6 +326,9 @@ class AlbumCoverPagerAdapter(
                     }
                 }
                 Gradient -> {
+                    R.layout.fragment_album_full_cover
+                }
+                Live -> {
                     R.layout.fragment_album_full_cover
                 }
                 Minimal -> {

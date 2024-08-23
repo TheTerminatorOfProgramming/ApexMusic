@@ -15,14 +15,12 @@
 package com.ttop.app.apex.ui.fragments.about
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.*
 import android.provider.Settings
 import android.view.View
-import android.widget.TextView
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -40,7 +38,6 @@ import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.utils.GithubUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
@@ -52,27 +49,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
     private val libraryViewModel by activityViewModel<LibraryViewModel>()
-    private var count: Int = 0
-    private val timer = object: CountDownTimer(5000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {}
 
-        override fun onFinish() {
-            if (count==10){
-                PreferenceUtil.isDevModeEnabled = true
-                showToast(R.string.dev_options_on)
-            }
-
-            count =0
-
-            if (!PreferenceUtil.isDevModeEnabled) {
-                binding.aboutContent.cardOther.devMode.visibility = View.GONE
-                binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
-            } else {
-                binding.aboutContent.cardOther.devMode.visibility = View.VISIBLE
-                binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.on) as String)
-            }
-        }
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAboutBinding.bind(view)
@@ -88,14 +65,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             type(navigationBars = true) {
                 padding(vertical = true)
             }
-        }
-
-        if (!PreferenceUtil.isDevModeEnabled) {
-            binding.aboutContent.cardOther.devMode.visibility = View.GONE
-            binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
-        } else {
-            binding.aboutContent.cardOther.devMode.visibility = View.VISIBLE
-            binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.on) as String)
         }
     }
 
@@ -122,10 +91,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardPermissions.ringtonePermission.setOnClickListener(this)
         binding.aboutContent.cardPermissions.allFilesPermission.setOnClickListener(this)
         binding.aboutContent.cardPermissions.intro.setOnClickListener(this)
-        if (!PreferenceUtil.isDevModeEnabled) {
-            binding.aboutContent.cardOther.version.setOnClickListener(this)
-        }
-        binding.aboutContent.cardOther.devMode.setOnClickListener(this)
         binding.aboutContent.cardTroubleshoot.forceClose.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.telegramLink.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.crowdinLink.setOnClickListener(this)
@@ -155,113 +120,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     AppIntroActivityAbout::class.java
                 )
             )
-            R.id.version -> {
-                if (!PreferenceUtil.isDevModeEnabled) {
-                    if (count == 0) {
-                        count += 1
-                        timer.start()
-                    } else {
-                        if (count < 9) {
-                            count += 1
-                        } else {
-                            timer.cancel()
-                            showToast(R.string.dev_options_on)
-                            PreferenceUtil.isDevModeEnabled = true
-                            count = 0
-                            binding.aboutContent.cardOther.version.isClickable = false
-                        }
-                    }
-                } else {
-                    showToast(R.string.dev_options_on_already)
-                }
-
-                if (!PreferenceUtil.isDevModeEnabled) {
-                    binding.aboutContent.cardOther.devMode.visibility = View.GONE
-                    binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
-                } else {
-                    binding.aboutContent.cardOther.devMode.visibility = View.VISIBLE
-                    binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.on) as String)
-                }
-            }
-            R.id.devMode -> {
-                val builder = AlertDialog.Builder(requireContext())
-                builder.setTitle(R.string.developer_mode)
-                builder.setMessage(R.string.dev_options_off)
-
-                builder.setPositiveButton(R.string.yes) { _, _ ->
-                    PreferenceUtil.isDevModeEnabled = false
-
-                    binding.aboutContent.cardOther.devMode.setSummary(getText(R.string.off) as String)
-
-                    binding.aboutContent.cardOther.devMode.visibility = View.GONE
-
-                    binding.aboutContent.cardOther.version.isClickable = true
-
-                    activity?.recreate()
-                }
-
-                builder.setNegativeButton(R.string.no) { _, _ ->
-                }
-                val alert = builder.create()
-                alert.show()
-
-                val textViewMessage: TextView? = alert.findViewById(android.R.id.message)
-
-                when (PreferenceUtil.fontSize) {
-                    "12" -> {
-                        textViewMessage!!.textSize = 12f
-                    }
-
-                    "13" -> {
-                        textViewMessage!!.textSize = 13f
-                    }
-
-                    "14" -> {
-                        textViewMessage!!.textSize = 14f
-                    }
-
-                    "15" -> {
-                        textViewMessage!!.textSize = 15f
-                    }
-
-                    "16" -> {
-                        textViewMessage!!.textSize = 16f
-                    }
-
-                    "17" -> {
-                        textViewMessage!!.textSize = 17f
-                    }
-
-                    "18" -> {
-                        textViewMessage!!.textSize = 18f
-
-                    }
-
-                    "19" -> {
-                        textViewMessage!!.textSize = 19f
-                    }
-
-                    "20" -> {
-                        textViewMessage!!.textSize = 20f
-                    }
-
-                    "21" -> {
-                        textViewMessage!!.textSize = 21f
-                    }
-
-                    "22" -> {
-                        textViewMessage!!.textSize = 22f
-                    }
-
-                    "23" -> {
-                        textViewMessage!!.textSize = 23f
-                    }
-
-                    "24" -> {
-                        textViewMessage!!.textSize = 24f
-                    }
-                }
-            }
             R.id.force_close -> {
                 val id = Process.myPid()
                 Process.killProcess(id)
@@ -426,6 +284,5 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        timer.cancel()
     }
 }

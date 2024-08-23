@@ -42,8 +42,10 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.ttop.app.apex.EXTRA_ALBUM_ID
+import com.ttop.app.apex.LYRICS_MODE
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.R
+import com.ttop.app.apex.SHOW_LYRICS_TABLET
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentBlurPlayerBinding
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
@@ -68,6 +70,7 @@ import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
 import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
+import com.ttop.app.apex.ui.fragments.player.LRCFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
@@ -95,7 +98,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
     }
 
     private lateinit var playbackControlsFragment: BlurPlaybackControlsFragment
-
+    private var lrcFragment: LRCFragment? = null
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
     private var recyclerViewDragDropManager: RecyclerViewDragDropManager? = null
     private var recyclerViewTouchActionGuardManager: RecyclerViewTouchActionGuardManager? = null
@@ -121,11 +124,8 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         embed.textSize = 24f
         embed.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
 
-        if (PreferenceUtil.lyricsMode == "disabled" || PreferenceUtil.lyricsMode == "synced") {
-            playerToolbar().menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = false
-        }else {
-            playerToolbar().menu?.findItem(R.id.action_go_to_lyrics)?.isVisible = true
-        }
+        playerToolbar().menu?.findItem(R.id.action_go_to_lyrics)?.isVisible =
+            !(PreferenceUtil.lyricsMode == "disabled" || PreferenceUtil.lyricsMode == "synced")
     }
 
     private fun setUpSubFragments() {
@@ -133,6 +133,12 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         val playerAlbumCoverFragment: PlayerAlbumCoverFragment =
             whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment.setCallbacks(this)
+
+        if (ApexUtil.isTablet) {
+            lrcFragment =
+                childFragmentManager.findFragmentById(R.id.lrcFragment) as LRCFragment
+            lrcFragment!!.setCallbacks(this)
+        }
     }
 
     private fun setUpPlayerToolbar() {
@@ -329,20 +335,53 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
             }
             R.id.action_go_to_lyrics -> {
                 if (ApexUtil.isTablet) {
-                    if (binding.playerQueueSheet.visibility == View.VISIBLE){
-                        binding.playerQueueSheet.visibility = View.GONE
-                        scroll.visibility = View.VISIBLE
-
-                        if (PreferenceUtil.lyricsScreenOn) {
-                            mainActivity.keepScreenOn(true)
-                        }else {
-                            mainActivity.keepScreenOn(false)
+                    when (PreferenceUtil.lyricsMode) {
+                        "disabled", "synced" -> {
                         }
-                    }else{
-                        binding.playerQueueSheet.visibility = View.VISIBLE
-                        scroll.visibility = View.GONE
+                        "id3" -> {
+                            if (binding.playerQueueSheet.visibility == View.VISIBLE){
+                                binding.playerQueueSheet.visibility = View.GONE
+                                scroll.visibility = View.VISIBLE
 
-                        mainActivity.keepScreenOn(false)
+                                if (PreferenceUtil.lyricsScreenOn) {
+                                    mainActivity.keepScreenOn(true)
+                                }else {
+                                    mainActivity.keepScreenOn(false)
+                                }
+                            }else {
+                                binding.playerQueueSheet.visibility = View.VISIBLE
+                                scroll.visibility = View.GONE
+
+                                mainActivity.keepScreenOn(false)
+                            }
+                        }
+                        "both" -> {
+                            if (PreferenceUtil.showLyricsTablet) {
+                                if (binding.lrcFragment?.visibility == View.VISIBLE) {
+                                    binding.lrcFragment?.visibility = View.GONE
+                                    scroll.visibility = View.VISIBLE
+                                }else {
+                                    binding.lrcFragment?.visibility = View.VISIBLE
+                                    scroll.visibility = View.GONE
+                                }
+                            }else {
+                                if (binding.playerQueueSheet.visibility == View.VISIBLE){
+                                    binding.playerQueueSheet.visibility = View.GONE
+                                    scroll.visibility = View.VISIBLE
+
+                                    if (PreferenceUtil.lyricsScreenOn) {
+                                        mainActivity.keepScreenOn(true)
+                                    }else {
+                                        mainActivity.keepScreenOn(false)
+                                    }
+                                }else {
+                                    binding.playerQueueSheet.visibility = View.VISIBLE
+                                    scroll.visibility = View.GONE
+
+                                    mainActivity.keepScreenOn(false)
+                                }
+                            }
+                        }
                     }
                 }else {
                     binding.playerQueueSheet.visibility = View.GONE
@@ -360,7 +399,6 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
                         scroll.visibility = View.GONE
 
                         binding.playerAlbumCoverFragment.alpha = 1f
-
                         mainActivity.keepScreenOn(false)
                     }
                 }
@@ -377,6 +415,9 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         playbackControlsFragment.setColor(color)
         lastColor = color.backgroundColor
         libraryViewModel.updateColor(color.backgroundColor)
+        if (ApexUtil.isTablet) {
+            lrcFragment?.notifyColorChange(color)
+        }
         ToolbarContentTintHelper.colorizeToolbar(binding.playerToolbar, Color.WHITE, activity)
         playingQueueAdapter?.setTextColor(color.secondaryTextColor)
     }
@@ -517,7 +558,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         binding.recyclerView.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
         binding.recyclerView.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
 
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
     }
 
     private fun updateQueuePosition() {
@@ -532,7 +573,7 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
 
     private fun resetToCurrentPosition() {
         binding.recyclerView.stopScroll()
-        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
     }
 
     override fun onQueueChanged() {
@@ -588,8 +629,30 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == NEW_BLUR_AMOUNT) {
-            updateBlur()
+        when (key) {
+            NEW_BLUR_AMOUNT -> {
+                updateBlur()
+            }
+            SHOW_LYRICS_TABLET -> {
+                if (ApexUtil.isTablet) {
+                    //modified
+                    if (PreferenceUtil.lyricsMode == "synced" && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet|| PreferenceUtil.lyricsMode == "both" && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) {
+                        if (binding.scroll.visibility == View.GONE) {
+                            binding.lrcFragment?.visibility = View.VISIBLE
+                            binding.playerQueueSheet.visibility = View.GONE
+                        }
+                    } else {
+                        binding.lrcFragment?.visibility = View.GONE
+                        binding.playerQueueSheet.visibility = View.VISIBLE
+                    }
+                }
+            }
+            LYRICS_MODE -> {
+                if (PreferenceUtil.lyricsMode == "id3" || PreferenceUtil.lyricsMode == "disabled") {
+                    PreferenceUtil.showLyrics = false
+                    PreferenceUtil.showLyricsTablet = false
+                }
+            }
         }
     }
 }

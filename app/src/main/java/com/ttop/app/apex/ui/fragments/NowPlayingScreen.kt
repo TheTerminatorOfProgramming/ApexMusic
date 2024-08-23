@@ -32,6 +32,7 @@ enum class NowPlayingScreen constructor(
     Card(R.string.card, R.drawable.player_card, 2, AlbumCoverStyle.Full),
     Classic(R.string.classic, R.drawable.player_classic, 3, AlbumCoverStyle.Normal),
     Gradient(R.string.gradient, R.drawable.player_gradient, 4, AlbumCoverStyle.Full),
+    Live(R.string.live, R.drawable.player_live, 7, AlbumCoverStyle.Full),
     Minimal(R.string.minimal, R.drawable.player_minimal, 6, null),
     Peek(R.string.peek, R.drawable.player_peek, 5, AlbumCoverStyle.Full),
 }

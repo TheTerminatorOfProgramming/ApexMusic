@@ -2,4 +2,5 @@
 <resources>
     <string name="all_files_summary">端末上のすべてのファイルへのアクセスを許可します。この権限は、自動的に Apex バックアップを検出するために必要です。</string>
     <string name="all_files_title">すべてのファイル権限を管理</string>
+    <string name="all_files_granted">すでに許可されているすべてのファイルを管理する！</string>
 </resources>

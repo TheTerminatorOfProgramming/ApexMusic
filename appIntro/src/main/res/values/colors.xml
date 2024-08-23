@@ -4,7 +4,6 @@
     <color name="appintro_background_color">#222222</color>
     <color name="appintro_title_color">#FFFFFF</color>
     <color name="appintro_desc_color">#FFFFFF</color>
-    <color name="appintro_separator_color">#22000000</color>
     <color name="appintro_bar_color">@android:color/transparent</color>
     <color name="appintro_default_fab_background_color">#59000000</color>
     <color name="appintro_icon_tint">#FFFFFF</color>

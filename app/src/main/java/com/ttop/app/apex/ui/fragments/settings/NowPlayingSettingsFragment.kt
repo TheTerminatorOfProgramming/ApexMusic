@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.ADAPTIVE_COLOR_APP
 import com.ttop.app.apex.ALBUM_COVER_STYLE
@@ -28,31 +27,32 @@ import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.CIRCULAR_ALBUM_ART
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION
+import com.ttop.app.apex.DISABLE_QUEUE
 import com.ttop.app.apex.DURATION_SAME
-import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
 import com.ttop.app.apex.FAST_FORWARD_DURATION
 import com.ttop.app.apex.LYRICS_MODE
+import com.ttop.app.apex.NAV_BAR_BLACK
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
-import com.ttop.app.apex.QUEUE_STYLE
-import com.ttop.app.apex.QUEUE_STYLE_LAND
 import com.ttop.app.apex.R
 import com.ttop.app.apex.REWIND_DURATION
 import com.ttop.app.apex.SCREEN_ON_LYRICS
 import com.ttop.app.apex.SHUFFLE_STATE
-import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TOGGLE_AUTOPLAY
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Live
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-
-/**
- * @author Hemanth S (h4h13).
- */
 
 class NowPlayingSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -85,49 +85,33 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         }
 
         val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
-        colorAnimate?.isChecked = PreferenceUtil.isColorAnimate
-
-        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
-            colorAnimate?.isEnabled = false
-            colorAnimate?.isChecked = false
-        }
-
         colorAnimate?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
-            restartActivity()
             true
         }
 
         val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
-        adaptiveColor?.isEnabled =
-            PreferenceUtil.nowPlayingScreen in listOf(
-                NowPlayingScreen.Adaptive,
-                NowPlayingScreen.Card,
-                NowPlayingScreen.Classic,
-                NowPlayingScreen.Peek,
-            )
-
-        adaptiveColor?.setOnPreferenceChangeListener { _, _ ->
+        adaptiveColor?.setOnPreferenceChangeListener { _, newValue ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
-            restartActivity()
+
+            val adaptiveColorEnabled = newValue as Boolean
+            val nps = PreferenceUtil.nowPlayingScreen
+            val npsList = listOf(Adaptive, Card, Classic, Live)
+            val blackNavBar: ATESwitchPreference? = findPreference(NAV_BAR_BLACK)
+
+            blackNavBar?.isEnabled = PreferenceUtil.isBlackMode && adaptiveColorEnabled && npsList.contains(nps)
             true
         }
 
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
-        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
-            playerBG?.isEnabled = false
-            playerBG?.isChecked = false
-        }
-
         playerBG?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
-            restartActivity()
             true
         }
 
@@ -164,23 +148,9 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
             val enabled = newValue as Boolean
 
-            if (enabled) {
-                PreferenceUtil.rewindDuration =  PreferenceUtil.fastForwardDuration
-            }
+            PreferenceUtil.rewindDuration =  PreferenceUtil.fastForwardDuration
             rwdDuration?.isEnabled = !enabled
 
-            true
-        }
-
-        val queueStyle: ATEListPreference? = findPreference(QUEUE_STYLE)
-        queueStyle?.setOnPreferenceChangeListener { _, _ ->
-            restartActivity()
-            true
-        }
-
-        val queueStyleLand: ATEListPreference? = findPreference(QUEUE_STYLE_LAND)
-        queueStyleLand?.setOnPreferenceChangeListener { _, _ ->
-            restartActivity()
             true
         }
 
@@ -196,10 +166,41 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         lyricsType?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue == "disabled") {
                 PreferenceUtil.showLyrics = false
+                PreferenceUtil.showLyricsTablet = false
+            }
+            true
+        }
+
+        val blackNavBar: ATESwitchPreference? = findPreference(NAV_BAR_BLACK)
+        blackNavBar?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            true
+        }
+
+        val playerQueueDisabled: ATESwitchPreference? = findPreference(DISABLE_QUEUE)
+        playerQueueDisabled?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
             true
         }
     }
+
+    private fun blackNavBarEnabled() {
+        val nps = PreferenceUtil.nowPlayingScreen
+        val npsList = listOf(Adaptive, Card, Classic, Live)
+        val blackNavBar: ATESwitchPreference? = findPreference(NAV_BAR_BLACK)
+
+        if (PreferenceUtil.isBlackMode && PreferenceUtil.isAdaptiveColor && npsList.contains(nps)) {
+            blackNavBar?.isEnabled = true
+        }else {
+            blackNavBar?.isEnabled = false
+            blackNavBar?.isChecked = false
+        }
+    }
+
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (ApexUtil.isFoldable(requireContext())) {
@@ -209,47 +210,97 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         }
 
         val newBlur: Preference? = findPreference(NEW_BLUR_AMOUNT)
-        newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
+        newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == Blur
 
-        val lyrics: PreferenceCategory? = findPreference("lyrics")
-        lyrics?.isVisible = !PreferenceUtil.isSimpleMode
+        blackNavBarEnabled()
 
+        val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
         val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
-        val swipeAnywhere: ATEListPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING)
-        val swipeAnywhereNonFoldable: ATESwitchPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE)
-        val expandPanel: ATEListPreference? = findPreference(EXPAND_NOW_PLAYING_PANEL)
         val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
-        val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
-        val lyricsType: ATEListPreference? = findPreference(LYRICS_MODE)
+        val customToolbar: Preference? = findPreference(CUSTOMIZABLE_TOOLBAR_ACTION)
 
-        if (PreferenceUtil.isSimpleMode) {
-            playerBG?.isVisible = false
-            colorAnimate?.isVisible = false
-            swipeAnywhere?.isVisible = false
-            swipeAnywhereNonFoldable?.isVisible = false
-            expandPanel?.isVisible = false
-            carouselEffect?.isVisible = false
-            lyricsScreenOn?.isVisible = false
-            lyricsType?.isVisible = false
-        }else {
-            playerBG?.isVisible = true
-            colorAnimate?.isVisible = true
-            swipeAnywhere?.isVisible = true
-            swipeAnywhereNonFoldable?.isVisible = true
-            expandPanel?.isVisible = true
-            carouselEffect?.isVisible = true
-            lyricsScreenOn?.isVisible = true
-            lyricsType?.isVisible = true
-        }
-
-        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Card || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Gradient || PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Minimal) {
-            if (PreferenceUtil.isCarouselEffect) {
+        when (PreferenceUtil.nowPlayingScreen) {
+            Adaptive -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
             }
-        }else {
-            carouselEffect?.isEnabled = true
+            Blur -> {
+                adaptiveColor?.isEnabled = false
+                adaptiveColor?.isChecked = false
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = true
+                carouselEffect?.isEnabled = true
+                customToolbar?.isEnabled = true
+            }
+            Card -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
+                carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
+                customToolbar?.isEnabled = true
+            }
+            Classic -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
+                newBlur?.isVisible = false
+                carouselEffect?.isEnabled = true
+                customToolbar?.isEnabled = true
+            }
+            Gradient -> {
+                adaptiveColor?.isEnabled = false
+                adaptiveColor?.isChecked = false
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
+                carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
+                customToolbar?.isEnabled = true
+            }
+            Live -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
+                newBlur?.isVisible = false
+                carouselEffect?.isEnabled = true
+                PreferenceUtil.customToolbarAction = "disabled"
+            }
+            Minimal -> {
+                adaptiveColor?.isEnabled = false
+                adaptiveColor?.isChecked = false
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
+                carouselEffect?.isChecked = false
+                carouselEffect?.isEnabled = false
+                customToolbar?.isEnabled = true
+            }
+            Peek -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
+                newBlur?.isVisible = false
+                carouselEffect?.isEnabled = true
+                customToolbar?.isEnabled = true
+            }
         }
     }
 
@@ -263,70 +314,95 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
 
         val adaptiveColor: ATESwitchPreference? = findPreference(ADAPTIVE_COLOR_APP)
-        adaptiveColor?.isEnabled =
-            PreferenceUtil.nowPlayingScreen in listOf(
-                NowPlayingScreen.Adaptive,
-                NowPlayingScreen.Card,
-                NowPlayingScreen.Classic,
-                NowPlayingScreen.Peek
-            )
-
-        if (adaptiveColor?.isEnabled == false) {
-            adaptiveColor.isChecked = false
-        }
-
-        val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
-        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
-            colorAnimate?.isEnabled = false
-            colorAnimate?.isChecked = false
-        }
-
         val playerBG: ATESwitchPreference? = findPreference(PLAYER_BACKGROUND)
-        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Adaptive) {
-            playerBG?.isEnabled = false
-            playerBG?.isChecked = false
-        }
-
+        val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
         val newBlur: Preference? = findPreference(NEW_BLUR_AMOUNT)
-        newBlur?.isVisible = PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur
-
         val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
         val customToolbar: Preference? = findPreference(CUSTOMIZABLE_TOOLBAR_ACTION)
+
         when (PreferenceUtil.nowPlayingScreen) {
-            NowPlayingScreen.Adaptive -> {
+            Adaptive -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
-                customToolbar?.isEnabled = false
-                PreferenceUtil.customToolbarAction = "disabled"
             }
-            NowPlayingScreen.Blur -> {
+            Blur -> {
+                adaptiveColor?.isEnabled = false
+                adaptiveColor?.isChecked = false
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = true
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
-            NowPlayingScreen.Card -> {
+            Card -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
-            NowPlayingScreen.Classic -> {
+            Classic -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
+                newBlur?.isVisible = false
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
-            NowPlayingScreen.Gradient -> {
+            Gradient -> {
+                adaptiveColor?.isEnabled = false
+                adaptiveColor?.isChecked = false
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
-            NowPlayingScreen.Minimal -> {
+            Live -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
+                newBlur?.isVisible = false
+                carouselEffect?.isEnabled = true
+                customToolbar?.isEnabled = true
+            }
+            Minimal -> {
+                adaptiveColor?.isEnabled = false
+                adaptiveColor?.isChecked = false
+                playerBG?.isEnabled = false
+                playerBG?.isChecked = false
+                colorAnimate?.isEnabled = false
+                colorAnimate?.isChecked = false
+                newBlur?.isVisible = false
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
-            NowPlayingScreen.Peek -> {
+            Peek -> {
+                adaptiveColor?.isEnabled = true
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
+                newBlur?.isVisible = false
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
         }
+        blackNavBarEnabled()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -353,8 +429,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             }
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
-            LYRICS_MODE,
-            CUSTOMIZABLE_TOOLBAR_ACTION -> restartActivity()
         }
     }
 }

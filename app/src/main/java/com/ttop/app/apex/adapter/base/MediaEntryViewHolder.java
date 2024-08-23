@@ -39,6 +39,9 @@ public class MediaEntryViewHolder extends AbstractDraggableSwipeableItemViewHold
     public ImageView image;
 
     @Nullable
+    public AppCompatImageView imagePlaying;
+
+    @Nullable
     public MaterialCardView imageContainerCard;
 
     @Nullable
@@ -86,6 +89,7 @@ public class MediaEntryViewHolder extends AbstractDraggableSwipeableItemViewHold
         imageContainer = itemView.findViewById(R.id.imageContainer);
 
         menu = itemView.findViewById(R.id.menu);
+        imagePlaying = itemView.findViewById(R.id.imagePlaying);
         dragView = itemView.findViewById(R.id.drag_view);
         paletteColorContainer = itemView.findViewById(R.id.paletteColorContainer);
         mask = itemView.findViewById(R.id.mask);

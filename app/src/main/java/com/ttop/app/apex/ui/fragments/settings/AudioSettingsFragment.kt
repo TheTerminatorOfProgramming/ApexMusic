@@ -24,7 +24,6 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.AUTO_DOWNLOAD_IMAGES_POLICY
 import com.ttop.app.apex.BLUETOOTH_DEVICE
@@ -39,6 +38,7 @@ import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+
 
 /**
  * @author Hemanth S (h4h13).
@@ -113,12 +113,12 @@ class AudioSettingsFragment : AbsSettingsFragment() {
         if (context?.let { ContextCompat.checkSelfPermission(it, BLUETOOTH_CONNECT) }
             == PERMISSION_GRANTED) {
             val pairedDevices = mBluetoothAdapter.bondedDevices
-            for (bt in pairedDevices){
-                address.add(bt.address)
-            }
-
-            for (bt in pairedDevices){
-                name.add(bt.name)
+            val sortedBtList = pairedDevices.sortedBy { it.name }
+            for (bt in sortedBtList){
+                if (!name.contains(bt.name)) {
+                    name.add(bt.name)
+                    address.add(bt.address)
+                }
             }
         }
 
@@ -128,9 +128,6 @@ class AudioSettingsFragment : AbsSettingsFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_audio)
-
-        val autoplays: PreferenceCategory? = findPreference("autoplays")
-        autoplays?.isVisible = !PreferenceUtil.isSimpleMode
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

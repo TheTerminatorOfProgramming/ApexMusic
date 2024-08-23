@@ -2,7 +2,6 @@
 <resources>
     <string name="about_album_label">Sobre %s</string>
     <string name="about_settings_summary">Equipe, links sociais</string>
-    <string name="accent_color">Cor do acento</string>
     <string name="action_about">SOBRE</string>
     <string name="action_add_to_blacklist">Adicionar à lista negra</string>
     <string name="action_add_to_favorites">Adicionar aos Favoritos</string>
@@ -74,10 +73,6 @@
         <item quantity="many">álbuns</item>
     </plurals>
     <string name="always">sempre</string>
-    <string name="appbar_mode_expanded">Expandido</string>
-    <string name="appbar_mode_expanded_no_scroll">Expandido (Sem Scroll)</string>
-    <string name="appbar_mode_simple">Simples</string>
-    <string name="appbar_mode_simple_no_scroll">Simples (Sem Scroll)</string>
     <string name="apex_music">Música de Apex</string>
     <string name="app_share">Ei, veja este player de música legal em: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Aleatório</string>
@@ -103,8 +98,8 @@
     <string name="biography">Biografia</string>
     <string name="biometric_authenticate_description">Por favor, autentique-se para continuar.</string>
     <string name="biometric_authenticate_subtitle">Autenticação</string>
-    <string name="black_theme_name">Jato Preto</string>
     <string name="blacklist">Lista Negra</string>
+    <string name="bluetooth_delay">Atraso do Bluetooth</string>
     <string name="bluetooth_summary">O aplicativo precisa de permissão de dispositivos próximos para verificar por dispositivos bluetooth</string>
     <string name="bluetooth_title">Dispositivos próximos</string>
     <string name="blur">Blur</string>
@@ -119,17 +114,17 @@
     <string name="changelog_summary">Veja as novidades</string>
     <string name="choose_restore_title">Escolha o que restaurar</string>
     <string name="circular">Circular</string>
+    <string name="circular_no_track">Circular (Sem Rastreamento)</string>
     <string name="classic">Clássico</string>
     <string name="clear_action">Limpar</string>
     <string name="clear_blacklist">Limpar lista negra</string>
     <string name="clear_history">Limpar Histórico</string>
     <string name="clear_playing_queue">Limpar fila</string>
+    <string name="clear_playing_queue_notification">Limpar fila</string>
     <string name="close">FECHAR</string>
     <string name="colors">Cores</string>
     <string name="composer">compositor</string>
     <string name="could_not_write_tags_to_file">Não foi possível gravar etiquetas no arquivo de música!</string>
-    <string name="cover_lyrics_off">Letra da capa oculta</string>
-    <string name="cover_lyrics_on">Letra da capa exibida</string>
     <string name="create_action">Crio</string>
     <string name="create_new_backup">Crio</string>
     <string name="credit_title">Desenvolvedores &amp; Colaboradores</string>
@@ -147,10 +142,6 @@
     <string name="denied">Negado</string>
     <string name="depth">Profundidade</string>
     <string name="design">projeto</string>
-    <string name="dev_options_off">Desativar Opções de Desenvolvedor?</string>
-    <string name="dev_options_on">Opções de Desenvolvedor ativadas!</string>
-    <string name="dev_options_on_already">Opções de desenvolvedor já ativadas!</string>
-    <string name="developer_mode">Opções de Desenvolvedor</string>
     <string name="dialog_message_set_ringtone">Permitir que o Apex Music modifique as configurações de áudio</string>
     <string name="dialog_title_set_ringtone">Definir toque</string>
     <string name="disable_battery_optimize">Desativar Otimização de bateria</string>
@@ -210,8 +201,6 @@
     <string name="horizontal_bottom">Inferior Horizontal</string>
     <string name="horizontal_flip">Inverter horizontalmente</string>
     <string name="horizontal_top">Topo Horizontal</string>
-    <string name="id3_lyrics">Letra do ID3</string>
-    <string name="id3_lyrics_summary">Para que o novo sistema de identificação de letras funcione, o arrastar para falecer dos temas tocadores será desativado quando forem mostradas as letras id3. isto deve-se a um conflito com a fila do jogador.</string>
     <string name="id3_tags">ID3 Tags</string>
     <string name="image">Imagem:</string>
     <string name="image_gradient">Gradient image</string>
@@ -233,8 +222,6 @@
     <string name="label_sampling_rate">Taxa de amostragem</string>
     <string name="label_track_length">Comprimento</string>
     <string name="labeled">Rotulado</string>
-    <string name="labs_summary">Opções do desenvolvedor</string>
-    <string name="labs_title">Opções de Desenvolvedor</string>
     <string name="language_dl_failed">Download de idioma falhou</string>
     <string name="last_added">Última adicionada</string>
     <string name="last_song">Última faixa</string>
@@ -242,6 +229,7 @@
     <string name="licenses">Licenças</string>
     <string name="light_theme_name">Branco claro</string>
     <string name="listeners_label">Ouvintes</string>
+    <string name="live">Vivo</string>
     <string name="lyrics">Letras</string>
     <string name="lyrics_both">ID3 Tag &amp; Letras sincronizadas</string>
     <string name="lyrics_id3">Letra de Tag ID3</string>
@@ -327,8 +315,6 @@
     <string name="pref_header_filter">Filtro de Duração da Faixa</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_images">Imagens</string>
-    <string name="pref_header_labs_default_widgets">Widgets padrão</string>
-    <string name="pref_header_labs_other_options">Outras Opções</string>
     <string name="pref_header_language">IDIOMA</string>
     <string name="pref_header_library">Biblioteca</string>
     <string name="pref_header_lyrics">Letras</string>
@@ -337,29 +323,32 @@
     <string name="pref_header_playlists">Playlists</string>
     <string name="pref_header_search">Pesquisa</string>
     <string name="pref_header_widgets">Widgets</string>
-    <string name="pref_keep_pause_on_zero_volume_title">Pausar no zero</string>
-    <string name="pref_keep_screen_on_title">Manter a tela ligada</string>
-    <string name="pref_language_name">Selecione o idioma</string>
     <string name="pref_summary_open_source_licences">Detalhes da licença para software de código aberto</string>
     <string name="pref_summary_permissions_edit">Modificar as permissões relacionadas a este aplicativo</string>
+    <string name="pref_title_accent_color">Cor do acento</string>
     <string name="pref_title_album_cover_style">Tema de Capa do Álbum</string>
     <string name="pref_title_album_cover_transform">Ignorar Capa do Álbum</string>
-    <string name="pref_title_appbar_mode">Estilo do Cabeçalho</string>
+    <string name="pref_title_apex_font">Usar fonte Apex</string>
+    <string name="pref_title_appbar_color">Cabeçalho Descolorido</string>
+    <string name="pref_title_appbar_disable_scroll">Desabilitar rolagem de cabeçalho</string>
     <string name="pref_title_audio_fade">Áudio de Fade</string>
     <string name="pref_title_auto_action_1">Ação automática do Android à esquerda</string>
     <string name="pref_title_auto_action_2">Ação automática do Android direito</string>
     <string name="pref_title_auto_download_artist_images">Baixar imagens do artista automaticamente</string>
     <string name="pref_title_auto_play">Manter Estado</string>
     <string name="pref_title_auto_rotate">Rotação de Tela</string>
+    <string name="pref_title_black_nav_bar">Barra de navegação preta</string>
+    <string name="pref_title_black_theme">Jato Preto</string>
+    <string name="pref_title_bluetooth_delay">Atraso do Bluetooth</string>
     <string name="pref_title_bluetooth_device">Dispositivo Bluetooth</string>
     <string name="pref_title_bluetooth_playback">Reprodução Bluetooth</string>
     <string name="pref_title_color_animate">Animação de cor</string>
     <string name="pref_title_colored_app">Cor Adaptável</string>
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
-    <string name="pref_title_desaturated_color">Cor Dessaturada</string>
-    <string name="pref_title_disable_synced_lyrics_message">Desativar Mensagens de Letras Sincronizadas</string>
-    <string name="pref_title_disable_widgets">Desativar Widgets Padrão</string>
+    <string name="pref_title_desaturated_color">Desatuar cor</string>
+    <string name="pref_title_disable_queue">Desativar Fila de Jogador</string>
+    <string name="pref_title_disable_widgets">Desativar Widgets</string>
     <string name="pref_title_duration">Duração Única</string>
     <string name="pref_title_expand_now_playing_panel">Mostrar Tela de reprodução atual</string>
     <string name="pref_title_extra_controls">Controles extras</string>
@@ -372,6 +361,9 @@
     <string name="pref_title_home_album_grid_style">Grade de Álbum</string>
     <string name="pref_title_home_artist_grid_style">Grade de Artista</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas da Media Store</string>
+    <string name="pref_title_keep_pause_on_zero">Pausar no zero</string>
+    <string name="pref_title_keep_screen_on">Manter a tela ligada</string>
+    <string name="pref_title_language_name">Selecione o idioma</string>
     <string name="pref_title_last_added_interval">Último intervalo adicionado</string>
     <string name="pref_title_lyrics_type">Tipo de letra</string>
     <string name="pref_title_md3">Material de que você</string>
@@ -391,7 +383,6 @@
     <string name="pref_title_search_action">Ação de pesquisa embaralhada</string>
     <string name="pref_title_search_icon">Pesquisa de voz no cabeçalho</string>
     <string name="pref_title_shuffle_state">Manter estado aleatório</string>
-    <string name="pref_title_simple_mode">Modo Simples</string>
     <string name="pref_title_specific_device">Dispositivo Específico</string>
     <string name="pref_title_suggestions">Exibir sugestões</string>
     <string name="pref_title_swipe_anywhere_now_playing">Deslize em qualquer lugar para alterar a faixa</string>
@@ -400,10 +391,12 @@
     <string name="pref_title_toggle_carousel_effect">Efeito de Carrossel</string>
     <string name="pref_title_toggle_headset">Reprodução por Fone de ouvido</string>
     <string name="pref_title_transparent_mini_player">Mini Player Semi-Transparente</string>
+    <string name="pref_title_transparent_widgets">Widgets Transparentes</string>
     <string name="pref_title_use_notification_actions_for_auto">Usar Ações de Notificação</string>
     <string name="pref_title_whitelist">Whitelist música (/Music folder)</string>
-    <string name="pref_title_widget_style">Widgets Transparentes</string>
+    <string name="proceed">Continuar</string>
     <string name="queue">Fila de reprodução</string>
+    <string name="queue_short">Fila</string>
     <string name="recent_albums">Álbuns recentes</string>
     <string name="recent_artists">Artistas recentes</string>
     <string name="remaining">Restante</string>
@@ -417,6 +410,7 @@
     <string name="rename_playlist_title">Renomear playlist</string>
     <string name="repeat">Repetir</string>
     <string name="reset_action">Reset</string>
+    <string name="reset_categories">Resetar Categorias da Biblioteca</string>
     <string name="reset_settings">Reiniciar configurações</string>
     <string name="reset_settings_msg">Redefinir as configurações para o padrão?\n\nIsso irá redefinir TODAS as configurações, incluindo Shuffle, Configuração de Reprodução Automática Bluetooth e muito mais\n\nEste aplicativo irá reiniciar para completar o processo de redefinição!</string>
     <string name="reset_artist_image">Redefinir imagem do artista</string>
@@ -498,10 +492,11 @@
     <string name="update_image">Atualizar imagem</string>
     <string name="update_notify">Notificação de Atualização</string>
     <string name="updating">Atualizando…</string>
-    <string name="use_apex_font">Usar fonte Apex</string>
     <string name="user_images_description">Imagens do usuário</string>
     <string name="version">Versão</string>
     <string name="vertical_flip">Jogar verticalmente</string>
+    <string name="warning_fade">Aviso! Pode causar problemas inesperados com reprodução</string>
+    <string name="warning_fade_cancelled">Alterações Revertidas</string>
     <string name="web_search">Pesquisa na internet</string>
     <string name="website">site</string>
     <string name="website_summary">Confira nosso site</string>

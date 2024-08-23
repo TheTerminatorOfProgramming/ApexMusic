@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <com.ttop.app.apex.preferences.DurationPreference
         android:defaultValue="0"
         android:key="audio_fade_duration"
@@ -26,7 +27,7 @@
         android:defaultValue="true"
         android:key="pause_on_zero_volume"
         android:layout="@layout/list_item_view_switch"
-        android:title="@string/pref_keep_pause_on_zero_volume_title"
+        android:title="@string/pref_title_keep_pause_on_zero"
         app:allowDividerBelow="false"/>
 
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreference
@@ -52,6 +53,14 @@
             android:key="bluetooth_playback"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_bluetooth_playback"
+            app:allowDividerBelow="false"/>
+
+        <com.ttop.app.apex.preferences.BluetoothDelayPreference
+            android:defaultValue="1"
+            android:key="bluetooth_delay"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_bluetooth_delay"
+            android:dependency="bluetooth_playback"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference

@@ -1,26 +1,57 @@
-Apex Music v4.56
+Apex Music v4.70
 
 ==What's New==
 =What's Been Added=
--Nothing has been added
+-New player theme: live
+-New option to change navigation bar black on player themes
+-New option to disable the queue in the player themes
+-New option to change the delay for bluetooth devices before autoplaying
+-Android 15 support
+-Warning dialogs added for the audio fade and crossfade options
+-New option to disable the scroll for the appbar header
+-New option to remove the header color
 
 =What's Been Removed=
--Persistent notification option
+-Ability to remove add or remove settings from the BottomNavigationBar
+-Developer mode section in settings
+-Simple and expanded header style. see below for more info
+-ID3 lyrics troubleshoot from the about settings
+-Header style option. simple header style is now the default
 
 =What's Been Changed & Updated=
--ID3 and synced lyrics will now disable when the lyrics type option is set to disabled
--Navigation bar color on player themes
--Classic player theme layout
+-Updated player themes images
+-Queue has been added to the BottomNavigationView
+-Settings & queue BottomNavigationView options are fixed and cannot be unchecked in the library categories option
+-Language intro page has been redesigned and will now only be shown on Android 13+
+-Animated BottomNavigationView icons have been changed to static icons
+-Semi-transparent mini-player option has been moved to the user interface settings
+-Disable default widgets option has been moved to the notification & widgets settings
+-Crossfade maximum value has been changed from 12 to 10
+-Bluetooth autoplay has been optimised
+-Rewind and fade forward seek duration options intervals have been changed
+-Progress bar style option now has added circular (no track) option
+-Header now uses the accent color for the background
+-Mini player is now hidden when in the settings
+-Synced lyrics positioning has been changed for the blur, classic & peek play themes when using a tablet or foldable
 
-=What's Planned To Be Removed/Changed=
--Audio fade and crossfade options need to be fixed as they cause headset controls to be unresponsive
+=What's Planned To Be Removed/Changed/Fixed=
+-Final android 15 testing (due to be completed by the end of 2024)
+-Search library category will be removed in a future release
 
 ==What's Fixed==
--Big widget crash when clearing playing queue
+-Adaptive color, color gradient & color animation enabled/disabled state when changing player themes
+-Menu colors after changing ui theme
+-Synced lyrics colors
+-Toolbar color when adaptive color and gradient background is enabled
+-Misc player themes bugs
+-Sleep timer misc issues
+-Intro screens now extend underneath the display cutout
+-Material you colors now work on samsung devices
+-LRC files will now work if stored in a separate folder called "lyrics" in the apex directory (downloads folder by default)
+-Synced lyrics will be disabled when lyrics mode changed to either disabled or id3
+-Default backup and lyrics path has been fixed and the folders are now created during the initial setup
 
 ==Possible Bugs==
--Audio fade and crossfade options causes headset controls to be unresponsive. use these options with caution
--When using the peek now playing theme on tablets or foldables the navigation side rail may disappear completely. this should be automatically fixed when collapsing the mini player
--Some android skins such as funtouch os may experience issues with apex
--Material you may not work correctly on some android skins like oneui, due to the implementation method of material you into the android skin
--If you are experiencing any bugs, try reinstalling the app
+-Notification may not always update when using the audio fade and crossfade options
+-Crash when changing from settings tab to queue tab (rare)
+-Audio fade and crossfade options may cause headset controls and playback notification to be unresponsive

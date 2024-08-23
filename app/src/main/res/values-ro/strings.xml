@@ -2,7 +2,6 @@
 <resources>
     <string name="about_album_label">Despre %s</string>
     <string name="about_settings_summary">Echipă și legături sociale</string>
-    <string name="accent_color">Culoare accent</string>
     <string name="action_about">Despre</string>
     <string name="action_add_to_blacklist">Adaugă la lista neagră</string>
     <string name="action_add_to_favorites">Adaugă la favorite</string>
@@ -74,10 +73,6 @@
         <item quantity="other">Albume</item>
     </plurals>
     <string name="always">Întotdeauna</string>
-    <string name="appbar_mode_expanded">Extins</string>
-    <string name="appbar_mode_expanded_no_scroll">Extins (fără scroll)</string>
-    <string name="appbar_mode_simple">Simplu</string>
-    <string name="appbar_mode_simple_no_scroll">Simplu (fără derulare)</string>
     <string name="apex_music">Muzică Apex</string>
     <string name="app_share">Hei, vedeți acest super player muzical la: https://play.google.com/store/apps/details?id=%s</string>
     <string name="app_shortcut_shuffle_all_short">Amestecare</string>
@@ -103,8 +98,8 @@
     <string name="biography">Biografie</string>
     <string name="biometric_authenticate_description">Vă rugăm să vă autentificați pentru a continua!</string>
     <string name="biometric_authenticate_subtitle">Autentificare</string>
-    <string name="black_theme_name">Negru de Jet</string>
     <string name="blacklist">Lista neagră</string>
+    <string name="bluetooth_delay">Întârziere Bluetooth</string>
     <string name="bluetooth_summary">Aplicația are nevoie de permisiuni în apropiere pentru a verifica dacă există dispozitive bluetooth</string>
     <string name="bluetooth_title">Dispozitive în apropiere</string>
     <string name="blur">Blur</string>
@@ -119,17 +114,17 @@
     <string name="changelog_summary">Vezi ce este nou</string>
     <string name="choose_restore_title">Alege ce să restaurezi</string>
     <string name="circular">Circular</string>
+    <string name="circular_no_track">Circular (fără piesă)</string>
     <string name="classic">Clasic</string>
     <string name="clear_action">Curăță</string>
     <string name="clear_blacklist">Șterge lista neagră</string>
     <string name="clear_history">Curăță Istoria</string>
     <string name="clear_playing_queue">Curăță coada</string>
+    <string name="clear_playing_queue_notification">Șterge coada</string>
     <string name="close">Inchide</string>
     <string name="colors">Culori</string>
     <string name="composer">Compozitor</string>
     <string name="could_not_write_tags_to_file">Nu s-au putut scrie etichetele în fișierul muzical!</string>
-    <string name="cover_lyrics_off">Versuri ascunse pentru copertă</string>
-    <string name="cover_lyrics_on">Versuri de copertă afişate</string>
     <string name="create_action">Crează</string>
     <string name="create_new_backup">Crează</string>
     <string name="credit_title">Dezvoltatori &amp; Colaboratori</string>
@@ -147,10 +142,6 @@
     <string name="denied">Refuzat</string>
     <string name="depth">Adâncime</string>
     <string name="design">proiectare</string>
-    <string name="dev_options_off">Dezactivați opțiunile pentru dezvoltatori?</string>
-    <string name="dev_options_on">Opţiuni dezvoltator activate!</string>
-    <string name="dev_options_on_already">Opțiunile pentru dezvoltatori sunt deja activate!</string>
-    <string name="developer_mode">Opțiuni dezvoltator</string>
     <string name="dialog_message_set_ringtone">Permite Apex Music să modifice setările audio</string>
     <string name="dialog_title_set_ringtone">Setare ton de apel</string>
     <string name="disable_battery_optimize">Dezactivează optimizarea bateriei</string>
@@ -210,8 +201,6 @@
     <string name="horizontal_bottom">Jos orizontal</string>
     <string name="horizontal_flip">Inversare orizontală</string>
     <string name="horizontal_top">Vârf orizontal</string>
-    <string name="id3_lyrics">Versuri ID3</string>
-    <string name="id3_lyrics_summary">Pentru ca noul sistem de versuri id3 să funcționeze, tragerea la colaps pe temele jucătorului va fi dezactivată atunci când versurile id3 sunt afișate. acest lucru se datorează unui conflict cu lista de aşteptare a jucătorilor.</string>
     <string name="id3_tags">Etichete ID3</string>
     <string name="image">Imagine</string>
     <string name="image_gradient">Gradient image</string>
@@ -233,8 +222,6 @@
     <string name="label_sampling_rate">Rata de eşantionare</string>
     <string name="label_track_length">Lungime</string>
     <string name="labeled">Etichetat</string>
-    <string name="labs_summary">Opțiuni pentru dezvoltatori</string>
-    <string name="labs_title">Opțiuni dezvoltator</string>
     <string name="language_dl_failed">Descărcarea limbii a eșuat</string>
     <string name="last_added">Ultima adăugare</string>
     <string name="last_song">Ultima piesă</string>
@@ -242,6 +229,7 @@
     <string name="licenses">Licențe</string>
     <string name="light_theme_name">Alb strălucitor</string>
     <string name="listeners_label">Ascultători</string>
+    <string name="live">Trăi</string>
     <string name="lyrics">Versuri</string>
     <string name="lyrics_both">ID3 Etichetă &amp; Sincronizare versuri</string>
     <string name="lyrics_id3">Versuri ID3 Etichete</string>
@@ -327,8 +315,6 @@
     <string name="pref_header_filter">Urmărire filtru durată</string>
     <string name="pref_header_general">Tema</string>
     <string name="pref_header_images">Imagini</string>
-    <string name="pref_header_labs_default_widgets">Widget-uri implicite</string>
-    <string name="pref_header_labs_other_options">Alte opţiuni</string>
     <string name="pref_header_language">Limba</string>
     <string name="pref_header_library">Bibliotecă</string>
     <string name="pref_header_lyrics">Versuri</string>
@@ -337,20 +323,23 @@
     <string name="pref_header_playlists">Liste</string>
     <string name="pref_header_search">Caută</string>
     <string name="pref_header_widgets">Widget-uri</string>
-    <string name="pref_keep_pause_on_zero_volume_title">Pauză la zero</string>
-    <string name="pref_keep_screen_on_title">Menține ecranul aprins</string>
-    <string name="pref_language_name">Selectaţi limba</string>
     <string name="pref_summary_open_source_licences">Detalii licență pentru software open source</string>
     <string name="pref_summary_permissions_edit">Modifică permisiunile pentru această aplicație</string>
+    <string name="pref_title_accent_color">Culoare accent</string>
     <string name="pref_title_album_cover_style">Temă pentru coperta albumului</string>
     <string name="pref_title_album_cover_transform">Omite coperta albumului</string>
-    <string name="pref_title_appbar_mode">Stil antet</string>
+    <string name="pref_title_apex_font">Folosește fontul Apex</string>
+    <string name="pref_title_appbar_color">Antet de culoare De-</string>
+    <string name="pref_title_appbar_disable_scroll">Dezactivează Derularea Antetului</string>
     <string name="pref_title_audio_fade">Estompare audio</string>
     <string name="pref_title_auto_action_1">Acțiune automată Android stânga</string>
     <string name="pref_title_auto_action_2">Acțiune automată Android dreapta</string>
     <string name="pref_title_auto_download_artist_images">Descarcă automat imaginile artistului</string>
     <string name="pref_title_auto_play">Păstrează starea jocului</string>
     <string name="pref_title_auto_rotate">Rotire ecran</string>
+    <string name="pref_title_black_nav_bar">Bară de navigare neagră</string>
+    <string name="pref_title_black_theme">Negru de Jet</string>
+    <string name="pref_title_bluetooth_delay">Întârziere Bluetooth</string>
     <string name="pref_title_bluetooth_device">Dispozitiv Bluetooth</string>
     <string name="pref_title_bluetooth_playback">Redare prin Bluetooth</string>
     <string name="pref_title_color_animate">Animație culoare</string>
@@ -358,8 +347,8 @@
     <string name="pref_title_cross_fade">Crossfade</string>
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Culoare desaturată</string>
-    <string name="pref_title_disable_synced_lyrics_message">Dezactivează mesajele sincronizate în versuri</string>
-    <string name="pref_title_disable_widgets">Dezactivare widget-uri implicite</string>
+    <string name="pref_title_disable_queue">Dezactivează coada de jucători</string>
+    <string name="pref_title_disable_widgets">Dezactivare widget-uri</string>
     <string name="pref_title_duration">O singură durată</string>
     <string name="pref_title_expand_now_playing_panel">Arată ecranul de redare acum</string>
     <string name="pref_title_extra_controls">Controale suplimentare</string>
@@ -372,6 +361,9 @@
     <string name="pref_title_home_album_grid_style">Grilă de album</string>
     <string name="pref_title_home_artist_grid_style">Grila artistului</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoră copertele Media Store</string>
+    <string name="pref_title_keep_pause_on_zero">Pauză la zero</string>
+    <string name="pref_title_keep_screen_on">Menține ecranul aprins</string>
+    <string name="pref_title_language_name">Selectaţi limba</string>
     <string name="pref_title_last_added_interval">Ultimul interval de redare adăugat</string>
     <string name="pref_title_lyrics_type">Tip versuri</string>
     <string name="pref_title_md3">Materiale cu tine</string>
@@ -391,7 +383,6 @@
     <string name="pref_title_search_action">Acțiune de căutare mixtă</string>
     <string name="pref_title_search_icon">Căutare vocală în antet</string>
     <string name="pref_title_shuffle_state">Păstrați starea de amestecare</string>
-    <string name="pref_title_simple_mode">Mod simplu</string>
     <string name="pref_title_specific_device">Dispozitiv specific</string>
     <string name="pref_title_suggestions">Arată sugestii</string>
     <string name="pref_title_swipe_anywhere_now_playing">Glisați oriunde pentru a schimba piesa</string>
@@ -400,10 +391,12 @@
     <string name="pref_title_toggle_carousel_effect">Efectul de carusel</string>
     <string name="pref_title_toggle_headset">Redare cască cu fir</string>
     <string name="pref_title_transparent_mini_player">Jucător Mini transparent</string>
+    <string name="pref_title_transparent_widgets">Widget-uri transparente</string>
     <string name="pref_title_use_notification_actions_for_auto">Folosește acțiunile notificărilor</string>
     <string name="pref_title_whitelist">Muzică albă (/Dosar cu muzică)</string>
-    <string name="pref_title_widget_style">Widget-uri transparente</string>
+    <string name="proceed">Continuă</string>
     <string name="queue">Se redă coada</string>
+    <string name="queue_short">Coadă</string>
     <string name="recent_albums">Albume recente</string>
     <string name="recent_artists">Artiști recenți</string>
     <string name="remaining">Rămas</string>
@@ -417,6 +410,7 @@
     <string name="rename_playlist_title">Redenumește playlist</string>
     <string name="repeat">Repetă</string>
     <string name="reset_action">Reset</string>
+    <string name="reset_categories">Resetare Categorii Bibliotecă</string>
     <string name="reset_settings">Resetare setări</string>
     <string name="reset_settings_msg">Resetează setările la setările implicite?\n\nAceasta va reseta TOATE setările inclusiv Shuffle, Setarea Bluetooth Autoplay și mai multe alții\n\nAceastă aplicație va reporni pentru a finaliza procesul de resetare!</string>
     <string name="reset_artist_image">Resetează imaginea artistului</string>
@@ -498,10 +492,11 @@
     <string name="update_image">Actualizare imagine</string>
     <string name="update_notify">Notificare actualizare</string>
     <string name="updating">Actualizare…</string>
-    <string name="use_apex_font">Folosește fontul Apex</string>
     <string name="user_images_description">Imagini utilizator</string>
     <string name="version">Versiune</string>
     <string name="vertical_flip">Rotire verticală</string>
+    <string name="warning_fade">Atenție! Poate cauza probleme neașteptate cu redarea</string>
+    <string name="warning_fade_cancelled">Schimbări inversate</string>
     <string name="web_search">Căutare pe web</string>
     <string name="website">Website</string>
     <string name="website_summary">Vezi site-ul nostru web</string>

@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.base
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -38,12 +39,11 @@ import com.ttop.app.apex.databinding.FragmentMainRecyclerBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
-import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller
@@ -53,9 +53,8 @@ import com.ttop.app.fastscroller.FastScroller
 import com.ttop.app.fastscroller.FastScrollerBuilder
 import kotlin.math.abs
 
-
 abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
-    AbsMainActivityFragment(R.layout.fragment_main_recycler), IScrollHelper, AppBarLayout.OnOffsetChangedListener {
+    AbsMainActivityFragment(R.layout.fragment_main_recycler), IScrollHelper {
 
     private var _binding: FragmentMainRecyclerBinding? = null
     private val binding get() = _binding!!
@@ -81,6 +80,7 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         checkForMargins()
         setUpRecyclerView()
         setupToolbar()
+
         // Add listeners when shuffle is visible
         if (isShuffleVisible) {
             binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -94,18 +94,34 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
 
                 }
             })
+
             binding.shuffleButton.apply {
                 setOnClickListener {
                     onShuffleClicked()
                 }
-                accentColor()
             }
+
+            binding.shuffleButton.backgroundTintList = ColorStateList.valueOf(accentColor())
+            binding.shuffleButton.imageTintList = ColorStateList.valueOf(ColorUtil.getComplimentColor(accentColor()))
         } else {
             binding.shuffleButton.isVisible = false
         }
+
         libraryViewModel.getFabMargin().observe(viewLifecycleOwner) {
             binding.shuffleButton.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = it
+                bottomMargin = if (ApexUtil.isTablet) {
+                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                        ApexUtil.dpToMargin(74)
+                    } else {
+                        ApexUtil.dpToMargin(10)
+                    }
+                } else {
+                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                        ApexUtil.dpToMargin(154)
+                    } else {
+                        ApexUtil.dpToMargin(100)
+                    }
+                }
             }
         }
 
@@ -146,41 +162,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         }
         val appName = resources.getString(titleRes)
         binding.appBarLayout.title = appName
-
-        appBarLayout.addOnOffsetChangedListener(this)
-    }
-
-    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-        when (PreferenceUtil.appBarMode) {
-            "simple", "expanded" ->{
-                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                    if (abs(verticalOffset) >= appBarLayout!!.totalScrollRange)
-                    {
-                        binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(64f, context).toInt())
-                    }
-                    else
-                    {
-                        binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(120f, context).toInt())
-                    }
-                }else {
-                    if (abs(verticalOffset) >= appBarLayout!!.totalScrollRange)
-                    {
-                        binding.recyclerView.setPadding(0,0,0,0)
-                    }
-                    else
-                    {
-                        binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(64f, context).toInt())
-                    }
-                }
-            }
-            "simple_no_scroll", "expanded_no_scroll" -> {
-                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                    binding.recyclerView.setPadding(0,0,0,ApexUtil.dpToPixel(64f, context).toInt())
-                }else {
-                    binding.recyclerView.setPadding(0,0,0,0)
-                }
-            }
-        }
     }
 
     abstract val titleRes: Int
@@ -222,9 +203,39 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     }
 
     private fun checkForMargins() {
-        if (mainActivity.isBottomNavVisible) {
-            binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = dip(R.dimen.bottom_nav_height)
+        appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (abs(verticalOffset.toDouble()).toInt() == appBarLayout.totalScrollRange) {
+                binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    bottomMargin = if (ApexUtil.isTablet) {
+                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                            ApexUtil.dpToMargin(55)
+                        } else {
+                            ApexUtil.dpToMargin(0)
+                        }
+                    } else {
+                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                            ApexUtil.dpToMargin(140)
+                        } else {
+                            ApexUtil.dpToMargin(85)
+                        }
+                    }
+                }
+            } else if (verticalOffset == 0) {
+                binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    bottomMargin = if (ApexUtil.isTablet) {
+                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                            ApexUtil.dpToMargin(120)
+                        } else {
+                            ApexUtil.dpToMargin(65)
+                        }
+                    } else {
+                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                            ApexUtil.dpToMargin(205)
+                        } else {
+                            ApexUtil.dpToMargin(150)
+                        }
+                    }
+                }
             }
         }
     }
@@ -269,9 +280,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             menu,
             ATHToolbarActivity.getToolbarBackgroundColor(toolbar)
         )
-        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-            menu.removeItem(R.id.action_settings)
-        }
 
         if (!ApexUtil.isTablet) {
             menu.removeItem(R.id.action_refresh)
@@ -280,11 +288,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> findNavController().navigate(
-                R.id.settings_fragment,
-                null,
-                navOptions
-            )
             R.id.action_import_playlist -> ImportPlaylistDialog().show(
                 childFragmentManager,
                 "ImportPlaylist"
@@ -314,5 +317,10 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     override fun onPause() {
         super.onPause()
         (adapter as? AbsMultiSelectAdapter<*, *>)?.actionMode?.finish()
+    }
+
+    override fun onQueueChanged() {
+        super.onQueueChanged()
+        checkForMargins()
     }
 }

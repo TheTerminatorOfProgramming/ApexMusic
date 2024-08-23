@@ -21,7 +21,7 @@
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:key="black_theme"
             android:layout="@layout/list_item_view_switch_no_title"
-            android:title="@string/black_theme_name"
+            android:title="@string/pref_title_black_theme"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -41,7 +41,7 @@
             android:layout="@layout/list_item_view_switch"
             app:defaultValue="false"
             app:key="apex_font"
-            app:title="@string/use_apex_font"
+            app:title="@string/pref_title_apex_font"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
@@ -67,7 +67,7 @@
             android:key="accent_color"
             android:layout="@layout/list_item_color_view"
             android:persistent="false"
-            android:title="@string/accent_color"
+            android:title="@string/pref_title_accent_color"
             app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
@@ -90,13 +90,20 @@
             android:layout="@layout/list_item_view"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_language_name"
+            android:title="@string/pref_title_language_name"
             app:allowDividerBelow="false"/>
     </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
     <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_mini_controls"
         app:allowDividerBelow="false">
+
+        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="transparent_mini_player"
+            android:layout="@layout/list_item_view_switch"
+            android:title="@string/pref_title_transparent_mini_player"
+            app:allowDividerBelow="false"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:layout="@layout/list_item_view_switch"

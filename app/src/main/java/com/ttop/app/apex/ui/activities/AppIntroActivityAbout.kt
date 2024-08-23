@@ -25,8 +25,10 @@ class AppIntroActivityAbout : AppIntro2() {
         //MAIN SLIDE
         addSlide(MainSlideFragment.newInstance())
 
-        //LANGUAGE SLIDE
-        addSlide(LanguageSlideFragment.newInstance())
+        if (VersionUtils.hasT()) {
+            //LANGUAGE SLIDE
+            addSlide(LanguageSlideFragment.newInstance())
+        }
 
         //NOTIFICATION SLIDE
         if (VersionUtils.hasT()) {

@@ -15,8 +15,12 @@
 package com.ttop.app.apex.ui.fragments.settings
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.Fragment
+import android.view.ViewGroup
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import com.afollestad.materialdialogs.MaterialDialog
@@ -25,34 +29,34 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.databinding.FragmentSettingsBinding
 import com.ttop.app.apex.extensions.findNavController
-import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.appthemehelper.ThemeStore
 
-
-class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
+class SettingsFragment : AbsMainActivityFragment(R.layout.fragment_settings), ColorCallback{
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSettingsBinding.bind(view)
         setupToolbar()
-        if (ApexUtil.isTablet) {
-            ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.dpToMargin(0))
-        }else {
-            if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-                ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.dpToMargin(80))
-            }else {
-                ApexUtil.setMargins(binding.contentFrame,0,0,0,ApexUtil.dpToMargin(0))
+        binding.contentFrame.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                ApexUtil.dpToMargin(64)
+            } else {
+                ApexUtil.dpToMargin(0)
             }
         }
     }
 
     private fun setupToolbar() {
         val navController: NavController = findNavController(R.id.contentFrame)
-        with (binding.appBarLayout.toolbar) {
+        with(binding.appBarLayout.toolbar) {
             setNavigationIcon(R.drawable.ic_arrow_back)
-            isTitleCentered = false
+
+            isTitleCentered = true
             setNavigationOnClickListener {
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
@@ -61,6 +65,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
         navController.addOnDestinationChangedListener { _, _, _ ->
             binding.appBarLayout.title =
                 navController.currentDestination?.let { getStringFromDestination(it) }.toString()
+
+            binding.appBarLayout.toolbar.setNavigationOnClickListener {
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
         }
     }
 
@@ -76,7 +84,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
             R.id.themeSettingsFragment -> R.string.general_settings_title
             R.id.aboutActivity -> R.string.action_about
             R.id.backup_fragment -> R.string.backup_restore_title
-            R.id.labs_fragment -> R.string.labs_title
             else -> R.id.action_settings
         }
         return getString(idRes)
@@ -93,7 +100,40 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
         _binding = null
     }
 
-    companion object {
-        val TAG: String = SettingsFragment::class.java.simpleName
+    override fun onQueueChanged() {
+        super.onQueueChanged()
+        binding.contentFrame.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = if (ApexUtil.isTablet) {
+                ApexUtil.dpToMargin(0)
+            } else {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    ApexUtil.dpToMargin(64)
+                } else {
+                    ApexUtil.dpToMargin(0)
+                }
+            }
+        }
+    }
+
+    override fun onServiceConnected() {}
+
+    override fun onServiceDisconnected() {}
+
+    override fun onFavoriteStateChanged() {}
+
+    override fun onPlayingMetaChanged() {}
+
+    override fun onPlayStateChanged() {}
+
+    override fun onRepeatModeChanged() {}
+
+    override fun onShuffleModeChanged() {}
+
+    override fun onMediaStoreChanged() {}
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return false
     }
 }

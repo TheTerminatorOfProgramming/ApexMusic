@@ -20,7 +20,6 @@ import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -45,7 +44,6 @@ import com.ttop.app.apex.databinding.FragmentHomeBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.extensions.elevatedAccentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
@@ -53,7 +51,6 @@ import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
-import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
@@ -195,11 +192,21 @@ class HomeFragment :
     }
 
     private fun checkForMargins() {
-        if (mainActivity.isBottomNavVisible) {
             binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = dip(R.dimen.bottom_nav_height)
+                bottomMargin = if (ApexUtil.isTablet) {
+                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                        ApexUtil.dpToMargin(64)
+                    }else {
+                        ApexUtil.dpToMargin(0)
+                    }
+                }else {
+                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                        ApexUtil.dpToMargin(144)
+                    }else {
+                        ApexUtil.dpToMargin(80)
+                    }
+                }
             }
-        }
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
@@ -207,7 +214,6 @@ class HomeFragment :
         menu.removeItem(R.id.action_grid_size)
         menu.removeItem(R.id.action_layout_type)
         menu.removeItem(R.id.action_sort_order)
-        menu.findItem(R.id.action_settings).setShowAsAction(SHOW_AS_ACTION_IF_ROOM)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
             requireContext(),
             binding.toolbar,
@@ -216,10 +222,6 @@ class HomeFragment :
         )
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
-
-        if (PreferenceUtil.libraryCategory.contains(CategoryInfo(CategoryInfo.Category.Settings, true))) {
-            menu.removeItem(R.id.action_settings)
-        }
 
         if (!ApexUtil.isTablet) {
             menu.removeItem(R.id.action_refresh)
@@ -311,11 +313,6 @@ class HomeFragment :
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> findNavController().navigate(
-                R.id.settings_fragment,
-                null,
-                navOptions
-            )
             R.id.action_import_playlist -> ImportPlaylistDialog().show(
                 childFragmentManager,
                 "ImportPlaylist"
@@ -342,6 +339,11 @@ class HomeFragment :
         checkForMargins()
         libraryViewModel.forceReload(ReloadType.HomeSections)
         exitTransition = null
+    }
+
+    override fun onQueueChanged() {
+        super.onQueueChanged()
+        checkForMargins()
     }
 
     override fun onDestroyView() {

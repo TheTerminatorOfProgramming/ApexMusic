@@ -42,13 +42,11 @@ class TintedBottomNavigationView @JvmOverloads constructor(
 
             labelVisibilityMode = PreferenceUtil.tabTitleMode
 
-            if (!PreferenceUtil.materialYou) {
-                val iconColor = ATHUtil.resolveColor(context, android.R.attr.colorControlNormal)
-                val accentColor = ThemeStore.accentColor(context)
-                setItemColors(iconColor, accentColor)
-                itemRippleColor = ColorStateList.valueOf(accentColor.addAlpha(0.08F))
-                itemActiveIndicatorColor = ColorStateList.valueOf(accentColor.addAlpha(0.12F))
-            }
+            val iconColor = ATHUtil.resolveColor(context, android.R.attr.colorControlNormal)
+            val accentColor = ThemeStore.accentColor(context)
+            setItemColors(iconColor, accentColor)
+            itemRippleColor = ColorStateList.valueOf(accentColor.addAlpha(0.08F))
+            itemActiveIndicatorColor = ColorStateList.valueOf(accentColor.addAlpha(0.12F))
         }
     }
 

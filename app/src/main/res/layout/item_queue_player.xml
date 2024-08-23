@@ -38,41 +38,59 @@
                 android:paddingHorizontal="8dp"
                 tools:visibility="visible" />
 
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/imageContainer"
+            <FrameLayout
+                android:id="@+id/images"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/drag_view"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/imageContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/drag_view"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:scaleType="centerCrop"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic"
+                        tools:visibility="visible" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/imageText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:minWidth="36dp"
+                        android:minHeight="40dp"
+                        android:textAppearance="@style/TextViewSubtitle1"
+                        android:visibility="gone"
+                        tools:text="100"
+                        tools:visibility="visible" />
+                </com.google.android.material.card.MaterialCardView>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/image"
+                    android:id="@+id/imagePlaying"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
                     android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic"
-                    tools:visibility="visible" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/imageText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:minWidth="36dp"
-                    android:minHeight="40dp"
-                    android:textAppearance="@style/TextViewSubtitle1"
-                    android:visibility="gone"
-                    tools:text="100"
-                    tools:visibility="visible" />
-            </com.google.android.material.card.MaterialCardView>
-
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/drag_view"
+                    android:src="@drawable/ic_play_arrow"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </FrameLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
@@ -86,7 +104,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/text"
                 app:layout_constraintEnd_toStartOf="@id/menu"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/imageContainer"
+                app:layout_constraintStart_toEndOf="@id/images"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:text="@tools:sample/full_names" />
@@ -103,7 +121,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/menu"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/imageContainer"
+                app:layout_constraintStart_toEndOf="@id/images"
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:text="@tools:sample/full_names" />
 

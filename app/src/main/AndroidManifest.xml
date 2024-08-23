@@ -13,7 +13,6 @@
     <application
         android:name="com.ttop.app.apex.App"
         android:appCategory="audio"
-        android:configChanges="locale|layoutDirection"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name_short"

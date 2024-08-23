@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.activities
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -22,10 +23,10 @@ import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
-import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
@@ -47,16 +48,13 @@ import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsCastActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.PreferenceUtil.lastVersion
 import com.ttop.app.apex.util.logE
 import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-
+import java.io.File
 
 class MainActivity : AbsCastActivity() {
     companion object {
@@ -69,7 +67,6 @@ class MainActivity : AbsCastActivity() {
         setTaskDescriptionColorAuto()
         hideStatusBar()
         updateTabs()
-
         PreferenceUtil.shouldRecreate = false
 
         setupNavigationController()
@@ -118,8 +115,34 @@ class MainActivity : AbsCastActivity() {
         }
 
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
+
+        val pInfo = applicationContext.packageManager.getPackageInfo(applicationContext.packageName, 0)
+        val currentVersion = PackageInfoCompat.getLongVersionCode(pInfo)
+        if (currentVersion > lastVersion) {
+            val i = 0
+            val l = i.toLong()
+            if (lastVersion != l) {
+                PreferenceUtil.libraryCategory = PreferenceUtil.defaultCategories
+                showToast(getString(R.string.reset_categories))
+
+                val backupDir = PreferenceUtil.backupPath?.let { File(it) }
+                val lyricsDir = File(PreferenceUtil.lyricsPath + "/Apex/Lyrics/")
+
+                if (backupDir != null) {
+                    if (!backupDir.exists()){
+                        backupDir.mkdirs()
+                    }
+                }
+
+                if (!lyricsDir.exists()){
+                    lyricsDir.mkdirs()
+                }
+            }
+            lastVersion = currentVersion
+        }
     }
 
+    @SuppressLint("RestrictedApi")
     private fun setupNavigationController() {
         val navController = findNavController(R.id.fragment_container)
         val navInflater = navController.navInflater
@@ -151,26 +174,36 @@ class MainActivity : AbsCastActivity() {
                 }
             }
         }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == navGraph.startDestinationId) {
                 currentFragment(R.id.fragment_container)?.enterTransition = null
             }
+
             when (destination.id) {
-                R.id.action_home, R.id.action_song, R.id.action_album, R.id.action_artist, R.id.action_folder, R.id.action_playlist, R.id.action_genre, R.id.action_search -> {
+                R.id.action_home, R.id.action_song, R.id.action_album, R.id.action_artist, R.id.action_folder, R.id.action_playlist, R.id.action_genre -> {
                     // Save the last tab
                     if (PreferenceUtil.rememberLastTab) {
                         saveTab(destination.id)
                     }
                     // Show Bottom Navigation Bar
-                    setBottomNavVisibility(visible = true, animate = true)
+                    setBottomNavVisibility(visible = true, animate = true, hideBottomSheet = false)
                 }
                 R.id.playing_queue_fragment -> {
                     setBottomNavVisibility(visible = true, hideBottomSheet = true)
                 }
                 R.id.action_settings_fragment -> {
                     setBottomNavVisibility(
+                        visible = false,
+                        animate = true,
+                        hideBottomSheet = false
+                    )
+                }
+                R.id.action_queue_fragment -> {
+                    setBottomNavVisibility(
                         visible = true,
-                        animate = true
+                        animate = true,
+                        hideBottomSheet = false
                     )
                 }
                 else -> setBottomNavVisibility(
@@ -210,11 +243,6 @@ class MainActivity : AbsCastActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (PreferenceUtil.shouldRecreate) {
-            PreferenceUtil.shouldRecreate = false
-            postRecreate()
-        }
-
         if (PreferenceUtil.shouldRecreateTabs) {
             PreferenceUtil.shouldRecreateTabs = false
             refreshTabs()
@@ -231,6 +259,7 @@ class MainActivity : AbsCastActivity() {
                 startActivity(intent)
                 overridePendingTransition(0, 0)
             }
+            postRecreate()
         }
 
         requestedOrientation = if (ApexUtil.isTablet) {

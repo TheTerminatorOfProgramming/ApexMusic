@@ -15,6 +15,7 @@
 package com.ttop.app.apex.ui.activities.base
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,12 +23,13 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.os.LocaleListCompat
+import com.ttop.app.apex.LANGUAGE_NAME
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.exitFullscreen
 import com.ttop.app.apex.extensions.hideStatusBar
 import com.ttop.app.apex.extensions.installSplitCompat
 import com.ttop.app.apex.extensions.maybeSetScreenOn
-import com.ttop.app.apex.extensions.setEdgeToEdgeOrImmersive
+import com.ttop.app.apex.extensions.setDrawBehindSystemBars
 import com.ttop.app.apex.extensions.setImmersiveFullscreen
 import com.ttop.app.apex.extensions.setLightStatusBarAuto
 import com.ttop.app.apex.extensions.surfaceColor
@@ -36,7 +38,7 @@ import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
 import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 
-abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
+abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -45,11 +47,24 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
         updateTheme()
         hideStatusBar()
         super.onCreate(savedInstanceState)
-        setEdgeToEdgeOrImmersive()
+        setDrawBehindSystemBars()
         maybeSetScreenOn()
         setLightStatusBarAuto(surfaceColor())
 
         window.decorView.isForceDarkAllowed = false
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            LANGUAGE_NAME -> {
+                //updateLocale()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
     }
 
     private fun updateTheme() {
@@ -148,6 +163,7 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
 
     public override fun onDestroy() {
         super.onDestroy()
+        PreferenceUtil.unregisterOnSharedPreferenceChangedListener(this)
         exitFullscreen()
     }
 

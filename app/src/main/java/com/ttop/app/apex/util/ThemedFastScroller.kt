@@ -45,6 +45,8 @@ object ThemedFastScroller {
             )
         )
 
+        fastScrollerBuilder.setPadding(0, 0 , 15, 0)
+
         if (!autoHide) {
             fastScrollerBuilder.disableScrollbarAutoHide()
         }

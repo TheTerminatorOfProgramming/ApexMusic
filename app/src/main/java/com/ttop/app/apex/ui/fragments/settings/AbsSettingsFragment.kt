@@ -19,16 +19,15 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.updatePadding
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-import com.ttop.app.apex.R
-import com.ttop.app.apex.extensions.dip
 import com.ttop.app.apex.preferences.AlbumCoverStylePreference
 import com.ttop.app.apex.preferences.AlbumCoverStylePreferenceDialog
 import com.ttop.app.apex.preferences.BlacklistPreference
 import com.ttop.app.apex.preferences.BlacklistPreferenceDialog
+import com.ttop.app.apex.preferences.BluetoothDelayPreference
+import com.ttop.app.apex.preferences.BluetoothDelayPreferenceDialog
 import com.ttop.app.apex.preferences.BlurPreference
 import com.ttop.app.apex.preferences.BlurPreferenceDialog
 import com.ttop.app.apex.preferences.CrossFadePreference
@@ -85,7 +84,6 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
         setDivider(ColorDrawable(Color.BLACK))
         listView.overScrollMode = View.OVER_SCROLL_NEVER
 
-        listView.updatePadding(bottom = dip(R.dimen.mini_player_height))
         listView.applyInsetter {
             type(navigationBars = true) {
                 padding(vertical = true)
@@ -112,10 +110,6 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
                 val fragment = BlacklistPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
-            is DurationPreference -> {
-                val fragment = DurationPreferenceDialog.newInstance()
-                fragment.show(childFragmentManager, preference.key)
-            }
             is CrossFadePreference -> {
                 val fragment = CrossFadePreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
@@ -138,6 +132,14 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
             }
             is BlurPreference -> {
                 val fragment = BlurPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is BluetoothDelayPreference -> {
+                val fragment = BluetoothDelayPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+            is DurationPreference -> {
+                val fragment = DurationPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
             else -> super.onDisplayPreferenceDialog(preference)

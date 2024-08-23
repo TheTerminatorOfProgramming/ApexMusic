@@ -33,19 +33,17 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintVertical_weight="5">
 
-        <org.angmarch.views.NiceSpinner
-            android:id="@+id/spinner"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/selectLang"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/md_green_500"
-            app:arrowTint="@color/md_white_1000"
-            app:textTint="@color/md_white_1000"
-            app:popupTextAlignment="center"
-            app:backgroundSelector="@color/md_green_500"
-            android:textAlignment="center"
+            android:backgroundTint="@color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/imageLayout" />
+            app:layout_constraintBottom_toBottomOf="@id/imageLayout"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            android:textColor="@color/md_white_1000"
+            android:text="@string/pref_title_language_name" />
 
         <ImageView
             android:id="@+id/image"
@@ -55,7 +53,7 @@
             android:src="@drawable/ic_backup"
             android:scaleType="fitCenter"
             android:contentDescription="@string/app_intro_image_content_description"
-            app:layout_constraintBottom_toTopOf="@id/spinner"
+            app:layout_constraintBottom_toTopOf="@id/selectLang"
             app:layout_constraintTop_toTopOf="@+id/imageLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -15,7 +15,6 @@
 package com.ttop.app.apex.ui.fragments.player.blur
 
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -135,6 +134,8 @@ class BlurPlaybackControlsFragment :
         } else {
             binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow_white_32dp)
         }
+
+        binding.playPauseButton.setColorFilter(Color.BLACK)
     }
 
     public override fun show() {

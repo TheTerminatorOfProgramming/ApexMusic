@@ -78,7 +78,8 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     override fun onUpdateProgressViews(progress: Int, total: Int) {
         val nps = PreferenceUtil.nowPlayingScreen
         if (nps == NowPlayingScreen.Classic||
-            nps == NowPlayingScreen.Peek) {
+            nps == NowPlayingScreen.Peek ||
+            nps == NowPlayingScreen.Live) {
             progressSlider?.valueTo = total.toFloat()
 
             progressSlider?.value =

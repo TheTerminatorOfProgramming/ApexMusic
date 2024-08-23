@@ -2,9 +2,7 @@ package com.ttop.app.apex.service
 
 import android.animation.Animator
 import android.animation.ValueAnimator
-import android.content.Context
 import android.media.MediaPlayer
-import android.provider.Settings
 import androidx.core.animation.doOnEnd
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.util.PreferenceUtil
