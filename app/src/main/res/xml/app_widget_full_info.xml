@@ -3,7 +3,7 @@
     android:initialLayout="@layout/app_widget_full_day_night"
     android:minWidth="@dimen/app_widget_full_min_width"
     android:minHeight="@dimen/app_widget_full_min_height"
-    android:previewImage="@drawable/widget_full"
+    android:previewImage="@drawable/widget_full_md3"
     android:resizeMode="none"
     android:updatePeriodMillis="0"
     android:widgetCategory="keyguard|home_screen" />

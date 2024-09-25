@@ -437,7 +437,7 @@
     <string name="show_player_on_app_launch">Selalu Tampilkan Saat Peluncuran Aplikasi</string>
     <string name="shuffle">Acak</string>
     <string name="shuffle_button">Tombol Acak</string>
-    <string name="shuffle_button_desc">Butuh Bantuan? Lihat halaman wiki kami!</string>
+    <string name="shuffle_button_desc">Gunakan ini untuk membuat antrean pemutaran acak</string>
     <string name="simple">Sederhana</string>
     <string name="sleep_timer_canceled">Pengatur waktu tidur dibatalkan.</string>
     <string name="sleep_timer_set">Pengatur waktu tidur disetel selama %d menit dari sekarang.</string>
@@ -497,8 +497,6 @@
     <string name="website">Situs web</string>
     <string name="website_summary">Kunjungi Situs Web kami</string>
     <string name="what_do_you_want_to_share">Apa yang ingin Anda bagikan?</string>
-    <string name="wiki">Wiki</string>
-    <string name="wiki_summary">Butuh Bantuan? Lihat halaman wiki kami!</string>
     <string name="x_has_been_set_as_ringtone">Tetapkan %1$s sebagai nada dering Anda.</string>
     <string name="x_selected">%1$d dipilih</string>
     <string name="year">Tahun</string>

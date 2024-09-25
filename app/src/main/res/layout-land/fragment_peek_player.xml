@@ -96,7 +96,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="293dp" />
+            app:layout_constraintGuide_begin="300dp" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"

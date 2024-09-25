@@ -48,6 +48,7 @@ import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
 import com.ttop.app.apex.dialogs.SleepTimerDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
 import com.ttop.app.apex.dialogs.SongShareDialog
+import com.ttop.app.apex.dialogs.VolumeDialog
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.textColorPrimary
@@ -325,6 +326,10 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                     genre = "Not Specified"
                 }
                 showToast(genre)
+                return true
+            }
+            R.id.action_volume -> {
+                VolumeDialog.newInstance().show(childFragmentManager, "VOLUME")
                 return true
             }
         }

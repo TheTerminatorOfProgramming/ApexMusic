@@ -48,6 +48,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.*
 import com.ttop.app.apex.appwidgets.*
 import com.ttop.app.apex.auto.AutoMediaIDHelper
@@ -443,6 +444,10 @@ class MusicService : MediaBrowserServiceCompat(),
         originalPlayingQueue.clear()
         setPosition(-1)
         notifyChange(QUEUE_CHANGED)
+    }
+
+    fun currentPosition(): Int {
+        return position
     }
 
     fun cycleRepeatMode() {
@@ -1474,16 +1479,18 @@ class MusicService : MediaBrowserServiceCompat(),
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
-        when (applicationContext.resources?.configuration?.uiMode?.and(UI_MODE_NIGHT_MASK)) {
-            UI_MODE_NIGHT_YES -> {
-                appWidgetBig.notifyThemeChange(this)
-                appWidgetClassic.notifyThemeChange(this)
-                appWidgetFull.notifyThemeChange(this)
-            }
-            UI_MODE_NIGHT_NO -> {
-                appWidgetBig.notifyThemeChange(this)
-                appWidgetClassic.notifyThemeChange(this)
-                appWidgetFull.notifyThemeChange(this)
+        if (!DynamicColors.isDynamicColorAvailable()) {
+            when (applicationContext.resources?.configuration?.uiMode?.and(UI_MODE_NIGHT_MASK)) {
+                UI_MODE_NIGHT_YES -> {
+                    appWidgetBig.notifyThemeChange(this)
+                    appWidgetClassic.notifyThemeChange(this)
+                    appWidgetFull.notifyThemeChange(this)
+                }
+                UI_MODE_NIGHT_NO -> {
+                    appWidgetBig.notifyThemeChange(this)
+                    appWidgetClassic.notifyThemeChange(this)
+                    appWidgetFull.notifyThemeChange(this)
+                }
             }
         }
     }

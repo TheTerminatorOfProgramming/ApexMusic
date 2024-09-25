@@ -19,6 +19,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +33,7 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -50,7 +52,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
-
 
 /**
  * Created by hemanths on 2020-02-02.
@@ -74,6 +75,10 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         super.onCreate(savedInstanceState)
         binding = ActivityDriveModeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        window.statusBarColor = Color.TRANSPARENT
+
         setUpMusicControllers()
 
         progressViewUpdateHelper = MusicProgressViewUpdateHelper(this)
@@ -84,7 +89,6 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         binding.repeatButton.drawAboveSystemBars()
 
         binding.songTitle.isSelected = true
-        binding.album.isSelected = true
         binding.artist.isSelected = true
     }
 
@@ -301,12 +305,10 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         val song = MusicPlayerRemote.currentSong
 
         binding.songTitle.text = song.title
-        binding.album.text = song.albumName
         binding.artist.text = song.artistName
 
         Glide.with(this)
             .load(ApexGlideExtension.getSongModel(song))
-            .songCoverOptions(song)
             .transform(BlurTransformation.Builder(this).build())
             .into(binding.image)
     }

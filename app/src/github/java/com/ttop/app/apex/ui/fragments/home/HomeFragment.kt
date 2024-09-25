@@ -44,6 +44,7 @@ import com.ttop.app.apex.databinding.FragmentHomeBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.elevatedAccentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
@@ -111,6 +112,7 @@ class HomeFragment :
                 }
             }
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     private fun adjustPlaylistButtons() {

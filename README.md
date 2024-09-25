@@ -68,11 +68,15 @@
 | Full Card 	| Normal 	| Peek 	|
 
 ### Widgets
-|<img src="screenshots/widget_classic.png" width="200"/>|<img src="screenshots/widget_full.png" width="200"/>|<img src="screenshots/widget_circle.png" width="200"/>|
-|:-----:	|:-----:	|:-----:	|
-| Classic 	| Full 	| Circle 	|
+##### DayNight
+|<img src="screenshots/widget_classic.png" width="200"/>|<img src="screenshots/widget_classic.png" width="200"/>|<img src="screenshots/widget_full.png" width="200"/>|<img src="screenshots/widget_circle.png" width="200"/>|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Classic 	| Big 	| Full 	| Circle 	|
 
-___
+##### Material You (MD3)
+|<img src="screenshots/widget_classic_md3.png" width="200"/>|<img src="screenshots/widget_classic_md3.png" width="200"/>|<img src="screenshots/widget_full_md3.png" width="200"/>|<img src="screenshots/widget_circle_md3.png" width="200"/>|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Classic 	| Big 	| Full 	| Circle 	|
 ## About
 Apex Music is an offline open source music player optimised for foldables and is forked from [Retro Music Player](https://github.com/RetroMusicPlayer/RetroMusicPlayer)
 ___    

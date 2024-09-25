@@ -74,6 +74,7 @@ class HomeFragment :
         view.doOnLayout {
             adjustPlaylistButtons()
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     private fun adjustPlaylistButtons() {

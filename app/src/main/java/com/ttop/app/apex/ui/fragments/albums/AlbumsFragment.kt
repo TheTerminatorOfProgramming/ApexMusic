@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ttop.app.apex.EXTRA_ALBUM_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.album.AlbumAdapter
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.AlbumSortOrder
@@ -51,6 +52,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             else
                 adapter?.swapDataSet(listOf())
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     override val titleRes: Int

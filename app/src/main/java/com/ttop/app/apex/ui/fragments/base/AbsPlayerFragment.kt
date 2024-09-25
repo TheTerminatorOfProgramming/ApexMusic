@@ -247,6 +247,10 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
                 return true
             }
+            R.id.action_volume -> {
+                VolumeDialog.newInstance().show(childFragmentManager, "VOLUME")
+                return true
+            }
         }
         return false
     }

@@ -441,7 +441,7 @@
     <string name="show_player_on_app_launch">Toujours afficher au lancement de l\'application</string>
     <string name="shuffle">Lecture aléatoire</string>
     <string name="shuffle_button">sélection lecture aléatoire</string>
-    <string name="shuffle_button_desc">Utilisez ceci pour créer une file de lecture mélangée. Pour plus d\'informations, visitez le wiki musical apex !</string>
+    <string name="shuffle_button_desc">Utilisez ceci pour créer une file de lecture mélangée</string>
     <string name="simple">Simple</string>
     <string name="sleep_timer_canceled">La minuterie de sommeil a été annulée.</string>
     <string name="sleep_timer_set">Arrêt de la musique dans %d minutes.</string>
@@ -501,8 +501,6 @@
     <string name="website">Site Web</string>
     <string name="website_summary">Consultez notre site Web</string>
     <string name="what_do_you_want_to_share">Que voulez-vous partager ?</string>
-    <string name="wiki">Wiki</string>
-    <string name="wiki_summary">Besoin d\'aide ? Consultez notre page wiki !</string>
     <string name="x_has_been_set_as_ringtone">Définir %1$s comme votre sonnerie.</string>
     <string name="x_selected">%1$d sélectionné</string>
     <string name="year">Année</string>

@@ -28,6 +28,7 @@ import com.ttop.app.apex.EXTRA_ARTIST_ID
 import com.ttop.app.apex.EXTRA_ARTIST_NAME
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.artist.ArtistAdapter
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.ArtistSortOrder
@@ -39,6 +40,7 @@ import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 
 class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, GridLayoutManager>(),
     IArtistClickListener, IAlbumArtistClickListener {
@@ -52,6 +54,9 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
                 adapter?.swapDataSet(it)
             else
                 adapter?.swapDataSet(listOf())
+        }
+        if (!VersionUtils.hasVanillaIceCream()) {
+            activity?.window?.statusBarColor = requireActivity().darkAccentColor()
         }
     }
 

@@ -36,34 +36,34 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/button_toggle_play_pause"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/app_widget_buttons_circular"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_play_arrow"
+                tools:tint="@color/md_white_1000" />
+
+            <ImageButton
                 android:id="@+id/button_prev"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@id/button_toggle_play_pause"
                 android:background="@drawable/app_widget_buttons_circular"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/ic_skip_previous"
                 tools:tint="@color/md_white_1000" />
 
             <ImageButton
-                android:id="@+id/button_toggle_play_pause"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_toEndOf="@id/button_prev"
-                android:background="@drawable/app_widget_buttons_circular"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_play_arrow_outline_small"
-                tools:tint="@color/md_white_1000" />
-
-            <ImageButton
                 android:id="@+id/button_next"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_toEndOf="@id/button_toggle_play_pause"
+                android:layout_toEndOf="@id/button_prev"
                 android:background="@drawable/app_widget_buttons_circular"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_skip_next_outline"
+                tools:src="@drawable/ic_skip_next"
                 tools:tint="@color/md_white_1000" />
 
             <ImageButton
@@ -76,19 +76,6 @@
                 android:background="@drawable/app_widget_buttons_circular"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/ic_refresh"
-                tools:tint="@color/md_white_1000" />
-
-            <ImageButton
-                android:id="@+id/button_open"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/button_next"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/app_widget_buttons_circular"
-                android:scaleType="fitCenter"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/app_icon_white"
                 tools:tint="@color/md_white_1000" />
         </RelativeLayout>
 

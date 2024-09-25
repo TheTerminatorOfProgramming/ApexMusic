@@ -14,8 +14,12 @@ import android.webkit.WebViewClient
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentWhatsNewBinding
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.model.CategoryInfo
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.lastVersion
 import com.ttop.app.appthemehelper.util.ATHUtil.isWindowBackgroundDark
 import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight

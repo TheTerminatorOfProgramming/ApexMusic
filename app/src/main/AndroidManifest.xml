@@ -8,6 +8,7 @@
     -->
     <queries>
         <package android:name="com.android.musicfx" />
+        <package android:name="com.samsung.android.soundassistant" />
     </queries>
 
     <application

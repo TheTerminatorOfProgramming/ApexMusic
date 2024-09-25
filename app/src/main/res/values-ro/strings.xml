@@ -441,7 +441,7 @@
     <string name="show_player_on_app_launch">Arată întotdeauna la lansarea aplicației</string>
     <string name="shuffle">Amestecare</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Foloseşte acest lucru pentru a crea o coadă redată amestecată. Pentru mai multe informaţii vizitaţi wiki-ul de muzică apex!</string>
+    <string name="shuffle_button_desc">Foloseşte acest lucru pentru a crea o coadă redată amestecată</string>
     <string name="simple">Simplu</string>
     <string name="sleep_timer_canceled">Temporizator de somn anulat.</string>
     <string name="sleep_timer_set">Temporizatorul de somn setat pentru %d minute din acest moment.</string>
@@ -501,8 +501,6 @@
     <string name="website">Website</string>
     <string name="website_summary">Vezi site-ul nostru web</string>
     <string name="what_do_you_want_to_share">Ce vrei să partajezi?</string>
-    <string name="wiki">Wiki</string>
-    <string name="wiki_summary">Ai nevoie de ajutor? Vezi pagina noastră de wiki!</string>
     <string name="x_has_been_set_as_ringtone">Setează %1$s ca ton de apel.</string>
     <string name="x_selected">%1$d selectat</string>
     <string name="year">An</string>

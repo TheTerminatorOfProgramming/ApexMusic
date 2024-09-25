@@ -31,4 +31,8 @@
     <style name="Theme.Apex.MD3.Black" parent="@style/Theme.Apex.MD3">
         <item name="colorSurface">@color/blackColorSurface</item>
     </style>
+
+    <style name="Theme.Material3.DynamicColors.Widget" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="colorSurface">@color/m3_widget_background</item>
+    </style>
 </resources>

@@ -40,6 +40,12 @@
         android:title="@string/playback_speed"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_volume"
+        android:icon="@drawable/ic_volume_up"
+        android:orderInCategory="4"
+        android:title="@string/volume"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_go_to_drive_mode"
         android:icon="@drawable/ic_drive_eta"
         android:orderInCategory="4"

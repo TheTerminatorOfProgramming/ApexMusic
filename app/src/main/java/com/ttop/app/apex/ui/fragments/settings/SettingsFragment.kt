@@ -28,6 +28,7 @@ import com.afollestad.materialdialogs.color.ColorCallback
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.databinding.FragmentSettingsBinding
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.findNavController
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
@@ -49,6 +50,7 @@ class SettingsFragment : AbsMainActivityFragment(R.layout.fragment_settings), Co
                 ApexUtil.dpToMargin(0)
             }
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     private fun setupToolbar() {

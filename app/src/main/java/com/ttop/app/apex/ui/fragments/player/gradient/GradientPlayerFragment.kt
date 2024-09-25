@@ -59,6 +59,7 @@ import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
 import com.ttop.app.apex.dialogs.SleepTimerDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
 import com.ttop.app.apex.dialogs.SongShareDialog
+import com.ttop.app.apex.dialogs.VolumeDialog
 import com.ttop.app.apex.extensions.*
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
@@ -226,6 +227,15 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
                     SongDetailDialog.create(song).show(childFragmentManager, "SONG_DETAIL")
                 }
             }
+            "drive_mode" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_drive_eta))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    NavigationUtil.gotoDriveMode(requireActivity())
+                }
+            }
             "equalizer" -> {
                 binding.customizableToolbarAction.visibility = View.VISIBLE
 
@@ -261,6 +271,15 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
 
                 binding.customizableToolbarAction.setOnClickListener {
                     SongShareDialog.create(song).show(childFragmentManager, "SHARE_SONG")
+                }
+            }
+            "volume" -> {
+                binding.customizableToolbarAction.visibility = View.VISIBLE
+
+                binding.customizableToolbarAction.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_volume_up))
+
+                binding.customizableToolbarAction.setOnClickListener {
+                    VolumeDialog.newInstance().show(childFragmentManager, "VOLUME")
                 }
             }
         }
@@ -397,6 +416,10 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
 
                     binding.mask.visibility = View.VISIBLE
                 }
+            }
+            R.id.action_volume -> {
+                VolumeDialog.newInstance().show(childFragmentManager, "VOLUME")
+                return true
             }
         }
         return false

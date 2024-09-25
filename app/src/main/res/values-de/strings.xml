@@ -439,7 +439,7 @@
     <string name="show_player_on_app_launch">Beim App-Start immer anzeigen</string>
     <string name="shuffle">Mischen</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Verwende dies, um eine gemischte Warteschlange zu erstellen. Für weitere Informationen besuche das Quell-Musik-Wiki!</string>
+    <string name="shuffle_button_desc">Verwende dies, um eine gemischte Warteschlange zu erstellen</string>
     <string name="simple">Einfach</string>
     <string name="sleep_timer_canceled">Sleep-Timer abgebrochen.</string>
     <string name="sleep_timer_set">Schlaf-Timer für %d Minuten gesetzt.</string>
@@ -499,8 +499,6 @@
     <string name="website">Webseite</string>
     <string name="website_summary">Schauen Sie sich unsere Website an</string>
     <string name="what_do_you_want_to_share">Was möchtest du teilen?</string>
-    <string name="wiki">Wiki</string>
-    <string name="wiki_summary">Brauchst du Hilfe? Schau dir unsere Wiki-Seite an!</string>
     <string name="x_has_been_set_as_ringtone">%1$s als Klingelton setzen.</string>
     <string name="x_selected">%1$d ausgewählt</string>
     <string name="year">Jahr</string>

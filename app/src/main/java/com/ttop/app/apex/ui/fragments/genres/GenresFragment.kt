@@ -26,6 +26,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.EXTRA_GENRE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.GenreAdapter
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.interfaces.IGenreClickListener
 import com.ttop.app.apex.model.Genre
@@ -44,6 +45,7 @@ GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
             else
                 adapter?.swapDataSet(listOf())
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     override fun createLayoutManager(): LinearLayoutManager {

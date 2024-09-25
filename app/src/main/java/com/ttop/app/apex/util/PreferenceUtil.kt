@@ -39,7 +39,6 @@ object PreferenceUtil {
         CategoryInfo(CategoryInfo.Category.Playlists, false),
         CategoryInfo(CategoryInfo.Category.Genres, false),
         CategoryInfo(CategoryInfo.Category.Folder, false),
-        CategoryInfo(CategoryInfo.Category.Search, false),
         CategoryInfo(CategoryInfo.Category.Settings,true),
         CategoryInfo(CategoryInfo.Category.PlayingQueue,true)
     )
@@ -789,7 +788,7 @@ object PreferenceUtil {
         set(value) = sharedPreferences.edit {
             putBoolean(IS_QUEUE_HIDDEN_PEEK, value)}
 
-    var widgetStyle
+    var transparentWidgets
         get() = sharedPreferences.getBoolean(
             WIDGET_STYLE, false
         )
@@ -1068,4 +1067,9 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean(APP_BAR_COLOR, value)}
+
+    val isAlbumArtSquircle
+        get() = sharedPreferences.getBoolean(
+            SQUIRCLE_ART, false
+        )
 }

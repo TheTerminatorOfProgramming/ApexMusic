@@ -17,6 +17,7 @@ package com.ttop.app.apex.extensions
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Resources.Theme
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.Button
@@ -134,12 +135,10 @@ fun MaterialButton.accentOutlineColor() {
 }
 
 fun MaterialButton.elevatedAccentColor() {
-    if (!materialYou) {
-        val color = context.darkAccentColorVariant()
-        rippleColor = ColorStateList.valueOf(color)
-        setBackgroundColor(color)
-        setTextColor(MaterialValueHelper.getPrimaryTextColor(context, color.isColorLight))
-    }
+    val color = context.darkAccentColorVariant()
+    rippleColor = ColorStateList.valueOf(color)
+    setBackgroundColor(color)
+    setTextColor(MaterialValueHelper.getPrimaryTextColor(context, color.isColorLight))
     iconTint = ColorStateList.valueOf(context.accentColor())
 }
 
@@ -254,18 +253,34 @@ fun Context.getColorCompat(@ColorRes colorRes: Int): Int {
 @ColorInt
 fun Context.darkAccentColor(): Int {
     return ColorUtils.blendARGB(
-        accentColor(),
+        if (ThemeStore.isMD3Enabled(applicationContext)) {
+            ContextCompat.getColor(applicationContext, R.color.m3_widget_background)
+        }else {
+            accentColor()
+        },
         surfaceColor(),
-        if (surfaceColor().isColorLight) 0.9f else 0.92f
+        if (ThemeStore.isMD3Enabled(applicationContext)) {
+            0.7f
+        }else {
+            if (surfaceColor().isColorLight) 0.9f else 0.92f
+        }
     )
 }
 
 @ColorInt
 fun Context.darkAccentColorVariant(): Int {
     return ColorUtils.blendARGB(
-        accentColor(),
+        if (ThemeStore.isMD3Enabled(applicationContext)) {
+            ContextCompat.getColor(applicationContext, R.color.m3_widget_background)
+        }else {
+            accentColor()
+        },
         surfaceColor(),
-        if (surfaceColor().isColorLight) 0.9f else 0.95f
+        if (ThemeStore.isMD3Enabled(applicationContext)) {
+            0.75f
+        }else {
+            if (surfaceColor().isColorLight) 0.9f else 0.95f
+        }
     )
 }
 

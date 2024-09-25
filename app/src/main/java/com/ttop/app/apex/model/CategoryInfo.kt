@@ -37,7 +37,6 @@ data class CategoryInfo(
         Playlists(R.id.action_playlist, R.string.playlists, R.drawable.ic_playlist),
         Genres(R.id.action_genre, R.string.genres, R.drawable.ic_guitar),
         Folder(R.id.action_folder, R.string.folders, R.drawable.ic_folder),
-        Search(R.id.action_search, R.string.action_search, R.drawable.ic_search),
         Settings(R.id.action_settings_fragment, R.string.action_settings, R.drawable.ic_settings),
         PlayingQueue(R.id.action_queue_fragment, R.string.queue_short, R.drawable.ic_queue_music);
     }

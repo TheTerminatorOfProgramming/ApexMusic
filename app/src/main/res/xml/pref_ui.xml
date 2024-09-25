@@ -72,7 +72,8 @@
             android:key="app_bar_color"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_appbar_color"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false"
+            app:isPreferenceVisible="@bool/remove_header_color"/>
 
         <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="0"

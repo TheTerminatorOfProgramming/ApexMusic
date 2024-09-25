@@ -437,7 +437,7 @@
     <string name="show_player_on_app_launch">アプリ起動時に常に表示</string>
     <string name="shuffle">シャッフル</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">これを使用して、シャッフルされた再生キューを作成します。詳細については、Apex Music Wiki をご覧ください。</string>
+    <string name="shuffle_button_desc">これを使用して、シャッフルされた再生キューを作成します</string>
     <string name="simple">単純な</string>
     <string name="sleep_timer_canceled">スリープタイマーをキャンセルしました。</string>
     <string name="sleep_timer_set">%d 分後にスリープタイマーを設定しました。</string>
@@ -497,8 +497,6 @@
     <string name="website">ウェブサイト</string>
     <string name="website_summary">私たちのウェブサイトをチェックしてください</string>
     <string name="what_do_you_want_to_share">何を共有しますか？</string>
-    <string name="wiki">ウィキ</string>
-    <string name="wiki_summary">ヘルプが必要ですか? ウィキページをご覧ください!</string>
     <string name="x_has_been_set_as_ringtone">%1$s を着信音に設定しました。</string>
     <string name="x_selected">%1$d を選択しました</string>
     <string name="year">年</string>

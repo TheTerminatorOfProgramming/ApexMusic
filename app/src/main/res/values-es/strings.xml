@@ -441,7 +441,7 @@
     <string name="show_player_on_app_launch">Mostrar siempre al ejecutar la aplicación</string>
     <string name="shuffle">Aleatorio</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Usa esto para crear una cola de reproducción aleatoria. ¡Para más información visita el wiki de música apex!</string>
+    <string name="shuffle_button_desc">Usa esto para crear una cola de reproducción aleatoria</string>
     <string name="simple">Simple</string>
     <string name="sleep_timer_canceled">Temporizador de sueño cancelado.</string>
     <string name="sleep_timer_set">Temporizador de sueño establecido para %d minutos desde ahora.</string>
@@ -501,8 +501,6 @@
     <string name="website">Sitio web</string>
     <string name="website_summary">Echa un vistazo a nuestra página web</string>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
-    <string name="wiki">Wiki</string>
-    <string name="wiki_summary">¿Necesitas ayuda? ¡Échale un vistazo a nuestra página wiki!</string>
     <string name="x_has_been_set_as_ringtone">Establecer %1$s como tono de llamada.</string>
     <string name="x_selected">%1$d seleccionado</string>
     <string name="year">Año</string>

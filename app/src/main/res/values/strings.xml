@@ -384,6 +384,7 @@
     <string name="pref_title_search_icon">Voice Search In Header</string>
     <string name="pref_title_shuffle_state">Keep Shuffle State</string>
     <string name="pref_title_specific_device">Specific Device</string>
+    <string name="pref_title_squircle_art_widgets">Squircle Album Art</string>
     <string name="pref_title_suggestions">Show Suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Swipe Anywhere To Change Track</string>
     <string name="pref_title_swipe_gestures">Swipe Gestures</string>
@@ -441,7 +442,7 @@
     <string name="show_player_on_app_launch">Always Show On App Launch</string>
     <string name="shuffle">Shuffle</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Use this to create a shuffled playing queue. for more info visit the apex music wiki!</string>
+    <string name="shuffle_button_desc">Use this to create a shuffled playing queue</string>
     <string name="simple">Simple</string>
     <string name="sleep_timer_canceled">Sleep timer canceled.</string>
     <string name="sleep_timer_set">Sleep timer set for %d minutes from now.</string>
@@ -495,14 +496,13 @@
     <string name="user_images_description">User Images</string>
     <string name="version">Version</string>
     <string name="vertical_flip">Vertical flip</string>
+    <string name="volume">Volume</string>
     <string name="warning_fade">Warning! May cause unexpected issues with playback</string>
     <string name="warning_fade_cancelled">Changes Reverted</string>
     <string name="web_search">Web search</string>
     <string name="website">Website</string>
     <string name="website_summary">Check out our Website</string>
     <string name="what_do_you_want_to_share">What do you want to share?</string>
-    <string name="wiki">Wiki</string>
-    <string name="wiki_summary">Need Help? Check out our wiki page!</string>
     <string name="x_has_been_set_as_ringtone">Set %1$s as your ringtone.</string>
     <string name="x_selected">%1$d selected</string>
     <string name="year">Year</string>

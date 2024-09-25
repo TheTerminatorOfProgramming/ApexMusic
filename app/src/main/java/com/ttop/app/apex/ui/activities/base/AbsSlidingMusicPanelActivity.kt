@@ -111,6 +111,7 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
+import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -169,10 +170,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         binding.slidingPanel.alpha = 0.7f
                     }
                     window.navigationBarColor = darkAccentColor()
-                    if (PreferenceUtil.appbarColor) {
-                        window.statusBarColor = surfaceColor()
-                    }else {
-                        window.statusBarColor = darkAccentColor()
+                    if (!VersionUtils.hasVanillaIceCream()) {
+                        if (PreferenceUtil.appbarColor) {
+                            window.statusBarColor = surfaceColor()
+                        }else {
+                            window.statusBarColor = darkAccentColor()
+                        }
                     }
                 }
 
@@ -299,10 +302,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     STATE_HIDDEN -> {
                         MusicPlayerRemote.clearQueue()
                         window.navigationBarColor = darkAccentColor()
-                        if (PreferenceUtil.appbarColor) {
-                            window.statusBarColor = surfaceColor()
-                        }else {
-                            window.statusBarColor = darkAccentColor()
+                        if (!VersionUtils.hasVanillaIceCream()) {
+                            if (PreferenceUtil.appbarColor) {
+                                window.statusBarColor = surfaceColor()
+                            }else {
+                                window.statusBarColor = darkAccentColor()
+                            }
                         }
                     }
                     else -> {
@@ -357,10 +362,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
         window.navigationBarColor = darkAccentColor()
 
-        if (PreferenceUtil.appbarColor) {
-            window.statusBarColor = surfaceColor()
-        }else {
-            window.statusBarColor = darkAccentColor()
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                window.statusBarColor = surfaceColor()
+            }else {
+                window.statusBarColor = darkAccentColor()
+            }
         }
     }
 
@@ -451,19 +458,25 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
         if (bottomSheetBehavior.state == STATE_COLLAPSED) {
             window.navigationBarColor = darkAccentColor()
-            if (PreferenceUtil.appbarColor) {
-                window.statusBarColor = surfaceColor()
-            }else {
-                window.statusBarColor = darkAccentColor()
+
+            if (!VersionUtils.hasVanillaIceCream()) {
+                if (PreferenceUtil.appbarColor) {
+                    window.statusBarColor = surfaceColor()
+                }else {
+                    window.statusBarColor = darkAccentColor()
+                }
             }
         }
 
         if (bottomSheetBehavior.state == STATE_HIDDEN) {
             window.navigationBarColor = darkAccentColor()
-            if (PreferenceUtil.appbarColor) {
-                window.statusBarColor = surfaceColor()
-            }else {
-                window.statusBarColor = darkAccentColor()
+
+            if (!VersionUtils.hasVanillaIceCream()) {
+                if (PreferenceUtil.appbarColor) {
+                    window.statusBarColor = surfaceColor()
+                }else {
+                    window.statusBarColor = darkAccentColor()
+                }
             }
         }
 
@@ -586,6 +599,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         bottomSheetBehavior.state = STATE_EXPANDED
     }
 
+    fun isPanelExpanded(): Boolean {
+        return bottomSheetBehavior.state == STATE_EXPANDED
+    }
+
     private fun setMiniPlayerAlphaProgress(progress: Float) {
         if (progress < 0) return
         val alpha = 1 - progress
@@ -611,10 +628,13 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         }
 
         window?.navigationBarColor = darkAccentColor()
-        if (PreferenceUtil.appbarColor) {
-            window.statusBarColor = surfaceColor()
-        }else {
-            window.statusBarColor = darkAccentColor()
+
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                window.statusBarColor = surfaceColor()
+            }else {
+                window.statusBarColor = darkAccentColor()
+            }
         }
     }
 

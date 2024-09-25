@@ -16,6 +16,7 @@ import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
 
 class TopAppBarLayout @JvmOverloads constructor(
@@ -35,10 +36,12 @@ class TopAppBarLayout @JvmOverloads constructor(
         }
         statusBarForeground = MaterialShapeDrawable.createWithElevationOverlay(context)
 
-        if (PreferenceUtil.appbarColor) {
-            simpleAppbarBinding?.root?.setBackgroundColor(context.surfaceColor())
-        }else {
-            simpleAppbarBinding?.root?.setBackgroundColor(context.darkAccentColor())
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                simpleAppbarBinding?.root?.setBackgroundColor(context.surfaceColor())
+            }else {
+                simpleAppbarBinding?.root?.setBackgroundColor(context.darkAccentColor())
+            }
         }
 
         simpleAppbarBinding?.root?.updateLayoutParams<LayoutParams> {

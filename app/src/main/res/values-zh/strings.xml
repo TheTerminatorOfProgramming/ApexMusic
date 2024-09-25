@@ -437,7 +437,7 @@
     <string name="show_player_on_app_launch">应用启动时总是显示</string>
     <string name="shuffle">随机播放</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">用它来创建一个随机播放队列。要了解更多信息，请访问顶级音乐wiki！</string>
+    <string name="shuffle_button_desc">用它来创建一个随机播放队列</string>
     <string name="simple">简单的</string>
     <string name="sleep_timer_canceled">睡眠计时器已取消。</string>
     <string name="sleep_timer_set">从现在起，睡眠计时器设置为 %d 分钟。</string>
@@ -497,8 +497,6 @@
     <string name="website">网址</string>
     <string name="website_summary">查看我们的网站</string>
     <string name="what_do_you_want_to_share">您想分享什么？</string>
-    <string name="wiki">维基</string>
-    <string name="wiki_summary">需要帮助？看看我们的维基页面！</string>
     <string name="x_has_been_set_as_ringtone">设置 %1$s 为您的铃声。</string>
     <string name="x_selected">已选择 %1$d</string>
     <string name="year">年份</string>

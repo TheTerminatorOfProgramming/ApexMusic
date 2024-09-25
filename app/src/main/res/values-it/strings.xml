@@ -441,7 +441,7 @@
     <string name="show_player_on_app_launch">Mostra Sempre All\'Avvio Dell\'App</string>
     <string name="shuffle">Mischia</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Usalo per creare una coda di riproduzione mischiata. Per maggiori informazioni visita il wiki di musica apex!</string>
+    <string name="shuffle_button_desc">Usalo per creare una coda di riproduzione mischiata</string>
     <string name="simple">Semplice</string>
     <string name="sleep_timer_canceled">Timer di sospensione annullato.</string>
     <string name="sleep_timer_set">Timer di spegnimento impostato per %d minuti da ora.</string>
@@ -501,8 +501,6 @@
     <string name="website">Sito</string>
     <string name="website_summary">Scopri il nostro sito web</string>
     <string name="what_do_you_want_to_share">Che cosa vuoi condividere?</string>
-    <string name="wiki">Wiki</string>
-    <string name="wiki_summary">Hai bisogno di aiuto? Dai un\'occhiata alla nostra pagina wiki!</string>
     <string name="x_has_been_set_as_ringtone">Imposta %1$s come suoneria.</string>
     <string name="x_selected">%1$d selezionato</string>
     <string name="year">Anno</string>

@@ -29,6 +29,7 @@ import com.ttop.app.apex.EXTRA_PLAYLIST_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.playlist.PlaylistAdapter
 import com.ttop.app.apex.db.PlaylistWithSongs
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder
 import com.ttop.app.apex.interfaces.IPlaylistClickListener
@@ -49,6 +50,7 @@ class PlaylistsFragment :
             else
                 adapter?.swapDataSet(listOf())
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     override val titleRes: Int

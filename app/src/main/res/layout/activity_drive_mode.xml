@@ -18,15 +18,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.ttop.app.apex.views.StatusBarView
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="?attr/colorSurface"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image"
         android:layout_width="0dp"
@@ -58,7 +49,7 @@
         android:backgroundTint="@color/semi_transparent"
         android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -70,7 +61,7 @@
         android:padding="8dp"
         app:layout_constraintEnd_toStartOf="@id/songFavourite"
         app:layout_constraintStart_toEndOf="@id/close"
-        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_car" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -82,14 +73,14 @@
         android:backgroundTint="@color/semi_transparent"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_favorite_border" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/playPauseButton"
         android:layout_width="112dp"
         android:layout_height="112dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="32dp"
         android:background="?roundSelector"
         android:src="@drawable/ic_pause"
         app:layout_constraintBottom_toTopOf="@+id/repeatButton"
@@ -122,81 +113,89 @@
         app:srcCompat="@drawable/ic_skip_previous" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/timerButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="?roundSelector"
+        app:layout_constraintEnd_toStartOf="@+id/repeatButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="@id/repeatButton"
+        app:layout_constraintBottom_toBottomOf="@+id/repeatButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_sleep_timer" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/repeatButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="32dp"
         android:background="?roundSelector"
         app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintEnd_toStartOf="@+id/shuffleButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/timerButton"
         app:srcCompat="@drawable/ic_repeat" />
-
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/shuffleButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="?roundSelector"
         app:layout_constraintBottom_toBottomOf="@+id/repeatButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/playbackButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/repeatButton"
         app:layout_constraintTop_toTopOf="@+id/repeatButton"
         app:srcCompat="@drawable/ic_shuffle" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/playbackButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="?roundSelector"
+        app:layout_constraintBottom_toBottomOf="@+id/shuffleButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/shuffleButton"
+        app:layout_constraintTop_toTopOf="@+id/shuffleButton"
+        app:srcCompat="@drawable/ic_playback_speed" />
+
     <LinearLayout
         android:id="@+id/titleContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/progressSlider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/close">
+        app:layout_constraintStart_toStartOf="parent" >
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/songTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
+            android:textSize="30sp"
             android:textAppearance="@style/TextViewHeadline4"
             android:textColor="@color/md_white_1000"
             android:textStyle="bold"
             tools:text="@tools:sample/lorem/random" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/album"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewHeadline5"
-            android:textColor="@color/md_grey_200"
-            tools:text="@tools:sample/lorem/random" />
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="8dp"
             android:gravity="center"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
+            android:textSize="30sp"
             android:textAppearance="@style/TextViewHeadline5"
             android:textColor="@color/md_grey_200"
             tools:text="@tools:sample/lorem/random" />

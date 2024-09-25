@@ -31,6 +31,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentNavPlayingQueueBinding
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
@@ -111,6 +112,7 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
                 }
             }
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     private fun checkForMargins() {

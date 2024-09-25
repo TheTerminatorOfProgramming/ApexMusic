@@ -9,7 +9,7 @@
     android:maxResizeHeight="@dimen/app_widget_circle_max_height"
     android:maxResizeWidth="@dimen/app_widget_circle_max_width"
     android:resizeMode="horizontal|vertical"
-    android:previewImage="@drawable/widget_circle"
+    android:previewImage="@drawable/widget_circle_md3"
     android:updatePeriodMillis="0"
     android:widgetCategory="keyguard|home_screen"
     tools:ignore="UnusedAttribute" />

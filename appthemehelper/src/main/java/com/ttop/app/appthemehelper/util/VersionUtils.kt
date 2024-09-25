@@ -43,4 +43,13 @@ object VersionUtils {
     fun hasUpsideDownCake(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
     }
+
+    /**
+     * @return true if device is running API >= 35
+     */
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    @JvmStatic
+    fun hasVanillaIceCream(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM
+    }
 }

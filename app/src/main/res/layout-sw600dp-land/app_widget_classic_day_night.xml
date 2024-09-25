@@ -43,7 +43,7 @@
                 android:scaleType="fitCenter"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
-                tools:src="@drawable/ic_skip_previous_outline_small"
+                tools:src="@drawable/ic_skip_previous"
                 tools:tint="?android:attr/textColorPrimary"
                 tools:ignore="ContentDescription" />
 
@@ -54,7 +54,7 @@
                 android:background="@drawable/app_widget_buttons_circular_daynight"
                 android:scaleType="fitCenter"
                 android:layout_centerInParent="true"
-                tools:src="@drawable/ic_play_arrow_outline_small"
+                tools:src="@drawable/ic_play_arrow"
                 tools:tint="?android:attr/textColorPrimary"
                 tools:ignore="ContentDescription" />
 
@@ -66,9 +66,9 @@
                 android:scaleType="fitCenter"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
+                tools:src="@drawable/ic_skip_next"
                 tools:ignore="ContentDescription"
-                tools:src="?android:attr/textColorPrimary"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="?android:attr/textColorPrimary" />
 
         </RelativeLayout>
 

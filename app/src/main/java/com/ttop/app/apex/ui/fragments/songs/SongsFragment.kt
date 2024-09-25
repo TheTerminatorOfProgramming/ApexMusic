@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.songs
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -24,6 +25,8 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.SongAdapter
+import com.ttop.app.apex.extensions.colorBackground
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.SortOrder.SongSortOrder
 import com.ttop.app.apex.ui.fragments.GridStyle
@@ -44,6 +47,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             else
                 adapter?.swapDataSet(listOf())
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     override val titleRes: Int

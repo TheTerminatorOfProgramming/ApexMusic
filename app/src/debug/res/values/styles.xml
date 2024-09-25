@@ -17,6 +17,19 @@
 
     <style name="TextViewHeadline6" parent="TextAppearance.MaterialComponents.Headline6" />
 
+    <style name="TextViewHeadline6Point5" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextViewHeadline7" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewHeadline7Point5" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextViewHeadline3" parent="TextAppearance.MaterialComponents.Headline3" />
 
     <style name="TextViewHeadline2" parent="TextAppearance.MaterialComponents.Headline2" />
@@ -36,11 +49,30 @@
     <style name="TextViewOverline" parent="TextAppearance.MaterialComponents.Overline" />
 
     <style name="TextViewSubtitle3" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewSubtitle4" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextViewSubtitle5" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">7.5sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextViewNormal3" parent="">
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextViewNormal4" parent="">
+        <item name="android:textSize">6.5sp</item>
+    </style>
+
+    <style name="TextViewHeadline8" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
     <style name="AppTextAppearance.MaterialAlertDialog.Button" parent="Widget.MaterialComponents.Button.TextButton">

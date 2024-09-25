@@ -125,6 +125,8 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
             startMicSearch()
             PreferenceUtil.isSearchFromNavigation = false
         }
+
+        activity?.window?.statusBarColor = requireContext().surfaceColor()
     }
 
     private fun setupChips() {

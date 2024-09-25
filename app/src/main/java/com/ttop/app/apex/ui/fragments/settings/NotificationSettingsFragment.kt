@@ -27,6 +27,7 @@ import com.ttop.app.apex.DISABLE_WIDGETS
 import com.ttop.app.apex.NOTIFICATION_ACTION_1
 import com.ttop.app.apex.NOTIFICATION_ACTION_2
 import com.ttop.app.apex.R
+import com.ttop.app.apex.SQUIRCLE_ART
 import com.ttop.app.apex.WIDGET_STYLE
 import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
@@ -50,7 +51,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
-            WIDGET_STYLE -> {
+            WIDGET_STYLE, SQUIRCLE_ART -> {
                 appWidgetBig.notifyThemeChange(musicService)
                 appWidgetClassic.notifyThemeChange(musicService)
                 appWidgetFull.notifyThemeChange(musicService)
@@ -85,6 +86,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             }
 
             appWidgetClassic.notifyThemeChange(musicService)
+            appWidgetBig.notifyThemeChange(musicService)
             appWidgetFull.notifyThemeChange(musicService)
             true
         }
@@ -109,6 +111,15 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
             circleWidgetState(requireContext(), newValue)
             fullWidgetState(requireContext(), newValue)
 
+            true
+        }
+
+        val squircleAlbumArt: TwoStatePreference? = findPreference(SQUIRCLE_ART)
+        squircleAlbumArt?.isChecked = PreferenceUtil.isAlbumArtSquircle
+        squircleAlbumArt?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
             true
         }
     }

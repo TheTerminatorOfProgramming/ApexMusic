@@ -4,8 +4,8 @@
     android:minWidth="@dimen/app_widget_classic_min_width"
     android:minHeight="@dimen/app_widget_classic_min_height"
     android:maxResizeWidth="@dimen/app_widget_full_min_width"
-    android:maxResizeHeight="@dimen/app_widget_full_min_height"
-    android:previewImage="@drawable/widget_classic"
+    android:maxResizeHeight="@dimen/app_widget_big_min_height"
+    android:previewImage="@drawable/widget_classic_md3"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
     android:widgetCategory="keyguard|home_screen" />

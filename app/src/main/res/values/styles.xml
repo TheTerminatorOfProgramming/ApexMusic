@@ -131,6 +131,7 @@
     <style name="TextViewOverline" parent="TextAppearance.MaterialComponents.Overline" />
 
     <style name="TextViewSubtitle3" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -315,5 +316,31 @@
     <style name="TitleStyle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:maxLines">3</item>
         <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="Theme.Material3.DynamicColors.Widget" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="colorSurface">@color/m3_widget_background</item>
+    </style>
+
+    <style name="TextViewHeadline7" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewSubtitle4" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextViewHeadline6Point5" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextViewHeadline7Point5" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewHeadline8" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10sp</item>
     </style>
 </resources>

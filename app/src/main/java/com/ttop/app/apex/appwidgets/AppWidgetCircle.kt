@@ -29,6 +29,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.extensions.getTintedDrawable
@@ -55,17 +56,45 @@ class AppWidgetCircle : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_circle)
+        val appWidgetView = if (DynamicColors.isDynamicColorAvailable()) {
+            RemoteViews(context.packageName, R.layout.app_widget_circle_md3)
+        }else {
+            RemoteViews(context.packageName, R.layout.app_widget_circle)
+        }
 
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
-        val secondaryColor = MaterialValueHelper.getSecondaryTextColor(context, true)
-        appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause,
-            context.getTintedDrawable(
-                R.drawable.ic_play_arrow,
-                secondaryColor
-            ).toBitmap()
-        )
+
+        if (DynamicColors.isDynamicColorAvailable()) {
+            appWidgetView.setImageViewBitmap(
+                R.id.button_toggle_play_pause,
+                context.getTintedDrawable(
+                    R.drawable.ic_play_arrow,
+                    ContextCompat.getColor(context, R.color.m3_widget_foreground)
+                ).toBitmap()
+            )
+        }else {
+            when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    // Set correct drawable for pause state
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_play_pause,
+                        context.getTintedDrawable(
+                            R.drawable.ic_play_arrow, ContextCompat.getColor(context, com.ttop.app.appthemehelper.R.color.md_white_1000)
+                        ).toBitmap()
+                    )
+                }
+                Configuration.UI_MODE_NIGHT_NO,
+                Configuration.UI_MODE_NIGHT_UNDEFINED-> {
+                    // Set correct drawable for pause state
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_play_pause,
+                        context.getTintedDrawable(
+                            R.drawable.ic_play_arrow, ContextCompat.getColor(context, com.ttop.app.appthemehelper.R.color.md_black_1000)
+                        ).toBitmap()
+                    )
+                }
+            }
+        }
 
         linkButtons(context, appWidgetView)
         pushUpdate(context, appWidgetIds, appWidgetView)
@@ -75,34 +104,78 @@ class AppWidgetCircle : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_circle)
+        val appWidgetView = if (DynamicColors.isDynamicColorAvailable()) {
+            RemoteViews(service.packageName, R.layout.app_widget_circle_md3)
+        }else {
+            RemoteViews(service.packageName, R.layout.app_widget_circle)
+        }
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
 
         // Set correct drawable for pause state
         val playPauseRes =
-            if (isPlaying) R.drawable.ic_pause_small else R.drawable.ic_play_arrow_small
-        appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_play_pause,
-            service.getTintedDrawable(
-                playPauseRes,
-                MaterialValueHelper.getSecondaryTextColor(service, true)
-            ).toBitmap()
-        )
+            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
+
         val isFavorite = runBlocking(Dispatchers.IO) {
             return@runBlocking MusicUtil.repository.isSongFavorite(song.id)
         }
         val favoriteRes =
             if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
 
-        appWidgetView.setImageViewBitmap(
-            R.id.button_toggle_favorite,
-            service.getTintedDrawable(
-                favoriteRes,
-                MaterialValueHelper.getSecondaryTextColor(service, true)
-            ).toBitmap()
-        )
+        if (DynamicColors.isDynamicColorAvailable()) {
+            appWidgetView.setImageViewBitmap(
+                R.id.button_toggle_play_pause,
+                service.getTintedDrawable(
+                    playPauseRes, ContextCompat.getColor(service, R.color.m3_widget_foreground)
+                ).toBitmap()
+            )
+
+            appWidgetView.setImageViewBitmap(
+                R.id.button_toggle_favorite,
+                service.getTintedDrawable(
+                    favoriteRes, ContextCompat.getColor(service, R.color.m3_widget_foreground)
+                ).toBitmap()
+            )
+        }else {
+            when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    // Set correct drawable for pause state
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_play_pause,
+                        service.getTintedDrawable(
+                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
+                        ).toBitmap()
+                    )
+
+                    // Set prev/next button drawables
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_favorite,
+                        service.getTintedDrawable(
+                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
+                        ).toBitmap()
+                    )
+                }
+                Configuration.UI_MODE_NIGHT_NO,
+                Configuration.UI_MODE_NIGHT_UNDEFINED-> {
+                    // Set correct drawable for pause state
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_play_pause,
+                        service.getTintedDrawable(
+                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
+                        ).toBitmap()
+                    )
+
+                    // Set prev/next button drawables
+                    appWidgetView.setImageViewBitmap(
+                        R.id.button_toggle_favorite,
+                        service.getTintedDrawable(
+                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
+                        ).toBitmap()
+                    )
+                }
+            }
+        }
 
         // Link actions buttons to intents
         linkButtons(service, appWidgetView)
@@ -127,80 +200,15 @@ class AppWidgetCircle : BaseAppWidget() {
                         resource: BitmapPaletteWrapper,
                         transition: Transition<in BitmapPaletteWrapper>?,
                     ) {
-                        val palette = resource.palette
-                        update(
-                            resource.bitmap, palette.getVibrantColor(
-                                palette.getMutedColor(
-                                    MaterialValueHelper.getSecondaryTextColor(
-                                        service, true
-                                    )
-                                )
-                            )
-                        )
+                        update(resource.bitmap)
                     }
 
                     override fun onLoadFailed(errorDrawable: Drawable?) {
                         super.onLoadFailed(errorDrawable)
-                        update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
+                        update(null)
                     }
 
-                    private fun update(bitmap: Bitmap?, color: Int) {
-                        if (!PreferenceUtil.widgetStyle) {
-                            when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                                Configuration.UI_MODE_NIGHT_YES -> {
-                                    // Set correct drawable for pause state
-                                    appWidgetView.setImageViewBitmap(
-                                        R.id.button_toggle_play_pause,
-                                        service.getTintedDrawable(
-                                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                                        ).toBitmap()
-                                    )
-
-                                    // Set prev/next button drawables
-                                    appWidgetView.setImageViewBitmap(
-                                        R.id.button_toggle_favorite,
-                                        service.getTintedDrawable(
-                                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                                        ).toBitmap()
-                                    )
-                                }
-                                Configuration.UI_MODE_NIGHT_NO,
-                                Configuration.UI_MODE_NIGHT_UNDEFINED-> {
-                                    // Set correct drawable for pause state
-                                    appWidgetView.setImageViewBitmap(
-                                        R.id.button_toggle_play_pause,
-                                        service.getTintedDrawable(
-                                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
-                                        ).toBitmap()
-                                    )
-
-                                    // Set prev/next button drawables
-                                    appWidgetView.setImageViewBitmap(
-                                        R.id.button_toggle_favorite,
-                                        service.getTintedDrawable(
-                                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
-                                        ).toBitmap()
-                                    )
-                                }
-                            }
-                        }else {
-                            // Set correct drawable for pause state
-                            appWidgetView.setImageViewBitmap(
-                                R.id.button_toggle_play_pause,
-                                service.getTintedDrawable(
-                                    playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                                ).toBitmap()
-                            )
-
-                            // Set prev/next button drawables
-                            appWidgetView.setImageViewBitmap(
-                                R.id.button_toggle_favorite,
-                                service.getTintedDrawable(
-                                    favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                                ).toBitmap()
-                            )
-                        }
-
+                    private fun update(bitmap: Bitmap?) {
                         if (bitmap == null) {
                             createDefaultCircle(service, appWidgetView, appWidgetIds, playPauseRes)
                         }else {
@@ -215,9 +223,7 @@ class AppWidgetCircle : BaseAppWidget() {
     }
 
     private fun createDefaultCircle(service: MusicService,appWidgetView: RemoteViews, appWidgetIds: IntArray?, playPauseRes: Int) {
-        val song = service.currentSong
-
-        target = Glide.with(service).asBitmapPalette().songCoverOptions(song)
+        target = Glide.with(service).asBitmapPalette()
             .load(R.drawable.default_album_art_round)
             .circleCrop()
             .into(object : CustomTarget<BitmapPaletteWrapper>(
@@ -227,71 +233,17 @@ class AppWidgetCircle : BaseAppWidget() {
                     resource: BitmapPaletteWrapper,
                     transition: Transition<in BitmapPaletteWrapper>?
                 ) {
-                    val palette = resource.palette
-                    update(
-                        resource.bitmap, palette.getVibrantColor(
-                            palette.getMutedColor(
-                                MaterialValueHelper.getSecondaryTextColor(
-                                    service, true
-                                )
-                            )
-                        )
-                    )
+                    update(resource.bitmap)
                 }
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
-                    update(null, MaterialValueHelper.getSecondaryTextColor(service, true))
+                    update(null)
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {}
 
-                private fun update(bitmap: Bitmap?, color: Int) {
-                    val isFavorite = runBlocking(Dispatchers.IO) {
-                        return@runBlocking MusicUtil.repository.isSongFavorite(song.id)
-                    }
-                    val favoriteRes =
-                        if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
-                    if (!PreferenceUtil.widgetStyle) {
-                        when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                            Configuration.UI_MODE_NIGHT_YES -> {
-                                // Set correct drawable for pause state
-                                appWidgetView.setImageViewBitmap(
-                                    R.id.button_toggle_play_pause,
-                                    service.getTintedDrawable(
-                                        playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                                    ).toBitmap()
-                                )
-                            }
-                            Configuration.UI_MODE_NIGHT_NO,
-                            Configuration.UI_MODE_NIGHT_UNDEFINED-> {
-                                // Set correct drawable for pause state
-                                appWidgetView.setImageViewBitmap(
-                                    R.id.button_toggle_play_pause,
-                                    service.getTintedDrawable(
-                                        playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
-                                    ).toBitmap()
-                                )
-                            }
-                        }
-                    }else {
-                        // Set correct drawable for pause state
-                        appWidgetView.setImageViewBitmap(
-                            R.id.button_toggle_play_pause,
-                            service.getTintedDrawable(
-                                playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                            ).toBitmap()
-                        )
-
-                        // Set prev/next button drawables
-                        appWidgetView.setImageViewBitmap(
-                            R.id.button_toggle_favorite,
-                            service.getTintedDrawable(
-                                favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                            ).toBitmap()
-                        )
-                    }
-
+                private fun update(bitmap: Bitmap?) {
                     appWidgetView.setImageViewBitmap(R.id.image, bitmap)
 
                     pushUpdate(service, appWidgetIds, appWidgetView)

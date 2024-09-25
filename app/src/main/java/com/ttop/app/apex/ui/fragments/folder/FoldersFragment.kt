@@ -44,6 +44,7 @@ import com.ttop.app.apex.adapter.Storage
 import com.ttop.app.apex.adapter.StorageAdapter
 import com.ttop.app.apex.adapter.StorageClickListener
 import com.ttop.app.apex.databinding.FragmentFolderBinding
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.textColorPrimary
@@ -151,6 +152,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
             )
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this)
         }
+        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

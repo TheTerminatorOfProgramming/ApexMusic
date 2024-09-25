@@ -94,7 +94,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardTroubleshoot.forceClose.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.telegramLink.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.crowdinLink.setOnClickListener(this)
-        binding.aboutContent.cardApexInfo.wikiLink.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -130,9 +129,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.crowdinLink -> {
                 goToCrowdin()
             }
-            R.id.wikiLink -> {
-                goToWiki()
-            }
         }
     }
 
@@ -155,12 +151,6 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private fun goToCrowdin() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("https://crowdin.com/project/apexmusic")
-        startActivity(intent)
-    }
-
-    private fun goToWiki() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("https://github.com/TheTerminatorOfProgramming/ApexMusic/wiki")
         startActivity(intent)
     }
 

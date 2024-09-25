@@ -43,13 +43,13 @@ class BatterySlideFragment(
         battery = view.findViewById(R.id.permission_battery) as Button
 
         if (!ApexUtil.hasBatteryPermission()) {
-            battery.text = getString(R.string.disable_battery_optimize)
+            battery.text = activity?.getString(R.string.disable_battery_optimize)
 
             battery.setOnClickListener {
                 ApexUtil.disableBatteryOptimization()
             }
         }else {
-            battery.text = getString(R.string.battery_optimize)
+            battery.text = activity?.getString(R.string.battery_optimize)
         }
 
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_deep_purple_400))
@@ -64,7 +64,7 @@ class BatterySlideFragment(
     private fun startLooping() {
         if (ApexUtil.hasBatteryPermission()) {
             isLooping = false
-            battery.text = getString(R.string.battery_optimize_disabled)
+            battery.text = activity?.getString(R.string.battery_optimize_disabled)
         }
         handler.postDelayed(runnable, 250)
     }

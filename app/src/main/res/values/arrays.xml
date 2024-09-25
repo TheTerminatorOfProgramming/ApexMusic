@@ -282,19 +282,23 @@
         <item>@string/disabled</item>
         <item>@string/action_add_to_playlist</item>
         <item>@string/action_details</item>
+        <item>@string/drive_mode</item>
         <item>@string/equalizer</item>
         <item>@string/playback_settings</item>
         <item>@string/action_save_playing_queue</item>
         <item>@string/action_share</item>
+        <item>@string/volume</item>
     </string-array>
 
     <string-array name="pref_customizable_toolbar_values">
         <item>disabled</item>
         <item>add_to_playlist</item>
         <item>details</item>
+        <item>drive_mode</item>
         <item>equalizer</item>
         <item>playback_settings</item>
         <item>save_playing_queue</item>
         <item>share</item>
+        <item>volume</item>
     </string-array>
 </resources>

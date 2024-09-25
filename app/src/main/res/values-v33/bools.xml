@@ -4,4 +4,5 @@
     <bool name="auto_actions">true</bool>
     <bool name="extra_controls">true</bool>
     <bool name="queue_option">false</bool>
+    <bool name="remove_header_color">true</bool>
 </resources>

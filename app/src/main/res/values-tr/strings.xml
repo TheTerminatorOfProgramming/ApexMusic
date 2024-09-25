@@ -439,7 +439,7 @@
     <string name="show_player_on_app_launch">Her Zaman Uygulama Başlatıldığında Göster</string>
     <string name="shuffle">Karıştır</string>
     <string name="shuffle_button">Karışık Düğmesi</string>
-    <string name="shuffle_button_desc">Karışık çalma sırası oluşturmak için bunu kullanın. Daha fazla bilgi için apex music wiki\'sini ziyaret edin!</string>
+    <string name="shuffle_button_desc">Karışık çalma sırası oluşturmak için bunu kullanın</string>
     <string name="simple">Basit</string>
     <string name="sleep_timer_canceled">Uyku zamanlayıcısı iptal edildi.</string>
     <string name="sleep_timer_set">Uyku zamanlayıcısı şu andan itibaren %d dakika sonrasına ayarlandı.</string>
@@ -499,8 +499,6 @@
     <string name="website">İnternet sitesi</string>
     <string name="website_summary">Web sitemizi göz atın</string>
     <string name="what_do_you_want_to_share">Neyi paylaşmak istiyorsunuz?</string>
-    <string name="wiki">Viki</string>
-    <string name="wiki_summary">Yardıma mı ihtiyacınız var? Wiki sayfamıza göz atın!</string>
     <string name="x_has_been_set_as_ringtone">%1$s\'ı zil sesiniz olarak ayarlayın.</string>
     <string name="x_selected">%1$d seçildi</string>
     <string name="year">Yıl</string>
