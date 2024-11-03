@@ -28,7 +28,6 @@
         tools:ignore="ContentDescription"
         tools:visibility="visible" />
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/imageTextContainer"
         android:layout_width="wrap_content"
@@ -71,7 +70,8 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingHorizontal="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp"
         android:textAppearance="@style/TextViewSubtitle1"
         android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/text"
@@ -88,7 +88,8 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingHorizontal="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp"
         android:layout_marginTop="4dp"
         android:textAppearance="@style/TextViewBody2"
         android:textColor="?android:attr/textColorSecondary"

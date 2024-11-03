@@ -19,8 +19,8 @@ import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 
 class CrossFadePreference @JvmOverloads constructor(
@@ -84,6 +84,7 @@ class CrossFadePreferenceDialog : DialogFragment() {
                     DialogInterface.BUTTON_POSITIVE -> {
                         PreferenceUtil.crossFadeDuration = duration
                     }
+
                     DialogInterface.BUTTON_NEGATIVE -> {
                         showToast(getString(R.string.warning_fade_cancelled))
                     }
@@ -92,9 +93,10 @@ class CrossFadePreferenceDialog : DialogFragment() {
 
         if (duration != 0) {
             val builder: AlertDialog.Builder? = context?.let { AlertDialog.Builder(it) }
-            builder?.setMessage(getString(R.string.warning_fade))?.setPositiveButton(getString(R.string.proceed), dialogClickListener)
+            builder?.setMessage(getString(R.string.warning_fade))
+                ?.setPositiveButton(getString(R.string.proceed), dialogClickListener)
                 ?.setNegativeButton(getString(R.string.action_cancel), dialogClickListener)?.show()
-        }else {
+        } else {
             PreferenceUtil.crossFadeDuration = duration
         }
     }

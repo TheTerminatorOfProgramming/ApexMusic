@@ -16,8 +16,8 @@ import com.ttop.app.apex.extensions.addAccentColor
 import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 
 class BlurPreference @JvmOverloads constructor(

@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.ttop.app.apex.R
+import com.ttop.app.apex.libraries.appintro.SlideBackgroundColorHolder
 import com.ttop.app.apex.util.ColorUtil
-import com.ttop.app.appintro.SlideBackgroundColorHolder
 
 class LanguageSlideFragment(
     override val defaultBackgroundColorRes: Int
@@ -25,7 +25,7 @@ class LanguageSlideFragment(
     private lateinit var selectLang: MaterialButton
 
     //Required Constructor
-    constructor() : this(com.ttop.app.appthemehelper.R.color.md_green_500)
+    constructor() : this(R.color.md_green_500)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,21 +39,22 @@ class LanguageSlideFragment(
 
         selectLang = view.findViewById(R.id.selectLang)
 
-        selectLang.setOnClickListener{
-                val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
-                val uri = Uri.fromParts("package", context?.packageName, null)
-                intent.data = uri
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context?.startActivity(intent)
-            }
+        selectLang.setOnClickListener {
+            val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
+            val uri = Uri.fromParts("package", context?.packageName, null)
+            intent.data = uri
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context?.startActivity(intent)
+        }
 
-        selectLang.backgroundTintList = ColorStateList.valueOf(ColorUtil.getComplimentColor(com.ttop.app.appthemehelper.R.color.md_green_500))
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_green_500))
+        selectLang.backgroundTintList =
+            ColorStateList.valueOf(ColorUtil.getComplimentColor(R.color.md_green_500))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_green_500))
     }
 
     companion object {
         fun newInstance(): LanguageSlideFragment {
-            return LanguageSlideFragment(com.ttop.app.appthemehelper.R.color.md_green_500)
+            return LanguageSlideFragment(R.color.md_green_500)
         }
     }
 

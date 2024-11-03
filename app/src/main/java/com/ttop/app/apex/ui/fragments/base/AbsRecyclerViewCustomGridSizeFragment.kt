@@ -80,7 +80,7 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     private val maxGridSizeForList: Int
         get() = if (isTablet) {
             2
-        }else {
+        } else {
             if (isLandscape) {
                 resources.getInteger(R.integer.default_list_columns_land)
             } else 1

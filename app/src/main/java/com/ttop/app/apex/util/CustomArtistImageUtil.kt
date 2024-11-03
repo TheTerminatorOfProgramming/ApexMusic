@@ -21,17 +21,17 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.content.edit
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ttop.app.apex.App
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.model.Artist
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
-import java.util.*
+import java.util.Locale
 
 
 class CustomArtistImageUtil private constructor(context: Context) {

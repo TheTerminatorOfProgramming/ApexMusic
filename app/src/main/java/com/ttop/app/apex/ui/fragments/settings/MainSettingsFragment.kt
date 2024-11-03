@@ -72,6 +72,7 @@ class MainSettingsFragment : Fragment(), View.OnClickListener {
 
         binding.container.drawAboveSystemBarsWithPadding()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

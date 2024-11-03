@@ -46,6 +46,7 @@ object SongsMenuHelper : KoinComponent {
                 MusicPlayerRemote.enqueue(songs)
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 CoroutineScope(Dispatchers.IO).launch {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -56,6 +57,7 @@ object SongsMenuHelper : KoinComponent {
                 }
                 return true
             }
+
             R.id.action_share -> {
                 activity.startActivity(
                     Intent.createChooser(
@@ -65,6 +67,7 @@ object SongsMenuHelper : KoinComponent {
                 )
                 return true
             }
+
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(songs)
                     .show(activity.supportFragmentManager, "DELETE_SONGS")

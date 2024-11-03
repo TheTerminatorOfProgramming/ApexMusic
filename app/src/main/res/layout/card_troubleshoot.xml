@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.ttop.app.appthemehelper.common.views.ATEAccentTextView
+        <com.ttop.app.apex.libraries.appthemehelper.common.views.ATEAccentTextView
             android:id="@+id/sb4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

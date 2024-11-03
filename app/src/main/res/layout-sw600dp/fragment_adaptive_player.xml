@@ -34,10 +34,10 @@
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_keyboard_arrow_down_black"
-            app:subtitleTextAppearance="@style/TextViewCaption"
+            app:subtitleTextAppearance="@style/TextViewSubtitle5"
             app:titleMargin="0dp"
             app:titleMarginStart="0dp"
-            app:titleTextAppearance="@style/TextViewSubtitle1"
+            app:titleTextAppearance="@style/TextViewSubtitle5"
             tools:subtitle="@tools:sample/full_names"
             tools:title="@tools:sample/full_names" />
 
@@ -84,7 +84,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.ttop.app.fastscroller.FastScrollNestedScrollView
+            <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
                 android:id="@+id/scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -100,7 +100,7 @@
                     android:background="@color/transparent"
                     android:paddingStart="4dp"
                     android:paddingEnd="5dp" />
-            </com.ttop.app.fastscroller.FastScrollNestedScrollView>
+            </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
         </FrameLayout>
 
         <androidx.fragment.app.FragmentContainerView

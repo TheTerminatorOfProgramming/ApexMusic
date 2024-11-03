@@ -24,8 +24,10 @@ class AudioFader {
                     fadeInMp.setVolume(
                         animation.animatedValue as Float, animation.animatedValue as Float
                     )
-                    fadeOutMp.setVolume(1 - animation.animatedValue as Float,
-                        1 - animation.animatedValue as Float)
+                    fadeOutMp.setVolume(
+                        1 - animation.animatedValue as Float,
+                        1 - animation.animatedValue as Float
+                    )
                 }
                 doOnEnd {
                     endAction(it)

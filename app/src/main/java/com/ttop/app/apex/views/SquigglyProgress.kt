@@ -28,13 +28,15 @@ import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
 import android.os.SystemClock
 import androidx.annotation.VisibleForTesting
-import com.ttop.app.appthemehelper.util.ColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import kotlin.math.abs
 import kotlin.math.cos
 
 
 private const val TWO_PI = (Math.PI * 2f).toFloat()
-@VisibleForTesting internal const val DISABLED_ALPHA = 77
+
+@VisibleForTesting
+internal const val DISABLED_ALPHA = 77
 
 class SquigglyProgress : Drawable() {
 
@@ -48,17 +50,22 @@ class SquigglyProgress : Drawable() {
 
     /* distance over which amplitude drops to zero, measured in wavelengths */
     private val transitionPeriods = 1.5f
+
     /* wave endpoint as percentage of bar when play position is zero */
     private val minWaveEndpoint = 0f
+
     /* wave endpoint as percentage of bar when play position matches wave endpoint */
     private val matchedWaveEndpoint = 0f
 
     // Horizontal length of the sine wave
     var waveLength = 80f
+
     // Height of each peak of the sine wave
     var lineAmplitude = 6f
+
     // Line speed in px per second
     var phaseSpeed = 16f
+
     // Progress stroke width, both for wave and solid line
     var strokeWidth = 8f
         set(value) {
@@ -138,7 +145,7 @@ class SquigglyProgress : Drawable() {
         if (transitionEnabled) {
             totalWidth -= transitionPeriods * waveLength
         }
-        val totalProgressPx = bounds.width().toFloat()  * progress
+        val totalProgressPx = bounds.width().toFloat() * progress
         val waveProgressPx =
             totalWidth *
                     (if (!transitionEnabled || progress > matchedWaveEndpoint) progress
@@ -249,10 +256,11 @@ class SquigglyProgress : Drawable() {
     }
 
     private fun updateColors(tintColor: Int, alpha: Int) {
-        wavePaint.color = ColorUtil.withAlpha(tintColor, alpha / 255f)
+        wavePaint.color = ATHColorUtil.withAlpha(tintColor, alpha / 255f)
         linePaint.color =
-            ColorUtil.withAlpha(tintColor, (DISABLED_ALPHA * (alpha / 255f)) / 255f)
+            ATHColorUtil.withAlpha(tintColor, (DISABLED_ALPHA * (alpha / 255f)) / 255f)
     }
+
     fun constrain(amount: Float, low: Float, high: Float): Float {
         return if (amount < low) low else if (amount > high) high else amount
     }

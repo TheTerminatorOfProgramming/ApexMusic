@@ -15,69 +15,64 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/app_widget_background"
-        android:backgroundTint="@color/m3_widget_background" >
+        android:backgroundTint="@color/m3_widget_background">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="120dp"
             android:layout_height="0dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/app_widget_background"
             android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic[6]" />
+            android:src="@drawable/default_album_art_round" />
 
         <RelativeLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/image"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp">
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@id/image">
 
             <RelativeLayout
                 android:id="@+id/media_actions"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@id/button_update"
                 android:layout_gravity="bottom"
-                android:layoutDirection="ltr"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/button_toggle_play_pause"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/centerPoint"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="" />
 
                 <ImageButton
                     android:id="@+id/button_prev"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_toStartOf="@id/centerPoint"
                     android:background="@drawable/app_widget_buttons_circular_md3"
                     android:scaleType="fitCenter"
-                    tools:src="@drawable/ic_skip_previous"
-                    tools:tint="@color/m3_widget_foreground" />
-
-                <ImageButton
-                    android:id="@+id/button_toggle_play_pause"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/app_widget_buttons_circular_md3"
-                    android:scaleType="fitCenter"
-                    android:layout_centerInParent="true"
-                    tools:src="@drawable/ic_play_arrow"
-                    tools:tint="@color/m3_widget_foreground" />
+                    android:src="@drawable/ic_skip_previous_md3" />
 
                 <ImageButton
                     android:id="@+id/button_next"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_toEndOf="@id/centerPoint"
                     android:background="@drawable/app_widget_buttons_circular_md3"
                     android:scaleType="fitCenter"
-                    tools:src="@drawable/ic_skip_next"
-                    tools:tint="@color/m3_widget_foreground" />
+                    android:src="@drawable/ic_skip_next_md3" />
 
             </RelativeLayout>
 
@@ -86,21 +81,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:background="@drawable/app_widget_buttons_circular_md3"
                 android:scaleType="fitCenter"
+                android:src="@drawable/ic_refresh_md3" />
+
+            <ImageButton
+                android:id="@+id/button_toggle_play_pause"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                tools:src="@drawable/ic_refresh"
-                tools:tint="@color/m3_widget_foreground" />
+                android:background="@drawable/app_widget_buttons_rounded_square_md3"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/ic_play_arrow"
+                tools:tint="@color/m3_widget_background" />
 
             <LinearLayout
                 android:id="@+id/media_titles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/button_update"
                 android:layout_above="@+id/media_actions"
-                android:layout_marginEnd="5dp"
                 android:layout_alignParentTop="true"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/button_toggle_play_pause"
                 android:orientation="vertical">
 
                 <TextView
@@ -108,10 +115,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:gravity="bottom"
                     android:singleLine="true"
                     android:textAppearance="@style/TextViewSubtitle3"
                     android:textColor="@color/m3_widget_foreground"
-                    android:gravity="bottom"
                     tools:text="Title" />
 
                 <TextView
@@ -119,11 +126,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:gravity="top"
                     android:paddingTop="3dp"
                     android:singleLine="true"
                     android:textAppearance="@style/TextViewNormal3"
                     android:textColor="@color/m3_widget_foreground"
-                    android:gravity="top"
                     tools:text="Text" />
 
                 <TextView
@@ -131,35 +138,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:paddingTop="3dp"
                     android:singleLine="true"
                     android:textAppearance="@style/TextViewNormal3"
                     android:textColor="@color/m3_widget_foreground"
-                    android:gravity="center_horizontal"
                     tools:text="02:54/06:34" />
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/up_next"
         android:layout_width="match_parent"
         android:layout_height="118.5dp"
-        android:background="@drawable/app_widget_background"
-        android:backgroundTint="@color/m3_widget_other"
         android:layout_below="@id/controls"
-        android:layout_marginTop="1.5dp">
+        android:layout_marginTop="1.5dp"
+        android:background="@drawable/app_widget_background"
+        android:backgroundTint="@color/m3_widget_other">
 
         <TextView
             android:id="@+id/up_next_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/up_next"
-            android:paddingEnd="118.5dp"
-            android:paddingStart="0dp"
             android:layout_toEndOf="@id/next_image"
-            android:textAppearance="@style/TextViewHeadline7"
+            android:paddingStart="0dp"
+            android:paddingEnd="118.5dp"
+            android:text="@string/up_next"
             android:textAlignment="center"
-            android:textColor="@color/m3_widget_other_text"/>
+            android:textAppearance="@style/TextViewHeadline7"
+            android:textColor="@color/m3_widget_other_text" />
 
         <RelativeLayout
             android:id="@+id/next_image"
@@ -174,8 +182,9 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/app_widget_background"
                 android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic[6]" />
+                android:src="@drawable/default_album_art_round" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/imageTextContainer"
             android:layout_width="match_parent"
@@ -190,8 +199,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="6dp"
-                android:paddingBottom="0dp"
                 android:gravity="top"
+                android:paddingBottom="0dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewHeadline6Point5"
                 android:textColor="@color/m3_widget_other_text"
@@ -201,12 +210,12 @@
                 android:id="@+id/next_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="26dp"
                 android:paddingTop="0dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextViewHeadline6Point5"
                 android:textColor="@color/m3_widget_other_text"
-                android:layout_alignParentBottom="true"
                 tools:text="Text" />
         </RelativeLayout>
     </RelativeLayout>

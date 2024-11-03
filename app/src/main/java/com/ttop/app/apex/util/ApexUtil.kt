@@ -39,7 +39,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.ttop.app.apex.App.Companion.getContext
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.text.DecimalFormat
@@ -186,7 +186,10 @@ object ApexUtil {
         }
     }
 
-    fun updateSimpleAppBarTitleTextAppearance(context: Context, simpleToolbarLayout: MaterialToolbar){
+    fun updateSimpleAppBarTitleTextAppearance(
+        context: Context,
+        simpleToolbarLayout: MaterialToolbar
+    ) {
         if (PreferenceUtil.isApexFont) {
             simpleToolbarLayout.setTitleTextAppearance(context, R.style.ApexThemeOverlay)
         }
@@ -248,7 +251,8 @@ object ApexUtil {
     }
 
     fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val nw = connectivityManager.activeNetwork ?: return false
         val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
         return when {
@@ -276,10 +280,11 @@ object ApexUtil {
         when (biometricManager.canAuthenticate(BIOMETRIC_STRONG)) {
             BiometricManager.BIOMETRIC_SUCCESS,
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED,
-            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE-> {
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
                 val promptInfo = buildBiometricPrompt(context, title)
                 biometricPrompt.authenticate(promptInfo)
             }
+
             else -> context.showToast(context.getString(R.string.md_error_label))
         }
     }

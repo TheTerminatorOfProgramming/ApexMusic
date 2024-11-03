@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Çalma listesini karıştır</string>
     <string name="action_sleep_timer">Uyku zamanlayıcısı</string>
     <string name="action_sort_order">Sıralama düzeni</string>
+    <string name="action_stop">Durmak</string>
     <string name="action_tag_editor">Etiket düzenleyici</string>
     <string name="action_toggle_favorite">Favoriyi değiştir</string>
     <string name="action_toggle_shuffle">Karışık modunu değiştir</string>
@@ -127,7 +128,6 @@
     <string name="create_new_backup">Yaratmak</string>
     <string name="credit_title">Geliştiriciler ve Katkıda Bulunanlar</string>
     <string name="cross_fade_duration">Çapraz geçiş süresi</string>
-    <string name="crowdin">Kalabalık</string>
     <string name="crowdin_summary">Bu uygulamanın Crowdin\'de çevrilmesine yardımcı olun</string>
     <string name="currently_listening_to_x_by_x">Şu anda %2$s\'ın %1$s şarkısını dinliyorum.</string>
     <string name="custom_artist_images">Özel Sanatçı Görselleri</string>
@@ -145,6 +145,7 @@
     <string name="disable_battery_optimize">Pil Optimizasyonunu Devre Dışı Bırak</string>
     <string name="disabled">Engelli</string>
     <string name="disc_hint">Disk Numarası</string>
+    <string name="discord_group_summary">Hataları tartışmak ve önerilerde bulunmak için Discord sunucumuza katılın</string>
     <string name="dismiss">Azletmek</string>
     <string name="do_you_want_to_clear_the_blacklist">Kara listeyi temizlemek istiyor musunuz?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[<b>%1$s</b>\'i kara listeden kaldırmak istiyor musunuz?]]></string>
@@ -287,7 +288,7 @@
     <string name="permissions">İzinler</string>
     <string name="permission_edit">İzinleri Düzenle</string>
     <string name="personalize">Kişiselleştir</string>
-    <string name="personalize_settings_summary">Kitaplığınızı ve kilit ekranınızı özelleştirin</string>
+    <string name="personalize_settings_summary">Kütüphanenizi özelleştirin</string>
     <string name="pick_from_local_storage">Yerel depodan seç</string>
     <string name="playlist_name_empty_cant">Oynatma listesi adı boş olamaz</string>
     <string name="playlist_name_empty_shouldnt">Oynatma listesi adı boş olmamalıdır</string>
@@ -382,6 +383,7 @@
     <string name="pref_title_search_icon">Başlıkta Sesli Arama</string>
     <string name="pref_title_shuffle_state">Karışık Durumunu Koru</string>
     <string name="pref_title_specific_device">Belirli Cihaz</string>
+    <string name="pref_title_squircle_art_widgets">Yuvarlak Kare Albüm Kapağı</string>
     <string name="pref_title_suggestions">Önerileri göster</string>
     <string name="pref_title_swipe_anywhere_now_playing">Parçayı Değiştirmek İçin Herhangi Bir Yere Kaydırın</string>
     <string name="pref_title_swipe_gestures">Kaydırma Hareketleri</string>
@@ -439,7 +441,7 @@
     <string name="show_player_on_app_launch">Her Zaman Uygulama Başlatıldığında Göster</string>
     <string name="shuffle">Karıştır</string>
     <string name="shuffle_button">Karışık Düğmesi</string>
-    <string name="shuffle_button_desc">Karışık çalma sırası oluşturmak için bunu kullanın</string>
+    <string name="shuffle_button_desc">Karıştırılmış bir çalma sırası oluşturmak için bunu kullanın</string>
     <string name="simple">Basit</string>
     <string name="sleep_timer_canceled">Uyku zamanlayıcısı iptal edildi.</string>
     <string name="sleep_timer_set">Uyku zamanlayıcısı şu andan itibaren %d dakika sonrasına ayarlandı.</string>
@@ -467,7 +469,6 @@
     <string name="suggestion_songs">Öneriler</string>
     <string name="support_development">Destek ve Gelişim</string>
     <string name="tab_only">Yalnızca Tablet Modu</string>
-    <string name="telegram_group">Telgraf</string>
     <string name="telegram_group_summary">Hataları tartışmak, önerilerde bulunmak, gösteriş yapmak ve daha fazlasını yapmak için Telegram grubuna katılın</string>
     <string name="the_audio_file">Ses dosyası</string>
     <string name="this_month">Bu ay</string>
@@ -493,6 +494,7 @@
     <string name="user_images_description">Kullanıcı Görselleri</string>
     <string name="version">Sürüm</string>
     <string name="vertical_flip">Dikey çevirme</string>
+    <string name="volume">Hacim</string>
     <string name="warning_fade">Uyarı! Oynatmada beklenmeyen sorunlara neden olabilir</string>
     <string name="warning_fade_cancelled">Değişiklikler Geri Alındı</string>
     <string name="web_search">internette arama</string>

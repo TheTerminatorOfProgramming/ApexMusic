@@ -23,13 +23,13 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.transcode.ResourceTranscoder;
 import com.ttop.app.apex.util.ApexColorUtil;
 
-public class BitmapPaletteTranscoder implements ResourceTranscoder<Bitmap,  BitmapPaletteWrapper> {
+public class BitmapPaletteTranscoder implements ResourceTranscoder<Bitmap, BitmapPaletteWrapper> {
 
     @Override
-  public Resource<BitmapPaletteWrapper> transcode(@NonNull Resource<Bitmap> toTranscode, @NonNull Options options) {
-    Bitmap bitmap = toTranscode.get();
-    BitmapPaletteWrapper bitmapPaletteWrapper =
-            new BitmapPaletteWrapper(bitmap, ApexColorUtil.generatePalette(bitmap));
-    return new BitmapPaletteResource(bitmapPaletteWrapper);
-  }
+    public Resource<BitmapPaletteWrapper> transcode(@NonNull Resource<Bitmap> toTranscode, @NonNull Options options) {
+        Bitmap bitmap = toTranscode.get();
+        BitmapPaletteWrapper bitmapPaletteWrapper =
+                new BitmapPaletteWrapper(bitmap, ApexColorUtil.generatePalette(bitmap));
+        return new BitmapPaletteResource(bitmapPaletteWrapper);
+    }
 }

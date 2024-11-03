@@ -14,7 +14,9 @@
         android:layout_height="match_parent"
         android:paddingBottom="48dp">
 
-        <include android:id="@+id/status_bar_layout" layout="@layout/status_bar" />
+        <include
+            android:id="@+id/status_bar_layout"
+            layout="@layout/status_bar" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"
@@ -28,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout="@layout/fragment_album_full_cover" />
 
-        <com.ttop.app.fastscroller.FastScrollNestedScrollView
+        <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
             android:id="@+id/scroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -48,7 +50,7 @@
                 android:background="@color/transparent"
                 android:paddingStart="4dp"
                 android:paddingEnd="5dp" />
-        </com.ttop.app.fastscroller.FastScrollNestedScrollView>
+        </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
 
         <View
             android:id="@+id/mask"

@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Mezclar lista</string>
     <string name="action_sleep_timer">Temporizador de sueño</string>
     <string name="action_sort_order">Ordenar</string>
+    <string name="action_stop">Detener</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_toggle_favorite">Cambiar favorito</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
@@ -129,7 +130,6 @@
     <string name="create_new_backup">Crear</string>
     <string name="credit_title">Desarrolladores &amp; Colaboradores</string>
     <string name="cross_fade_duration">Duración del crossfade</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Ayuda a traducir esta aplicación en crowdin</string>
     <string name="currently_listening_to_x_by_x">Actualmente escuchando %1$s por %2$s.</string>
     <string name="custom_artist_images">Imágenes de artista personalizadas</string>
@@ -147,6 +147,7 @@
     <string name="disable_battery_optimize">Desactivar optimización de batería</string>
     <string name="disabled">Deshabilitado</string>
     <string name="disc_hint">Número de disco</string>
+    <string name="discord_group_summary">Únete a nuestro servidor de Discord para discutir errores y hacer sugerencias</string>
     <string name="dismiss">Descartar</string>
     <string name="do_you_want_to_clear_the_blacklist">¿Quieres borrar la lista negra?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[¿Desea eliminar <b>%1$s</b> de la lista negra?]]></string>
@@ -289,7 +290,7 @@
     <string name="permissions">Permisos</string>
     <string name="permission_edit">Editar permisos</string>
     <string name="personalize">Personalizar</string>
-    <string name="personalize_settings_summary">Personaliza tu biblioteca y la pantalla de bloqueo</string>
+    <string name="personalize_settings_summary">Personaliza tu biblioteca</string>
     <string name="pick_from_local_storage">Elegir del almacenamiento local</string>
     <string name="playlist_name_empty_cant">El nombre de la lista de reproducción no puede estar vacío</string>
     <string name="playlist_name_empty_shouldnt">El nombre de la lista de reproducción no debe estar vacío</string>
@@ -384,6 +385,7 @@
     <string name="pref_title_search_icon">Búsqueda por voz en el encabezado</string>
     <string name="pref_title_shuffle_state">Mantener estado aleatorio</string>
     <string name="pref_title_specific_device">Dispositivo específico</string>
+    <string name="pref_title_squircle_art_widgets">Álbum de fotos cuadrado redondeado</string>
     <string name="pref_title_suggestions">Mostrar sugerencias</string>
     <string name="pref_title_swipe_anywhere_now_playing">Desliza en cualquier lugar para cambiar la pista</string>
     <string name="pref_title_swipe_gestures">Deslizar gestos</string>
@@ -441,7 +443,7 @@
     <string name="show_player_on_app_launch">Mostrar siempre al ejecutar la aplicación</string>
     <string name="shuffle">Aleatorio</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Usa esto para crear una cola de reproducción aleatoria</string>
+    <string name="shuffle_button_desc">Usa esto para crear una cola de reproducción aleada</string>
     <string name="simple">Simple</string>
     <string name="sleep_timer_canceled">Temporizador de sueño cancelado.</string>
     <string name="sleep_timer_set">Temporizador de sueño establecido para %d minutos desde ahora.</string>
@@ -469,7 +471,6 @@
     <string name="suggestion_songs">Sugerencias</string>
     <string name="support_development">Soporte &amp; Desarrollo</string>
     <string name="tab_only">Sólo modo de tablet</string>
-    <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Únete al grupo de Telegram para discutir errores, hacer sugerencias, mostrar y más</string>
     <string name="the_audio_file">El archivo de audio</string>
     <string name="this_month">Este mes</string>
@@ -495,6 +496,7 @@
     <string name="user_images_description">Imágenes de usuario</string>
     <string name="version">Versión</string>
     <string name="vertical_flip">Giro vertical</string>
+    <string name="volume">Volumen</string>
     <string name="warning_fade">¡Advertencia! Puede causar problemas inesperados con la reproducción</string>
     <string name="warning_fade_cancelled">Cambios revertidos</string>
     <string name="web_search">Búsqueda web</string>

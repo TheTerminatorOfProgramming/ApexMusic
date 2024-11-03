@@ -33,6 +33,7 @@ import com.ttop.app.apex.service.MusicService.Companion.SAVED_POSITION_IN_TRACK
 
 abstract class BaseAppWidget : AppWidgetProvider() {
     private val musicService = MusicPlayerRemote.musicService
+
     /**
      * {@inheritDoc}
      */
@@ -110,7 +111,7 @@ abstract class BaseAppWidget : AppWidgetProvider() {
     ): PendingIntent {
         val intent = Intent(action)
         intent.component = serviceName
-        return  PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        return PendingIntent.getForegroundService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     protected abstract fun defaultAppWidget(context: Context, appWidgetIds: IntArray)

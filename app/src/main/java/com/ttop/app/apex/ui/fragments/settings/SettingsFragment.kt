@@ -28,14 +28,15 @@ import com.afollestad.materialdialogs.color.ColorCallback
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.databinding.FragmentSettingsBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.findNavController
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.appthemehelper.ThemeStore
 
-class SettingsFragment : AbsMainActivityFragment(R.layout.fragment_settings), ColorCallback{
+class SettingsFragment : AbsMainActivityFragment(R.layout.fragment_settings), ColorCallback {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
@@ -57,6 +58,7 @@ class SettingsFragment : AbsMainActivityFragment(R.layout.fragment_settings), Co
         val navController: NavController = findNavController(R.id.contentFrame)
         with(binding.appBarLayout.toolbar) {
             setNavigationIcon(R.drawable.ic_arrow_back)
+            setNavigationIconTint(accentColor())
 
             isTitleCentered = true
             setNavigationOnClickListener {

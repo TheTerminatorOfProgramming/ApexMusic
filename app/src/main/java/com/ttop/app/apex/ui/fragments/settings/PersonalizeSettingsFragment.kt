@@ -28,10 +28,11 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.REMEMBER_LAST_TAB
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_SUGGESTIONS
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 
-class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
+class PersonalizeSettingsFragment : AbsSettingsFragment(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun invalidateSettings() {
         val suggestions: TwoStatePreference? = findPreference(TOGGLE_SUGGESTIONS)
@@ -51,10 +52,10 @@ class PersonalizeSettingsFragment : AbsSettingsFragment(), SharedPreferences.OnS
         }
 
         val lastTab: TwoStatePreference? = findPreference(REMEMBER_LAST_TAB)
-        if (PreferenceUtil.tempValue == 1){
+        if (PreferenceUtil.tempValue == 1) {
             lastTab?.isChecked = false
             lastTab?.isEnabled = false
-        }else{
+        } else {
             lastTab?.isEnabled = true
         }
         lastTab?.setOnPreferenceChangeListener { _, _ ->

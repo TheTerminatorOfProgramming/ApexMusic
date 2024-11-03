@@ -15,6 +15,7 @@
 package com.ttop.app.apex.ui.fragments.player.classic
 
 import android.animation.Animator
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -28,17 +29,17 @@ import com.ttop.app.apex.databinding.FragmentClassicPlayerPlaybackControlsBindin
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
-import com.ttop.app.apex.extensions.ripAlpha
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.TintHelper
 import kotlin.math.sqrt
 
 class ClassicPlaybackControlsFragment :
@@ -102,63 +103,72 @@ class ClassicPlaybackControlsFragment :
     }
 
     override fun setColor(color: MediaNotificationProcessor) {
-        val colorFinal = accentColor().ripAlpha()
-
-        if (PreferenceUtil.isAdaptiveColor) {
-            binding.progressSlider.applyColor(color.secondaryTextColor)
-            binding.title.setTextColor(color.secondaryTextColor)
-            binding.artist.setTextColor(color.secondaryTextColor)
-            binding.songInfo.setTextColor(color.secondaryTextColor)
-            binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
-            binding.songTotalTime.setTextColor(color.secondaryTextColor)
-
-            binding.playPauseButton.setColorFilter(color.backgroundColor)
-            binding.playPauseCard.setCardBackgroundColor(color.secondaryTextColor)
-
-            lastPlaybackControlsColor = color.secondaryTextColor
-            lastDisabledPlaybackControlsColor = com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor)
-        }else {
-            binding.progressSlider.applyColor(colorFinal)
-            TintHelper.setTintAuto(
-                binding.playPauseButton,
-                MaterialValueHelper.getPrimaryTextColor(
-                    requireContext(),
-                    ColorUtil.isColorLight(colorFinal)
-                ),
-                false
-            )
-
-            binding.playPauseCard.setCardBackgroundColor(colorFinal)
-
-            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
-            if (ColorUtil.isColorLight(colorBg)) {
-                lastPlaybackControlsColor =
-                    MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
-
-                binding.title.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
-                binding.artist.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
-                binding.songInfo.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
-                binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
-                binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_black_1000))
+        val controlsColor = if (PreferenceUtil.isAdaptiveColor) {
+            if (PreferenceUtil.isPlayerBackgroundType) {
+                ColorUtil.getComplimentColor(color.secondaryTextColor)
             } else {
-                lastPlaybackControlsColor =
-                    MaterialValueHelper.getPrimaryTextColor(requireContext(), false)
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
-
-                binding.title.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
-                binding.artist.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
-                binding.songInfo.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
-                binding.songCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
-                binding.songTotalTime.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                color.secondaryTextColor
+            }
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+            } else {
+                accentColor()
             }
         }
 
+        val lastPlaybackColor = if (PreferenceUtil.isAdaptiveColor) {
+            ColorUtil.getComplimentColor(color.secondaryTextColor)
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_foreground)
+            } else {
+                ColorUtil.getComplimentColor(accentColor())
+            }
+        }
+
+        val backgroundColor = if (PreferenceUtil.isAdaptiveColor) {
+            color.backgroundColor
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.m3_widget_background
+                )
+            } else {
+                context?.surfaceColor()
+            }
+        }
+
+        TintHelper.setTintAuto(
+            binding.playPauseButton,
+            MaterialValueHelper.getPrimaryTextColor(
+                requireContext(),
+                ATHColorUtil.isColorLight(controlsColor)
+            ),
+            false
+        )
+
+        binding.progressSlider.applyColor(controlsColor)
+        binding.title.setTextColor(controlsColor)
+        binding.artist.setTextColor(controlsColor)
+        binding.songInfo.setTextColor(controlsColor)
+        binding.songCurrentProgress.setTextColor(controlsColor)
+        binding.songTotalTime.setTextColor(controlsColor)
+
+        binding.playPauseButton.setColorFilter(backgroundColor!!)
+        binding.playPauseCard.setCardBackgroundColor(controlsColor)
+
+        binding.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
+        binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
+
+        lastPlaybackControlsColor =
+            lastPlaybackColor
+        lastDisabledPlaybackControlsColor =
+            controlsColor
+
         updateRepeatState()
         updateShuffleState()
-        updatePrevNextColor()
         updatePlayPauseDrawableState()
     }
 

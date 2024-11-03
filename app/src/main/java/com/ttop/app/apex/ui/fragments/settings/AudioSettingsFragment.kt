@@ -34,10 +34,10 @@ import com.ttop.app.apex.PAUSE_ON_ZERO_VOLUME
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SPECIFIC_DEVICE
 import com.ttop.app.apex.TOGGLE_HEADSET
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_PERMISSION_REQUEST
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
 
 
 /**
@@ -85,17 +85,22 @@ class AudioSettingsFragment : AbsSettingsFragment() {
             val value = newValue as Boolean
 
             if (value) {
-                if (ActivityCompat.checkSelfPermission(requireContext(),
-                        BLUETOOTH_CONNECT) != PERMISSION_GRANTED
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        BLUETOOTH_CONNECT
+                    ) != PERMISSION_GRANTED
                 ) {
-                    ActivityCompat.requestPermissions(requireActivity(), arrayOf(
-                        BLUETOOTH_CONNECT), BLUETOOTH_PERMISSION_REQUEST)
+                    ActivityCompat.requestPermissions(
+                        requireActivity(), arrayOf(
+                            BLUETOOTH_CONNECT
+                        ), BLUETOOTH_PERMISSION_REQUEST
+                    )
                 }
             }
             return@setOnPreferenceChangeListener true
         }
 
-        val specificDevice : TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
+        val specificDevice: TwoStatePreference? = findPreference(SPECIFIC_DEVICE)
         specificDevice?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -103,8 +108,9 @@ class AudioSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val bluetoothDevice : ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
-        val bluetoothManager = context?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        val bluetoothDevice: ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
+        val bluetoothManager =
+            context?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
 
         val mBluetoothAdapter = bluetoothManager.adapter
         val address = ArrayList<String>()
@@ -114,7 +120,7 @@ class AudioSettingsFragment : AbsSettingsFragment() {
             == PERMISSION_GRANTED) {
             val pairedDevices = mBluetoothAdapter.bondedDevices
             val sortedBtList = pairedDevices.sortedBy { it.name }
-            for (bt in sortedBtList){
+            for (bt in sortedBtList) {
                 if (!name.contains(bt.name)) {
                     name.add(bt.name)
                     address.add(bt.address)

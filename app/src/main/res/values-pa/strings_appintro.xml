@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_intro_skip_button">ਛੱਡੋ</string>
+    <string name="app_intro_next_button">ਅਗਲਾ</string>
+    <string name="app_intro_back_button">ਪਿੱਛੇ</string>
+    <string name="app_intro_done_button">ਹੋ ਗਿਆ</string>
+    <string name="app_intro_image_content_description">ਗਰਾਫਿਕਸ</string>
+</resources>

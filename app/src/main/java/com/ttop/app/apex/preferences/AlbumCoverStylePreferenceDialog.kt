@@ -31,13 +31,12 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogNowPlayingScreenBinding
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
 import com.ttop.app.apex.extensions.centeredColorButtons
-
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle.values
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 class AlbumCoverStylePreference @JvmOverloads constructor(
     context: Context,

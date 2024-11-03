@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Lecture aléatoire de la liste</string>
     <string name="action_sleep_timer">Minuteur de sommeil</string>
     <string name="action_sort_order">Ordre de tri</string>
+    <string name="action_stop">Arrêter</string>
     <string name="action_tag_editor">Éditeur de tags</string>
     <string name="action_toggle_favorite">Activer/désactiver les favoris</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
@@ -61,14 +62,14 @@
     <string name="added_x_titles_to_playing_queue">Ajout de titres %1$d à la file d\'attente de lecture.</string>
     <string name="album">Album</string>
     <plurals name="albumSongs">
-        <item quantity="one">Piste%d</item>
+        <item quantity="one">Piste %d</item>
         <item quantity="other">Pistes</item>
         <item quantity="many">Pistes</item>
     </plurals>
     <string name="album_artist">Album artiste</string>
     <string name="albums">Albums</string>
     <plurals name="albums">
-        <item quantity="one">Album%d</item>
+        <item quantity="one">Album %d</item>
         <item quantity="other">Albums</item>
         <item quantity="many">Albums</item>
     </plurals>
@@ -129,7 +130,6 @@
     <string name="create_new_backup">Créer</string>
     <string name="credit_title">Développeurs &amp; Contributeurs</string>
     <string name="cross_fade_duration">Durée du fondu enchaîné</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Aidez à traduire cette application sur crowdin</string>
     <string name="currently_listening_to_x_by_x">Ecoute actuellement %1$s par %2$s.</string>
     <string name="custom_artist_images">Images d\'artistes personnalisées</string>
@@ -147,6 +147,7 @@
     <string name="disable_battery_optimize">Désactiver l\'optimisation de la batterie</string>
     <string name="disabled">Désactivé</string>
     <string name="disc_hint">Numéro de disque</string>
+    <string name="discord_group_summary">Rejoignez notre serveur Discord pour discuter des bugs et faire des suggestions</string>
     <string name="dismiss">Refuser</string>
     <string name="do_you_want_to_clear_the_blacklist">Voulez-vous effacer la liste noire ?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Voulez-vous supprimer <b>%1$s</b> de la liste noire ?]]></string>
@@ -289,7 +290,7 @@
     <string name="permissions">Permissions</string>
     <string name="permission_edit">Droits d\'édition</string>
     <string name="personalize">Personnaliser</string>
-    <string name="personalize_settings_summary">Personnalisez votre bibliothèque et votre écran de verrouillage</string>
+    <string name="personalize_settings_summary">Personnaliser votre bibliothèque</string>
     <string name="pick_from_local_storage">Choisir depuis le stockage local</string>
     <string name="playlist_name_empty_cant">Le nom de la playlist ne peut pas être vide</string>
     <string name="playlist_name_empty_shouldnt">Le nom de la playlist ne doit pas être vide</string>
@@ -384,6 +385,7 @@
     <string name="pref_title_search_icon">Recherche vocale dans l\'en-tête</string>
     <string name="pref_title_shuffle_state">Garder l\'état aléatoire</string>
     <string name="pref_title_specific_device">Périphérique spécifique</string>
+    <string name="pref_title_squircle_art_widgets">Couverture d\'album carrée arrondie</string>
     <string name="pref_title_suggestions">Afficher les suggestions</string>
     <string name="pref_title_swipe_anywhere_now_playing">Glissez n\'importe où pour changer de piste</string>
     <string name="pref_title_swipe_gestures">Gestes de balayage</string>
@@ -441,7 +443,7 @@
     <string name="show_player_on_app_launch">Toujours afficher au lancement de l\'application</string>
     <string name="shuffle">Lecture aléatoire</string>
     <string name="shuffle_button">sélection lecture aléatoire</string>
-    <string name="shuffle_button_desc">Utilisez ceci pour créer une file de lecture mélangée</string>
+    <string name="shuffle_button_desc">À utiliser pour créer une file de lecture mélangée</string>
     <string name="simple">Simple</string>
     <string name="sleep_timer_canceled">La minuterie de sommeil a été annulée.</string>
     <string name="sleep_timer_set">Arrêt de la musique dans %d minutes.</string>
@@ -469,7 +471,6 @@
     <string name="suggestion_songs">Suggestions</string>
     <string name="support_development">Soutenez &amp; Développement</string>
     <string name="tab_only">Mode tablette uniquement</string>
-    <string name="telegram_group">Télégramme</string>
     <string name="telegram_group_summary">Rejoignez le groupe Telegram pour discuter des bugs, faire des suggestions, montrer et plus</string>
     <string name="the_audio_file">Le fichier audio</string>
     <string name="this_month">Ce mois-ci</string>
@@ -495,6 +496,7 @@
     <string name="user_images_description">Images de l\'utilisateur</string>
     <string name="version">Version</string>
     <string name="vertical_flip">Retournement vertical</string>
+    <string name="volume">Volume</string>
     <string name="warning_fade">Attention ! Peut causer des problèmes inattendus lors de la lecture</string>
     <string name="warning_fade_cancelled">Changements annulés</string>
     <string name="web_search">Recherche sur le Web</string>

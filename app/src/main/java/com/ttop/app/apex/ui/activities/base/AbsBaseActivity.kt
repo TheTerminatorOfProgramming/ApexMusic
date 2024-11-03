@@ -33,8 +33,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.rootView
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.logD
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 abstract class AbsBaseActivity : AbsThemeActivity() {
     private var hadPermissions: Boolean = false
@@ -95,8 +95,10 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
 
     protected fun hasPermissions(): Boolean {
         for (permission in permissions) {
-            if (ActivityCompat.checkSelfPermission(this,
-                    permission) != PackageManager.PERMISSION_GRANTED
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 return false
             }
@@ -149,7 +151,7 @@ abstract class AbsBaseActivity : AbsThemeActivity() {
                                     startActivity(intent)
                                 }.setActionTextColor(accentColor()).show()
                         }
-                    }else {
+                    } else {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(
                                 this@AbsBaseActivity, Manifest.permission.READ_EXTERNAL_STORAGE,
                             ) || ActivityCompat.shouldShowRequestPermissionRationale(

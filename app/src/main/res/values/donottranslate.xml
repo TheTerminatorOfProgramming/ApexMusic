@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name" translatable="false">Apex Music</string>
     <string name="app_name_short" translatable="false">Apex</string>
-    <string name="git_hub" translatable="false">GitHub</string>
+    <string name="github" translatable="false">GitHub</string>
 
 
     <string name="app_shortcut_last_added_long" translatable="false">@string/last_added</string>
@@ -20,4 +20,8 @@
     <string name="app_widget_classic_name">Classic</string>
     <string name="app_widget_full_name">Full</string>
     <string name="app_widget_circle_name">Circle</string>
+
+    <string name="crowdin">Crowdin</string>
+    <string name="discord_server">Discord</string>
+    <string name="telegram_group">Telegram</string>
 </resources>

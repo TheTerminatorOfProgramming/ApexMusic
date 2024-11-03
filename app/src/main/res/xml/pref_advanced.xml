@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
         android:defaultValue="disabled"
         android:entries="@array/pref_whitelist_titles"
         android:entryValues="@array/pref_whitelist_values"
@@ -10,81 +10,81 @@
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:title="@string/pref_title_whitelist"
-        app:allowDividerBelow="false"/>
+        app:allowDividerBelow="false" />
 
     <com.ttop.app.apex.preferences.BlacklistPreference
         android:key="blacklist"
         android:layout="@layout/list_item_view"
         android:title="@string/pref_header_blacklist"
-        app:allowDividerBelow="false"/>
+        app:allowDividerBelow="false" />
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:key="android_auto"
         android:title="@string/pref_header_auto"
         app:isPreferenceVisible="@bool/auto_actions"
         app:allowDividerBelow="false">
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="true"
-        android:key="use_notify_actions_auto"
-        android:layout="@layout/list_item_view_switch"
-        android:title="@string/pref_title_use_notification_actions_for_auto"
-        android:disableDependentsState="true"
-        app:allowDividerBelow="false"/>
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="use_notify_actions_auto"
+            android:layout="@layout/list_item_view_switch"
+            android:title="@string/pref_title_use_notification_actions_for_auto"
+            android:disableDependentsState="true"
+            app:allowDividerBelow="false" />
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-        android:defaultValue="none"
-        android:entries="@array/pref_auto_action_list_titles"
-        android:entryValues="@array/pref_auto_action_list_values"
-        android:key="auto_action_1"
-        android:layout="@layout/list_item_view"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        app:isPreferenceVisible="@bool/actions"
-        android:title="@string/pref_title_auto_action_1"
-        android:dependency="use_notify_actions_auto"
-        app:allowDividerBelow="false"/>
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="none"
+            android:entries="@array/pref_auto_action_list_titles"
+            android:entryValues="@array/pref_auto_action_list_values"
+            android:key="auto_action_1"
+            android:layout="@layout/list_item_view"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:isPreferenceVisible="@bool/actions"
+            android:title="@string/pref_title_auto_action_1"
+            android:dependency="use_notify_actions_auto"
+            app:allowDividerBelow="false" />
 
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-        android:defaultValue="none"
-        android:entries="@array/pref_auto_action_list_titles"
-        android:entryValues="@array/pref_auto_action_list_values"
-        android:key="auto_action_2"
-        android:layout="@layout/list_item_view"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        app:isPreferenceVisible="@bool/actions"
-        android:title="@string/pref_title_auto_action_2"
-        android:dependency="use_notify_actions_auto"
-        app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="none"
+            android:entries="@array/pref_auto_action_list_titles"
+            android:entryValues="@array/pref_auto_action_list_values"
+            android:key="auto_action_2"
+            android:layout="@layout/list_item_view"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            app:isPreferenceVisible="@bool/actions"
+            android:title="@string/pref_title_auto_action_2"
+            android:dependency="use_notify_actions_auto"
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:key="search"
         android:title="@string/pref_header_search"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="search_action"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_search_action"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="search_icon_navigation"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_search_icon"
-            app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_playlists"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="this_month"
             android:entries="@array/pref_playlists_last_added_interval_titles"
             android:entryValues="@array/pref_playlists_last_added_interval_values"
@@ -93,10 +93,10 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_last_added_interval"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_filter"
         app:allowDividerBelow="false">
@@ -106,42 +106,42 @@
             android:key="filter_song_min"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_filter_song_min_title"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
         <com.ttop.app.apex.preferences.FilterMaxPreference
             android:defaultValue="0"
             android:key="filter_song_max"
             android:layout="@layout/list_item_view"
             android:title="@string/pref_filter_song_max_title"
-            app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:key="advanced"
         android:title="@string/pref_header_advanced"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="keep_screen_on"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_keep_screen_on"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="auto_rotate"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_auto_rotate"
             app:isPreferenceVisible="@bool/auto_rotate"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="haptic_feedback"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_haptic_feedback"
-            app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

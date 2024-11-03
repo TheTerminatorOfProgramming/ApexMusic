@@ -23,11 +23,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.google.android.material.color.MaterialColors
 import com.ttop.app.apex.R
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.util.ApexColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
 
 
 class ColorIconsImageView @JvmOverloads constructor(
@@ -51,14 +51,14 @@ class ColorIconsImageView @JvmOverloads constructor(
             val desaturatedColor = ApexColorUtil.desaturateColor(color, 0.4f)
             backgroundTintList = ColorStateList.valueOf(desaturatedColor)
             imageTintList =
-                ColorStateList.valueOf(ATHUtil.resolveColor(context, com.google.android.material.R.attr.colorSurface))
+                ColorStateList.valueOf(ATHUtil.resolveColor(context, R.attr.colorSurface))
         } else {
             val finalColor = MaterialColors.harmonize(
                 color,
                 ThemeStore.accentColor(context)
             )
-            backgroundTintList = ColorStateList.valueOf(ColorUtil.adjustAlpha(finalColor, 0.22f))
-            imageTintList = ColorStateList.valueOf(ColorUtil.withAlpha(finalColor, 0.75f))
+            backgroundTintList = ColorStateList.valueOf(ATHColorUtil.adjustAlpha(finalColor, 0.22f))
+            imageTintList = ColorStateList.valueOf(ATHColorUtil.withAlpha(finalColor, 0.75f))
         }
         requestLayout()
         invalidate()

@@ -95,7 +95,7 @@ class SleepTimerDialog : DialogFragment() {
 
                 if (!PreferenceUtil.isTimerCancelled && seekArcProgress == PreferenceUtil.lastSleepTimerValue) {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(R.string.reset_action)
-                }else {
+                } else {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(R.string.action_set)
                 }
                 updateTimeDisplayTime()
@@ -140,7 +140,7 @@ class SleepTimerDialog : DialogFragment() {
                 PreferenceUtil.isTimerCancelled = false
             }
 
-            setNegativeButton(R.string.action_cancel) { _, _ ->
+            setNegativeButton(R.string.action_stop) { _, _ ->
                 timerUpdater.cancel()
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
                     dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -186,7 +186,8 @@ class SleepTimerDialog : DialogFragment() {
 
     private fun makeTimerPendingIntent(flag: Int): PendingIntent {
         return PendingIntent.getService(
-            requireActivity(), 0, makeTimerIntent(), flag or PendingIntent.FLAG_IMMUTABLE)
+            requireActivity(), 0, makeTimerIntent(), flag or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 
     private fun makeTimerIntent(): Intent {
@@ -232,9 +233,11 @@ class SleepTimerDialog : DialogFragment() {
             if (PreferenceUtil.isTimerCancelled) {
                 negativeButton!!.isVisible = false
                 super.cancel()
-            }else {
-                val remainingTime = "${getString(R.string.remaining)}: ${MusicUtil.getReadableDurationString(millisUntilFinished)}"
-                remaining.text =  remainingTime
+            } else {
+                val remainingTime = "${getString(R.string.remaining)}: ${
+                    MusicUtil.getReadableDurationString(millisUntilFinished)
+                }"
+                remaining.text = remainingTime
                 negativeButton!!.isVisible = true
             }
 

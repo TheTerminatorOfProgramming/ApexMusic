@@ -25,6 +25,7 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.glide.artistimage.ArtistImage
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
+import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.ArtistSignatureUtil
@@ -32,7 +33,6 @@ import com.ttop.app.apex.util.CustomArtistImageUtil.Companion.getFile
 import com.ttop.app.apex.util.CustomArtistImageUtil.Companion.getInstance
 import com.ttop.app.apex.util.MusicUtil.getMediaStoreAlbumCoverUri
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.TintHelper
 import java.io.File
 
 

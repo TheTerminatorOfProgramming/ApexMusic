@@ -18,12 +18,9 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
@@ -32,7 +29,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
-import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
@@ -44,7 +40,6 @@ import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
@@ -58,43 +53,33 @@ class AppWidgetCircle : BaseAppWidget() {
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
         val appWidgetView = if (DynamicColors.isDynamicColorAvailable()) {
             RemoteViews(context.packageName, R.layout.app_widget_circle_md3)
-        }else {
+        } else {
             RemoteViews(context.packageName, R.layout.app_widget_circle)
         }
 
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
 
-        if (DynamicColors.isDynamicColorAvailable()) {
-            appWidgetView.setImageViewBitmap(
-                R.id.button_toggle_play_pause,
-                context.getTintedDrawable(
-                    R.drawable.ic_play_arrow,
-                    ContextCompat.getColor(context, R.color.m3_widget_foreground)
-                ).toBitmap()
-            )
-        }else {
-            when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    // Set correct drawable for pause state
-                    appWidgetView.setImageViewBitmap(
-                        R.id.button_toggle_play_pause,
-                        context.getTintedDrawable(
-                            R.drawable.ic_play_arrow, ContextCompat.getColor(context, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                        ).toBitmap()
-                    )
-                }
-                Configuration.UI_MODE_NIGHT_NO,
-                Configuration.UI_MODE_NIGHT_UNDEFINED-> {
-                    // Set correct drawable for pause state
-                    appWidgetView.setImageViewBitmap(
-                        R.id.button_toggle_play_pause,
-                        context.getTintedDrawable(
-                            R.drawable.ic_play_arrow, ContextCompat.getColor(context, com.ttop.app.appthemehelper.R.color.md_black_1000)
-                        ).toBitmap()
-                    )
-                }
-            }
+        // Set correct drawable for pause state
+        val playRes = if (DynamicColors.isDynamicColorAvailable()) {
+            R.drawable.ic_play_arrow_md3
+        } else {
+            R.drawable.ic_play_arrow_day_night
         }
+
+        appWidgetView.setImageViewResource(
+            R.id.button_toggle_play_pause, playRes
+        )
+
+        // Set correct drawable for favorite state
+        val favoriteRes = if (DynamicColors.isDynamicColorAvailable()) {
+            R.drawable.ic_favorite_border_widget_md3
+        } else {
+            R.drawable.ic_favorite_border_widget
+        }
+
+        appWidgetView.setImageViewResource(
+            R.id.button_toggle_favorite, favoriteRes
+        )
 
         linkButtons(context, appWidgetView)
         pushUpdate(context, appWidgetIds, appWidgetView)
@@ -106,7 +91,7 @@ class AppWidgetCircle : BaseAppWidget() {
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
         val appWidgetView = if (DynamicColors.isDynamicColorAvailable()) {
             RemoteViews(service.packageName, R.layout.app_widget_circle_md3)
-        }else {
+        } else {
             RemoteViews(service.packageName, R.layout.app_widget_circle)
         }
 
@@ -114,68 +99,28 @@ class AppWidgetCircle : BaseAppWidget() {
         val song = service.currentSong
 
         // Set correct drawable for pause state
-        val playPauseRes =
-            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
+        val playPauseRes = if (DynamicColors.isDynamicColorAvailable()) {
+            if (isPlaying) R.drawable.ic_pause_md3 else R.drawable.ic_play_arrow_md3
+        } else {
+            if (isPlaying) R.drawable.ic_pause_day_night else R.drawable.ic_play_arrow_day_night
+        }
+
+        appWidgetView.setImageViewResource(
+            R.id.button_toggle_play_pause, playPauseRes
+        )
 
         val isFavorite = runBlocking(Dispatchers.IO) {
             return@runBlocking MusicUtil.repository.isSongFavorite(song.id)
         }
-        val favoriteRes =
-            if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
-
-        if (DynamicColors.isDynamicColorAvailable()) {
-            appWidgetView.setImageViewBitmap(
-                R.id.button_toggle_play_pause,
-                service.getTintedDrawable(
-                    playPauseRes, ContextCompat.getColor(service, R.color.m3_widget_foreground)
-                ).toBitmap()
-            )
-
-            appWidgetView.setImageViewBitmap(
-                R.id.button_toggle_favorite,
-                service.getTintedDrawable(
-                    favoriteRes, ContextCompat.getColor(service, R.color.m3_widget_foreground)
-                ).toBitmap()
-            )
-        }else {
-            when (service.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    // Set correct drawable for pause state
-                    appWidgetView.setImageViewBitmap(
-                        R.id.button_toggle_play_pause,
-                        service.getTintedDrawable(
-                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                        ).toBitmap()
-                    )
-
-                    // Set prev/next button drawables
-                    appWidgetView.setImageViewBitmap(
-                        R.id.button_toggle_favorite,
-                        service.getTintedDrawable(
-                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_white_1000)
-                        ).toBitmap()
-                    )
-                }
-                Configuration.UI_MODE_NIGHT_NO,
-                Configuration.UI_MODE_NIGHT_UNDEFINED-> {
-                    // Set correct drawable for pause state
-                    appWidgetView.setImageViewBitmap(
-                        R.id.button_toggle_play_pause,
-                        service.getTintedDrawable(
-                            playPauseRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
-                        ).toBitmap()
-                    )
-
-                    // Set prev/next button drawables
-                    appWidgetView.setImageViewBitmap(
-                        R.id.button_toggle_favorite,
-                        service.getTintedDrawable(
-                            favoriteRes, ContextCompat.getColor(service, com.ttop.app.appthemehelper.R.color.md_black_1000)
-                        ).toBitmap()
-                    )
-                }
-            }
+        val favoriteRes = if (DynamicColors.isDynamicColorAvailable()) {
+            if (isFavorite) R.drawable.ic_favorite_widget_md3 else R.drawable.ic_favorite_border_widget_md3
+        } else {
+            if (isFavorite) R.drawable.ic_favorite_widget else R.drawable.ic_favorite_border_widget
         }
+
+        appWidgetView.setImageViewResource(
+            R.id.button_toggle_favorite, favoriteRes
+        )
 
         // Link actions buttons to intents
         linkButtons(service, appWidgetView)
@@ -211,7 +156,7 @@ class AppWidgetCircle : BaseAppWidget() {
                     private fun update(bitmap: Bitmap?) {
                         if (bitmap == null) {
                             createDefaultCircle(service, appWidgetView, appWidgetIds, playPauseRes)
-                        }else {
+                        } else {
                             appWidgetView.setImageViewBitmap(R.id.image, bitmap)
                             pushUpdate(service, appWidgetIds, appWidgetView)
                         }
@@ -222,12 +167,17 @@ class AppWidgetCircle : BaseAppWidget() {
         }
     }
 
-    private fun createDefaultCircle(service: MusicService,appWidgetView: RemoteViews, appWidgetIds: IntArray?, playPauseRes: Int) {
+    private fun createDefaultCircle(
+        service: MusicService,
+        appWidgetView: RemoteViews,
+        appWidgetIds: IntArray?,
+        playPauseRes: Int
+    ) {
         target = Glide.with(service).asBitmapPalette()
             .load(R.drawable.default_album_art_round)
             .circleCrop()
             .into(object : CustomTarget<BitmapPaletteWrapper>(
-                imageSize,imageSize
+                imageSize, imageSize
             ) {
                 override fun onResourceReady(
                     resource: BitmapPaletteWrapper,
@@ -266,7 +216,8 @@ class AppWidgetCircle : BaseAppWidget() {
         // Home
         action.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         var pendingIntent = PendingIntent.getActivity(
-            context, 0, action, PendingIntent.FLAG_IMMUTABLE)
+            context, 0, action, PendingIntent.FLAG_IMMUTABLE
+        )
 
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
         // Favorite track

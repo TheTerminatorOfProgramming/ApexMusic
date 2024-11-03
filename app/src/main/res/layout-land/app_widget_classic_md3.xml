@@ -15,11 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@drawable/app_widget_background"
-        android:backgroundTint="@color/m3_widget_background" >
+        android:backgroundTint="@color/m3_widget_background">
+
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="52dp"
@@ -28,7 +30,7 @@
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/app_widget_background"
                 android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic[6]"
+                android:src="@drawable/default_album_art_round"
                 tools:ignore="ContentDescription" />
 
             <RelativeLayout
@@ -56,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:layoutDirection="ltr"
                     android:orientation="horizontal">
 
@@ -65,42 +68,39 @@
                         android:layout_height="40dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/app_widget_buttons_circular_md3"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/ic_skip_previous"
-                        tools:tint="@color/m3_widget_foreground" />
+                        android:src="@drawable/ic_skip_previous_md3"
+                        tools:ignore="ContentDescription" />
 
                     <ImageButton
                         android:id="@+id/button_toggle_play_pause"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_toEndOf="@id/button_prev"
-                        android:background="@drawable/app_widget_buttons_circular_md3"
+                        android:layout_toEndOf="@id/button_next"
+                        android:background="@drawable/app_widget_buttons_rounded_square_md3"
                         tools:ignore="ContentDescription"
                         tools:src="@drawable/ic_play_arrow"
-                        tools:tint="@color/m3_widget_foreground" />
+                        tools:tint="@color/m3_widget_background" />
 
                     <ImageButton
                         android:id="@+id/button_next"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_toEndOf="@id/button_toggle_play_pause"
+                        android:layout_marginEnd="20dp"
+                        android:layout_toEndOf="@id/button_prev"
                         android:background="@drawable/app_widget_buttons_circular_md3"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/ic_skip_next"
-                        tools:tint="@color/m3_widget_foreground" />
+                        android:src="@drawable/ic_skip_next_md3"
+                        tools:ignore="ContentDescription" />
 
                     <ImageButton
                         android:id="@+id/button_update"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/button_next"
                         android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/button_toggle_play_pause"
                         android:background="@drawable/app_widget_buttons_circular_md3"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/ic_refresh"
-                        tools:tint="@color/m3_widget_foreground" />
+                        android:src="@drawable/ic_refresh_md3"
+                        tools:ignore="ContentDescription" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -125,61 +125,5 @@
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/up_next"
-        android:layout_width="match_parent"
-        android:layout_height="50.5dp"
-        android:background="@drawable/app_widget_background"
-        android:backgroundTint="@color/m3_widget_other"
-        android:layout_below="@id/controls"
-        android:layout_marginTop="1.5dp">
-
-        <TextView
-            android:id="@+id/up_next_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/up_next"
-            android:paddingStart="0dp"
-            android:paddingEnd="50.5dp"
-            android:layout_toEndOf="@id/next_image"
-            android:textAppearance="@style/TextViewHeadline8"
-            android:textAlignment="center"
-            android:textColor="@color/m3_widget_other_text"/>
-
-        <RelativeLayout
-            android:id="@+id/next_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp">
-
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="50.5dp"
-                android:layout_height="50.5dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/app_widget_background"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic[6]" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/imageTextContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/up_next_text"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/next_image">
-
-            <TextView
-                android:id="@+id/next_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:paddingBottom="10dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextViewNormal3"
-                android:textColor="@color/m3_widget_other_text"
-                tools:text="Title" />
-        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

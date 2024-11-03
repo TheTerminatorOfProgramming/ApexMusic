@@ -16,7 +16,12 @@ package com.ttop.app.apex.helper
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.*
+import android.content.ComponentName
+import android.content.ContentResolver
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
+import android.content.ServiceConnection
 import android.database.Cursor
 import android.net.Uri
 import android.os.IBinder
@@ -35,7 +40,8 @@ import com.ttop.app.apex.util.logE
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.File
-import java.util.*
+import java.util.Random
+import java.util.WeakHashMap
 import kotlin.collections.set
 
 
@@ -332,7 +338,7 @@ object MusicPlayerRemote : KoinComponent {
                     R.string.added_x_titles_to_playing_queue,
                     songs.size
                 )
-            if(message){
+            if (message) {
                 Toast.makeText(musicService, toast, Toast.LENGTH_SHORT).show()
             }
             return true
@@ -349,7 +355,7 @@ object MusicPlayerRemote : KoinComponent {
                 queue.add(song)
                 openQueue(queue, 0, false)
             }
-            if(message){
+            if (message) {
                 Toast.makeText(
                     musicService,
                     musicService!!.resources.getString(R.string.added_title_to_playing_queue),
@@ -487,7 +493,7 @@ object MusicPlayerRemote : KoinComponent {
         }
     }
 
-    fun updateNotification(){
+    fun updateNotification() {
         musicService?.updatePlaybackControls()
     }
 

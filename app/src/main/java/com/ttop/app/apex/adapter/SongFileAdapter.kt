@@ -21,6 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.signature.MediaStoreSignature
 import com.ttop.app.apex.R
@@ -28,12 +29,11 @@ import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.interfaces.ICallbacks
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
+import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.fastscroller.PopupTextProvider
 import java.io.File
 import java.text.DecimalFormat
 import kotlin.math.log10

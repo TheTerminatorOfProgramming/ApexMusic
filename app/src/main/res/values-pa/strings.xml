@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">ਪਲੇਲਿਸਟ ਨੂੰ ਸ਼ਫਲ ਕਰੋ</string>
     <string name="action_sleep_timer">ਸਲੀਪ ਟਾਈਮਰ</string>
     <string name="action_sort_order">ਕ੍ਰਮਬੱਧ ਕ੍ਰਮ</string>
+    <string name="action_stop">ਰੂਕੋ</string>
     <string name="action_tag_editor">ਟੈਗ ਸੰਪਾਦਕ</string>
     <string name="action_toggle_favorite">ਪਸੰਦੀਦਾ ਟੌਗਲ ਕਰੋ</string>
     <string name="action_toggle_shuffle">ਸ਼ਫਲ ਮੋਡ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
@@ -127,7 +128,6 @@
     <string name="create_new_backup">ਬਣਾਓ</string>
     <string name="credit_title">ਵਿਕਾਸਕਾਰ &amp; ਯੋਗਦਾਨ ਪਾਉਣ ਵਾਲੇ</string>
     <string name="cross_fade_duration">ਕਰਾਸਫੇਡ ਦੀ ਮਿਆਦ</string>
-    <string name="crowdin">ਭੀੜ</string>
     <string name="crowdin_summary">ਭੀੜ \'ਤੇ ਇਸ ਐਪ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰੋ</string>
     <string name="currently_listening_to_x_by_x">ਵਰਤਮਾਨ ਵਿੱਚ %2$s ਦੁਆਰਾ %1$s ਨੂੰ ਸੁਣਿਆ ਜਾ ਰਿਹਾ ਹੈ।</string>
     <string name="custom_artist_images">ਕਸਟਮ ਕਲਾਕਾਰ ਚਿੱਤਰ</string>
@@ -145,6 +145,7 @@
     <string name="disable_battery_optimize">ਬੈਟਰੀ ਓਪਟੀਮਾਈਜੇਸ਼ਨ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="disabled">ਅਯੋਗ</string>
     <string name="disc_hint">ਡਿਸਕ ਨੰਬਰ</string>
+    <string name="discord_group_summary">ਬੱਗ ਬਾਰੇ ਚਰਚਾ ਕਰਨ ਅਤੇ ਸੁਝਾਅ ਦੇਣ ਲਈ ਸਾਡੇ ਡਿਸਕਾਰਡ ਸਰਵਰ ਨਾਲ ਜੁੜੋ</string>
     <string name="dismiss">ਖਾਰਜ ਕਰੋ</string>
     <string name="do_you_want_to_clear_the_blacklist">ਕੀ ਤੁਸੀਂ ਬਲੈਕਲਿਸਟ ਨੂੰ ਸਾਫ਼ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[ਕੀ ਤੁਸੀਂ <b>%1$s</b> ਨੂੰ ਬਲੈਕਲਿਸਟ ਵਿੱਚੋਂ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?]]></string>
@@ -287,7 +288,7 @@
     <string name="permissions">ਇਜਾਜ਼ਤਾਂ</string>
     <string name="permission_edit">ਅਨੁਮਤੀਆਂ ਦਾ ਸੰਪਾਦਨ ਕਰੋ</string>
     <string name="personalize">ਵਿਅਕਤੀਗਤ ਬਣਾਓ</string>
-    <string name="personalize_settings_summary">ਆਪਣੀ ਲਾਇਬ੍ਰੇਰੀ ਅਤੇ ਲੌਕ ਸਕ੍ਰੀਨ ਨੂੰ ਅਨੁਕੂਲਿਤ ਕਰੋ</string>
+    <string name="personalize_settings_summary">ਆਪਣੀ ਲਾਇਬ੍ਰੇਰੀ ਨੂੰ ਅਨੁਕੂਲਿਤ ਕਰੋ</string>
     <string name="pick_from_local_storage">ਸਥਾਨਕ ਸਟੋਰੇਜ ਵਿੱਚੋਂ ਚੁਣੋ</string>
     <string name="playlist_name_empty_cant">ਪਲੇਲਿਸਟ ਨਾਮ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ</string>
     <string name="playlist_name_empty_shouldnt">ਪਲੇਲਿਸਟ ਨਾਮ ਖਾਲੀ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ</string>
@@ -382,6 +383,7 @@
     <string name="pref_title_search_icon">ਸਿਰਲੇਖ ਵਿੱਚ ਵੌਇਸ ਖੋਜ</string>
     <string name="pref_title_shuffle_state">ਸ਼ਫਲ ਸਟੇਟ ਰੱਖੋ</string>
     <string name="pref_title_specific_device">ਖਾਸ ਡਿਵਾਈਸ</string>
+    <string name="pref_title_squircle_art_widgets">ਗੋਲ ਵਰਗ ਐਲਬਮ ਆਰਟ</string>
     <string name="pref_title_suggestions">ਸੁਝਾਅ ਦਿਖਾਓ</string>
     <string name="pref_title_swipe_anywhere_now_playing">ਟਰੈਕ ਬਦਲਣ ਲਈ ਕਿਤੇ ਵੀ ਸਵਾਈਪ ਕਰੋ</string>
     <string name="pref_title_swipe_gestures">ਸਵਾਈਪ ਸੰਕੇਤ</string>
@@ -439,7 +441,7 @@
     <string name="show_player_on_app_launch">ਐਪ ਲਾਂਚ \'ਤੇ ਹਮੇਸ਼ਾ ਦਿਖਾਓ</string>
     <string name="shuffle">ਸ਼ਫਲ</string>
     <string name="shuffle_button">ਸ਼ਫਲ ਬਟਨ</string>
-    <string name="shuffle_button_desc">ਇੱਕ ਸ਼ਫਲ ਪਲੇ ਕਤਾਰ ਬਣਾਉਣ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ। ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ ਐਪੈਕਸ ਸੰਗੀਤ ਵਿਕੀ \'ਤੇ ਜਾਓ!</string>
+    <string name="shuffle_button_desc">ਇੱਕ ਸ਼ਫਲ ਪਲੇ ਕਤਾਰ ਬਣਾਉਣ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ</string>
     <string name="simple">ਆਸਾਨ</string>
     <string name="sleep_timer_canceled">ਸਲੀਪ ਟਾਈਮਰ ਰੱਦ ਕੀਤਾ ਗਿਆ।</string>
     <string name="sleep_timer_set">ਹੁਣ ਤੋਂ %d ਮਿੰਟ ਲਈ ਸਲੀਪ ਟਾਈਮਰ ਸੈੱਟ ਕੀਤਾ ਗਿਆ ਹੈ।</string>
@@ -467,7 +469,6 @@
     <string name="suggestion_songs">ਸੁਝਾਅ</string>
     <string name="support_development">ਸਹਾਇਤਾ &amp; ਵਿਕਾਸ</string>
     <string name="tab_only">ਸਿਰਫ਼ ਟੈਬਲੈੱਟ ਮੋਡ</string>
-    <string name="telegram_group">ਟੈਲੀਗ੍ਰਾਮ</string>
     <string name="telegram_group_summary">ਬੱਗਾਂ ਬਾਰੇ ਚਰਚਾ ਕਰਨ, ਸੁਝਾਅ ਦੇਣ, ਪ੍ਰਦਰਸ਼ਨ ਕਰਨ ਅਤੇ ਹੋਰ ਬਹੁਤ ਕੁਝ ਕਰਨ ਲਈ ਟੈਲੀਗ੍ਰਾਮ ਸਮੂਹ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
     <string name="the_audio_file">ਆਡੀਓ ਫਾਈਲ</string>
     <string name="this_month">ਇਸ ਮਹੀਨੇ</string>
@@ -493,13 +494,13 @@
     <string name="user_images_description">ਉਪਭੋਗਤਾ ਚਿੱਤਰ</string>
     <string name="version">ਸੰਸਕਰਣ</string>
     <string name="vertical_flip">ਵਰਟੀਕਲ ਫਲਿੱਪ</string>
+    <string name="volume">ਵਾਲੀਅਮ</string>
     <string name="warning_fade">ਚੇਤਾਵਨੀ! ਪਲੇਬੈਕ ਨਾਲ ਅਚਾਨਕ ਸਮੱਸਿਆਵਾਂ ਪੈਦਾ ਹੋ ਸਕਦੀਆਂ ਹਨ</string>
     <string name="warning_fade_cancelled">ਤਬਦੀਲੀਆਂ ਵਾਪਸ ਕੀਤੀਆਂ ਗਈਆਂ</string>
     <string name="web_search">ਵੈੱਬ ਖੋਜ</string>
     <string name="website">ਵੈੱਬਸਾਈਟ</string>
     <string name="website_summary">ਸਾਡੀ ਵੈੱਬਸਾਈਟ ਦੇਖੋ</string>
     <string name="what_do_you_want_to_share">ਤੁਸੀਂ ਕੀ ਸਾਂਝਾ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-
     <string name="x_has_been_set_as_ringtone">%1$s ਨੂੰ ਆਪਣੀ ਰਿੰਗਟੋਨ ਵਜੋਂ ਸੈੱਟ ਕਰੋ।</string>
     <string name="x_selected">%1$d ਚੁਣਿਆ ਗਿਆ</string>
     <string name="year">ਸਾਲ</string>

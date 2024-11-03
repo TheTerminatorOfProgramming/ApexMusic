@@ -65,6 +65,7 @@ object FileUtils {
         return file
     }
 }
+
 @Suppress("Deprecation")
 fun getExternalStorageDirectory(): File {
     return Environment.getExternalStorageDirectory()

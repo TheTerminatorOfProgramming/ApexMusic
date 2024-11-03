@@ -3,4 +3,6 @@
     <color name="elevationOverlayLight">@color/md_grey_500</color>
     <color name="elevationOverlayDark">@color/md_grey_500</color>
     <color name="elevationOverlay">@color/elevationOverlayLight</color>
+    <color name="day_night">@color/md_black_1000</color>
+    <color name="day_night_reversed">@color/md_white_1000</color>
 </resources>

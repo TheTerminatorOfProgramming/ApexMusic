@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.fragments.base
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Environment
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -23,10 +24,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.getkeepsafe.taptargetview.TapTarget
@@ -42,16 +47,20 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
+import com.ttop.app.apex.libraries.fastscroller.FastScroller
+import com.ttop.app.apex.libraries.fastscroller.FastScrollerBuilder
+import com.ttop.app.apex.ui.fragments.folder.FoldersFragment.Companion.AUDIO_FILE_FILTER
+import com.ttop.app.apex.util.ApexStaticUtil
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
-import com.ttop.app.fastscroller.FastScroller
-import com.ttop.app.fastscroller.FastScrollerBuilder
-import kotlin.math.abs
+import com.ttop.app.apex.util.getExternalStoragePublicDirectory
+import kotlinx.coroutines.launch
+import java.io.File
 
 abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
     AbsMainActivityFragment(R.layout.fragment_main_recycler), IScrollHelper {
@@ -101,8 +110,25 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
                 }
             }
 
-            binding.shuffleButton.backgroundTintList = ColorStateList.valueOf(accentColor())
-            binding.shuffleButton.imageTintList = ColorStateList.valueOf(ColorUtil.getComplimentColor(accentColor()))
+            val indicatorColor = if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+            } else {
+                ColorUtil.getComplimentColor(accentColor())
+            }
+
+            val indicatorColor1 = if (PreferenceUtil.materialYou) {
+                ColorUtil.getComplimentColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.m3_widget_other_text
+                    )
+                )
+            } else {
+                accentColor()
+            }
+
+            binding.shuffleButton.backgroundTintList = ColorStateList.valueOf(indicatorColor)
+            binding.shuffleButton.imageTintList = ColorStateList.valueOf(indicatorColor1)
         } else {
             binding.shuffleButton.isVisible = false
         }
@@ -149,9 +175,16 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     private fun setupToolbar() {
         toolbar.navigationIcon = if (PreferenceUtil.isVoiceSearch) {
             getDrawableCompat(R.drawable.ic_voice)
-        }else {
+        } else {
             getDrawableCompat(R.drawable.ic_search)
         }
+
+        toolbar.navigationIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+
         toolbar.setNavigationOnClickListener {
             PreferenceUtil.isSearchFromNavigation = true
             findNavController().navigate(
@@ -203,38 +236,18 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     }
 
     private fun checkForMargins() {
-        appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (abs(verticalOffset.toDouble()).toInt() == appBarLayout.totalScrollRange) {
-                binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                    bottomMargin = if (ApexUtil.isTablet) {
-                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                            ApexUtil.dpToMargin(55)
-                        } else {
-                            ApexUtil.dpToMargin(0)
-                        }
-                    } else {
-                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                            ApexUtil.dpToMargin(140)
-                        } else {
-                            ApexUtil.dpToMargin(85)
-                        }
-                    }
+        binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = if (ApexUtil.isTablet) {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    ApexUtil.dpToMargin(55)
+                } else {
+                    ApexUtil.dpToMargin(0)
                 }
-            } else if (verticalOffset == 0) {
-                binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                    bottomMargin = if (ApexUtil.isTablet) {
-                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                            ApexUtil.dpToMargin(120)
-                        } else {
-                            ApexUtil.dpToMargin(65)
-                        }
-                    } else {
-                        if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                            ApexUtil.dpToMargin(205)
-                        } else {
-                            ApexUtil.dpToMargin(150)
-                        }
-                    }
+            } else {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    ApexUtil.dpToMargin(135)
+                } else {
+                    ApexUtil.dpToMargin(80)
                 }
             }
         }
@@ -269,7 +282,19 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(requireActivity(), toolbar)
+        //ToolbarContentTintHelper.setToolbarContentColor(requireActivity(), toolbar, toolbar.menu, accentColor(), accentColor(), accentColor(), accentColor())
+        toolbar.overflowIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+
+        val yourdrawable = menu.findItem(R.id.action_scan_media).icon
+        yourdrawable!!.mutate()
+        yourdrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            requireContext().accentColor(),
+            SRC_IN
+        )
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
@@ -279,6 +304,13 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             toolbar,
             menu,
             ATHToolbarActivity.getToolbarBackgroundColor(toolbar)
+        )
+
+        val yourdrawable = menu.findItem(R.id.action_scan_media).icon
+        yourdrawable!!.mutate()
+        yourdrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            requireContext().accentColor(),
+            SRC_IN
         )
 
         if (!ApexUtil.isTablet) {
@@ -292,6 +324,7 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
                 childFragmentManager,
                 "ImportPlaylist"
             )
+
             R.id.action_add_to_playlist -> CreatePlaylistDialog.create(emptyList()).show(
                 childFragmentManager,
                 "ShowCreatePlaylistDialog"
@@ -299,6 +332,17 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
 
             R.id.action_refresh -> {
                 activity?.recreate()
+            }
+
+            R.id.action_scan_media -> {
+                lifecycleScope.launch {
+                    val file =
+                        File(getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).canonicalPath)
+                    ApexStaticUtil.listPaths(
+                        file,
+                        AUDIO_FILE_FILTER
+                    ) { paths -> ApexStaticUtil.scanPaths(requireActivity(), paths) }
+                }
             }
         }
         return false

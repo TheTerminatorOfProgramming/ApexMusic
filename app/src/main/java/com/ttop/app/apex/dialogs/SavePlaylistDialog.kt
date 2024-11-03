@@ -23,7 +23,11 @@ import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.EXTRA_PLAYLIST
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistWithSongs
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.centeredColorButtons
+import com.ttop.app.apex.extensions.createNewFile
+import com.ttop.app.apex.extensions.extraNotNull
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.M3UWriter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,8 +61,10 @@ class SavePlaylistDialog : DialogFragment() {
                         )
                         withContext(Dispatchers.Main) {
                             showToast(
-                                requireContext().getString(R.string.saved_playlist_to,
-                                    data?.lastPathSegment),
+                                requireContext().getString(
+                                    R.string.saved_playlist_to,
+                                    data?.lastPathSegment
+                                ),
                                 Toast.LENGTH_LONG
                             )
                             dismiss()
@@ -67,7 +73,7 @@ class SavePlaylistDialog : DialogFragment() {
                 }
             } catch (e: Exception) {
                 showToast(
-                    getString(R.string.something_wrong) + " "  + e.message
+                    getString(R.string.something_wrong) + " " + e.message
                 )
             }
         }

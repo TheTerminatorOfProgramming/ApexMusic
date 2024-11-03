@@ -15,7 +15,12 @@
 package com.ttop.app.apex.ui.activities.base
 
 import android.Manifest
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import androidx.core.content.ContextCompat
@@ -24,6 +29,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.db.toPlayCount
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IMusicServiceEventListener
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.service.MusicService.Companion.FAVORITE_STATE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.MEDIA_STORE_CHANGED
@@ -34,7 +40,6 @@ import com.ttop.app.apex.service.MusicService.Companion.REPEAT_MODE_CHANGED
 import com.ttop.app.apex.service.MusicService.Companion.SHUFFLE_MODE_CHANGED
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -97,7 +102,12 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
             filter.addAction(MEDIA_STORE_CHANGED)
             filter.addAction(FAVORITE_STATE_CHANGED)
 
-            ContextCompat.registerReceiver(this, musicStateReceiver, filter, ContextCompat.RECEIVER_EXPORTED)
+            ContextCompat.registerReceiver(
+                this,
+                musicStateReceiver,
+                filter,
+                ContextCompat.RECEIVER_EXPORTED
+            )
 
             receiverRegistered = true
         }
@@ -220,6 +230,7 @@ abstract class AbsMusicServiceActivity : AbsBaseActivity(), IMusicServiceEventLi
                         activity.onRepeatModeChanged()
                         MusicPlayerRemote.updateNotification()
                     }
+
                     SHUFFLE_MODE_CHANGED -> activity.onShuffleModeChanged()
                     MEDIA_STORE_CHANGED -> activity.onMediaStoreChanged()
                 }

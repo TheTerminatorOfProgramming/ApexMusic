@@ -20,11 +20,19 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.getSystemService
-import androidx.core.view.*
+import androidx.core.view.children
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,14 +45,18 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.SearchAdapter
 import com.ttop.app.apex.databinding.FragmentSearchBinding
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.addAlpha
+import com.ttop.app.apex.extensions.focusAndShowKeyboard
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.Job
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
-import java.util.*
+import java.util.Locale
 
 
 class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
@@ -158,21 +170,21 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
     }
 
     private fun checkForMargins() {
-            binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = if (ApexUtil.isTablet) {
-                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                        ApexUtil.dpToMargin(64)
-                    }else {
-                        ApexUtil.dpToMargin(0)
-                    }
-                }else {
-                    if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                        ApexUtil.dpToMargin(144)
-                    }else {
-                        ApexUtil.dpToMargin(80)
-                    }
+        binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = if (ApexUtil.isTablet) {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    ApexUtil.dpToMargin(64)
+                } else {
+                    ApexUtil.dpToMargin(0)
+                }
+            } else {
+                if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
+                    ApexUtil.dpToMargin(144)
+                } else {
+                    ApexUtil.dpToMargin(80)
                 }
             }
+        }
     }
 
     private fun setupRecyclerView() {

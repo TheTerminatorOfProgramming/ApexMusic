@@ -11,7 +11,8 @@ import com.ttop.app.apex.util.FileUtils.createFile
 import com.ttop.app.apex.util.Share.shareFile
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class ErrorActivity : AppCompatActivity() {
     private val dayFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

@@ -18,7 +18,9 @@ import android.content.ContentResolver
 import android.database.Cursor
 import android.provider.BaseColumns
 import android.provider.MediaStore.Audio.AudioColumns
-import android.provider.MediaStore.Audio.Playlists.*
+import android.provider.MediaStore.Audio.Playlists.DEFAULT_SORT_ORDER
+import android.provider.MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI
+import android.provider.MediaStore.Audio.Playlists.Members
 import android.provider.MediaStore.Audio.PlaylistsColumns
 import com.ttop.app.apex.Constants
 import com.ttop.app.apex.extensions.getInt
@@ -51,6 +53,7 @@ interface PlaylistRepository {
 
     fun playlistSongs(playlistId: Long): List<Song>
 }
+
 @Suppress("Deprecation")
 class RealPlaylistRepository(
     private val contentResolver: ContentResolver

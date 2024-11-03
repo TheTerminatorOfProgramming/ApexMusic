@@ -54,11 +54,13 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
                 }
                 setVolume(Volume.NORMAL)
             }
+
             AudioManager.AUDIOFOCUS_LOSS -> {
                 // Lost focus for an unbounded amount of time: stop playback and release media playback
                 pause()
                 callbacks?.onPlayStateChanged()
             }
+
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
                 // Lost focus for a short time, but we have to stop
                 // playback. We don't release the media playback because playback
@@ -68,6 +70,7 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
                 callbacks?.onPlayStateChanged()
                 isPausedByTransientLossOfFocus = wasPlaying
             }
+
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
                 // Lost focus for a short time, but it's ok to keep playing
                 // at an attenuated level

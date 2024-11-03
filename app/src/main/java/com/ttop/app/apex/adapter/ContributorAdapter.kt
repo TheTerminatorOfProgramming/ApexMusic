@@ -96,7 +96,7 @@ class ContributorAdapter(
                     .placeholder(R.drawable.ic_account)
                     .dontAnimate()
                     .into(image)
-            }else {
+            } else {
                 Glide.with(image.context)
                     .load("file:///android_asset/images/${contributor.image}".toUri())
                     .error(R.drawable.ic_account)

@@ -14,15 +14,15 @@
 package com.ttop.app.apex.util
 
 import android.view.ViewGroup
+import com.ttop.app.apex.R
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil.isColorLight
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
+import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
+import com.ttop.app.apex.libraries.fastscroller.FastScroller
+import com.ttop.app.apex.libraries.fastscroller.FastScrollerBuilder
+import com.ttop.app.apex.libraries.fastscroller.PopupStyles
 import com.ttop.app.apex.views.PopupBackground
-import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
-import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight
-import com.ttop.app.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
-import com.ttop.app.appthemehelper.util.TintHelper
-import com.ttop.app.fastscroller.FastScroller
-import com.ttop.app.fastscroller.FastScrollerBuilder
-import com.ttop.app.fastscroller.PopupStyles
-import com.ttop.app.fastscroller.R
 
 object ThemedFastScroller {
     fun create(view: ViewGroup, autoHide: Boolean): FastScroller {
@@ -45,7 +45,7 @@ object ThemedFastScroller {
             )
         )
 
-        fastScrollerBuilder.setPadding(0, 0 , 15, 0)
+        fastScrollerBuilder.setPadding(0, 0, 15, 0)
 
         if (!autoHide) {
             fastScrollerBuilder.disableScrollbarAutoHide()

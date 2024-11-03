@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.ttop.app.appthemehelper.common.views.ATEAccentTextView
+        <com.ttop.app.apex.libraries.appthemehelper.common.views.ATEAccentTextView
             android:id="@+id/sb2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toBottomOf="@id/sb2"
             app:listItemIcon="@drawable/ic_github_circle"
             app:listItemSummary="@string/github_summary"
-            app:listItemTitle="@string/git_hub" />
+            app:listItemTitle="@string/github" />
 
         <com.ttop.app.apex.views.ListItemView
             android:id="@+id/appShare"
@@ -94,7 +94,7 @@
             app:listItemTitle="@string/telegram_group" />
 
         <com.ttop.app.apex.views.ListItemView
-            android:id="@+id/crowdinLink"
+            android:id="@+id/discordLink"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
@@ -102,6 +102,19 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/telegramLink"
+            app:listItemIcon="@drawable/ic_discord_white"
+            app:listItemSummary="@string/discord_group_summary"
+            app:listItemTitle="@string/discord_server" />
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/crowdinLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/discordLink"
             app:listItemIcon="@drawable/ic_translate_white"
             app:listItemSummary="@string/crowdin_summary"
             app:listItemTitle="@string/crowdin" />

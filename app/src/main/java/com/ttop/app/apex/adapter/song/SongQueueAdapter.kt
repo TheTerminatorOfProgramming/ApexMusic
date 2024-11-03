@@ -39,11 +39,11 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
+import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.fastscroller.PopupTextProvider
 
 /**
  * Created by hemanths on 13/08/17.
@@ -154,7 +154,11 @@ open class SongQueueAdapter(
 
     override fun getPopupText(view: View, position: Int): String {
         val sectionName: String? = when (PreferenceUtil.songSortOrder) {
-            SortOrder.SongSortOrder.SONG_DEFAULT -> return MusicUtil.getSectionName(dataSet[position].title, true)
+            SortOrder.SongSortOrder.SONG_DEFAULT -> return MusicUtil.getSectionName(
+                dataSet[position].title,
+                true
+            )
+
             SortOrder.SongSortOrder.SONG_A_Z, SortOrder.SongSortOrder.SONG_Z_A -> dataSet[position].title
             SortOrder.SongSortOrder.SONG_ALBUM -> dataSet[position].albumName
             SortOrder.SongSortOrder.SONG_ARTIST -> dataSet[position].artistName

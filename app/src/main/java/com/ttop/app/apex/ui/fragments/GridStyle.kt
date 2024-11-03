@@ -3,7 +3,7 @@ package com.ttop.app.apex.ui.fragments
 import androidx.annotation.LayoutRes
 import com.ttop.app.apex.R
 
-enum class GridStyle constructor(
+enum class GridStyle(
     @param:LayoutRes @field:LayoutRes val layoutResId: Int,
     val id: Int
 ) {

@@ -4,6 +4,8 @@ import android.Manifest
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.libraries.appintro.AppIntro2
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.ui.fragments.intro.BatterySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothAutoPlaySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothSlideFragment
@@ -14,8 +16,6 @@ import com.ttop.app.apex.ui.fragments.intro.StorageSlideFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.AppIntroUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appintro.AppIntro2
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 
 class AppIntroActivityAbout : AppIntro2() {
@@ -56,25 +56,29 @@ class AppIntroActivityAbout : AppIntro2() {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                 slideNumber = AppIntroUtil.notificationPermission(),
-                required = true)
+                required = true
+            )
         }
         //SD Storage Access
         if (VersionUtils.hasT()) {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_MEDIA_AUDIO),
                 slideNumber = AppIntroUtil.storagePermission(),
-                required = true)
-        }else {
+                required = true
+            )
+        } else {
             askForPermissions(
                 permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 slideNumber = AppIntroUtil.storagePermission(),
-                required = false)
+                required = false
+            )
         }
         //Bluetooth
         askForPermissions(
             permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
             slideNumber = AppIntroUtil.bluetoothPermission(),
-            required = true)
+            required = true
+        )
 
         setTransformer(AppIntroUtil.transformerType())
         isVibrate = true
@@ -87,6 +91,7 @@ class AppIntroActivityAbout : AppIntro2() {
         setDotIndicator()
         setSelectedIndicatorColor(applicationContext.accentColor())
     }
+
     public override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)

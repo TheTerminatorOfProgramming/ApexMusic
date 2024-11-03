@@ -161,9 +161,9 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu!!)
 
-        if (ApexUtil.isTablet){
+        if (ApexUtil.isTablet) {
             layoutItem?.isVisible = getGridSize() >= 3
-        }else{
+        } else {
             layoutItem?.isVisible = getGridSize() != 1
         }
 
@@ -226,8 +226,10 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             R.layout.item_card -> subMenu.findItem(R.id.action_layout_card).isChecked = true
             R.layout.item_card_color ->
                 subMenu.findItem(R.id.action_layout_colored_card).isChecked = true
+
             R.layout.item_grid_circle ->
                 subMenu.findItem(R.id.action_layout_circular).isChecked = true
+
             R.layout.image -> subMenu.findItem(R.id.action_layout_image).isChecked = true
             R.layout.item_image_gradient ->
                 subMenu.findItem(R.id.action_layout_gradient_image).isChecked = true
@@ -341,9 +343,9 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             item.isChecked = true
             setAndSaveGridSize(gridSize)
 
-            if (ApexUtil.isTablet){
+            if (ApexUtil.isTablet) {
                 layout?.isVisible = gridSize >= 3
-            }else{
+            } else {
                 layout?.isVisible = gridSize != 1
             }
             return true
@@ -362,7 +364,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
     }
 
     override fun loadGridSizeTablet(): Int {
-        return PreferenceUtil.albumGridSizeTablet;
+        return PreferenceUtil.albumGridSizeTablet
     }
 
     override fun saveGridSizeTablet(gridColumns: Int) {

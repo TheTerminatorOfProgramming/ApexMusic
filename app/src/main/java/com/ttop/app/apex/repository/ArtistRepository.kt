@@ -177,9 +177,11 @@ class RealArtistRepository(
             SortOrder.ArtistSortOrder.ARTIST_A_Z -> {
                 artists.sortedWith { a1, a2 -> collator.compare(a1.name, a2.name) }
             }
+
             SortOrder.ArtistSortOrder.ARTIST_Z_A -> {
                 artists.sortedWith { a1, a2 -> collator.compare(a2.name, a1.name) }
             }
+
             else -> artists
         }
     }

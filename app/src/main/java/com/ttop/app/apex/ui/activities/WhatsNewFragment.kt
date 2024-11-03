@@ -14,17 +14,13 @@ import android.webkit.WebViewClient
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentWhatsNewBinding
 import com.ttop.app.apex.extensions.accentColor
-import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.model.CategoryInfo
-import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil.isColorLight
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil.lightenColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil.isWindowBackgroundDark
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
 import com.ttop.app.apex.util.PreferenceUtil.lastVersion
-import com.ttop.app.appthemehelper.util.ATHUtil.isWindowBackgroundDark
-import com.ttop.app.appthemehelper.util.ColorUtil.isColorLight
-import com.ttop.app.appthemehelper.util.ColorUtil.lightenColor
-import com.ttop.app.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
 import java.nio.charset.StandardCharsets
 import java.util.Locale
 
@@ -45,7 +41,7 @@ class WhatsNewFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         try {
             val buf = StringBuilder()
-            val stream= requireContext().assets.open("apex-changelog.html")
+            val stream = requireContext().assets.open("apex-changelog.html")
             stream.reader(StandardCharsets.UTF_8).buffered().use { br ->
                 var str: String?
                 while (br.readLine().also { str = it } != null) {

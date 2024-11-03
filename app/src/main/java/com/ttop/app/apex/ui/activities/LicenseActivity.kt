@@ -20,10 +20,10 @@ import com.ttop.app.apex.databinding.ActivityLicenseBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil.lightenColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil.isWindowBackgroundDark
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.ui.activities.base.AbsThemeActivity
-import com.ttop.app.appthemehelper.util.ATHUtil.isWindowBackgroundDark
-import com.ttop.app.appthemehelper.util.ColorUtil.lightenColor
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets

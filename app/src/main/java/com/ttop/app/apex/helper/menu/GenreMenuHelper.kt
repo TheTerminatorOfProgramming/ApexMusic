@@ -39,10 +39,12 @@ object GenreMenuHelper : KoinComponent {
                 MusicPlayerRemote.openQueue(getGenreSongs(genre), 0, true)
                 return true
             }
+
             R.id.action_play_next -> {
                 MusicPlayerRemote.playNext(getGenreSongs(genre))
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 CoroutineScope(Dispatchers.IO).launch {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -53,6 +55,7 @@ object GenreMenuHelper : KoinComponent {
                 }
                 return true
             }
+
             R.id.action_add_to_current_playing -> {
                 MusicPlayerRemote.enqueue(getGenreSongs(genre))
                 return true

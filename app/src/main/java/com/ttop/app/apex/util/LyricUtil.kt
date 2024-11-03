@@ -22,6 +22,7 @@ import java.io.File
 object LyricUtil {
     private val fileName = PreferenceUtil.lyricsPath
     private val lrcRootPath = "$fileName/Apex/Lyrics/"
+
     //So in Apex, Lrc file can be same folder as Music File or in Apex Folder
     private fun isLrcFileExist(title: String, artist: String, album: String): Boolean {
         val file = File(getLrcPath(title, artist, album))
@@ -64,9 +65,11 @@ object LyricUtil {
             isLrcOriginalFileExist(song.data) -> {
                 getLocalLyricOriginalFile(song.data)
             }
+
             isLrcFileExist(song.title, song.artistName, song.albumName) -> {
                 getLocalLyricFile(song.title, song.artistName, song.albumName)
             }
+
             else -> {
                 null
             }

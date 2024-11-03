@@ -90,7 +90,8 @@
         app:layout_constraintStart_toEndOf="@+id/previousButton"
         app:layout_constraintTop_toBottomOf="@+id/progressSlider"
         app:srcCompat="@drawable/ic_pause_white_64dp"
-        tools:tint="@color/md_black_1000" />
+        tools:tint="@color/md_black_1000"
+        tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/nextButton"
@@ -135,6 +136,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
         android:textColor="?android:attr/textColorSecondary"
+        android:textAppearance="@style/TextViewSubtitle5Point5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

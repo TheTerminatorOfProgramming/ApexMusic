@@ -53,7 +53,8 @@ class SortOrder {
                 MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS + " DESC"
 
             /* Album Artist sort order artist */
-            const val ALBUM_ARTIST = "case when lower(album_artist) is null then 1 else 0 end, lower(album_artist)"
+            const val ALBUM_ARTIST =
+                "case when lower(album_artist) is null then 1 else 0 end, lower(album_artist)"
 
             /* Album sort order year */
             const val ALBUM_YEAR = MediaStore.Audio.Media.YEAR + " DESC"

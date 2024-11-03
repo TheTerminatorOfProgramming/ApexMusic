@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">随机播放列表</string>
     <string name="action_sleep_timer">睡眠计时器</string>
     <string name="action_sort_order">排序顺序</string>
+    <string name="action_stop">停止</string>
     <string name="action_tag_editor">标签编辑器</string>
     <string name="action_toggle_favorite">切换收藏</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
@@ -125,7 +126,6 @@
     <string name="create_new_backup">创建</string>
     <string name="credit_title">开发者 &amp; 贡献者</string>
     <string name="cross_fade_duration">交叉淡入淡出时长</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">帮助在crowdin 上翻译这个应用</string>
     <string name="currently_listening_to_x_by_x">目前正在通过 %2$s 收听 %1$s。</string>
     <string name="custom_artist_images">自定义艺人图像</string>
@@ -143,6 +143,7 @@
     <string name="disable_battery_optimize">禁用电池优化</string>
     <string name="disabled">已禁用</string>
     <string name="disc_hint">盘片编号</string>
+    <string name="discord_group_summary">加入我们的 Discord 服务器来讨论错误并提出建议</string>
     <string name="dismiss">关闭</string>
     <string name="do_you_want_to_clear_the_blacklist">你想要清除黑名单吗？</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[您想要从黑名单中删除 <b>%1$s</b> 吗？]]></string>
@@ -285,7 +286,7 @@
     <string name="permissions">权限</string>
     <string name="permission_edit">编辑权限</string>
     <string name="personalize">个性化</string>
-    <string name="personalize_settings_summary">自定义您的知识库和锁定屏幕</string>
+    <string name="personalize_settings_summary">自定义您的库</string>
     <string name="pick_from_local_storage">从本地存储中选择</string>
     <string name="playlist_name_empty_cant">播放列表名称不能为空</string>
     <string name="playlist_name_empty_shouldnt">播放列表名称不能为空</string>
@@ -380,6 +381,7 @@
     <string name="pref_title_search_icon">语音搜索页眉中</string>
     <string name="pref_title_shuffle_state">保持随机状态</string>
     <string name="pref_title_specific_device">特定设备</string>
+    <string name="pref_title_squircle_art_widgets">圆角方形专辑封面</string>
     <string name="pref_title_suggestions">显示建议</string>
     <string name="pref_title_swipe_anywhere_now_playing">向任何地方滑动以更改音轨</string>
     <string name="pref_title_swipe_gestures">滑动手势</string>
@@ -461,11 +463,10 @@
     <string name="sort_order_z_a">降序</string>
     <string name="speech_not_supported">对不起！您的设备不支持语音输入</string>
     <string name="speech_prompt">搜索您的库</string>
-    <string name="stack">堆栈…</string>
+    <string name="stack">堆栈...</string>
     <string name="suggestion_songs">建议</string>
     <string name="support_development">支持 &amp; 开发</string>
     <string name="tab_only">仅绘图板模式</string>
-    <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">加入 Telegram 群組讨论漏洞，提出建议，顯示更多</string>
     <string name="the_audio_file">音频文件</string>
     <string name="this_month">本月</string>
@@ -491,6 +492,7 @@
     <string name="user_images_description">用户图像</string>
     <string name="version">版本</string>
     <string name="vertical_flip">垂直翻转</string>
+    <string name="volume">音量</string>
     <string name="warning_fade">警告！可能会导致意外的播放问题</string>
     <string name="warning_fade_cancelled">更改已恢复</string>
     <string name="web_search">网络搜索</string>

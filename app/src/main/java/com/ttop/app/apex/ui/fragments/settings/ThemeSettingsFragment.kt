@@ -28,20 +28,32 @@ import androidx.preference.TwoStatePreference
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
 import com.afollestad.materialdialogs.color.colorChooser
-import com.ttop.app.apex.*
+import com.ttop.app.apex.ACCENT_COLOR
+import com.ttop.app.apex.APEX_FONT
+import com.ttop.app.apex.BLACK_THEME
+import com.ttop.app.apex.BuildConfig
+import com.ttop.app.apex.DESATURATED_COLOR
+import com.ttop.app.apex.FONT_SIZE
+import com.ttop.app.apex.GENERAL_THEME
+import com.ttop.app.apex.LANGUAGE_NAME
+import com.ttop.app.apex.MATERIAL_YOU
+import com.ttop.app.apex.R
+import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
+import com.ttop.app.apex.TOGGLE_MINI_SWIPE_NON_FOLDABLE
+import com.ttop.app.apex.TRANSPARENT_MINI_PLAYER
 import com.ttop.app.apex.appshortcuts.DynamicShortcutManager
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.installLanguageAndRecreate
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.libraries.appthemehelper.ACCENT_COLORS
+import com.ttop.app.apex.libraries.appthemehelper.ACCENT_COLORS_SUB
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEColorPreference
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ACCENT_COLORS
-import com.ttop.app.appthemehelper.ACCENT_COLORS_SUB
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEColorPreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-import com.ttop.app.appthemehelper.util.ColorUtil
 
 /**
  * @author Hemanth S (h4h13).
@@ -64,7 +76,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
         val accentColorPref: ATEColorPreference? = findPreference(ACCENT_COLOR)
         val accentColor = ThemeStore.accentColor(requireContext())
-        accentColorPref?.setColor(accentColor, ColorUtil.darkenColor(accentColor))
+        accentColorPref?.setColor(accentColor, ATHColorUtil.darkenColor(accentColor))
         val hexColor = String.format("#%06X", (0xFFFFFF and accentColor))
         setSummary(accentColorPref!!, hexColor)
         accentColorPref.setOnPreferenceClickListener {
@@ -83,9 +95,19 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 }
                 negativeButton(res = R.string.reset_action) {
                     if (BuildConfig.DEBUG) {
-                        ThemeStore.editTheme(requireContext()).accentColor(ContextCompat.getColor(requireContext(), R.color.default_debug_color)).commit()
-                    }else {
-                        ThemeStore.editTheme(requireContext()).accentColor(ContextCompat.getColor(requireContext(), R.color.default_color)).commit()
+                        ThemeStore.editTheme(requireContext()).accentColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.default_debug_color
+                            )
+                        ).commit()
+                    } else {
+                        ThemeStore.editTheme(requireContext()).accentColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.default_color
+                            )
+                        ).commit()
                     }
                     DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
                     restartActivity()
@@ -129,7 +151,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             }
             if (newValue as Boolean) {
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-            }else {
+            } else {
                 ThemeStore.prefs(requireContext()).edit {
                     putBoolean(DESATURATED_COLOR, PreferenceUtil.isDesaturatedColor)
                 }
@@ -169,7 +191,8 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val swipeGesturesNonFoldable: TwoStatePreference? = findPreference(TOGGLE_MINI_SWIPE_NON_FOLDABLE)
+        val swipeGesturesNonFoldable: TwoStatePreference? =
+            findPreference(TOGGLE_MINI_SWIPE_NON_FOLDABLE)
         swipeGesturesNonFoldable?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -211,7 +234,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (ApexUtil.isFoldable(requireContext())) {
             addPreferencesFromResource(R.xml.pref_general_foldable)
-        }else {
+        } else {
             addPreferencesFromResource(R.xml.pref_general)
         }
 
@@ -221,6 +244,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 Configuration.UI_MODE_NIGHT_YES -> {
                     blackTheme?.isEnabled = true
                 }
+
                 Configuration.UI_MODE_NIGHT_NO,
                 Configuration.UI_MODE_NIGHT_UNDEFINED -> {
                     blackTheme?.isEnabled = false

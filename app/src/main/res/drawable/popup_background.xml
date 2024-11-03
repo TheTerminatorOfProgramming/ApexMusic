@@ -8,7 +8,7 @@
     </item>
     <item>
         <shape>
-            <solid android:color="@color/m3_popupmenu_overlay_color"/>
+            <solid android:color="@color/m3_popupmenu_overlay_color" />
             <corners android:radius="20dp" />
             <padding
                 android:bottom="10dp"

@@ -8,10 +8,12 @@
     android:focusable="true"
     android:background="?rectSelector"
     android:transitionGroup="true">
+
     <FrameLayout
         android:id="@+id/dummy_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +48,7 @@
                 android:layout_gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/drag_view"
-                app:layout_constraintTop_toTopOf="parent" >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/imageContainer"

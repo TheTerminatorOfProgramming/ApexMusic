@@ -37,5 +37,6 @@ fun Context.getTintedDrawable(@DrawableRes id: Int, @ColorInt color: Int): Drawa
 
 
 fun Context.getDayNightTintedDrawable(@DrawableRes id: Int): Drawable {
-    return ContextCompat.getDrawable(this, id)?.tint(getColorResCompat(android.R.attr.textColorPrimary))!!
+    return ContextCompat.getDrawable(this, id)
+        ?.tint(getColorResCompat(android.R.attr.textColorPrimary))!!
 }

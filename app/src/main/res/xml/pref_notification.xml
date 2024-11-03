@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_notification"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="repeat"
             android:entries="@array/pref_notification_action_list_titles"
             android:entryValues="@array/pref_notification_action_list_values"
@@ -16,9 +16,9 @@
             android:positiveButtonText="@null"
             app:isPreferenceVisible="@bool/actions"
             android:title="@string/pref_title_notification_action_1"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="shuffle"
             android:entries="@array/pref_notification_action_list_titles"
             android:entryValues="@array/pref_notification_action_list_values"
@@ -28,39 +28,39 @@
             android:positiveButtonText="@null"
             app:isPreferenceVisible="@bool/actions"
             android:title="@string/pref_title_notification_action_2"
-            app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
-    <com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
         android:layout="@layout/preference_category_title"
         android:title="@string/pref_header_widgets"
         app:allowDividerBelow="false">
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="widget_style"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_transparent_widgets"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="disable_update"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_hide_update"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="squircle_art"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_squircle_art_widgets"
-            app:allowDividerBelow="false"/>
+            app:allowDividerBelow="false" />
 
-        <com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="disable_widgets"
             android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_disable_widgets"
-            app:allowDividerBelow="false"/>
-    </com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

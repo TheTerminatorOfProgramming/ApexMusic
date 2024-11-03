@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Amestecare Playlist</string>
     <string name="action_sleep_timer">Temporizator somn</string>
     <string name="action_sort_order">Ordinea de sortare</string>
+    <string name="action_stop">Stop</string>
     <string name="action_tag_editor">Editor de etichete</string>
     <string name="action_toggle_favorite">Comută Favorita</string>
     <string name="action_toggle_shuffle">Toggle Shuffle Mode</string>
@@ -129,7 +130,6 @@
     <string name="create_new_backup">Crează</string>
     <string name="credit_title">Dezvoltatori &amp; Colaboratori</string>
     <string name="cross_fade_duration">Durată estompare</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Ajută la traducerea acestei aplicații pe crowdin</string>
     <string name="currently_listening_to_x_by_x">În prezent ascultați %1$s de %2$s.</string>
     <string name="custom_artist_images">Imagini Personalizate Artist</string>
@@ -147,6 +147,7 @@
     <string name="disable_battery_optimize">Dezactivează optimizarea bateriei</string>
     <string name="disabled">Dezactivat</string>
     <string name="disc_hint">Număr disc</string>
+    <string name="discord_group_summary">Alătură-te serverului nostru de Discord pentru a discuta despre erori și a face sugestii</string>
     <string name="dismiss">Renunţaţi</string>
     <string name="do_you_want_to_clear_the_blacklist">Doriţi să ştergeţi lista neagră?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Doriţi să eliminaţi <b>%1$s</b> din lista neagră?]]></string>
@@ -289,7 +290,7 @@
     <string name="permissions">Permisiuni</string>
     <string name="permission_edit">Editează Permisiuni</string>
     <string name="personalize">Personalizare</string>
-    <string name="personalize_settings_summary">Personalizați biblioteca și ecranul de blocare</string>
+    <string name="personalize_settings_summary">Personalizează-ți biblioteca</string>
     <string name="pick_from_local_storage">Alege din stocarea locală</string>
     <string name="playlist_name_empty_cant">Numele listei de redare nu poate fi gol</string>
     <string name="playlist_name_empty_shouldnt">Numele listei de redare ar trebui să fie gol</string>
@@ -348,7 +349,7 @@
     <string name="pref_title_custom_font">Font</string>
     <string name="pref_title_desaturated_color">Culoare desaturată</string>
     <string name="pref_title_disable_queue">Dezactivează coada de jucători</string>
-    <string name="pref_title_disable_widgets">Dezactivare widget-uri</string>
+    <string name="pref_title_disable_widgets">Dezactivați widget-urile</string>
     <string name="pref_title_duration">O singură durată</string>
     <string name="pref_title_expand_now_playing_panel">Arată ecranul de redare acum</string>
     <string name="pref_title_extra_controls">Controale suplimentare</string>
@@ -384,6 +385,7 @@
     <string name="pref_title_search_icon">Căutare vocală în antet</string>
     <string name="pref_title_shuffle_state">Păstrați starea de amestecare</string>
     <string name="pref_title_specific_device">Dispozitiv specific</string>
+    <string name="pref_title_squircle_art_widgets">Coperta albumului pătrată rotunjită</string>
     <string name="pref_title_suggestions">Arată sugestii</string>
     <string name="pref_title_swipe_anywhere_now_playing">Glisați oriunde pentru a schimba piesa</string>
     <string name="pref_title_swipe_gestures">Gesturi glisare</string>
@@ -441,7 +443,7 @@
     <string name="show_player_on_app_launch">Arată întotdeauna la lansarea aplicației</string>
     <string name="shuffle">Amestecare</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Foloseşte acest lucru pentru a crea o coadă redată amestecată</string>
+    <string name="shuffle_button_desc">Folosește acest lucru pentru a crea o listă de redare mixtă</string>
     <string name="simple">Simplu</string>
     <string name="sleep_timer_canceled">Temporizator de somn anulat.</string>
     <string name="sleep_timer_set">Temporizatorul de somn setat pentru %d minute din acest moment.</string>
@@ -469,7 +471,6 @@
     <string name="suggestion_songs">Sugestii</string>
     <string name="support_development">Suport &amp; Dezvoltare</string>
     <string name="tab_only">Numai modul tabletă</string>
-    <string name="telegram_group">Telegramă</string>
     <string name="telegram_group_summary">Alătură-te grupului Telegram pentru a discuta despre bug-uri, a face sugestii, a arăta şi multe altele</string>
     <string name="the_audio_file">Fișierul audio</string>
     <string name="this_month">Luna aceasta</string>
@@ -495,6 +496,7 @@
     <string name="user_images_description">Imagini utilizator</string>
     <string name="version">Versiune</string>
     <string name="vertical_flip">Rotire verticală</string>
+    <string name="volume">Volum</string>
     <string name="warning_fade">Atenție! Poate cauza probleme neașteptate cu redarea</string>
     <string name="warning_fade_cancelled">Schimbări inversate</string>
     <string name="web_search">Căutare pe web</string>

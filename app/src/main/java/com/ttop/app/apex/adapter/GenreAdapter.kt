@@ -21,18 +21,18 @@ import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ItemGenreBinding
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.interfaces.IGenreClickListener
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import java.util.*
+import java.util.Locale
 
 /**
  * @author Hemanth S (h4h13).

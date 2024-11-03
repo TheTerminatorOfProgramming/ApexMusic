@@ -26,6 +26,8 @@ import android.webkit.MimeTypeMap
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.os.BundleCompat
 import androidx.core.text.parseAsHtml
 import androidx.core.view.isVisible
@@ -44,6 +46,7 @@ import com.ttop.app.apex.adapter.Storage
 import com.ttop.app.apex.adapter.StorageAdapter
 import com.ttop.app.apex.adapter.StorageClickListener
 import com.ttop.app.apex.databinding.FragmentFolderBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.showToast
@@ -56,6 +59,9 @@ import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.ICallbacks
 import com.ttop.app.apex.interfaces.IMainActivityFragmentCallbacks
 import com.ttop.app.apex.interfaces.IScrollHelper
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener
 import com.ttop.app.apex.misc.WrappedAsyncTaskLoader
 import com.ttop.app.apex.model.Song
@@ -71,9 +77,6 @@ import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import com.ttop.app.apex.views.BreadCrumbLayout
 import com.ttop.app.apex.views.BreadCrumbLayout.Crumb
 import com.ttop.app.apex.views.BreadCrumbLayout.SelectionCallback
-import com.ttop.app.appthemehelper.ThemeStore.Companion.accentColor
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -165,7 +168,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     private fun setUpTitle() {
         toolbar.navigationIcon = if (PreferenceUtil.isVoiceSearch) {
             getDrawableCompat(R.drawable.ic_voice)
-        }else {
+        } else {
             getDrawableCompat(R.drawable.ic_search)
         }
         toolbar.setNavigationOnClickListener {
@@ -173,6 +176,12 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
             findNavController().navigate(R.id.action_search, null, navOptions)
         }
         binding.appBarLayout.title = resources.getString(R.string.folders)
+
+        toolbar.navigationIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
     }
 
     override fun onPause() {
@@ -359,7 +368,12 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(requireActivity(), toolbar)
+        //ToolbarContentTintHelper.setToolbarContentColor(requireActivity(), toolbar, toolbar.menu, accentColor(), accentColor(), accentColor(), accentColor())
+        toolbar.overflowIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {

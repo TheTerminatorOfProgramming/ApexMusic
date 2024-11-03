@@ -21,7 +21,7 @@ import android.util.TypedValue
 import androidx.core.graphics.drawable.toBitmap
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.getTintedDrawable
-import com.ttop.app.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
 
 object AppShortcutIconGenerator {
     fun generateThemedIcon(context: Context, iconId: Int): Icon {

@@ -17,7 +17,6 @@ package com.ttop.app.apex.extensions
 import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
-import android.content.res.Resources.Theme
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.Button
@@ -40,20 +39,19 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputLayout
 import com.ttop.app.apex.R
-import com.ttop.app.apex.util.PreferenceUtil.materialYou
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
 
 fun Int.ripAlpha(): Int {
-    return ColorUtil.stripAlpha(this)
+    return ATHColorUtil.stripAlpha(this)
 }
 
 fun Dialog.colorControlNormal() = resolveColor(android.R.attr.colorControlNormal)
 
 fun Toolbar.backgroundTintList() {
-    val surfaceColor = ATHUtil.resolveColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+    val surfaceColor = ATHUtil.resolveColor(context, R.attr.colorSurface, Color.BLACK)
     val colorStateList = ColorStateList.valueOf(surfaceColor)
     backgroundTintList = colorStateList
 }
@@ -62,11 +60,11 @@ fun Context.accentColor() = ThemeStore.accentColor(this)
 
 fun Fragment.accentColor() = ThemeStore.accentColor(requireContext())
 
-fun Context.surfaceColor() = resolveColor(com.google.android.material.R.attr.colorSurface, Color.WHITE)
+fun Context.surfaceColor() = resolveColor(R.attr.colorSurface, Color.WHITE)
 
-fun Fragment.surfaceColor() = resolveColor(com.google.android.material.R.attr.colorSurface, Color.WHITE)
+fun Fragment.surfaceColor() = resolveColor(R.attr.colorSurface, Color.WHITE)
 
-fun Context.surfaceColor(fallBackColor: Int) = resolveColor(com.google.android.material.R.attr.colorSurface, fallBackColor)
+fun Context.surfaceColor(fallBackColor: Int) = resolveColor(R.attr.colorSurface, fallBackColor)
 
 fun Context.textColorSecondary() = resolveColor(android.R.attr.textColorSecondary)
 
@@ -110,7 +108,7 @@ fun SeekBar.addAccentColor() {
 fun Slider.addAccentColor() {
     val accentColor = ThemeStore.accentColor(context)
     trackActiveTintList = accentColor.colorStateList
-    trackInactiveTintList = ColorUtil.withAlpha(accentColor, 0.5F).colorStateList
+    trackInactiveTintList = ATHColorUtil.withAlpha(accentColor, 0.5F).colorStateList
     thumbTintList = accentColor.colorStateList
 }
 
@@ -118,7 +116,7 @@ fun Slider.accent() {
     val accentColor = context.accentColor()
     thumbTintList = accentColor.colorStateList
     trackActiveTintList = accentColor.colorStateList
-    trackInactiveTintList = ColorUtil.withAlpha(accentColor, 0.1F).colorStateList
+    trackInactiveTintList = ATHColorUtil.withAlpha(accentColor, 0.1F).colorStateList
 }
 
 fun Button.accentTextColor() {
@@ -159,7 +157,8 @@ fun Slider.applyColor(@ColorInt color: Int) {
 
 fun ExtendedFloatingActionButton.accentColor() {
     val color = ThemeStore.accentColor(context)
-    val textColor = MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(color))
+    val textColor =
+        MaterialValueHelper.getPrimaryTextColor(context, ATHColorUtil.isColorLight(color))
     val colorStateList = ColorStateList.valueOf(color)
     val textColorStateList = ColorStateList.valueOf(textColor)
     backgroundTintList = colorStateList
@@ -169,7 +168,8 @@ fun ExtendedFloatingActionButton.accentColor() {
 
 fun FloatingActionButton.accentColor() {
     val color = ThemeStore.accentColor(context)
-    val textColor = MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(color))
+    val textColor =
+        MaterialValueHelper.getPrimaryTextColor(context, ATHColorUtil.isColorLight(color))
     backgroundTintList = ColorStateList.valueOf(color)
     imageTintList = ColorStateList.valueOf(textColor)
 }
@@ -179,7 +179,7 @@ fun MaterialButton.applyColor(color: Int) {
     val textColorColorStateList = ColorStateList.valueOf(
         MaterialValueHelper.getPrimaryTextColor(
             context,
-            ColorUtil.isColorLight(color)
+            ATHColorUtil.isColorLight(color)
         )
     )
     backgroundTintList = backgroundColorStateList
@@ -210,12 +210,12 @@ fun TextInputLayout.accentColor() {
 fun CircularProgressIndicator.accentColor() {
     val color = ThemeStore.accentColor(context)
     setIndicatorColor(color)
-    trackColor = ColorUtil.withAlpha(color, 0.2f)
+    trackColor = ATHColorUtil.withAlpha(color, 0.2f)
 }
 
 fun CircularProgressIndicator.applyColor(color: Int) {
     setIndicatorColor(color)
-    trackColor = ColorUtil.withAlpha(color, 0.2f)
+    trackColor = ATHColorUtil.withAlpha(color, 0.2f)
 }
 
 fun AppCompatImageView.accentColor(): Int = ThemeStore.accentColor(context)
@@ -255,13 +255,13 @@ fun Context.darkAccentColor(): Int {
     return ColorUtils.blendARGB(
         if (ThemeStore.isMD3Enabled(applicationContext)) {
             ContextCompat.getColor(applicationContext, R.color.m3_widget_background)
-        }else {
+        } else {
             accentColor()
         },
         surfaceColor(),
         if (ThemeStore.isMD3Enabled(applicationContext)) {
             0.7f
-        }else {
+        } else {
             if (surfaceColor().isColorLight) 0.9f else 0.92f
         }
     )
@@ -272,24 +272,24 @@ fun Context.darkAccentColorVariant(): Int {
     return ColorUtils.blendARGB(
         if (ThemeStore.isMD3Enabled(applicationContext)) {
             ContextCompat.getColor(applicationContext, R.color.m3_widget_background)
-        }else {
+        } else {
             accentColor()
         },
         surfaceColor(),
         if (ThemeStore.isMD3Enabled(applicationContext)) {
             0.75f
-        }else {
+        } else {
             if (surfaceColor().isColorLight) 0.9f else 0.95f
         }
     )
 }
 
 inline val @receiver:ColorInt Int.isColorLight
-    get() = ColorUtil.isColorLight(this)
+    get() = ATHColorUtil.isColorLight(this)
 
 inline val Int.colorStateList: ColorStateList
     get() = ColorStateList.valueOf(this)
 
 fun @receiver:ColorInt Int.addAlpha(alpha: Float): Int {
-    return ColorUtil.withAlpha(this, alpha)
+    return ATHColorUtil.withAlpha(this, alpha)
 }

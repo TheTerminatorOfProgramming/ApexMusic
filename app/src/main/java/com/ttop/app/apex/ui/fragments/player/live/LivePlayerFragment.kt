@@ -49,11 +49,11 @@ import com.ttop.app.apex.dialogs.SleepTimerDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
 import com.ttop.app.apex.dialogs.SongShareDialog
 import com.ttop.app.apex.dialogs.VolumeDialog
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.showToast
-import com.ttop.app.apex.extensions.textColorPrimary
-import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
 import com.ttop.app.apex.ui.activities.tageditor.AbsTagEditorActivity
@@ -62,14 +62,13 @@ import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.base.goToArtist
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.DrawableGradient
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -78,7 +77,7 @@ import org.koin.android.ext.android.get
 class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
 
     private var lastColor: Int = 0
-    private var toolbarColor: Int =0
+    private var toolbarColor: Int = 0
     override val paletteColor: Int
         get() = lastColor
 
@@ -108,8 +107,13 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
     override fun toolbarIconColor(): Int {
         return if (PreferenceUtil.isAdaptiveColor) {
             toolbarColor
-        }else {
-            ATHUtil.resolveColor(requireContext(), R.attr.colorControlNormal)
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+            } else {
+                accentColor()
+            }
+
         }
     }
 
@@ -117,21 +121,12 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
         controlsFragment.setColor(color)
         lastColor = color.backgroundColor
         toolbarColor = if (PreferenceUtil.isPlayerBackgroundType) {
-            com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor)
-        }else {
+            ColorUtil.getComplimentColor(color.secondaryTextColor)
+        } else {
             color.secondaryTextColor
         }
+
         libraryViewModel.updateColor(color.backgroundColor)
-
-        binding.border.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent))
-
-        if (PreferenceUtil.isAdaptiveColor) {
-            if (PreferenceUtil.isPlayerBackgroundType) {
-                playingQueueAdapter?.setTextColor(com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor))
-            }else {
-                playingQueueAdapter?.setTextColor(color.secondaryTextColor)
-            }
-        }
 
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
@@ -139,7 +134,29 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
             requireActivity()
         )
 
+        binding.border.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.transparent
+            )
+        )
+
+        binding.playerToolbar.apply {
+            setTitleTextColor(toolbarIconColor())
+            setSubtitleTextColor(toolbarIconColor())
+        }
+
         if (PreferenceUtil.isAdaptiveColor) {
+            if (PreferenceUtil.isPlayerBackgroundType) {
+                playingQueueAdapter?.setTextColor(
+                    ColorUtil.getComplimentColor(
+                        color.secondaryTextColor
+                    )
+                )
+            } else {
+                playingQueueAdapter?.setTextColor(color.secondaryTextColor)
+            }
+
             colorize(color)
 
             if (PreferenceUtil.isColorAnimate) {
@@ -149,16 +166,6 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                     _binding?.root?.setBackgroundColor(color.backgroundColor)
                 }
                 animator.start()
-            }
-        }
-
-        binding.playerToolbar.apply {
-            if (PreferenceUtil.isAdaptiveColor) {
-                setTitleTextColor(toolbarColor)
-                setSubtitleTextColor(toolbarColor)
-            }else {
-                setTitleTextColor(textColorPrimary())
-                setSubtitleTextColor(textColorSecondary())
             }
         }
     }
@@ -188,7 +195,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 }
             }
             valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
-        }else {
+        } else {
             //SINGLE COLOR
             binding.colorGradientBackground.setBackgroundColor(i.backgroundColor)
         }
@@ -214,6 +221,26 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
         playerToolbar().drawAboveSystemBars()
 
         binding.playerQueueSheet.visibility = View.VISIBLE
+
+        ToolbarContentTintHelper.colorizeToolbar(
+            binding.playerToolbar,
+            toolbarIconColor(),
+            requireActivity()
+        )
+
+        binding.playerToolbar.apply {
+            setTitleTextColor(toolbarIconColor())
+            setSubtitleTextColor(toolbarIconColor())
+        }
+
+        if (PreferenceUtil.materialYou && !PreferenceUtil.isAdaptiveColor) {
+            binding.colorGradientBackground.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.m3_widget_background
+                )
+            )
+        }
     }
 
     override fun onDestroyView() {
@@ -231,6 +258,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
                 return true
             }
+
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
@@ -238,18 +266,22 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 }
                 return true
             }
+
             R.id.action_share -> {
                 SongShareDialog.create(song).show(childFragmentManager, "SHARE_SONG")
                 return true
             }
+
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
                 return true
             }
+
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(song).show(childFragmentManager, "DELETE_SONGS")
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 lifecycleScope.launch(Dispatchers.IO) {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -260,25 +292,30 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 }
                 return true
             }
+
             R.id.action_clear_playing_queue -> {
                 MusicPlayerRemote.clearQueue()
                 return true
             }
+
             R.id.action_save_playing_queue -> {
                 CreatePlaylistDialog.create(ArrayList(MusicPlayerRemote.playingQueue))
                     .show(childFragmentManager, "ADD_TO_PLAYLIST")
                 return true
             }
+
             R.id.action_tag_editor -> {
                 val intent = Intent(activity, SongTagEditorActivity::class.java)
                 intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id)
                 startActivity(intent)
                 return true
             }
+
             R.id.action_details -> {
                 SongDetailDialog.create(song).show(childFragmentManager, "SONG_DETAIL")
                 return true
             }
+
             R.id.action_go_to_album -> {
                 //Hide Bottom Bar First, else Bottom Sheet doesn't collapse fully
                 mainActivity.setBottomNavVisibility(false)
@@ -289,18 +326,22 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 )
                 return true
             }
+
             R.id.action_go_to_artist -> {
                 goToArtist(requireActivity())
                 return true
             }
+
             R.id.action_equalizer -> {
                 NavigationUtil.openEqualizer(requireActivity())
                 return true
             }
+
             R.id.action_sleep_timer -> {
                 SleepTimerDialog().show(parentFragmentManager, "SLEEP_TIMER")
                 return true
             }
+
             R.id.action_set_as_ringtone -> {
                 requireContext().run {
                     if (RingtoneManager.requiresDialog(this)) {
@@ -312,6 +353,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
 
                 return true
             }
+
             R.id.action_go_to_genre -> {
                 val retriever = MediaMetadataRetriever()
                 val trackUri =
@@ -328,6 +370,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 showToast(genre)
                 return true
             }
+
             R.id.action_volume -> {
                 VolumeDialog.newInstance().show(childFragmentManager, "VOLUME")
                 return true
@@ -358,83 +401,116 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
         }
         binding.playerToolbar.setOnMenuItemClickListener(this)
 
-        ToolbarContentTintHelper.colorizeToolbar(
-            binding.playerToolbar,
-            toolbarIconColor(),
-            requireActivity()
-        )
-
         when (PreferenceUtil.fontSize) {
             "12" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize12)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize12)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize12
+                )
             }
 
             "13" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize13)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize13)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize13
+                )
             }
 
             "14" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize14)
-                binding.playerToolbar. setSubtitleTextAppearance(requireContext(), R.style.FontSize14)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize14
+                )
             }
 
             "15" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize15)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize15)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize15
+                )
             }
 
             "16" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize16)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize16)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize16
+                )
             }
 
             "17" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize17)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize17)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize17
+                )
             }
 
             "18" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize18)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize18)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize18
+                )
             }
 
             "19" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize19)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize19)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize19
+                )
             }
 
             "20" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize20)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize20)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize20
+                )
             }
 
             "21" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize21)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize21)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize21
+                )
             }
 
             "22" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize22)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize22)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize22
+                )
             }
 
             "23" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize23)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize23)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize23
+                )
             }
 
             "24" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize24)
-                binding.playerToolbar.setSubtitleTextAppearance(requireContext(), R.style.FontSize24)
+                binding.playerToolbar.setSubtitleTextAppearance(
+                    requireContext(),
+                    R.style.FontSize24
+                )
             }
         }
     }
 
     private fun setupRecyclerView() {
         playingQueueAdapter = if (ApexUtil.isTablet) {
-            if(ApexUtil.isLandscape) {
+            if (ApexUtil.isLandscape) {
                 when (PreferenceUtil.queueStyleLand) {
                     "normal" -> {
                         PlayingQueueAdapter(
@@ -444,6 +520,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                             R.layout.item_queue_player_plain
                         )
                     }
+
                     "duo" -> {
                         PlayingQueueAdapter(
                             requireActivity() as AppCompatActivity,
@@ -452,6 +529,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                             R.layout.item_queue_duo
                         )
                     }
+
                     "trio" -> {
                         PlayingQueueAdapter(
                             requireActivity() as AppCompatActivity,
@@ -460,6 +538,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                             R.layout.item_queue_trio
                         )
                     }
+
                     else -> {
                         PlayingQueueAdapter(
                             requireActivity() as AppCompatActivity,
@@ -469,7 +548,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                         )
                     }
                 }
-            }else {
+            } else {
                 when (PreferenceUtil.queueStyle) {
                     "normal" -> {
                         PlayingQueueAdapter(
@@ -479,6 +558,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                             R.layout.item_queue_player_plain
                         )
                     }
+
                     "duo" -> {
                         PlayingQueueAdapter(
                             requireActivity() as AppCompatActivity,
@@ -487,6 +567,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                             R.layout.item_queue_duo
                         )
                     }
+
                     "trio" -> {
                         PlayingQueueAdapter(
                             requireActivity() as AppCompatActivity,
@@ -495,6 +576,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                             R.layout.item_queue_trio
                         )
                     }
+
                     else -> {
                         PlayingQueueAdapter(
                             requireActivity() as AppCompatActivity,
@@ -505,7 +587,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                     }
                 }
             }
-        }else {
+        } else {
             PlayingQueueAdapter(
                 requireActivity() as AppCompatActivity,
                 MusicPlayerRemote.playingQueue.toMutableList(),

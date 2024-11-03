@@ -47,22 +47,22 @@ class PlaybackSpeedDialog : DialogFragment() {
                 )
             }
 
-            setNegativeButton(R.string.dismiss) {_, _ ->
+            setNegativeButton(R.string.dismiss) { _, _ ->
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
                     dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 }
                 dialog.dismiss()
             }
 
-            setNeutralButton(R.string.reset_action) {_, _ ->
+            setNeutralButton(R.string.reset_action) { _, _ ->
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
                     dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 }
-                    updatePlaybackAndPitch(
-                        1F,
-                        1F
-                    )
-                }
+                updatePlaybackAndPitch(
+                    1F,
+                    1F
+                )
+            }
             setView(binding.root)
             dialog = create()
             dialog.centeredColorButtons()

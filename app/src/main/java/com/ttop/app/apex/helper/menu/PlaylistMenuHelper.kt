@@ -44,10 +44,12 @@ object PlaylistMenuHelper : KoinComponent {
                 MusicPlayerRemote.openQueue(playlistWithSongs.songs.toSongs(), 0, true)
                 return true
             }
+
             R.id.action_play_next -> {
                 MusicPlayerRemote.playNext(playlistWithSongs.songs.toSongs())
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 CoroutineScope(Dispatchers.IO).launch {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -58,20 +60,24 @@ object PlaylistMenuHelper : KoinComponent {
                 }
                 return true
             }
+
             R.id.action_add_to_current_playing -> {
                 MusicPlayerRemote.enqueue(playlistWithSongs.songs.toSongs())
                 return true
             }
+
             R.id.action_rename_playlist -> {
                 RenamePlaylistDialog.create(playlistWithSongs.playlistEntity)
                     .show(activity.supportFragmentManager, "RENAME_PLAYLIST")
                 return true
             }
+
             R.id.action_delete_playlist -> {
                 DeletePlaylistDialog.create(playlistWithSongs.playlistEntity)
                     .show(activity.supportFragmentManager, "DELETE_PLAYLIST")
                 return true
             }
+
             R.id.action_save_playlist -> {
                 SavePlaylistDialog.create(playlistWithSongs)
                     .show(activity.supportFragmentManager, "SavePlaylist")

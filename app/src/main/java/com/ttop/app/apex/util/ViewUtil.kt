@@ -20,9 +20,9 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
 
 object ViewUtil {
 
@@ -43,14 +43,14 @@ object ViewUtil {
         background.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             MaterialValueHelper.getPrimaryDisabledTextColor(
                 progressSlider.context,
-                ColorUtil.isColorLight(primaryColor)
+                ATHColorUtil.isColorLight(primaryColor)
             ), SRC_IN
         )
 
         val secondaryProgress = layerDrawable.findDrawableByLayerId(android.R.id.secondaryProgress)
         secondaryProgress?.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                ColorUtil.withAlpha(
+                ATHColorUtil.withAlpha(
                     newColor,
                     0.65f
                 ), SRC_IN

@@ -12,7 +12,7 @@ import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.io.File
-import java.util.*
+import java.util.Locale
 
 private const val BASE_QUERY_ARTIST = "search/artist"
 private const val BASE_URL = "https://api.deezer.com/"

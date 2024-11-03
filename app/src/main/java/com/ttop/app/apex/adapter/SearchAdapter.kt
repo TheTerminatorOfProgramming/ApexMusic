@@ -26,7 +26,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ttop.app.apex.*
+import com.ttop.app.apex.EXTRA_ALBUM_ID
+import com.ttop.app.apex.EXTRA_ARTIST_ID
+import com.ttop.app.apex.EXTRA_ARTIST_NAME
+import com.ttop.app.apex.EXTRA_GENRE
+import com.ttop.app.apex.EXTRA_PLAYLIST_ID
+import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -35,14 +40,14 @@ import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.menu.SongMenuHelper
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ThemeStore
-import java.util.*
+import java.util.Locale
 
 class SearchAdapter(
     private val activity: FragmentActivity,
@@ -72,6 +77,7 @@ class SearchAdapter(
                     false
                 ), viewType
             )
+
             ALBUM, ARTIST, ALBUM_ARTIST -> ViewHolder(
                 LayoutInflater.from(activity).inflate(
                     R.layout.item_list_big,
@@ -79,6 +85,7 @@ class SearchAdapter(
                     false
                 ), viewType
             )
+
             else -> ViewHolder(
                 LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false),
                 viewType
@@ -97,6 +104,7 @@ class SearchAdapter(
                     .load(ApexGlideExtension.getSongModel(album.safeGetFirstSong()))
                     .into(holder.image!!)
             }
+
             ARTIST -> {
                 holder.imageTextContainer?.isVisible = true
                 val artist = dataSet[position] as Artist
@@ -106,6 +114,7 @@ class SearchAdapter(
                     ApexGlideExtension.getArtistModel(artist)
                 ).into(holder.image!!)
             }
+
             SONG -> {
                 holder.imageTextContainer?.isVisible = true
                 val song = dataSet[position] as Song
@@ -114,6 +123,7 @@ class SearchAdapter(
                 Glide.with(activity).asDrawable().songCoverOptions(song)
                     .load(ApexGlideExtension.getSongModel(song)).into(holder.image!!)
             }
+
             GENRE -> {
                 val genre = dataSet[position] as Genre
                 holder.title?.text = genre.name
@@ -126,11 +136,13 @@ class SearchAdapter(
                     )
                 )
             }
+
             PLAYLIST -> {
                 val playlist = dataSet[position] as PlaylistWithSongs
                 holder.title?.text = playlist.playlistEntity.playlistName
                 //holder.text?.text = MusicUtil.playlistInfoString(activity, playlist.songs)
             }
+
             ALBUM_ARTIST -> {
                 holder.imageTextContainer?.isVisible = true
                 val artist = dataSet[position] as Artist
@@ -140,6 +152,7 @@ class SearchAdapter(
                     ApexGlideExtension.getArtistModel(artist)
                 ).into(holder.image!!)
             }
+
             else -> {
                 holder.title?.text = dataSet[position].toString()
                 holder.title?.setTextColor(ThemeStore.accentColor(activity))
@@ -185,43 +198,51 @@ class SearchAdapter(
                         bundleOf(EXTRA_ALBUM_ID to (item as Album).id)
                     )
                 }
+
                 ARTIST -> {
                     activity.findNavController(R.id.fragment_container).navigate(
                         R.id.artistDetailsFragment,
                         bundleOf(EXTRA_ARTIST_ID to (item as Artist).id)
                     )
                 }
-                ALBUM_ARTIST ->{
+
+                ALBUM_ARTIST -> {
                     activity.findNavController(R.id.fragment_container).navigate(
                         R.id.albumArtistDetailsFragment,
                         bundleOf(EXTRA_ARTIST_NAME to (item as Artist).name)
                     )
                 }
+
                 GENRE -> {
                     activity.findNavController(R.id.fragment_container).navigate(
                         R.id.genreDetailsFragment,
                         bundleOf(EXTRA_GENRE to (item as Genre))
                     )
                 }
+
                 PLAYLIST -> {
                     activity.findNavController(R.id.fragment_container).navigate(
                         R.id.playlistDetailsFragment,
                         bundleOf(EXTRA_PLAYLIST_ID to (item as PlaylistWithSongs).playlistEntity.playListId)
                     )
                 }
+
                 SONG -> {
                     if (PreferenceUtil.searchActionShuffle) {
                         val songToPlay = item as Song
                         val allSongs = MusicUtil.repository.allSong()
 
                         MusicPlayerRemote.openAndShuffleQueue(allSongs, false)
-                        MusicPlayerRemote.moveSong(MusicPlayerRemote.playingQueue.indexOf(songToPlay), 0)
+                        MusicPlayerRemote.moveSong(
+                            MusicPlayerRemote.playingQueue.indexOf(songToPlay),
+                            0
+                        )
                         MusicPlayerRemote.playSongAt(0)
 
                         if (!MusicPlayerRemote.isPlaying) {
                             MusicPlayerRemote.playSongAt(0)
                         }
-                    }else {
+                    } else {
                         MusicPlayerRemote.playNext(item as Song)
                         MusicPlayerRemote.playNextSong()
                     }

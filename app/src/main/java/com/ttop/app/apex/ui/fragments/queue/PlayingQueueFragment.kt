@@ -25,21 +25,23 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
+import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentPlayingQueueBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 
-class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.fragment_playing_queue) {
+class PlayingQueueFragment :
+    AbsMusicServiceFragment(R.layout.fragment_playing_queue) {
 
     private var _binding: FragmentPlayingQueueBinding? = null
     private val binding get() = _binding!!
@@ -56,7 +58,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
     private fun getUpNextAndQueueTime(): String {
         val duration = MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.position)
         return MusicUtil.buildInfoString(
-            resources.getString(com.ttop.app.apex.R.string.up_next),
+            resources.getString(R.string.up_next),
             MusicUtil.getReadableDurationString(duration)
         )
     }
@@ -87,7 +89,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
             requireActivity(),
             MusicPlayerRemote.playingQueue.toMutableList(),
             MusicPlayerRemote.position,
-            com.ttop.app.apex.R.layout.item_queue
+            R.layout.item_queue
         )
         wrappedAdapter = recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!)
         wrappedAdapter = wrappedAdapter?.let { recyclerViewSwipeManager?.createWrappedAdapter(it) }
@@ -116,7 +118,10 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
         })
 
         if (PreferenceUtil.scrollbarStyle != "disabled") {
-            ThemedFastScroller.create(binding.recyclerView, PreferenceUtil.scrollbarStyle == "auto_hide")
+            ThemedFastScroller.create(
+                binding.recyclerView,
+                PreferenceUtil.scrollbarStyle == "auto_hide"
+            )
         }
     }
 
@@ -194,7 +199,7 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
         ColorStateList.valueOf(
             MaterialValueHelper.getPrimaryTextColor(
                 requireContext(),
-                ColorUtil.isColorLight(accentColor())
+                ATHColorUtil.isColorLight(accentColor())
             )
         ).apply {
             binding.clearQueue.setTextColor(this)
@@ -206,9 +211,9 @@ class PlayingQueueFragment : AbsMusicServiceFragment(com.ttop.app.apex.R.layout.
             setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            setTitle(com.ttop.app.apex.R.string.now_playing_queue)
-            setTitleTextAppearance(context, com.ttop.app.apex.R.style.ToolbarTextAppearanceNormal)
-            setNavigationIcon(com.ttop.app.apex.R.drawable.ic_keyboard_backspace_black)
+            setTitle(R.string.now_playing_queue)
+            setTitleTextAppearance(context, R.style.ToolbarTextAppearanceNormal)
+            setNavigationIcon(R.drawable.ic_keyboard_backspace_black)
             ToolbarContentTintHelper.colorBackButton(this)
         }
     }

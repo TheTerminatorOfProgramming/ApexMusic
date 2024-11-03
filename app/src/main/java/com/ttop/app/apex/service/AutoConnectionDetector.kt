@@ -9,8 +9,8 @@ import android.content.IntentFilter
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 class AutoConnectionDetector(val context: Context) {
 
@@ -21,7 +21,8 @@ class AutoConnectionDetector(val context: Context) {
         const val CAR_CONNECTION_STATE = "CarConnectionState"
 
         // auto app on your phone will send broadcast with this action when connection state changes
-        const val ACTION_CAR_CONNECTION_UPDATED = "androidx.car.app.connection.action.CAR_CONNECTION_UPDATED"
+        const val ACTION_CAR_CONNECTION_UPDATED =
+            "androidx.car.app.connection.action.CAR_CONNECTION_UPDATED"
 
         // phone is not connected to car
         const val CONNECTION_TYPE_NOT_CONNECTED = 0
@@ -30,7 +31,8 @@ class AutoConnectionDetector(val context: Context) {
 
         private const val CAR_CONNECTION_AUTHORITY = "androidx.car.app.connection"
 
-        private val PROJECTION_HOST_URI = Uri.Builder().scheme("content").authority(CAR_CONNECTION_AUTHORITY).build()
+        private val PROJECTION_HOST_URI =
+            Uri.Builder().scheme("content").authority(CAR_CONNECTION_AUTHORITY).build()
     }
 
     private val carConnectionReceiver = CarConnectionBroadcastReceiver()
@@ -39,9 +41,16 @@ class AutoConnectionDetector(val context: Context) {
     fun registerCarConnectionReceiver() {
         if (!autoReceiverRegistered) {
             if (VersionUtils.hasT()) {
-                context.registerReceiver(carConnectionReceiver, IntentFilter(ACTION_CAR_CONNECTION_UPDATED), Context.RECEIVER_EXPORTED)
-            }else {
-                context.registerReceiver(carConnectionReceiver, IntentFilter(ACTION_CAR_CONNECTION_UPDATED))
+                context.registerReceiver(
+                    carConnectionReceiver,
+                    IntentFilter(ACTION_CAR_CONNECTION_UPDATED),
+                    Context.RECEIVER_EXPORTED
+                )
+            } else {
+                context.registerReceiver(
+                    carConnectionReceiver,
+                    IntentFilter(ACTION_CAR_CONNECTION_UPDATED)
+                )
             }
             autoReceiverRegistered = true
         }
@@ -67,6 +76,7 @@ class AutoConnectionDetector(val context: Context) {
             null
         )
     }
+
     inner class CarConnectionBroadcastReceiver : BroadcastReceiver() {
         // query for connection state every time the receiver receives the broadcast
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -74,17 +84,24 @@ class AutoConnectionDetector(val context: Context) {
         }
     }
 
-    internal class CarConnectionQueryHandler(resolver: ContentResolver?) : AsyncQueryHandler(resolver) {
+    internal class CarConnectionQueryHandler(resolver: ContentResolver?) :
+        AsyncQueryHandler(resolver) {
         // notify new queryed connection status when query complete
         override fun onQueryComplete(token: Int, cookie: Any?, response: Cursor?) {
             if (response == null) {
-                Log.w(TAG, "Null response from content provider when checking connection to the car, treating as disconnected")
+                Log.w(
+                    TAG,
+                    "Null response from content provider when checking connection to the car, treating as disconnected"
+                )
                 PreferenceUtil.isCarConnected = false
                 return
             }
             val carConnectionTypeColumn = response.getColumnIndex(CAR_CONNECTION_STATE)
             if (carConnectionTypeColumn < 0) {
-                Log.w(TAG, "Connection to car response is missing the connection type, treating as disconnected")
+                Log.w(
+                    TAG,
+                    "Connection to car response is missing the connection type, treating as disconnected"
+                )
                 PreferenceUtil.isCarConnected = false
                 return
             }

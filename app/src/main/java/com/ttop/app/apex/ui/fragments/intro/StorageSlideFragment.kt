@@ -8,14 +8,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
-import com.ttop.app.appintro.SlideBackgroundColorHolder
+import com.ttop.app.apex.libraries.appintro.SlideBackgroundColorHolder
 
 class StorageSlideFragment(
     override val defaultBackgroundColorRes: Int
 ) : Fragment(), SlideBackgroundColorHolder {
 
     //Required Constructor
-    constructor() : this(com.ttop.app.appthemehelper.R.color.md_cyan_400)
+    constructor() : this(R.color.md_cyan_400)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +26,12 @@ class StorageSlideFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_cyan_400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_cyan_400))
     }
+
     companion object {
         fun newInstance(): StorageSlideFragment {
-            return StorageSlideFragment(com.ttop.app.appthemehelper.R.color.md_cyan_400)
+            return StorageSlideFragment(R.color.md_cyan_400)
         }
     }
 

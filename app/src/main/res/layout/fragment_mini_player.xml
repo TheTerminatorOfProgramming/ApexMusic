@@ -51,7 +51,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textAppearance="@style/TextViewNormal"
+            android:textAppearance="@style/TextViewSubtitle5"
             android:textColor="?android:attr/textColorPrimary"
             tools:text="@tools:sample/lorem/random" />
 

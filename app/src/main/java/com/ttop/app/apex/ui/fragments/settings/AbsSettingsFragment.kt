@@ -22,6 +22,7 @@ import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat
 import com.ttop.app.apex.preferences.AlbumCoverStylePreference
 import com.ttop.app.apex.preferences.AlbumCoverStylePreferenceDialog
 import com.ttop.app.apex.preferences.BlacklistPreference
@@ -48,7 +49,6 @@ import com.ttop.app.apex.preferences.SeekRwdPreference
 import com.ttop.app.apex.preferences.SeekRwdPreferenceDialog
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat
 import dev.chrisbanes.insetter.applyInsetter
 
 /**
@@ -98,50 +98,62 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
                 val fragment = LibraryPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is NowPlayingScreenPreference -> {
                 val fragment = NowPlayingScreenPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is AlbumCoverStylePreference -> {
                 val fragment = AlbumCoverStylePreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is BlacklistPreference -> {
                 val fragment = BlacklistPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is CrossFadePreference -> {
                 val fragment = CrossFadePreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is FilterMinPreference -> {
                 val fragment = FilterMinPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is FilterMaxPreference -> {
                 val fragment = FilterMaxPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is SeekFwdPreference -> {
                 val fragment = SeekFwdPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is SeekRwdPreference -> {
                 val fragment = SeekRwdPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is BlurPreference -> {
                 val fragment = BlurPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is BluetoothDelayPreference -> {
                 val fragment = BluetoothDelayPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             is DurationPreference -> {
                 val fragment = DurationPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
+
             else -> super.onDisplayPreferenceDialog(preference)
         }
     }
@@ -154,11 +166,11 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
         activity?.requestedOrientation = if (ApexUtil.isTablet) {
             if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
-            }else {
+            } else {
                 ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
-        }else {
-            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
     }
 }

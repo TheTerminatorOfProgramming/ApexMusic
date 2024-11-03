@@ -32,7 +32,12 @@ import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.backup.BackupAdapter
 import com.ttop.app.apex.databinding.FragmentBackupBinding
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.accentOutlineColor
+import com.ttop.app.apex.extensions.accentTextColor
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
 import com.ttop.app.apex.util.PreferenceUtil
@@ -42,53 +47,57 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.nio.file.Files
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
-class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupClickedListener,SharedPreferences.OnSharedPreferenceChangeListener {
+class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupClickedListener,
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val backupViewModel by viewModels<BackupViewModel>()
     private var backupAdapter: BackupAdapter? = null
     private var _binding: FragmentBackupBinding? = null
     private val binding get() = _binding!!
 
-    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            // There are no request codes
-            val data: Intent? = result.data
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
 
-            val uri: Uri? = data?.data
+                val uri: Uri? = data?.data
 
-            val file = uri?.path?.let { File(it) } //create path from uri
+                val file = uri?.path?.let { File(it) } //create path from uri
 
-            val split = file?.path?.split(":".toRegex())?.dropLastWhile { it.isEmpty() }
-                ?.toTypedArray() //split the path.
+                val split = file?.path?.split(":".toRegex())?.dropLastWhile { it.isEmpty() }
+                    ?.toTypedArray() //split the path.
 
 
-            val fileType = split?.get(1)
-            val finalPath = fileType?.let { getExternalStoragePublicDirectory(it).absolutePath }
+                val fileType = split?.get(1)
+                val finalPath = fileType?.let { getExternalStoragePublicDirectory(it).absolutePath }
 
-            PreferenceUtil.lyricsPath = finalPath
+                PreferenceUtil.lyricsPath = finalPath
 
-            if (finalPath != null) {
-                if (finalPath.endsWith("Apex" + File.separator + "Backups")) {
-                    PreferenceUtil.backupPath = finalPath
-                }else {
-                    if (finalPath.endsWith("Apex")) {
-                        PreferenceUtil.backupPath = finalPath + File.separator + "Backups"
-                    }else{
-                        PreferenceUtil.backupPath = finalPath + File.separator + "Apex" + File.separator + "Backups"
+                if (finalPath != null) {
+                    if (finalPath.endsWith("Apex" + File.separator + "Backups")) {
+                        PreferenceUtil.backupPath = finalPath
+                    } else {
+                        if (finalPath.endsWith("Apex")) {
+                            PreferenceUtil.backupPath = finalPath + File.separator + "Backups"
+                        } else {
+                            PreferenceUtil.backupPath =
+                                finalPath + File.separator + "Apex" + File.separator + "Backups"
+                        }
+                    }
+                }
+
+                val newDir = PreferenceUtil.backupPath?.let { File(it) }
+                if (newDir != null) {
+                    if (!newDir.exists()) {
+                        newDir.mkdirs()
                     }
                 }
             }
-
-            val newDir = PreferenceUtil.backupPath?.let { File(it) }
-            if (newDir != null) {
-                if (!newDir.exists()){
-                    newDir.mkdirs()
-                }
-            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -150,8 +159,9 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
 
             builder.setNeutralButton(
                 getString(R.string.reset_action)
-            ){ _, _ ->
-                PreferenceUtil.backupPath = com.ttop.app.apex.util.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + File.separator + "Apex" + File.separator + "Backups"
+            ) { _, _ ->
+                PreferenceUtil.backupPath =
+                    com.ttop.app.apex.util.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + File.separator + "Apex" + File.separator + "Backups"
             }
 
             val alert = builder.create()
@@ -313,7 +323,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
             .filter { Files.isRegularFile(it) }
             .map { it.toFile() }
             .forEach {
-                if (it.name != "IntroPrefs.xml"){
+                if (it.name != "IntroPrefs.xml") {
                     it.delete()
                 }
             }
@@ -348,7 +358,7 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         }
     }
 
-    private fun prefillTitle():String {
+    private fun prefillTitle(): String {
         return when (BuildConfig.BUILD_TYPE) {
             "debug" -> {
                 SimpleDateFormat(
@@ -436,10 +446,12 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
                 backupViewModel.loadBackups()
                 return true
             }
+
             R.id.action_share -> {
                 Share.shareFile(requireContext(), file, "*/*")
                 return true
             }
+
             R.id.action_rename -> {
                 materialDialog().show {
                     title(res = R.string.action_rename)

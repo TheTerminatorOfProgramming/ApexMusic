@@ -19,9 +19,9 @@ import android.view.View
 import android.widget.ImageButton
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMinimalControlsFragmentBinding
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.ColorUtil
 
 class MinimalPlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_minimal_controls_fragment) {
@@ -40,7 +40,7 @@ class MinimalPlaybackControlsFragment :
 
     override fun setColor(color: MediaNotificationProcessor) {
         lastPlaybackControlsColor = color.secondaryTextColor
-        lastDisabledPlaybackControlsColor = ColorUtil.withAlpha(color.secondaryTextColor, 0.25f)
+        lastDisabledPlaybackControlsColor = ATHColorUtil.withAlpha(color.secondaryTextColor, 0.25f)
 
         updateRepeatState()
         updateShuffleState()

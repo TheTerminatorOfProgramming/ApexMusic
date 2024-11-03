@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">प्लेलिस्ट शफ़ल करें</string>
     <string name="action_sleep_timer">सोने का टाइमर</string>
     <string name="action_sort_order">क्रमबद्ध करेन का आदेश</string>
+    <string name="action_stop">रुकना</string>
     <string name="action_tag_editor">टैग संपादक</string>
     <string name="action_toggle_favorite">पसंदीदा टॉगल करें</string>
     <string name="action_toggle_shuffle">शफ़ल मोड टॉगल करें</string>
@@ -127,7 +128,6 @@
     <string name="create_new_backup">बनाएं</string>
     <string name="credit_title">डेवलपर्स एवं amp; योगदानकर्ताओं</string>
     <string name="cross_fade_duration">क्रॉसफ़ेड अवधि</string>
-    <string name="crowdin">भीड़</string>
     <string name="crowdin_summary">क्राउडइन पर इस ऐप का अनुवाद करने में सहायता करें</string>
     <string name="currently_listening_to_x_by_x">वर्तमान में %2$s द्वारा %1$s सुन रहा हूँ।</string>
     <string name="custom_artist_images">कस्टम कलाकार छवियाँ</string>
@@ -145,6 +145,7 @@
     <string name="disable_battery_optimize">बैटरी अनुकूलन अक्षम करें</string>
     <string name="disabled">अक्षम</string>
     <string name="disc_hint">डिस्क संख्या</string>
+    <string name="discord_group_summary">बग्स पर चर्चा करने और सुझाव देने के लिए हमारे डिस्कॉर्ड सर्वर से जुड़ें</string>
     <string name="dismiss">नकार देना</string>
     <string name="do_you_want_to_clear_the_blacklist">क्या आप काली सूची साफ़ करना चाहते हैं?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[क्या आप <b>%1$s</b> को काली सूची से हटाना चाहते हैं?]]></string>
@@ -287,7 +288,7 @@
     <string name="permissions">अनुमतियां</string>
     <string name="permission_edit">अनुमतियाँ संपादित करें</string>
     <string name="personalize">वैयक्तिकृत करें</string>
-    <string name="personalize_settings_summary">अपनी लाइब्रेरी और लॉक स्क्रीन को कस्टमाइज़ करें</string>
+    <string name="personalize_settings_summary">अपनी लाइब्रेरी को अनुकूलित करें</string>
     <string name="pick_from_local_storage">स्थानीय भंडारण से चुनें</string>
     <string name="playlist_name_empty_cant">प्लेलिस्ट का नाम खाली नहीं हो सकता</string>
     <string name="playlist_name_empty_shouldnt">प्लेलिस्ट का नाम खाली नहीं होना चाहिए</string>
@@ -382,6 +383,7 @@
     <string name="pref_title_search_icon">हेडर में ध्वनि खोज</string>
     <string name="pref_title_shuffle_state">शफ़ल स्थिति रखें</string>
     <string name="pref_title_specific_device">विशिष्ट उपकरण</string>
+    <string name="pref_title_squircle_art_widgets">गोल चौकोर एल्बम कला</string>
     <string name="pref_title_suggestions">सुझावों को दिखाओ</string>
     <string name="pref_title_swipe_anywhere_now_playing">ट्रैक बदलने के लिए कहीं भी स्वाइप करें</string>
     <string name="pref_title_swipe_gestures">स्वाइप जेस्चर</string>
@@ -439,7 +441,7 @@
     <string name="show_player_on_app_launch">ऐप लॉन्च पर हमेशा दिखाएं</string>
     <string name="shuffle">मिश्रण</string>
     <string name="shuffle_button">शफ़ल बटन</string>
-    <string name="shuffle_button_desc">इसका उपयोग एक शफल प्लेइंग कतार बनाने के लिए करें। अधिक जानकारी के लिए एपेक्स म्यूजिक विकी पर जाएं!</string>
+    <string name="shuffle_button_desc">इसका उपयोग शफल प्लेइंग कतार बनाने के लिए करें</string>
     <string name="simple">सरल</string>
     <string name="sleep_timer_canceled">स्लीप टाइमर रद्द कर दिया गया.</string>
     <string name="sleep_timer_set">अब से %d मिनट के लिए स्लीप टाइमर सेट किया गया है।</string>
@@ -467,7 +469,6 @@
     <string name="suggestion_songs">सुझाव</string>
     <string name="support_development">समर्थन एवं समर्थन विकास</string>
     <string name="tab_only">केवल टेबलेट मोड</string>
-    <string name="telegram_group">तार</string>
     <string name="telegram_group_summary">बग पर चर्चा करने, सुझाव देने, दिखावा करने और बहुत कुछ करने के लिए टेलीग्राम समूह में शामिल हों</string>
     <string name="the_audio_file">ऑडियो फ़ाइल</string>
     <string name="this_month">इस महीने</string>
@@ -493,6 +494,7 @@
     <string name="user_images_description">उपयोगकर्ता छवियाँ</string>
     <string name="version">संस्करण</string>
     <string name="vertical_flip">लंबवत फ्लिप</string>
+    <string name="volume">आयतन</string>
     <string name="warning_fade">चेतावनी! प्लेबैक में अप्रत्याशित समस्याएँ आ सकती हैं</string>
     <string name="warning_fade_cancelled">परिवर्तन वापस लिए गए</string>
     <string name="web_search">वेब खोज</string>

@@ -8,14 +8,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
-import com.ttop.app.appintro.SlideBackgroundColorHolder
+import com.ttop.app.apex.libraries.appintro.SlideBackgroundColorHolder
 
 class BluetoothAutoPlaySlideFragment(
     override val defaultBackgroundColorRes: Int
 ) : Fragment(), SlideBackgroundColorHolder {
 
     //Required Constructor
-    constructor() : this(com.ttop.app.appthemehelper.R.color.md_green_500)
+    constructor() : this(R.color.md_green_500)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +26,12 @@ class BluetoothAutoPlaySlideFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_green_500))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_green_500))
     }
+
     companion object {
         fun newInstance(): BluetoothAutoPlaySlideFragment {
-            return BluetoothAutoPlaySlideFragment(com.ttop.app.appthemehelper.R.color.md_green_500)
+            return BluetoothAutoPlaySlideFragment(R.color.md_green_500)
         }
     }
 

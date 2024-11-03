@@ -23,7 +23,6 @@ import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
@@ -37,10 +36,10 @@ import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.findNavController
 import com.ttop.app.apex.extensions.hideStatusBar
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SearchQueryHelper.getSongs
 import com.ttop.app.apex.interfaces.IScrollHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.PlaylistSongsLoader
@@ -48,13 +47,10 @@ import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsCastActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.PreferenceUtil.lastVersion
 import com.ttop.app.apex.util.logE
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import java.io.File
 
 class MainActivity : AbsCastActivity() {
     companion object {
@@ -80,7 +76,7 @@ class MainActivity : AbsCastActivity() {
                 ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
         } else {
-            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
         if (PreferenceUtil.isDisableWidgets) {
@@ -116,7 +112,8 @@ class MainActivity : AbsCastActivity() {
 
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
 
-        val pInfo = applicationContext.packageManager.getPackageInfo(applicationContext.packageName, 0)
+        //RESET LIBRARY CATEGORIES
+        /*val pInfo = applicationContext.packageManager.getPackageInfo(applicationContext.packageName, 0)
         val currentVersion = PackageInfoCompat.getLongVersionCode(pInfo)
         if (currentVersion > lastVersion) {
             val i = 0
@@ -139,7 +136,7 @@ class MainActivity : AbsCastActivity() {
                 }
             }
             lastVersion = currentVersion
-        }
+        }*/
     }
 
     @SuppressLint("RestrictedApi")
@@ -189,9 +186,11 @@ class MainActivity : AbsCastActivity() {
                     // Show Bottom Navigation Bar
                     setBottomNavVisibility(visible = true, animate = true, hideBottomSheet = false)
                 }
+
                 R.id.playing_queue_fragment -> {
                     setBottomNavVisibility(visible = true, hideBottomSheet = true)
                 }
+
                 R.id.action_settings_fragment -> {
                     setBottomNavVisibility(
                         visible = false,
@@ -199,6 +198,7 @@ class MainActivity : AbsCastActivity() {
                         hideBottomSheet = false
                     )
                 }
+
                 R.id.action_queue_fragment -> {
                     setBottomNavVisibility(
                         visible = true,
@@ -206,6 +206,7 @@ class MainActivity : AbsCastActivity() {
                         hideBottomSheet = false
                     )
                 }
+
                 else -> setBottomNavVisibility(
                     visible = false,
                     animate = true
@@ -224,7 +225,7 @@ class MainActivity : AbsCastActivity() {
         super.onNewIntent(intent)
         val expand = if (PreferenceUtil.isExpandPanel == "enhanced") {
             intent?.getBooleanExtra(EXPAND_PANEL, PreferenceUtil.isExpandPanel == "enhanced")
-        }else {
+        } else {
             intent?.extra<Boolean>(EXPAND_PANEL)?.value ?: false
         }
 
@@ -253,7 +254,7 @@ class MainActivity : AbsCastActivity() {
                 overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
                 startActivity(intent)
                 overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0)
-            }else {
+            } else {
                 finish()
                 overridePendingTransition(0, 0)
                 startActivity(intent)
@@ -265,11 +266,11 @@ class MainActivity : AbsCastActivity() {
         requestedOrientation = if (ApexUtil.isTablet) {
             if (PreferenceUtil.isAutoRotate) {
                 ActivityInfo.SCREEN_ORIENTATION_SENSOR
-            }else {
+            } else {
                 ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
-        }else {
-            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
     }
 

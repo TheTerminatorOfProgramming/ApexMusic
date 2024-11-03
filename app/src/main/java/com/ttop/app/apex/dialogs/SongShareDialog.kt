@@ -31,7 +31,8 @@ import com.ttop.app.apex.util.MusicUtil
 
 class SongShareDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val song: Song? = BundleCompat.getParcelable(requireArguments(), EXTRA_SONG, Song::class.java)
+        val song: Song? =
+            BundleCompat.getParcelable(requireArguments(), EXTRA_SONG, Song::class.java)
         val listening: String =
             String.format(
                 getString(R.string.currently_listening_to_x_by_x),
@@ -66,6 +67,7 @@ class SongShareDialog : DialogFragment() {
                     )
                 }, null))
             }
+
             1 -> {
                 startActivity(
                     Intent.createChooser(
@@ -77,6 +79,7 @@ class SongShareDialog : DialogFragment() {
                     )
                 )
             }
+
             2 -> {
                 if (song != null) {
                     startActivity(

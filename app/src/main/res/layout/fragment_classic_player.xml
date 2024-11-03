@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar" />
 
-    <com.ttop.app.fastscroller.FastScrollNestedScrollView
+    <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
         android:id="@+id/scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -51,7 +51,7 @@
             android:background="@color/transparent"
             android:paddingStart="4dp"
             android:paddingEnd="5dp" />
-    </com.ttop.app.fastscroller.FastScrollNestedScrollView>
+    </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"

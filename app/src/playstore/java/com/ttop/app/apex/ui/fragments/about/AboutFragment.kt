@@ -18,7 +18,9 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.*
+import android.os.Bundle
+import android.os.PowerManager
+import android.os.Process
 import android.provider.Settings
 import android.view.View
 import androidx.core.app.ShareCompat
@@ -33,16 +35,17 @@ import com.ttop.app.apex.adapter.ContributorAdapter
 import com.ttop.app.apex.databinding.FragmentAboutBinding
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.ui.activities.AppIntroActivityAbout
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
-import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     private var _binding: FragmentAboutBinding? = null
@@ -89,6 +92,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardPermissions.ringtonePermission.setOnClickListener(this)
         binding.aboutContent.cardPermissions.intro.setOnClickListener(this)
         binding.aboutContent.cardTroubleshoot.forceClose.setOnClickListener(this)
+        binding.aboutContent.cardApexInfo.telegramLink.setOnClickListener(this)
         binding.aboutContent.cardApexInfo.crowdinLink.setOnClickListener(this)
     }
 
@@ -104,10 +108,11 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
             R.id.ringtone_permission -> {
                 if (!ApexUtil.hasAudioPermission()) {
                     ApexUtil.enableAudioPermission(requireContext())
-                }else {
+                } else {
                     showToast(R.string.permission_granted)
                 }
             }
+
             R.id.battery_permission_title -> ApexUtil.disableBatteryOptimization()
             R.id.intro -> startActivity(
                 Intent(
@@ -115,15 +120,22 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     AppIntroActivityAbout::class.java
                 )
             )
+
             R.id.force_close -> {
                 val id = Process.myPid()
                 Process.killProcess(id)
             }
+
             R.id.telegramLink -> {
                 goToTelegramGroup()
             }
+
             R.id.crowdinLink -> {
                 goToCrowdin()
+            }
+
+            R.id.discordLink -> {
+                goToDiscordGroup()
             }
         }
     }
@@ -144,11 +156,22 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         }
     }
 
+    private fun goToDiscordGroup() {
+        try {
+            val discordIntent = Intent(Intent.ACTION_VIEW)
+            discordIntent.data = Uri.parse("https://discord.gg/fxNbXs5AgX")
+            startActivity(discordIntent)
+        } catch (e: Exception) {
+            showToast(e.message.toString())
+        }
+    }
+
     private fun goToCrowdin() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("https://crowdin.com/project/apexmusic")
         startActivity(intent)
     }
+
     private fun getAppVersion(): String {
         val c = Calendar.getInstance().time
         val df = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
@@ -160,7 +183,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                 return requireContext().packageManager.getPackageInfo(
                     requireContext().packageName,
                     0
-                ).versionName + " " + getString(R.string.play_store_edition_debug) +  " " + formattedDate + "_" + formattedTime
+                ).versionName + " " + getString(R.string.play_store_edition_debug) + " " + formattedDate + "_" + formattedTime
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
@@ -170,11 +193,11 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
                     return requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
                         0
-                    ).versionName+ " " + getString(R.string.play_store_edition_preview)
+                    ).versionName + " " + getString(R.string.play_store_edition_preview)
                 } catch (e: PackageManager.NameNotFoundException) {
                     e.printStackTrace()
                 }
-            }else {
+            } else {
                 try {
                     return requireContext().packageManager.getPackageInfo(
                         requireContext().packageName,
@@ -221,27 +244,42 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
     private fun checkStoragePermission(): String {
         return if (VersionUtils.hasT()) {
-            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_MEDIA_AUDIO) }
+            if (activity?.let {
+                    ContextCompat.checkSelfPermission(
+                        it,
+                        Manifest.permission.READ_MEDIA_AUDIO
+                    )
+                }
                 == PackageManager.PERMISSION_GRANTED) {
                 getString(R.string.granted) + " ✅"
-            }else{
+            } else {
                 getString(R.string.denied) + " ❌"
             }
         } else {
-            if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) }
+            if (activity?.let {
+                    ContextCompat.checkSelfPermission(
+                        it,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                }
                 == PackageManager.PERMISSION_GRANTED) {
                 getString(R.string.granted) + " ✅"
-            }else{
+            } else {
                 getString(R.string.denied) + " ❌"
             }
         }
     }
 
     private fun checkBtPermission(): String {
-        return if (activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) }
+        return if (activity?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                )
+            }
             == PackageManager.PERMISSION_GRANTED) {
             getString(R.string.granted) + " ✅"
-        }else{
+        } else {
             getString(R.string.denied) + " ❌"
         }
     }

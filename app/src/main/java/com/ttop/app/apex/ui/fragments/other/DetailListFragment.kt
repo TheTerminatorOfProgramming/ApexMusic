@@ -76,6 +76,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
                 enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
                 returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
             }
+
             else -> {
                 enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
                 returnTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
@@ -100,6 +101,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
                 loadHistory()
                 showClearHistoryOption = true // Reference to onCreateOptionsMenu
             }
+
             LAST_ADDED_PLAYLIST -> lastAddedSongs()
             TOP_PLAYED_PLAYLIST -> topPlayed()
         }

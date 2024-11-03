@@ -37,12 +37,11 @@ import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ThemedFastScroller
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
-class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_playing_queue){
+class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_playing_queue) {
 
     private var _binding: FragmentNavPlayingQueueBinding? = null
     private val binding get() = _binding!!
@@ -60,7 +59,7 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentNavPlayingQueueBinding.bind(view)
-        if(activity?.supportFragmentManager?.isStateSaved?.not() == true){
+        if (activity?.supportFragmentManager?.isStateSaved?.not() == true) {
             setupToolbar()
             setUpRecyclerView()
 
@@ -71,8 +70,9 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
                     libraryViewModel.shuffleSongs()
                 }
             }
-        }else {
-            val currentFragment: Fragment? = activity?.supportFragmentManager?.findFragmentById(R.id.fragment_container)
+        } else {
+            val currentFragment: Fragment? =
+                activity?.supportFragmentManager?.findFragmentById(R.id.fragment_container)
             if (currentFragment != null) {
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.detach(currentFragment)?.commitAllowingStateLoss()
@@ -93,20 +93,21 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
         }
 
         binding.shuffleButton.backgroundTintList = ColorStateList.valueOf(accentColor())
-        binding.shuffleButton.imageTintList = ColorStateList.valueOf(ColorUtil.getComplimentColor(accentColor()))
+        binding.shuffleButton.imageTintList =
+            ColorStateList.valueOf(requireContext().darkAccentColor())
 
         libraryViewModel.getFabMargin().observe(viewLifecycleOwner) {
             binding.shuffleButton.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = if (ApexUtil.isTablet) {
                     if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
                         ApexUtil.dpToMargin(74)
-                    }else {
+                    } else {
                         ApexUtil.dpToMargin(10)
                     }
-                }else {
+                } else {
                     if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
                         ApexUtil.dpToMargin(154)
-                    }else {
+                    } else {
                         ApexUtil.dpToMargin(100)
                     }
                 }
@@ -120,13 +121,13 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
             bottomMargin = if (ApexUtil.isTablet) {
                 if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
                     ApexUtil.dpToMargin(64)
-                }else {
+                } else {
                     ApexUtil.dpToMargin(0)
                 }
-            }else {
+            } else {
                 if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
                     ApexUtil.dpToMargin(144)
-                }else {
+                } else {
                     ApexUtil.dpToMargin(80)
                 }
             }
@@ -135,7 +136,8 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        val currentFragment: Fragment? = activity?.supportFragmentManager?.findFragmentById(com.ttop.app.apex.R.id.fragment_container)
+        val currentFragment: Fragment? =
+            activity?.supportFragmentManager?.findFragmentById(R.id.fragment_container)
         if (currentFragment != null) {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.detach(currentFragment)?.commitAllowingStateLoss()
@@ -168,7 +170,10 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
         binding.recyclerView.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
 
         if (PreferenceUtil.scrollbarStyle != "disabled") {
-            ThemedFastScroller.create(binding.recyclerView, PreferenceUtil.scrollbarStyle == "auto_hide")
+            ThemedFastScroller.create(
+                binding.recyclerView,
+                PreferenceUtil.scrollbarStyle == "auto_hide"
+            )
         }
     }
 

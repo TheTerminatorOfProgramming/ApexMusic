@@ -33,8 +33,6 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.glide.ApexGlideExtension
-import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
-import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.glide.BlurTransformation
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
@@ -189,7 +187,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
         binding.previousButton.setOnClickListener {
             if (PreferenceUtil.isAutoplay) {
                 MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-            }else {
+            } else {
                 MusicPlayerRemote.playPreviousSong()
             }
         }
@@ -208,11 +206,11 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     private fun setupTabletMode() {
-        binding.playbackButton?.setOnClickListener{
+        binding.playbackButton.setOnClickListener {
             PlaybackSpeedDialog.newInstance().show(supportFragmentManager, "PLAYBACK_SETTINGS")
         }
 
-        binding.timerButton?.setOnClickListener{
+        binding.timerButton.setOnClickListener {
             SleepTimerDialog().show(supportFragmentManager, "SLEEP_TIMER")
         }
     }
@@ -257,6 +255,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
                 lastPlaybackControlsColor,
                 PorterDuff.Mode.SRC_IN
             )
+
             else -> binding.shuffleButton.setColorFilter(
                 lastDisabledPlaybackControlsColor,
                 PorterDuff.Mode.SRC_IN
@@ -273,6 +272,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
                     PorterDuff.Mode.SRC_IN
                 )
             }
+
             MusicService.REPEAT_MODE_ALL -> {
                 binding.repeatButton.setImageResource(R.drawable.ic_repeat)
                 binding.repeatButton.setColorFilter(
@@ -280,6 +280,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
                     PorterDuff.Mode.SRC_IN
                 )
             }
+
             MusicService.REPEAT_MODE_THIS -> {
                 binding.repeatButton.setImageResource(R.drawable.ic_repeat_one)
                 binding.repeatButton.setColorFilter(
@@ -314,20 +315,20 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
-            seekBar.max = total
+        seekBar.max = total
 
-            if (isSeeking) {
-                seekBar.progress = progress
-            } else {
-                progressAnimator =
-                    ObjectAnimator.ofInt(seekBar, "progress", progress).apply {
-                        duration = AbsPlayerControlsFragment.SLIDER_ANIMATION_TIME
-                        interpolator = LinearInterpolator()
-                        start()
-                    }
-            }
-            binding.songTotalTime.text = MusicUtil.getReadableDurationString(total.toLong())
-            binding.songCurrentProgress.text = MusicUtil.getReadableDurationString(progress.toLong())
+        if (isSeeking) {
+            seekBar.progress = progress
+        } else {
+            progressAnimator =
+                ObjectAnimator.ofInt(seekBar, "progress", progress).apply {
+                    duration = AbsPlayerControlsFragment.SLIDER_ANIMATION_TIME
+                    interpolator = LinearInterpolator()
+                    start()
+                }
+        }
+        binding.songTotalTime.text = MusicUtil.getReadableDurationString(total.toLong())
+        binding.songCurrentProgress.text = MusicUtil.getReadableDurationString(progress.toLong())
 
         binding.songTotalTime.text = MusicUtil.getReadableDurationString(total.toLong())
         binding.songCurrentProgress.text = MusicUtil.getReadableDurationString(progress.toLong())

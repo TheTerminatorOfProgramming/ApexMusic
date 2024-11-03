@@ -41,9 +41,15 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivitySongTagEditorBinding
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.extensions.appHandleColor
+import com.ttop.app.apex.extensions.defaultFooterColor
+import com.ttop.app.apex.extensions.isColorLight
+import com.ttop.app.apex.extensions.setTint
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.repository.SongRepository
 import com.ttop.app.apex.ui.fragments.search.clearText
@@ -52,12 +58,11 @@ import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import com.xeinebiu.lyrics_finder.LyricsFinder
 import kotlinx.coroutines.launch
 import org.jaudiotagger.tag.FieldKey
 import org.koin.android.ext.android.inject
-import java.util.*
+import java.util.EnumMap
 
 
 class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>() {
@@ -96,13 +101,15 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
                 }
 
                 builder.setNegativeButton(R.string.id3_tags) { _, _ ->
-                    val query = binding.songText.text.toString() + " " + binding.artistText.text.toString()
+                    val query =
+                        binding.songText.text.toString() + " " + binding.artistText.text.toString()
 
                     lifecycleScope.launch {
                         binding.lyricsText.clearText()
                         val lyrics = lyricsFinder.find(query)
                         var modifiedLyrics = lyrics.toString()
-                        modifiedLyrics = modifiedLyrics.replace("\\[.+\\]\\s?".toRegex(), "\n").trim()
+                        modifiedLyrics =
+                            modifiedLyrics.replace("\\[.+\\]\\s?".toRegex(), "\n").trim()
                         modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n\n").trim()
                         modifiedLyrics = modifiedLyrics.replace("\n\n\n", "\n").trim()
                         binding.lyricsText.setText(modifiedLyrics)
@@ -175,7 +182,7 @@ class SongTagEditorActivity : AbsTagEditorActivity<ActivitySongTagEditorBinding>
         return super.onOptionsItemSelected(item)
     }
 
-    fun showdialog(){
+    fun showdialog() {
         val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
         builder.setTitle(R.string.title)
 

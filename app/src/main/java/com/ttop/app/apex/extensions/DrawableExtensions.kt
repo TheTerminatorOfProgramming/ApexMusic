@@ -19,6 +19,10 @@ import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toBitmap
 
 fun Drawable.toBitmap(scaleFactor: Float, config: Bitmap.Config? = null): Bitmap {
-    return toBitmap((intrinsicHeight*scaleFactor).toInt(), (intrinsicWidth*scaleFactor).toInt(), config)
+    return toBitmap(
+        (intrinsicHeight * scaleFactor).toInt(),
+        (intrinsicWidth * scaleFactor).toInt(),
+        config
+    )
 }
 

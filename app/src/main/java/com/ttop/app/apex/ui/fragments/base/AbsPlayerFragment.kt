@@ -24,7 +24,11 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.*
+import android.view.GestureDetector
+import android.view.HapticFeedbackConstants
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -41,8 +45,24 @@ import com.ttop.app.apex.EXTRA_ARTIST_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.db.toSongEntity
-import com.ttop.app.apex.dialogs.*
-import com.ttop.app.apex.extensions.*
+import com.ttop.app.apex.dialogs.AddToPlaylistDialog
+import com.ttop.app.apex.dialogs.CreatePlaylistDialog
+import com.ttop.app.apex.dialogs.DeleteSongsDialog
+import com.ttop.app.apex.dialogs.PlaybackSpeedDialog
+import com.ttop.app.apex.dialogs.SleepTimerDialog
+import com.ttop.app.apex.dialogs.SongDetailDialog
+import com.ttop.app.apex.dialogs.SongShareDialog
+import com.ttop.app.apex.dialogs.VolumeDialog
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.accentTextColor
+import com.ttop.app.apex.extensions.currentFragment
+import com.ttop.app.apex.extensions.getTintedDrawable
+import com.ttop.app.apex.extensions.hide
+import com.ttop.app.apex.extensions.keepScreenOn
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.whichFragment
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IPaletteColorHolder
 import com.ttop.app.apex.model.Song
@@ -70,7 +90,8 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.math.abs
 
 abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout),
-    Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks, LRCFragment.Callbacks {
+    Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks,
+    LRCFragment.Callbacks {
 
     val libraryViewModel: LibraryViewModel by activityViewModel()
 
@@ -121,10 +142,12 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
                 return true
             }
+
             R.id.action_go_to_lyrics -> {
                 goToLyrics()
                 return true
             }
+
             R.id.action_toggle_favorite -> {
                 toggleFavorite(song)
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
@@ -132,18 +155,22 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
                 return true
             }
+
             R.id.action_share -> {
                 SongShareDialog.create(song).show(childFragmentManager, "SHARE_SONG")
                 return true
             }
+
             R.id.action_go_to_drive_mode -> {
                 NavigationUtil.gotoDriveMode(requireActivity())
                 return true
             }
+
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(song).show(childFragmentManager, "DELETE_SONGS")
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 lifecycleScope.launch(IO) {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -154,25 +181,30 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 }
                 return true
             }
+
             R.id.action_clear_playing_queue -> {
                 MusicPlayerRemote.clearQueue()
                 return true
             }
+
             R.id.action_save_playing_queue -> {
                 CreatePlaylistDialog.create(ArrayList(MusicPlayerRemote.playingQueue))
                     .show(childFragmentManager, "ADD_TO_PLAYLIST")
                 return true
             }
+
             R.id.action_tag_editor -> {
                 val intent = Intent(activity, SongTagEditorActivity::class.java)
                 intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id)
                 startActivity(intent)
                 return true
             }
+
             R.id.action_details -> {
                 SongDetailDialog.create(song).show(childFragmentManager, "SONG_DETAIL")
                 return true
             }
+
             R.id.action_go_to_album -> {
                 //Hide Bottom Bar First, else Bottom Sheet doesn't collapse fully
                 mainActivity.setBottomNavVisibility(false)
@@ -183,10 +215,12 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 )
                 return true
             }
+
             R.id.action_go_to_artist -> {
                 goToArtist(requireActivity())
                 return true
             }
+
             R.id.now_playing -> {
                 requireActivity().findNavController(R.id.fragment_container).navigate(
                     R.id.playing_queue_fragment,
@@ -196,14 +230,17 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 mainActivity.collapsePanel()
                 return true
             }
+
             R.id.action_equalizer -> {
                 NavigationUtil.openEqualizer(requireActivity())
                 return true
             }
+
             R.id.action_sleep_timer -> {
                 SleepTimerDialog().show(parentFragmentManager, "SLEEP_TIMER")
                 return true
             }
+
             R.id.action_set_as_ringtone -> {
                 requireContext().run {
                     if (RingtoneManager.requiresDialog(this)) {
@@ -215,6 +252,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
                 return true
             }
+
             R.id.action_go_to_genre -> {
                 val retriever = MediaMetadataRetriever()
                 val trackUri =
@@ -231,22 +269,25 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 showToast(genre)
                 return true
             }
+
             R.id.action_fast_forward -> {
-                if (MusicPlayerRemote.songDurationMillis - MusicPlayerRemote.songProgressMillis > 10000){
+                if (MusicPlayerRemote.songDurationMillis - MusicPlayerRemote.songProgressMillis > 10000) {
                     MusicPlayerRemote.pauseSong()
                     MusicPlayerRemote.seekTo(MusicPlayerRemote.songProgressMillis + 10000)
                     MusicPlayerRemote.resumePlaying()
                 }
                 return true
             }
+
             R.id.action_rewind -> {
-                if (MusicPlayerRemote.songProgressMillis > 10000){
+                if (MusicPlayerRemote.songProgressMillis > 10000) {
                     MusicPlayerRemote.pauseSong()
                     MusicPlayerRemote.seekTo(MusicPlayerRemote.songProgressMillis - 10000)
                     MusicPlayerRemote.resumePlaying()
                 }
                 return true
             }
+
             R.id.action_volume -> {
                 VolumeDialog.newInstance().show(childFragmentManager, "VOLUME")
                 return true
@@ -349,6 +390,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
+
             NowPlayingScreen.Blur -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 if (ApexUtil.isTablet) {
@@ -357,16 +399,19 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
+
             NowPlayingScreen.Card -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
+
             NowPlayingScreen.Gradient -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
+
             NowPlayingScreen.Classic -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 if (ApexUtil.isTablet) {
@@ -375,14 +420,15 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
+
             NowPlayingScreen.Peek -> {
                 if (ApexUtil.isTablet) {
                     playerToolbar()?.menu?.removeItem(R.id.action_queue)
                     playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                }else {
+                } else {
                     if (ApexUtil.isLandscape) {
                         playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                    }else {
+                    } else {
                         playerToolbar()?.menu?.removeItem(R.id.now_playing)
                     }
                 }
@@ -390,6 +436,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
+
             NowPlayingScreen.Live -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
@@ -398,6 +445,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
+
             NowPlayingScreen.Minimal -> {
                 playerToolbar()?.menu?.removeItem(R.id.action_queue)
             }
@@ -408,7 +456,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         super.onStart()
         if (ApexUtil.isFoldable(requireContext())) {
             addSwipeDetector()
-        }else {
+        } else {
             addSwipeDetectorNonFoldable()
         }
     }
@@ -421,17 +469,17 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     playerAlbumCoverFragment?.viewPager,
                     requireView()
                 )
-            } else if (PreferenceUtil.swipeAnywhereToChangeSong == "tab"){
+            } else if (PreferenceUtil.swipeAnywhereToChangeSong == "tab") {
                 if (ApexUtil.isTablet) {
                     SwipeDetector(
                         requireContext(),
                         playerAlbumCoverFragment?.viewPager,
                         requireView()
                     )
-                }else {
+                } else {
                     null
                 }
-            }else {
+            } else {
                 null
             }
         )
@@ -445,7 +493,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                     playerAlbumCoverFragment?.viewPager,
                     requireView()
                 )
-            }else {
+            } else {
                 null
             }
         )
@@ -469,6 +517,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                             view.parent.requestDisallowInterceptTouchEvent(true)
                             true
                         }
+
                         else -> {
                             false
                         }

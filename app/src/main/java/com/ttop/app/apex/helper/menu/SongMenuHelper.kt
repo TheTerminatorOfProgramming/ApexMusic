@@ -61,6 +61,7 @@ object SongMenuHelper : KoinComponent {
                 }
                 return true
             }
+
             R.id.action_share -> {
                 activity.startActivity(
                     Intent.createChooser(
@@ -70,10 +71,12 @@ object SongMenuHelper : KoinComponent {
                 )
                 return true
             }
+
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(song).show(activity.supportFragmentManager, "DELETE_SONGS")
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 CoroutineScope(Dispatchers.IO).launch {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -84,14 +87,17 @@ object SongMenuHelper : KoinComponent {
                 }
                 return true
             }
+
             R.id.action_play_next -> {
                 MusicPlayerRemote.playNext(song)
                 return true
             }
+
             R.id.action_add_to_current_playing -> {
                 MusicPlayerRemote.enqueue(song)
                 return true
             }
+
             R.id.action_tag_editor -> {
                 val tagEditorIntent = Intent(activity, SongTagEditorActivity::class.java)
                 tagEditorIntent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id)
@@ -103,10 +109,12 @@ object SongMenuHelper : KoinComponent {
                 activity.startActivity(tagEditorIntent)
                 return true
             }
+
             R.id.action_details -> {
                 SongDetailDialog.create(song).show(activity.supportFragmentManager, "SONG_DETAILS")
                 return true
             }
+
             R.id.action_go_to_album -> {
                 activity.findNavController(R.id.fragment_container).navigate(
                     R.id.albumDetailsFragment,
@@ -114,6 +122,7 @@ object SongMenuHelper : KoinComponent {
                 )
                 return true
             }
+
             R.id.action_go_to_artist -> {
                 activity.findNavController(R.id.fragment_container).navigate(
                     R.id.artistDetailsFragment,
@@ -121,6 +130,7 @@ object SongMenuHelper : KoinComponent {
                 )
                 return true
             }
+
             R.id.action_add_to_blacklist -> {
                 BlacklistStore.getInstance(activity).addPath(File(song.data))
                 libraryViewModel.forceReload(ReloadType.Songs)

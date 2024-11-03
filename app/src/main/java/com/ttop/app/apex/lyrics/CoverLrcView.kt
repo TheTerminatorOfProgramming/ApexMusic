@@ -18,7 +18,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Looper
 import android.text.Layout
@@ -34,12 +33,18 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.Scroller
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.graphics.withSave
 import com.ttop.app.apex.R
 import com.ttop.app.apex.util.PreferenceUtil
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
-import java.lang.Runnable
 import kotlin.math.abs
 
 @SuppressLint("StaticFieldLeak")
@@ -179,7 +184,7 @@ class CoverLrcView @JvmOverloads constructor(
 
                     PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
                     PreferenceUtil.showLyricsTablet = PreferenceUtil.showLyrics
-                }else {
+                } else {
                     if (!PreferenceUtil.isHapticFeedbackDisabled) {
                         rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                     }
@@ -292,7 +297,10 @@ class CoverLrcView @JvmOverloads constructor(
     }
 
     fun setPlayDrawableColor(normalColor: Int) {
-        mPlayDrawable?.setColorFilter(normalColor, PorterDuff.Mode.SRC_IN)
+        mPlayDrawable?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            normalColor,
+            SRC_IN
+        )
         postInvalidate()
     }
 

@@ -4,7 +4,11 @@ import androidx.core.net.toUri
 import com.google.android.gms.cast.MediaInfo
 import com.google.android.gms.cast.MediaInfo.STREAM_TYPE_BUFFERED
 import com.google.android.gms.cast.MediaMetadata
-import com.google.android.gms.cast.MediaMetadata.*
+import com.google.android.gms.cast.MediaMetadata.KEY_ALBUM_TITLE
+import com.google.android.gms.cast.MediaMetadata.KEY_ARTIST
+import com.google.android.gms.cast.MediaMetadata.KEY_TITLE
+import com.google.android.gms.cast.MediaMetadata.KEY_TRACK_NUMBER
+import com.google.android.gms.cast.MediaMetadata.MEDIA_TYPE_MUSIC_TRACK
 import com.google.android.gms.common.images.WebImage
 import com.ttop.app.apex.cast.ApexWebServer.Companion.MIME_TYPE_AUDIO
 import com.ttop.app.apex.cast.ApexWebServer.Companion.PART_COVER_ART

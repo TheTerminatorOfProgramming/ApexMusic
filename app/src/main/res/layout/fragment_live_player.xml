@@ -36,12 +36,13 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
         app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment">
+
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="1dp"
             android:orientation="horizontal"
             android:id="@+id/middle_guideline"
             app:layout_constraintGuide_percent="0.6"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <View
             android:id="@+id/border"
@@ -49,8 +50,7 @@
             android:layout_height="1dp"
             app:layout_constraintTop_toTopOf="@id/middle_guideline"
             app:layout_constraintBottom_toBottomOf="@id/middle_guideline"
-            android:background="@color/md_white_1000"
-            />
+            android:background="@color/md_white_1000" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/playerAlbumCoverFragment"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/middle_guideline"
-            app:layout_constraintBottom_toBottomOf="@id/lyricsQueue"/>
+            app:layout_constraintBottom_toBottomOf="@id/lyricsQueue" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/playerQueueSheet"
@@ -117,10 +117,10 @@
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black"
-        app:subtitleTextAppearance="@style/TextViewCaption"
+        app:subtitleTextAppearance="@style/TextViewSubtitle5"
         app:titleMargin="0dp"
         app:titleMarginStart="0dp"
-        app:titleTextAppearance="@style/TextViewSubtitle1"
+        app:titleTextAppearance="@style/TextViewSubtitle5"
         tools:subtitle="@tools:sample/full_names"
         tools:title="@tools:sample/full_names" />
 

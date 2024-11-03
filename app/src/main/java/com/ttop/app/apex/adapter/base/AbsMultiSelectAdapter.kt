@@ -1,7 +1,6 @@
 package com.ttop.app.apex.adapter.base
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
@@ -43,7 +42,7 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         clearChecked()
-        activity.window.statusBarColor = Color.TRANSPARENT
+        //activity.window.statusBarColor = Color.TRANSPARENT
         actionMode = null
         onBackPressedCallback.remove()
     }
@@ -107,6 +106,7 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
             size <= 0 -> {
                 actionMode?.finish()
             }
+
             else -> {
                 actionMode?.customView?.findViewById<NumberRollView>(R.id.selection_mode_number)
                     ?.setNumber(size, true)

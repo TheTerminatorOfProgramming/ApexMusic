@@ -6,22 +6,22 @@ import com.ttop.app.apex.INTRO_SHOWN
 import com.ttop.app.apex.INTRO_SLIDES_SHOWN
 
 class IntroPrefs(context: Context) {
-    private val sharedPreferences = context.getSharedPreferences("IntroPrefs",Context.MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences("IntroPrefs", Context.MODE_PRIVATE)
 
     var hasIntroSlidesShown
         get() = sharedPreferences.getBoolean(
             INTRO_SLIDES_SHOWN, false
         )
-
         set(value) = sharedPreferences.edit {
-            putBoolean(INTRO_SLIDES_SHOWN, value)}
+            putBoolean(INTRO_SLIDES_SHOWN, value)
+        }
 
     var hasIntroShown
         get() = sharedPreferences.getBoolean(
             INTRO_SHOWN, false
         )
-
         set(value) = sharedPreferences.edit {
-            putBoolean(INTRO_SHOWN, value)}
+            putBoolean(INTRO_SHOWN, value)
+        }
 
 }

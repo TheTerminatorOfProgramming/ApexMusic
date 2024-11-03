@@ -41,6 +41,8 @@ import com.ttop.app.apex.SCREEN_ON_LYRICS
 import com.ttop.app.apex.SHUFFLE_STATE
 import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TOGGLE_AUTOPLAY
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
@@ -51,8 +53,6 @@ import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 
 class NowPlayingSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -103,7 +103,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             val npsList = listOf(Adaptive, Card, Classic, Live)
             val blackNavBar: ATESwitchPreference? = findPreference(NAV_BAR_BLACK)
 
-            blackNavBar?.isEnabled = PreferenceUtil.isBlackMode && adaptiveColorEnabled && npsList.contains(nps)
+            blackNavBar?.isEnabled =
+                PreferenceUtil.isBlackMode && adaptiveColorEnabled && npsList.contains(nps)
             true
         }
 
@@ -137,7 +138,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         val durationSame: ATESwitchPreference? = findPreference(DURATION_SAME)
         if (PreferenceUtil.isDurationSame) {
-            PreferenceUtil.rewindDuration =  PreferenceUtil.fastForwardDuration
+            PreferenceUtil.rewindDuration = PreferenceUtil.fastForwardDuration
         }
         rwdDuration?.isEnabled = !PreferenceUtil.isDurationSame
 
@@ -148,13 +149,14 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
             val enabled = newValue as Boolean
 
-            PreferenceUtil.rewindDuration =  PreferenceUtil.fastForwardDuration
+            PreferenceUtil.rewindDuration = PreferenceUtil.fastForwardDuration
             rwdDuration?.isEnabled = !enabled
 
             true
         }
 
-        val swipeAnywhereNonFoldable: ATESwitchPreference? = findPreference(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE)
+        val swipeAnywhereNonFoldable: ATESwitchPreference? =
+            findPreference(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE)
         swipeAnywhereNonFoldable?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -195,7 +197,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
         if (PreferenceUtil.isBlackMode && PreferenceUtil.isAdaptiveColor && npsList.contains(nps)) {
             blackNavBar?.isEnabled = true
-        }else {
+        } else {
             blackNavBar?.isEnabled = false
             blackNavBar?.isChecked = false
         }
@@ -205,7 +207,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (ApexUtil.isFoldable(requireContext())) {
             addPreferencesFromResource(R.xml.pref_now_playing_screen_foldable)
-        }else {
+        } else {
             addPreferencesFromResource(R.xml.pref_now_playing_screen)
         }
 
@@ -231,6 +233,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
             }
+
             Blur -> {
                 adaptiveColor?.isEnabled = false
                 adaptiveColor?.isChecked = false
@@ -242,6 +245,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
+
             Card -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = false
@@ -253,6 +257,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
+
             Classic -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = true
@@ -261,6 +266,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
+
             Gradient -> {
                 adaptiveColor?.isEnabled = false
                 adaptiveColor?.isChecked = false
@@ -273,6 +279,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
+
             Live -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = true
@@ -281,6 +288,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = true
                 PreferenceUtil.customToolbarAction = "disabled"
             }
+
             Minimal -> {
                 adaptiveColor?.isEnabled = false
                 adaptiveColor?.isChecked = false
@@ -293,6 +301,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
+
             Peek -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = true
@@ -331,6 +340,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
             }
+
             Blur -> {
                 adaptiveColor?.isEnabled = false
                 adaptiveColor?.isChecked = false
@@ -342,6 +352,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
+
             Card -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = false
@@ -353,6 +364,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
+
             Classic -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = true
@@ -361,6 +373,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
+
             Gradient -> {
                 adaptiveColor?.isEnabled = false
                 adaptiveColor?.isChecked = false
@@ -373,6 +386,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
+
             Live -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = true
@@ -381,6 +395,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = true
                 customToolbar?.isEnabled = true
             }
+
             Minimal -> {
                 adaptiveColor?.isEnabled = false
                 adaptiveColor?.isChecked = false
@@ -393,6 +408,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 carouselEffect?.isEnabled = false
                 customToolbar?.isEnabled = true
             }
+
             Peek -> {
                 adaptiveColor?.isEnabled = true
                 playerBG?.isEnabled = true
@@ -427,6 +443,7 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             NOW_PLAYING_SCREEN_ID -> {
                 updateNowPlayingScreenSummary()
             }
+
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
         }

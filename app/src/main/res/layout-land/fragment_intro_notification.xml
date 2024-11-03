@@ -22,7 +22,7 @@
         app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintVertical_weight="2"
         android:text="@string/notification_title"
-        android:textColor="@color/md_white_1000"/>
+        android:textColor="@color/md_white_1000" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageLayout"

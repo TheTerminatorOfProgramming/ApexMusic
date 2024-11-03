@@ -7,12 +7,16 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
-import androidx.core.view.*
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.FragmentActivity
 import com.ttop.app.apex.R
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 fun AppCompatActivity.maybeSetScreenOn() {
     if (PreferenceUtil.isScreenOnEnabled) {
@@ -92,7 +96,7 @@ fun AppCompatActivity.setDrawBehindSystemBars() {
 fun FragmentActivity.setTaskDescriptionColor(color: Int) {
     var colorFinal = color
     // Task description requires fully opaque color
-    colorFinal = ColorUtil.stripAlpha(colorFinal)
+    colorFinal = ATHColorUtil.stripAlpha(colorFinal)
     // Sets color of entry in the system overview screen
 
     if (VersionUtils.hasT()) {
@@ -103,7 +107,7 @@ fun FragmentActivity.setTaskDescriptionColor(color: Int) {
             .build()
 
         setTaskDescription(td)
-    }else {
+    } else {
         setTaskDescription(
             ActivityManager.TaskDescription(
                 title as String?,

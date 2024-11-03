@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="elevationOverlay">@color/elevationOverlayDark</color>
+    <color name="day_night">@color/md_white_1000</color>
+    <color name="day_night_reversed">@color/md_black_1000</color>
 </resources>

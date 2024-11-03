@@ -30,14 +30,13 @@ import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
 import com.ttop.app.apex.extensions.centeredColorButtons
-
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.values
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 class NowPlayingScreenPreference @JvmOverloads constructor(
     context: Context,
@@ -77,7 +76,7 @@ class NowPlayingScreenPreferenceDialog : DialogFragment(), ViewPager.OnPageChang
         val view = layoutInflater
             .inflate(R.layout.preference_dialog_now_playing_screen, null)
         val viewPager = view.findViewById<ViewPager>(R.id.now_playing_screen_view_pager)
-            ?: throw  IllegalStateException("Dialog view must contain a ViewPager with id 'now_playing_screen_view_pager'")
+            ?: throw IllegalStateException("Dialog view must contain a ViewPager with id 'now_playing_screen_view_pager'")
         viewPager.adapter = NowPlayingScreenAdapter(requireContext())
         viewPager.addOnPageChangeListener(this)
         viewPager.pageMargin = ViewUtil.convertDpToPixel(32f, resources).toInt()
@@ -112,7 +111,7 @@ private class NowPlayingScreenAdapter(private val context: Context) : PagerAdapt
         binding.title.setText(nowPlayingScreen.titleRes)
         if (ApexUtil.isTablet) {
             binding.title.textSize = 28f
-        }else {
+        } else {
             binding.title.textSize = 22f
         }
         return binding.root

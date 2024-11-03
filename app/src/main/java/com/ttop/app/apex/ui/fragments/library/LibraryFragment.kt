@@ -19,6 +19,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.text.parseAsHtml
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -27,16 +29,17 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentLibraryBinding
 import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.extensions.whichFragment
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
 
@@ -52,13 +55,21 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
         mainActivity.supportActionBar?.title = null
         binding.toolbar.navigationIcon = if (PreferenceUtil.isVoiceSearch) {
             getDrawableCompat(R.drawable.ic_voice)
-        }else {
+        } else {
             getDrawableCompat(R.drawable.ic_search)
         }
+
         binding.toolbar.setNavigationOnClickListener {
             PreferenceUtil.isSearchFromNavigation = true
             findNavController().navigate(R.id.action_search, null, navOptions)
         }
+
+        binding.toolbar.navigationIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+
         setupNavigationController()
         setupTitle()
     }
@@ -88,7 +99,18 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(requireActivity(), binding.toolbar)
+        //ToolbarContentTintHelper.handleOnPrepareOptionsMenu(requireActivity(), binding.toolbar, accentColor())
+        binding.toolbar.overflowIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+        val yourdrawable = menu.findItem(R.id.action_scan).icon // change 0 with 1,2 ...
+        yourdrawable!!.mutate()
+        yourdrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            requireContext().accentColor(),
+            SRC_IN
+        )
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
@@ -105,6 +127,13 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
         if (!ApexUtil.isTablet) {
             menu.removeItem(R.id.action_refresh)
         }
+
+        val yourdrawable = menu.findItem(R.id.action_scan).icon // change 0 with 1,2 ...
+        yourdrawable!!.mutate()
+        yourdrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            requireContext().accentColor(),
+            SRC_IN
+        )
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
@@ -113,6 +142,7 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
                 childFragmentManager,
                 "ImportPlaylist"
             )
+
             R.id.action_add_to_playlist -> CreatePlaylistDialog.create(emptyList()).show(
                 childFragmentManager,
                 "ShowCreatePlaylistDialog"

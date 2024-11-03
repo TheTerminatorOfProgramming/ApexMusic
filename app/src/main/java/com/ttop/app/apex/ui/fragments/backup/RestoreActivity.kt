@@ -12,6 +12,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.DynamicColorsOptions
+import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivityRestoreBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentOutlineColor
@@ -69,7 +70,7 @@ class RestoreActivity : AppCompatActivity() {
             DynamicColors.applyToActivityIfAvailable(
                 this,
                 DynamicColorsOptions.Builder()
-                    .setThemeOverlay(com.google.android.material.R.style.ThemeOverlay_Material3_DynamicColors_DayNight)
+                    .setThemeOverlay(R.style.ThemeOverlay_Material3_DynamicColors_DayNight)
                     .build()
             )
         }
@@ -80,6 +81,7 @@ class RestoreActivity : AppCompatActivity() {
             ContentResolver.SCHEME_FILE -> {
                 return uri.lastPathSegment
             }
+
             ContentResolver.SCHEME_CONTENT -> {
                 val proj = arrayOf(MediaStore.Files.FileColumns.DISPLAY_NAME)
                 contentResolver.query(

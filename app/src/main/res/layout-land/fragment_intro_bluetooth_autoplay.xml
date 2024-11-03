@@ -32,6 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintVertical_weight="5">
+
         <ImageView
             android:id="@+id/image"
             style="@style/AppIntroDefaultImage"

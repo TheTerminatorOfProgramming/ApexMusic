@@ -27,7 +27,14 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ttop.app.apex.*
+import com.ttop.app.apex.EXTRA_ALBUM_ID
+import com.ttop.app.apex.EXTRA_ARTIST_ID
+import com.ttop.app.apex.FAVOURITES
+import com.ttop.app.apex.R
+import com.ttop.app.apex.RECENT_ALBUMS
+import com.ttop.app.apex.RECENT_ARTISTS
+import com.ttop.app.apex.TOP_ALBUMS
+import com.ttop.app.apex.TOP_ARTISTS
 import com.ttop.app.apex.adapter.album.AlbumAdapter
 import com.ttop.app.apex.adapter.artist.ArtistAdapter
 import com.ttop.app.apex.adapter.song.SongAdapter
@@ -76,6 +83,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                     )
                 }
             }
+
             TOP_ALBUMS -> {
                 val viewHolder = holder as AlbumViewHolder
                 viewHolder.bindView(home)
@@ -87,6 +95,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                     )
                 }
             }
+
             RECENT_ARTISTS -> {
                 val viewHolder = holder as ArtistViewHolder
                 viewHolder.bindView(home)
@@ -98,6 +107,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                     )
                 }
             }
+
             TOP_ARTISTS -> {
                 val viewHolder = holder as ArtistViewHolder
                 viewHolder.bindView(home)
@@ -109,6 +119,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                     )
                 }
             }
+
             FAVOURITES -> {
                 val viewHolder = holder as PlaylistViewHolder
                 viewHolder.bindView(home)
@@ -178,7 +189,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
     }
 
     private fun artistsAdapter(artists: List<Artist>) =
-        ArtistAdapter(activity, artists, PreferenceUtil.homeArtistGridStyle,  this)
+        ArtistAdapter(activity, artists, PreferenceUtil.homeArtistGridStyle, this)
 
     private fun albumAdapter(albums: List<Album>) =
         AlbumAdapter(activity, albums, PreferenceUtil.homeAlbumGridStyle, this)

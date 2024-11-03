@@ -64,6 +64,8 @@ import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_DURA
 import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_TRACK_LIST
 import com.ttop.app.apex.helper.SortOrder.AlbumSongSortOrder.Companion.SONG_Z_A
 import com.ttop.app.apex.interfaces.IAlbumClickListener
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.network.Result
@@ -77,8 +79,6 @@ import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.apex.util.logE
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -255,9 +255,11 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
                 is Result.Loading -> {
                     logD("Loading")
                 }
+
                 is Result.Error -> {
                     logE("Error")
                 }
+
                 is Result.Success -> {
                     aboutAlbum(result.data)
                 }
@@ -372,10 +374,12 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
                 MusicPlayerRemote.playNext(songs)
                 return true
             }
+
             R.id.action_add_to_current_playing -> {
                 MusicPlayerRemote.enqueue(songs)
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 lifecycleScope.launch(Dispatchers.IO) {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -386,10 +390,12 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
                 }
                 return true
             }
+
             R.id.action_delete_from_device -> {
                 DeleteSongsDialog.create(songs).show(childFragmentManager, "DELETE_SONGS")
                 return true
             }
+
             R.id.action_tag_editor -> {
                 val intent = Intent(requireContext(), AlbumTagEditorActivity::class.java)
                 intent.putExtra(AbsTagEditorActivity.EXTRA_ID, album.id)
@@ -403,6 +409,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
                 )
                 return true
             }
+
             R.id.action_sort_order_title -> sortOrder = SONG_A_Z
             R.id.action_sort_order_title_desc -> sortOrder = SONG_Z_A
             R.id.action_sort_order_track_list -> sortOrder = SONG_TRACK_LIST
@@ -421,6 +428,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             SONG_Z_A -> sortOrder.findItem(R.id.action_sort_order_title_desc).isChecked = true
             SONG_TRACK_LIST ->
                 sortOrder.findItem(R.id.action_sort_order_track_list).isChecked = true
+
             SONG_DURATION ->
                 sortOrder.findItem(R.id.action_sort_order_artist_song_duration).isChecked = true
         }
@@ -434,19 +442,23 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
                     o2.trackNumber
                 )
             }
+
             SONG_A_Z -> {
                 val collator = Collator.getInstance()
                 album.songs.sortedWith { o1, o2 -> collator.compare(o1.title, o2.title) }
             }
+
             SONG_Z_A -> {
                 val collator = Collator.getInstance()
                 album.songs.sortedWith { o1, o2 -> collator.compare(o2.title, o1.title) }
             }
+
             SONG_DURATION -> album.songs.sortedWith { o1, o2 ->
                 o1.duration.compareTo(
                     o2.duration
                 )
             }
+
             else -> throw IllegalArgumentException("invalid $sortOrder")
         }
         album = album.copy(songs = songs)

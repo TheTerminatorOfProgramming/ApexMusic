@@ -23,11 +23,11 @@ import com.ttop.app.apex.databinding.FragmentHomePlayerBinding
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
 
 class HomePlayerFragment : AbsPlayerFragment(R.layout.fragment_home_player),
     MusicProgressViewUpdateHelper.Callback {

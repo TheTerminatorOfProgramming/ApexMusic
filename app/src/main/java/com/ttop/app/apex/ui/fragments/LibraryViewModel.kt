@@ -17,15 +17,40 @@ package com.ttop.app.apex.ui.fragments
 import android.animation.ValueAnimator
 import android.content.Context
 import androidx.core.animation.doOnEnd
-import androidx.lifecycle.*
-import com.ttop.app.apex.*
-import com.ttop.app.apex.db.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import com.ttop.app.apex.R
+import com.ttop.app.apex.RECENT_ALBUMS
+import com.ttop.app.apex.RECENT_ARTISTS
+import com.ttop.app.apex.TOP_ALBUMS
+import com.ttop.app.apex.TOP_ARTISTS
+import com.ttop.app.apex.db.HistoryEntity
+import com.ttop.app.apex.db.PlaylistEntity
+import com.ttop.app.apex.db.PlaylistWithSongs
+import com.ttop.app.apex.db.SongEntity
+import com.ttop.app.apex.db.toSong
+import com.ttop.app.apex.db.toSongEntity
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IMusicServiceEventListener
-import com.ttop.app.apex.model.*
+import com.ttop.app.apex.model.Album
+import com.ttop.app.apex.model.Artist
+import com.ttop.app.apex.model.Contributor
+import com.ttop.app.apex.model.Genre
+import com.ttop.app.apex.model.Home
+import com.ttop.app.apex.model.Playlist
+import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.repository.RealRepository
-import com.ttop.app.apex.ui.fragments.ReloadType.*
+import com.ttop.app.apex.ui.fragments.ReloadType.Albums
+import com.ttop.app.apex.ui.fragments.ReloadType.Artists
+import com.ttop.app.apex.ui.fragments.ReloadType.Genres
+import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
+import com.ttop.app.apex.ui.fragments.ReloadType.Playlists
+import com.ttop.app.apex.ui.fragments.ReloadType.Songs
+import com.ttop.app.apex.ui.fragments.ReloadType.Suggestions
 import com.ttop.app.apex.ui.fragments.search.Filter
 import com.ttop.app.apex.util.DensityUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -332,8 +357,12 @@ class LibraryViewModel(
                     createPlaylist(PlaylistEntity(playlistName = playlistName))
                 insertSongs(songs.map { it.toSongEntity(playlistId) })
                 withContext(Main) {
-                    context.showToast(context.getString(R.string.playlist_created_sucessfully,
-                        playlistName))
+                    context.showToast(
+                        context.getString(
+                            R.string.playlist_created_sucessfully,
+                            playlistName
+                        )
+                    )
                 }
             } else {
                 val playlist = playlists.firstOrNull()
@@ -349,7 +378,9 @@ class LibraryViewModel(
                     context.getString(
                         R.string.added_song_count_to_playlist,
                         songs.size,
-                        playlistName))
+                        playlistName
+                    )
+                )
             }
         }
     }

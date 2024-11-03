@@ -17,12 +17,14 @@ package com.ttop.app.apex.views
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ttop.app.apex.extensions.addAlpha
 import com.ttop.app.apex.extensions.setItemColors
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ATHUtil
 import dev.chrisbanes.insetter.applyInsetter
 
 class TintedBottomNavigationView @JvmOverloads constructor(
@@ -42,11 +44,18 @@ class TintedBottomNavigationView @JvmOverloads constructor(
 
             labelVisibilityMode = PreferenceUtil.tabTitleMode
 
-            val iconColor = ATHUtil.resolveColor(context, android.R.attr.colorControlNormal)
             val accentColor = ThemeStore.accentColor(context)
-            setItemColors(iconColor, accentColor)
-            itemRippleColor = ColorStateList.valueOf(accentColor.addAlpha(0.08F))
-            itemActiveIndicatorColor = ColorStateList.valueOf(accentColor.addAlpha(0.12F))
+            val alternateColor = if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(context, com.ttop.app.apex.R.color.m3_widget_other_text)
+            } else {
+                ColorUtil.getComplimentColor(accentColor)
+            }
+
+            val iconColor = ATHColorUtil.lightenColor(accentColor, 0.1f)
+
+            setItemColors(iconColor, alternateColor)
+            itemRippleColor = ColorStateList.valueOf(alternateColor.addAlpha(0.08F))
+            itemActiveIndicatorColor = ColorStateList.valueOf(alternateColor.addAlpha(0.12F))
         }
     }
 

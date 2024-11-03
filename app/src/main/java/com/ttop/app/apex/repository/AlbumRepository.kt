@@ -82,15 +82,19 @@ class RealAlbumRepository(private val songRepository: RealSongRepository) :
             SortOrder.AlbumSortOrder.ALBUM_A_Z -> {
                 grouped.sortedWith { a1, a2 -> collator.compare(a1.title, a2.title) }
             }
+
             SortOrder.AlbumSortOrder.ALBUM_Z_A -> {
                 grouped.sortedWith { a1, a2 -> collator.compare(a2.title, a1.title) }
             }
+
             SortOrder.AlbumSortOrder.ALBUM_ARTIST -> {
                 grouped.sortedWith { a1, a2 -> collator.compare(a1.albumArtist, a2.albumArtist) }
             }
+
             SortOrder.AlbumSortOrder.ALBUM_NUMBER_OF_SONGS -> {
                 grouped.sortedByDescending { it.songCount }
             }
+
             else -> grouped
         }
     }
@@ -101,15 +105,19 @@ class RealAlbumRepository(private val songRepository: RealSongRepository) :
             SortOrder.AlbumSongSortOrder.SONG_TRACK_LIST -> album.songs.sortedWith { o1, o2 ->
                 o1.trackNumber.compareTo(o2.trackNumber)
             }
+
             SortOrder.AlbumSongSortOrder.SONG_A_Z -> {
                 album.songs.sortedWith { o1, o2 -> collator.compare(o1.title, o2.title) }
             }
+
             SortOrder.AlbumSongSortOrder.SONG_Z_A -> {
                 album.songs.sortedWith { o1, o2 -> collator.compare(o2.title, o1.title) }
             }
+
             SortOrder.AlbumSongSortOrder.SONG_DURATION -> album.songs.sortedWith { o1, o2 ->
                 o1.duration.compareTo(o2.duration)
             }
+
             else -> throw IllegalArgumentException("invalid ${PreferenceUtil.albumDetailSongSortOrder}")
         }
         return album.copy(songs = songs)

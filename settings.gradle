@@ -6,6 +6,4 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-include ':app', ':appthemehelper'
-include ':appIntro'
-include ':fastscroller'
+include ':app'

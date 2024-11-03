@@ -8,14 +8,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
-import com.ttop.app.appintro.SlideBackgroundColorHolder
+import com.ttop.app.apex.libraries.appintro.SlideBackgroundColorHolder
 
 class BluetoothSlideFragment(
     override val defaultBackgroundColorRes: Int
 ) : Fragment(), SlideBackgroundColorHolder {
 
     //Required Constructor
-    constructor() : this(com.ttop.app.appthemehelper.R.color.md_teal_A400)
+    constructor() : this(R.color.md_teal_A400)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +26,12 @@ class BluetoothSlideFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_teal_A400))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_teal_A400))
     }
+
     companion object {
         fun newInstance(): BluetoothSlideFragment {
-            return BluetoothSlideFragment(com.ttop.app.appthemehelper.R.color.md_teal_A400, )
+            return BluetoothSlideFragment(R.color.md_teal_A400)
         }
     }
 

@@ -117,13 +117,13 @@ class PlaylistsFragment :
         val gridSize = if (ApexUtil.isTablet) {
             if (ApexUtil.isLandscape) {
                 6
-            }else {
+            } else {
                 4
             }
-        }else {
+        } else {
             if (ApexUtil.isLandscape) {
                 4
-            }else {
+            } else {
                 2
             }
         }
@@ -182,7 +182,7 @@ class PlaylistsFragment :
     private fun handleSortOrderMenuItem(item: MenuItem): Boolean {
         val sortOrder: String = when (item.itemId) {
             R.id.action_song_sort_order_desc -> PlaylistSortOrder.PLAYLIST_A_Z
-            R.id.action_song_sort_order_asc ->  PlaylistSortOrder.PLAYLIST_Z_A
+            R.id.action_song_sort_order_asc -> PlaylistSortOrder.PLAYLIST_Z_A
             R.id.action_playlist_sort_order -> PlaylistSortOrder.PLAYLIST_SONG_COUNT_DESC
             R.id.action_playlist_sort_order_desc -> PlaylistSortOrder.PLAYLIST_SONG_COUNT
             else -> PreferenceUtil.playlistSortOrder

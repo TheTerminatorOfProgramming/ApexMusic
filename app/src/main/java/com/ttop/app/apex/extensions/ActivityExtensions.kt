@@ -21,7 +21,7 @@ import android.view.ViewGroup
 import androidx.annotation.DimenRes
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.MaterialToolbar
-import com.ttop.app.appthemehelper.util.ToolbarContentTintHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 
 fun AppCompatActivity.applyToolbar(toolbar: MaterialToolbar) {
     ToolbarContentTintHelper.colorBackButton(toolbar)
@@ -47,4 +47,7 @@ fun Activity.dip(@DimenRes id: Int): Int {
     return resources.getDimensionPixelSize(id)
 }
 
-inline val Activity.rootView: View get() = findViewById<ViewGroup>(android.R.id.content).getChildAt(0)
+inline val Activity.rootView: View
+    get() = findViewById<ViewGroup>(android.R.id.content).getChildAt(
+        0
+    )

@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
-import com.ttop.app.appintro.SlideBackgroundColorHolder
+import com.ttop.app.apex.libraries.appintro.SlideBackgroundColorHolder
 import java.util.Locale
 
 class MainSlideFragment(
@@ -35,10 +35,17 @@ class MainSlideFragment(
 
         desc = view.findViewById(R.id.description)!!
 
-        desc?.text = String.format(getString(R.string.message_welcome).replace("<br>", "\n"), appName)
+        desc?.text =
+            String.format(getString(R.string.message_welcome).replace("<br>", "\n"), appName)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.bottomSheetColorDark))
+        view.setBackgroundColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.bottomSheetColorDark
+            )
+        )
     }
+
     companion object {
         fun newInstance(): MainSlideFragment {
             return MainSlideFragment(R.color.bottomSheetColorDark)

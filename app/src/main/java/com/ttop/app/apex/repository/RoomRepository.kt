@@ -4,7 +4,15 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.ttop.app.apex.R
-import com.ttop.app.apex.db.*
+import com.ttop.app.apex.db.HistoryDao
+import com.ttop.app.apex.db.HistoryEntity
+import com.ttop.app.apex.db.PlayCountDao
+import com.ttop.app.apex.db.PlayCountEntity
+import com.ttop.app.apex.db.PlaylistDao
+import com.ttop.app.apex.db.PlaylistEntity
+import com.ttop.app.apex.db.PlaylistWithSongs
+import com.ttop.app.apex.db.SongEntity
+import com.ttop.app.apex.db.toHistoryEntity
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder.Companion.PLAYLIST_A_Z
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder.Companion.PLAYLIST_SONG_COUNT
 import com.ttop.app.apex.helper.SortOrder.PlaylistSortOrder.Companion.PLAYLIST_SONG_COUNT_DESC
@@ -70,19 +78,24 @@ class RealRoomRepository(
                 playlistDao.playlistsWithSongs().sortedBy {
                     it.playlistEntity.playlistName
                 }
+
             PLAYLIST_Z_A -> playlistDao.playlistsWithSongs()
                 .sortedByDescending {
                     it.playlistEntity.playlistName
                 }
+
             PLAYLIST_SONG_COUNT -> playlistDao.playlistsWithSongs().sortedBy { it.songs.size }
             PLAYLIST_SONG_COUNT_DESC -> playlistDao.playlistsWithSongs()
                 .sortedByDescending { it.songs.size }
+
             else -> playlistDao.playlistsWithSongs().sortedBy {
                 it.playlistEntity.playlistName
             }
         }
+
     @WorkerThread
-    override fun getPlaylist(playlistId: Long): LiveData<PlaylistWithSongs> = playlistDao.getPlaylist(playlistId)
+    override fun getPlaylist(playlistId: Long): LiveData<PlaylistWithSongs> =
+        playlistDao.getPlaylist(playlistId)
 
     @WorkerThread
     override suspend fun insertSongs(songs: List<SongEntity>) {

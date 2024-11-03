@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.animation.doOnEnd
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.R
@@ -28,15 +29,17 @@ import com.ttop.app.apex.databinding.FragmentLrcBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.lyrics.CoverLrcView
 import com.ttop.app.apex.model.lyrics.Lyrics
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.*
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
+import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -146,19 +149,38 @@ class LRCFragment : AbsMusicServiceFragment(R.layout.fragment_lrc),
         //callbacks?.onColorChanged(color)
         when (PreferenceUtil.nowPlayingScreen) {
             Blur -> setLRCViewColors(Color.WHITE, Color.BLACK)
+            Gradient -> setLRCViewColors(
+                ColorUtil.getComplimentColor(color.secondaryTextColor),
+                color.secondaryTextColor
+            )
+
             else -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     if (PreferenceUtil.isPlayerBackgroundType) {
-                        setLRCViewColors(com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor), color.secondaryTextColor)
-                    }else {
-                        setLRCViewColors(color.secondaryTextColor, com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor))
+                        setLRCViewColors(
+                            ColorUtil.getComplimentColor(color.secondaryTextColor),
+                            color.secondaryTextColor
+                        )
+                    } else {
+                        setLRCViewColors(
+                            color.secondaryTextColor,
+                            ColorUtil.getComplimentColor(color.secondaryTextColor)
+                        )
                     }
-                }else {
-                    val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
-                    if (ColorUtil.isColorLight(colorBg)) {
-                        setLRCViewColors(accentColor(), Color.BLACK)
-                    }else {
-                        setLRCViewColors(accentColor(), Color.WHITE)
+                } else {
+                    if (PreferenceUtil.materialYou) {
+                        setLRCViewColors(
+                            accentColor(),
+                            ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+                        )
+                    } else {
+                        val colorBg =
+                            ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
+                        if (ATHColorUtil.isColorLight(colorBg)) {
+                            setLRCViewColors(accentColor(), Color.BLACK)
+                        } else {
+                            setLRCViewColors(accentColor(), Color.WHITE)
+                        }
                     }
                 }
             }

@@ -34,7 +34,7 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.*
+import java.util.Locale
 
 /**
  * Validates that the calling package is authorized to browse a [MediaBrowserServiceCompat].
@@ -49,8 +49,8 @@ import java.util.*
  * For more information, see res/xml/allowed_media_browser_callers.xml.
  */
 class PackageValidator(
-        context: Context,
-        @XmlRes xmlResId: Int
+    context: Context,
+    @XmlRes xmlResId: Int
 ) {
     private val context: Context
     private val packageManager: PackageManager
@@ -99,7 +99,7 @@ class PackageValidator(
 
         // Build the caller info for the rest of the checks here.
         val callerPackageInfo = buildCallerInfo(callingPackage)
-                ?: throw IllegalStateException("Caller wasn't found in the system?")
+            ?: throw IllegalStateException("Caller wasn't found in the system?")
 
         // Verify that things aren't ... broken. (This test should always pass.)
         if (callerPackageInfo.uid != callingUid) {
@@ -155,7 +155,10 @@ class PackageValidator(
      */
     private fun logUnknownCaller(callerPackageInfo: CallerPackageInfo) {
         if (BuildConfig.DEBUG && callerPackageInfo.signature != null) {
-            Log.i(TAG, "PackageValidator call" + callerPackageInfo.name + callerPackageInfo.packageName + callerPackageInfo.signature)
+            Log.i(
+                TAG,
+                "PackageValidator call" + callerPackageInfo.name + callerPackageInfo.packageName + callerPackageInfo.signature
+            )
         }
     }
 
@@ -193,8 +196,10 @@ class PackageValidator(
     @Suppress("Deprecation")
     @SuppressLint("PackageManagerGetSignatures")
     private fun getPackageInfo(callingPackage: String): PackageInfo? =
-            packageManager.getPackageInfo(callingPackage,
-                    PackageManager.GET_SIGNATURES or PackageManager.GET_PERMISSIONS)
+        packageManager.getPackageInfo(
+            callingPackage,
+            PackageManager.GET_SIGNATURES or PackageManager.GET_PERMISSIONS
+        )
 
     /**
      * Gets the signature of a given package's [PackageInfo].
@@ -291,9 +296,9 @@ class PackageValidator(
      * Finds the Android platform signing key signature. This key is never null.
      */
     private fun getSystemSignature(): String =
-            getPackageInfo(ANDROID_PLATFORM)?.let { platformInfo ->
-                getSignature(platformInfo)
-            } ?: throw IllegalStateException("Platform signature not found")
+        getPackageInfo(ANDROID_PLATFORM)?.let { platformInfo ->
+            getSignature(platformInfo)
+        } ?: throw IllegalStateException("Platform signature not found")
 
     /**
      * Creates a SHA-256 signature given a Base64 encoded certificate.

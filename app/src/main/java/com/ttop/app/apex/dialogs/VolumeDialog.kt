@@ -1,9 +1,7 @@
 package com.ttop.app.apex.dialogs
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Context.AUDIO_SERVICE
-import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -17,7 +15,6 @@ import com.ttop.app.apex.extensions.accent
 import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.materialDialog
-import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.util.PreferenceUtil
 
@@ -58,7 +55,7 @@ class VolumeDialog : DialogFragment() {
                 am.setStreamVolume(AudioManager.STREAM_MUSIC, binding.volumeSlider.value.toInt(), 0)
             }
 
-            setNegativeButton(R.string.reset_action) {_, _ ->
+            setNegativeButton(R.string.reset_action) { _, _ ->
                 if (!PreferenceUtil.isHapticFeedbackDisabled) {
                     dialog.window?.decorView?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 }

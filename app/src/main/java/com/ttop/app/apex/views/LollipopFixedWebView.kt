@@ -22,7 +22,7 @@ class LollipopFixedWebView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = -1
-) : WebView(getFixedContext(context), attrs, defStyleAttr){
+) : WebView(getFixedContext(context), attrs, defStyleAttr) {
 
     companion object {
         fun getFixedContext(context: Context): Context {

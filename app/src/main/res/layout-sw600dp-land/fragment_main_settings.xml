@@ -25,7 +25,7 @@
             app:settingListItemIcon="@drawable/ic_theme_palette"
             app:settingListItemIconColor="@color/md_blue_A400"
             app:settingListItemText="@string/general_settings_summary"
-            app:settingListItemTitle="@string/general_settings_title"/>
+            app:settingListItemTitle="@string/general_settings_title" />
 
         <com.ttop.app.apex.views.SettingListItemView
             android:id="@+id/nowPlayingSettings"

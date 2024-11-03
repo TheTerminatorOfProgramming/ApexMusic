@@ -3,9 +3,9 @@ package com.ttop.app.apex.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ttop.app.apex.R
-import com.bumptech.glide.Glide
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MergedImageUtils.joinImages
 import com.ttop.app.apex.util.MusicUtil.getMediaStoreAlbumCoverUri

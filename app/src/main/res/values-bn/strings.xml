@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">প্লেলিস্ট এলোমেলো করুন</string>
     <string name="action_sleep_timer">ঘুমের টাইমার</string>
     <string name="action_sort_order">সাজানোর অর্ডার</string>
+    <string name="action_stop">থামো</string>
     <string name="action_tag_editor">ট্যাগ সম্পাদক</string>
     <string name="action_toggle_favorite">প্রিয় টগল করুন</string>
     <string name="action_toggle_shuffle">শাফেল মোড টগল করুন</string>
@@ -127,7 +128,6 @@
     <string name="create_new_backup">সৃষ্টি</string>
     <string name="credit_title">বিকাশকারী এবং অবদানকারী</string>
     <string name="cross_fade_duration">ক্রসফেডের সময়কাল</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Crowdin-এ এই অ্যাপটি অনুবাদ করতে সাহায্য করুন</string>
     <string name="currently_listening_to_x_by_x">বর্তমানে %2$s দ্বারা %1$s শুনছেন৷</string>
     <string name="custom_artist_images">কাস্টম শিল্পী ইমেজ</string>
@@ -145,6 +145,7 @@
     <string name="disable_battery_optimize">ব্যাটারি অপ্টিমাইজেশান অক্ষম করুন</string>
     <string name="disabled">অক্ষম</string>
     <string name="disc_hint">ডিস্ক নম্বর</string>
+    <string name="discord_group_summary">বাগ নিয়ে আলোচনা করতে এবং পরামর্শ দিতে আমাদের ডিসকর্ড সার্ভারে যোগ দিন</string>
     <string name="dismiss">খারিজ</string>
     <string name="do_you_want_to_clear_the_blacklist">আপনি কালো তালিকা সাফ করতে চান?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[আপনি কি <b>%1$s</b>কে কালো তালিকা থেকে সরাতে চান?]]></string>
@@ -287,7 +288,7 @@
     <string name="permissions">অনুমতি</string>
     <string name="permission_edit">অনুমতি সম্পাদনা করুন</string>
     <string name="personalize">ব্যক্তিগতকৃত</string>
-    <string name="personalize_settings_summary">আপনার লাইব্রেরি এবং লক স্ক্রিন কাস্টমাইজ করুন</string>
+    <string name="personalize_settings_summary">আপনার লাইব্রেরি কাস্টমাইজ করুন</string>
     <string name="pick_from_local_storage">স্থানীয় স্টোরেজ থেকে চয়ন করুন</string>
     <string name="playlist_name_empty_cant">প্লেলিস্টের নাম খালি রাখা যাবে না</string>
     <string name="playlist_name_empty_shouldnt">প্লেলিস্টের নাম খালি থাকা উচিত নয়</string>
@@ -382,6 +383,7 @@
     <string name="pref_title_search_icon">হেডারে ভয়েস অনুসন্ধান</string>
     <string name="pref_title_shuffle_state">শাফেল স্টেট রাখুন</string>
     <string name="pref_title_specific_device">নির্দিষ্ট ডিভাইস</string>
+    <string name="pref_title_squircle_art_widgets">বৃত্তাকার স্কোয়ার অ্যালবাম আর্ট</string>
     <string name="pref_title_suggestions">সাজেশন দেখান</string>
     <string name="pref_title_swipe_anywhere_now_playing">ট্র্যাক পরিবর্তন করতে যেকোনো জায়গায় সোয়াইপ করুন</string>
     <string name="pref_title_swipe_gestures">সোয়াইপ অঙ্গভঙ্গি</string>
@@ -439,7 +441,7 @@
     <string name="show_player_on_app_launch">অ্যাপ লঞ্চে সর্বদা দেখান</string>
     <string name="shuffle">অদলবদল</string>
     <string name="shuffle_button">এলোমেলো বোতাম</string>
-    <string name="shuffle_button_desc">একটি এলোমেলো প্লেয়িং সারি তৈরি করতে এটি ব্যবহার করুন৷ আরও তথ্যের জন্য এপেক্স মিউজিক উইকিতে যান!</string>
+    <string name="shuffle_button_desc">এলোমেলো খেলার সারি তৈরি করতে এটি ব্যবহার করুন</string>
     <string name="simple">সরল</string>
     <string name="sleep_timer_canceled">স্লিপ টাইমার বাতিল করা হয়েছে।</string>
     <string name="sleep_timer_set">এখন থেকে %d মিনিটের জন্য স্লিপ টাইমার সেট করা হয়েছে।</string>
@@ -467,7 +469,6 @@
     <string name="suggestion_songs">পরামর্শ</string>
     <string name="support_development">সমর্থন &amp; উন্নয়ন</string>
     <string name="tab_only">শুধুমাত্র ট্যাবলেট মোড</string>
-    <string name="telegram_group">টেলিগ্রাম</string>
     <string name="telegram_group_summary">বাগ নিয়ে আলোচনা করতে, পরামর্শ দিতে, প্রদর্শন করতে এবং আরও অনেক কিছু করতে টেলিগ্রাম গ্রুপে যোগ দিন</string>
     <string name="the_audio_file">অডিও ফাইল</string>
     <string name="this_month">এই মাস</string>
@@ -493,6 +494,7 @@
     <string name="user_images_description">ব্যবহারকারী ইমেজ</string>
     <string name="version">সংস্করণ</string>
     <string name="vertical_flip">উল্লম্ব উল্টানো</string>
+    <string name="volume">আয়তন</string>
     <string name="warning_fade">সতর্কতা ! প্লেব্যাকের সাথে অপ্রত্যাশিত সমস্যা হতে পারে</string>
     <string name="warning_fade_cancelled">পরিবর্তনগুলি ফিরিয়ে দেওয়া হয়েছে৷</string>
     <string name="web_search">ওয়েব অনুসন্ধান</string>

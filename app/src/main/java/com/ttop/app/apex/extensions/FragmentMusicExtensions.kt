@@ -20,7 +20,7 @@ fun getSongInfo(song: Song): String {
                 string.append(audioHeader.bitsPerSample).append("-bit").append(" • ")
             }
 
-            if (!audioHeader.format.contains("opus",true)) {
+            if (!audioHeader.format.contains("opus", true)) {
                 string.append(audioHeader.bitRate).append(" kb/s").append(" • ")
             }
 

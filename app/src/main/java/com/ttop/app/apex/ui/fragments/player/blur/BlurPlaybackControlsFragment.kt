@@ -100,21 +100,24 @@ class BlurPlaybackControlsFragment :
     }
 
     override fun setColor(color: MediaNotificationProcessor) {
-        lastPlaybackControlsColor = Color.WHITE
+        lastPlaybackControlsColor =
+            ContextCompat.getColor(requireContext(), R.color.md_grey_500)
         lastDisabledPlaybackControlsColor =
-            ContextCompat.getColor(requireContext(), com.ttop.app.appthemehelper.R.color.md_grey_500)
+            Color.WHITE
 
-        binding.title.setTextColor(lastPlaybackControlsColor)
+        binding.title.setTextColor(Color.WHITE)
 
-        binding.songCurrentProgress.setTextColor(lastPlaybackControlsColor)
-        binding.songTotalTime.setTextColor(lastPlaybackControlsColor)
+        binding.songCurrentProgress.setTextColor(Color.WHITE)
+        binding.songTotalTime.setTextColor(Color.WHITE)
 
         updateRepeatState()
         updateShuffleState()
-        updatePrevNextColor()
 
-        binding.artist.setTextColor(lastPlaybackControlsColor)
-        binding.songInfo.setTextColor(lastDisabledPlaybackControlsColor)
+        binding.artist.setTextColor(Color.WHITE)
+        binding.songInfo.setTextColor(Color.WHITE)
+
+        binding.nextButton.setColorFilter(Color.WHITE)
+        binding.previousButton.setColorFilter(Color.WHITE)
     }
 
     private fun setUpPlayPauseFab() {

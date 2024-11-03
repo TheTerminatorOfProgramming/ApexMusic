@@ -34,13 +34,13 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.ArtistSortOrder
 import com.ttop.app.apex.interfaces.IAlbumArtistClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 
 class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, GridLayoutManager>(),
     IArtistClickListener, IAlbumArtistClickListener {
@@ -176,9 +176,9 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu!!)
 
-        if (ApexUtil.isTablet){
+        if (ApexUtil.isTablet) {
             layoutItem?.isVisible = getGridSize() >= 3
-        }else{
+        } else {
             layoutItem?.isVisible = getGridSize() != 1
         }
 
@@ -224,8 +224,10 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
             R.layout.item_card -> subMenu.findItem(R.id.action_layout_card).isChecked = true
             R.layout.item_card_color -> subMenu.findItem(R.id.action_layout_colored_card).isChecked =
                 true
+
             R.layout.item_grid_circle -> subMenu.findItem(R.id.action_layout_circular).isChecked =
                 true
+
             R.layout.image -> subMenu.findItem(R.id.action_layout_image).isChecked = true
             R.layout.item_image_gradient -> subMenu.findItem(R.id.action_layout_gradient_image).isChecked =
                 true
@@ -242,6 +244,7 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
         when (getGridSize()) {
             1 -> gridSizeMenu.findItem(R.id.action_grid_size_1).isChecked =
                 true
+
             2 -> gridSizeMenu.findItem(R.id.action_grid_size_2).isChecked = true
             3 -> gridSizeMenu.findItem(R.id.action_grid_size_3).isChecked = true
             4 -> gridSizeMenu.findItem(R.id.action_grid_size_4).isChecked = true
@@ -349,9 +352,9 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
             item.isChecked = true
             setAndSaveGridSize(gridSize)
 
-            if (ApexUtil.isTablet){
+            if (ApexUtil.isTablet) {
                 layout?.isVisible = gridSize >= 3
-            }else{
+            } else {
                 layout?.isVisible = gridSize != 1
             }
             return true
@@ -365,7 +368,7 @@ class ArtistsFragment : AbsRecyclerViewCustomGridSizeFragment<ArtistAdapter, Gri
     }
 
     override fun loadGridSizeTablet(): Int {
-        return PreferenceUtil.artistGridSizeTablet;
+        return PreferenceUtil.artistGridSizeTablet
     }
 
     override fun saveGridSizeTablet(gridColumns: Int) {

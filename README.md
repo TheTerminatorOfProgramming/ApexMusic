@@ -7,7 +7,7 @@
   <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Android">
     <img src="https://img.shields.io/badge/Platform-Android-green.svg">
   </a>
-  <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Min API: 26">
+  <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Min API: 31">
     <img src="https://img.shields.io/badge/minSdkVersion-31-green.svg">
   </a>
   <a href="https://play.google.com/store/apps/details?id=com.ttop.app.apex" style="text-decoration:none" area-label="Play Store">
@@ -21,13 +21,24 @@
 <br>  
 <br>
 <p align="center">
-    <a href="https://play.google.com/store/apps/details?id=cm.ttop.app.apex">
+    <a href="https://t.me/ApexMusicSupport" style="text-decoration:none" area-label="Telegram">
+        <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Telegram/telegram1.svg">
+    </a>
+    <a href="https://discord.gg/fxNbXs5AgX" style="text-decoration:none" area-label="Discord">
+        <img src="https://ziadoua.github.io/m3-Markdown-Badges/badges/Discord/discord1.svg">
+    </a>
+</p>
+<br>
+<br>  
+<br>
+<p align="center">
+    <a href="https://play.google.com/store/apps/details?id=com.ttop.app.apex" style="text-decoration:none" area-label="Play Store">
         <img src="assets/google-play-badge.png" height="80">
-    </a
-    <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest">
+    </a>
+    <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest" style="text-decoration:none" area-label="License: GPL v3">
         <img src="assets/github.png" height="80">
     </a
-</p>
+</p>  
     
 ## Screenshots
       
@@ -59,24 +70,24 @@
 | Gradient 	| Minimal 	| Peek 	|
 
 ### 7 Cover Themes
-|<img src="screenshots/cover_theme_card.jpg" width="200"/>|<img src="screenshots/cover_theme_circular.jpg" width="200"/>|<img src="screenshots/cover_theme_flat.jpg" width="200"/>|<img src="screenshots/cover_theme_full.jpg" width="200"/>|
+|<img src="app/src/main/res/drawable/cover_theme_card.webp" width="200"/>|<img src="app/src/main/res/drawable/cover_theme_circular.webp" width="200"/>|<img src="app/src/main/res/drawable/cover_theme_flat.webp" width="200"/>|<img src="app/src/main/res/drawable/cover_theme_full.webp" width="200"/>|
 |:-----:	|:-----:	|:-----:	|:-----:	|
 | Card 	| Circular 	| Flat 	| Full 	|      
       
-|<img src="screenshots/cover_theme_full_card.jpg" width="200"/>|<img src="screenshots/cover_theme_normal.jpg" width="200"/>|<img src="screenshots/cover_theme_peek.jpg" width="200"/>|
+|<img src="app/src/main/res/drawable/cover_theme_full_card.webp" width="200"/>|<img src="app/src/main/res/drawable/cover_theme_normal.webp" width="200"/>|<img src="app/src/main/res/drawable/cover_theme_peek.webp" width="200"/>|
 |:-----:	|:-----:	|:-----:	|
 | Full Card 	| Normal 	| Peek 	|
 
 ### Widgets
-##### DayNight
-|<img src="screenshots/widget_classic.png" width="200"/>|<img src="screenshots/widget_classic.png" width="200"/>|<img src="screenshots/widget_full.png" width="200"/>|<img src="screenshots/widget_circle.png" width="200"/>|
-|:-----:	|:-----:	|:-----:	|:-----:	|
-| Classic 	| Big 	| Full 	| Circle 	|
+##### Material You (Light)
+|<img src="app/src/main/res/drawable/widget_big.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_circle.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_classic_single.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_classic_double.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_full.webp" width="200"/>|
+|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
+| Big 	| Circle 	| Classic (Single) 	| Classic (Double) 	| Full 	|
 
-##### Material You (MD3)
-|<img src="screenshots/widget_classic_md3.png" width="200"/>|<img src="screenshots/widget_classic_md3.png" width="200"/>|<img src="screenshots/widget_full_md3.png" width="200"/>|<img src="screenshots/widget_circle_md3.png" width="200"/>|
-|:-----:	|:-----:	|:-----:	|:-----:	|
-| Classic 	| Big 	| Full 	| Circle 	|
+##### Material You (Dark)
+|<img src="app/src/main/res/drawable-night/widget_big.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_circle.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_classic_single.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_classic_double.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_full.webp" width="200"/>|
+|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
+| Big 	| Circle 	| Classic (Single) 	| Classic (Double) 	| Full 	|
 ## About
 Apex Music is an offline open source music player optimised for foldables and is forked from [Retro Music Player](https://github.com/RetroMusicPlayer/RetroMusicPlayer)
 ___    
@@ -91,27 +102,25 @@ favorite songs.
 ## Included Features
 -  3 themes (Bright White, Sorta Dark and Jet Black)
 -  Chromecast support
--  Choose from 15+ now playing themes
+-  Choose from 7+ now playing themes
 -  Driving Mode
 -  Headset support
 -  Music duration filter
 -  Android auto support
--  Wallpaper accent picker on Android 8.1+
--  Material You support on Android 12+
+-  Material You support
 -  Monet themed icon support on Android 13+
 -  Folder support - Play songs by folder
 -  Gapless playback
 -  Volume controls
 -  Carousel effect for album covers
 -  Home screen widgets
--  Lock screen playback controls
--  Lyrics screen (download and sync with music)
+-  Lyrics support (embedded and synced)
+-  Lyrics download support (embedded)
 -  Sleep timer
 -  Easy drag to sort playlist & play queue
 -  Tag editor
 -  Create, edit and import playlists
 -  Playing queue with reorder
--  User profile (can disable this)
 -  Browse and play your music by songs, albums, artists, playlists and
   genre
 -  Smart Auto Playlists - Recently played, most played and history
@@ -120,6 +129,7 @@ ___
 ## Social Links
 Telegram: https://t.me/ApexMusicSupport
 Crowdin: https://crowdin.com/project/apexmusic
+Discord: https://discord.gg/fxNbXs5AgX
 
 ## Disclaimer
 Apex Music has only been tested on OneUI and AOSP Devices. Other Devices have not been tested and may cause issues including OneUI Core/Android Go Devices.
@@ -127,6 +137,7 @@ Apex Music has only been tested on OneUI and AOSP Devices. Other Devices have no
 =Devices Tested=<br />
 -Samsung Galaxy Fold 3 (Android 14)<br />
 -Samsung Galaxy A51 (Android 12, not OneUI Core Model)<br />
+-Samsung Galaxy S24 Ultra (Android 14)<br />
 -AOSP Device Emulators in Android Studio
 ___
 ## License

@@ -39,17 +39,20 @@ internal object MergedImageUtils {
                 val item = list[0]
                 listOf(item, item, item, item, item, item, item, item, item)
             }
+
             list.size == 2 -> {
                 val item1 = list[0]
                 val item2 = list[1]
                 listOf(item1, item2, item1, item2, item1, item2, item1, item2, item1)
             }
+
             list.size == 3 -> {
                 val item1 = list[0]
                 val item2 = list[1]
                 val item3 = list[2]
                 listOf(item1, item2, item3, item3, item1, item2, item2, item3, item1)
             }
+
             list.size == 4 -> {
                 val item1 = list[0]
                 val item2 = list[1]
@@ -57,6 +60,7 @@ internal object MergedImageUtils {
                 val item4 = list[3]
                 listOf(item1, item2, item3, item4, item1, item2, item3, item4, item1)
             }
+
             list.size < 9 -> { // 5 to 8
                 val item1 = list[0]
                 val item2 = list[1]
@@ -65,6 +69,7 @@ internal object MergedImageUtils {
                 val item5 = list[4]
                 listOf(item1, item2, item3, item4, item5, item2, item3, item4, item1)
             }
+
             else -> list // case 9
         }
     }

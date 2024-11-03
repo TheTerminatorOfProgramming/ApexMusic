@@ -77,23 +77,29 @@ class RealSongRepository(private val context: Context) : SongRepository {
         val songs = songs(cursor)
         return when (PreferenceUtil.songSortOrder) {
             SortOrder.SongSortOrder.SONG_A_Z -> {
-                songs.sortedWith{ s1, s2 -> collator.compare(s1.title, s2.title) }
+                songs.sortedWith { s1, s2 -> collator.compare(s1.title, s2.title) }
             }
+
             SortOrder.SongSortOrder.SONG_Z_A -> {
-                songs.sortedWith{ s1, s2 -> collator.compare(s2.title, s1.title) }
+                songs.sortedWith { s1, s2 -> collator.compare(s2.title, s1.title) }
             }
+
             SortOrder.SongSortOrder.SONG_ALBUM -> {
-                songs.sortedWith{ s1, s2 -> collator.compare(s1.albumName, s2.albumName) }
+                songs.sortedWith { s1, s2 -> collator.compare(s1.albumName, s2.albumName) }
             }
+
             SortOrder.SongSortOrder.SONG_ALBUM_ARTIST -> {
-                songs.sortedWith{ s1, s2 -> collator.compare(s1.albumArtist, s2.albumArtist) }
+                songs.sortedWith { s1, s2 -> collator.compare(s1.albumArtist, s2.albumArtist) }
             }
+
             SortOrder.SongSortOrder.SONG_ARTIST -> {
-                songs.sortedWith{ s1, s2 -> collator.compare(s1.artistName, s2.artistName) }
+                songs.sortedWith { s1, s2 -> collator.compare(s1.artistName, s2.artistName) }
             }
+
             SortOrder.SongSortOrder.COMPOSER -> {
-                songs.sortedWith{ s1, s2 -> collator.compare(s1.composer, s2.composer) }
+                songs.sortedWith { s1, s2 -> collator.compare(s1.composer, s2.composer) }
             }
+
             else -> songs
         }
     }
@@ -187,7 +193,7 @@ class RealSongRepository(private val context: Context) : SongRepository {
 
             // Whitelist
             when (PreferenceUtil.isWhiteList) {
-                "internal"-> {
+                "internal" -> {
                     selectionFinal =
                         selectionFinal + " AND " + Constants.DATA + " LIKE ?"
                     selectionValuesFinal = addSelectionValues(
@@ -196,7 +202,8 @@ class RealSongRepository(private val context: Context) : SongRepository {
                         )
                     )
                 }
-                "external"-> {
+
+                "external" -> {
                     if (rootPaths.size > 1) {
                         selectionFinal =
                             selectionFinal + " AND " + Constants.DATA + " LIKE ?"
@@ -205,7 +212,7 @@ class RealSongRepository(private val context: Context) : SongRepository {
                                 rootPaths[1] + "/music"
                             )
                         )
-                    }else {
+                    } else {
                         selectionFinal =
                             selectionFinal + " AND " + Constants.DATA + " LIKE ?"
                         selectionValuesFinal = addSelectionValues(
@@ -215,7 +222,8 @@ class RealSongRepository(private val context: Context) : SongRepository {
                         )
                     }
                 }
-                else-> {
+
+                else -> {
                     // Blacklist
                     val paths = BlacklistStore.getInstance(context).paths
                     if (paths.isNotEmpty()) {

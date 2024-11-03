@@ -28,14 +28,13 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.CategoryInfoAdapter
 import com.ttop.app.apex.databinding.PreferenceDialogLibraryCategoriesBinding
 import com.ttop.app.apex.extensions.centeredColorButtons
-
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.withCenteredButtons
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 
 
 class LibraryPreference @JvmOverloads constructor(
@@ -110,12 +109,12 @@ class LibraryPreferenceDialog : DialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
 
-        if (positiveBtnClicked && wasOne == 1){
+        if (positiveBtnClicked && wasOne == 1) {
             positiveBtnClicked = false
             activity?.recreate()
         }
 
-        if (positiveBtnClicked && PreferenceUtil.tempValue == 1){
+        if (positiveBtnClicked && PreferenceUtil.tempValue == 1) {
             positiveBtnClicked = false
             activity?.recreate()
         }

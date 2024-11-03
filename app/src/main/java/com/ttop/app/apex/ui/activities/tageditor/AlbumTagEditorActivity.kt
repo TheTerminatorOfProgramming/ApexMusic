@@ -27,16 +27,21 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ActivityAlbumTagEditorBinding
-import com.ttop.app.apex.extensions.*
-import com.bumptech.glide.Glide
+import com.ttop.app.apex.extensions.appHandleColor
+import com.ttop.app.apex.extensions.defaultFooterColor
+import com.ttop.app.apex.extensions.isColorLight
+import com.ttop.app.apex.extensions.setTint
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.palette.BitmapPaletteWrapper
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.apex.model.ArtworkInfo
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.ApexColorUtil.generatePalette
@@ -44,9 +49,8 @@ import com.ttop.app.apex.util.ApexColorUtil.getColor
 import com.ttop.app.apex.util.ImageUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.logD
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
 import org.jaudiotagger.tag.FieldKey
-import java.util.*
+import java.util.EnumMap
 
 class AlbumTagEditorActivity : AbsTagEditorActivity<ActivityAlbumTagEditorBinding>() {
 

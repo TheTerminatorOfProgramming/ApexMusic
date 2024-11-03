@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/CenteredCheckBoxTheme" />
+
     <LinearLayout
         android:id="@android:id/empty"
         android:layout_width="wrap_content"
@@ -34,6 +35,7 @@
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/emptyEmoji"
             android:layout_width="wrap_content"
@@ -41,6 +43,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/empty_text_emoji"
             android:textAppearance="@style/TextViewHeadline3" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/emptyText"
             android:layout_width="wrap_content"
@@ -51,6 +54,7 @@
             android:textColor="?android:attr/textColorSecondary"
             tools:visibility="visible" />
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/shuffle_button"
         style="@style/Widget.Material3.FloatingActionButton.Primary"

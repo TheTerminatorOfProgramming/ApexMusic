@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Wiedergabeliste mischen</string>
     <string name="action_sleep_timer">Schlaf-Timer</string>
     <string name="action_sort_order">Sortierung</string>
+    <string name="action_stop">Stoppen</string>
     <string name="action_tag_editor">Tag-Editor</string>
     <string name="action_toggle_favorite">Favorit umschalten</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
@@ -127,7 +128,6 @@
     <string name="create_new_backup">Anlegen</string>
     <string name="credit_title">Entwickler &amp; Mitwirkende</string>
     <string name="cross_fade_duration">Überblendungsdauer</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Hilf dabei, diese App auf Crowdin zu übersetzen</string>
     <string name="currently_listening_to_x_by_x">Hört gerade %1$s von %2$s an.</string>
     <string name="custom_artist_images">Benutzerdefinierte Interpretenbilder</string>
@@ -145,6 +145,7 @@
     <string name="disable_battery_optimize">Akku-Optimierung deaktivieren</string>
     <string name="disabled">Deaktiviert</string>
     <string name="disc_hint">Disc Nummer</string>
+    <string name="discord_group_summary">Trete unserem Discord Server bei, um Bugs zu diskutieren und Vorschläge zu machen</string>
     <string name="dismiss">Verwerfen</string>
     <string name="do_you_want_to_clear_the_blacklist">Möchten Sie die Blacklist löschen?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Möchten Sie <b>%1$s</b> von der Sperrliste entfernen?]]></string>
@@ -287,7 +288,7 @@
     <string name="permissions">Berechtigungen</string>
     <string name="permission_edit">Berechtigungen bearbeiten</string>
     <string name="personalize">Personalisieren</string>
-    <string name="personalize_settings_summary">Bibliothek und Sperrbildschirm anpassen</string>
+    <string name="personalize_settings_summary">Bibliothek anpassen</string>
     <string name="pick_from_local_storage">Aus lokalem Speicher wählen</string>
     <string name="playlist_name_empty_cant">Playlist-Name darf nicht leer sein</string>
     <string name="playlist_name_empty_shouldnt">Playlist-Name sollte nicht leer sein</string>
@@ -382,6 +383,7 @@
     <string name="pref_title_search_icon">Sprachsuche im Header</string>
     <string name="pref_title_shuffle_state">Shuffle-Status behalten</string>
     <string name="pref_title_specific_device">Spezifisches Gerät</string>
+    <string name="pref_title_squircle_art_widgets">Abgerundetes quadratisches Albumcover</string>
     <string name="pref_title_suggestions">Vorschläge anzeigen</string>
     <string name="pref_title_swipe_anywhere_now_playing">Wischen Sie überall, um den Track zu ändern</string>
     <string name="pref_title_swipe_gestures">Wischgesten</string>
@@ -467,7 +469,6 @@
     <string name="suggestion_songs">Vorschläge</string>
     <string name="support_development">Unterstütze &amp; Entwicklung</string>
     <string name="tab_only">Nur Tablet-Modus</string>
-    <string name="telegram_group">Telegramm</string>
     <string name="telegram_group_summary">Tritt der Telegram-Gruppe bei, um Fehler zu diskutieren, Vorschläge zu machen, zu zeigen und mehr</string>
     <string name="the_audio_file">Die Audiodatei</string>
     <string name="this_month">Diesen Monat</string>
@@ -493,6 +494,7 @@
     <string name="user_images_description">Benutzerbilder</string>
     <string name="version">Version</string>
     <string name="vertical_flip">Vertikal drehen</string>
+    <string name="volume">Lautstärke</string>
     <string name="warning_fade">Warnung! Kann unerwartete Probleme bei der Wiedergabe verursachen</string>
     <string name="warning_fade_cancelled">Änderungen rückgängig</string>
     <string name="web_search">Websuche</string>

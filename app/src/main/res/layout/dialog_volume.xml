@@ -32,7 +32,7 @@
         android:valueTo="10"
         app:labelBehavior="gone"
         app:tickVisible="false"
-        android:value="3"/>
+        android:value="3" />
 
     <TextView
         android:id="@+id/volume_value"

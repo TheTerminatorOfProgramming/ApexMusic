@@ -18,7 +18,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.ttop.app.apex.R
 
-enum class NowPlayingScreen constructor(
+enum class NowPlayingScreen(
     @param:StringRes @field:StringRes
     val titleRes: Int,
     @param:DrawableRes @field:DrawableRes val drawableResId: Int,

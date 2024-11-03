@@ -15,8 +15,8 @@ import com.afollestad.materialdialogs.list.updateListItems
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.getExternalStorageDirectory
-import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 
 class BlacklistFolderChooserDialog : DialogFragment() {
@@ -54,7 +54,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var mSavedInstanceState = savedInstanceState
 
-        if (VersionUtils.hasT()){
+        if (VersionUtils.hasT()) {
             if (ActivityCompat.checkSelfPermission(
                     requireActivity(), Manifest.permission.READ_MEDIA_AUDIO
                 )
@@ -68,7 +68,7 @@ class BlacklistFolderChooserDialog : DialogFragment() {
                     getActionButton(WhichButton.NEGATIVE).updateTextColor(accentColor())
                 }
             }
-        }else if (ActivityCompat.checkSelfPermission(
+        } else if (ActivityCompat.checkSelfPermission(
                 requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
             )
             != PackageManager.PERMISSION_GRANTED

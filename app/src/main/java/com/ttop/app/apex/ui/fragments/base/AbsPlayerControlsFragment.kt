@@ -77,9 +77,10 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
 
     override fun onUpdateProgressViews(progress: Int, total: Int) {
         val nps = PreferenceUtil.nowPlayingScreen
-        if (nps == NowPlayingScreen.Classic||
+        if (nps == NowPlayingScreen.Classic ||
             nps == NowPlayingScreen.Peek ||
-            nps == NowPlayingScreen.Live) {
+            nps == NowPlayingScreen.Live
+        ) {
             progressSlider?.valueTo = total.toFloat()
 
             progressSlider?.value =
@@ -98,7 +99,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                     }
 
             }
-        }else {
+        } else {
             if (seekBar == null) {
                 progressSlider?.valueTo = total.toFloat()
 
@@ -248,6 +249,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                     PorterDuff.Mode.SRC_IN
                 )
             }
+
             MusicService.REPEAT_MODE_ALL -> {
                 repeatButton.setImageResource(R.drawable.ic_repeat)
                 repeatButton.setColorFilter(
@@ -255,6 +257,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
                     PorterDuff.Mode.SRC_IN
                 )
             }
+
             MusicService.REPEAT_MODE_THIS -> {
                 repeatButton.setImageResource(R.drawable.ic_repeat_one)
                 repeatButton.setColorFilter(

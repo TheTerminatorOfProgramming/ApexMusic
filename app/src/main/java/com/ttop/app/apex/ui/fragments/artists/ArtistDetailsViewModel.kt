@@ -14,7 +14,11 @@
  */
 package com.ttop.app.apex.ui.fragments.artists
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.ttop.app.apex.interfaces.IMusicServiceEventListener
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.network.Result

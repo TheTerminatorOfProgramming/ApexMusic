@@ -92,7 +92,13 @@ class MediaButtonIntentReceiver : MediaButtonReceiver() {
             println("Intent Action: ${intent.action}")
             val intentAction = intent.action
             if (Intent.ACTION_MEDIA_BUTTON == intentAction) {
-                val event = intent.extras?.let { BundleCompat.getParcelable(it, Intent.EXTRA_KEY_EVENT, KeyEvent::class.java) }
+                val event = intent.extras?.let {
+                    BundleCompat.getParcelable(
+                        it,
+                        Intent.EXTRA_KEY_EVENT,
+                        KeyEvent::class.java
+                    )
+                }
                     ?: return false
 
                 val keycode = event.keyCode
@@ -107,6 +113,7 @@ class MediaButtonIntentReceiver : MediaButtonReceiver() {
                     KeyEvent.KEYCODE_MEDIA_STOP -> command = ACTION_STOP
                     KeyEvent.KEYCODE_HEADSETHOOK, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> command =
                         ACTION_TOGGLE_PAUSE
+
                     KeyEvent.KEYCODE_MEDIA_NEXT -> command = ACTION_SKIP
                     KeyEvent.KEYCODE_MEDIA_PREVIOUS -> command = ACTION_REWIND
                     KeyEvent.KEYCODE_MEDIA_PAUSE -> command = ACTION_PAUSE

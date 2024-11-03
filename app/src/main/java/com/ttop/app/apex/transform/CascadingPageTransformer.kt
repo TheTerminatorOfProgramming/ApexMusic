@@ -27,11 +27,13 @@ class CascadingPageTransformer : ViewPager.PageTransformer {
                 position < -1 -> { // [-Infinity,-1)
                     alpha = 0f
                 }
+
                 position <= 0 -> {
                     alpha = 1f
                     rotation = 45 * position
                     translationX = width / 3 * position
                 }
+
                 else -> {
                     alpha = 1f
                     rotation = 0f

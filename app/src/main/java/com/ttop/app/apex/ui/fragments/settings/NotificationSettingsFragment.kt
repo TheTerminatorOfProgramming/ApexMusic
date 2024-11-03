@@ -143,7 +143,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val newState = if (state) {
             PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }else {
+        } else {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         }
 
@@ -160,7 +160,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val newState = if (state) {
             PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }else {
+        } else {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         }
 
@@ -177,7 +177,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val newState = if (state) {
             PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }else {
+        } else {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         }
 
@@ -194,7 +194,7 @@ class NotificationSettingsFragment : AbsSettingsFragment(),
 
         val newState = if (state) {
             PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-        }else {
+        } else {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED
         }
 

@@ -36,11 +36,13 @@ object Share {
     fun shareFile(context: Context, file: File, mimeType: String) {
         Intent(Intent.ACTION_SEND).apply {
             type = mimeType
-            putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(
-                context,
-                BuildConfig.APPLICATION_ID + ".provider",
-                file
-            ))
+            putExtra(
+                Intent.EXTRA_STREAM, FileProvider.getUriForFile(
+                    context,
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    file
+                )
+            )
             context.startActivity(Intent.createChooser(this, null))
         }
     }

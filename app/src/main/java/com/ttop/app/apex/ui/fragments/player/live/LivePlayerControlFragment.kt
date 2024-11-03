@@ -27,18 +27,17 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentLivePlaybackControlsBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
+import com.ttop.app.apex.extensions.getSongInfo
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
+import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
+import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ATHUtil
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
-import com.ttop.app.appthemehelper.util.TintHelper
 import kotlin.math.sqrt
 
 class LivePlayerControlFragment :
@@ -93,75 +92,64 @@ class LivePlayerControlFragment :
     }
 
     override fun setColor(color: MediaNotificationProcessor) {
-        val controlsColor =
-            if (PreferenceUtil.isAdaptiveColor) {
-                color.secondaryTextColor
+        val controlsColor = if (PreferenceUtil.isAdaptiveColor) {
+            if (PreferenceUtil.isPlayerBackgroundType) {
+                ColorUtil.getComplimentColor(color.secondaryTextColor)
             } else {
-                ThemeStore.accentColor(requireContext())
+                color.secondaryTextColor
             }
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+            } else {
+                accentColor()
+            }
+        }
+
+        val lastPlaybackColor = if (PreferenceUtil.isAdaptiveColor) {
+            ColorUtil.getComplimentColor(color.secondaryTextColor)
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_foreground)
+            } else {
+                ColorUtil.getComplimentColor(accentColor())
+            }
+        }
+
+        binding.playPauseButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
         binding.progressSlider.applyColor(controlsColor)
-        binding.playPauseButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
+        lastPlaybackControlsColor = lastPlaybackColor
+        lastDisabledPlaybackControlsColor = controlsColor
+
+        binding.songCurrentProgress.setTextColor(controlsColor)
+        binding.songTotalTime.setTextColor(controlsColor)
+        binding.songInfo.setTextColor(controlsColor)
+
         binding.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
-        if (PreferenceUtil.isAdaptiveColor) {
-            lastPlaybackControlsColor = color.secondaryTextColor
-            lastDisabledPlaybackControlsColor = com.ttop.app.apex.util.ColorUtil.getComplimentColor(color.secondaryTextColor)
-
-            binding.songCurrentProgress.setTextColor(color.secondaryTextColor)
-            binding.songTotalTime.setTextColor(color.secondaryTextColor)
-        } else {
-            if (!ATHUtil.isWindowBackgroundDark(requireContext())) {
-                lastPlaybackControlsColor =
-                    MaterialValueHelper.getSecondaryTextColor(requireContext(), true)
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getSecondaryDisabledTextColor(requireContext(), true)
-            } else {
-                lastPlaybackControlsColor =
-                    MaterialValueHelper.getPrimaryTextColor(requireContext(), false)
-                lastDisabledPlaybackControlsColor =
-                    MaterialValueHelper.getPrimaryDisabledTextColor(requireContext(), false)
-            }
-
-            val colorBg = ATHUtil.resolveColor(requireContext(), android.R.attr.colorBackground)
-            if (ColorUtil.isColorLight(colorBg)) {
-                binding.songCurrentProgress.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.md_black_1000
-                    )
-                )
-                binding.songTotalTime.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.md_black_1000
-                    )
-                )
-            } else {
-                binding.songCurrentProgress.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.md_white_1000
-                    )
-                )
-                binding.songTotalTime.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.md_white_1000
-                    )
-                )
-            }
-        }
         updateRepeatState()
         updateShuffleState()
     }
 
     override fun onServiceConnected() {
         super.onServiceConnected()
+        val song = MusicPlayerRemote.currentSong
+
         updatePlayPauseDrawableState()
 
+        binding.songInfo.text = getSongInfo(song)
+        binding.songInfo.isSelected = true
+
         (seekBar.progressDrawable as? SquigglyProgress)?.animate = MusicPlayerRemote.isPlaying
+    }
+
+    override fun onPlayingMetaChanged() {
+        val song = MusicPlayerRemote.currentSong
+
+        binding.songInfo.text = getSongInfo(song)
+        binding.songInfo.isSelected = true
     }
 
     override fun onPlayStateChanged() {

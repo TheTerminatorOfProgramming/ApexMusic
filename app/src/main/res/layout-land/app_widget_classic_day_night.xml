@@ -1,115 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_widget_classic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_widget_background"
-    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
     android:backgroundTint="?attr/colorSurface"
-    android:id="@+id/app_widget_classic">
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/app_widget_background"
-        android:scaleType="centerCrop"
-        tools:src="@tools:sample/backgrounds/scenic[6]"
-        tools:ignore="ContentDescription" />
+    android:orientation="horizontal"
+    android:theme="@style/Theme.AppWidget.Transparent"
+    tools:ignore="ContentDescription">
 
     <RelativeLayout
-        android:id="@+id/main"
+        android:id="@+id/controls"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/songText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_toStartOf="@id/media_actions"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textAppearance="@style/TextViewNormal3"
-            android:textColor="@color/md_white_1000"
-            tools:text="02:54/06:34" />
-
-        <RelativeLayout
-            android:id="@+id/media_actions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/button_prev"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/app_widget_buttons_circular_daynight"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_skip_previous"
-                tools:tint="?android:attr/textColorPrimary" />
-
-            <ImageButton
-                android:id="@+id/button_toggle_play_pause"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_toEndOf="@id/button_prev"
-                android:background="@drawable/app_widget_buttons_circular_daynight"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_play_arrow"
-                tools:tint="?android:attr/textColorPrimary" />
-
-            <ImageButton
-                android:id="@+id/button_next"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_toEndOf="@id/button_toggle_play_pause"
-                android:background="@drawable/app_widget_buttons_circular_daynight"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_skip_next"
-                tools:tint="?android:attr/textColorPrimary" />
-
-            <ImageButton
-                android:id="@+id/button_update"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/button_next"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/app_widget_buttons_circular_daynight"
-                tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_refresh"
-                tools:tint="?android:attr/textColorPrimary" />
-        </RelativeLayout>
+        android:layout_height="52dp"
+        android:background="@drawable/app_widget_background"
+        android:backgroundTint="?attr/colorSurface">
 
         <LinearLayout
-            android:id="@+id/media_titles"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/songText"
-            android:orientation="vertical"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp">
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textAppearance="@style/TextViewSubtitle3"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Title" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/app_widget_background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_album_art_round"
+                tools:ignore="ContentDescription" />
+
+            <RelativeLayout
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/songText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@id/media_actions"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextViewNormal3"
+                    android:strokeColor="@color/day_night"
+                    tools:text="02:54/06:34" />
+
+                <RelativeLayout
+                    android:id="@+id/media_actions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/button_prev"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/app_widget_buttons_circular_daynight"
+                        android:src="@drawable/ic_skip_previous_day_night"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageButton
+                        android:id="@+id/button_toggle_play_pause"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_toEndOf="@id/button_next"
+                        android:background="@drawable/app_widget_buttons_rounded_square_daynight"
+                        tools:ignore="ContentDescription"
+                        tools:src="@drawable/ic_play_arrow"
+                        tools:tint="?attr/colorSurface" />
+
+                    <ImageButton
+                        android:id="@+id/button_next"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_toEndOf="@id/button_prev"
+                        android:background="@drawable/app_widget_buttons_circular_daynight"
+                        android:src="@drawable/ic_skip_next_day_night"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageButton
+                        android:id="@+id/button_update"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/button_toggle_play_pause"
+                        android:background="@drawable/app_widget_buttons_circular_daynight"
+                        android:src="@drawable/ic_refresh_day_night"
+                        tools:ignore="ContentDescription" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/media_titles"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/songText"
+                    android:orientation="vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextViewSubtitle4"
+                        android:strokeColor="@color/day_night"
+                        tools:text="Title" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

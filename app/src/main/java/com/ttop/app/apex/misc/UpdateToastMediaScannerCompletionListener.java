@@ -34,7 +34,7 @@ public class UpdateToastMediaScannerCompletionListener
     private final WeakReference<Activity> activityWeakReference;
     private final String scannedFiles;
     private final List<String> toBeScanned;
-  private final Toast toast;
+    private final Toast toast;
 
     @SuppressLint("ShowToast")
     public UpdateToastMediaScannerCompletionListener(Activity activity, List<String> toBeScanned) {

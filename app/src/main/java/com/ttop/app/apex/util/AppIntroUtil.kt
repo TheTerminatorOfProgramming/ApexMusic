@@ -1,7 +1,7 @@
 package com.ttop.app.apex.util
 
-import com.ttop.app.appintro.AppIntroPageTransformerType
-import com.ttop.app.appthemehelper.util.VersionUtils
+import com.ttop.app.apex.libraries.appintro.AppIntroPageTransformerType
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 
 object AppIntroUtil {
 
@@ -10,22 +10,22 @@ object AppIntroUtil {
     }
 
     fun bluetoothPermission(): Int {
-        return if(VersionUtils.hasT()) {
+        return if (VersionUtils.hasT()) {
             5
-        }else {
+        } else {
             4
         }
     }
 
     fun storagePermission(): Int {
-        return if(VersionUtils.hasT()) {
+        return if (VersionUtils.hasT()) {
             4
-        }else {
+        } else {
             3
         }
     }
 
-    fun transformerType() : AppIntroPageTransformerType {
+    fun transformerType(): AppIntroPageTransformerType {
         return AppIntroPageTransformerType.Parallax()
     }
 }

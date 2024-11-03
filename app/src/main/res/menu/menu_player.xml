@@ -26,13 +26,13 @@
         android:orderInCategory="3"
         android:title="@string/action_queue"
         android:icon="@drawable/ic_queue_music"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_go_to_lyrics"
         android:orderInCategory="4"
         android:icon="@drawable/ic_lyrics_outline"
         android:title="@string/action_go_to_lyrics"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_playback_speed"
         android:icon="@drawable/ic_playback_speed"
@@ -76,7 +76,7 @@
         android:id="@+id/action_add_to_playlist"
         android:orderInCategory="5"
         android:icon="@drawable/ic_playlist_add"
-        android:title="@string/action_add_to_playlist"/>
+        android:title="@string/action_add_to_playlist" />
     <item
         android:id="@+id/action_save_playing_queue"
         android:orderInCategory="6"

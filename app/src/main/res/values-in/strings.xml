@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Acak daftar putar</string>
     <string name="action_sleep_timer">Pengatur waktu tidur</string>
     <string name="action_sort_order">Urutkan Urutan</string>
+    <string name="action_stop">Berhenti</string>
     <string name="action_tag_editor">Penyunting tanda</string>
     <string name="action_toggle_favorite">Alihkan favorit</string>
     <string name="action_toggle_shuffle">Alihkan mode acak</string>
@@ -125,7 +126,6 @@
     <string name="create_new_backup">Membuat</string>
     <string name="credit_title">Pengembang &amp; Kontributor</string>
     <string name="cross_fade_duration">Durasi Crossfade</string>
-    <string name="crowdin">kerumunan</string>
     <string name="crowdin_summary">Bantu terjemahkan aplikasi ini di crowdin</string>
     <string name="currently_listening_to_x_by_x">Sedang mendengarkan %1$s oleh %2$s.</string>
     <string name="custom_artist_images">Gambar Artis Kustom</string>
@@ -143,6 +143,7 @@
     <string name="disable_battery_optimize">Nonaktifkan Pengoptimalan Baterai</string>
     <string name="disabled">Dengan disabilitas</string>
     <string name="disc_hint">Nomor Disk</string>
+    <string name="discord_group_summary">Bergabunglah dengan server Discord kami untuk mendiskusikan bug dan memberikan saran</string>
     <string name="dismiss">Membubarkan</string>
     <string name="do_you_want_to_clear_the_blacklist">Apakah Anda ingin menghapus daftar hitam?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Apakah Anda ingin menghapus <b>%1$s</b> dari daftar hitam?]]></string>
@@ -285,7 +286,7 @@
     <string name="permissions">Izin</string>
     <string name="permission_edit">Sunting Izin</string>
     <string name="personalize">Personalisasi</string>
-    <string name="personalize_settings_summary">Sesuaikan perpustakaan dan layar kunci Anda</string>
+    <string name="personalize_settings_summary">Sesuaikan perpustakaan Anda</string>
     <string name="pick_from_local_storage">Pilih dari penyimpanan lokal</string>
     <string name="playlist_name_empty_cant">Nama daftar putar wajib diisi</string>
     <string name="playlist_name_empty_shouldnt">Nama daftar putar wajib diisi</string>
@@ -380,6 +381,7 @@
     <string name="pref_title_search_icon">Pencarian Suara Di Header</string>
     <string name="pref_title_shuffle_state">Pertahankan Status Acak</string>
     <string name="pref_title_specific_device">Perangkat Tertentu</string>
+    <string name="pref_title_squircle_art_widgets">Sampul Album Persegi Bulat</string>
     <string name="pref_title_suggestions">Tampilkan Saran</string>
     <string name="pref_title_swipe_anywhere_now_playing">Gesek Ke Mana Saja Untuk Mengubah Lagu</string>
     <string name="pref_title_swipe_gestures">Gerakan Gesek</string>
@@ -465,7 +467,6 @@
     <string name="suggestion_songs">Saran</string>
     <string name="support_development">Dukungan &amp; Perkembangan</string>
     <string name="tab_only">Hanya Mode Tablet</string>
-    <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Bergabunglah dengan grup Telegram untuk mendiskusikan bug, memberikan saran, pamer, dan banyak lagi</string>
     <string name="the_audio_file">File audionya</string>
     <string name="this_month">Bulan ini</string>
@@ -491,6 +492,7 @@
     <string name="user_images_description">Gambar Pengguna</string>
     <string name="version">Versi: kapan</string>
     <string name="vertical_flip">Balik vertikal</string>
+    <string name="volume">Volume</string>
     <string name="warning_fade">Peringatan! Dapat menyebabkan masalah yang tidak terduga saat pemutaran</string>
     <string name="warning_fade_cancelled">Perubahan Dikembalikan</string>
     <string name="web_search">pencarian web</string>

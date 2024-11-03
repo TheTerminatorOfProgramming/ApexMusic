@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Shuffle Playlist</string>
     <string name="action_sleep_timer">Sleep Timer</string>
     <string name="action_sort_order">Sort Order</string>
+    <string name="action_stop">Stop</string>
     <string name="action_tag_editor">Tag Editor</string>
     <string name="action_toggle_favorite">Toggle Favorite</string>
     <string name="action_toggle_shuffle">Toggle Shuffle Mode</string>
@@ -129,7 +130,6 @@
     <string name="create_new_backup">Create</string>
     <string name="credit_title">Developers &amp; Contributors</string>
     <string name="cross_fade_duration">Crossfade duration</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Help translate this app on crowdin</string>
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s.</string>
     <string name="custom_artist_images">Custom Artist Images</string>
@@ -147,6 +147,7 @@
     <string name="disable_battery_optimize">Disable Battery Optimization</string>
     <string name="disabled">Disabled</string>
     <string name="disc_hint">Disc Number</string>
+    <string name="discord_group_summary">Join our Discord server to discuss bugs and make suggestions</string>
     <string name="dismiss">Dismiss</string>
     <string name="do_you_want_to_clear_the_blacklist">Do you want to clear the blacklist?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Do you want to remove <b>%1$s</b> from the blacklist?]]></string>
@@ -270,7 +271,6 @@
     <string name="now_playing_queue">Now playing queue</string>
     <string name="now_playing_summary">Customize the now playing screen</string>
     <string name="off">Off</string>
-    <string name="on">On</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="other_settings_summary">Other features</string>
     <string name="others">Advanced</string>
@@ -289,7 +289,7 @@
     <string name="permissions">Permissions</string>
     <string name="permission_edit">Edit Permissions</string>
     <string name="personalize">Personalize</string>
-    <string name="personalize_settings_summary">Customize your library and lock screen</string>
+    <string name="personalize_settings_summary">Customize your library</string>
     <string name="pick_from_local_storage">Pick from local storage</string>
     <string name="playlist_name_empty_cant">Playlist name can\'t be empty</string>
     <string name="playlist_name_empty_shouldnt">Playlist name should\'nt be empty</string>
@@ -411,7 +411,6 @@
     <string name="rename_playlist_title">Rename playlist</string>
     <string name="repeat">Repeat</string>
     <string name="reset_action">Reset</string>
-    <string name="reset_categories">Library Categories Reset</string>
     <string name="reset_settings">Reset Settings</string>
     <string name="reset_settings_msg">Reset Settings to Default?\n\nThis will reset ALL settings including Shuffle, Bluetooth Autoplay setting and more\n\nThis App Will Restart to Complete the Reset Process!</string>
     <string name="reset_artist_image">Reset artist image</string>
@@ -470,7 +469,6 @@
     <string name="suggestion_songs">Suggestions</string>
     <string name="support_development">Support &amp; Development</string>
     <string name="tab_only">Tablet Mode Only</string>
-    <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Join the Telegram group to discuss bugs, make suggestions, show off and more</string>
     <string name="the_audio_file">The audio file</string>
     <string name="this_month">This month</string>

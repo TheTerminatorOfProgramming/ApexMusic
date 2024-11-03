@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_intro_skip_button">SKIP</string>
+    <string name="app_intro_done_button">DONE</string>
+    <string name="app_intro_image_content_description">graphics</string>
+</resources>

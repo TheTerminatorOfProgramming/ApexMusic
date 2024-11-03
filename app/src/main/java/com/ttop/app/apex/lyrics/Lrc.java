@@ -5,22 +5,22 @@ package com.ttop.app.apex.lyrics;
  * freedompaladin@gmail.com
  */
 public class Lrc {
-  private long time;
-  private String text;
+    private long time;
+    private String text;
 
-  public long getTime() {
-    return time;
-  }
+    public long getTime() {
+        return time;
+    }
 
-  public void setTime(long time) {
-    this.time = time;
-  }
+    public void setTime(long time) {
+        this.time = time;
+    }
 
-  public String getText() {
-    return text;
-  }
+    public String getText() {
+        return text;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setText(String text) {
+        this.text = text;
+    }
 }

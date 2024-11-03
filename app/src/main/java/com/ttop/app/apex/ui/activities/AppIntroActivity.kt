@@ -9,6 +9,10 @@ import androidx.preference.PreferenceManager
 import com.ttop.app.apex.DESATURATED_COLOR
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.libraries.appintro.AppIntro2
+import com.ttop.app.apex.libraries.appintro.AppIntroPageTransformerType
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.intro.BatterySlideFragment
 import com.ttop.app.apex.ui.fragments.intro.BluetoothAutoPlaySlideFragment
@@ -21,10 +25,6 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.AppIntroUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appintro.AppIntro2
-import com.ttop.app.appintro.AppIntroPageTransformerType
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.VersionUtils
 import java.io.File
 
 
@@ -110,7 +110,7 @@ class AppIntroActivity : AppIntro2() {
         if (ApexUtil.isFoldable(applicationContext)) {
             PreferenceManager.setDefaultValues(this, R.xml.pref_general_foldable, false)
             PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen_foldable, false)
-        }else {
+        } else {
             PreferenceManager.setDefaultValues(this, R.xml.pref_general, false)
             PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen, false)
         }
@@ -132,12 +132,12 @@ class AppIntroActivity : AppIntro2() {
         val lyricsDir = File(PreferenceUtil.lyricsPath + "/Apex/Lyrics/")
 
         if (backupDir != null) {
-            if (!backupDir.exists()){
+            if (!backupDir.exists()) {
                 backupDir.mkdirs()
             }
         }
 
-        if (!lyricsDir.exists()){
+        if (!lyricsDir.exists()) {
             lyricsDir.mkdirs()
         }
 

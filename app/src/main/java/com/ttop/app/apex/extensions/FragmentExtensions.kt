@@ -19,7 +19,10 @@ import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.PowerManager
 import android.widget.Toast
-import androidx.annotation.*
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.IntegerRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService

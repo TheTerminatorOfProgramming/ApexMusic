@@ -102,6 +102,7 @@ class CastPlayer(castSession: CastSession) : Playback, RemoteMediaClient.Callbac
                     callbacks?.onTrackEnded()
                 }
             }
+
             MediaStatus.PLAYER_STATE_PLAYING, MediaStatus.PLAYER_STATE_PAUSED -> {
                 callbacks?.onPlayStateChanged()
             }

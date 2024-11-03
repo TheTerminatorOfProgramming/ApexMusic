@@ -24,7 +24,12 @@ import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Playlist
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.repository.*
+import com.ttop.app.apex.repository.AlbumRepository
+import com.ttop.app.apex.repository.ArtistRepository
+import com.ttop.app.apex.repository.GenreRepository
+import com.ttop.app.apex.repository.PlaylistRepository
+import com.ttop.app.apex.repository.SongRepository
+import com.ttop.app.apex.repository.TopPlayedRepository
 import com.ttop.app.apex.service.MusicService.Companion.ACTION_QUIT
 import com.ttop.app.apex.service.MusicService.Companion.CYCLE_REPEAT
 import com.ttop.app.apex.service.MusicService.Companion.QUEUE_CHANGED
@@ -60,7 +65,7 @@ class MediaSessionCallback(
         val itemId = musicId?.toLong() ?: -1
         val songs: ArrayList<Song> = ArrayList()
         when (val category = AutoMediaIDHelper.extractCategory(mediaId)) {
-            AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SONGS-> {
+            AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SONGS -> {
                 val allSongs = songRepository.songs().toMutableList()
                 var songIndex = MusicUtil.indexOfSongInList(allSongs, itemId)
                 if (songIndex == -1) {
@@ -69,36 +74,43 @@ class MediaSessionCallback(
                 musicService.openQueue(allSongs, songIndex, true)
                 musicService.play()
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM -> {
                 val album: Album = albumRepository.album(itemId)
                 songs.addAll(album.songs)
                 musicService.openQueue(songs, 0, true)
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST -> {
                 val artist: Artist = artistRepository.artist(itemId)
                 songs.addAll(artist.songs)
                 musicService.openQueue(songs, 0, true)
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM_ARTIST -> {
                 val artist: Artist =
                     artistRepository.albumArtist(albumRepository.album(itemId).albumArtist!!)
                 songs.addAll(artist.songs)
                 musicService.openQueue(songs, 0, true)
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST -> {
                 val playlist: Playlist = playlistRepository.playlist(itemId)
                 songs.addAll(playlist.getSongs())
                 musicService.openQueue(songs, 0, true)
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE -> {
                 songs.addAll(genreRepository.songs(itemId))
                 musicService.openQueue(songs, 0, true)
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SHUFFLE -> {
                 val allSongs = songRepository.songs().toMutableList()
                 makeShuffleList(allSongs, -1)
                 musicService.openQueue(allSongs, 0, true)
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY,
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SUGGESTIONS,
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS,
@@ -211,23 +223,29 @@ class MediaSessionCallback(
                 cycleRepeatMode()
                 musicService.updateMediaSessionPlaybackState()
             }
+
             TOGGLE_SHUFFLE -> {
                 musicService.toggleShuffle()
                 musicService.updateMediaSessionPlaybackState()
             }
+
             TOGGLE_FAVORITE -> {
                 musicService.toggleFavorite()
                 musicService.updateMediaSessionPlaybackState()
             }
+
             UPDATE_NOTIFY -> {
                 musicService.updatePlaybackControls()
             }
+
             ACTION_QUIT -> {
                 musicService.quit()
             }
+
             QUEUE_CHANGED -> {
                 musicService.clearQueue()
             }
+
             else -> {
                 logE("Unsupported action: $action")
             }

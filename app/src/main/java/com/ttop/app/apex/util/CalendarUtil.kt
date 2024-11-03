@@ -13,7 +13,8 @@
  */
 package com.ttop.app.apex.util
 
-import java.util.*
+import java.util.Calendar
+import java.util.GregorianCalendar
 
 /** @author Eugene Cheung (arkon)
  */

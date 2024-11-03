@@ -84,6 +84,7 @@ import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.activities.AppIntroActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
@@ -91,11 +92,11 @@ import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Classic
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Gradient
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Live
-import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Minimal
+import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Peek
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.other.MiniPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.adaptive.AdaptiveFragment
@@ -104,14 +105,13 @@ import com.ttop.app.apex.ui.fragments.player.card.CardFragment
 import com.ttop.app.apex.ui.fragments.player.classic.ClassicPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.gradient.GradientPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.live.LivePlayerFragment
-import com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.minimal.TinyPlayerFragment
+import com.ttop.app.apex.ui.fragments.player.peek.PeekPlayerFragment
 import com.ttop.app.apex.ui.fragments.queue.PlayingQueueFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
-import com.ttop.app.appthemehelper.util.VersionUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -143,16 +143,16 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-                if(handleBackPress()){
-                    return
-                }
-                val navHostFragment  =
-                    supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-                if(!navHostFragment.navController.navigateUp()){
-                    finish()
-                }
+            if (handleBackPress()) {
+                return
+            }
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+            if (!navHostFragment.navController.navigateUp()) {
+                finish()
             }
         }
+    }
 
     private val bottomSheetCallbackList by lazy {
         object : BottomSheetBehavior.BottomSheetCallback() {
@@ -173,7 +173,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (!VersionUtils.hasVanillaIceCream()) {
                         if (PreferenceUtil.appbarColor) {
                             window.statusBarColor = surfaceColor()
-                        }else {
+                        } else {
                             window.statusBarColor = darkAccentColor()
                         }
                     }
@@ -189,72 +189,81 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
                                 window.statusBarColor = paletteColor
-                            }else {
+                            } else {
                                 if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                                     window.navigationBarColor = Color.BLACK
-                                }else {
+                                } else {
                                     window.navigationBarColor = accentColor()
                                 }
-                                window.statusBarColor = surfaceColor()
+
+                                window.statusBarColor = Color.TRANSPARENT
                             }
                         }
+
                         Blur -> {
                             window.navigationBarColor = Color.BLACK
                             window.statusBarColor = Color.TRANSPARENT
                         }
+
                         Card -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
-                            }else {
+                            } else {
                                 if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                                     window.navigationBarColor = Color.BLACK
-                                }else {
+                                } else {
                                     window.navigationBarColor = accentColor()
                                 }
                             }
                             window.statusBarColor = Color.TRANSPARENT
                         }
+
                         Classic -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
 
                                 if (PreferenceUtil.isPlayerBackgroundType) {
                                     window.statusBarColor = Color.TRANSPARENT
-                                }else {
+                                } else {
                                     window.statusBarColor = paletteColor
                                 }
-                            }else {
+                            } else {
                                 if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                                     window.navigationBarColor = Color.BLACK
-                                }else {
+                                } else {
                                     window.navigationBarColor = accentColor()
                                 }
-                                window.statusBarColor = surfaceColor()
+
+                                window.statusBarColor = Color.TRANSPARENT
                             }
                         }
+
                         Gradient -> {
                             window.navigationBarColor = paletteColor
                         }
+
                         Live -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
-                            }else {
+                            } else {
                                 if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                                     window.navigationBarColor = Color.BLACK
-                                }else {
+                                } else {
                                     window.navigationBarColor = accentColor()
                                 }
                             }
                             window.statusBarColor = Color.TRANSPARENT
                         }
+
                         Minimal -> {
                             window.navigationBarColor = paletteColor
                             window.statusBarColor = Color.TRANSPARENT
                         }
+
                         Peek -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
-                            }else {
+                            } else {
                                 window.navigationBarColor = accentColor()
                             }
                         }
@@ -263,7 +272,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if(panelStateCurrent != null){
+                if (panelStateCurrent != null) {
                     panelStateBefore = panelStateCurrent
                 }
                 panelStateCurrent = newState
@@ -278,6 +287,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             keepScreenOn(true)
                         }
                     }
+
                     STATE_COLLAPSED -> {
                         onPanelCollapsed()
                         if ((PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) || !PreferenceUtil.isScreenOnEnabled) {
@@ -293,23 +303,26 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             postRecreate()
                         }
                     }
+
                     STATE_SETTLING, STATE_DRAGGING -> {
                         if (fromNotification) {
                             binding.navigationView.bringToFront()
                             fromNotification = false
                         }
                     }
+
                     STATE_HIDDEN -> {
                         MusicPlayerRemote.clearQueue()
                         window.navigationBarColor = darkAccentColor()
                         if (!VersionUtils.hasVanillaIceCream()) {
                             if (PreferenceUtil.appbarColor) {
                                 window.statusBarColor = surfaceColor()
-                            }else {
+                            } else {
                                 window.statusBarColor = darkAccentColor()
                             }
                         }
                     }
+
                     else -> {
                         logD("Do a flip")
                     }
@@ -365,9 +378,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         if (!VersionUtils.hasVanillaIceCream()) {
             if (PreferenceUtil.appbarColor) {
                 window.statusBarColor = surfaceColor()
-            }else {
+            } else {
                 window.statusBarColor = darkAccentColor()
             }
+        }
+        if (!ApexUtil.isTablet) {
+            requestedOrientation = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         }
     }
 
@@ -396,60 +412,67 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 Adaptive -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
                     }
                 }
+
                 Blur -> {
                     window.navigationBarColor = Color.BLACK
                 }
+
                 Card -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
                     }
                 }
+
                 Classic -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
                     }
                 }
+
                 Gradient -> {
                     window.navigationBarColor = paletteColor
                 }
+
                 Live -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
                     }
                 }
+
                 Minimal -> {
                     window.navigationBarColor = paletteColor
                 }
+
                 Peek -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                    }else {
+                    } else {
                         window.navigationBarColor = accentColor()
                     }
                 }
@@ -462,7 +485,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             if (!VersionUtils.hasVanillaIceCream()) {
                 if (PreferenceUtil.appbarColor) {
                     window.statusBarColor = surfaceColor()
-                }else {
+                } else {
                     window.statusBarColor = darkAccentColor()
                 }
             }
@@ -474,7 +497,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             if (!VersionUtils.hasVanillaIceCream()) {
                 if (PreferenceUtil.appbarColor) {
                     window.statusBarColor = surfaceColor()
-                }else {
+                } else {
                     window.statusBarColor = darkAccentColor()
                 }
             }
@@ -507,6 +530,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             TOGGLE_ADD_CONTROLS -> {
                 miniPlayerFragment?.setUpButtons()
             }
+
             NOW_PLAYING_SCREEN_ID -> {
                 chooseFragmentForTheme()
                 binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
@@ -518,6 +542,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     onServiceConnected()
                 }
             }
+
             ALBUM_COVER_TRANSFORM, CAROUSEL_EFFECT,
             ALBUM_COVER_STYLE, ADAPTIVE_COLOR_APP,
             COLOR_ANIMATE, PLAYER_BACKGROUND,
@@ -527,18 +552,22 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 chooseFragmentForTheme()
                 onServiceConnected()
             }
+
             SWIPE_ANYWHERE_NOW_PLAYING -> {
                 playerFragment.addSwipeDetector()
             }
+
             SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE -> {
                 playerFragment.addSwipeDetectorNonFoldable()
             }
+
             LIBRARY_CATEGORIES -> {
                 updateTabs()
                 navigationView.menu.findItem(R.id.action_settings_fragment).isChecked = true
                 navigationView.menu.findItem(R.id.action_queue_fragment).isChecked = true
                 navigationView.menu.findItem(R.id.action_settings_fragment).isChecked = true
             }
+
             TAB_TEXT_MODE -> {
                 navigationView.labelVisibilityMode = PreferenceUtil.tabTitleMode
             }
@@ -548,20 +577,25 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     "id3" -> {
                         keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn || PreferenceUtil.isScreenOnEnabled)
                     }
+
                     "synced" -> {
                         keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet || PreferenceUtil.isScreenOnEnabled)
                     }
+
                     "both" -> {
-                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet|| bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn || PreferenceUtil.isScreenOnEnabled)
+                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet || bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn || PreferenceUtil.isScreenOnEnabled)
                     }
+
                     "disabled" -> {
                         keepScreenOn(PreferenceUtil.isScreenOnEnabled)
                     }
                 }
             }
+
             KEEP_SCREEN_ON -> {
                 maybeSetScreenOn()
             }
+
             AUTO_ROTATE -> {
                 requestedOrientation = if (ApexUtil.isTablet) {
                     if (PreferenceUtil.isAutoRotate) {
@@ -570,14 +604,15 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                     }
                 } else {
-                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 }
             }
+
             TRANSPARENT_MINI_PLAYER -> {
                 if (bottomSheetBehavior.state == STATE_COLLAPSED) {
                     if (PreferenceUtil.isMiniPlayerTransparent) {
                         binding.slidingPanel.alpha = 0.7f
-                    }else {
+                    } else {
                         binding.slidingPanel.alpha = 1f
                     }
                 }
@@ -611,7 +646,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         binding.navigationView.translationY = progress * 500
         binding.navigationView.alpha = alpha
         //if (!isLandscape) {
-       //     binding.navigationView.translationY = progress * 500
+        //     binding.navigationView.translationY = progress * 500
         //    binding.navigationView.alpha = alpha
         //}
         binding.playerFragmentContainer.alpha = (progress - 0.2F) / 0.2F
@@ -632,7 +667,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         if (!VersionUtils.hasVanillaIceCream()) {
             if (PreferenceUtil.appbarColor) {
                 window.statusBarColor = surfaceColor()
-            }else {
+            } else {
                 window.statusBarColor = darkAccentColor()
             }
         }
@@ -650,60 +685,67 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             Adaptive -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
-                }else {
+                } else {
                     if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                         window.navigationBarColor = Color.BLACK
-                    }else {
+                    } else {
                         window.navigationBarColor = accentColor()
                     }
                 }
             }
+
             Blur -> {
                 window.navigationBarColor = Color.BLACK
             }
+
             Card -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
-                }else {
+                } else {
                     if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                         window.navigationBarColor = Color.BLACK
-                    }else {
+                    } else {
                         window.navigationBarColor = accentColor()
                     }
                 }
             }
+
             Classic -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
-                }else {
+                } else {
                     if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                         window.navigationBarColor = Color.BLACK
-                    }else {
+                    } else {
                         window.navigationBarColor = accentColor()
                     }
                 }
             }
+
             Gradient -> {
                 window.navigationBarColor = paletteColor
             }
+
             Live -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
-                }else {
+                } else {
                     if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                         window.navigationBarColor = Color.BLACK
-                    }else {
+                    } else {
                         window.navigationBarColor = accentColor()
                     }
                 }
             }
+
             Minimal -> {
                 window.navigationBarColor = paletteColor
             }
+
             Peek -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
-                }else {
+                } else {
                     window.navigationBarColor = accentColor()
                 }
             }
@@ -779,30 +821,32 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         window.statusBarColor = paletteColor
 
                         setLightStatusBar(isColorLight)
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
-                        window.statusBarColor = surfaceColor()
 
+                        window.statusBarColor = Color.TRANSPARENT
                         setLightStatusBarAuto()
                     }
                 }
+
                 Blur -> {
                     window.navigationBarColor = Color.BLACK
                     window.statusBarColor = Color.TRANSPARENT
 
                     setLightStatusBar(false)
                 }
+
                 Card -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
                     }
@@ -810,58 +854,64 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
                     setLightStatusBar(false)
                 }
+
                 Classic -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
 
                         if (PreferenceUtil.isPlayerBackgroundType) {
                             window.statusBarColor = Color.TRANSPARENT
-                        }else {
+                        } else {
                             window.statusBarColor = paletteColor
                         }
                         setLightStatusBar(isColorLight)
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
-                        window.statusBarColor = surfaceColor()
+
+                        window.statusBarColor = Color.TRANSPARENT
 
                         setLightStatusBarAuto()
                     }
                 }
+
                 Gradient -> {
                     window.navigationBarColor = paletteColor
                     window.statusBarColor = Color.TRANSPARENT
 
                     setLightStatusBar(isColorLight)
                 }
+
                 Live -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
 
                         setLightStatusBar(isColorLight)
-                    }else {
+                    } else {
                         if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
                             window.navigationBarColor = Color.BLACK
-                        }else {
+                        } else {
                             window.navigationBarColor = accentColor()
                         }
                         setLightStatusBarAuto()
                     }
                     window.statusBarColor = Color.TRANSPARENT
                 }
+
                 Minimal -> {
                     window.navigationBarColor = paletteColor
                     window.statusBarColor = Color.TRANSPARENT
 
                     setLightStatusBar(isColorLight)
                 }
+
                 Peek -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                    }else {
+                    } else {
                         window.navigationBarColor = accentColor()
                     }
                 }

@@ -37,14 +37,17 @@ class VerticalFlipTransformation : ViewPager.PageTransformer {
                     // This page is way off-screen to the left.
                     alpha = 0f
                 }
+
                 position <= 0 -> {    // [-1,0]
                     alpha = 1f
                     rotationY = 180 * (1 - abs(position) + 1)
                 }
+
                 position <= 1 -> {    // (0,1]
                     alpha = 1f
                     rotationY = -180 * (1 - abs(position) + 1)
                 }
+
                 else -> {    // (1,+Infinity]
                     // This page is way off-screen to the right.
                     alpha = 0f

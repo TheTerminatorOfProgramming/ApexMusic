@@ -49,6 +49,7 @@
     <string name="action_shuffle_playlist">Playlist no aleatório</string>
     <string name="action_sleep_timer">Timer de desativação</string>
     <string name="action_sort_order">Ordem de classificação</string>
+    <string name="action_stop">Parar</string>
     <string name="action_tag_editor">Editor de Tags</string>
     <string name="action_toggle_favorite">Ativar/Desativar favorito</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
@@ -61,14 +62,14 @@
     <string name="added_x_titles_to_playing_queue">Títulos %1$d adicionados à fila de reprodução</string>
     <string name="album">Álbum</string>
     <plurals name="albumSongs">
-        <item quantity="one">Acompanhar%d</item>
+        <item quantity="one">Acompanhar %d</item>
         <item quantity="other">Acompanhamentos</item>
         <item quantity="many">Acompanhamentos</item>
     </plurals>
     <string name="album_artist">Artista do álbum</string>
     <string name="albums">álbuns</string>
     <plurals name="albums">
-        <item quantity="one">Álbum%d</item>
+        <item quantity="one">Álbum %d</item>
         <item quantity="other">álbuns</item>
         <item quantity="many">álbuns</item>
     </plurals>
@@ -129,7 +130,6 @@
     <string name="create_new_backup">Crio</string>
     <string name="credit_title">Desenvolvedores &amp; Colaboradores</string>
     <string name="cross_fade_duration">Duração do crossfade</string>
-    <string name="crowdin">Crowdin</string>
     <string name="crowdin_summary">Ajude a traduzir este aplicativo no Crowdin</string>
     <string name="currently_listening_to_x_by_x">Atualmente ouvindo %1$s por %2$s.</string>
     <string name="custom_artist_images">Imagens do Artista Personalizado</string>
@@ -147,6 +147,7 @@
     <string name="disable_battery_optimize">Desativar Otimização de bateria</string>
     <string name="disabled">Desabilitado</string>
     <string name="disc_hint">Número de disco</string>
+    <string name="discord_group_summary">Entre no nosso servidor do Discord para discutir bugs e fazer sugestões</string>
     <string name="dismiss">Descartar</string>
     <string name="do_you_want_to_clear_the_blacklist">Deseja limpar a lista negra?</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Você quer remover <b>%1$s</b> da lista negra?]]></string>
@@ -289,7 +290,7 @@
     <string name="permissions">Permissões</string>
     <string name="permission_edit">Editar Permissões</string>
     <string name="personalize">Personalizar</string>
-    <string name="personalize_settings_summary">Personalizar sua biblioteca e tela de bloqueio</string>
+    <string name="personalize_settings_summary">Personalizar a sua biblioteca</string>
     <string name="pick_from_local_storage">Escolher do armazenamento local</string>
     <string name="playlist_name_empty_cant">Nome da playlist não pode estar vazio</string>
     <string name="playlist_name_empty_shouldnt">O nome da lista de reprodução não deve estar vazio</string>
@@ -384,6 +385,7 @@
     <string name="pref_title_search_icon">Pesquisa de voz no cabeçalho</string>
     <string name="pref_title_shuffle_state">Manter estado aleatório</string>
     <string name="pref_title_specific_device">Dispositivo Específico</string>
+    <string name="pref_title_squircle_art_widgets">Arte do álbum quadrada arredondada</string>
     <string name="pref_title_suggestions">Exibir sugestões</string>
     <string name="pref_title_swipe_anywhere_now_playing">Deslize em qualquer lugar para alterar a faixa</string>
     <string name="pref_title_swipe_gestures">Gestos de deslize</string>
@@ -441,7 +443,7 @@
     <string name="show_player_on_app_launch">Sempre Mostrar ao iniciar o aplicativo</string>
     <string name="shuffle">Aleatório</string>
     <string name="shuffle_button">Shuffle Button</string>
-    <string name="shuffle_button_desc">Use isso para criar uma fila de reprodução embaralhada</string>
+    <string name="shuffle_button_desc">Use isto para criar uma fila de reprodução embaralhada</string>
     <string name="simple">Simples</string>
     <string name="sleep_timer_canceled">Timer cancelado.</string>
     <string name="sleep_timer_set">Timer definido para %d minutos a partir de agora.</string>
@@ -469,7 +471,6 @@
     <string name="suggestion_songs">Sugestões</string>
     <string name="support_development">Suporte &amp; Desenvolvimento</string>
     <string name="tab_only">Modo Tablet Apenas</string>
-    <string name="telegram_group">Telegram</string>
     <string name="telegram_group_summary">Junte-se ao grupo do Telegram para discutir problemas, fazer sugestões, exibir e muito mais</string>
     <string name="the_audio_file">O arquivo de áudio</string>
     <string name="this_month">Este Mês</string>
@@ -495,6 +496,7 @@
     <string name="user_images_description">Imagens do usuário</string>
     <string name="version">Versão</string>
     <string name="vertical_flip">Jogar verticalmente</string>
+    <string name="volume">Volume</string>
     <string name="warning_fade">Aviso! Pode causar problemas inesperados com reprodução</string>
     <string name="warning_fade_cancelled">Alterações Revertidas</string>
     <string name="web_search">Pesquisa na internet</string>

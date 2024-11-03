@@ -30,6 +30,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.ttop.app.apex.R
 import com.ttop.app.apex.glide.ApexGlideExtension
+import com.ttop.app.apex.glide.ApexGlideExtension.getDefaultTransition
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.service.MusicService
@@ -56,7 +57,8 @@ class PlayingNotificationImpl24(
                 context,
                 0,
                 action,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
 
         val serviceName = ComponentName(context, MusicService::class.java)
         val intent = Intent(ACTION_QUIT)
@@ -65,7 +67,8 @@ class PlayingNotificationImpl24(
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         val toggleFavoriteOrUpdate = buildFavoriteUpdateAction(false)
         val playPauseAction = buildPlayAction(true)
@@ -109,42 +112,44 @@ class PlayingNotificationImpl24(
         setSubText(song.albumName)
         val bigNotificationImageSize = context.resources
             .getDimensionPixelSize(R.dimen.notification_big_image_size)
-        Glide.with(context)
-            .asBitmap()
-            .songCoverOptions(song)
-            .load(ApexGlideExtension.getSongModel(song))
-            //.checkIgnoreMediaStore()
-            .centerCrop()
-            .into(object : CustomTarget<Bitmap>(
-                bigNotificationImageSize,
-                bigNotificationImageSize
-            ) {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    setLargeIcon(resource)
-                    onUpdate()
-                }
+        context.runOnUiThread {
+            Glide.with(context).asBitmap().songCoverOptions(song)
+                .load(ApexGlideExtension.getSongModel(song))
+                .transition(getDefaultTransition())
+                .into(object : CustomTarget<Bitmap>(
+                    bigNotificationImageSize,
+                    bigNotificationImageSize
+                ) {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        setLargeIcon(resource)
+                        onUpdate()
+                    }
 
-                override fun onLoadFailed(errorDrawable: Drawable?) {
-                    super.onLoadFailed(errorDrawable)
-                    setLargeIcon(
-                        BitmapFactory.decodeResource(
-                            context.resources,
-                            R.drawable.default_audio_art
+                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                        super.onLoadFailed(errorDrawable)
+                        setLargeIcon(
+                            BitmapFactory.decodeResource(
+                                context.resources,
+                                R.drawable.default_audio_art
+                            )
                         )
-                    )
-                    onUpdate()
-                }
+                        onUpdate()
+                    }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    setLargeIcon(
-                        BitmapFactory.decodeResource(
-                            context.resources,
-                            R.drawable.default_audio_art
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        setLargeIcon(
+                            BitmapFactory.decodeResource(
+                                context.resources,
+                                R.drawable.default_audio_art
+                            )
                         )
-                    )
-                    onUpdate()
-                }
-            })
+                        onUpdate()
+                    }
+                })
+        }
     }
 
     private fun buildPlayAction(isPlaying: Boolean): NotificationCompat.Action {
@@ -180,7 +185,8 @@ class PlayingNotificationImpl24(
         val intent = Intent(action)
         intent.component = serviceName
         return PendingIntent.getService(
-            context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+        )
     }
 
     companion object {

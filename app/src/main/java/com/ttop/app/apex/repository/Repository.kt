@@ -17,9 +17,29 @@ package com.ttop.app.apex.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.ttop.app.apex.*
-import com.ttop.app.apex.db.*
-import com.ttop.app.apex.model.*
+import com.ttop.app.apex.FAVOURITES
+import com.ttop.app.apex.GENRES
+import com.ttop.app.apex.PLAYLISTS
+import com.ttop.app.apex.R
+import com.ttop.app.apex.RECENT_ALBUMS
+import com.ttop.app.apex.RECENT_ARTISTS
+import com.ttop.app.apex.TOP_ALBUMS
+import com.ttop.app.apex.TOP_ARTISTS
+import com.ttop.app.apex.db.HistoryEntity
+import com.ttop.app.apex.db.PlayCountEntity
+import com.ttop.app.apex.db.PlaylistEntity
+import com.ttop.app.apex.db.PlaylistWithSongs
+import com.ttop.app.apex.db.SongEntity
+import com.ttop.app.apex.db.fromHistoryToSongs
+import com.ttop.app.apex.db.toSong
+import com.ttop.app.apex.model.AbsCustomPlaylist
+import com.ttop.app.apex.model.Album
+import com.ttop.app.apex.model.Artist
+import com.ttop.app.apex.model.Contributor
+import com.ttop.app.apex.model.Genre
+import com.ttop.app.apex.model.Home
+import com.ttop.app.apex.model.Playlist
+import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.model.smartplaylist.NotPlayedPlaylist
 import com.ttop.app.apex.network.LastFMService
 import com.ttop.app.apex.network.Result
@@ -227,8 +247,8 @@ class RealRepository(
     override suspend fun fetchPlaylistWithSongs(): List<PlaylistWithSongs> =
         roomRepository.playlistWithSongs()
 
-    override fun getPlaylist(playlistId: Long): LiveData<PlaylistWithSongs> = roomRepository.getPlaylist(playlistId)
-
+    override fun getPlaylist(playlistId: Long): LiveData<PlaylistWithSongs> =
+        roomRepository.getPlaylist(playlistId)
 
 
     override suspend fun playlistSongs(playlistWithSongs: PlaylistWithSongs): List<Song> =

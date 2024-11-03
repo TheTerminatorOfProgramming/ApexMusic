@@ -32,12 +32,12 @@ import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
+import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.base.AbsThemeActivity
 import com.ttop.app.apex.util.Share
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
-import com.ttop.app.appthemehelper.util.ColorUtil
-import com.ttop.app.appthemehelper.util.MaterialValueHelper
 
 /**
  * Created by hemanths on 2020-02-02.
@@ -68,7 +68,8 @@ class ShareInstagramStory : AbsThemeActivity() {
         binding.toolbar.setBackgroundColor(Color.TRANSPARENT)
         setSupportActionBar(binding.toolbar)
 
-        val song = intent.extras?.let { BundleCompat.getParcelable(it, EXTRA_SONG, Song::class.java) }
+        val song =
+            intent.extras?.let { BundleCompat.getParcelable(it, EXTRA_SONG, Song::class.java) }
         song?.let { songFinal ->
             Glide.with(this)
                 .asBitmapPalette()
@@ -97,7 +98,7 @@ class ShareInstagramStory : AbsThemeActivity() {
         binding.shareButton.setTextColor(
             MaterialValueHelper.getPrimaryTextColor(
                 this,
-                ColorUtil.isColorLight(accentColor())
+                ATHColorUtil.isColorLight(accentColor())
             )
         )
         binding.shareButton.backgroundTintList =

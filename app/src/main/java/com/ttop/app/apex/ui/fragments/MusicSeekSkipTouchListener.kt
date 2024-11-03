@@ -9,7 +9,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.util.PreferenceUtil
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
 /**
@@ -42,12 +47,16 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
 
                         var seekingDuration = MusicPlayerRemote.songProgressMillis
                         if (next) {
-                            seekingDuration += (PreferenceUtil.fastForwardDuration * 1000) * (counter.floorDiv(2) + 1)
+                            seekingDuration += (PreferenceUtil.fastForwardDuration * 1000) * (counter.floorDiv(
+                                2
+                            ) + 1)
                             if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                               v?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                                v?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                             }
                         } else {
-                            seekingDuration -= (PreferenceUtil.rewindDuration * 1000) * (counter.floorDiv(2) + 1)
+                            seekingDuration -= (PreferenceUtil.rewindDuration * 1000) * (counter.floorDiv(
+                                2
+                            ) + 1)
                             v?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                         }
                         withContext(Dispatchers.Main) {
@@ -57,6 +66,7 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                     }
                 }
             }
+
             MotionEvent.ACTION_UP -> {
                 job?.cancel()
                 val endX = event.x
@@ -65,13 +75,13 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                     if (next) {
                         if (PreferenceUtil.isAutoplay) {
                             MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                        }else {
+                        } else {
                             MusicPlayerRemote.playNextSong()
                         }
                     } else {
                         if (PreferenceUtil.isAutoplay) {
                             MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                        }else {
+                        } else {
                             MusicPlayerRemote.playPreviousSong()
                         }
                     }
@@ -79,6 +89,7 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
 
                 wasSeeking = false
             }
+
             MotionEvent.ACTION_CANCEL -> {
                 job?.cancel()
             }

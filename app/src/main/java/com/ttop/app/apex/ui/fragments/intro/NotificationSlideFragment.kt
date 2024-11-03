@@ -8,14 +8,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
-import com.ttop.app.appintro.SlideBackgroundColorHolder
+import com.ttop.app.apex.libraries.appintro.SlideBackgroundColorHolder
 
 class NotificationSlideFragment(
     override val defaultBackgroundColorRes: Int
 ) : Fragment(), SlideBackgroundColorHolder {
 
     //Required Constructor
-    constructor() : this(com.ttop.app.appthemehelper.R.color.md_blue_500)
+    constructor() : this(R.color.md_blue_500)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +26,12 @@ class NotificationSlideFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_blue_500))
+        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
     }
+
     companion object {
         fun newInstance(): NotificationSlideFragment {
-            return NotificationSlideFragment(com.ttop.app.appthemehelper.R.color.md_blue_500)
+            return NotificationSlideFragment(R.color.md_blue_500)
         }
     }
 

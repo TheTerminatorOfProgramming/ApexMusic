@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_widget_full"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_widget_background"
-    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
     android:backgroundTint="?attr/colorSurface"
-    android:id="@+id/app_widget_full">
+    android:theme="@style/Theme.Material3.DynamicColors.DayNight">
 
     <RelativeLayout
         android:id="@+id/imageLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@id/button_update">
+        android:layout_above="@id/button_update"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/image"
@@ -29,14 +29,13 @@
         android:id="@+id/button_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
         android:layout_above="@id/media_actions"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/app_widget_buttons_circular_daynight"
         android:scaleType="fitCenter"
-        tools:src="@drawable/ic_refresh"
-        tools:tint="?android:attr/textColorPrimary" />
+        android:src="@drawable/ic_refresh_day_night" />
 
     <LinearLayout
         android:id="@+id/media_actions"
@@ -59,9 +58,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewSubtitle3"
-                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:strokeColor="@color/day_night"
                 tools:text="Title" />
 
             <TextView
@@ -70,9 +69,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewSubtitle3"
-                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:strokeColor="@color/day_night"
                 tools:text="Text" />
 
             <TextView
@@ -81,53 +80,61 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?android:attr/textColorPrimary"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:strokeColor="@color/day_night"
                 tools:text="01:32/04:51" />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/media_action"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/centerPoint"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="" />
 
             <ImageButton
                 android:id="@+id/button_prev"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_toStartOf="@id/button_toggle_play_pause"
-                android:layout_marginEnd="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="35dp"
+                android:layout_toStartOf="@id/centerPoint"
                 android:background="@drawable/app_widget_buttons_circular_daynight"
                 android:scaleType="fitCenter"
-                tools:src="@drawable/ic_skip_previous"
-                tools:tint="?android:attr/textColorPrimary" />
-
-            <ImageButton
-                android:id="@+id/button_toggle_play_pause"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/app_widget_buttons_circular_daynight"
-                android:scaleType="fitCenter"
-                android:layout_centerInParent="true"
-                tools:src="@drawable/ic_play_arrow"
-                tools:tint="?android:attr/textColorPrimary" />
+                android:src="@drawable/ic_skip_previous_day_night" />
 
             <ImageButton
                 android:id="@+id/button_next"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_toEndOf="@id/button_toggle_play_pause"
-                android:layout_marginStart="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="35dp"
+                android:layout_toEndOf="@id/centerPoint"
                 android:background="@drawable/app_widget_buttons_circular_daynight"
                 android:scaleType="fitCenter"
-                tools:src="@drawable/ic_skip_next"
-                tools:tint="?android:attr/textColorPrimary" />
+                android:src="@drawable/ic_skip_next_day_night" />
 
+            <ImageButton
+                android:id="@+id/button_toggle_play_pause"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/app_widget_buttons_rounded_square_daynight"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/ic_play_arrow" />
         </RelativeLayout>
 
     </LinearLayout>

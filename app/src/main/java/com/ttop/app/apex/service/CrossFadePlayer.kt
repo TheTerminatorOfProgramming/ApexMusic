@@ -14,7 +14,13 @@ import com.ttop.app.apex.service.AudioFader.Companion.createFadeAnimator
 import com.ttop.app.apex.service.playback.Playback.PlaybackCallbacks
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 /** @author Prathamesh M */
 
@@ -33,7 +39,7 @@ class CrossFadePlayer(context: Context) : LocalPlayback(context) {
     private var durationListener = DurationListener()
     private var mIsInitialized = false
     private var hasDataSource: Boolean = false /* Whether first player has DataSource */
-    private var nextDataSource:String? = null
+    private var nextDataSource: String? = null
     private var crossFadeAnimator: Animator? = null
     override var callbacks: PlaybackCallbacks? = null
     private var crossFadeDuration = PreferenceUtil.crossFadeDuration
@@ -210,9 +216,11 @@ class CrossFadePlayer(context: Context) : LocalPlayback(context) {
             CurrentPlayer.PLAYER_ONE -> {
                 player1
             }
+
             CurrentPlayer.PLAYER_TWO -> {
                 player2
             }
+
             CurrentPlayer.NOT_SET -> {
                 null
             }
@@ -224,9 +232,11 @@ class CrossFadePlayer(context: Context) : LocalPlayback(context) {
             CurrentPlayer.PLAYER_ONE -> {
                 player2
             }
+
             CurrentPlayer.PLAYER_TWO -> {
                 player1
             }
+
             CurrentPlayer.NOT_SET -> {
                 null
             }

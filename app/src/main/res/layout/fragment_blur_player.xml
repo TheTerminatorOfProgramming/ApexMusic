@@ -52,9 +52,9 @@
             android:id="@+id/playerAlbumCoverFragment"
             android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
-        <com.ttop.app.fastscroller.FastScrollNestedScrollView
+        <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -68,7 +68,7 @@
                 android:background="@color/transparent"
                 android:paddingStart="4dp"
                 android:paddingEnd="5dp" />
-        </com.ttop.app.fastscroller.FastScrollNestedScrollView>
+        </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView

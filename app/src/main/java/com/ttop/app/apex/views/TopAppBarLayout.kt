@@ -12,11 +12,12 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
 import com.ttop.app.apex.extensions.accentColor
+
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.util.VersionUtils
 import dev.chrisbanes.insetter.applyInsetter
 
 class TopAppBarLayout @JvmOverloads constructor(
@@ -39,7 +40,7 @@ class TopAppBarLayout @JvmOverloads constructor(
         if (!VersionUtils.hasVanillaIceCream()) {
             if (PreferenceUtil.appbarColor) {
                 simpleAppbarBinding?.root?.setBackgroundColor(context.surfaceColor())
-            }else {
+            } else {
                 simpleAppbarBinding?.root?.setBackgroundColor(context.darkAccentColor())
             }
         }
@@ -47,7 +48,7 @@ class TopAppBarLayout @JvmOverloads constructor(
         simpleAppbarBinding?.root?.updateLayoutParams<LayoutParams> {
             scrollFlags = if (PreferenceUtil.disableAppBarScroll) {
                 SCROLL_FLAG_NO_SCROLL
-            }else {
+            } else {
                 (SCROLL_FLAG_SCROLL or SCROLL_FLAG_ENTER_ALWAYS)
             }
         }
@@ -64,7 +65,6 @@ class TopAppBarLayout @JvmOverloads constructor(
 
     var title: CharSequence
         get() = simpleAppbarBinding?.toolbar?.title.toString()
-
         set(value) {
             simpleAppbarBinding?.toolbar?.title = value
 

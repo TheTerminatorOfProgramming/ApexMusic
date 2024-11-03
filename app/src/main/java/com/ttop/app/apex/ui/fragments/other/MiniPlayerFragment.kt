@@ -33,6 +33,7 @@ import com.ttop.app.apex.PROGRESS_BAR_STYLE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentMiniPlayerBinding
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.addAlpha
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
@@ -42,14 +43,14 @@ import com.ttop.app.apex.helper.PlayPauseButtonOnClickHandler
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.ColorUtil
 import kotlin.math.abs
 
 
 open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_player),
-    MusicProgressViewUpdateHelper.Callback, View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
+    MusicProgressViewUpdateHelper.Callback, View.OnClickListener,
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var _binding: FragmentMiniPlayerBinding? = null
     private val binding get() = _binding!!
@@ -88,7 +89,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         _binding = FragmentMiniPlayerBinding.bind(view)
 
         when (PreferenceUtil.progressBarStyle) {
-            "circular", "circular_no_track"-> {
+            "circular", "circular_no_track" -> {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.progressBarHorizontalTop.visibility = View.GONE
                 binding.progressBarHorizontalBottom.visibility = View.GONE
@@ -136,29 +137,29 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private fun setUpMiniPlayer() {
         setUpPlayPauseButton()
 
-        val colorFinal = ColorUtil.withAlpha(accentColor(), 0.4F)
+        val indicatorColor = if (PreferenceUtil.materialYou) {
+            ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+        } else {
+            ColorUtil.getComplimentColor(accentColor())
+        }
+        val colorFinal = indicatorColor.addAlpha(0.4F)
 
-        binding.progressBar.setIndicatorColor(accentColor())
+        binding.progressBar.setIndicatorColor(indicatorColor)
 
         if (PreferenceUtil.progressBarStyle == "circular") {
             binding.progressBar.trackColor = colorFinal
         }
 
         if (PreferenceUtil.progressBarStyle == "circular_no_track") {
-            binding.progressBar.trackColor = ContextCompat.getColor(requireContext(), R.color.transparent)
+            binding.progressBar.trackColor =
+                ContextCompat.getColor(requireContext(), R.color.transparent)
         }
 
-        binding.progressBarHorizontalTop.supportProgressTintList = context?.let {
-            ThemeStore.accentColor(
-                it
-            )
-        }?.let { ColorStateList.valueOf(it) }
+        binding.progressBarHorizontalTop.supportProgressTintList =
+            ColorStateList.valueOf(indicatorColor)
 
-        binding.progressBarHorizontalBottom.supportProgressTintList = context?.let {
-            ThemeStore.accentColor(
-                it
-            )
-        }?.let { ColorStateList.valueOf(it) }
+        binding.progressBarHorizontalBottom.supportProgressTintList =
+            ColorStateList.valueOf(indicatorColor)
     }
 
     private fun setUpPlayPauseButton() {
@@ -168,6 +169,12 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     }
 
     private fun updateSongTitle() {
+        val indicatorColor = if (PreferenceUtil.materialYou) {
+            ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+        } else {
+            ColorUtil.getComplimentColor(accentColor())
+        }
+
         val song = MusicPlayerRemote.currentSong
 
         val builder = SpannableStringBuilder()
@@ -175,34 +182,25 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         val title = song.title.toSpannable()
         val text = song.artistName.toSpannable()
 
-        if (PreferenceUtil.materialYou) {
-            title.setSpan(
-                ForegroundColorSpan(binding.progressBar.indicatorColor[0]),
-                0,
-                title.length,
-                0
-            )
-            text.setSpan(
-                ForegroundColorSpan(binding.progressBar.indicatorColor[0]),
-                0,
-                text.length,
-                0
-            )
-        } else {
-            title.setSpan(ForegroundColorSpan(accentColor()), 0, title.length, 0)
-            text.setSpan(ForegroundColorSpan(accentColor()), 0, text.length, 0)
-        }
+        title.setSpan(
+            ForegroundColorSpan(accentColor()),
+            0,
+            title.length,
+            0
+        )
+        text.setSpan(
+            ForegroundColorSpan(accentColor()),
+            0,
+            text.length,
+            0
+        )
 
         builder.append(title).append(" • ").append(text)
 
         binding.miniPlayerTitle.isSelected = true
         binding.miniPlayerTitle.text = builder
 
-        if (PreferenceUtil.materialYou) {
-            binding.miniPlayerTitle.setTextColor(binding.progressBar.indicatorColor[0])
-        } else {
-            binding.miniPlayerTitle.setTextColor(accentColor())
-        }
+        binding.miniPlayerTitle.setTextColor(indicatorColor)
     }
 
     private fun updateSongCover() {
@@ -358,20 +356,26 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
             PROGRESS_BAR_STYLE -> {
+                val indicatorColor = if (PreferenceUtil.materialYou) {
+                    ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+                } else {
+                    ColorUtil.getComplimentColor(accentColor())
+                }
                 when (PreferenceUtil.progressBarStyle) {
                     "circular", "circular_no_track" -> {
                         binding.progressBar.visibility = View.VISIBLE
                         binding.progressBarHorizontalTop.visibility = View.GONE
                         binding.progressBarHorizontalBottom.visibility = View.GONE
 
-                        val colorFinal = ColorUtil.withAlpha(accentColor(), 0.4F)
+                        val colorFinal = indicatorColor.addAlpha(0.4F)
 
                         if (PreferenceUtil.progressBarStyle == "circular") {
                             binding.progressBar.trackColor = colorFinal
                         }
 
                         if (PreferenceUtil.progressBarStyle == "circular_no_track") {
-                            binding.progressBar.trackColor = ContextCompat.getColor(requireContext(), R.color.transparent)
+                            binding.progressBar.trackColor =
+                                ContextCompat.getColor(requireContext(), R.color.transparent)
                         }
                     }
 

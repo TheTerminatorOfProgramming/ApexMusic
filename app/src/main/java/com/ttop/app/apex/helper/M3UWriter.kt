@@ -54,7 +54,7 @@ object M3UWriter : M3UConstants {
             it.songPrimaryKey
         }.toSongs()
         if (songs.isNotEmpty()) {
-            BufferedWriter(FileWriter(file)).use { bw->
+            BufferedWriter(FileWriter(file)).use { bw ->
                 bw.write(M3UConstants.HEADER)
                 songs.forEach {
                     bw.newLine()
@@ -73,7 +73,7 @@ object M3UWriter : M3UConstants {
         }.toSongs()
         if (songs.isNotEmpty()) {
             outputStream.use { os ->
-                os.bufferedWriter().use { bw->
+                os.bufferedWriter().use { bw ->
                     bw.write(M3UConstants.HEADER)
                     songs.forEach {
                         bw.newLine()

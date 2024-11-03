@@ -40,6 +40,7 @@ object BackupHelper : KoinComponent {
         // Clean Cache Playlist Directory
         File(context.filesDir, PLAYLISTS_PATH).deleteRecursively()
     }
+
     private suspend fun zipAll(context: Context, zipItems: List<ZipItem>, backupFile: File) =
         withContext(Dispatchers.IO) {
             runCatching {

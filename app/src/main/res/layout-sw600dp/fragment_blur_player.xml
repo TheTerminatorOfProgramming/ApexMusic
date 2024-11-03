@@ -61,6 +61,7 @@
             android:layout_height="match_parent"
             android:clickable="false"
             android:orientation="vertical">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
@@ -71,7 +72,7 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <com.ttop.app.fastscroller.FastScrollNestedScrollView
+    <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
         android:id="@+id/scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -89,7 +90,7 @@
             android:background="@color/transparent"
             android:paddingStart="4dp"
             android:paddingEnd="5dp" />
-    </com.ttop.app.fastscroller.FastScrollNestedScrollView>
+    </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/lrcFragment"
@@ -141,5 +142,5 @@
         android:orientation="vertical"
         android:id="@+id/middle_guideline"
         app:layout_constraintGuide_percent="0.5"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

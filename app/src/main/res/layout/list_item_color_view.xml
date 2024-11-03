@@ -73,7 +73,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="@dimen/list_pref_guideline_begin" />
 
-    <com.ttop.app.appthemehelper.common.prefs.BorderCircleView
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.BorderCircleView
         android:id="@+id/circle"
         android:layout_width="32dp"
         android:layout_height="32dp"

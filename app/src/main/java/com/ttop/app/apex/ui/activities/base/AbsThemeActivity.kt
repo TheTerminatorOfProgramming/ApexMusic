@@ -16,6 +16,7 @@ package com.ttop.app.apex.ui.activities.base
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -33,12 +34,14 @@ import com.ttop.app.apex.extensions.setDrawBehindSystemBars
 import com.ttop.app.apex.extensions.setImmersiveFullscreen
 import com.ttop.app.apex.extensions.setLightStatusBarAuto
 import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
-import com.ttop.app.appthemehelper.common.ATHToolbarActivity
 
-abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable, SharedPreferences.OnSharedPreferenceChangeListener {
+abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable,
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -52,6 +55,10 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable, SharedPreferen
         setLightStatusBarAuto(surfaceColor())
 
         window.decorView.isForceDarkAllowed = false
+
+        if (!ApexUtil.isTablet) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        }
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
@@ -141,6 +148,7 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable, SharedPreferen
             PreferenceUtil.isLocaleAutoStorageEnabled = true
         }
     }
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) {

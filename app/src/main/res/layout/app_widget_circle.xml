@@ -30,8 +30,8 @@
         android:clickable="false"
         android:padding="18dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_play_arrow"
-        tools:tint="?android:attr/textColorPrimary"/>
+        android:src="@drawable/ic_favorite_widget"
+        tools:tint="?android:attr/textColorPrimary" />
 
     <ImageButton
         android:id="@+id/button_toggle_play_pause"
@@ -49,5 +49,5 @@
         android:padding="18dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_play_arrow"
-        tools:tint="?android:attr/textColorPrimary"/>
+        tools:tint="?android:attr/textColorPrimary" />
 </RelativeLayout>

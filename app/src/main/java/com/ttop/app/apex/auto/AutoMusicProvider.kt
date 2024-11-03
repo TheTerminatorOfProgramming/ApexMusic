@@ -20,7 +20,12 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.model.Song
-import com.ttop.app.apex.repository.*
+import com.ttop.app.apex.repository.AlbumRepository
+import com.ttop.app.apex.repository.ArtistRepository
+import com.ttop.app.apex.repository.GenreRepository
+import com.ttop.app.apex.repository.PlaylistRepository
+import com.ttop.app.apex.repository.SongRepository
+import com.ttop.app.apex.repository.TopPlayedRepository
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -51,6 +56,7 @@ class AutoMusicProvider(
             AutoMediaIDHelper.MEDIA_ID_ROOT -> {
                 mediaItems.addAll(getRootChildren(resources))
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST -> for (playlist in playlistsRepository.playlists()) {
                 mediaItems.add(
                     AutoMediaItem.with(mContext)
@@ -62,6 +68,7 @@ class AutoMusicProvider(
                         .build()
                 )
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM -> for (album in albumsRepository.albums()) {
                 mediaItems.add(
                     AutoMediaItem.with(mContext)
@@ -73,6 +80,7 @@ class AutoMusicProvider(
                         .build()
                 )
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST -> for (artist in artistsRepository.artists()) {
                 mediaItems.add(
                     AutoMediaItem.with(mContext)
@@ -82,6 +90,7 @@ class AutoMusicProvider(
                         .build()
                 )
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM_ARTIST -> for (artist in artistsRepository.albumArtists()) {
                 mediaItems.add(
                     AutoMediaItem.with(mContext)
@@ -92,6 +101,7 @@ class AutoMusicProvider(
                         .build()
                 )
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE -> for (genre in genresRepository.genres()) {
                 mediaItems.add(
                     AutoMediaItem.with(mContext)
@@ -101,6 +111,7 @@ class AutoMusicProvider(
                         .build()
                 )
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE ->
                 mMusicService?.get()?.playingQueue
                     ?.let {
@@ -116,6 +127,7 @@ class AutoMusicProvider(
                             )
                         }
                     }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SONGS -> for (song in songsRepository.songs()) {
                 mediaItems.add(
                     AutoMediaItem.with(mContext)
@@ -126,6 +138,7 @@ class AutoMusicProvider(
                         .build()
                 )
             }
+
             else -> {
                 getPlaylistChildren(mediaId, mediaItems)
             }
@@ -141,12 +154,15 @@ class AutoMusicProvider(
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS -> {
                 topPlayedRepository.topTracks()
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY -> {
                 topPlayedRepository.recentlyPlayedTracks()
             }
+
             AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SUGGESTIONS -> {
                 topPlayedRepository.notRecentlyPlayedTracks().take(8)
             }
+
             else -> {
                 emptyList()
             }
@@ -174,6 +190,7 @@ class AutoMusicProvider(
                                 .title(resources.getString(R.string.songs)).build()
                         )
                     }
+
                     CategoryInfo.Category.Albums -> {
                         mediaItems.add(
                             AutoMediaItem.with(mContext)
@@ -184,6 +201,7 @@ class AutoMusicProvider(
                                 .title(resources.getString(R.string.albums)).build()
                         )
                     }
+
                     CategoryInfo.Category.Artists -> {
                         if (PreferenceUtil.albumArtistsOnly) {
                             mediaItems.add(
@@ -203,6 +221,7 @@ class AutoMusicProvider(
                             )
                         }
                     }
+
                     CategoryInfo.Category.Genres -> {
                         mediaItems.add(
                             AutoMediaItem.with(mContext)
@@ -212,6 +231,7 @@ class AutoMusicProvider(
                                 .title(resources.getString(R.string.genres)).build()
                         )
                     }
+
                     CategoryInfo.Category.Playlists -> {
                         mediaItems.add(
                             AutoMediaItem.with(mContext)
@@ -221,6 +241,7 @@ class AutoMusicProvider(
                                 .title(resources.getString(R.string.playlists)).build()
                         )
                     }
+
                     else -> {
                     }
                 }

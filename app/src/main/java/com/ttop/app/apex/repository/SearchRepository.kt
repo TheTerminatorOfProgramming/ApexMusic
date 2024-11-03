@@ -96,7 +96,8 @@ class RealSearchRepository(
             val playlist: List<PlaylistWithSongs> =
                 if (filter == Filter.PLAYLISTS || filter == Filter.NO_FILTER) {
                     roomRepository.playlistWithSongs().filter { playlist ->
-                        playlist.playlistEntity.playlistName.lowercase().contains(searchString.lowercase())
+                        playlist.playlistEntity.playlistName.lowercase()
+                            .contains(searchString.lowercase())
                     }
                 } else {
                     emptyList()

@@ -11,9 +11,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ttop.app.apex.R
+import com.ttop.app.apex.libraries.appintro.SlideBackgroundColorHolder
+import com.ttop.app.apex.libraries.appintro.SlidePolicy
 import com.ttop.app.apex.util.ApexUtil
-import com.ttop.app.appintro.SlideBackgroundColorHolder
-import com.ttop.app.appintro.SlidePolicy
 
 class BatterySlideFragment(
     override val defaultBackgroundColorRes: Int
@@ -30,7 +30,7 @@ class BatterySlideFragment(
     }
 
     //Required Constructor
-    constructor() : this(com.ttop.app.appthemehelper.R.color.md_deep_purple_400)
+    constructor() : this(R.color.md_deep_purple_400)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +40,7 @@ class BatterySlideFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        battery = view.findViewById(R.id.permission_battery) as Button
+        battery = view.findViewById<Button>(R.id.permission_battery)!!
 
         if (!ApexUtil.hasBatteryPermission()) {
             battery.text = activity?.getString(R.string.disable_battery_optimize)
@@ -48,15 +48,20 @@ class BatterySlideFragment(
             battery.setOnClickListener {
                 ApexUtil.disableBatteryOptimization()
             }
-        }else {
+        } else {
             battery.text = activity?.getString(R.string.battery_optimize)
         }
 
-        view.setBackgroundColor(ContextCompat.getColor(requireActivity(), com.ttop.app.appthemehelper.R.color.md_deep_purple_400))
+        view.setBackgroundColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.md_deep_purple_400
+            )
+        )
 
         if (!ApexUtil.hasBatteryPermission()) {
             if (isLooping) {
-                handler.postDelayed(runnable,250)
+                handler.postDelayed(runnable, 250)
             }
         }
     }
@@ -78,7 +83,7 @@ class BatterySlideFragment(
 
     companion object {
         fun newInstance(): BatterySlideFragment {
-            return BatterySlideFragment(com.ttop.app.appthemehelper.R.color.md_deep_purple_400)
+            return BatterySlideFragment(R.color.md_deep_purple_400)
         }
     }
 

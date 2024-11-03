@@ -36,6 +36,7 @@ class NormalPageTransformer : ViewPager.PageTransformer {
                     alpha = 1f
                     scaleY = 0.7f
                 }
+
                 position <= 1 -> { // [-1,1]
                     // Modify the default slide transition to shrink the page as well
                     val scaleFactor = max(MIN_SCALE, 1 - abs(position))
@@ -55,6 +56,7 @@ class NormalPageTransformer : ViewPager.PageTransformer {
                     //setAlpha(MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA));
 
                 }
+
                 else -> { // (1,+Infinity]
                     // This page is way off-screen to the right.
                     alpha = 1f

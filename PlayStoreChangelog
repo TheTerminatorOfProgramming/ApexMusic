@@ -1,27 +1,27 @@
-Apex Music v4.80
+Apex Music v4.90
 
 ==What's New==
 =What's Been Added=
--Material you support added to widgets
--New option to change the shape of the classic and full widgets album art to a rounded square
--Volume dialog in player themes
+-Added option to scan for music
+-Link to apex music's new discord server
 
 =What's Been Removed=
--Search tab from the library categories option
--De-color header option has been removed for android 15+ due to changes from google that affects the status bar color
--Links to wiki have been removed
+-Nothing has been removed
 
 =What's Been Changed & Updated=
--Widgets icons
--Big widget layout has been changed
--Classic widget is now resizable with a new design
+-Sleep timer buttons have been changed to be much clearer on function
+-Material you theme has been extended throughout the entire ui
+-Changed the color of the mini player progress bars (top, bottom and circular)
+-Changed the color of the selected tab icon on the navigation view
 
 =What's Planned To Be Removed/Changed/Fixed=
 -Nothing is planned to be removed/changed/fixed
 
 ==What's Fixed==
--Android 15 support
--Issues with code
+-Status bar color will no longer become transparent when selecting items
+-Crash when clearing playing queue
+-Some links in the about section not working
+-Misc bug fixes
 
 ==Possible Bugs==
 -Notification may not always update when using the audio fade and crossfade options

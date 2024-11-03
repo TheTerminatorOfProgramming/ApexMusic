@@ -23,55 +23,56 @@ import androidx.annotation.NonNull;
  */
 public class ImageUtil {
 
-  private ImageUtil() {}
-
-  public static Bitmap resizeBitmap(@NonNull Bitmap src, int maxForSmallerSize) {
-    int width = src.getWidth();
-    int height = src.getHeight();
-
-    final int dstWidth;
-    final int dstHeight;
-
-    if (width < height) {
-      if (maxForSmallerSize >= width) {
-        return src;
-      }
-      float ratio = (float) height / width;
-      dstWidth = maxForSmallerSize;
-      dstHeight = Math.round(maxForSmallerSize * ratio);
-    } else {
-      if (maxForSmallerSize >= height) {
-        return src;
-      }
-      float ratio = (float) width / height;
-      dstWidth = Math.round(maxForSmallerSize * ratio);
-      dstHeight = maxForSmallerSize;
+    private ImageUtil() {
     }
 
-    return Bitmap.createScaledBitmap(src, dstWidth, dstHeight, false);
-  }
+    public static Bitmap resizeBitmap(@NonNull Bitmap src, int maxForSmallerSize) {
+        int width = src.getWidth();
+        int height = src.getHeight();
 
-  public static int calculateInSampleSize(int width, int height, int reqWidth) {
-    // setting reqWidth matching to desired 1:1 ratio and screen-size
-    if (width < height) {
-      reqWidth = (height / width) * reqWidth;
-    } else {
-      reqWidth = (width / height) * reqWidth;
+        final int dstWidth;
+        final int dstHeight;
+
+        if (width < height) {
+            if (maxForSmallerSize >= width) {
+                return src;
+            }
+            float ratio = (float) height / width;
+            dstWidth = maxForSmallerSize;
+            dstHeight = Math.round(maxForSmallerSize * ratio);
+        } else {
+            if (maxForSmallerSize >= height) {
+                return src;
+            }
+            float ratio = (float) width / height;
+            dstWidth = Math.round(maxForSmallerSize * ratio);
+            dstHeight = maxForSmallerSize;
+        }
+
+        return Bitmap.createScaledBitmap(src, dstWidth, dstHeight, false);
     }
 
-    int inSampleSize = 1;
+    public static int calculateInSampleSize(int width, int height, int reqWidth) {
+        // setting reqWidth matching to desired 1:1 ratio and screen-size
+        if (width < height) {
+            reqWidth = (height / width) * reqWidth;
+        } else {
+            reqWidth = (width / height) * reqWidth;
+        }
 
-    if (height > reqWidth || width > reqWidth) {
-      final int halfHeight = height / 2;
-      final int halfWidth = width / 2;
+        int inSampleSize = 1;
 
-      // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-      // height and width larger than the requested height and width.
-      while ((halfHeight / inSampleSize) > reqWidth && (halfWidth / inSampleSize) > reqWidth) {
-        inSampleSize *= 2;
-      }
+        if (height > reqWidth || width > reqWidth) {
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqWidth && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
     }
-
-    return inSampleSize;
-  }
 }

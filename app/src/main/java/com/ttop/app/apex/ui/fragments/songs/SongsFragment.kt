@@ -14,7 +14,6 @@
  */
 package com.ttop.app.apex.ui.fragments.songs
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -25,7 +24,6 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.SongAdapter
-import com.ttop.app.apex.extensions.colorBackground
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
 import com.ttop.app.apex.helper.SortOrder.SongSortOrder
@@ -130,9 +128,9 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
         val layoutItem = menu.findItem(R.id.action_layout_type)
         setupLayoutMenu(layoutItem.subMenu!!)
 
-        if (ApexUtil.isTablet){
+        if (ApexUtil.isTablet) {
             layoutItem?.isVisible = getGridSize() >= 3
-        }else{
+        } else {
             layoutItem?.isVisible = getGridSize() != 1
         }
 
@@ -144,8 +142,8 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     }
 
     private fun setUpSortOrderMenu(sortOrderMenu: SubMenu) {
-        val yearAsc = context?.getString(R.string.year)+ " ↑"
-        val yearDesc = context?.getString(R.string.year)+ " ↓"
+        val yearAsc = context?.getString(R.string.year) + " ↑"
+        val yearDesc = context?.getString(R.string.year) + " ↓"
         val currentSortOrder: String? = getSortOrder()
         sortOrderMenu.clear()
         sortOrderMenu.add(
@@ -241,8 +239,10 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             R.layout.item_card -> subMenu.findItem(R.id.action_layout_card).isChecked = true
             R.layout.item_card_color ->
                 subMenu.findItem(R.id.action_layout_colored_card).isChecked = true
+
             R.layout.item_grid_circle ->
                 subMenu.findItem(R.id.action_layout_circular).isChecked = true
+
             R.layout.image -> subMenu.findItem(R.id.action_layout_image).isChecked = true
             R.layout.item_image_gradient ->
                 subMenu.findItem(R.id.action_layout_gradient_image).isChecked = true
@@ -355,9 +355,9 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             item.isChecked = true
             setAndSaveGridSize(gridSize)
 
-            if (ApexUtil.isTablet){
+            if (ApexUtil.isTablet) {
                 layout?.isVisible = gridSize >= 3
-            }else{
+            } else {
                 layout?.isVisible = gridSize != 1
             }
             return true

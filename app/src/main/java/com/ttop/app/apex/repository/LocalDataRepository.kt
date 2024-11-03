@@ -18,7 +18,7 @@ class RealLocalDataRepository(
         val jsonString = if (PreferenceUtil.isInternetConnected) {
             context.assets.open("contributors.json")
                 .bufferedReader().use { it.readText() }
-        }else {
+        } else {
             context.assets.open("contributors_no_internet.json")
                 .bufferedReader().use { it.readText() }
         }

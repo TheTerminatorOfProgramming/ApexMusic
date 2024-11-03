@@ -257,10 +257,12 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
                 MusicPlayerRemote.playNext(songs)
                 return true
             }
+
             R.id.action_add_to_current_playing -> {
                 MusicPlayerRemote.enqueue(songs)
                 return true
             }
+
             R.id.action_add_to_playlist -> {
                 lifecycleScope.launch(Dispatchers.IO) {
                     val playlists = get<RealRepository>().fetchPlaylists()
@@ -271,12 +273,14 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
                 }
                 return true
             }
+
             R.id.action_set_artist_image -> {
                 selectImageLauncher.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
                 return true
             }
+
             R.id.action_reset_artist_image -> {
                 showToast(resources.getString(R.string.updating))
                 lifecycleScope.launch {
@@ -324,14 +328,19 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
         when (savedSongSortOrder) {
             SortOrder.ArtistSongSortOrder.SONG_A_Z -> sortOrder.findItem(R.id.action_sort_order_title).isChecked =
                 true
+
             SortOrder.ArtistSongSortOrder.SONG_Z_A -> sortOrder.findItem(R.id.action_sort_order_title_desc).isChecked =
                 true
+
             SortOrder.ArtistSongSortOrder.SONG_ALBUM ->
                 sortOrder.findItem(R.id.action_sort_order_album).isChecked = true
+
             SortOrder.ArtistSongSortOrder.SONG_YEAR ->
                 sortOrder.findItem(R.id.action_sort_order_year).isChecked = true
+
             SortOrder.ArtistSongSortOrder.SONG_DURATION ->
                 sortOrder.findItem(R.id.action_sort_order_song_duration).isChecked = true
+
             else -> {
                 throw IllegalArgumentException("invalid $savedSongSortOrder")
             }

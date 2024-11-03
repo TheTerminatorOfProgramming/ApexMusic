@@ -91,6 +91,12 @@
     <item
         android:id="@+id/action_cast"
         android:title="@string/action_cast"
-        app:actionProviderClass="androidx.mediarouter.app.MediaRouteActionProvider"
+        app:actionProviderClass="com.ttop.app.apex.views.ThemeableMediaRouteActionProvider"
+        app:showAsAction="always" />
+    <item
+        android:orderInCategory="10"
+        android:id="@+id/action_scan_media"
+        android:icon="@drawable/ic_scan"
+        android:title="@string/scan_media"
         app:showAsAction="always" />
 </menu>

@@ -46,6 +46,7 @@ import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.misc.CustomFragmentStatePagerAdapter
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.activities.MainActivity
@@ -62,7 +63,6 @@ import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.util.theme.ThemeMode
-import com.ttop.app.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -122,7 +122,7 @@ class AlbumCoverPagerAdapter(
             if (arguments != null) {
                 song = if (VersionUtils.hasT()) {
                     requireArguments().getParcelable(SONG_ARG, Song::class.java)!!
-                }else {
+                } else {
                     requireArguments().getParcelable(SONG_ARG)!!
                 }
             }
@@ -137,54 +137,60 @@ class AlbumCoverPagerAdapter(
 
             val view = inflater.inflate(getLayoutWithPlayerTheme(), container, false)
 
-            val gestureDetector = GestureDetector(activity, object : GestureDetector.SimpleOnGestureListener() {
-                override fun onDoubleTap(e: MotionEvent): Boolean {
-                    if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
-                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                        }
+            val gestureDetector =
+                GestureDetector(activity, object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onDoubleTap(e: MotionEvent): Boolean {
+                        if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
+                            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                            }
 
-                        PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                        PreferenceUtil.showLyricsTablet = PreferenceUtil.showLyrics
+                            PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
+                            PreferenceUtil.showLyricsTablet = PreferenceUtil.showLyrics
 
-                        if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) {
-                            mainActivity.keepScreenOn(true)
-                        } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics && !PreferenceUtil.showLyricsTablet) {
-                            mainActivity.keepScreenOn(false)
-                        }
-                    }
-
-                    return super.onDoubleTap(e)
-                }
-
-                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                    if (MusicPlayerRemote.isPlaying) {
-                        MusicPlayerRemote.pauseSong()
-                    }else {
-                        MusicPlayerRemote.resumePlaying()
-                    }
-                    return super.onSingleTapConfirmed(e)
-                }
-
-                override fun onLongPress(e: MotionEvent) {
-                    if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
-                        if (PreferenceUtil.nowPlayingScreen != Live) {
-                            val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
-                            if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(PreferenceUtil.nowPlayingScreen) || PreferenceUtil.lyricsMode == "both" && !nps.contains(PreferenceUtil.nowPlayingScreen)) {
-                                if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                                    requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                                }
-                                showLyricsDialog()
+                            if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) {
+                                mainActivity.keepScreenOn(true)
+                            } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics && !PreferenceUtil.showLyricsTablet) {
+                                mainActivity.keepScreenOn(false)
                             }
                         }
-                    }
-                    super.onLongPress(e)
-                }
 
-                override fun onDown(e: MotionEvent): Boolean {
-                    return true //this method is needed otherwise the GestureDetector won't work
-                }
-            })
+                        return super.onDoubleTap(e)
+                    }
+
+                    override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                        if (MusicPlayerRemote.isPlaying) {
+                            MusicPlayerRemote.pauseSong()
+                        } else {
+                            MusicPlayerRemote.resumePlaying()
+                        }
+                        return super.onSingleTapConfirmed(e)
+                    }
+
+                    override fun onLongPress(e: MotionEvent) {
+                        if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
+                            if (PreferenceUtil.nowPlayingScreen != Live) {
+                                val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
+                                if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(
+                                        PreferenceUtil.nowPlayingScreen
+                                    ) || PreferenceUtil.lyricsMode == "both" && !nps.contains(
+                                        PreferenceUtil.nowPlayingScreen
+                                    )
+                                ) {
+                                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                                        requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                                    }
+                                    showLyricsDialog()
+                                }
+                            }
+                        }
+                        super.onLongPress(e)
+                    }
+
+                    override fun onDown(e: MotionEvent): Boolean {
+                        return true //this method is needed otherwise the GestureDetector won't work
+                    }
+                })
 
             view.setOnTouchListener { _, event ->
                 view.performClick()
@@ -232,25 +238,31 @@ class AlbumCoverPagerAdapter(
                             dialog.window?.setBackgroundDrawableResource(R.color.md_white_1000)
                             textViewMessage?.setTextColor(Color.BLACK)
                         }
+
                         ThemeMode.DARK -> {
                             dialog.window?.setBackgroundDrawableResource(R.color.dark_color)
                             textViewMessage?.setTextColor(Color.WHITE)
                         }
+
                         ThemeMode.BLACK -> {
                             dialog.window?.setBackgroundDrawableResource(R.color.md_black_1000)
                             textViewMessage?.setTextColor(Color.WHITE)
                         }
+
                         ThemeMode.AUTO -> {
-                            when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            when (requireContext().resources?.configuration?.uiMode?.and(
+                                Configuration.UI_MODE_NIGHT_MASK
+                            )) {
                                 Configuration.UI_MODE_NIGHT_YES -> {
                                     if (PreferenceUtil.isBlackMode) {
                                         dialog.window?.setBackgroundDrawableResource(R.color.md_black_1000)
                                         textViewMessage?.setTextColor(Color.WHITE)
-                                    }else {
+                                    } else {
                                         dialog.window?.setBackgroundDrawableResource(R.color.dark_color)
                                         textViewMessage?.setTextColor(Color.WHITE)
                                     }
                                 }
+
                                 Configuration.UI_MODE_NIGHT_NO,
                                 Configuration.UI_MODE_NIGHT_UNDEFINED -> {
                                     dialog.window?.setBackgroundDrawableResource(R.color.md_white_1000)
@@ -258,6 +270,7 @@ class AlbumCoverPagerAdapter(
                                 }
                             }
                         }
+
                         else -> {
                             dialog.window?.setBackgroundDrawableResource(R.color.md_white_1000)
                             textViewMessage?.setTextColor(Color.BLACK)
@@ -292,6 +305,7 @@ class AlbumCoverPagerAdapter(
                         AlbumCoverStyle.Peek -> R.layout.fragment_album_peek
                     }
                 }
+
                 Blur -> {
                     if (PreferenceUtil.isCarouselEffect) {
                         R.layout.fragment_album_carousel_cover
@@ -307,9 +321,11 @@ class AlbumCoverPagerAdapter(
                         }
                     }
                 }
+
                 Card -> {
                     R.layout.fragment_album_full_cover
                 }
+
                 Classic -> {
                     if (PreferenceUtil.isCarouselEffect) {
                         R.layout.fragment_album_carousel_cover
@@ -325,15 +341,19 @@ class AlbumCoverPagerAdapter(
                         }
                     }
                 }
+
                 Gradient -> {
                     R.layout.fragment_album_full_cover
                 }
+
                 Live -> {
                     R.layout.fragment_album_full_cover
                 }
+
                 Minimal -> {
                     R.layout.fragment_album_full_cover
                 }
+
                 Peek -> {
                     if (PreferenceUtil.isCarouselEffect) {
                         R.layout.fragment_album_carousel_cover
@@ -364,7 +384,6 @@ class AlbumCoverPagerAdapter(
 
         private fun loadAlbumCover(albumCover: ImageView) {
             Glide.with(this).asBitmapPalette().songCoverOptions(song)
-                //.checkIgnoreMediaStore()
                 .load(ApexGlideExtension.getSongModel(song))
                 .dontAnimate()
                 .into(object : ApexColoredTarget(albumCover) {

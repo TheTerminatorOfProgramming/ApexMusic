@@ -31,15 +31,17 @@ import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
 import androidx.core.animation.doOnEnd
 import androidx.core.content.getSystemService
-import androidx.core.view.*
+import androidx.core.view.drawToBitmap
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.appthemehelper.ThemeStore
-import com.ttop.app.appthemehelper.util.TintHelper
 import dev.chrisbanes.insetter.applyInsetter
 
 const val ANIM_DURATION = 300L
@@ -111,7 +113,7 @@ fun NavigationBarView.show() {
         duration = ANIM_DURATION
         interpolator = AnimationUtils.loadInterpolator(
             context,
-            android.R.interpolator.accelerate_decelerate
+            R.interpolator.accelerate_decelerate
         )
         addUpdateListener {
             val newTop = it.animatedValue as Int
@@ -152,7 +154,7 @@ fun NavigationBarView.hide() {
         duration = ANIM_DURATION
         interpolator = AnimationUtils.loadInterpolator(
             context,
-            android.R.interpolator.accelerate_decelerate
+            R.interpolator.accelerate_decelerate
         )
         addUpdateListener {
             val newTop = it.animatedValue as Int

@@ -31,8 +31,8 @@ import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.withCenteredButtons
+import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.providers.BlacklistStore
-import com.ttop.app.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import java.io.File
 
 class BlacklistPreference @JvmOverloads constructor(

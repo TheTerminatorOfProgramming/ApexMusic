@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_widget_full"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_widget_background"
-    android:theme="@style/Theme.Material3.DynamicColors.Widget"
     android:backgroundTint="@color/m3_widget_background"
-    android:id="@+id/app_widget_full">
+    android:theme="@style/Theme.Material3.DynamicColors.Widget">
 
     <RelativeLayout
         android:id="@+id/imageLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@id/button_update">
+        android:layout_above="@id/button_update"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/image"
@@ -29,14 +29,13 @@
         android:id="@+id/button_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
         android:layout_above="@id/media_actions"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/app_widget_buttons_circular_md3"
         android:scaleType="fitCenter"
-        tools:src="@drawable/ic_refresh"
-        tools:tint="@color/m3_widget_foreground" />
+        android:src="@drawable/ic_refresh_md3" />
 
     <LinearLayout
         android:id="@+id/media_actions"
@@ -59,9 +58,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewSubtitle3"
-                android:textColor="@color/m3_widget_foreground"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/m3_widget_foreground"
                 tools:text="Title" />
 
             <TextView
@@ -70,9 +69,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:textAppearance="@style/TextViewSubtitle3"
-                android:textColor="@color/m3_widget_foreground"
                 android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/m3_widget_foreground"
                 tools:text="Text" />
 
             <TextView
@@ -81,53 +80,62 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:singleLine="true"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/m3_widget_foreground"
-                android:textAlignment="center"
                 tools:text="01:32/04:51" />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/media_action"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/centerPoint"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="" />
 
             <ImageButton
                 android:id="@+id/button_prev"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_toStartOf="@id/button_toggle_play_pause"
-                android:layout_marginEnd="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="35dp"
+                android:layout_toStartOf="@id/centerPoint"
                 android:background="@drawable/app_widget_buttons_circular_md3"
                 android:scaleType="fitCenter"
-                tools:src="@drawable/ic_skip_previous"
-                tools:tint="@color/m3_widget_foreground" />
-
-            <ImageButton
-                android:id="@+id/button_toggle_play_pause"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/app_widget_buttons_circular_md3"
-                android:scaleType="fitCenter"
-                android:layout_centerInParent="true"
-                tools:src="@drawable/ic_play_arrow"
-                tools:tint="@color/m3_widget_foreground" />
+                android:src="@drawable/ic_skip_previous_md3" />
 
             <ImageButton
                 android:id="@+id/button_next"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_toEndOf="@id/button_toggle_play_pause"
-                android:layout_marginStart="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="35dp"
+                android:layout_toEndOf="@id/centerPoint"
                 android:background="@drawable/app_widget_buttons_circular_md3"
                 android:scaleType="fitCenter"
-                tools:src="@drawable/ic_skip_next"
-                tools:tint="@color/m3_widget_foreground" />
+                android:src="@drawable/ic_skip_next_md3" />
 
+            <ImageButton
+                android:id="@+id/button_toggle_play_pause"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/app_widget_buttons_rounded_square_md3"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/ic_play_arrow"
+                tools:tint="@color/m3_widget_background" />
         </RelativeLayout>
 
     </LinearLayout>
