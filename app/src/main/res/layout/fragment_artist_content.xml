@@ -52,9 +52,24 @@
         android:textColor="?android:attr/textColorPrimary"
         android:textStyle="bold"
         app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/album_sort_order"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playAction" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/album_sort_order"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="?roundSelector"
+        app:icon="@drawable/ic_sort"
+        app:iconSize="24dp"
+        app:iconTint="?colorControlNormal"
+        app:layout_constraintBottom_toBottomOf="@+id/albumTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/albumTitle"
+        app:layout_constraintTop_toTopOf="@id/albumTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/albumRecyclerView"
@@ -138,7 +153,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/biographyTitle"
-        tools:text="@string/bug_report_summary"
+        tools:text="@string/about_album_label"
         tools:visibility="visible" />
 
     <com.google.android.material.textview.MaterialTextView

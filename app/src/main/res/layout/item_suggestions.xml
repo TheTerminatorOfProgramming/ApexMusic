@@ -23,24 +23,24 @@
         android:id="@+id/refresh_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_selector"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/card7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/round_selector"
         app:srcCompat="@drawable/ic_refresh" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toStartOf="@id/card2"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card6">
+        app:layout_constraintTop_toBottomOf="@id/card6"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image4"
@@ -54,13 +54,13 @@
         android:id="@+id/card2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toStartOf="@id/card3"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@id/card1"
-        app:layout_constraintTop_toBottomOf="@id/card6">
+        app:layout_constraintTop_toBottomOf="@id/card6"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image5"
@@ -74,13 +74,13 @@
         android:id="@+id/card3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toStartOf="@id/card4"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@id/card2"
-        app:layout_constraintTop_toBottomOf="@id/card6">
+        app:layout_constraintTop_toBottomOf="@id/card6"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image6"
@@ -94,13 +94,13 @@
         android:id="@+id/card4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toStartOf="@id/card5"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@id/card3"
-        app:layout_constraintTop_toBottomOf="@id/card6">
+        app:layout_constraintTop_toBottomOf="@id/card6"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image7"
@@ -114,13 +114,13 @@
         android:id="@+id/card5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@id/card4"
-        app:layout_constraintTop_toBottomOf="@id/card6">
+        app:layout_constraintTop_toBottomOf="@id/card6"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image8"
@@ -137,14 +137,14 @@
         android:clickable="true"
         android:focusable="true"
         app:cardBackgroundColor="?attr/colorSurface"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardElevation="0dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toStartOf="@id/card7"
         app:layout_constraintHorizontal_weight="4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/message"
@@ -153,8 +153,8 @@
             android:autoSizeTextType="uniform"
             android:padding="8dp"
             android:text="@string/new_music_mix"
-            android:textAppearance="@style/TextViewNormal"
             android:textAlignment="center"
+            android:textAppearance="@style/TextViewNormal"
             android:textSize="32sp"
             android:textStyle="bold"
             app:autoSizeMaxTextSize="32sp"
@@ -166,13 +166,13 @@
         android:id="@+id/card7"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toStartOf="@id/card8"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@id/card6"
-        app:layout_constraintTop_toTopOf="@id/card6">
+        app:layout_constraintTop_toTopOf="@id/card6"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image1"
@@ -186,13 +186,13 @@
         android:id="@+id/card8"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="4"
         app:layout_constraintStart_toEndOf="@id/card7"
-        app:layout_constraintTop_toTopOf="@id/card7">
+        app:layout_constraintTop_toTopOf="@id/card7"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image2"
@@ -205,13 +205,13 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1,1"
         app:layout_constraintEnd_toStartOf="@id/card8"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toEndOf="@id/card6"
-        app:layout_constraintTop_toBottomOf="@id/card7">
+        app:layout_constraintTop_toBottomOf="@id/card7"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image3"

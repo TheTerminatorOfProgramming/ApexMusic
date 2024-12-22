@@ -118,11 +118,11 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="?roundSelector"
+        app:layout_constraintBottom_toBottomOf="@+id/repeatButton"
         app:layout_constraintEnd_toStartOf="@+id/repeatButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toTopOf="@id/repeatButton"
-        app:layout_constraintBottom_toBottomOf="@+id/repeatButton"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/repeatButton"
         app:srcCompat="@drawable/ic_sleep_timer" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -165,8 +165,8 @@
         android:id="@+id/titleContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginBottom="10dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/progressSlider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -176,14 +176,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:gravity="center"
             android:ellipsize="marquee"
+            android:gravity="center"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textSize="30sp"
             android:textAppearance="@style/TextViewHeadline4"
             android:textColor="@color/md_white_1000"
+            android:textSize="30sp"
             android:textStyle="bold"
             tools:text="@tools:sample/lorem/random" />
 
@@ -191,14 +191,14 @@
             android:id="@+id/artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:ellipsize="marquee"
+            android:gravity="center"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textSize="30sp"
             android:textAppearance="@style/TextViewHeadline5"
             android:textColor="@color/md_grey_200"
+            android:textSize="30sp"
             tools:text="@tools:sample/lorem/random" />
     </LinearLayout>
 
@@ -207,9 +207,9 @@
         style="@style/SquigglySlider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:maxHeight="3dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:maxHeight="3dp"
         app:layout_constraintBottom_toTopOf="@id/songCurrentProgress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

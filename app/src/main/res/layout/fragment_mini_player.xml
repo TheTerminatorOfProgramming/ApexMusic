@@ -29,10 +29,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
+            android:backgroundTint="@color/transparent"
             android:gravity="center_vertical"
             android:scaleType="centerCrop"
             app:shapeAppearance="@style/ShapeAppearance.Material3.Circle"
-            android:backgroundTint="@color/transparent"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
             tools:visibility="visible" />
 

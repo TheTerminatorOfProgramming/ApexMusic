@@ -30,4 +30,5 @@
     <item name="action_song_sort_order_date_modified" type="id" />
     <item name="action_multi_select_adapter_check_all" type="id" />
     <item name="action_go_to_start_directory" type="id" />
+    <item name="action_toggle_index" type="id" />
 </resources>

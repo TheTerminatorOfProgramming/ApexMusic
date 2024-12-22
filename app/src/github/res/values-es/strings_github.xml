@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="all_files_summary">Permitir el acceso a todos los archivos del dispositivo a música apex. Este permiso es necesario para autodetectar copias de seguridad de apex</string>
-    <string name="all_files_title">Administrar todos los permisos de archivos</string>
-    <string name="all_files_granted">Administrar todos los archivos ya concedidos!</string>
-</resources>

@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.activities.base
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -24,17 +25,19 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.core.os.LocaleListCompat
+import androidx.core.view.WindowCompat
 import com.ttop.app.apex.LANGUAGE_NAME
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.exitFullscreen
 import com.ttop.app.apex.extensions.hideStatusBar
 import com.ttop.app.apex.extensions.installSplitCompat
-import com.ttop.app.apex.extensions.maybeSetScreenOn
+import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.extensions.setDrawBehindSystemBars
 import com.ttop.app.apex.extensions.setImmersiveFullscreen
-import com.ttop.app.apex.extensions.setLightStatusBarAuto
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.theme.getNightMode
@@ -45,14 +48,27 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable,
 
     private val handler = Handler(Looper.getMainLooper())
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         updateLocale()
         updateTheme()
         hideStatusBar()
         super.onCreate(savedInstanceState)
         setDrawBehindSystemBars()
-        maybeSetScreenOn()
-        setLightStatusBarAuto(surfaceColor())
+        val decorView = window.decorView
+
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                    surfaceColor().isColorLight
+            } else {
+                WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                    darkAccentColor(baseContext).isColorLight
+            }
+        } else {
+            WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                surfaceColor().isColorLight
+        }
 
         window.decorView.isForceDarkAllowed = false
 
@@ -78,10 +94,6 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable,
         setTheme(getThemeResValue())
         if (PreferenceUtil.materialYou) {
             setDefaultNightMode(getNightMode())
-        }
-
-        if (PreferenceUtil.isApexFont) {
-            setTheme(R.style.ApexThemeOverlay)
         }
 
         setTheme(R.style.CircleFABOverlay)

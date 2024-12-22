@@ -20,6 +20,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SectionIndexer
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -33,12 +34,15 @@ import com.ttop.app.apex.glide.ApexGlideExtension.asBitmapPalette
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.IAlbumClickListener
+import com.ttop.app.apex.libraries.alphabetindex.Helpers
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import java.util.Locale
 
 open class AlbumAdapter(
     override val activity: FragmentActivity,
@@ -48,7 +52,10 @@ open class AlbumAdapter(
 ) : AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album>(
     activity,
     R.menu.menu_media_selection
-), PopupTextProvider {
+), PopupTextProvider, SectionIndexer {
+
+    private var mSectionPositions: ArrayList<Int>? = null
+    private var sectionsTranslator = HashMap<Int, Int>()
 
     init {
         this.setHasStableIds(true)
@@ -91,12 +98,18 @@ open class AlbumAdapter(
         holder.text?.text = getAlbumText(album)
         // Check if imageContainer exists so we can have a smooth transition without
         // CardView clipping, if it doesn't exist in current layout set transition name to image instead.
-        if (holder.imageContainer != null) {
-            holder.imageContainer?.transitionName = album.id.toString()
-        } else {
-            holder.image?.transitionName = album.id.toString()
+        if (PreferenceUtil.isPerformanceMode) {
+            holder.title?.transitionName = album.id.toString()
+        }else {
+            if (holder.imageContainer != null) {
+                holder.imageContainer?.transitionName = album.id.toString()
+            } else {
+                holder.image?.transitionName = album.id.toString()
+            }
         }
         loadAlbumCover(album, holder)
+
+        holder.listCard?.strokeColor = accentColor(activity)
     }
 
     protected open fun setColors(color: MediaNotificationProcessor, holder: ViewHolder) {
@@ -184,8 +197,12 @@ open class AlbumAdapter(
             if (isInQuickSelectMode) {
                 toggleChecked(layoutPosition)
             } else {
-                image?.let {
-                    listener?.onAlbumClick(dataSet[layoutPosition].id, imageContainer ?: it)
+                if (PreferenceUtil.isPerformanceMode) {
+                    title?.let {  listener?.onAlbumClick(dataSet[layoutPosition].id, it) }
+                }else {
+                    image?.let {
+                        listener?.onAlbumClick(dataSet[layoutPosition].id, imageContainer ?: it)
+                    }
                 }
             }
         }
@@ -197,5 +214,37 @@ open class AlbumAdapter(
 
     companion object {
         val TAG: String = AlbumAdapter::class.java.simpleName
+    }
+
+    override fun getSections(): Array<Any>? {
+        val mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        val sections: MutableList<String> = ArrayList(27)
+        val alphabetFull = ArrayList<String>()
+        mSectionPositions = ArrayList()
+        run {
+            var i = 0
+            val size = dataSet.size
+            while (i < size) {
+                val section = dataSet[i].title[0].toString().uppercase(Locale.getDefault())
+                if (!sections.contains(section)) {
+                    sections.add(section)
+                    mSectionPositions?.add(i)
+                }
+                i++
+            }
+        }
+        for (element in mSections) {
+            alphabetFull.add(element.toString())
+        }
+        sectionsTranslator = Helpers.sectionsHelper(sections, alphabetFull)
+        return alphabetFull.toTypedArray()
+    }
+
+    override fun getPositionForSection(sectionIndex: Int): Int {
+        return mSectionPositions!![sectionsTranslator[sectionIndex]!!]
+    }
+
+    override fun getSectionForPosition(position: Int): Int {
+        return 0
     }
 }

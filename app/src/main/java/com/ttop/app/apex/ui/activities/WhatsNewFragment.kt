@@ -1,5 +1,6 @@
 package com.ttop.app.apex.ui.activities
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,6 +14,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ttop.app.apex.databinding.FragmentWhatsNewBinding
 import com.ttop.app.apex.extensions.accentColor
@@ -20,6 +22,7 @@ import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil.isColorLight
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil.lightenColor
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil.isWindowBackgroundDark
 import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper.getPrimaryTextColor
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil.lastVersion
 import java.nio.charset.StandardCharsets
 import java.util.Locale
@@ -35,6 +38,20 @@ class WhatsNewFragment : BottomSheetDialogFragment() {
     ): View {
         _binding = FragmentWhatsNewBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return (super.onCreateDialog(savedInstanceState) as BottomSheetDialog).apply {
+            if (ApexUtil.isTablet) {
+                if (ApexUtil.isLandscape) {
+                    behavior.setPeekHeight(resources.displayMetrics.heightPixels / 3)
+                }else {
+                    behavior.setPeekHeight(resources.displayMetrics.heightPixels / 4)
+                }
+            }else {
+                behavior.setPeekHeight(resources.displayMetrics.heightPixels / 4)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -132,6 +149,7 @@ class WhatsNewFragment : BottomSheetDialogFragment() {
             if (currentVersion > lastVersion) {
                 val changelogBottomSheet = WhatsNewFragment()
                 changelogBottomSheet.show(activity.supportFragmentManager, TAG)
+                activity.cacheDir.deleteRecursively()
             }
         }
     }

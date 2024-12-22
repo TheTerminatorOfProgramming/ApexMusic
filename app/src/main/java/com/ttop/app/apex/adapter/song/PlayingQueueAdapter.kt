@@ -15,12 +15,16 @@
 package com.ttop.app.apex.adapter.song
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.Color
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
+import androidx.preference.PreferenceGroupAdapter
 import com.bumptech.glide.Glide
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
@@ -32,12 +36,17 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAct
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionRemoveItem
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.generalThemeValue
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicPlayerRemote.isPlaying
 import com.ttop.app.apex.helper.MusicPlayerRemote.playNextSong
 import com.ttop.app.apex.helper.MusicPlayerRemote.removeFromQueue
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
@@ -48,6 +57,7 @@ import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 class PlayingQueueAdapter(
     activity: FragmentActivity,
@@ -61,6 +71,7 @@ class PlayingQueueAdapter(
 
     private var songToRemove: Song? = null
     private var lastColor: Int = 0
+    private var backColor: Int = 0
     private lateinit var imageviewDragView: ImageView
     override fun createViewHolder(view: View): SongQueueAdapter.ViewHolder {
         return ViewHolder(view)
@@ -89,7 +100,10 @@ class PlayingQueueAdapter(
         imageView.visibility = View.VISIBLE
 
         if (itemLayoutRes == R.layout.item_nav_queue) {
-            if (holder.itemViewType == CURRENT) {
+            if (holder.itemViewType == HISTORY) {
+                holder.listCard?.strokeWidth = 0
+            } else if (holder.itemViewType == CURRENT) {
+                holder.listCard?.strokeColor = accentColor(activity)
                 holder.title?.setTextColor(activity.accentColor())
                 holder.text?.setTextColor(activity.accentColor())
                 holder.text2?.setTextColor(activity.accentColor())
@@ -99,6 +113,7 @@ class PlayingQueueAdapter(
             } else {
                 if (PreferenceUtil.materialYou) {
                     if (holder.itemViewType == CURRENT) {
+                        holder.listCard?.strokeColor = accentColor(activity)
                         holder.title?.setTextColor(activity.accentColor())
                         holder.text?.setTextColor(activity.accentColor())
                         holder.text2?.setTextColor(activity.accentColor())
@@ -106,6 +121,10 @@ class PlayingQueueAdapter(
                         holder.imagePlaying?.setColorFilter(activity.accentColor())
                         imageView.setColorFilter(activity.accentColor())
                     } else {
+                        holder.listCard?.strokeColor = ContextCompat.getColor(
+                            activity,
+                            R.color.m3_widget_other_text
+                        )
                         holder.title?.setTextColor(
                             ContextCompat.getColor(
                                 activity,
@@ -145,6 +164,7 @@ class PlayingQueueAdapter(
                     }
                 } else {
                     if (holder.itemViewType == CURRENT) {
+                        holder.listCard?.strokeColor = accentColor(activity)
                         holder.title?.setTextColor(activity.accentColor())
                         holder.text?.setTextColor(activity.accentColor())
                         holder.text2?.setTextColor(activity.accentColor())
@@ -155,6 +175,10 @@ class PlayingQueueAdapter(
                         val colorBg =
                             ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
                         if (ATHColorUtil.isColorLight(colorBg)) {
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
+                                activity,
+                                R.color.md_black_1000
+                            )
                             holder.title?.setTextColor(
                                 ContextCompat.getColor(
                                     activity,
@@ -192,1452 +216,10 @@ class PlayingQueueAdapter(
                                 )
                             )
                         } else {
-                            holder.title?.setTextColor(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_white_1000
-                                )
-                            )
-                            holder.text?.setTextColor(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_white_1000
-                                )
-                            )
-                            holder.text2?.setTextColor(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_white_1000
-                                )
-                            )
-                            holder.menu?.setColorFilter(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_white_1000
-                                )
-                            )
-                            holder.imagePlaying?.setColorFilter(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_white_1000
-                                )
-                            )
-                            imageView.setColorFilter(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_white_1000
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-        } else {
-            when (PreferenceUtil.nowPlayingScreen) {
-                NowPlayingScreen.Adaptive -> {
-                    if (ApexUtil.isTablet) {
-                        if (PreferenceUtil.isAdaptiveColor) {
-                            if (holder.itemViewType == CURRENT) {
-                                holder.title?.setTextColor(lastColor)
-                                holder.text?.setTextColor(lastColor)
-                                holder.text2?.setTextColor(lastColor)
-                                holder.menu?.setColorFilter(lastColor)
-                                holder.imagePlaying?.setColorFilter(lastColor)
-                                imageView.setColorFilter(lastColor)
-                            } else {
-                                holder.title?.setTextColor(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.text?.setTextColor(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.text2?.setTextColor(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.menu?.setColorFilter(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.imagePlaying?.setColorFilter(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                imageView.setColorFilter(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                            }
-                        } else {
-                            if (PreferenceUtil.materialYou) {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                }
-                            } else {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    val colorBg =
-                                        ATHUtil.resolveColor(
-                                            activity,
-                                            android.R.attr.colorBackground
-                                        )
-                                    if (ATHColorUtil.isColorLight(colorBg)) {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                    } else {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        if (PreferenceUtil.isAdaptiveColor) {
-                            if (holder.itemViewType == CURRENT) {
-                                holder.title?.setTextColor(lastColor)
-                                holder.text?.setTextColor(lastColor)
-                                holder.text2?.setTextColor(lastColor)
-                                holder.menu?.setColorFilter(lastColor)
-                                holder.imagePlaying?.setColorFilter(lastColor)
-                                imageView.setColorFilter(lastColor)
-                            } else {
-                                holder.title?.setTextColor(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.text?.setTextColor(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.text2?.setTextColor(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.menu?.setColorFilter(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                holder.imagePlaying?.setColorFilter(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                                imageView.setColorFilter(
-                                    ColorUtil.getComplimentColor(
-                                        lastColor
-                                    )
-                                )
-                            }
-                        } else {
-                            if (PreferenceUtil.materialYou) {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                }
-                            } else {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    val colorBg =
-                                        ATHUtil.resolveColor(
-                                            activity,
-                                            android.R.attr.colorBackground
-                                        )
-                                    if (ATHColorUtil.isColorLight(colorBg)) {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                    } else {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                NowPlayingScreen.Blur -> {
-                    if (holder.itemViewType == CURRENT) {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
                                 activity,
                                 R.color.md_white_1000
                             )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                    } else {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                    }
-                }
-
-                NowPlayingScreen.Card -> {
-                    if (holder.itemViewType == CURRENT) {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                    } else {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                    }
-                    /*val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                    if (ColorUtil.isColorLight(colorBg)) {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                    } else {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                    }*/
-                }
-
-                NowPlayingScreen.Classic -> {
-                    if (PreferenceUtil.isAdaptiveColor) {
-                        if (holder.itemViewType == CURRENT) {
-                            holder.title?.setTextColor(lastColor)
-                            holder.text?.setTextColor(lastColor)
-                            holder.text2?.setTextColor(lastColor)
-                            holder.menu?.setColorFilter(lastColor)
-                            holder.imagePlaying?.setColorFilter(lastColor)
-                            imageView.setColorFilter(lastColor)
-                        } else {
-                            holder.title?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.text?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.text2?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.menu?.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.imagePlaying?.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            imageView.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                        }
-                    } else {
-                        if (ApexUtil.isTablet) {
-                            if (PreferenceUtil.materialYou) {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                }
-                            } else {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    val colorBg =
-                                        ATHUtil.resolveColor(
-                                            activity,
-                                            android.R.attr.colorBackground
-                                        )
-                                    if (ATHColorUtil.isColorLight(colorBg)) {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                    } else {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        } else {
-                            if (PreferenceUtil.materialYou) {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.m3_widget_other_text
-                                        )
-                                    )
-                                }
-                            } else {
-                                if (holder.itemViewType == CURRENT) {
-                                    holder.title?.setTextColor(activity.accentColor())
-                                    holder.text?.setTextColor(activity.accentColor())
-                                    holder.text2?.setTextColor(activity.accentColor())
-                                    holder.menu?.setColorFilter(activity.accentColor())
-                                    holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                    imageView.setColorFilter(activity.accentColor())
-                                } else {
-                                    val colorBg =
-                                        ATHUtil.resolveColor(
-                                            activity,
-                                            android.R.attr.colorBackground
-                                        )
-                                    if (ATHColorUtil.isColorLight(colorBg)) {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_black_1000
-                                            )
-                                        )
-                                    } else {
-                                        holder.title?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.text2?.setTextColor(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.menu?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        holder.imagePlaying?.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                        imageView.setColorFilter(
-                                            ContextCompat.getColor(
-                                                activity,
-                                                R.color.md_white_1000
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                NowPlayingScreen.Gradient -> {
-                    val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                    if (ATHColorUtil.isColorLight(colorBg)) {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
-                        )
-                    } else {
-                        holder.title?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.text2?.setTextColor(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.menu?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        holder.imagePlaying?.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                        imageView.setColorFilter(
-                            ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
-                        )
-                    }
-                }
-
-                NowPlayingScreen.Live -> {
-                    if (PreferenceUtil.isAdaptiveColor) {
-                        if (holder.itemViewType == CURRENT) {
-                            holder.title?.setTextColor(lastColor)
-                            holder.text?.setTextColor(lastColor)
-                            holder.text2?.setTextColor(lastColor)
-                            holder.menu?.setColorFilter(lastColor)
-                            holder.imagePlaying?.setColorFilter(lastColor)
-                            imageView.setColorFilter(lastColor)
-                        } else {
-                            holder.title?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.text?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.text2?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.menu?.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.imagePlaying?.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            imageView.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                        }
-                    } else {
-                        if (PreferenceUtil.materialYou) {
-                            if (holder.itemViewType == CURRENT) {
-                                holder.title?.setTextColor(activity.accentColor())
-                                holder.text?.setTextColor(activity.accentColor())
-                                holder.text2?.setTextColor(activity.accentColor())
-                                holder.menu?.setColorFilter(activity.accentColor())
-                                holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                imageView.setColorFilter(activity.accentColor())
-                            } else {
-                                holder.title?.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.text?.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.text2?.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.menu?.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.imagePlaying?.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                imageView.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                            }
-                        } else {
-                            if (holder.itemViewType == CURRENT) {
-                                holder.title?.setTextColor(activity.accentColor())
-                                holder.text?.setTextColor(activity.accentColor())
-                                holder.text2?.setTextColor(activity.accentColor())
-                                holder.menu?.setColorFilter(activity.accentColor())
-                                holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                imageView.setColorFilter(activity.accentColor())
-                            } else {
-                                val colorBg =
-                                    ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                                if (ATHColorUtil.isColorLight(colorBg)) {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                } else {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-                NowPlayingScreen.Peek -> {
-                    if (PreferenceUtil.isAdaptiveColor) {
-                        if (holder.itemViewType == CURRENT) {
-                            holder.title?.setTextColor(lastColor)
-                            holder.text?.setTextColor(lastColor)
-                            holder.text2?.setTextColor(lastColor)
-                            holder.menu?.setColorFilter(lastColor)
-                            holder.imagePlaying?.setColorFilter(lastColor)
-                            imageView.setColorFilter(lastColor)
-                        } else {
-                            holder.title?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.text?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.text2?.setTextColor(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.menu?.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            holder.imagePlaying?.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                            imageView.setColorFilter(
-                                ColorUtil.getComplimentColor(
-                                    lastColor
-                                )
-                            )
-                        }
-                    } else {
-                        if (PreferenceUtil.materialYou) {
-                            if (holder.itemViewType == CURRENT) {
-                                holder.title?.setTextColor(activity.accentColor())
-                                holder.text?.setTextColor(activity.accentColor())
-                                holder.text2?.setTextColor(activity.accentColor())
-                                holder.menu?.setColorFilter(activity.accentColor())
-                                holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                imageView.setColorFilter(activity.accentColor())
-                            } else {
-                                holder.title?.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.text?.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.text2?.setTextColor(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.menu?.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                holder.imagePlaying?.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                                imageView.setColorFilter(
-                                    ContextCompat.getColor(
-                                        activity,
-                                        R.color.m3_widget_other_text
-                                    )
-                                )
-                            }
-                        } else {
-                            if (holder.itemViewType == CURRENT) {
-                                holder.title?.setTextColor(activity.accentColor())
-                                holder.text?.setTextColor(activity.accentColor())
-                                holder.text2?.setTextColor(activity.accentColor())
-                                holder.menu?.setColorFilter(activity.accentColor())
-                                holder.imagePlaying?.setColorFilter(activity.accentColor())
-                                imageView.setColorFilter(activity.accentColor())
-                            } else {
-                                val colorBg =
-                                    ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                                if (ATHColorUtil.isColorLight(colorBg)) {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_black_1000
-                                        )
-                                    )
-                                } else {
-                                    holder.title?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.text?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.text2?.setTextColor(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.menu?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    holder.imagePlaying?.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                    imageView.setColorFilter(
-                                        ContextCompat.getColor(
-                                            activity,
-                                            R.color.md_white_1000
-                                        )
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-
-                else -> {
-                    val colorBg = ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
-                    if (holder.itemViewType == CURRENT) {
-                        holder.title?.setTextColor(lastColor)
-                        holder.text?.setTextColor(lastColor)
-                        holder.text2?.setTextColor(lastColor)
-                        holder.menu?.setColorFilter(lastColor)
-                        holder.imagePlaying?.setColorFilter(lastColor)
-                        imageView.setColorFilter(lastColor)
-                    } else {
-                        if (ATHColorUtil.isColorLight(colorBg)) {
-                            holder.title?.setTextColor(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_black_1000
-                                )
-                            )
-                            holder.text?.setTextColor(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_black_1000
-                                )
-                            )
-                            holder.text2?.setTextColor(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_black_1000
-                                )
-                            )
-                            holder.menu?.setColorFilter(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_black_1000
-                                )
-                            )
-                            holder.imagePlaying?.setColorFilter(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_black_1000
-                                )
-                            )
-                            imageView.setColorFilter(
-                                ContextCompat.getColor(
-                                    activity,
-                                    R.color.md_black_1000
-                                )
-                            )
-                        } else {
                             holder.title?.setTextColor(
                                 ContextCompat.getColor(
                                     activity,
@@ -1678,10 +260,318 @@ class PlayingQueueAdapter(
                     }
                 }
             }
+        }
 
-            if (itemLayoutRes == R.layout.item_queue) {
+        if (PreferenceUtil.nowPlayingScreen == NowPlayingScreen.Blur) {
+            holder.listCard?.backgroundTintList = ColorStateList.valueOf(activity.surfaceColor())
+
+            when (activity.generalThemeValue) {
+                ThemeMode.LIGHT -> {
+                    when (holder.itemViewType) {
+                        HISTORY -> {
+                            holder.listCard?.strokeWidth = 0
+
+                        }
+                        CURRENT -> {
+                            holder.listCard?.strokeWidth =
+                                ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
+                                activity,
+                                R.color.darkColorSurface
+                            )
+                        }
+                        else -> {
+                            holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
+                                activity,
+                                R.color.darkColorSurface
+                            )
+                        }
+                    }
+                    holder.title?.setTextColor(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_black_1000
+                        )
+                    )
+                    holder.text?.setTextColor(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_black_1000
+                        )
+                    )
+                    holder.text2?.setTextColor(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_black_1000
+                        )
+                    )
+                    holder.menu?.setColorFilter(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_black_1000
+                        )
+                    )
+                    holder.imagePlaying?.setColorFilter(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_black_1000
+                        )
+                    )
+                    imageView.setColorFilter(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_black_1000
+                        )
+                    )
+                }
+
+                ThemeMode.DARK, ThemeMode.BLACK -> {
+                    when (holder.itemViewType) {
+                        HISTORY -> {
+                            holder.listCard?.strokeWidth = 0
+                        }
+                        CURRENT -> {
+                            holder.listCard?.strokeWidth =
+                                ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
+                                activity,
+                                R.color.md_white_1000
+                            )
+                        }
+                        else -> {
+                            holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
+                                activity,
+                                R.color.md_white_1000
+                            )
+                        }
+                    }
+
+                    holder.title?.setTextColor(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_white_1000
+                        )
+                    )
+                    holder.text?.setTextColor(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_white_1000
+                        )
+                    )
+                    holder.text2?.setTextColor(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_white_1000
+                        )
+                    )
+                    holder.menu?.setColorFilter(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_white_1000
+                        )
+                    )
+                    holder.imagePlaying?.setColorFilter(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_white_1000
+                        )
+                    )
+                    imageView.setColorFilter(
+                        ContextCompat.getColor(
+                            activity,
+                            R.color.md_white_1000
+                        )
+                    )
+                }
+
+                ThemeMode.AUTO, ThemeMode.AUTO_BLACK -> {
+                    when (activity.resources?.configuration?.uiMode?.and(
+                        Configuration.UI_MODE_NIGHT_MASK
+                    )) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            when (holder.itemViewType) {
+                                HISTORY -> {
+                                    holder.listCard?.strokeWidth = 0
+                                }
+                                CURRENT -> {
+                                    holder.listCard?.strokeWidth =
+                                        ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                                    holder.listCard?.strokeColor = ContextCompat.getColor(
+                                        activity,
+                                        R.color.md_white_1000
+                                    )
+                                }
+                                else -> {
+                                    holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                                    holder.listCard?.strokeColor = ContextCompat.getColor(
+                                        activity,
+                                        R.color.md_white_1000
+                                    )
+                                }
+                            }
+                            holder.title?.setTextColor(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            holder.text?.setTextColor(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            holder.text2?.setTextColor(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            holder.menu?.setColorFilter(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            holder.imagePlaying?.setColorFilter(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            imageView.setColorFilter(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            when (holder.itemViewType) {
+                                HISTORY -> {
+                                    holder.listCard?.strokeWidth = 0
+                                }
+                                CURRENT -> {
+                                    holder.listCard?.strokeWidth =
+                                        ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                                    holder.listCard?.strokeColor = ContextCompat.getColor(
+                                        activity,
+                                        R.color.md_black_1000
+                                    )
+                                }
+                                else -> {
+                                    holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                                    holder.listCard?.strokeColor = ContextCompat.getColor(
+                                        activity,
+                                        R.color.md_black_1000
+                                    )
+                                }
+                            }
+                            holder.title?.setTextColor(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_black_1000
+                                )
+                            )
+                            holder.text?.setTextColor(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_black_1000
+                                )
+                            )
+                            holder.text2?.setTextColor(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_black_1000
+                                )
+                            )
+                            holder.menu?.setColorFilter(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_black_1000
+                                )
+                            )
+                            holder.imagePlaying?.setColorFilter(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_black_1000
+                                )
+                            )
+                            imageView.setColorFilter(
+                                ContextCompat.getColor(
+                                    activity,
+                                    R.color.md_black_1000
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }else if (itemLayoutRes == R.layout.item_queue || itemLayoutRes == R.layout.item_queue_duo || itemLayoutRes == R.layout.item_queue_no_image) {
+            if (PreferenceUtil.isAdaptiveColor) {
+                holder.listCard?.backgroundTintList = ColorStateList.valueOf(backColor)
+                if (holder.itemViewType == HISTORY) {
+                    holder.listCard?.strokeWidth = 0
+                }else if (holder.itemViewType == CURRENT) {
+                    holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                    holder.listCard?.strokeColor = lastColor
+                    holder.title?.setTextColor(lastColor)
+                    holder.text?.setTextColor(lastColor)
+                    holder.text2?.setTextColor(lastColor)
+                    holder.menu?.setColorFilter(lastColor)
+                    holder.imagePlaying?.setColorFilter(lastColor)
+                    imageView.setColorFilter(lastColor)
+                } else {
+                    holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                    holder.listCard?.strokeColor = ColorUtil.getComplimentColor(
+                        lastColor
+                    )
+                    holder.title?.setTextColor(
+                        ColorUtil.getComplimentColor(
+                            lastColor
+                        )
+                    )
+                    holder.text?.setTextColor(
+                        ColorUtil.getComplimentColor(
+                            lastColor
+                        )
+                    )
+                    holder.text2?.setTextColor(
+                        ColorUtil.getComplimentColor(
+                            lastColor
+                        )
+                    )
+                    holder.menu?.setColorFilter(
+                        ColorUtil.getComplimentColor(
+                            lastColor
+                        )
+                    )
+                    holder.imagePlaying?.setColorFilter(
+                        ColorUtil.getComplimentColor(
+                            lastColor
+                        )
+                    )
+                    imageView.setColorFilter(
+                        ColorUtil.getComplimentColor(
+                            lastColor
+                        )
+                    )
+                }
+            } else {
                 if (PreferenceUtil.materialYou) {
-                    if (holder.itemViewType == CURRENT) {
+                    holder.listCard?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(
+                        activity,
+                        R.color.m3_widget_background
+                    ))
+                    if (holder.itemViewType == HISTORY) {
+                        holder.listCard?.strokeWidth = 0
+                    } else if (holder.itemViewType == CURRENT) {
+                        holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                        holder.listCard?.strokeColor = activity.accentColor()
                         holder.title?.setTextColor(activity.accentColor())
                         holder.text?.setTextColor(activity.accentColor())
                         holder.text2?.setTextColor(activity.accentColor())
@@ -1689,6 +579,11 @@ class PlayingQueueAdapter(
                         holder.imagePlaying?.setColorFilter(activity.accentColor())
                         imageView.setColorFilter(activity.accentColor())
                     } else {
+                        holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                        holder.listCard?.strokeColor = ContextCompat.getColor(
+                            activity,
+                            R.color.m3_widget_other_text
+                        )
                         holder.title?.setTextColor(
                             ContextCompat.getColor(
                                 activity,
@@ -1727,7 +622,12 @@ class PlayingQueueAdapter(
                         )
                     }
                 } else {
-                    if (holder.itemViewType == CURRENT) {
+                    holder.listCard?.backgroundTintList = ColorStateList.valueOf(activity.surfaceColor())
+                    if (holder.itemViewType == HISTORY) {
+                        holder.listCard?.strokeWidth = 0
+                    } else if (holder.itemViewType == CURRENT) {
+                        holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                        holder.listCard?.strokeColor = activity.accentColor()
                         holder.title?.setTextColor(activity.accentColor())
                         holder.text?.setTextColor(activity.accentColor())
                         holder.text2?.setTextColor(activity.accentColor())
@@ -1735,9 +635,15 @@ class PlayingQueueAdapter(
                         holder.imagePlaying?.setColorFilter(activity.accentColor())
                         imageView.setColorFilter(activity.accentColor())
                     } else {
+                        holder.listCard?.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+                        holder.listCard?.strokeColor = ColorUtil.getComplimentColor(activity.accentColor())
                         val colorBg =
                             ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
                         if (ATHColorUtil.isColorLight(colorBg)) {
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
+                                activity,
+                                R.color.md_black_1000
+                            )
                             holder.title?.setTextColor(
                                 ContextCompat.getColor(
                                     activity,
@@ -1775,6 +681,10 @@ class PlayingQueueAdapter(
                                 )
                             )
                         } else {
+                            holder.listCard?.strokeColor = ContextCompat.getColor(
+                                activity,
+                                R.color.md_white_1000
+                            )
                             holder.title?.setTextColor(
                                 ContextCompat.getColor(
                                     activity,
@@ -1901,6 +811,12 @@ class PlayingQueueAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun setTextColor(color: Int) {
         lastColor = color
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setBackgroundColor(color: Int) {
+        backColor = color
         notifyDataSetChanged()
     }
 

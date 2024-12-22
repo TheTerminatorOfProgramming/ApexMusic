@@ -23,9 +23,9 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorSurface"
                 app:navigationIcon="@drawable/ic_search"
-                app:titleTextColor="@color/md_red_A400"
                 app:popupTheme="?attr/toolbarPopupTheme"
                 app:title="@null"
+                app:titleTextColor="@color/md_red_A400"
                 tools:ignore="UnusedAttribute">
 
                 <com.google.android.material.textview.MaterialTextView

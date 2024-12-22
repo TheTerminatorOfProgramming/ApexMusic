@@ -21,6 +21,7 @@ import android.view.MenuItem
 import android.view.SubMenu
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.updatePadding
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,9 +30,11 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.album.AlbumAdapter
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder.AlbumSortOrder
 import com.ttop.app.apex.interfaces.IAlbumClickListener
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.ReloadType
@@ -52,7 +55,29 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             else
                 adapter?.swapDataSet(listOf())
         }
-        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
+
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                activity?.window?.statusBarColor = surfaceColor()
+            } else {
+                activity?.window?.statusBarColor = requireActivity().darkAccentColor(requireActivity())
+            }
+        } else {
+            activity?.window?.statusBarColor = surfaceColor()
+        }
+
+        if (PreferenceUtil.isIndexVisible) {
+            if (ApexUtil.isTablet) {
+                recyclerView.updatePadding(right = ApexUtil.dpToPixel(60f, requireContext()).toInt())
+            }else {
+                recyclerView.updatePadding(right = ApexUtil.dpToPixel(40f, requireContext()).toInt())
+            }
+
+            recyclerView.setIndexBarVisibility(true)
+        }else {
+            recyclerView.updatePadding(right = 0)
+            recyclerView.setIndexBarVisibility(false)
+        }
     }
 
     override val titleRes: Int
@@ -103,7 +128,11 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
     }
 
     override fun loadGridSize(): Int {
-        return PreferenceUtil.albumGridSize
+        return if (PreferenceUtil.isPerformanceMode) {
+            1
+        }else {
+            PreferenceUtil.albumGridSize
+        }
     }
 
     override fun saveGridSize(gridColumns: Int) {
@@ -111,7 +140,11 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
     }
 
     override fun loadGridSizeLand(): Int {
-        return PreferenceUtil.albumGridSizeLand
+        return if (PreferenceUtil.isPerformanceMode) {
+            1
+        }else {
+            PreferenceUtil.albumGridSizeLand
+        }
     }
 
     override fun saveGridSizeLand(gridColumns: Int) {
@@ -157,17 +190,23 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
 
-        setUpGridSizeMenu(gridSizeItem.subMenu!!)
         val layoutItem = menu.findItem(R.id.action_layout_type)
-        setupLayoutMenu(layoutItem.subMenu!!)
+        setUpGridSizeMenu(gridSizeItem.subMenu!!)
+        if (PreferenceUtil.isPerformanceMode) {
+            gridSizeItem.isVisible = false
+            layoutItem?.isVisible = false
+        }else {
+            gridSizeItem.isVisible = true
+            setupLayoutMenu(layoutItem.subMenu!!)
 
-        if (ApexUtil.isTablet) {
-            layoutItem?.isVisible = getGridSize() >= 3
-        } else {
-            layoutItem?.isVisible = getGridSize() != 1
+            if (ApexUtil.isTablet) {
+                layoutItem?.isVisible = getGridSize() >= 3
+            } else {
+                layoutItem?.isVisible = getGridSize() != 1
+            }
+
+            layout = layoutItem
         }
-
-        layout = layoutItem
 
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu!!)
         //Setting up cast button
@@ -253,6 +292,7 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
             7 -> gridSizeMenu.findItem(R.id.action_grid_size_7).isChecked = true
             8 -> gridSizeMenu.findItem(R.id.action_grid_size_8).isChecked = true
         }
+
         val gridSize: Int = maxGridSize
         if (gridSize < 8) {
             gridSizeMenu.findItem(R.id.action_grid_size_8).isVisible = false
@@ -364,7 +404,11 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
     }
 
     override fun loadGridSizeTablet(): Int {
-        return PreferenceUtil.albumGridSizeTablet
+        return if (PreferenceUtil.isPerformanceMode) {
+            2
+        }else {
+            PreferenceUtil.albumGridSizeTablet
+        }
     }
 
     override fun saveGridSizeTablet(gridColumns: Int) {
@@ -372,7 +416,11 @@ class AlbumsFragment : AbsRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridL
     }
 
     override fun loadGridSizeTabletLand(): Int {
-        return PreferenceUtil.albumGridSizeTabletLand
+        return if (PreferenceUtil.isPerformanceMode) {
+            4
+        }else {
+            PreferenceUtil.albumGridSizeTabletLand
+        }
     }
 
     override fun saveGridSizeTabletLand(gridColumns: Int) {

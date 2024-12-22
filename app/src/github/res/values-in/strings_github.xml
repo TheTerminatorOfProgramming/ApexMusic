@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="all_files_summary">Izinkan akses ke semua file di perangkat ke musik apex. Izin ini diperlukan untuk mendeteksi cadangan apex secara otomatis</string>
-    <string name="all_files_title">Izin Kelola Semua File</string>
-    <string name="all_files_granted">Kelola Semua Berkas Izin Sudah Diberikan!</string>
-</resources>

@@ -47,14 +47,14 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
 
                         var seekingDuration = MusicPlayerRemote.songProgressMillis
                         if (next) {
-                            seekingDuration += (PreferenceUtil.fastForwardDuration * 1000) * (counter.floorDiv(
+                            seekingDuration += (10 * 1000) * (counter.floorDiv(
                                 2
                             ) + 1)
                             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                                 v?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                             }
                         } else {
-                            seekingDuration -= (PreferenceUtil.rewindDuration * 1000) * (counter.floorDiv(
+                            seekingDuration -= (10 * 1000) * (counter.floorDiv(
                                 2
                             ) + 1)
                             v?.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -73,17 +73,9 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                 val endY = event.y
                 if (!wasSeeking && isAClick(startX, endX, startY, endY)) {
                     if (next) {
-                        if (PreferenceUtil.isAutoplay) {
-                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                        } else {
-                            MusicPlayerRemote.playNextSong()
-                        }
+                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                     } else {
-                        if (PreferenceUtil.isAutoplay) {
-                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                        } else {
-                            MusicPlayerRemote.playPreviousSong()
-                        }
+                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                     }
                 }
 

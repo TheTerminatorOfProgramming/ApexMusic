@@ -16,7 +16,9 @@ package com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.updateLayoutParams
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceViewHolder
 import com.ttop.app.apex.R
@@ -29,7 +31,7 @@ class ATEPreferenceCategory @JvmOverloads constructor(
 ) : PreferenceCategory(context, attrs, defStyleAttr, defStyleRes) {
 
     init {
-        layoutResource = R.layout.custom_preference
+        layoutResource = R.layout.custom_preference_category
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {

@@ -18,6 +18,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.ADAPTIVE_COLOR_APP
@@ -27,20 +28,12 @@ import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.CIRCULAR_ALBUM_ART
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION
-import com.ttop.app.apex.DISABLE_QUEUE
-import com.ttop.app.apex.DURATION_SAME
-import com.ttop.app.apex.FAST_FORWARD_DURATION
-import com.ttop.app.apex.LYRICS_MODE
+import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION_2
 import com.ttop.app.apex.NAV_BAR_BLACK
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
 import com.ttop.app.apex.R
-import com.ttop.app.apex.REWIND_DURATION
-import com.ttop.app.apex.SCREEN_ON_LYRICS
-import com.ttop.app.apex.SHUFFLE_STATE
-import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
-import com.ttop.app.apex.TOGGLE_AUTOPLAY
 import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
@@ -66,22 +59,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
             return@setOnPreferenceChangeListener true
-        }
-
-        val lyricsScreenOn: TwoStatePreference? = findPreference(SCREEN_ON_LYRICS)
-        lyricsScreenOn?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val autoplay: TwoStatePreference? = findPreference(TOGGLE_AUTOPLAY)
-        autoplay?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
         }
 
         val colorAnimate: TwoStatePreference? = findPreference(COLOR_ANIMATE)
@@ -116,73 +93,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val shuffleState: ATESwitchPreference? = findPreference(SHUFFLE_STATE)
-        shuffleState?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val rwdDuration: Preference? = findPreference(REWIND_DURATION)
-
-        val ffDuration: Preference? = findPreference(FAST_FORWARD_DURATION)
-        ffDuration?.setOnPreferenceChangeListener { _, newValue ->
-            val duration = newValue as Int
-
-            if (PreferenceUtil.isDurationSame) {
-                PreferenceUtil.rewindDuration = duration
-            }
-            true
-        }
-
-        val durationSame: ATESwitchPreference? = findPreference(DURATION_SAME)
-        if (PreferenceUtil.isDurationSame) {
-            PreferenceUtil.rewindDuration = PreferenceUtil.fastForwardDuration
-        }
-        rwdDuration?.isEnabled = !PreferenceUtil.isDurationSame
-
-        durationSame?.setOnPreferenceChangeListener { _, newValue ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-
-            val enabled = newValue as Boolean
-
-            PreferenceUtil.rewindDuration = PreferenceUtil.fastForwardDuration
-            rwdDuration?.isEnabled = !enabled
-
-            true
-        }
-
-        val swipeAnywhereNonFoldable: ATESwitchPreference? =
-            findPreference(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE)
-        swipeAnywhereNonFoldable?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val lyricsType: ATEListPreference? = findPreference(LYRICS_MODE)
-        lyricsType?.setOnPreferenceChangeListener { _, newValue ->
-            if (newValue == "disabled") {
-                PreferenceUtil.showLyrics = false
-                PreferenceUtil.showLyricsTablet = false
-            }
-            true
-        }
-
         val blackNavBar: ATESwitchPreference? = findPreference(NAV_BAR_BLACK)
         blackNavBar?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val playerQueueDisabled: ATESwitchPreference? = findPreference(DISABLE_QUEUE)
-        playerQueueDisabled?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
@@ -225,10 +137,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         when (PreferenceUtil.nowPlayingScreen) {
             Adaptive -> {
                 adaptiveColor?.isEnabled = true
-                playerBG?.isEnabled = false
-                playerBG?.isChecked = false
-                colorAnimate?.isEnabled = false
-                colorAnimate?.isChecked = false
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
                 newBlur?.isVisible = false
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
@@ -311,6 +221,472 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
                 customToolbar?.isEnabled = true
             }
         }
+
+        val customizeToolbar2: ATEListPreference? = findPreference(CUSTOMIZABLE_TOOLBAR_ACTION_2)
+        val action2Entries = ArrayList<String>()
+        val action2Values = ArrayList<String>()
+
+        action2Entries.clear()
+        action2Values.clear()
+
+        when (PreferenceUtil.customToolbarAction) {
+            "disabled" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "add_to_playlist" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "details" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "drive_mode" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "equalizer" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "playback_settings" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "save_playing_queue" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "share" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.volume))
+                action2Values.add("volume")
+            }
+
+            "volume" -> {
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.disabled))
+                action2Values.add("disabled")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_add_to_playlist
+                    )
+                )
+                action2Values.add("add_to_playlist")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_details
+                    )
+                )
+                action2Values.add("details")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.drive_mode))
+                action2Values.add("drive_mode")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.equalizer))
+                action2Values.add("equalizer")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.playback_settings
+                    )
+                )
+                action2Values.add("playback_settings")
+
+                action2Entries.add(
+                    ContextCompat.getString(
+                        requireContext(),
+                        R.string.action_save_playing_queue
+                    )
+                )
+                action2Values.add("save_playing_queue")
+
+                action2Entries.add(ContextCompat.getString(requireContext(), R.string.action_share))
+                action2Values.add("share")
+            }
+        }
+
+        customizeToolbar2?.entries = action2Entries.toTypedArray()
+        customizeToolbar2?.entryValues = action2Values.toTypedArray()
+        customizeToolbar2?.setDefaultValue("disabled")
+
+        when (PreferenceUtil.customToolbarAction2) {
+            "disabled" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.disabled)
+            }
+
+            "add_to_playlist" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.action_add_to_playlist)
+            }
+
+            "details" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.action_details)
+            }
+
+            "drive_mode" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.drive_mode)
+            }
+
+            "equalizer" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.equalizer)
+            }
+
+            "playback_settings" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.playback_settings)
+            }
+
+            "save_playing_queue" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.action_save_playing_queue)
+            }
+
+            "share" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.action_share)
+            }
+
+            "volume" -> {
+                customizeToolbar2?.summary =
+                    ContextCompat.getString(requireContext(), R.string.volume)
+            }
+        }
+
+        if (PreferenceUtil.customToolbarAction == "disabled") {
+            customizeToolbar2?.isEnabled = false
+            PreferenceUtil.customToolbarAction2 = "disabled"
+            customizeToolbar2?.summary =
+                ContextCompat.getString(requireContext(), R.string.disabled)
+        } else {
+            customizeToolbar2?.isEnabled = true
+        }
     }
 
     private fun updateAlbumCoverStyleSummary() {
@@ -332,10 +708,8 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         when (PreferenceUtil.nowPlayingScreen) {
             Adaptive -> {
                 adaptiveColor?.isEnabled = true
-                playerBG?.isEnabled = false
-                playerBG?.isChecked = false
-                colorAnimate?.isEnabled = false
-                colorAnimate?.isChecked = false
+                playerBG?.isEnabled = true
+                colorAnimate?.isEnabled = true
                 newBlur?.isVisible = false
                 carouselEffect?.isChecked = false
                 carouselEffect?.isEnabled = false
@@ -440,12 +814,741 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         when (key) {
-            NOW_PLAYING_SCREEN_ID -> {
-                updateNowPlayingScreenSummary()
-            }
-
+            NOW_PLAYING_SCREEN_ID -> updateNowPlayingScreenSummary()
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
+            CUSTOMIZABLE_TOOLBAR_ACTION -> {
+                val customizeToolbar2: ATEListPreference? =
+                    findPreference(CUSTOMIZABLE_TOOLBAR_ACTION_2)
+                val action2Entries = ArrayList<String>()
+                val action2Values = ArrayList<String>()
+
+                action2Entries.clear()
+                action2Values.clear()
+
+                when (PreferenceUtil.customToolbarAction) {
+                    "disabled" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "add_to_playlist" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "details" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "drive_mode" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "equalizer" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "playback_settings" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "save_playing_queue" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "share" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.volume
+                            )
+                        )
+                        action2Values.add("volume")
+                    }
+
+                    "volume" -> {
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.disabled
+                            )
+                        )
+                        action2Values.add("disabled")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_add_to_playlist
+                            )
+                        )
+                        action2Values.add("add_to_playlist")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_details
+                            )
+                        )
+                        action2Values.add("details")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.drive_mode
+                            )
+                        )
+                        action2Values.add("drive_mode")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.equalizer
+                            )
+                        )
+                        action2Values.add("equalizer")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.playback_settings
+                            )
+                        )
+                        action2Values.add("playback_settings")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_save_playing_queue
+                            )
+                        )
+                        action2Values.add("save_playing_queue")
+
+                        action2Entries.add(
+                            ContextCompat.getString(
+                                requireContext(),
+                                R.string.action_share
+                            )
+                        )
+                        action2Values.add("share")
+                    }
+                }
+
+                customizeToolbar2?.entries = action2Entries.toTypedArray()
+                customizeToolbar2?.entryValues = action2Values.toTypedArray()
+                customizeToolbar2?.setDefaultValue("disabled")
+
+                when (PreferenceUtil.customToolbarAction2) {
+                    "disabled" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.disabled)
+                    }
+
+                    "add_to_playlist" -> {
+                        customizeToolbar2?.summary = ContextCompat.getString(
+                            requireContext(),
+                            R.string.action_add_to_playlist
+                        )
+                    }
+
+                    "details" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.action_details)
+                    }
+
+                    "drive_mode" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.drive_mode)
+                    }
+
+                    "equalizer" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.equalizer)
+                    }
+
+                    "playback_settings" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.playback_settings)
+                    }
+
+                    "save_playing_queue" -> {
+                        customizeToolbar2?.summary = ContextCompat.getString(
+                            requireContext(),
+                            R.string.action_save_playing_queue
+                        )
+                    }
+
+                    "share" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.action_share)
+                    }
+
+                    "volume" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.volume)
+                    }
+                }
+
+                if (PreferenceUtil.customToolbarAction == "disabled") {
+                    customizeToolbar2?.isEnabled = false
+                    PreferenceUtil.customToolbarAction2 = "disabled"
+                    customizeToolbar2?.summary =
+                        ContextCompat.getString(requireContext(), R.string.disabled)
+                } else {
+                    customizeToolbar2?.isEnabled = true
+                }
+            }
+
+            CUSTOMIZABLE_TOOLBAR_ACTION_2 -> {
+                val customizeToolbar2: ATEListPreference? =
+                    findPreference(CUSTOMIZABLE_TOOLBAR_ACTION_2)
+                when (PreferenceUtil.customToolbarAction2) {
+                    "disabled" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.disabled)
+                    }
+
+                    "add_to_playlist" -> {
+                        customizeToolbar2?.summary = ContextCompat.getString(
+                            requireContext(),
+                            R.string.action_add_to_playlist
+                        )
+                    }
+
+                    "details" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.action_details)
+                    }
+
+                    "drive_mode" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.drive_mode)
+                    }
+
+                    "equalizer" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.equalizer)
+                    }
+
+                    "playback_settings" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.playback_settings)
+                    }
+
+                    "save_playing_queue" -> {
+                        customizeToolbar2?.summary = ContextCompat.getString(
+                            requireContext(),
+                            R.string.action_save_playing_queue
+                        )
+                    }
+
+                    "share" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.action_share)
+                    }
+
+                    "volume" -> {
+                        customizeToolbar2?.summary =
+                            ContextCompat.getString(requireContext(), R.string.volume)
+                    }
+                }
+            }
         }
     }
 }

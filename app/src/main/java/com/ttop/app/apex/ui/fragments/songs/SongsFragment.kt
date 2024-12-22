@@ -21,12 +21,15 @@ import android.view.MenuItem
 import android.view.SubMenu
 import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.SongAdapter
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.setUpMediaRouteButton
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.SortOrder.SongSortOrder
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.ui.fragments.base.AbsRecyclerViewCustomGridSizeFragment
@@ -45,7 +48,29 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             else
                 adapter?.swapDataSet(listOf())
         }
-        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
+
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                activity?.window?.statusBarColor = surfaceColor()
+            } else {
+                activity?.window?.statusBarColor = requireActivity().darkAccentColor(requireContext())
+            }
+        } else {
+            activity?.window?.statusBarColor = surfaceColor()
+        }
+
+        if (PreferenceUtil.isIndexVisible) {
+            if (ApexUtil.isTablet) {
+                recyclerView.updatePadding(right = ApexUtil.dpToPixel(60f, requireContext()).toInt())
+            }else {
+                recyclerView.updatePadding(right = ApexUtil.dpToPixel(40f, requireContext()).toInt())
+            }
+
+            recyclerView.setIndexBarVisibility(true)
+        }else {
+            recyclerView.updatePadding(right = 0)
+            recyclerView.setIndexBarVisibility(false)
+        }
     }
 
     override val titleRes: Int
@@ -59,6 +84,9 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
 
     override fun onShuffleClicked() {
         libraryViewModel.shuffleSongs()
+        if (PreferenceUtil.isExpandPanel == "default_song" || PreferenceUtil.isExpandPanel == "enhanced_song" ) {
+            mainActivity.expandPanel()
+        }
     }
 
     override fun createLayoutManager(): GridLayoutManager {
@@ -75,7 +103,11 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     }
 
     override fun loadGridSize(): Int {
-        return PreferenceUtil.songGridSize
+        return if (PreferenceUtil.isPerformanceMode) {
+            1
+        }else {
+            PreferenceUtil.songGridSize
+        }
     }
 
     override fun saveGridSize(gridColumns: Int) {
@@ -83,7 +115,11 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     }
 
     override fun loadGridSizeLand(): Int {
-        return PreferenceUtil.songGridSizeLand
+        return if (PreferenceUtil.isPerformanceMode) {
+            1
+        }else {
+            PreferenceUtil.songGridSizeLand
+        }
     }
 
     override fun saveGridSizeLand(gridColumns: Int) {
@@ -108,7 +144,7 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     }
 
     override fun saveLayoutRes(@LayoutRes layoutRes: Int) {
-        PreferenceUtil.songGridStyle = GridStyle.values().first { gridStyle ->
+        PreferenceUtil.songGridStyle = GridStyle.entries.first { gridStyle ->
             gridStyle.layoutResId == layoutRes
         }
     }
@@ -124,17 +160,23 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
             gridSizeItem.setTitle(R.string.action_grid_size_land)
         }
 
-        setUpGridSizeMenu(gridSizeItem.subMenu!!)
         val layoutItem = menu.findItem(R.id.action_layout_type)
-        setupLayoutMenu(layoutItem.subMenu!!)
+        setUpGridSizeMenu(gridSizeItem.subMenu!!)
+        if (PreferenceUtil.isPerformanceMode) {
+            gridSizeItem.isVisible = false
+            layoutItem?.isVisible = false
+        }else {
+            gridSizeItem.isVisible = true
+            setupLayoutMenu(layoutItem.subMenu!!)
 
-        if (ApexUtil.isTablet) {
-            layoutItem?.isVisible = getGridSize() >= 3
-        } else {
-            layoutItem?.isVisible = getGridSize() != 1
+            if (ApexUtil.isTablet) {
+                layoutItem?.isVisible = getGridSize() >= 3
+            } else {
+                layoutItem?.isVisible = getGridSize() != 1
+            }
+
+            layout = layoutItem
         }
-
-        layout = layoutItem
 
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu!!)
         //Setting up cast button
@@ -248,9 +290,9 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
                 subMenu.findItem(R.id.action_layout_gradient_image).isChecked = true
         }
 
-        /*if (getGridSize() < 2){
-            subMenu.findItem(R.id.action_layout_circular).isChecked = true
-        }*/
+        if (getGridSize() < 2){
+            subMenu.findItem(R.id.action_layout_image).isChecked = true
+        }
     }
 
     private fun setUpGridSizeMenu(gridSizeMenu: SubMenu) {
@@ -386,7 +428,11 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     }
 
     override fun loadGridSizeTablet(): Int {
-        return PreferenceUtil.songGridSizeTablet
+        return if (PreferenceUtil.isPerformanceMode) {
+            2
+        }else {
+            PreferenceUtil.songGridSizeTablet
+        }
     }
 
     override fun saveGridSizeTablet(gridColumns: Int) {
@@ -394,7 +440,11 @@ class SongsFragment : AbsRecyclerViewCustomGridSizeFragment<SongAdapter, GridLay
     }
 
     override fun loadGridSizeTabletLand(): Int {
-        return PreferenceUtil.songGridSizeTabletLand
+        return if (PreferenceUtil.isPerformanceMode) {
+            4
+        }else {
+            PreferenceUtil.songGridSizeTabletLand
+        }
     }
 
     override fun saveGridSizeTabletLand(gridColumns: Int) {

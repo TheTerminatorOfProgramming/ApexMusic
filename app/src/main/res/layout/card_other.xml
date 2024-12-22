@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MaterialCardViewStroke"
+    android:id="@+id/aboutCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/about_card_radius">
@@ -65,7 +66,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/openSource"
             app:listItemIcon="@drawable/ic_info_outline"
-            app:listItemSummary="@string/pref_summary_open_source_licences"
             app:listItemTitle="@string/version" />
 
         <com.ttop.app.apex.views.ListItemView
@@ -78,7 +78,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/version"
             app:listItemIcon="@drawable/ic_info_outline"
-            app:listItemSummary="@string/pref_summary_open_source_licences"
             app:listItemTitle="@string/retro_version" />
+
+        <com.ttop.app.apex.views.ListItemView
+            android:id="@+id/checkVersion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/retroVersion"
+            app:listItemIcon="@drawable/ic_app_update"
+            app:listItemSummary="@string/pref_summary_update"
+            app:listItemTitle="@string/pref_title_update" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

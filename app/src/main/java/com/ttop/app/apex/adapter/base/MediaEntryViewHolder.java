@@ -19,11 +19,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
-
 import com.google.android.material.card.MaterialCardView;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableSwipeableItemViewHolder;
 import com.ttop.app.apex.R;
@@ -76,6 +74,8 @@ public class MediaEntryViewHolder extends AbstractDraggableSwipeableItemViewHold
     @Nullable
     public TextView title;
 
+    public MaterialCardView listCard;
+
     public MediaEntryViewHolder(@NonNull View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.title);
@@ -97,9 +97,12 @@ public class MediaEntryViewHolder extends AbstractDraggableSwipeableItemViewHold
         mask = itemView.findViewById(R.id.mask);
         dummyContainer = itemView.findViewById(R.id.dummy_view);
 
+        listCard = itemView.findViewById(R.id.listCard);
+
         if (imageContainerCard != null) {
             imageContainerCard.setCardBackgroundColor(Color.TRANSPARENT);
         }
+
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
     }

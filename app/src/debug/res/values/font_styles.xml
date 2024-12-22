@@ -1,77 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Normal -->
-    <style name="ApexThemeOverlay">
-        <item name="fontFamily">@font/apex</item>
-        <item name="android:fontFamily">@font/apex</item>
-    </style>
     <!--Font Size-->
     <style name="FontSize12">
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="FontSize13">
         <item name="android:textSize">13sp</item>
     </style>
+
     <style name="FontSize14">
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="FontSize15">
         <item name="android:textSize">15sp</item>
     </style>
+
     <style name="FontSize16">
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="FontSize17">
         <item name="android:textSize">17sp</item>
     </style>
+
     <style name="FontSize18">
         <item name="android:textSize">18sp</item>
     </style>
+
     <style name="FontSize19">
         <item name="android:textSize">19sp</item>
     </style>
+
     <style name="FontSize20">
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="FontSize21">
         <item name="android:textSize">21sp</item>
     </style>
+
     <style name="FontSize22">
         <item name="android:textSize">22sp</item>
     </style>
+
     <style name="FontSize23">
         <item name="android:textSize">23sp</item>
     </style>
+
     <style name="FontSize24">
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="FontSize25">
         <item name="android:textSize">25sp</item>
     </style>
+
     <style name="FontSize26">
         <item name="android:textSize">26sp</item>
     </style>
+
     <style name="FontSize27">
         <item name="android:textSize">27sp</item>
     </style>
+
     <style name="FontSize28">
         <item name="android:textSize">28sp</item>
     </style>
+
     <style name="FontSize29">
         <item name="android:textSize">29sp</item>
     </style>
+
     <style name="FontSize30">
         <item name="android:textSize">30sp</item>
     </style>
+
     <style name="FontSize31">
         <item name="android:textSize">31sp</item>
     </style>
+
     <style name="FontSize32">
         <item name="android:textSize">32sp</item>
     </style>
+
     <style name="FontSize33">
         <item name="android:textSize">33sp</item>
     </style>
+
     <style name="FontSize34">
         <item name="android:textSize">34sp</item>
     </style>

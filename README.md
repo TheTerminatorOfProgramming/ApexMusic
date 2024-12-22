@@ -10,9 +10,6 @@
   <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic" style="text-decoration:none" area-label="Min API: 31">
     <img src="https://img.shields.io/badge/minSdkVersion-31-green.svg">
   </a>
-  <a href="https://play.google.com/store/apps/details?id=com.ttop.app.apex" style="text-decoration:none" area-label="Play Store">
-    <img src="https://img.shields.io/badge/Download-Google_Play-green.svg">
-  </a>
   <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic/blob/master/LICENSE.md" style="text-decoration:none" area-label="License: GPL v3">
     <img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg">
   </a
@@ -32,9 +29,6 @@
 <br>  
 <br>
 <p align="center">
-    <a href="https://play.google.com/store/apps/details?id=com.ttop.app.apex" style="text-decoration:none" area-label="Play Store">
-        <img src="assets/google-play-badge.png" height="80">
-    </a>
     <a href="https://github.com/TheTerminatorOfProgramming/ApexMusic/releases/latest" style="text-decoration:none" area-label="License: GPL v3">
         <img src="assets/github.png" height="80">
     </a
@@ -52,11 +46,11 @@
 | Material U Light (A12+) 	| Material U Dark (A12+) 	| Material U Black (A12+) 	|
 
 ### User Interface
-|<img src="screenshots/main_material_you_white.jpg" width="200"/>|<img src="screenshots/songs_material_you_white.jpg" width="200"/>|<img src="screenshots/albums_material_you_white.jpg" width="200"/>|<img src="screenshots/artists_material_you_white.jpg" width="200"/>|
+|<img src="screenshots/main_material_you_white.jpg" width="200"/>|<img src="screenshots/songs_white.jpg" width="200"/>|<img src="screenshots/albums_white.jpg" width="200"/>|<img src="screenshots/artists_white.jpg" width="200"/>|
 |:-----:	|:-----:	|:-----:	|:-----:	|
 | Home 	| Songs 	| Albums 	| Artists 	|
 
-|<img src="screenshots/playlists_material_you_white.jpg" width="200"/>|<img src="screenshots/playlists_empty_material_you_white.jpg" width="200"/>|<img src="screenshots/settings_material_you_white.jpg" width="200"/>
+|<img src="screenshots/playlists_white.jpg" width="200"/>|<img src="screenshots/playlists_empty_white.jpg" width="200"/>|<img src="screenshots/settings_white.jpg" width="200"/>
 |:-----:	|:-----:	|:-----:	|
 | Playlists 	| Playlists(Empty) 	| Settings 	|
 
@@ -80,14 +74,14 @@
 
 ### Widgets
 ##### Material You (Light)
-|<img src="app/src/main/res/drawable/widget_big.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_circle.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_classic_single.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_classic_double.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_full.webp" width="200"/>|
-|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
-| Big 	| Circle 	| Classic (Single) 	| Classic (Double) 	| Full 	|
+|<img src="app/src/main/res/drawable/widget_big.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_circle.webp" width="100"/>|<img src="app/src/main/res/drawable/widget_classic.webp" width="200"/>|<img src="app/src/main/res/drawable/widget_full.webp" width="200"/>|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Big 	| Circle 	| Classic 	| Full 	|
 
 ##### Material You (Dark)
-|<img src="app/src/main/res/drawable-night/widget_big.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_circle.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_classic_single.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_classic_double.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_full.webp" width="200"/>|
-|:-----:	|:-----:	|:-----:	|:-----:	|:-----:	|
-| Big 	| Circle 	| Classic (Single) 	| Classic (Double) 	| Full 	|
+|<img src="app/src/main/res/drawable-night/widget_big.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_circle.webp" width="100"/>|<img src="app/src/main/res/drawable-night/widget_classic.webp" width="200"/>|<img src="app/src/main/res/drawable-night/widget_full.webp" width="200"/>|
+|:-----:	|:-----:	|:-----:	|:-----:	|
+| Big 	| Circle 	| Classic 	| Full 	|
 ## About
 Apex Music is an offline open source music player optimised for foldables and is forked from [Retro Music Player](https://github.com/RetroMusicPlayer/RetroMusicPlayer)
 ___    

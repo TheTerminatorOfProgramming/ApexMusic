@@ -28,10 +28,10 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_margin="8dp"
+        app:apexCornerSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:apexCornerSize="36dp"
         app:srcCompat="@drawable/ic_account"
         tools:srcCompat="@tools:sample/backgrounds/scenic[20]" />
 

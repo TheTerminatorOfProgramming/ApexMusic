@@ -26,7 +26,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -51,31 +50,19 @@ class AppWidgetCircle : BaseAppWidget() {
      * actions if service not running.
      */
     override fun defaultAppWidget(context: Context, appWidgetIds: IntArray) {
-        val appWidgetView = if (DynamicColors.isDynamicColorAvailable()) {
-            RemoteViews(context.packageName, R.layout.app_widget_circle_md3)
-        } else {
-            RemoteViews(context.packageName, R.layout.app_widget_circle)
-        }
+        val appWidgetView = RemoteViews(context.packageName, R.layout.app_widget_circle_md3)
 
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
 
         // Set correct drawable for pause state
-        val playRes = if (DynamicColors.isDynamicColorAvailable()) {
-            R.drawable.ic_play_arrow_md3
-        } else {
-            R.drawable.ic_play_arrow_day_night
-        }
+        val playRes = R.drawable.ic_play_arrow_md3
 
         appWidgetView.setImageViewResource(
             R.id.button_toggle_play_pause, playRes
         )
 
         // Set correct drawable for favorite state
-        val favoriteRes = if (DynamicColors.isDynamicColorAvailable()) {
-            R.drawable.ic_favorite_border_widget_md3
-        } else {
-            R.drawable.ic_favorite_border_widget
-        }
+        val favoriteRes = R.drawable.ic_favorite_border_widget_md3
 
         appWidgetView.setImageViewResource(
             R.id.button_toggle_favorite, favoriteRes
@@ -89,21 +76,13 @@ class AppWidgetCircle : BaseAppWidget() {
      * Update all active widget instances by pushing changes
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
-        val appWidgetView = if (DynamicColors.isDynamicColorAvailable()) {
-            RemoteViews(service.packageName, R.layout.app_widget_circle_md3)
-        } else {
-            RemoteViews(service.packageName, R.layout.app_widget_circle)
-        }
+        val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_circle_md3)
 
         val isPlaying = service.isPlaying
         val song = service.currentSong
 
         // Set correct drawable for pause state
-        val playPauseRes = if (DynamicColors.isDynamicColorAvailable()) {
-            if (isPlaying) R.drawable.ic_pause_md3 else R.drawable.ic_play_arrow_md3
-        } else {
-            if (isPlaying) R.drawable.ic_pause_day_night else R.drawable.ic_play_arrow_day_night
-        }
+        val playPauseRes = if (isPlaying) R.drawable.ic_pause_md3 else R.drawable.ic_play_arrow_md3
 
         appWidgetView.setImageViewResource(
             R.id.button_toggle_play_pause, playPauseRes
@@ -112,11 +91,8 @@ class AppWidgetCircle : BaseAppWidget() {
         val isFavorite = runBlocking(Dispatchers.IO) {
             return@runBlocking MusicUtil.repository.isSongFavorite(song.id)
         }
-        val favoriteRes = if (DynamicColors.isDynamicColorAvailable()) {
+        val favoriteRes =
             if (isFavorite) R.drawable.ic_favorite_widget_md3 else R.drawable.ic_favorite_border_widget_md3
-        } else {
-            if (isFavorite) R.drawable.ic_favorite_widget else R.drawable.ic_favorite_border_widget
-        }
 
         appWidgetView.setImageViewResource(
             R.id.button_toggle_favorite, favoriteRes

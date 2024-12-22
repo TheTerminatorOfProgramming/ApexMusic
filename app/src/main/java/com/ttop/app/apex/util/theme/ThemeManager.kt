@@ -52,10 +52,29 @@ fun Context.getThemeResValue(): Int =
                 R.style.Theme_Apex_FollowSystem
             }
         }
+        ThemeMode.AUTO_BLACK -> {
+            if (PreferenceUtil.materialYou) {
+                when (applicationContext?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> R.style.Theme_Apex_MD3_Black
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> R.style.Theme_Apex_MD3_Light
+
+                    else -> R.style.Theme_Apex_MD3_Black
+                }
+            } else {
+                when (applicationContext?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> R.style.Theme_Apex_Black
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> R.style.Theme_Apex_Light
+
+                    else -> R.style.Theme_Apex_Black
+                }
+            }
+        }
     }
 
 fun Context.getNightMode(): Int = when (generalThemeValue) {
     LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-    DARK -> AppCompatDelegate.MODE_NIGHT_YES
+    DARK, BLACK -> AppCompatDelegate.MODE_NIGHT_YES
     else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 }

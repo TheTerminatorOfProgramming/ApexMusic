@@ -72,9 +72,16 @@ class TagWriter {
                         val audioFile = AudioFileIO.read(File(filePath))
                         val tag = audioFile.tagOrCreateAndSetDefault
                         if (info.fieldKeyValueMap != null) {
-                            for ((key, value) in info.fieldKeyValueMap) {
+                            for ((key, newValue) in info.fieldKeyValueMap) {
                                 try {
-                                    tag.setField(key, value)
+                                    val currentValue = tag.getFirst(key)
+                                    if (currentValue != newValue) {
+                                        if (newValue.isEmpty()) {
+                                            tag.deleteField(key)
+                                        } else {
+                                            tag.setField(key, newValue)
+                                        }
+                                    }
                                 } catch (e: FieldDataInvalidException) {
                                     withContext(Dispatchers.Main) {
                                         context.showToast(R.string.could_not_write_tags_to_file)
@@ -152,9 +159,16 @@ class TagWriter {
                         val audioFile = AudioFileIO.read(cacheFile)
                         val tag = audioFile.tagOrCreateAndSetDefault
                         if (info.fieldKeyValueMap != null) {
-                            for ((key, value) in info.fieldKeyValueMap) {
+                            for ((key, newValue) in info.fieldKeyValueMap) {
                                 try {
-                                    tag.setField(key, value)
+                                    val currentValue = tag.getFirst(key)
+                                    if (currentValue != newValue) {
+                                        if (newValue.isEmpty()) {
+                                            tag.deleteField(key)
+                                        } else {
+                                            tag.setField(key, newValue)
+                                        }
+                                    }
                                 } catch (e: FieldDataInvalidException) {
                                     withContext(Dispatchers.Main) {
                                         context.showToast(R.string.could_not_write_tags_to_file)

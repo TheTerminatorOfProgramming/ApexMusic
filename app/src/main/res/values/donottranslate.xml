@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Apex Music</string>
-    <string name="app_name_short" translatable="false">Apex</string>
+    <string name="app_name" translatable="false">Apex</string>
     <string name="github" translatable="false">GitHub</string>
 
+    <string name="name" translatable="false">Apex</string>
 
     <string name="app_shortcut_last_added_long" translatable="false">@string/last_added</string>
     <string name="app_shortcut_last_added_short" translatable="false">@string/last_added</string>

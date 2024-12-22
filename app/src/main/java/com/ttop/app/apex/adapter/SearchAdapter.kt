@@ -34,6 +34,8 @@ import com.ttop.app.apex.EXTRA_PLAYLIST_ID
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.db.PlaylistWithSongs
+import com.ttop.app.apex.db.toSongs
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.ApexGlideExtension.albumCoverOptions
 import com.ttop.app.apex.glide.ApexGlideExtension.artistImageOptions
@@ -41,6 +43,7 @@ import com.ttop.app.apex.glide.ApexGlideExtension.songCoverOptions
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.apex.model.Album
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Genre
@@ -80,7 +83,15 @@ class SearchAdapter(
 
             ALBUM, ARTIST, ALBUM_ARTIST -> ViewHolder(
                 LayoutInflater.from(activity).inflate(
-                    R.layout.item_list_big,
+                    R.layout.item_list,
+                    parent,
+                    false
+                ), viewType
+            )
+
+            PLAYLIST -> ViewHolder(
+                LayoutInflater.from(activity).inflate(
+                    R.layout.item_list_search,
                     parent,
                     false
                 ), viewType
@@ -140,7 +151,7 @@ class SearchAdapter(
             PLAYLIST -> {
                 val playlist = dataSet[position] as PlaylistWithSongs
                 holder.title?.text = playlist.playlistEntity.playlistName
-                //holder.text?.text = MusicUtil.playlistInfoString(activity, playlist.songs)
+                holder.text?.text = MusicUtil.getPlaylistInfoString(activity, playlist.songs.toSongs())
             }
 
             ALBUM_ARTIST -> {
@@ -155,9 +166,14 @@ class SearchAdapter(
 
             else -> {
                 holder.title?.text = dataSet[position].toString()
-                holder.title?.setTextColor(ThemeStore.accentColor(activity))
+                holder.title?.setTextColor(accentColor(activity))
             }
         }
+        holder.listCard?.strokeColor = accentColor(activity)
+        holder.title?.setTextColor(activity.accentColor())
+        holder.text?.setTextColor(activity.accentColor())
+        holder.menu?.setColorFilter(activity.accentColor())
+        holder.imagePlaying?.setColorFilter(activity.accentColor())
     }
 
     override fun getItemCount(): Int {
@@ -228,23 +244,18 @@ class SearchAdapter(
                 }
 
                 SONG -> {
-                    if (PreferenceUtil.searchActionShuffle) {
-                        val songToPlay = item as Song
-                        val allSongs = MusicUtil.repository.allSong()
+                    val songToPlay = item as Song
+                    val allSongs = MusicUtil.repository.allSong()
 
-                        MusicPlayerRemote.openAndShuffleQueue(allSongs, false)
-                        MusicPlayerRemote.moveSong(
-                            MusicPlayerRemote.playingQueue.indexOf(songToPlay),
-                            0
-                        )
+                    MusicPlayerRemote.openAndShuffleQueue(allSongs, false)
+                    MusicPlayerRemote.moveSong(
+                        MusicPlayerRemote.playingQueue.indexOf(songToPlay),
+                        0
+                    )
+                    MusicPlayerRemote.playSongAt(0)
+
+                    if (!MusicPlayerRemote.isPlaying) {
                         MusicPlayerRemote.playSongAt(0)
-
-                        if (!MusicPlayerRemote.isPlaying) {
-                            MusicPlayerRemote.playSongAt(0)
-                        }
-                    } else {
-                        MusicPlayerRemote.playNext(item as Song)
-                        MusicPlayerRemote.playNextSong()
                     }
                 }
             }

@@ -30,9 +30,6 @@ import com.ttop.app.apex.R;
 
 public class PopupStyles {
 
-    private PopupStyles() {
-    }
-
     public static Consumer<TextView> DEFAULT = popupView -> {
         Resources resources = popupView.getResources();
         int minimumSize = resources.getDimensionPixelSize(R.dimen.afs_popup_min_size);
@@ -55,7 +52,6 @@ public class PopupStyles {
         popupView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(
                 R.dimen.afs_popup_text_size));
     };
-
     public static Consumer<TextView> MD2 = popupView -> {
         Resources resources = popupView.getResources();
         popupView.setMinimumWidth(resources.getDimensionPixelSize(
@@ -80,4 +76,7 @@ public class PopupStyles {
         popupView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(
                 R.dimen.afs_md2_popup_text_size));
     };
+
+    private PopupStyles() {
+    }
 }

@@ -21,6 +21,7 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
+import com.google.android.material.card.MaterialCardView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.libraries.appthemehelper.common.prefs.BorderCircleView
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
@@ -51,6 +52,10 @@ class ATEColorPreference @JvmOverloads constructor(
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         mView = holder.itemView
+
+        val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
+        cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
+
         invalidateColor()
     }
 

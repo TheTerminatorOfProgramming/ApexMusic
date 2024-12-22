@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="all_files_summary">Apex müziğine yönelik cihazdaki tüm dosyalara erişime izin verin. Apex yedeklemelerini otomatik olarak algılamak için bu izin gereklidir</string>
-    <string name="all_files_title">Tüm Dosyaları Yönetme İzni</string>
-    <string name="all_files_granted">Tüm Dosyaları Yönet İzni Zaten Verildi!</string>
-</resources>

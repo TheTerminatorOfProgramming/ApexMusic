@@ -1,12 +1,10 @@
-## **Q: How do I get the beta version of Apex Music?**
-You can install the Beta build alongside the stable/preview build of apex music. The beta builds are only available on my website:
-
-https://theterminatorofprogramming.github.io/download/Apex_Music_Beta_latest.apk
+## **Q: How do I get the beta version of Apex?**
+You can install the Beta build alongside the stable/preview build of apex. The beta builds are only available on the Apex Telegram group
 
 ___
 
 ## Q: **How do I use offline synced lyrics?**
-There are three methods for adding offline synced lyrics in Apex Music.
+There are three methods for adding offline synced lyrics in Apex.
 
 ### ***Method 1:-***
 #### STEP 1: 
@@ -14,7 +12,7 @@ Find the time-stamped lyrics for your songs that don't have lyrics already. A ti
 #### STEP 2: 
 Copy these time-stamped lyrics.
 #### STEP 3: 
-Open apex music and head to the song synced lyrics editor.
+Open apex and head to the song synced lyrics editor.
 #### STEP 4: 
 Paste the lyrics there normally and exit the editor
 #### STEP 5: 
@@ -47,7 +45,7 @@ Find your song to edit and paste the synced lyrics.
 **Some Important Notes:**
 - If you want to skip to a particular timestamp, simply scroll to the time stamp from where you want to start and a 'Play' icon will appear left to the particular stamp. Tap on the play button to play from there.
 - When you save lyrics by pasting lyrics in lyrics editor, close the lyrics and open again for lyrics to show.
-- For those who are having difficulty in making the synced lyrics work, we have a short tutorial video on it. Hope this helps you. {[Link in the note or here](https://youtu.be/1oIOTGWhNMY)}
+- For those who are having difficulty in making the synced lyrics work, here is a short tutorial video on it. Hope this helps you. {[Link in the note or here](https://youtu.be/1oIOTGWhNMY)}
 
 ___
 
@@ -56,7 +54,7 @@ Settings -> User Interface -> Select your theme.
 ___
 
 ## **Q: Equalizer is very laggy and unstable or I am getting a "No equalizer found" error. Why?**
-- If you are seeing "No Equalizer Found" in your device, this means your device doesn't have a stock equalizer "MusicFx" Equalizer. You can try using this one. It's made by AEX ROM developers.
+- If you are seeing "No Equalizer Found" in your device, this means your device doesn't have a stock equalizer such as "MusicFx" Equalizer. You can try using this one. It's made by AEX ROM developers.
 
 https://drive.google.com/file/d/1_1bpsn6roeEyElGKikbU39lVKUH8O3xp/view?**usp=drivesdk
 
@@ -70,23 +68,19 @@ ___
 Settings -> Advanced -> Last added playlist interval -> Select an option from the list.
 ___
 
-## **Q: How do I enable fullscreen lock screen controls?**
-Settings -> Personalize -> Fullscreen controls -> Enable (this will only be visible when songs are playing from Apex Music).
-___
-
 ## **Q: Why are my gallery or random pictures showing up as album art?**
 Settings -> Images -> Ignore media store covers -> Enable
 ___
 
 ## **Q: Which file types are supported?**
-Apex Music uses the native media player that comes with your Android phone, so as long as a file type is supported by your phone, it's supported by Apex Music.
+Apex uses the native media codecs that is supported with your Android phone, so as long as a file type is supported by your phone, it's supported by Apex.
 ___
 
 ## **Q: Why is my device slowing down when I'm using the app?**
-Apex Music is image intensive, it keeps images in the cache for quick loading.
+Apex is image intensive, it keeps images in the cache for quick loading. This will be improved upon in the future
 ___
 
-## **Q: The title "Apex Music" is showing on the top of the app, how can I fix this?** 
+## **Q: The title "Apex" is showing on the top of the app, how can I fix this?** 
 Clear the app's cache and data.
 ___
 
@@ -117,36 +111,34 @@ If you are seeing duplication of songs in the library or no songs at all, then i
 
 1. Find the 'Media storage' app and clear storage (both data and cache) of it.
 
-1. Then open the Apex Music app and manually scan your music from your storage. 
+1. Then open the Apex app and manually scan your music from your storage. 
 
 1. Reboot the device to refresh the media store (Not sure if this is necessary)
 
-**NOTE:** Don't panic when you will open Apex Music and see "Zero" songs there in the library. It's because you cleared Media Store which is responsible for recognising files on your device.
+**NOTE:** Don't panic when you will open Apex and see "Zero" songs there in the library. It's because you cleared Media Store which is responsible for recognising files on your device.
 ___
 
 ## **Q: I can't find the folder menu anymore after the latest update?**
 Head to settings -> personalise. And select folders from "library categories". If there is no option of folders, tap on reset and select folders.
 ___
 
-## **Q: After updating the app to the latest version, the font got removed. Why?**
-- Apex Music's font has now been replaced with system font, which means the default font your system uses will be used by Apex Music too. It fixes all font-related issues you used to face/are facing in the app. 
-
-- We have built-in optional fonts which you can select from Settings > User Interface > Font.
+## **Q: Why can't I remove the settings or queue categories from the navigation?**
+This is due to both settings and queue being essential categories
 ___
 
 ## **Q: How to export playlist?**
-- ***From Apex Music:***
+- ***From Apex:***
 
 Head to the playlists tab > tap on the three-dot menu on the playlist you want to export > save as a file.
 
 - ***From Other Music Players:***
 
-In your built-in music player, there should be an option to save that playlist as a file. Save them and import them from the file manager by opening it into apex music.
+In your built-in music player, there should be an option to save that playlist as a file. Save them and import them from the file manager by opening it into apex.
 
-> Note that such playlist must be of your offline music only since apex music is an offline music player, not an online music player. So if your playlist is of online music, it can't be opened on other offline players nor can be exported
+> Note that such playlist must be of your offline music only since apex is an offline music player, not an online music player. So if your playlist is of online music, it can't be opened on other offline players nor can be exported
 ___
 
 ## **Q: How to restore/import playlist?**
-Apex Music will automatically detect any playlist file when that playlist file is stored in internal storage/Playlist. However, if it doesn't, just open any "File manager" and open that playlist file with Apex Music.
+Apex will automatically detect any playlist file when that playlist file is stored in internal storage/Playlist. However, if it doesn't, just open any "File manager" and open that playlist file with Apex Music.
 
 For restoring playlists successfully, the location of songs must be the same in both the "Playlist" file and in your storage. For example, If your music is in "Internal storage/Music" and the playlist file has songs location "Internal storage/Songs". Then it will not be going to work since both these locations are different.

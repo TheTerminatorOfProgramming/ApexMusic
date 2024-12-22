@@ -14,9 +14,12 @@
  */
 package com.ttop.app.apex.ui.fragments.player.adaptive
 
+import android.animation.Animator
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.animation.AccelerateInterpolator
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
@@ -34,6 +37,7 @@ import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import com.ttop.app.apex.views.SquigglyProgress
+import kotlin.math.sqrt
 
 class AdaptivePlaybackControlsFragment :
     AbsPlayerControlsFragment(R.layout.fragment_adaptive_player_playback_controls) {
@@ -100,13 +104,27 @@ class AdaptivePlaybackControlsFragment :
         updateShuffleState()
     }
 
+    fun createRevealAnimator(view: View): Animator {
+        val location = IntArray(2)
+        binding.playPauseButton.getLocationOnScreen(location)
+        val x = (location[0] + binding.playPauseButton.measuredWidth / 2)
+        val y = (location[1] + binding.playPauseButton.measuredHeight / 2)
+        val endRadius = sqrt((x * x + y * y).toFloat())
+        val startRadius =
+            binding.playPauseButton.measuredWidth.coerceAtMost(binding.playPauseButton.measuredHeight)
+        return ViewAnimationUtils.createCircularReveal(
+            view, x, y, startRadius.toFloat(),
+            endRadius
+        ).apply {
+            duration = 300
+            interpolator = AccelerateInterpolator()
+        }
+
+    }
+
     override fun setColor(color: MediaNotificationProcessor) {
         val controlsColor = if (PreferenceUtil.isAdaptiveColor) {
-            if (PreferenceUtil.isPlayerBackgroundType) {
-                ColorUtil.getComplimentColor(color.secondaryTextColor)
-            } else {
-                color.secondaryTextColor
-            }
+            color.secondaryTextColor
         } else {
             if (PreferenceUtil.materialYou) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)

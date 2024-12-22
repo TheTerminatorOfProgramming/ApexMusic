@@ -90,10 +90,10 @@
             android:id="@+id/media_action"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
             android:layout_gravity="bottom"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:layoutDirection="ltr"
             android:orientation="horizontal">
 

@@ -24,6 +24,7 @@ import com.ttop.app.apex.DISABLE_APP_BAR_SCROLL
 import com.ttop.app.apex.HOME_ALBUM_GRID_STYLE
 import com.ttop.app.apex.HOME_ARTIST_GRID_STYLE
 import com.ttop.app.apex.PAUSE_HISTORY
+import com.ttop.app.apex.PERFORMANCE_MODE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.REMEMBER_LAST_TAB
 import com.ttop.app.apex.TAB_TEXT_MODE
@@ -82,10 +83,19 @@ class PersonalizeSettingsFragment : AbsSettingsFragment(),
             restartActivity()
             true
         }
+
+        val performance: TwoStatePreference? = findPreference(PERFORMANCE_MODE)
+        performance?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            restartActivity()
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.pref_ui)
+        addPreferencesFromResource(R.xml.pref_personalize)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

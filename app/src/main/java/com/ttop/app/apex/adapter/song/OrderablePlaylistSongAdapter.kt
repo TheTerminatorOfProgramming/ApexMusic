@@ -59,6 +59,12 @@ class OrderablePlaylistSongAdapter(
         return ViewHolder(view)
     }
 
+    override fun onBindViewHolder(holder: SongAdapter.ViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+        val song = dataSet[position]
+        loadAlbumCover(song, holder)
+    }
+
     override fun onMultipleItemAction(menuItem: MenuItem, selection: List<Song>) {
         when (menuItem.itemId) {
             R.id.action_remove_from_playlist -> RemoveSongFromPlaylistDialog.create(

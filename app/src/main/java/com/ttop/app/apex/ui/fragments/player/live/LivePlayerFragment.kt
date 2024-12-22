@@ -51,7 +51,9 @@ import com.ttop.app.apex.dialogs.SongShareDialog
 import com.ttop.app.apex.dialogs.VolumeDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
+import com.ttop.app.apex.extensions.m3accentColor
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.Song
@@ -120,11 +122,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
     override fun onColorChanged(color: MediaNotificationProcessor) {
         controlsFragment.setColor(color)
         lastColor = color.backgroundColor
-        toolbarColor = if (PreferenceUtil.isPlayerBackgroundType) {
-            ColorUtil.getComplimentColor(color.secondaryTextColor)
-        } else {
-            color.secondaryTextColor
-        }
+        toolbarColor = color.secondaryTextColor
 
         libraryViewModel.updateColor(color.backgroundColor)
 
@@ -167,6 +165,8 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 }
                 animator.start()
             }
+        }else {
+            colorizeAccent()
         }
     }
 
@@ -187,8 +187,11 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                     val drawable = DrawableGradient(
                         GradientDrawable.Orientation.TR_BL,
                         intArrayOf(
-                            animation.animatedValue as Int,
-                            i.backgroundColor
+                            i.secondaryTextColor,
+                            i.backgroundColor,
+                            i.backgroundColor,
+                            i.backgroundColor,
+                            surfaceColor()
                         ), 0
                     )
                     binding.colorGradientBackground.background = drawable
@@ -198,6 +201,72 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
         } else {
             //SINGLE COLOR
             binding.colorGradientBackground.setBackgroundColor(i.backgroundColor)
+        }
+    }
+
+    private fun colorizeAccent() {
+        if (PreferenceUtil.isPlayerBackgroundType) {
+            //GRADIENT
+            if (valueAnimator != null) {
+                valueAnimator?.cancel()
+            }
+
+            if (PreferenceUtil.materialYou) {
+                valueAnimator = ValueAnimator.ofObject(
+                    ArgbEvaluator(),
+                    accentColor(),
+                    m3accentColor(),
+                    accentColor()
+                )
+
+                valueAnimator?.addUpdateListener {
+                    if (isAdded) {
+                        val drawable = DrawableGradient(
+                            GradientDrawable.Orientation.TR_BL,
+                            intArrayOf(
+                                accentColor(),
+                                m3accentColor(),
+                                m3accentColor(),
+                                surfaceColor()
+                            ), 0
+                        )
+                        binding.colorGradientBackground.background = drawable
+                    }
+                }
+            }else {
+                valueAnimator = ValueAnimator.ofObject(
+                    ArgbEvaluator(),
+                    surfaceColor(),
+                    accentColor()
+                )
+
+                valueAnimator?.addUpdateListener {
+                    if (isAdded) {
+                        val drawable = DrawableGradient(
+                            GradientDrawable.Orientation.TR_BL,
+                            intArrayOf(
+                                accentColor(),
+                                surfaceColor()
+                            ), 0
+                        )
+                        binding.colorGradientBackground.background = drawable
+                    }
+                }
+            }
+
+            valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
+        } else {
+            //SINGLE COLOR
+            if (PreferenceUtil.materialYou) {
+                binding.colorGradientBackground.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.m3_widget_background
+                    )
+                )
+            } else {
+                binding.colorGradientBackground.setBackgroundColor(surfaceColor())
+            }
         }
     }
 
@@ -231,15 +300,6 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
         binding.playerToolbar.apply {
             setTitleTextColor(toolbarIconColor())
             setSubtitleTextColor(toolbarIconColor())
-        }
-
-        if (PreferenceUtil.materialYou && !PreferenceUtil.isAdaptiveColor) {
-            binding.colorGradientBackground.setBackgroundColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.m3_widget_background
-                )
-            )
         }
     }
 
@@ -401,6 +461,179 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
         }
         binding.playerToolbar.setOnMenuItemClickListener(this)
 
+        when (PreferenceUtil.customToolbarAction) {
+            "disabled" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "add_to_playlist" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "details" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "drive_mode" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "equalizer" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "playback_settings" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "save_playing_queue" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "share" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            }
+
+            "volume" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            }
+        }
+
         when (PreferenceUtil.fontSize) {
             "12" -> {
                 binding.playerToolbar.setTitleTextAppearance(requireContext(), R.style.FontSize12)
@@ -509,91 +742,38 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
     }
 
     private fun setupRecyclerView() {
-        playingQueueAdapter = if (ApexUtil.isTablet) {
-            if (ApexUtil.isLandscape) {
-                when (PreferenceUtil.queueStyleLand) {
-                    "normal" -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_player_plain
-                        )
-                    }
-
-                    "duo" -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_duo
-                        )
-                    }
-
-                    "trio" -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_trio
-                        )
-                    }
-
-                    else -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_player_plain
-                        )
-                    }
-                }
-            } else {
-                when (PreferenceUtil.queueStyle) {
-                    "normal" -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_player_plain
-                        )
-                    }
-
-                    "duo" -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_duo
-                        )
-                    }
-
-                    "trio" -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_trio
-                        )
-                    }
-
-                    else -> {
-                        PlayingQueueAdapter(
-                            requireActivity() as AppCompatActivity,
-                            MusicPlayerRemote.playingQueue.toMutableList(),
-                            MusicPlayerRemote.position,
-                            R.layout.item_queue_player_plain
-                        )
-                    }
-                }
-            }
-        } else {
+        playingQueueAdapter = if (PreferenceUtil.isPerformanceMode) {
             PlayingQueueAdapter(
                 requireActivity() as AppCompatActivity,
                 MusicPlayerRemote.playingQueue.toMutableList(),
                 MusicPlayerRemote.position,
-                R.layout.item_queue_player
+                R.layout.item_queue_no_image
             )
+        }else {
+            if (ApexUtil.isTablet) {
+                if (ApexUtil.isLandscape) {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue_duo
+                    )
+                } else {
+                    PlayingQueueAdapter(
+                        requireActivity() as AppCompatActivity,
+                        MusicPlayerRemote.playingQueue.toMutableList(),
+                        MusicPlayerRemote.position,
+                        R.layout.item_queue
+                    )
+                }
+            }else {
+                PlayingQueueAdapter(
+                    requireActivity() as AppCompatActivity,
+                    MusicPlayerRemote.playingQueue.toMutableList(),
+                    MusicPlayerRemote.position,
+                    R.layout.item_queue_player
+                )
+            }
         }
 
         linearLayoutManager = LinearLayoutManager(requireContext())

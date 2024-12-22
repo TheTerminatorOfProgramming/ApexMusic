@@ -359,49 +359,22 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
     }
 
     private fun prefillTitle(): String {
-        return when (BuildConfig.BUILD_TYPE) {
-            "debug" -> {
-                SimpleDateFormat(
-                    "dd-MMM-yyyy HH:mm:ss",
-                    Locale.getDefault()
-                ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                    requireContext().packageName,
-                    0
-                ).longVersionCode + "] [" + getString(R.string.github_edition_beta).replace(
-                    ": ",
-                    " "
-                ) + "]"
-            }
-
-            "preview" -> {
-                SimpleDateFormat(
-                    "dd-MMM-yyyy HH:mm:ss",
-                    Locale.getDefault()
-                ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                    requireContext().packageName,
-                    0
-                ).longVersionCode + "] [" + getString(R.string.github_edition_preview).replace(
-                    ": ",
-                    " "
-                ) + "]"
-            }
-
-            "release" -> {
-                SimpleDateFormat(
-                    "dd-MMM-yyyy HH:mm:ss",
-                    Locale.getDefault()
-                ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
-                    requireContext().packageName,
-                    0
-                ).longVersionCode + "] [" + getString(R.string.github_edition).replace(
-                    ": ",
-                    " "
-                ) + "]"
-            }
-
-            else -> {
-                getString(R.string.error_load_failed)
-            }
+        if (BuildConfig.BUILD_TYPE == "debug") {
+            return SimpleDateFormat(
+                "dd-MMM-yyyy HH:mm:ss",
+                Locale.getDefault()
+            ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                requireContext().packageName,
+                0
+            ).longVersionCode + getString(R.string.beta) + "]"
+        } else {
+            return SimpleDateFormat(
+                "dd-MMM-yyyy HH:mm:ss",
+                Locale.getDefault()
+            ).format(Date()) + " [" + requireContext().packageManager.getPackageInfo(
+                requireContext().packageName,
+                0
+            ).longVersionCode + "]"
         }
     }
 

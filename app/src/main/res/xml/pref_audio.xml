@@ -5,79 +5,66 @@
     <com.ttop.app.apex.preferences.DurationPreference
         android:defaultValue="0"
         android:key="audio_fade_duration"
-        android:layout="@layout/list_item_view"
         android:title="@string/pref_title_audio_fade"
         app:allowDividerBelow="false" />
 
     <com.ttop.app.apex.preferences.CrossFadePreference
         android:defaultValue="0"
         android:key="cross_fade_duration"
-        android:layout="@layout/list_item_view"
         android:title="@string/pref_title_cross_fade"
         app:allowDividerBelow="false" />
 
     <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"
         android:key="gapless_playback"
-        android:layout="@layout/list_item_view_switch"
         android:title="@string/pref_title_gapless_playback"
         app:allowDividerBelow="false" />
 
     <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="true"
         android:key="pause_on_zero_volume"
-        android:layout="@layout/list_item_view_switch"
         android:title="@string/pref_title_keep_pause_on_zero"
         app:allowDividerBelow="false" />
 
     <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreference
         android:key="equalizer"
-        android:layout="@layout/list_item_view_no_title"
         android:title="@string/equalizer"
         app:allowDividerBelow="false" />
 
     <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
-        android:layout="@layout/preference_category_title"
         android:key="autoplays"
         android:title="@string/pref_header_autoplay"
         app:allowDividerBelow="false">
         <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="toggle_headset"
-            android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_toggle_headset"
             app:allowDividerBelow="false" />
 
         <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="bluetooth_playback"
-            android:layout="@layout/list_item_view_switch"
             android:title="@string/pref_title_bluetooth_playback"
             app:allowDividerBelow="false" />
 
         <com.ttop.app.apex.preferences.BluetoothDelayPreference
             android:defaultValue="1"
-            android:key="bluetooth_delay"
-            android:layout="@layout/list_item_view"
-            android:title="@string/pref_title_bluetooth_delay"
             android:dependency="bluetooth_playback"
+            android:key="bluetooth_delay"
+            android:title="@string/pref_title_bluetooth_delay"
             app:allowDividerBelow="false" />
 
         <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
-            android:key="specific_device"
-            android:layout="@layout/list_item_view_switch"
-            android:title="@string/pref_title_specific_device"
             android:dependency="bluetooth_playback"
+            android:key="specific_device"
+            android:title="@string/pref_title_specific_device"
             app:allowDividerBelow="false" />
 
-        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
-            android:key="bluetooth_device"
-            android:layout="@layout/list_item_view"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null"
-            android:title="@string/pref_title_bluetooth_device"
+        <com.ttop.app.apex.preferences.BluetoothDevicePreference
             android:dependency="specific_device"
-            app:allowDividerBelow="false" />
+            android:key="bluetooth_device"
+            android:title="@string/pref_title_bluetooth_device"
+            app:allowDividerBelow="false"/>
     </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 </androidx.preference.PreferenceScreen>

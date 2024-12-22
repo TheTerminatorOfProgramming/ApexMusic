@@ -39,13 +39,17 @@
     <string-array name="pref_general_theme_list_titles">
         <item>@string/light_theme_name</item>
         <item>@string/dark_theme_name</item>
+        <item>@string/black_theme_name</item>
         <item>@string/follow_system</item>
+        <item>@string/follow_system_black</item>
     </string-array>
 
     <string-array name="pref_general_theme_list_values">
         <item>light</item>
         <item>dark</item>
+        <item>black</item>
         <item>auto</item>
+        <item>auto_black</item>
     </string-array>
 
     <string-array name="pref_notification_action_list_titles">
@@ -154,18 +158,6 @@
         <item>tr</item>
     </string-array>
 
-    <string-array name="pref_queue_style_titles">
-        <item>@string/duo_vertical</item>
-        <item>@string/duo_horizontal</item>
-        <item>@string/trio</item>
-    </string-array>
-
-    <string-array name="pref_queue_style_values">
-        <item>normal</item>
-        <item>duo</item>
-        <item>trio</item>
-    </string-array>
-
     <string-array name="pref_auto_action_list_titles">
         <item>@string/disabled</item>
         <item>@string/repeat</item>
@@ -216,18 +208,21 @@
         <item>@string/disabled</item>
         <item>@string/show_player_from_notification</item>
         <item>@string/show_player_on_app_launch</item>
+        <item>@string/show_player_from_notification_song</item>
+        <item>@string/show_player_on_app_launch_song</item>
     </string-array>
 
     <string-array name="pref_expand_panel_values">
         <item>disabled</item>
         <item>default</item>
         <item>enhanced</item>
+        <item>default_song</item>
+        <item>enhanced_song</item>
     </string-array>
 
     <string-array name="pref_progress_bar_style_titles">
         <item>@string/disabled</item>
         <item>@string/circular</item>
-        <item>@string/circular_no_track</item>
         <item>@string/horizontal_top</item>
         <item>@string/horizontal_bottom</item>
     </string-array>
@@ -235,7 +230,6 @@
     <string-array name="pref_progress_bar_style_values">
         <item>disabled</item>
         <item>circular</item>
-        <item>circular_no_track</item>
         <item>horizontal_top</item>
         <item>horizontal_bottom</item>
     </string-array>
@@ -250,20 +244,6 @@
         <item>disabled</item>
         <item>show_always</item>
         <item>auto_hide</item>
-    </string-array>
-
-    <array name="pref_lyrics_mode_titles">
-        <item>@string/disabled</item>
-        <item>@string/lyrics_id3</item>
-        <item>@string/lyrics_synced</item>
-        <item>@string/lyrics_both</item>
-    </array>
-
-    <string-array name="pref_lyrics_mode_values">
-        <item>disabled</item>
-        <item>id3</item>
-        <item>synced</item>
-        <item>both</item>
     </string-array>
 
     <array name="pref_whitelist_titles">

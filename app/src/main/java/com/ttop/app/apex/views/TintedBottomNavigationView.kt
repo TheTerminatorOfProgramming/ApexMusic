@@ -48,7 +48,7 @@ class TintedBottomNavigationView @JvmOverloads constructor(
             val alternateColor = if (PreferenceUtil.materialYou) {
                 ContextCompat.getColor(context, com.ttop.app.apex.R.color.m3_widget_other_text)
             } else {
-                ColorUtil.getComplimentColor(accentColor)
+                ColorUtil.getAnalogousColor(accentColor)[1].toArgb()
             }
 
             val iconColor = ATHColorUtil.lightenColor(accentColor, 0.1f)

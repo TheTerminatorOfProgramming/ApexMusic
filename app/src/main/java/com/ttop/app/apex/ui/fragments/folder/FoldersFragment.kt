@@ -50,6 +50,7 @@ import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -62,6 +63,7 @@ import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.misc.UpdateToastMediaScannerCompletionListener
 import com.ttop.app.apex.misc.WrappedAsyncTaskLoader
 import com.ttop.app.apex.model.Song
@@ -71,7 +73,6 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.FileUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
-import com.ttop.app.apex.util.ThemedFastScroller.create
 import com.ttop.app.apex.util.getExternalStorageDirectory
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import com.ttop.app.apex.views.BreadCrumbLayout
@@ -155,7 +156,16 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
             )
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this)
         }
-        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
+
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                activity?.window?.statusBarColor = surfaceColor()
+            } else {
+                activity?.window?.statusBarColor = requireActivity().darkAccentColor(requireActivity())
+            }
+        } else {
+            activity?.window?.statusBarColor = surfaceColor()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -511,11 +521,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     private fun setUpRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        if (PreferenceUtil.scrollbarStyle != "disabled") {
-            create(
-                binding.recyclerView, PreferenceUtil.scrollbarStyle == "auto_hide"
-            )
-        }
     }
 
     private fun updateAdapter(files: List<File>) {
@@ -623,7 +628,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     private fun switchToFileAdapter() {
-        adapter = SongFileAdapter(mainActivity, LinkedList(), R.layout.item_list, this)
+        adapter = SongFileAdapter(mainActivity, LinkedList(), R.layout.item_folder, this)
         adapter!!.registerAdapterDataObserver(
             object : RecyclerView.AdapterDataObserver() {
                 override fun onChanged() {

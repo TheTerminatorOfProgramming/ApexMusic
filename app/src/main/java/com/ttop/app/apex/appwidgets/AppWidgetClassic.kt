@@ -29,7 +29,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -62,22 +61,14 @@ class AppWidgetClassic : BaseAppWidget() {
         val appWidgetView = if (PreferenceUtil.transparentWidgets) {
             RemoteViews(context.packageName, R.layout.app_widget_classic_transparent)
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                RemoteViews(context.packageName, R.layout.app_widget_classic_md3)
-            } else {
-                RemoteViews(context.packageName, R.layout.app_widget_classic_day_night)
-            }
+            RemoteViews(context.packageName, R.layout.app_widget_classic_md3)
         }
 
         // Set correct drawable for pause state
         val playRes = if (PreferenceUtil.transparentWidgets) {
             R.drawable.ic_play_arrow
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                R.drawable.ic_play_arrow_md3_new_ui
-            } else {
-                R.drawable.ic_play_arrow_day_night_new_ui
-            }
+            R.drawable.ic_play_arrow_md3_new_ui
         }
 
         appWidgetView.setImageViewResource(
@@ -85,6 +76,9 @@ class AppWidgetClassic : BaseAppWidget() {
         )
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
+        appWidgetView.setViewVisibility(R.id.button_next, View.INVISIBLE)
+        appWidgetView.setViewVisibility(R.id.button_prev, View.INVISIBLE)
+        appWidgetView.setViewVisibility(R.id.button_toggle_play_pause, View.INVISIBLE)
 
         if (imageSize == 0) {
             imageSize = 600
@@ -136,11 +130,7 @@ class AppWidgetClassic : BaseAppWidget() {
         val appWidgetView = if (PreferenceUtil.transparentWidgets) {
             RemoteViews(service.packageName, R.layout.app_widget_classic_transparent)
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                RemoteViews(service.packageName, R.layout.app_widget_classic_md3)
-            } else {
-                RemoteViews(service.packageName, R.layout.app_widget_classic_day_night)
-            }
+            RemoteViews(service.packageName, R.layout.app_widget_classic_md3)
         }
 
         val isPlaying = service.isPlaying
@@ -150,6 +140,9 @@ class AppWidgetClassic : BaseAppWidget() {
         // Set the titles and artwork
         if (song.title.isEmpty() && song.artistName.isEmpty()) {
             appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_next, View.INVISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_prev, View.INVISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_toggle_play_pause, View.INVISIBLE)
         } else {
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE)
             if (ApexUtil.isLandscape && !ApexUtil.isTablet) {
@@ -164,64 +157,9 @@ class AppWidgetClassic : BaseAppWidget() {
                     service.songDurationMillis.toLong()
                 )
             )
-        }
-
-        if (service.playingQueue.isNotEmpty()) {
-            val nextSong = service.nextSong
-            val firstSong = service.playingQueue[0]
-            //Set the titles and artwork fo the next song
-            if (service.position == service.playingQueue.size - 1) {
-                if (service.repeatMode == 0) {
-                    appWidgetView.setTextViewText(R.id.next_title, "")
-                    appWidgetView.setTextViewText(R.id.next_artist, "")
-                }
-
-                if (service.repeatMode == 1) {
-                    appWidgetView.setTextViewText(R.id.next_title, firstSong.title)
-                    appWidgetView.setTextViewText(R.id.next_artist, getSongArtist(firstSong))
-                }
-
-                if (service.repeatMode == 2) {
-                    appWidgetView.setTextViewText(R.id.next_title, song.title)
-                    appWidgetView.setTextViewText(R.id.next_artist, getSongArtist(song))
-                }
-            } else {
-                if (nextSong!!.title.isEmpty() && nextSong.artistName.isEmpty()) {
-                    appWidgetView.setViewVisibility(R.id.next_title, View.INVISIBLE)
-                    appWidgetView.setViewVisibility(R.id.next_artist, View.INVISIBLE)
-                } else {
-                    appWidgetView.setViewVisibility(R.id.next_title, View.VISIBLE)
-                    appWidgetView.setViewVisibility(R.id.next_artist, View.VISIBLE)
-
-                    if (ApexUtil.isLandscape && !ApexUtil.isTablet) {
-                        appWidgetView.setTextViewText(
-                            R.id.next_title,
-                            nextSong.title + " • " + getSongArtist(nextSong)
-                        )
-                    } else {
-                        if (service.repeatMode == 0) {
-                            appWidgetView.setTextViewText(R.id.next_title, nextSong.title)
-                            appWidgetView.setTextViewText(R.id.next_artist, getSongArtist(nextSong))
-                        }
-
-                        if (service.repeatMode == 1) {
-                            appWidgetView.setTextViewText(R.id.next_title, firstSong.title)
-                            appWidgetView.setTextViewText(
-                                R.id.next_artist,
-                                getSongArtist(firstSong)
-                            )
-                        }
-
-                        if (service.repeatMode == 2) {
-                            appWidgetView.setTextViewText(R.id.next_title, song.title)
-                            appWidgetView.setTextViewText(R.id.next_artist, getSongArtist(song))
-                        }
-                    }
-                }
-            }
-        } else {
-            appWidgetView.setViewVisibility(R.id.next_title, View.INVISIBLE)
-            appWidgetView.setViewVisibility(R.id.next_artist, View.INVISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_next, View.VISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_prev, View.VISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_toggle_play_pause, View.VISIBLE)
         }
 
         if (PreferenceUtil.isDisableWidgetUpdate) {
@@ -234,11 +172,7 @@ class AppWidgetClassic : BaseAppWidget() {
         val playPauseRes = if (PreferenceUtil.transparentWidgets) {
             if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                if (isPlaying) R.drawable.ic_pause_md3_new_ui else R.drawable.ic_play_arrow_md3_new_ui
-            } else {
-                if (isPlaying) R.drawable.ic_pause_day_night_new_ui else R.drawable.ic_play_arrow_day_night_new_ui
-            }
+            if (isPlaying) R.drawable.ic_pause_md3_new_ui else R.drawable.ic_play_arrow_md3_new_ui
         }
 
         appWidgetView.setImageViewResource(

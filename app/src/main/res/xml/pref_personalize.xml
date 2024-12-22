@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        app:allowDividerBelow="false"
+        app:title="@string/home">
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="toggle_suggestions"
+            android:title="@string/pref_title_suggestions"
+            app:allowDividerBelow="false" />
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_home_grid_style_list_titles"
+            android:entryValues="@array/pref_home_grid_style_list_values"
+            android:key="home_artist_grid_style"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_home_artist_grid_style"
+            app:allowDividerBelow="false" />
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_home_grid_style_list_titles"
+            android:entryValues="@array/pref_home_grid_style_list_values"
+            android:key="home_album_grid_style"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_home_album_grid_style"
+            app:allowDividerBelow="false" />
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="pause_history"
+            android:title="@string/pref_title_pause_history"
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:title="@string/pref_header_performance"
+        app:allowDividerBelow="false">
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="performance_mode"
+            android:title="@string/pref_title_performance_mode"
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+        android:title="@string/pref_header_library"
+        app:allowDividerBelow="false">
+
+        <com.ttop.app.apex.preferences.LibraryPreference
+            android:key="library_categories"
+            android:title="@string/library_categories"
+            app:allowDividerBelow="false" />
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="remember_last_tab"
+            android:title="@string/pref_title_remember_tab"
+            app:allowDividerBelow="false" />
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="disable_app_bar_scroll"
+            android:title="@string/pref_title_appbar_disable_scroll"
+            app:allowDividerBelow="false"
+            app:isPreferenceVisible="false"/>
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="app_bar_color"
+            android:title="@string/pref_title_appbar_color"
+            app:allowDividerBelow="false"
+            app:isPreferenceVisible="@bool/remove_header_color" />
+
+        <com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_tab_text_mode_titles"
+            android:entryValues="@array/pref_tab_text_mode_values"
+            android:key="tab_text_mode"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_tab_text_mode"
+            app:allowDividerBelow="false" />
+    </com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+</androidx.preference.PreferenceScreen>

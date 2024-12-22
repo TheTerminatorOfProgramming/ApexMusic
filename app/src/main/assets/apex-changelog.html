@@ -1,0 +1,1759 @@
+<html lang="en">
+<head>
+    <style>
+        * {
+            word-wrap: break-word;
+        }
+
+        div {
+            margin: 20px 10px;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin-block-end: 0rem;
+            margin-block-start: 0rem;
+            display: inline-block;
+            vertical-align: center;
+        }
+
+        li {
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            margin-top: 0rem;
+            margin-bottom: 0rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        span {
+            font-size: 0.7rem;
+        }
+
+        h5 {
+            margin-block-start: 0;
+            margin-block-end: 0.5rem;
+        }
+
+        h3 {
+            margin: 10px 0px;
+            font-size: 1.25rem;
+        }
+
+        h4 {
+            margin: 10px 0px;
+            font-size: 1rem;
+        }
+
+        ol {
+            font-size: 0.8rem;
+        }
+
+        .tag {
+            border-radius: 5px;
+            margin-left: 10px;
+            padding: 5px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        {style-placeholder}
+    </style>
+    <title>Apex Music Changelog</title>
+</head>
+<body>
+<div>
+    <h2>Apex Music Changelog</h2>
+    <h3><b>Notice</b></h3>
+    <p>
+        A few things to discuss
+    </p>
+    <ol type="1">
+        <li>As i no longer have a foldable device, i am unable to test this app on a physical
+            foldable device and i can only test on a virtual foldable device using the aosp
+            emulator. if any issues arise due to this please let me know and i will fix as best as i
+            can. I do own a tablet and can test using that for best results
+        </li>
+        <li>I have decided to no longer publish Apex to the play store. this decision is due to the
+            increasing restrictions google is forcing android developers to adhere to.
+        </li>
+    </ol>
+    <p>
+        See Y'all Soon,
+        <br>TTOP
+    </p>
+
+    <h3>Possible Android OS Incompatibility/Issues</h3>
+    <ul>
+        <li><u><b>If you are experiencing any bugs, try reinstalling the app first before reporting
+            the issue</b></u></li>
+        <li><b>Some android skins such as funtouch os may experience issues with apex</b></li>
+        <li><b>Material you may not work correctly on some android skins due to the implementation
+            method of material you into the android skin</b></li>
+    </ul>
+</div>
+<div>
+    <h5>November 15th 2024</h5>
+    <h2>v5.00</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>2nd customizable toolbar action</li>
+        <li>Player themes now have a crossfade effect when switching between the album art and the id3 lyrics on phones</li>
+        <li>Player themes now have a crossfade effect when switching between the playing queue and the id3 lyrics on foldables/tablets</li>
+        <li>In-app updater</li>
+        <li>Performance mode</li>
+        <li>Readded the alphabet index</li>
+        <li>Albums list in artist details now has a sort order</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Day/night widgets are now removed</li>
+        <li>Refresh option for tablets as it is no longer necessary</li>
+        <li>Shuffled search action option has been removed & the default action for the search action is now set to shuffle</li>
+        <li>Swipe anywhere option has been removed & is now enabled permanently</li>
+        <li>Keep play state option removed & is now enabled permanently</li>
+        <li>Keep shuffle state option has been removed & is now enabled permanently</li>
+        <li>Keep screen on option for lyrics has been removed and the screen will stay on when lyrics are shown</li>
+        <li>Keep screen on option has been removed</li>
+        <li>Disable player queue option has been removed. player queue will only be shown on foldables/tablets</li>
+        <li>Lyrics option has been removed. both synced and id3 lyrics will be able to be toggled</li>
+        <li>Scrollbar style option has been removed as the scrollbars have been completely removed</li>
+        <li>Fast-forward duration option has been removed. when you seek forward, it will seek by 10 seconds</li>
+        <li>Rewind duration option has been removed. when you seek back, it will seek by 10 seconds</li>
+        <li>Same duration option has been removed</li>
+        <li>Queue style options has been removed</li>
+        <li>Disable header scroll option has been temporarily removed due to the addition of the alphabet index</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Play store version is no longer supported and due to only 1 version now being supported the github wording has been removed</li>
+        <li>Layouts for most player themes have been changed for portrait orientation when using foldables/tablets</li>
+        <li>Id3 lyrics will now stay showing when orientation is changed when using foldables/tablets</li>
+        <li>Id3 lyrics will now be hidden when using synced lyrics. they can be shown again while using synced lyrics if you need to</li>
+        <li>Classic widget layout has been changed slightly</li>
+        <li>Overall design has been updated</li>
+        <li>Gradient background has been improved</li>
+        <li>Gradient background has been extended to adaptive player theme</li>
+        <li>Color Animation has been extended to adaptive player theme</li>
+        <li>App name has been shortened from apex music to apex</li>
+        <li>Black theme has been added to the theme list and the separate option has been removed</li>
+        <li>Updated proguard rules for retrofit</li>
+        <li>Updated the retromusic base version</li>
+        <li>Updated the show now playing screen option to include options for queue creation</li>
+        <li>Gradient background can now be used without adaptive color</li>
+        <li>Circular progress bar style for mini player has been removed and the trackless circular option has been renamed to circular</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Android 12 & 12L support will be removed starting from v6.00</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Misc bugs</li>
+        <li>NavigationRailView on tablets no longer disappears when using the player</li>
+        <li>Material you is now 100% fixed</li>
+        <li>Mini player bugs</li>
+        <li>Play/pause button on widgets corner radius is now correct on tablets/foldables</li>
+        <li>Android 15 media controls notification scrollbar missing issue</li>
+        <li>Android auto playing queue info</li>
+        <li>Tagwriter issues</li>
+        <li>Improved load times</li>
+        <li>Toolbar color when gradient background option is enabled with adaptive color</li>
+        <li>Playlist art when set to grid size of 1</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Playing notification may not always update, especially when using the audio fade and crossfade options</li>
+    </ul>
+</div>
+<div>
+    <h5>November 4th 2024</h5>
+    <h2>v4.90</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Added option to scan for music</li>
+        <li>Link to apex music's new discord server</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Nothing has been removed</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Sleep timer buttons have been changed to be much clearer on function</li>
+        <li>Material you theme has been extended throughout the entire ui</li>
+        <li>Changed the color of the mini player progress bars (top, bottom and circular)</li>
+        <li>Changed the color of the selected tab icon on the navigation view</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Nothing is planned to be removed/changed/fixed</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Status bar color will no longer become transparent when selecting items</li>
+        <li>Crash when clearing playing queue</li>
+        <li>Some links in the about section not working</li>
+        <li>Notification issues</li>
+        <li>Misc player theme layout issues</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Notification may not always update when using the audio fade and crossfade options</li>
+    </ul>
+</div>
+<div>
+    <h5>September 25th 2024</h5>
+    <h2>v4.80</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Material you support added to widgets</li>
+        <li>New option to change the shape of the classic and full widgets album art to a rounded
+            square
+        </li>
+        <li>Volume dialog in player themes</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Search tab from the library categories option</li>
+        <li>De-color header option has been removed for android 15+ due to changes from google that
+            affects the status bar color
+        </li>
+        <li>Links to wiki have been removed</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Widgets icons</li>
+        <li>Big widget layout has been changed</li>
+        <li>Classic widget is now resizable with a new design</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Nothing is planned to be removed/changed/fixed</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Android 15 support</li>
+        <li>Issues with code</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Notification may not always update when using the audio fade and crossfade options</li>
+    </ul>
+</div>
+<div>
+    <h5>August 8th 2024</h5>
+    <h2>v4.70</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>New player theme: live</li>
+        <li>New option to change navigation bar black on player themes</li>
+        <li>New option to disable the queue in the player themes</li>
+        <li>New option to change the delay for bluetooth devices before autoplaying</li>
+        <li><b>Android 15</b> Support</li>
+        <li>Warning dialogs added for the audio fade and crossfade options</li>
+        <li>New option to disable the scroll for the appbar header</li>
+        <li>New option to remove the header color</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Ability to add or remove settings from the BottomNavigationBar</li>
+        <li>Developer mode section in settings</li>
+        <li>Simple and expanded header style. see below for more info</li>
+        <li>ID3 lyrics troubleshoot from the about settings</li>
+        <li>Header style option. simple header style is now the default</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Updated player themes images</li>
+        <li>Queue has been added to the BottomNavigationView</li>
+        <li>Settings & queue BottomNavigationView options are fixed and cannot be unchecked in the
+            library categories option
+        </li>
+        <li>Language intro page has been redesigned and will now only be shown on Android 13+</li>
+        <li>Animated BottomNavigationView icons have been changed to static icons</li>
+        <li>Semi-transparent mini player option has been moved to the user interface settings</li>
+        <li>Disable default widgets option has been moved to the notification & widgets settings
+        </li>
+        <li>Crossfade maximum value has been changed from 12 to 10</li>
+        <li>Bluetooth autoplay has been optimised</li>
+        <li>Rewind and fade forward seek duration options intervals have been changed</li>
+        <li>Progress bar style option now has added circular (no track) option</li>
+        <li>Header now uses the accent color for the background</li>
+        <li>Mini player is now hidden when in the settings</li>
+        <li>Synced lyrics positioning has been changed for the blur, classic & peek play themes when
+            using a tablet or foldable
+        </li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Final <b>Android 15</b> testing (due to be completed by the end of 2024)</li>
+        <li>Search library category will be removed in a future release</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Adaptive color, color gradient & color animation enabled/disabled state when changing
+            player themes
+        </li>
+        <li>Menu colors after changing ui theme</li>
+        <li>Synced lyrics colors</li>
+        <li>Toolbar color when adaptive color and gradient background is enabled</li>
+        <li>Misc player themes bugs</li>
+        <li>Sleep timer misc issues</li>
+        <li>Intro screens now extend underneath the display cutout</li>
+        <li>Material you colors now work on samsung devices</li>
+        <li>LRC files will now work if stored in a separate folder called "lyrics" in the apex
+            directory (downloads folder by default)
+        </li>
+        <li>Synced lyrics will be disabled when lyrics mode changed to either disabled or id3</li>
+        <li>Default backup and lyrics path has been fixed and the folders are now created during the
+            initial setup
+        </li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Notification may not always update when using the audio fade and crossfade options</li>
+        <li>Crash when changing from settings tab to queue tab (rare)</li>
+        <li>Audio fade and crossfade options may cause headset controls and playback notification to
+            be unresponsive
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>June 23rd 2024</h5>
+    <h2>v4.60</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Customizable toolbar action option</li>
+        <li>Romanian language</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Toggle reorder has been removed from the player menu</li>
+        <li>Unused Code</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>ID3 lyrics no longer prevent dragging the player</li>
+        <li>Carousel style now has rounded corners</li>
+        <li>Classic & peek player themes gradient background now has a new style</li>
+        <li>All seekbar preferences have now been replaced with a dialog preference</li>
+        <li>Synced lyrics now have different colors to make it easier to see the current line</li>
+        <li>Seek buttons now have haptic feedback</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Nothing is planned to be removed/changed/fixed</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Songs grid style menu bug</li>
+        <li>Sort order menu</li>
+        <li>Translations</li>
+        <li>Card player theme adaptive colors</li>
+        <li>Player themes back button</li>
+        <li>Classic player theme lyrics and playing queue size</li>
+        <li>Misc player themes bugs & issues</li>
+        <li>Possible fix for audio fade headset controls issue</li>
+        <li>Possible fix for crossfade headset controls issue</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Notification may not always update when using the audio fade and crossfade options</li>
+    </ul>
+</div>
+<div>
+    <h5>June 16th 2024</h5>
+    <h2>v4.56</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Persistent notification option</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>ID3 and synced lyrics will now disable when the lyrics type option is set to disabled
+        </li>
+        <li>Navigation bar color on player themes</li>
+        <li>Classic player theme layout</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Audio fade and crossfade options need to be fixed as they cause headset controls to be
+            unresponsive
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Big widget crash when clearing playing queue</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Audio fade and crossfade options causes headset controls to be unresponsive. use these
+            options with caution
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>June 16th 2024</h5>
+    <h2>v4.55</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Nothing has been removed</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Nothing has been changed or updated</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Audio fade and crossfade options need to be fixed as they cause headset controls to be
+            unresponsive
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Synced lyrics double tap</li>
+        <li>Adaptive player theme</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Audio fade and crossfade options causes headset controls to be unresponsive. use these
+            options with caution
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>June 15th 2024</h5>
+    <h2>v4.51</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Nothing has been removed</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Nothing has been changed or updated</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Audio fade and crossfade options need to be fixed as they cause headset controls to be
+            unresponsive
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Biometric permission</li>
+        <li>Developer options security</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Audio fade and crossfade options causes headset controls to be unresponsive. use these
+            options with caution
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>June 15th 2024</h5>
+    <h2>v4.50</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>French language</li>
+        <li>Persistent notification option for android 12 & android 13</li>
+        <li>Link to wiki in about settings</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Synced lyrics cover type option</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Updated dependencies</li>
+        <li>Audio fade option has been moved back into the audio settings</li>
+        <li>Whitelist option</li>
+        <li>Developer options are now more secure</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed/Fixed</h4>
+    <ul>
+        <li>Audio fade and crossfade options need to be fixed as they cause headset controls to be
+            unresponsive
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Lyrics option now works as intended</li>
+        <li>Now playing queue text color has been fixed when adaptive color is disabled</li>
+        <li>Adaptive player theme adaptive color now works has been improved</li>
+        <li>Synced lyrics have been improved</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Audio fade and crossfade options causes headset controls to be unresponsive. use these
+            options with caution
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>May 24th 2024</h5>
+    <h2>v4.40</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Always play option. this option was used to manage audio focus</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Audio fade option has been moved to labs</li>
+        <li>Bluetooth autoplay and wired autoplay will now not attempt to play if the queue is
+            empty
+        </li>
+        <li>If apex can not play a song and shows the "couldn't play song" error, the next song is
+            played
+        </li>
+        <li>Carousel style has has been slightly changed</li>
+        <li>Translations for chinese simplified, german, italian, japanese, portuguese and spanish
+            have been updated using crowdin
+        </li>
+        <li>Updated dependencies</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Nothing is planned to be changed or removed</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Minor bug fixes</li>
+        <li>Show now playing screen option should now be working correctly</li>
+        <li>Show lyrics button no longer has double haptic feedback</li>
+        <li>Widgets now display correctly</li>
+        <li>Notification action defaults now work</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>May 12th 2024</h5>
+    <h2>v4.30</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Option to disable haptic feedback</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Fonts have been removed except for the apex font</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Player queue and lyrics design has been updated</li>
+        <li>Updated dependencies</li>
+        <li>Adaptive color option is now disabled for the gradient player theme</li>
+        <li>Any options that uses a list of two items is now a toggle switch</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Nothing is planned to be changed or removed</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Minor bug fixes</li>
+        <li>Card player theme now has lyrics support readded</li>
+        <li>Shuffle on by default</li>
+        <li>Carousel style has now changed and fixes the issue of appearing as if it is not
+            working
+        </li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>May 4th 2024</h5>
+    <h2>v4.20</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Nothing has been removed</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Nothing has been changed or updated</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Nothing is planned to be changed or removed</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Minor bug fixes</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>April 25th 2024</h5>
+    <h2>v4.10</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Added new widget</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Adaptive buttons option (widgets) has been removed</li>
+        <li>Volume control option (<b>NOTE: this will not be re-added as the volume control uses too
+            much screen space for foldable cover displays</b>)
+        </li>
+        <li>Integrated equalizer. device equalizer can still be used</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Gradient player theme layout has been changed</li>
+        <li>Widgets buttons colors have been changed</li>
+        <li>Full widget is no longer resizable. use the big widget if you want a smaller widget</li>
+        <li>Updated dependencies</li>
+        <li>Started preparation for android 15 update</li>
+        <li>Blur and classic player themes have been updated so that the seekbar is closer to the
+            bottom of the screen
+        </li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Nothing is planned to be changed or removed</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Semi-transparent mini player option now has the correct title</li>
+        <li>The extra controls option visibility has been fixed</li>
+        <li>Gradient player theme back arrow now works as intended</li>
+        <li>Navigation bar color</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>April 5th 2024</h5>
+    <h2>v4.00</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Option to make mini player semi-transparent</li>
+        <li>ID3 (embedded) lyrics are now integrated into most of the player themes. for more info
+            please check the troubleshoot section in the about settings page
+        </li>
+        <li>Added italian and turkish languages</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Lyrics font size option</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Disabled the alpha selector in the accent color dialog</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>There are currently no plans for any changes</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Lyrics dialog refresh button font size</li>
+        <li>Desaturate color option will now work as intended when disabling material you option
+        </li>
+        <li>Lyrics dialog refresh now works correctly</li>
+        <li>Material you follow system theme should now be working as intended</li>
+        <li>Settings crash when changing certain options has been fixed</li>
+        <li>Monochrome icon now works</li>
+        <li>Shuffle button target color</li>
+        <li>Translation fixes</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>March 18th 2024</h5>
+    <h2>v3.90</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Nothing has been removed</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Nothing has been changed or updated</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Embedded lyrics will be changed from using the dialog to the same system as the synced
+            lyrics
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Cancel button on sleep timer dialog causing a crash</li>
+        <li>Android 12 storage permission</li>
+        <li>Main intro slide welcome message</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+        <li>Material you follow system theme is not working correctly. to fix this first change to
+            sorta dark or bright white and then switch back to follow system and it should work
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>March 10th 2024</h5>
+    <h2>v3.80</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Mini player option now has a disabled setting</li>
+        <li>Header style option now has scroll and no scroll settings</li>
+        <li>Scrollbar style option now has auto-hide and disabled settings</li>
+        <li>Added option to use a single duration instead of separate durations for fast forward and
+            rewind duration
+        </li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Removed the lock screen controls due to a change with google</li>
+        <li>Normal grid layout has been removed</li>
+        <li>Removed shuffle slide from the intro</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Library categories dialog now has centered buttons</li>
+        <li>Notification actions now have shuffle & repeat set as default</li>
+        <li>Track sort order menu has been changed</li>
+        <li>Mini player progress bar style option has been changed from a switch to a list</li>
+        <li>Mini player text and buttons colors are now set to the accent color</li>
+        <li>Changed the main scrollbar to remove the track</li>
+        <li>Updated all dialogs to have centered buttons and to use the accent color</li>
+        <li>Updated colors on the backup dialog</li>
+        <li>Changed the app icon and default colors</li>
+        <li>Changed the scrollbar thumb</li>
+        <li>Expanded header style option has been renamed to header style and has been changed from
+            a switch to a list
+        </li>
+        <li>Show scrollbars option has been renamed to scrollbar style and has been changed from a
+            switch to a list
+        </li>
+        <li>Changed the notification icon</li>
+        <li>Changed the colors for the id3 lyrics dialog</li>
+        <li>Changed some options to be enabled by default</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Embedded lyrics will be changed from using the dialog to the same system as the synced
+            lyrics
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Back buttons not working on several pages</li>
+        <li>Scrollbar will no longer go behind the mini player when in use</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>February 15th 2024</h5>
+    <h2>v3.70</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Removed the queue button on the android auto playing screen. the now playing queue tab
+            is still available
+        </li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Nothing has been changed & updated</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Embedded lyrics will be changed from using the dialog to the same system as the synced
+            lyrics
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Android auto playing queue issue</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>February 14th 2024</h5>
+    <h2>v3.65</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Nothing has been removed</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Whitelist option title has been updated</li>
+        <li>Peek player theme color animation has been changed</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Embedded lyrics will be changed from using the dialog to the same system as the synced
+            lyrics
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Nothing has been fixed</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>February 14th 2024</h5>
+    <h2>v3.60</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Added the number of tracks in an album in the album details page</li>
+        <li>Added more options for android auto actions</li>
+        <li>Added seek duration options in now playing screen settings</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Removed support for android 8, 9, 10 & 11</li>
+        <li>Removed mini player dismiss method and dismiss check options. the swipe option is now
+            the only way to dismiss the mini player
+        </li>
+        <li>Removed the lyrics page</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Status bar in classic player theme now changes between black and white depending on
+            background color (same as gradient and minimal player themes)
+        </li>
+        <li>The player themes that use the squiggly seekbar now use a round seekbar thumb instead of
+            the rectangle thumb
+        </li>
+        <li>The widget background option has been changed from a list to a switch. <b>you will need
+            to reset the app to default using the reset option in the backup & restore settings</b>
+        </li>
+        <li>The button on the home page wil now show the correct color when using material you</li>
+        <li>Changed the filter song duration system. you can now set a minimum duration and a
+            maximum duration filter
+        </li>
+        <li>Changed the lyrics options</li>
+        <li>Synced lyrics now enable/disable by double tapping the album cover in the player
+            themes
+        </li>
+        <li>Embedded lyrics now activated by long pressing the album cover in the player themes</li>
+        <li>Classic and blur player themes layouts have been changed</li>
+        <li>Updated the widgets layouts</li>
+        <li>The settings summaries and the space reserved for the icons have been removed</li>
+        <li>Enhanced seek function</li>
+    </ul>
+    <h4>What's Planned To Be Removed/Changed</h4>
+    <ul>
+        <li>Embedded lyrics will be changed from using the dialog to the same system as the synced
+            lyrics
+        </li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Fixed the album and artists pages menu</li>
+        <li>Back arrow on he search page now works and closes the search page</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+        <li>Headset music controls may not work due to a possible bug in apex. the bug should be
+            fixed but needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>February 9th 2024</h5>
+    <h2>v3.50</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Nothing has been added</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Removed the restore legacy widgets option in developer options</li>
+        <li>Removed the big widget</li>
+        <li>Removed the full circle widget</li>
+        <li>Removed the circle button option. this is now enabled by default</li>
+        <li>Removed the colored app shortcuts option. this is now enabled by default</li>
+        <li>Removed the blur album cover option</li>
+        <li>Removed the use standard scrollbars option</li>
+        <li>Removed the alphabet scrollbars</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>The lock screen controls option has been moved to the advanced settings</li>
+    </ul>
+    <h4>What's Planned To Be Removed</h4>
+    <ul>
+        <li>Support for android 8, 9, 10 & 11 from apex music v4.0.0</li>
+        <li>The widget background option will be changed from a list to a switch</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Adaptive player theme crash when volume controls are enabled</li>
+        <li>Volume controls not enabling in player themes</li>
+        <li>Navigation bug on now playing screen that wouldn't close the mini player and instead
+            navigated the screens behind back
+        </li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+        <li>Music controls may not work due to a possible bug in apex. the bug should be fixed but
+            needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>February 6th 2024</h5>
+    <h2>v3.4.0</h2>
+    <h3>What's New</h3>
+    <h4>What's Been Added</h4>
+    <ul>
+        <li>Added a link to the telegram group</li>
+        <li>Added font size option</li>
+        <li>Added font size option for lyrics</li>
+        <li>Added option to keep shuffle state</li>
+        <li>Added the ability to play/pause the song by clicking on the album art in the player
+            themes
+        </li>
+        <li>Added alphabet index slider</li>
+        <li>Added option to use standard slider. <b>NOTE: as this is a new feature i have had to
+            disable the layout selector and grid size options for all categories that use the
+            alphabet indexer</b></li>
+        <li>Added new languages: german, hindi, mandarin and punjabi</li>
+        <li>Added option to allow the now playing screen to open when app is opened in any way or
+            only when notification or widgets are used to open the app
+        </li>
+        <li>Added 3 new fonts</li>
+        <li>Added new peek album cover style</li>
+    </ul>
+    <h4>What's Been Removed</h4>
+    <ul>
+        <li>Removed the ability to go to the current song album/artist by tapping on the song/album
+            text in the player themes. the menu options are still present
+        </li>
+        <li>Removed the progress bar from the widgets</li>
+        <li>Removed the extended accent option and applied as default</li>
+        <li>Removed the bold font option</li>
+        <li>Removed the headset and bluetooth headset volume level option</li>
+        <li>Removed the headset section</li>
+        <li>Renamed the bluetooth section to autoplay and moved the headset autoplay option into the
+            autoplay section
+        </li>
+        <li>Removed the ability to update the apex music from within the app. app updates must now
+            be manually downloaded and installed
+        </li>
+        <li>Removed the flat player theme</li>
+        <li>Removed the simple player theme</li>
+        <li>Removed the plain player theme</li>
+        <li>Removed the md3 player theme</li>
+        <li>Removed the default font and the system font will now be the default font</li>
+        <li>Removed the user name and banner on the home tab</li>
+    </ul>
+    <h4>What's Been Changed & Updated</h4>
+    <ul>
+        <li>Updated all code libraries</li>
+        <li>Updated translations</li>
+        <li>Updated dependencies</li>
+        <li>Updated intro screen</li>
+        <li>Sliders now have a new thicker design due to changes with the google material library
+        </li>
+        <li>Renamed the bluetooth section to autoplay and moved the headset autoplay option into the
+            autoplay section
+        </li>
+        <li>Reworked the settings grid layout</li>
+        <li>Changelog now has a new format</li>
+        <li>Reworked the peek player layout</li>
+        <li>The normal player theme has got the md3 player themes play/pause button and has been
+            renamed to classic
+        </li>
+        <li>Classic player theme is now set as default</li>
+        <li>Changed the home tab layout</li>
+        <li>Android 8-11 functionality will no longer be maintained within this app</li>
+    </ul>
+    <h4>What's Planned To Be Removed</h4>
+    <ul>
+        <li>Restore legacy widgets option</li>
+        <li>Big widget</li>
+        <li>Full circle widget</li>
+        <li>Circle button option. this will be enabled by default</li>
+        <li>Colored app shortcuts option. this will be enabled by default</li>
+        <li>Use standard scrollbars option</li>
+        <li>Blur album cover option</li>
+        <li>Support for android 8, 9, 10 & 11 from apex music v4.0.0</li>
+    </ul>
+    <h3>What's Fixed</h3>
+    <ul>
+        <li>Misc bugs</li>
+        <li>Code optimizations</li>
+        <li>Volume buttons not getting colored in the player themes</li>
+        <li>Screen not staying on when using the option with lyrics</li>
+        <li>Mini player height bug from v3.30</li>
+        <li>Android 11 notification crash</li>
+        <li>Album artist image now loads correctly in the album details section</li>
+        <li>Correct error message now shows when selecting more than 6 library categories</li>
+        <li>Fixed any bugs and errors with the player themes layouts</li>
+        <li>Fixed the material you app themes not working as intended</li>
+        <li>Fixed the media scanner on completion message</li>
+        <li>Fixed tag editor crash when changing album art on android 14 devices using v3.0.0 or
+            above
+        </li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+        <li>Some android skins such as funtouch os may experience issues with apex</li>
+        <li>Music controls may not work due to a possible bug in apex. the bug should be fixed but
+            needs some additional testing
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>January 4th, 2024</h5>
+    <h2>v3.3.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Removed the color in the top appbar as it was causing issues in landscape mode and
+            navigation buttons
+        </li>
+        <li>Changed the volume buttons in the now playing theme from buttons to a slider</li>
+        <li>Updated the notification and widgets icons</li>
+        <li>Added inbuilt equalizer (currently in beta test)</li>
+        <li>Reworked the update feature</li>
+        <li>Added 2 new fonts</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Misc bugs</li>
+        <li>Code optimizations</li>
+        <li>Fixed crash when auto updating from github</li>
+        <li>Fixed intro screen</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+        <li>Some android skins such as funtouch os may experience issues with apex</li>
+    </ul>
+</div>
+<div>
+    <h5>December 24th, 2023</h5>
+    <h2>v3.2.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Removed some fonts</li>
+        <li>Added new default font: apex</li>
+        <li>Redesigned the settings page into a grid layout</li>
+        <li>Reorganised the intro screen, which now includes a language section</li>
+        <li>Added search options in settings</li>
+        <li>Added the ability in backup and restore to open the current backup path</li>
+        <li>Changed the default filename for backups</li>
+        <li>Added volume controls to the now playing theme by a toggleable option</li>
+        <li>Changed widgets default album art to round instead of square</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Misc bugs</li>
+        <li>Code optimizations</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>November 24th, 2023</h5>
+    <h2>v3.1.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Removed color now playing theme</li>
+        <li>Added android auto section in advanced settings</li>
+        <li>Added options to change android auto player actions</li>
+        <li>Added tracks tab in android auto</li>
+        <li>Updated dependencies</li>
+        <li>Redesigned the settings page into a grid layout for tablets and foldables</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Misc bugs</li>
+        <li>Code optimizations</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>November 13th, 2023</h5>
+    <h2>v3.0.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Moved update settings from about page to its own settings page</li>
+        <li>Reordered some settings</li>
+        <li>Added keep play state option (formally autoplay behaviour) option for android 13</li>
+        <li>removed reduce volume on notification option</li>
+        <li>Added option to change progressbar on widgets to progress and duration times</li>
+        <li>Added option to change progressbar color on widgets</li>
+        <li>Removed ostrich font and added 3 new fonts</li>
+        <li>Added <b>Android 14</b> Support</li>
+        <li>Added multi language support (bn, en, es, in, ja, pt). Other languages will be added in
+            future versions
+        </li>
+        <li>Apex is now split into two separate versions (play store version and github version)
+        </li>
+        <li>Added new playing queue design</li>
+        <li>player themes have had a slight redesign</li>
+        <li>Lock screen controls have had a slight redesign and better integration with biometrics
+            unlock
+        </li>
+        <li>Various dialogs have had redesigns or improvements</li>
+        <li>Sleep dialog now shows the remaining time</li>
+        <li>Adaptive color now tints all text and buttons in player</li>
+        <li>Tinted queues in player themes that support adaptive color and adaptive color is on</li>
+        <li>Removed queue and square widgets</li>
+        <li>Removed the snow feature</li>
+        <li>Removed the ability to blur the classic and full widgets</li>
+        <li>Removed the ability to change the shape of the classic and full widgets (these widgets
+            are now circular permanently)
+        </li>
+        <li>Full widget text alignment is now permanently centered</li>
+        <li>Changed app icon and shortened app name</li>
+        <li>Removed the album names from player themes</li>
+        <li>Removed classic, blur card, material, swipe, circle, fit and full player themes</li>
+        <li>Added manage all files permission</li>
+        <li>Status bar now applies accent color</li>
+        <li>Updated default color</li>
+        <li>Changed default player theme</li>
+        <li>Added ability to change apex folder location (tap the file path text in backup and
+            restore to select new path)
+        </li>
+        <li>Changed minimum sdk from 23 (Android 6.0) to 26 (Android 8.0)</li>
+        <li>Accent color dialog now shows an option to reset the accent color to the default color
+        </li>
+        <li>Readded the album grid style for the home tab</li>
+        <li>Added option for adaptive color background to be either solid color or gradient</li>
+        <li>Added option to bold font</li>
+        <li>Optimized playlist selection menu</li>
+        <li>Updated the mini player look from rounded to flat</li>
+        <li>Made the mini player bigger for tablets and foldables</li>
+        <li>Improved the layout of the mini player</li>
+        <li>Improved the classic widget layout</li>
+        <li>Added option to hide scrollbars</li>
+        <li>Hidden the playing queue dragview as default and added option to toggle dragview</li>
+        <li>Added option to set separate the player theme queue style for landscape and portrait
+            (only on foldables and tablets)
+        </li>
+        <li>Added option to apply an animation when changing song if adaptive color is enabled</li>
+        <li>Color player theme is deprecated and will be removed in the next version</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Misc bugs</li>
+        <li>Misc ui fixes</li>
+        <li>LRC files now work from Apex/Lyrics folder. They can also be put in the same folder as
+            the songs
+        </li>
+        <li>Playing queues in player themes now shows the menu</li>
+        <li>Translation fixes</li>
+        <li>Cast issues for android 12 and below. casting may not work for android 13</li>
+        <li>player themes layouts</li>
+        <li>Peek player queue height issue on tablets and foldables</li>
+        <li>Dismiss failsafe only works for long press dismiss method</li>
+        <li>Playlist and genre tabs no longer crashes app if playlist or genre and settings tab are
+            selected in library categories
+        </li>
+        <li>Playlists grid and list layout</li>
+        <li>player themes light mode text color</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>May 2nd, 2023</h5>
+    <h2>v2.9.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Changed some of the update related settings</li>
+        <li>If updating the app through the website source, the update will now download and install
+            automatically
+        </li>
+        <li>The app intro screen has been updated</li>
+        <li>Optional permissions have been moved to the about section in settings</li>
+        <li>Added more options in notification actions settings</li>
+        <li>Added headset volume level for wired headset</li>
+        <li>Preparing for android 14 support, which will begin testing in august/september 2023</li>
+        <li>Added option to change the widget buttons color</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>player themes layouts</li>
+        <li>Minor changes</li>
+        <li>App intro landscape layouts</li>
+        <li>Bluetooth autoplay custom volume issue</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+        <li>Gradient layout not working correctly in landscape. Will fix at a later date</li>
+    </ul>
+</div>
+<div>
+    <h5>April 23rd, 2023</h5>
+    <h2>v2.8.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Updated retro music base version from 6.0.5 production to 6.1.0 production</li>
+        <li>Added options to customize the two custom notification actions</li>
+        <li>Extended accent now works with both header styles</li>
+        <li>Header text will now use the same font as the custom font chosen</li>
+        <li>Changed the swipe to dismiss option into a list and added an option to clear the playing
+            queue by long pressing the mini player
+        </li>
+        <li>Added option to blur album art on classic and full widgets</li>
+        <li>Moved the personalize settings below the now playing settings</li>
+        <li>Updated all widget preview images</li>
+        <li>Updated all now playing screen preview images</li>
+        <li>Added some visuals to the permissions section in the about settings</li>
+        <li>Added an option for update check frequency</li>
+        <li>Added an option for update check source</li>
+        <li>Removed immersive mode option</li>
+        <li>Disabled jet black option when app theme is set to bright white</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Bluetooth autoplay not working</li>
+        <li>Misc bug fixes</li>
+        <li>FAQ page</li>
+        <li>BottomNavBar always showing in landscape when player is shown</li>
+        <li>Tablet orientation issue</li>
+        <li>Fixed manual update</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>March 31st, 2023</h5>
+    <h2>v2.7.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added album name to drive mode</li>
+        <li>Updated retro music base version from 6.0.4 beta to 6.0.5 production</li>
+        <li>Minor redesign in playlist details screen</li>
+        <li>Changed the behaviour of the next and previous buttons</li>
+        <li>Removed the extended accent option</li>
+        <li>Migrate to photo picker to select images</li>
+        <li>Remove blurred album art on lock screen feature for Android 11+</li>
+        <li>Added Android 13 per-app language preference compatibility with the existing language
+            chooser
+        </li>
+        <li>Added tablet drive mode with extra controls</li>
+        <li>Added option to be able to make mini player album image circular</li>
+        <li>Reduced the number of widgets available to use from 5 to 3 (classic, full and circle)
+        </li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Playback speed issue</li>
+        <li>Added workaround for ForegroundServiceDidNotStartInTimeException</li>
+        <li>Fixed playlist image loading</li>
+        <li>Fixed blurry album art in Android 13</li>
+        <li>Minor bug fixes and improvements</li>
+        <li>Adjust the cross-fade duration according to the Global animator speed</li>
+        <li>Fixed cross-fade not working when the app was cleared from background</li>
+        <li>Fixed corrupting of files when writing tags to unsupported files</li>
+        <li>Fixed playlist reordering crash</li>
+        <li>Fix incorrect color of top app bar in Home tab in landscape mode</li>
+        <li>Fix activity recreate logic when downloading split language apk</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>March 11, 2023</h5>
+    <h2>v2.6.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Increased queue height on peek now playing screen</li>
+        <li>Removed some fonts</li>
+        <li>Added album title to now playing screen</li>
+        <li>Added scrolling text to now playing screen</li>
+        <li>Increased previous and next button tap & hold to seek to 10 seconds</li>
+        <li>Allowed adaptive color to more now playing screens</li>
+        <li>Changed card & classic now playing screen seekbar style</li>
+        <li>Fixed not showing in android auto issue</li>
+        <li>Added option to change full widget text alignment</li>
+        <li>Added developer options (Hint to activate: think samsung developer options)</li>
+        <li>Added option to reset the settings to default. this can be found in backup and restore
+            after developer options has been activated
+        </li>
+        <li>Probable fix to notification issue that has persisted since v1.0.0</li>
+        <li>Changed lyrics dialog to be shown with a double tap instead of a single tap on the album
+            cover
+        </li>
+        <li>Reduced the size of the app</li>
+        <li>Fix visibility of lyrics in lyrics page</li>
+        <li>Updated to latest retro music base version</li>
+        <li>Removed Material cab and replaced with android's action mode</li>
+        <li>Added in-app updates for downloading from github when app is not installed from the play
+            store
+        </li>
+        <li>Added an option to have the header text the same color as the accent</li>
+        <li>Added some new fonts</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>February 20, 2023</h5>
+    <h2>v2.5.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Widgets optimised</li>
+        <li>Added lyrics finder to tag editor</li>
+        <li>Added new font</li>
+        <li>Backup & restore screen has had a slight redesign</li>
+        <li>Added circle image option for classic and full widgets</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Fix file popup in folders tab</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>January 17, 2023</h5>
+    <h2>v2.4.5</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Removed the oppo sans font</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+
+    </ul>
+</div>
+<div>
+    <h5>January 16, 2023</h5>
+    <h2>v2.4.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added settings to BottomNavigationView</li>
+        <li>Restored the backup/restore menu to the old way</li>
+        <li>Retweaked the classic widget</li>
+        <li>Added a setting to change the roundness of the classic widget image</li>
+        <li>Removed the ui mode option</li>
+        <li>Added the option the change the radius of the mini player image</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>October 21, 2022</h5>
+    <h2>v2.3.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Merged apex music and apex music lite into one app</li>
+        <li>Rearranged the settings menu</li>
+        <li>Merged the app intro and the permissions screen</li>
+        <li>Redesigned the new app intro screen</li>
+        <li>Changed the default color</li>
+        <li>Added option for embedded lyrics view</li>
+        <li>Added option to enable/disable all lyrics</li>
+        <li>Added option to make classic and full widgets transparent</li>
+        <li>Readded backup and restore, however the list of backups does not load for foldables and
+            tablets
+        </li>
+        <li>Updated the media notification on android 13</li>
+        <li>Widgets on android 13 have the skip and previous buttons removed. This will be fixed in
+            the next release
+        </li>
+        <li>The media control notification on android 13 is redesigned</li>
+        <li>Added new font</li>
+        <li>Simplified the backup/restore feature</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Misc interface fixes</li>
+        <li>Fixed last track of album replaying when using gapless playback</li>
+        <li>Rotation bug for foldables</li>
+        <li>Fixed android 13 widget bug by removing option to autoplay music when manually changing
+            songs in android 13
+        </li>
+        <li>Fixed the android 12L+ taskbar bug</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>October 06, 2022</h5>
+    <h2>v2.2.0 (Github Only)</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Bluetooth autoplay has been fully readded</li>
+        <li>Added option to set bluetooth volume</li>
+        <li>Added swipe gesture option in settings</li>
+        <li>Added option to autoplay music when manually changing songs</li>
+        <li>Readded whitelist in settings</li>
+        <li>Added option to use auto rotate when using a tablet or foldable</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Fixed app crash, however sometimes when opening app via the widgets it will crash</li>
+        <li>Misc interface fixes</li>
+    </ul>
+    <h3>Possible Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>September 14, 2022</h5>
+    <h2>v2.1.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Removed default notification</li>
+        <li>Added new full circle widget</li>
+        <li>Added new permission section in the about settings</li>
+        <li>Added new option for android 12 widget day/night theme (android 12+)</li>
+        <li>Added new labs section in settings</li>
+        <li>Removed whitelist</li>
+        <li>Removed bug report in about section as it does not work anymore</li>
+        <li>Added option to change the mini player progress bar to horizontal</li>
+        <li>Added preliminary Android 13 Support</li>
+        <li>Added new notification and lock screen icons</li>
+        <li>Added new app icon</li>
+        <li>App removed from play store</li>
+        <li>Bluetooth autoplay partially readded to try and fix foreground service crash</li>
+        <li>Removed back and restore function due to not working for tablets or foldables</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Attempted fix to app crash</li>
+        <li>Fixed path error with backup and restore</li>
+        <li>More foldable/tablet optimisation</li>
+        <li>Misc ui fixes</li>
+        <li>Misc bug fixes</li>
+    </ul>
+    <h3>Known Bugs</h3>
+    <ul>
+        <li>App may crash when opening app through the widgets. This is due to a change by google
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>July 17, 2022</h5>
+    <h2>v2.0.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added a new MD3 now playing theme</li>
+        <li>Removed peek queue theme and combined it with peek theme</li>
+        <li>Better Cast</li>
+        <li>Mini player in settings screen</li>
+        <li>Changed Seekbar with Sliders</li>
+        <li>Added NavigationRailView for Tablet Mode</li>
+        <li>Removed bluetooth autoplay. will add back in future update</li>
+        <li>Added more fonts</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Fixed Playback speed and pitch not working when CrossFade is enabled</li>
+        <li>Fixed crash when adding folders to blacklist</li>
+        <li>Fix bugs in MD3 theme</li>
+        <li>Fixed Top/Recent Artists/Albums not updating (Wrong sort order)</li>
+        <li>Fixed all Blacklist related crashes</li>
+        <li>Fix restart button not working in crash activity</li>
+        <li>Fixed ChromeCast crash</li>
+        <li>Fixed Slider crashes</li>
+        <li>Fixed storage related crashes on Android 10</li>
+        <li>Fixed CrossFade not working Fade Audio is not working</li>
+        <li>Minor bug fixes and improvements</li>
+    </ul>
+</div>
+<div>
+    <h5>June 21, 2022</h5>
+    <h2>v1.6.1</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added peek queue playing theme</li>
+        <li>Added option to use alternate peek queue layout</li>
+        <li>Bluetooth section will now be hidden in the audio settings menu if the bluetooth
+            permission is not granted
+        </li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>App crash relating to bluetooth</li>
+        <li>Random ui fixes</li>
+    </ul>
+</div>
+<div>
+    <h5>June 10, 2022</h5>
+    <h2>v1.6.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Changed the sleep timer to allow manual input</li>
+        <li>Bluetooth autoplay will now be hidden in the audio menu if the permission is not
+            granted
+        </li>
+        <li>Added swipe playing theme</li>
+        <li>Misc ui changes</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Bottom navigation crash</li>
+        <li>Lock screen controls layout</li>
+        <li>Bluetooth autoplay notification</li>
+    </ul>
+</div>
+<div>
+    <h5>May 31, 2022</h5>
+    <h2>v1.5.1</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added ability to be able to use black theme when using material u (A12+)</li>
+        <li>Added ability to be able to replace the favorite button in the playback notification
+            with a refresh button to fix the album art bug
+        </li>
+        <li>Added foreground service notification for the bluetooth autoplay feature</li>
+        <li>Moved sleep timer out of the menu in the player and into the toolbar</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Notification issue when album art is enabled</li>
+        <li>Crossfade not working</li>
+        <li>App name fixed</li>
+    </ul>
+</div>
+<div>
+    <h5>May 31, 2022</h5>
+    <h2>v1.5.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added ability to be able to use black theme when using material u (A12+)</li>
+        <li>Added ability to be able to replace the favorite button in the playback notification
+            with a refresh button to fix the album art bug
+        </li>
+        <li>Added foreground service notification for the bluetooth autoplay feature</li>
+        <li>Moved sleep timer out of the menu in the player and into the toolbar</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Notification issue when album art is enabled</li>
+        <li>Crossfade not working</li>
+    </ul>
+</div>
+<div>
+    <h5>May 8, 2022</h5>
+    <h2>v1.3.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Added ability to be able to use black theme when using material u (A12+)</li>
+        <li>Added ability to be able to replace the favorite button in the playback notification
+            with a refresh button to fix the album art bug
+        </li>
+    </ul>
+    <h3>Bugs</h3>
+    <ul>
+        <li>When album art is enabled, the playback notification will often show the details for the
+            previous song
+        </li>
+    </ul>
+</div>
+<div>
+    <h5>May 5, 2022</h5>
+    <h2>v1.2.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Changed widgets behaviour</li>
+    </ul>
+    <h3>Bugs</h3>
+    <ul>
+        <li>When album art is enabled, the playback notification will often show the details for the
+            previous song
+        </li>
+    </ul>
+</div>
+<div>
+    <p>&nbsp;</p>
+    <h5>April 28, 2022</h5>
+    <h2>v1.1.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Updated widgets</li>
+        <li>Readded album cover and album blur for devices on android 11+. This option will only
+            work for wearOS devices on android 11+
+        </li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Fixed small UI tweaks</li>
+        <li>Fixed bluetooth autoplay</li>
+    </ul>
+</div>
+<div>
+    <h5>April 24, 2022</h5>
+    <h2>v1.0.0</h2>
+    <h3>What's New</h3>
+    <ul>
+        <li>Optimised for foldables</li>
+        <li>If the playing queue is empty when trying to use a widget, the app will open</li>
+        <li>Pro features have been made free</li>
+        <li>Added ability to clear the queue by swiping down the mini player</li>
+        <li>Added option to hide the user name in the home tab</li>
+        <li>Added option to enable/disable synced lyrics</li>
+        <li>Added option to have either the play button or previous/play/next buttons in the playing
+            notification
+        </li>
+        <li>Changed how the suggestions on home gets added to queue</li>
+        <li>Added more fonts to choose from</li>
+    </ul>
+    <h3>Fixed</h3>
+    <ul>
+        <li>Fixed classic player theme landscape layout</li>
+        <li>Fixed Bluetooth autoplay not working on Android 12</li>
+        <li>Fixed small UI tweaks</li>
+    </ul>
+</div>
+</body>

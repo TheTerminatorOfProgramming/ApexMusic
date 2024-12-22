@@ -17,6 +17,7 @@ package com.ttop.app.apex.ui.fragments.base
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Environment
+import android.view.HapticFeedbackConstants
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -24,13 +25,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +46,7 @@ import com.ttop.app.apex.dialogs.CreatePlaylistDialog
 import com.ttop.app.apex.dialogs.ImportPlaylistDialog
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.getDrawableCompat
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IScrollHelper
 import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
@@ -57,10 +59,10 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ThemedFastScroller
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
 import kotlinx.coroutines.launch
 import java.io.File
+import kotlin.math.abs
 
 abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
     AbsMainActivityFragment(R.layout.fragment_main_recycler), IScrollHelper {
@@ -110,25 +112,8 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
                 }
             }
 
-            val indicatorColor = if (PreferenceUtil.materialYou) {
-                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
-            } else {
-                ColorUtil.getComplimentColor(accentColor())
-            }
-
-            val indicatorColor1 = if (PreferenceUtil.materialYou) {
-                ColorUtil.getComplimentColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.m3_widget_other_text
-                    )
-                )
-            } else {
-                accentColor()
-            }
-
-            binding.shuffleButton.backgroundTintList = ColorStateList.valueOf(indicatorColor)
-            binding.shuffleButton.imageTintList = ColorStateList.valueOf(indicatorColor1)
+            binding.shuffleButton.backgroundTintList = ColorStateList.valueOf(accentColor())
+            binding.shuffleButton.imageTintList = ColorStateList.valueOf(surfaceColor())
         } else {
             binding.shuffleButton.isVisible = false
         }
@@ -195,6 +180,8 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         }
         val appName = resources.getString(titleRes)
         binding.appBarLayout.title = appName
+
+        binding.appBarLayout.pinWhenScrolled()
     }
 
     abstract val titleRes: Int
@@ -203,10 +190,9 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
         binding.recyclerView.apply {
             layoutManager = this@AbsRecyclerViewFragment.layoutManager
             adapter = this@AbsRecyclerViewFragment.adapter
-            if (PreferenceUtil.scrollbarStyle != "disabled") {
-                ThemedFastScroller.create(this, PreferenceUtil.scrollbarStyle == "auto_hide")
-            }
         }
+
+
     }
 
     protected open fun createFastScroller(recyclerView: RecyclerView): FastScroller {
@@ -282,7 +268,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        //ToolbarContentTintHelper.setToolbarContentColor(requireActivity(), toolbar, toolbar.menu, accentColor(), accentColor(), accentColor(), accentColor())
         toolbar.overflowIcon?.colorFilter =
             BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                 requireContext().accentColor(),
@@ -312,10 +297,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             requireContext().accentColor(),
             SRC_IN
         )
-
-        if (!ApexUtil.isTablet) {
-            menu.removeItem(R.id.action_refresh)
-        }
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
@@ -330,10 +311,6 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
                 "ShowCreatePlaylistDialog"
             )
 
-            R.id.action_refresh -> {
-                activity?.recreate()
-            }
-
             R.id.action_scan_media -> {
                 lifecycleScope.launch {
                     val file =
@@ -342,6 +319,22 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
                         file,
                         AUDIO_FILE_FILTER
                     ) { paths -> ApexStaticUtil.scanPaths(requireActivity(), paths) }
+                }
+            }
+            R.id.action_toggle_index -> {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                PreferenceUtil.isIndexVisible = !PreferenceUtil.isIndexVisible
+                if (PreferenceUtil.isIndexVisible) {
+                    if (ApexUtil.isTablet) {
+                        recyclerView.updatePadding(right = ApexUtil.dpToPixel(60f, requireContext()).toInt())
+                    }else {
+                        recyclerView.updatePadding(right = ApexUtil.dpToPixel(40f, requireContext()).toInt())
+                    }
+
+                    recyclerView.setIndexBarVisibility(true)
+                }else {
+                    recyclerView.updatePadding(right = 0)
+                    recyclerView.setIndexBarVisibility(false)
                 }
             }
         }

@@ -13,10 +13,10 @@
         android:layout_width="156dp"
         android:layout_height="156dp"
         android:background="@android:color/transparent"
+        app:apexCornerSize="72dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:apexCornerSize="72dp"
         tools:src="@tools:sample/avatars" />
 
     <com.google.android.material.textview.MaterialTextView

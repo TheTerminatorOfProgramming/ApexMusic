@@ -162,12 +162,18 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         }
         binding.fragmentAlbumContent.playAction.setOnClickListener {
             MusicPlayerRemote.openQueue(album.songs, 0, true)
+            if (PreferenceUtil.isExpandPanel == "default_song" || PreferenceUtil.isExpandPanel == "enhanced_song" ) {
+                mainActivity.expandPanel()
+            }
         }
         binding.fragmentAlbumContent.shuffleAction.setOnClickListener {
             MusicPlayerRemote.openAndShuffleQueue(
                 album.songs,
                 true
             )
+            if (PreferenceUtil.isExpandPanel == "default_song" || PreferenceUtil.isExpandPanel == "enhanced_song" ) {
+                mainActivity.expandPanel()
+            }
         }
 
         binding.fragmentAlbumContent.aboutAlbumText.setOnClickListener {

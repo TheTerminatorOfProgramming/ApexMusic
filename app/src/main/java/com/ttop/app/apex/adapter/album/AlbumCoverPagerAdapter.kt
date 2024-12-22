@@ -40,6 +40,7 @@ import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.generalThemeValue
 import com.ttop.app.apex.extensions.keepScreenOn
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.glide.ApexColoredTarget
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -140,19 +141,14 @@ class AlbumCoverPagerAdapter(
             val gestureDetector =
                 GestureDetector(activity, object : GestureDetector.SimpleOnGestureListener() {
                     override fun onDoubleTap(e: MotionEvent): Boolean {
-                        if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
-                            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                            }
+                        if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                        }
 
-                            PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                            PreferenceUtil.showLyricsTablet = PreferenceUtil.showLyrics
-
-                            if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) {
-                                mainActivity.keepScreenOn(true)
-                            } else if (!PreferenceUtil.isScreenOnEnabled && !PreferenceUtil.showLyrics && !PreferenceUtil.showLyricsTablet) {
-                                mainActivity.keepScreenOn(false)
-                            }
+                        if (PreferenceUtil.showLyrics) {
+                            PreferenceUtil.showLyrics = false
+                        }else {
+                            PreferenceUtil.showLyrics = true
                         }
 
                         return super.onDoubleTap(e)
@@ -171,12 +167,7 @@ class AlbumCoverPagerAdapter(
                         if (mainActivity.getBottomSheetBehavior().state == STATE_EXPANDED) {
                             if (PreferenceUtil.nowPlayingScreen != Live) {
                                 val nps = listOf(Adaptive, Blur, Classic, Gradient, Peek)
-                                if (PreferenceUtil.lyricsMode == "id3" && !nps.contains(
-                                        PreferenceUtil.nowPlayingScreen
-                                    ) || PreferenceUtil.lyricsMode == "both" && !nps.contains(
-                                        PreferenceUtil.nowPlayingScreen
-                                    )
-                                ) {
+                                if (!nps.contains(PreferenceUtil.nowPlayingScreen)) {
                                     if (!PreferenceUtil.isHapticFeedbackDisabled) {
                                         requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                                     }
@@ -204,7 +195,7 @@ class AlbumCoverPagerAdapter(
             lifecycleScope.launch(Dispatchers.IO) {
                 val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
                 withContext(Dispatchers.Main) {
-                    mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
+                    mainActivity.keepScreenOn(true)
                     val builder = AlertDialog.Builder(requireContext(), R.style.CustomDialogTheme)
                     builder.setTitle(MusicPlayerRemote.currentSong.title + " : " + MusicPlayerRemote.currentSong.artistName)
                     builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)

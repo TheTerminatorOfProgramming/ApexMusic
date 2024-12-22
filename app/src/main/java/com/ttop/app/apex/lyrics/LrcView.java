@@ -79,9 +79,6 @@ public class LrcView extends View {
     private int mCurrentLine;
     private Object mFlag;
     private boolean isShowTimeline;
-    private boolean isTouching;
-    private boolean isFling;
-    private int mTextGravity; // 歌词显示位置，靠左/居中/靠右
     private final Runnable hideTimelineRunnable =
             new Runnable() {
                 @Override
@@ -92,7 +89,8 @@ public class LrcView extends View {
                     }
                 }
             };
-
+    private boolean isTouching;
+    private boolean isFling;
     private final GestureDetector.SimpleOnGestureListener mSimpleOnGestureListener =
             new GestureDetector.SimpleOnGestureListener() {
                 @Override
@@ -158,6 +156,7 @@ public class LrcView extends View {
                     return super.onSingleTapConfirmed(e);
                 }
             };
+    private int mTextGravity; // 歌词显示位置，靠左/居中/靠右
 
     public LrcView(Context context) {
         this(context, null);

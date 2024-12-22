@@ -37,6 +37,7 @@
 
     <declare-styleable name="ATESwitchPreference">
         <attr name="ateKey_pref_switch" format="string" />
+        <attr name="cardStrokeColor" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ATEColorPreference">

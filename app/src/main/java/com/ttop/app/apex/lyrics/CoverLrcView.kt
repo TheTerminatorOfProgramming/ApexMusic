@@ -30,6 +30,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.LinearInterpolator
 import android.widget.Scroller
 import androidx.core.content.ContextCompat
@@ -37,6 +38,8 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.graphics.withSave
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.keepScreenOn
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.PreferenceUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -177,18 +180,11 @@ class CoverLrcView @JvmOverloads constructor(
             }
 
             override fun onDoubleTap(e: MotionEvent): Boolean {
-                if (PreferenceUtil.lyricsMode == "synced" || PreferenceUtil.lyricsMode == "both") {
-                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                        rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                    }
-
-                    PreferenceUtil.showLyrics = !PreferenceUtil.showLyrics
-                    PreferenceUtil.showLyricsTablet = PreferenceUtil.showLyrics
-                } else {
-                    if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                        rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-                    }
+                if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                    rootView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 }
+
+                PreferenceUtil.showLyrics = false
 
                 return super.onDoubleTap(e)
             }

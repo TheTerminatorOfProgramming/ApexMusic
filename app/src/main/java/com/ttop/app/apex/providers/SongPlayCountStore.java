@@ -34,22 +34,18 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
     private static final int VERSION = 3;
     // how many weeks worth of playback to track
     private static final int NUM_WEEKS = 52;
-    @Nullable
-    private static SongPlayCountStore sInstance = null;
     // interpolator curve applied for measuring the curve
     @NonNull
     private static final Interpolator sInterpolator = new AccelerateInterpolator(1.5f);
     // how high to multiply the interpolation curve
     private static final int INTERPOLATOR_HEIGHT = 50;
-
     // how high the base value is. The ratio of the Height to Base is what really matters
     private static final int INTERPOLATOR_BASE = 25;
-
     private static final int ONE_WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
-
     @NonNull
     private static final String WHERE_ID_EQUALS = SongPlayCountColumns.ID + "=?";
-
+    @Nullable
+    private static SongPlayCountStore sInstance = null;
     // number of weeks since epoch time
     private final int mNumberOfWeeksSinceEpoch;
 

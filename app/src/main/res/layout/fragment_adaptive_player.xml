@@ -1,115 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/colorGradientBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?colorSurface"
+    android:background="?attr/colorSurface"
     android:clickable="true"
     android:focusable="true">
 
-    <include layout="@layout/shadow_statusbar_toolbar" />
-
-    <LinearLayout
+    <View
+        android:id="@+id/colorGradientBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <include layout="@layout/shadow_statusbar_toolbar" />
 
-            <include layout="@layout/status_bar" />
-        </FrameLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/playerAlbumCoverFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.55"
+        app:layout_constraintTop_toBottomOf="@id/playerToolbar"
+        app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout="@layout/fragment_album_full_card_cover" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/scrollCard"
+        style="@style/BottomSheetStyleQueue"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="1.0"
+        android:visibility="gone"
+        app:layout_constraintHeight_percent="0.55"
+        app:behavior_hideable="false"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:layout_constraintTop_toBottomOf="@id/playerToolbar"
+        app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/CornerCardViewAlt"
+        app:strokeWidth="1dp"
+        tools:ignore="MissingPrefix"
+        tools:peekHeight="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/playerToolbar"
-            style="@style/Toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:contentInsetStartWithNavigation="0dp"
-            app:navigationIcon="@drawable/ic_keyboard_arrow_down_black"
-            app:subtitleTextAppearance="@style/TextViewSubtitle5"
-            app:titleMargin="0dp"
-            app:titleMarginStart="0dp"
-            app:titleTextAppearance="@style/TextViewSubtitle5"
-            tools:subtitle="@tools:sample/full_names"
-            tools:title="@tools:sample/full_names" />
-
-        <FrameLayout
+        <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:scrollbars="none">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/playerAlbumCoverFragment"
-                android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
+            <TextView
+                android:id="@+id/embedded"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout="@layout/fragment_album_full_card_cover" />
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="5dp" />
+        </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
+    </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/playerQueueSheet"
-                style="@style/BottomSheetStyleQueue"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:shapeAppearanceOverlay="@style/NPSCornerCardView"
-                app:behavior_hideable="false"
-                android:alpha="1.0"
-                android:backgroundTint="@color/transparent"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp"
-                android:visibility="gone"
-                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-                tools:peekHeight="0dp">
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/playbackControlsFragment"
+        android:name="com.ttop.app.apex.ui.fragments.player.adaptive.AdaptivePlaybackControlsFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:0.55"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout="@layout/fragment_adaptive_player_playback_controls" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="false"
-                    android:orientation="vertical">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/playerToolbar"
+        style="@style/Toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/status_bar_padding"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:navigationIcon="@drawable/ic_keyboard_arrow_down_black"
+        app:subtitleTextAppearance="@style/TextViewSubtitle5"
+        app:titleMargin="0dp"
+        app:titleMarginStart="0dp"
+        app:titleTextAppearance="@style/TextViewSubtitle5"
+        tools:subtitle="@tools:sample/full_names"
+        tools:title="@tools:sample/full_names" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:overScrollMode="@integer/overScrollMode"
-                        tools:listitem="@layout/item_list" />
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
-                android:id="@+id/scroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="1.0"
-                android:backgroundTint="@color/transparent"
-                android:scrollbars="none"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/embedded"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/transparent"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="5dp" />
-            </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
-        </FrameLayout>
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/playbackControlsFragment"
-            android:name="com.ttop.app.apex.ui.fragments.player.adaptive.AdaptivePlaybackControlsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            tools:layout="@layout/fragment_adaptive_player_playback_controls" />
-
-    </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

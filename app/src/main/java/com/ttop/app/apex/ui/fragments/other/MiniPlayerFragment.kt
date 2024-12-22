@@ -67,19 +67,11 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onClick(view: View) {
         when (view.id) {
             R.id.actionNext -> {
-                if (PreferenceUtil.isAutoplay) {
-                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                } else {
-                    MusicPlayerRemote.playNextSong()
-                }
+                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
             }
 
             R.id.actionPrevious -> {
-                if (PreferenceUtil.isAutoplay) {
-                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                } else {
-                    MusicPlayerRemote.playPreviousSong()
-                }
+                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
             }
         }
     }
@@ -89,7 +81,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         _binding = FragmentMiniPlayerBinding.bind(view)
 
         when (PreferenceUtil.progressBarStyle) {
-            "circular", "circular_no_track" -> {
+            "circular" -> {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.progressBarHorizontalTop.visibility = View.GONE
                 binding.progressBarHorizontalBottom.visibility = View.GONE
@@ -140,17 +132,13 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         val indicatorColor = if (PreferenceUtil.materialYou) {
             ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
         } else {
-            ColorUtil.getComplimentColor(accentColor())
+            ColorUtil.getAnalogousColor(accentColor())[1].toArgb()
         }
         val colorFinal = indicatorColor.addAlpha(0.4F)
 
         binding.progressBar.setIndicatorColor(indicatorColor)
 
         if (PreferenceUtil.progressBarStyle == "circular") {
-            binding.progressBar.trackColor = colorFinal
-        }
-
-        if (PreferenceUtil.progressBarStyle == "circular_no_track") {
             binding.progressBar.trackColor =
                 ContextCompat.getColor(requireContext(), R.color.transparent)
         }
@@ -172,7 +160,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
         val indicatorColor = if (PreferenceUtil.materialYou) {
             ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
         } else {
-            ColorUtil.getComplimentColor(accentColor())
+            ColorUtil.getAnalogousColor(accentColor())[1].toArgb()
         }
 
         val song = MusicPlayerRemote.currentSong
@@ -272,18 +260,10 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                         if (PreferenceUtil.isSwipe == "always") {
                             if (abs(velocityX) > abs(velocityY)) {
                                 if (velocityX < 0) {
-                                    if (PreferenceUtil.isAutoplay) {
-                                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                                    } else {
-                                        MusicPlayerRemote.playNextSong()
-                                    }
+                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                                     return true
                                 } else if (velocityX > 0) {
-                                    if (PreferenceUtil.isAutoplay) {
-                                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                                    } else {
-                                        MusicPlayerRemote.playPreviousSong()
-                                    }
+                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                                     return true
                                 }
                             }
@@ -292,18 +272,10 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                             if (ApexUtil.isTablet) {
                                 if (abs(velocityX) > abs(velocityY)) {
                                     if (velocityX < 0) {
-                                        if (PreferenceUtil.isAutoplay) {
-                                            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                                        } else {
-                                            MusicPlayerRemote.playNextSong()
-                                        }
+                                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                                         return true
                                     } else if (velocityX > 0) {
-                                        if (PreferenceUtil.isAutoplay) {
-                                            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                                        } else {
-                                            MusicPlayerRemote.playPreviousSong()
-                                        }
+                                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                                         return true
                                     }
                                 }
@@ -314,18 +286,10 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                         if (PreferenceUtil.isSwipeNonFoldable) {
                             if (abs(velocityX) > abs(velocityY)) {
                                 if (velocityX < 0) {
-                                    if (PreferenceUtil.isAutoplay) {
-                                        MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-                                    } else {
-                                        MusicPlayerRemote.playNextSong()
-                                    }
+                                    MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
                                     return true
                                 } else if (velocityX > 0) {
-                                    if (PreferenceUtil.isAutoplay) {
-                                        MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-                                    } else {
-                                        MusicPlayerRemote.playPreviousSong()
-                                    }
+                                    MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
                                     return true
                                 }
                             }
@@ -359,10 +323,10 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                 val indicatorColor = if (PreferenceUtil.materialYou) {
                     ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
                 } else {
-                    ColorUtil.getComplimentColor(accentColor())
+                    ColorUtil.getAnalogousColor(accentColor())[1].toArgb()
                 }
                 when (PreferenceUtil.progressBarStyle) {
-                    "circular", "circular_no_track" -> {
+                    "circular" -> {
                         binding.progressBar.visibility = View.VISIBLE
                         binding.progressBarHorizontalTop.visibility = View.GONE
                         binding.progressBarHorizontalBottom.visibility = View.GONE
@@ -370,10 +334,6 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
                         val colorFinal = indicatorColor.addAlpha(0.4F)
 
                         if (PreferenceUtil.progressBarStyle == "circular") {
-                            binding.progressBar.trackColor = colorFinal
-                        }
-
-                        if (PreferenceUtil.progressBarStyle == "circular_no_track") {
                             binding.progressBar.trackColor =
                                 ContextCompat.getColor(requireContext(), R.color.transparent)
                         }

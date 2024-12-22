@@ -83,20 +83,20 @@
         <menu></menu>
     </item>
     <item
-        android:orderInCategory="9"
-        android:id="@+id/action_refresh"
-        android:icon="@drawable/ic_refresh"
-        android:title="@string/action_refresh"
-        app:showAsAction="never" />
+        android:id="@+id/action_toggle_index"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/action_toggle_index"
+        app:showAsAction="never">
+    </item>
     <item
         android:id="@+id/action_cast"
         android:title="@string/action_cast"
         app:actionProviderClass="com.ttop.app.apex.views.ThemeableMediaRouteActionProvider"
         app:showAsAction="always" />
     <item
-        android:orderInCategory="10"
         android:id="@+id/action_scan_media"
         android:icon="@drawable/ic_scan"
+        android:orderInCategory="10"
         android:title="@string/scan_media"
         app:showAsAction="always" />
 </menu>

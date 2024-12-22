@@ -23,17 +23,21 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
-import com.ttop.app.apex.LYRICS_MODE
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SHOW_LYRICS
 import com.ttop.app.apex.adapter.album.AlbumCoverPagerAdapter
 import com.ttop.app.apex.adapter.album.AlbumCoverPagerAdapter.AlbumCoverFragment
 import com.ttop.app.apex.databinding.FragmentPlayerAlbumCoverBinding
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.isColorLight
+import com.ttop.app.apex.extensions.keepScreenOn
+import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.MusicProgressViewUpdateHelper
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
@@ -41,6 +45,7 @@ import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.lyrics.CoverLrcView
 import com.ttop.app.apex.model.lyrics.Lyrics
 import com.ttop.app.apex.transform.CarousalPagerTransformer
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Adaptive
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Blur
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen.Card
@@ -54,6 +59,7 @@ import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -68,6 +74,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     private var callbacks: Callbacks? = null
     private var currentPosition: Int = 0
     val viewPager get() = binding.viewPager
+    private val mainActivity get() = activity as MainActivity
 
     private val colorReceiver = object : AlbumCoverFragment.ColorReceiver {
         override fun onColorReady(color: MediaNotificationProcessor, request: Int) {
@@ -112,9 +119,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         _binding = FragmentPlayerAlbumCoverBinding.bind(view)
         setupViewPager()
         progressViewUpdateHelper = MusicProgressViewUpdateHelper(this, 500, 1000)
-        if (PreferenceUtil.lyricsMode == "id3" || PreferenceUtil.lyricsMode == "disabled") {
-            PreferenceUtil.showLyrics = false
-        }
+
         maybeInitLyrics()
         lrcView.apply {
             setDraggable(true) { time ->
@@ -122,6 +127,12 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
                 MusicPlayerRemote.resumePlaying()
                 true
             }
+        }
+
+        if (PreferenceUtil.showLyrics) {
+            binding.cardView.strokeWidth = ViewUtil.convertDpToPixel(5f, resources).toInt()
+        }else {
+            binding.cardView.strokeWidth = 0
         }
     }
 
@@ -258,6 +269,10 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         PreferenceManager.getDefaultSharedPreferences(requireContext())
             .registerOnSharedPreferenceChangeListener(this)
         updateLyrics()
+
+        if (PreferenceUtil.showLyrics) {
+            binding.cardView.strokeWidth = ViewUtil.convertDpToPixel(5f, resources).toInt()
+        }
     }
 
     override fun onDestroyView() {
@@ -289,17 +304,16 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         when (key) {
             SHOW_LYRICS -> {
                 //modified
-                if (PreferenceUtil.lyricsMode == "synced" && PreferenceUtil.showLyrics || PreferenceUtil.lyricsMode == "both" && PreferenceUtil.showLyrics) {
+                if (PreferenceUtil.showLyrics) {
+                    binding.cardView.strokeWidth = ViewUtil.convertDpToPixel(5f, resources).toInt()
+
+                    mainActivity.keepScreenOn(true)
                     maybeInitLyrics()
                 } else {
+                    binding.cardView.strokeWidth = 0
+                    mainActivity.keepScreenOn(false)
                     showLyrics(false)
                     progressViewUpdateHelper?.stop()
-                }
-            }
-
-            LYRICS_MODE -> {
-                if (PreferenceUtil.lyricsMode == "id3" || PreferenceUtil.lyricsMode == "disabled") {
-                    PreferenceUtil.showLyrics = false
                 }
             }
         }
@@ -314,6 +328,8 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
             setTimelineTextColor(primaryColor)
             setPlayDrawableColor(primaryColor)
         }
+
+        binding.cardView?.strokeColor = primaryColor
     }
 
     private fun showLyrics(visible: Boolean) {
@@ -334,22 +350,12 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         val nps = PreferenceUtil.nowPlayingScreen
         // Don't show lyrics container for below conditions
 
-        if (ApexUtil.isTablet) {
-            if (lyricViewNpsTabletList.contains(nps) && PreferenceUtil.showLyrics) {
-                showLyrics(true)
-                progressViewUpdateHelper?.start()
-            } else {
-                showLyrics(false)
-                progressViewUpdateHelper?.stop()
-            }
+        if (lyricViewNpsList.contains(nps) && PreferenceUtil.showLyrics) {
+            showLyrics(true)
+            progressViewUpdateHelper?.start()
         } else {
-            if (lyricViewNpsList.contains(nps) && PreferenceUtil.showLyrics) {
-                showLyrics(true)
-                progressViewUpdateHelper?.start()
-            } else {
-                showLyrics(false)
-                progressViewUpdateHelper?.stop()
-            }
+            showLyrics(false)
+            progressViewUpdateHelper?.stop()
         }
 
         if (nps == Live) {
@@ -379,19 +385,11 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         }
 
         if (position < MusicPlayerRemote.position) {
-            if (PreferenceUtil.isAutoplay) {
-                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-            } else {
-                MusicPlayerRemote.playPreviousSong()
-            }
+            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
         }
 
         if (position > MusicPlayerRemote.position) {
-            if (PreferenceUtil.isAutoplay) {
-                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-            } else {
-                MusicPlayerRemote.playNextSong()
-            }
+            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
         }
     }
 
@@ -400,6 +398,14 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
 
     private fun notifyColorChange(color: MediaNotificationProcessor) {
         callbacks?.onColorChanged(color)
+
+        val decorView = activity?.window?.decorView
+        WindowCompat.getInsetsController(
+            activity?.window!!,
+            decorView!!
+        ).isAppearanceLightStatusBars =
+            surfaceColor().isColorLight
+
         when (PreferenceUtil.nowPlayingScreen) {
             Blur -> setLRCViewColors(Color.WHITE, Color.BLACK)
             Gradient -> setLRCViewColors(
@@ -457,7 +463,4 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
 
     private val lyricViewNpsList =
         listOf(Blur, Classic, Adaptive, Card, Gradient, Peek)
-
-    private val lyricViewNpsTabletList =
-        listOf(Adaptive, Card, Gradient)
 }

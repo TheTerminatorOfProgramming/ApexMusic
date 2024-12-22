@@ -13,25 +13,17 @@
     <RelativeLayout
         android:id="@+id/controls"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="45dp"
+        android:layout_centerVertical="true"
         android:background="@drawable/app_widget_background"
         android:backgroundTint="@color/m3_widget_background">
 
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/app_widget_background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_album_art_round"
-                tools:ignore="ContentDescription" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="100dp">
 
             <RelativeLayout
                 android:id="@+id/main"
@@ -42,11 +34,13 @@
                     android:id="@+id/songText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/media_actions"
+                    android:layout_centerVertical="true"
                     android:layout_toStartOf="@id/media_actions"
-                    android:gravity="center_vertical"
+                    android:textAlignment="center"
                     android:singleLine="true"
                     android:textAppearance="@style/TextViewNormal3"
                     android:textColor="@color/m3_widget_foreground"
@@ -67,7 +61,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/app_widget_buttons_circular_md3"
+                        android:background="@drawable/app_widget_buttons_circular_outline_md3"
                         android:src="@drawable/ic_skip_previous_md3"
                         tools:ignore="ContentDescription" />
 
@@ -87,7 +81,7 @@
                         android:layout_height="40dp"
                         android:layout_marginEnd="20dp"
                         android:layout_toEndOf="@id/button_prev"
-                        android:background="@drawable/app_widget_buttons_circular_md3"
+                        android:background="@drawable/app_widget_buttons_circular_outline_md3"
                         android:src="@drawable/ic_skip_next_md3"
                         tools:ignore="ContentDescription" />
 
@@ -98,32 +92,46 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/button_toggle_play_pause"
-                        android:background="@drawable/app_widget_buttons_circular_md3"
+                        android:background="@drawable/app_widget_buttons_circular_outline_md3"
                         android:src="@drawable/ic_refresh_md3"
                         tools:ignore="ContentDescription" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/media_titles"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf="@id/songText"
+                    android:layout_above="@id/media_actions"
+                    android:layout_toStartOf="@id/media_actions"
                     android:orientation="vertical"
                     android:paddingStart="8dp"
                     android:paddingEnd="0dp">
 
                     <TextView
                         android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:singleLine="true"
                         android:textAppearance="@style/TextViewSubtitle4"
+                        android:textAlignment="center"
                         android:textColor="@color/m3_widget_foreground"
                         tools:text="Title" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="5dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/app_widget_background"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_album_art_round"
+        tools:ignore="ContentDescription" />
 </RelativeLayout>

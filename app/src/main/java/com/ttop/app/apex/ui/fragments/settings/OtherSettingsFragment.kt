@@ -20,16 +20,20 @@ import android.view.HapticFeedbackConstants
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
+import com.ttop.app.apex.ALBUM_COVER_STYLE
 import com.ttop.app.apex.AUTO_ROTATE
 import com.ttop.app.apex.HAPTIC_FEEDBACK
-import com.ttop.app.apex.KEEP_SCREEN_ON
 import com.ttop.app.apex.LAST_ADDED_CUTOFF
 import com.ttop.app.apex.R
-import com.ttop.app.apex.SEARCH_ACTION
 import com.ttop.app.apex.SEARCH_ICON_NAVIGATION
+import com.ttop.app.apex.CHECK_UPDATE_ON_START
+import com.ttop.app.apex.FILTER_SONG_MAX
+import com.ttop.app.apex.FILTER_SONG_MIN
+import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.USE_NOTIFY_ACTIONS_AUTO
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType.HomeSections
+import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -42,6 +46,7 @@ class OtherSettingsFragment : AbsSettingsFragment(),
     private val libraryViewModel by activityViewModel<LibraryViewModel>()
 
     override fun invalidateSettings() {
+
         val autoRotate: TwoStatePreference? = findPreference(AUTO_ROTATE)
         autoRotate?.setOnPreferenceChangeListener { _, newValue ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
@@ -52,24 +57,8 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             true
         }
 
-        val keepScreenOn: TwoStatePreference? = findPreference(KEEP_SCREEN_ON)
-        keepScreenOn?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
         val useNotiActionsAuto: TwoStatePreference? = findPreference(USE_NOTIFY_ACTIONS_AUTO)
         useNotiActionsAuto?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            true
-        }
-
-        val searchAction: TwoStatePreference? = findPreference(SEARCH_ACTION)
-        searchAction?.setOnPreferenceChangeListener { _, _ ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
@@ -91,10 +80,21 @@ class OtherSettingsFragment : AbsSettingsFragment(),
             }
             true
         }
+
+        val checkForUpdateAtStartup: TwoStatePreference? = findPreference(CHECK_UPDATE_ON_START)
+        checkForUpdateAtStartup?.setOnPreferenceChangeListener { _, _ ->
+            if (!PreferenceUtil.isHapticFeedbackDisabled) {
+                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            }
+            true
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_advanced)
+
+        val hapticFeedback: TwoStatePreference? = findPreference(HAPTIC_FEEDBACK)
+        hapticFeedback?.isVisible = ApexUtil.canVibrate(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

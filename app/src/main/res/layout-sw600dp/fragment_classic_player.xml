@@ -19,32 +19,21 @@
 
     <include layout="@layout/shadow_statusbar_toolbar" />
 
-    <FrameLayout
-        android:id="@+id/statusBarContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include layout="@layout/status_bar" />
-    </FrameLayout>
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playerQueueSheet"
         style="@style/BottomSheetStyleQueue"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
-        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
-        app:shapeAppearanceOverlay="@style/TabQueueTopCornerCardView"
-        app:behavior_hideable="false"
         android:backgroundTint="@color/transparent"
+        app:behavior_hideable="false"
         app:cardElevation="0dp"
-        app:strokeWidth="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/middle_guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_guideline"
+        app:shapeAppearanceOverlay="@style/CornerCardViewAlt"
+        app:strokeWidth="0dp"
         tools:peekHeight="0dp">
 
         <LinearLayout
@@ -62,48 +51,61 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
-        android:id="@+id/scroll"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/scrollCard"
+        style="@style/BottomSheetStyleQueue"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scrollbars="none"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/status_bar_padding"
+        android:visibility="gone"
+        app:behavior_hideable="false"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
-        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
-        android:visibility="gone">
+        app:layout_constraintEnd_toStartOf="@id/middle_guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_guideline"
+        app:shapeAppearanceOverlay="@style/CornerCardViewAlt"
+        app:strokeWidth="1dp"
+        tools:peekHeight="0dp">
 
-        <TextView
-            android:id="@+id/embedded"
+        <com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:paddingStart="4dp"
-            android:paddingEnd="5dp" />
-    </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/lrcFragment"
-        android:name="com.ttop.app.apex.ui.fragments.player.LRCFragment"
+            <TextView
+                android:id="@+id/embedded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="5dp" />
+        </com.ttop.app.apex.libraries.fastscroller.FastScrollNestedScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/playerAlbumCoverFragmentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
-        app:layout_constraintEnd_toStartOf="@id/middle_guideline"
-        android:visibility="gone" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/playerAlbumCoverFragment"
-        android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/status_bar_padding_double"
+        app:layout_constraintBottom_toTopOf="@id/middle_guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintStart_toEndOf="@id/middle_guideline"
-        app:layout_constraintTop_toBottomOf="@id/statusBarContainer" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/playerAlbumCoverFragment"
+            android:name="com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/playbackControlsFragment"
@@ -112,8 +114,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/playerToolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/middle_guideline"
-        app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
+        app:layout_constraintStart_toEndOf="@id/middle_guideline1"
+        app:layout_constraintTop_toBottomOf="@id/middle_guideline"
         tools:layout="@layout/fragment_classic_player_playback_controls" />
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -123,14 +125,21 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/middle_guideline"
+        app:layout_constraintStart_toEndOf="@id/middle_guideline1"
         app:layout_constraintTop_toBottomOf="@id/playbackControlsFragment"
         app:navigationIcon="@drawable/ic_keyboard_arrow_down_black" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:layout_width="1dp"
-        android:orientation="vertical"
         android:id="@+id/middle_guideline"
-        app:layout_constraintGuide_percent="0.5"
-        android:layout_height="match_parent" />
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/middle_guideline1"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

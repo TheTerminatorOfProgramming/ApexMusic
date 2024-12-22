@@ -13,29 +13,19 @@
     <RelativeLayout
         android:id="@+id/controls"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="161dp"
+        android:layout_marginStart="70dp"
+        android:layout_centerVertical="true"
         android:background="@drawable/app_widget_background"
         android:backgroundTint="@color/m3_widget_background">
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="120dp"
-            android:layout_height="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/app_widget_background"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_album_art_round" />
 
         <RelativeLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="105dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@id/image">
+            android:layout_marginBottom="5dp">
 
             <RelativeLayout
                 android:id="@+id/media_actions"
@@ -60,7 +50,7 @@
                     android:layout_height="35dp"
                     android:layout_marginEnd="25dp"
                     android:layout_toStartOf="@id/centerPoint"
-                    android:background="@drawable/app_widget_buttons_circular_md3"
+                    android:background="@drawable/app_widget_buttons_circular_outline_md3"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_skip_previous_md3" />
 
@@ -70,7 +60,7 @@
                     android:layout_height="35dp"
                     android:layout_marginStart="25dp"
                     android:layout_toEndOf="@id/centerPoint"
-                    android:background="@drawable/app_widget_buttons_circular_md3"
+                    android:background="@drawable/app_widget_buttons_circular_outline_md3"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_skip_next_md3" />
 
@@ -83,7 +73,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@drawable/app_widget_buttons_circular_md3"
+                android:background="@drawable/app_widget_buttons_circular_outline_md3"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_refresh_md3" />
 
@@ -147,76 +137,12 @@
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/up_next"
-        android:layout_width="match_parent"
-        android:layout_height="118.5dp"
-        android:layout_below="@id/controls"
-        android:layout_marginTop="1.5dp"
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="161dp"
+        android:layout_height="161dp"
+        android:layout_centerVertical="true"
         android:background="@drawable/app_widget_background"
-        android:backgroundTint="@color/m3_widget_other">
-
-        <TextView
-            android:id="@+id/up_next_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/next_image"
-            android:paddingStart="0dp"
-            android:paddingEnd="118.5dp"
-            android:text="@string/up_next"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextViewHeadline7"
-            android:textColor="@color/m3_widget_other_text" />
-
-        <RelativeLayout
-            android:id="@+id/next_image"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="5dp">
-
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="118.5dp"
-                android:layout_height="118.5dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/app_widget_background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_album_art_round" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/imageTextContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/up_next_text"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/next_image">
-
-            <TextView
-                android:id="@+id/next_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="6dp"
-                android:gravity="top"
-                android:paddingBottom="0dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextViewHeadline6Point5"
-                android:textColor="@color/m3_widget_other_text"
-                tools:text="Title" />
-
-            <TextView
-                android:id="@+id/next_artist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="26dp"
-                android:paddingTop="0dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextViewHeadline6Point5"
-                android:textColor="@color/m3_widget_other_text"
-                tools:text="Text" />
-        </RelativeLayout>
-    </RelativeLayout>
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_album_art_round" />
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.ttop.app.apex.adapter.base
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +11,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.NumberRollViewBinding
+import com.ttop.app.apex.extensions.darkAccentColor
+import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.views.NumberRollView
 
 abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
@@ -22,6 +26,7 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
         val inflater = mode?.menuInflater
         inflater?.inflate(menuRes, menu)
+        activity.window.statusBarColor = activity.surfaceColor()
         return true
     }
 
@@ -42,8 +47,14 @@ abstract class AbsMultiSelectAdapter<V : RecyclerView.ViewHolder?, I>(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         clearChecked()
-        //activity.window.statusBarColor = Color.TRANSPARENT
         actionMode = null
+        //activity.window.statusBarColor = Color.TRANSPARENT
+        activity.window.statusBarColor =if (PreferenceUtil.materialYou) {
+             activity.darkAccentColor(activity)
+        }else {
+            activity.darkAccentColor(activity)
+        }
+
         onBackPressedCallback.remove()
     }
 

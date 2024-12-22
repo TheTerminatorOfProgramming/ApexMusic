@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.material.transition.MaterialFade
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 
 abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>, LM : RecyclerView.LayoutManager> :
@@ -41,7 +43,9 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
         }
 
     fun itemLayoutRes(): Int {
-        return if (getGridSize() > maxGridSizeForList) {
+        return if (PreferenceUtil.isPerformanceMode) {
+            R.layout.item_list_no_image
+        }else if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
         } else {
             R.layout.item_list
@@ -49,7 +53,9 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     }
 
     fun itemLayoutResArtist(): Int {
-        return if (getGridSize() > maxGridSizeForList) {
+        return if (PreferenceUtil.isPerformanceMode) {
+            R.layout.item_list_artist_no_image
+        }else if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
         } else {
             R.layout.item_list_artist
@@ -57,7 +63,9 @@ abstract class AbsRecyclerViewCustomGridSizeFragment<A : RecyclerView.Adapter<*>
     }
 
     fun itemLayoutResAlbum(): Int {
-        return if (getGridSize() > maxGridSizeForList) {
+        return if (PreferenceUtil.isPerformanceMode) {
+            R.layout.item_list_album_no_image
+        }else if (getGridSize() > maxGridSizeForList) {
             loadLayoutRes()
         } else {
             R.layout.item_list_album

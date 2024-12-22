@@ -57,6 +57,8 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -83,14 +85,18 @@ class LibraryViewModel(
         loadLibraryContent()
     }
 
-    private fun loadLibraryContent() = viewModelScope.launch(IO) {
-        fetchHomeSections()
-        fetchSuggestions()
-        fetchSongs()
-        fetchAlbums()
-        fetchArtists()
-        fetchGenres()
-        fetchPlaylists()
+    private fun loadLibraryContent() {
+        viewModelScope.launch(IO) {
+            fetchHomeSections()
+            awaitAll(
+                async { fetchSuggestions() },
+                async { fetchSongs() },
+                async { fetchAlbums() },
+                async { fetchArtists() },
+                async { fetchGenres() },
+                async { fetchPlaylists() },
+            )
+        }
     }
 
     fun getSearchResult(): LiveData<List<Any>> = searchResults

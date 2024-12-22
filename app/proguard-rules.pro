@@ -31,6 +31,9 @@
 # RetroFit
 -dontwarn retrofit.**
 -keep class retrofit.** { *; }
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
 
 # Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule

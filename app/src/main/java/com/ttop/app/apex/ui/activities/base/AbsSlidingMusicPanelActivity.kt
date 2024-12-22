@@ -28,6 +28,8 @@ import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.animation.doOnEnd
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -50,24 +52,16 @@ import com.ttop.app.apex.AUTO_ROTATE
 import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION
-import com.ttop.app.apex.DISABLE_QUEUE
-import com.ttop.app.apex.KEEP_SCREEN_ON
+import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION_2
 import com.ttop.app.apex.LIBRARY_CATEGORIES
-import com.ttop.app.apex.LYRICS_MODE
 import com.ttop.app.apex.NAV_BAR_BLACK
 import com.ttop.app.apex.NOW_PLAYING_SCREEN_ID
 import com.ttop.app.apex.PLAYER_BACKGROUND
-import com.ttop.app.apex.QUEUE_STYLE
-import com.ttop.app.apex.QUEUE_STYLE_LAND
 import com.ttop.app.apex.R
-import com.ttop.app.apex.SCREEN_ON_LYRICS
-import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
-import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
 import com.ttop.app.apex.TRANSPARENT_MINI_PLAYER
 import com.ttop.app.apex.databinding.SlidingMusicPanelLayoutBinding
-import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.currentFragment
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.dip
@@ -75,12 +69,10 @@ import com.ttop.app.apex.extensions.getBottomInsets
 import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.extensions.keepScreenOn
-import com.ttop.app.apex.extensions.maybeSetScreenOn
 import com.ttop.app.apex.extensions.peekHeightAnimate
-import com.ttop.app.apex.extensions.setLightStatusBar
-import com.ttop.app.apex.extensions.setLightStatusBarAuto
 import com.ttop.app.apex.extensions.setTaskDescriptionColor
 import com.ttop.app.apex.extensions.show
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.extensions.whichFragment
 import com.ttop.app.apex.helper.MusicPlayerRemote
@@ -113,7 +105,6 @@ import com.ttop.app.apex.util.IntroPrefs
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -156,25 +147,23 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     private val bottomSheetCallbackList by lazy {
         object : BottomSheetBehavior.BottomSheetCallback() {
-            var oldOffSet = 0f
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 setMiniPlayerAlphaProgress(slideOffset)
                 navigationBarColorAnimator?.cancel()
 
-                val inRangeExpanding = oldOffSet < slideOffset
-                val inRangeCollapsing = oldOffSet > slideOffset
-                oldOffSet = slideOffset
+                val inRangeExpanding = slideOffset >= 0.97
+                val inRangeCollapsing = slideOffset <= 0.97
 
                 if (inRangeCollapsing) {
                     if (PreferenceUtil.isMiniPlayerTransparent) {
                         binding.slidingPanel.alpha = 0.7f
                     }
-                    window.navigationBarColor = darkAccentColor()
+                    window.navigationBarColor = darkAccentColor(baseContext)
                     if (!VersionUtils.hasVanillaIceCream()) {
                         if (PreferenceUtil.appbarColor) {
                             window.statusBarColor = surfaceColor()
                         } else {
-                            window.statusBarColor = darkAccentColor()
+                            window.statusBarColor = darkAccentColor(baseContext)
                         }
                     }
                 }
@@ -188,16 +177,21 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         Adaptive -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
-                                window.statusBarColor = paletteColor
                             } else {
-                                if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                                    window.navigationBarColor = Color.BLACK
+                                if (PreferenceUtil.materialYou) {
+                                    window.navigationBarColor = ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.m3_widget_background
+                                    )
                                 } else {
-                                    window.navigationBarColor = accentColor()
+                                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                        window.navigationBarColor = Color.BLACK
+                                    } else {
+                                        window.navigationBarColor = surfaceColor()
+                                    }
                                 }
-
-                                window.statusBarColor = Color.TRANSPARENT
                             }
+                            window.statusBarColor = Color.TRANSPARENT
                         }
 
                         Blur -> {
@@ -209,10 +203,17 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
                             } else {
-                                if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                                    window.navigationBarColor = Color.BLACK
+                                if (PreferenceUtil.materialYou) {
+                                    window.navigationBarColor = ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.m3_widget_background
+                                    )
                                 } else {
-                                    window.navigationBarColor = accentColor()
+                                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                        window.navigationBarColor = Color.BLACK
+                                    } else {
+                                        window.navigationBarColor = surfaceColor()
+                                    }
                                 }
                             }
                             window.statusBarColor = Color.TRANSPARENT
@@ -221,35 +222,44 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         Classic -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
-
-                                if (PreferenceUtil.isPlayerBackgroundType) {
-                                    window.statusBarColor = Color.TRANSPARENT
-                                } else {
-                                    window.statusBarColor = paletteColor
-                                }
                             } else {
-                                if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                                    window.navigationBarColor = Color.BLACK
+                                if (PreferenceUtil.materialYou) {
+                                    window.navigationBarColor = ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.m3_widget_background
+                                    )
                                 } else {
-                                    window.navigationBarColor = accentColor()
+                                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                        window.navigationBarColor = Color.BLACK
+                                    } else {
+                                        window.navigationBarColor = surfaceColor()
+                                    }
                                 }
-
-                                window.statusBarColor = Color.TRANSPARENT
                             }
+
+                            window.statusBarColor = Color.TRANSPARENT
                         }
 
                         Gradient -> {
                             window.navigationBarColor = paletteColor
+                            window.statusBarColor = Color.TRANSPARENT
                         }
 
                         Live -> {
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
                             } else {
-                                if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                                    window.navigationBarColor = Color.BLACK
+                                if (PreferenceUtil.materialYou) {
+                                    window.navigationBarColor = ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.m3_widget_background
+                                    )
                                 } else {
-                                    window.navigationBarColor = accentColor()
+                                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                        window.navigationBarColor = Color.BLACK
+                                    } else {
+                                        window.navigationBarColor = surfaceColor()
+                                    }
                                 }
                             }
                             window.statusBarColor = Color.TRANSPARENT
@@ -264,10 +274,26 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             if (PreferenceUtil.isAdaptiveColor) {
                                 window.navigationBarColor = paletteColor
                             } else {
-                                window.navigationBarColor = accentColor()
+                                if (PreferenceUtil.materialYou) {
+                                    window.navigationBarColor = ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.m3_widget_background
+                                    )
+                                } else {
+                                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                        window.navigationBarColor = Color.BLACK
+                                    } else {
+                                        window.navigationBarColor = surfaceColor()
+                                    }
+                                }
                             }
                         }
                     }
+
+                    val windowInsetsController =
+                        WindowCompat.getInsetsController(window, window.decorView)
+                    windowInsetsController.isAppearanceLightNavigationBars =
+                        window.navigationBarColor.isColorLight
                 }
             }
 
@@ -279,29 +305,20 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 when (newState) {
                     STATE_EXPANDED -> {
                         onPanelExpanded()
-                        if (PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) {
-                            keepScreenOn(true)
-                        }
-
-                        if (PreferenceUtil.lyricsScreenOn) {
-                            keepScreenOn(true)
-                        }
                     }
 
                     STATE_COLLAPSED -> {
                         onPanelCollapsed()
-                        if ((PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet) || !PreferenceUtil.isScreenOnEnabled) {
-                            keepScreenOn(false)
-                        }
-
-                        if ((PreferenceUtil.lyricsScreenOn) || !PreferenceUtil.isScreenOnEnabled) {
-                            keepScreenOn(false)
-                        }
 
                         if (PreferenceUtil.isWidgetPanel && ApexUtil.isTablet) {
                             PreferenceUtil.isWidgetPanel = false
                             postRecreate()
                         }
+
+                        val windowInsetsController =
+                            WindowCompat.getInsetsController(window, window.decorView)
+                        windowInsetsController.isAppearanceLightNavigationBars =
+                            window.navigationBarColor.isColorLight
                     }
 
                     STATE_SETTLING, STATE_DRAGGING -> {
@@ -309,18 +326,192 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                             binding.navigationView.bringToFront()
                             fromNotification = false
                         }
+
+                        val decorView = window.decorView
+
+                        when (PreferenceUtil.nowPlayingScreen) {
+                            Adaptive -> {
+                                if (PreferenceUtil.isAdaptiveColor) {
+                                    WindowCompat.getInsetsController(
+                                        window,
+                                        decorView
+                                    ).isAppearanceLightStatusBars =
+                                        paletteColor.isColorLight
+                                } else {
+                                    if (PreferenceUtil.materialYou) {
+                                        val color = ContextCompat.getColor(
+                                            applicationContext,
+                                            R.color.m3_widget_background
+                                        )
+
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            color.isColorLight
+                                    } else {
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            surfaceColor().isColorLight
+                                    }
+                                }
+                            }
+
+                            Blur -> {
+                                WindowCompat.getInsetsController(
+                                    window,
+                                    decorView
+                                ).isAppearanceLightStatusBars = false
+                            }
+
+                            Card -> {
+                                WindowCompat.getInsetsController(
+                                    window,
+                                    decorView
+                                ).isAppearanceLightStatusBars =
+                                    paletteColor.isColorLight
+                            }
+
+                            Classic -> {
+                                if (PreferenceUtil.isAdaptiveColor) {
+                                    WindowCompat.getInsetsController(
+                                        window,
+                                        decorView
+                                    ).isAppearanceLightStatusBars =
+                                        paletteColor.isColorLight
+                                } else {
+                                    if (PreferenceUtil.materialYou) {
+                                        val color = ContextCompat.getColor(
+                                            applicationContext,
+                                            R.color.m3_widget_background
+                                        )
+
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            color.isColorLight
+                                    } else {
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            surfaceColor().isColorLight
+                                    }
+                                }
+                            }
+
+                            Gradient -> {
+                                WindowCompat.getInsetsController(
+                                    window,
+                                    decorView
+                                ).isAppearanceLightStatusBars =
+                                    paletteColor.isColorLight
+                            }
+
+                            Live -> {
+                                if (PreferenceUtil.isAdaptiveColor) {
+                                    WindowCompat.getInsetsController(
+                                        window,
+                                        decorView
+                                    ).isAppearanceLightStatusBars =
+                                        paletteColor.isColorLight
+                                } else {
+                                    if (PreferenceUtil.materialYou) {
+                                        val color = ContextCompat.getColor(
+                                            applicationContext,
+                                            R.color.m3_widget_background
+                                        )
+
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            color.isColorLight
+                                    } else {
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            surfaceColor().isColorLight
+                                    }
+                                }
+                            }
+
+                            Minimal -> {
+                                if (PreferenceUtil.isAdaptiveColor) {
+                                    WindowCompat.getInsetsController(
+                                        window,
+                                        decorView
+                                    ).isAppearanceLightStatusBars =
+                                        paletteColor.isColorLight
+                                } else {
+                                    if (PreferenceUtil.materialYou) {
+                                        val color = ContextCompat.getColor(
+                                            applicationContext,
+                                            R.color.m3_widget_background
+                                        )
+
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            color.isColorLight
+                                    } else {
+                                        WindowCompat.getInsetsController(
+                                            window,
+                                            decorView
+                                        ).isAppearanceLightStatusBars =
+                                            surfaceColor().isColorLight
+                                    }
+                                }
+                            }
+
+                            Peek -> {
+                                if (PreferenceUtil.materialYou) {
+                                    val color = ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.m3_widget_background
+                                    )
+
+                                    WindowCompat.getInsetsController(
+                                        window,
+                                        decorView
+                                    ).isAppearanceLightStatusBars =
+                                        color.isColorLight
+                                } else {
+                                    WindowCompat.getInsetsController(
+                                        window,
+                                        decorView
+                                    ).isAppearanceLightStatusBars =
+                                        surfaceColor().isColorLight
+                                }
+                            }
+                        }
+
+                        val windowInsetsController =
+                            WindowCompat.getInsetsController(window, window.decorView)
+                        windowInsetsController.isAppearanceLightNavigationBars =
+                            window.navigationBarColor.isColorLight
                     }
 
                     STATE_HIDDEN -> {
                         MusicPlayerRemote.clearQueue()
-                        window.navigationBarColor = darkAccentColor()
+                        window.navigationBarColor = darkAccentColor(baseContext)
                         if (!VersionUtils.hasVanillaIceCream()) {
                             if (PreferenceUtil.appbarColor) {
                                 window.statusBarColor = surfaceColor()
                             } else {
-                                window.statusBarColor = darkAccentColor()
+                                window.statusBarColor = darkAccentColor(baseContext)
                             }
                         }
+
+                        val windowInsetsController =
+                            WindowCompat.getInsetsController(window, window.decorView)
+                        windowInsetsController.isAppearanceLightNavigationBars =
+                            window.navigationBarColor.isColorLight
                     }
 
                     else -> {
@@ -367,19 +558,19 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         setupBottomSheet()
         updateColor()
 
-        binding.slidingPanel.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
-        navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor())
+        binding.slidingPanel.backgroundTintList = ColorStateList.valueOf(darkAccentColor(baseContext))
+        navigationView.backgroundTintList = ColorStateList.valueOf(darkAccentColor(baseContext))
         binding.slidingPanel.alpha = 1f
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-        window.navigationBarColor = darkAccentColor()
+        window.navigationBarColor = darkAccentColor(baseContext)
 
         if (!VersionUtils.hasVanillaIceCream()) {
             if (PreferenceUtil.appbarColor) {
                 window.statusBarColor = surfaceColor()
             } else {
-                window.statusBarColor = darkAccentColor()
+                window.statusBarColor = darkAccentColor(baseContext)
             }
         }
         if (!ApexUtil.isTablet) {
@@ -413,10 +604,17 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
                     }
                 }
@@ -429,10 +627,17 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
                     }
                 }
@@ -441,10 +646,17 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
                     }
                 }
@@ -457,10 +669,17 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
                     }
                 }
@@ -473,32 +692,46 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     } else {
-                        window.navigationBarColor = accentColor()
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
+                        } else {
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
+                        }
                     }
                 }
             }
+            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+            windowInsetsController.isAppearanceLightNavigationBars =
+                window.navigationBarColor.isColorLight
         }
 
         if (bottomSheetBehavior.state == STATE_COLLAPSED) {
-            window.navigationBarColor = darkAccentColor()
+            window.navigationBarColor = darkAccentColor(baseContext)
 
             if (!VersionUtils.hasVanillaIceCream()) {
                 if (PreferenceUtil.appbarColor) {
                     window.statusBarColor = surfaceColor()
                 } else {
-                    window.statusBarColor = darkAccentColor()
+                    window.statusBarColor = darkAccentColor(baseContext)
                 }
             }
         }
 
         if (bottomSheetBehavior.state == STATE_HIDDEN) {
-            window.navigationBarColor = darkAccentColor()
+            window.navigationBarColor = darkAccentColor(baseContext)
 
             if (!VersionUtils.hasVanillaIceCream()) {
                 if (PreferenceUtil.appbarColor) {
                     window.statusBarColor = surfaceColor()
                 } else {
-                    window.statusBarColor = darkAccentColor()
+                    window.statusBarColor = darkAccentColor(baseContext)
                 }
             }
         }
@@ -546,19 +779,10 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             ALBUM_COVER_TRANSFORM, CAROUSEL_EFFECT,
             ALBUM_COVER_STYLE, ADAPTIVE_COLOR_APP,
             COLOR_ANIMATE, PLAYER_BACKGROUND,
-            QUEUE_STYLE, QUEUE_STYLE_LAND,
-            NAV_BAR_BLACK, DISABLE_QUEUE,
-            LYRICS_MODE, CUSTOMIZABLE_TOOLBAR_ACTION -> {
+            NAV_BAR_BLACK,
+            CUSTOMIZABLE_TOOLBAR_ACTION, CUSTOMIZABLE_TOOLBAR_ACTION_2 -> {
                 chooseFragmentForTheme()
                 onServiceConnected()
-            }
-
-            SWIPE_ANYWHERE_NOW_PLAYING -> {
-                playerFragment.addSwipeDetector()
-            }
-
-            SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE -> {
-                playerFragment.addSwipeDetectorNonFoldable()
             }
 
             LIBRARY_CATEGORIES -> {
@@ -570,30 +794,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
             TAB_TEXT_MODE -> {
                 navigationView.labelVisibilityMode = PreferenceUtil.tabTitleMode
-            }
-
-            SCREEN_ON_LYRICS -> {
-                when (PreferenceUtil.lyricsMode) {
-                    "id3" -> {
-                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn || PreferenceUtil.isScreenOnEnabled)
-                    }
-
-                    "synced" -> {
-                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet || PreferenceUtil.isScreenOnEnabled)
-                    }
-
-                    "both" -> {
-                        keepScreenOn(bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn && PreferenceUtil.showLyrics && PreferenceUtil.showLyricsTablet || bottomSheetBehavior.state == STATE_EXPANDED && PreferenceUtil.lyricsScreenOn || PreferenceUtil.isScreenOnEnabled)
-                    }
-
-                    "disabled" -> {
-                        keepScreenOn(PreferenceUtil.isScreenOnEnabled)
-                    }
-                }
-            }
-
-            KEEP_SCREEN_ON -> {
-                maybeSetScreenOn()
             }
 
             AUTO_ROTATE -> {
@@ -643,8 +843,12 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         val alpha = 1 - progress
         miniPlayerFragment?.view?.alpha = 1 - (progress / 0.2F)
         miniPlayerFragment?.view?.isGone = alpha == 0f
-        binding.navigationView.translationY = progress * 500
-        binding.navigationView.alpha = alpha
+
+        if (!ApexUtil.isTablet) {
+            binding.navigationView.translationY = progress * 500
+            binding.navigationView.alpha = alpha
+        }
+
         //if (!isLandscape) {
         //     binding.navigationView.translationY = progress * 500
         //    binding.navigationView.alpha = alpha
@@ -653,29 +857,55 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     }
 
     open fun onPanelCollapsed() {
+        keepScreenOn(false)
         setMiniPlayerAlphaProgress(0F)
         // restore values
-        setLightStatusBarAuto()
         setTaskDescriptionColor(taskColor)
         //playerFragment?.onHide()
         if (PreferenceUtil.isMiniPlayerTransparent) {
             binding.slidingPanel.alpha = 0.7f
         }
-
-        window?.navigationBarColor = darkAccentColor()
+        window?.navigationBarColor = darkAccentColor(baseContext)
 
         if (!VersionUtils.hasVanillaIceCream()) {
             if (PreferenceUtil.appbarColor) {
                 window.statusBarColor = surfaceColor()
             } else {
-                window.statusBarColor = darkAccentColor()
+                window.statusBarColor = darkAccentColor(baseContext)
             }
         }
+
+        val decorView = window.decorView
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                    surfaceColor().isColorLight
+            } else {
+                WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                    darkAccentColor(baseContext).isColorLight
+            }
+        } else {
+            WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                surfaceColor().isColorLight
+        }
+
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.isAppearanceLightNavigationBars =
+            window.navigationBarColor.isColorLight
     }
 
     open fun onPanelExpanded() {
         setMiniPlayerAlphaProgress(1F)
         onPaletteColorChanged()
+
+        val decorView = window.decorView
+
+        if (PreferenceUtil.showLyrics) {
+          keepScreenOn(true)
+        }else {
+            keepScreenOn(false)
+        }
+
         //playerFragment?.onShow()
         if (PreferenceUtil.isMiniPlayerTransparent) {
             binding.slidingPanel.alpha = 1f
@@ -686,70 +916,252 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 } else {
-                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                        window.navigationBarColor = Color.BLACK
+                    if (PreferenceUtil.materialYou) {
+                        window.navigationBarColor = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
                     } else {
-                        window.navigationBarColor = accentColor()
+                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                            window.navigationBarColor = Color.BLACK
+                        } else {
+                            window.navigationBarColor = surfaceColor()
+                        }
+                    }
+                }
+
+                if (PreferenceUtil.isAdaptiveColor) {
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        paletteColor.isColorLight
+                } else {
+                    if (PreferenceUtil.materialYou) {
+                        val color = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
+
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            color.isColorLight
+                    } else {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            surfaceColor().isColorLight
                     }
                 }
             }
 
             Blur -> {
                 window.navigationBarColor = Color.BLACK
+
+                WindowCompat.getInsetsController(
+                    window,
+                    decorView
+                ).isAppearanceLightStatusBars = false
             }
 
             Card -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 } else {
-                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                        window.navigationBarColor = Color.BLACK
+                    if (PreferenceUtil.materialYou) {
+                        window.navigationBarColor = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
                     } else {
-                        window.navigationBarColor = accentColor()
+                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                            window.navigationBarColor = Color.BLACK
+                        } else {
+                            window.navigationBarColor = surfaceColor()
+                        }
                     }
                 }
+
+                WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                    paletteColor.isColorLight
             }
 
             Classic -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 } else {
-                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                        window.navigationBarColor = Color.BLACK
+                    if (PreferenceUtil.materialYou) {
+                        window.navigationBarColor = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
                     } else {
-                        window.navigationBarColor = accentColor()
+                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                            window.navigationBarColor = Color.BLACK
+                        } else {
+                            window.navigationBarColor = surfaceColor()
+                        }
+                    }
+                }
+
+                if (PreferenceUtil.isAdaptiveColor) {
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        paletteColor.isColorLight
+                } else {
+                    if (PreferenceUtil.materialYou) {
+                        val color = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
+
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            color.isColorLight
+                    } else {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            surfaceColor().isColorLight
                     }
                 }
             }
 
             Gradient -> {
                 window.navigationBarColor = paletteColor
+                window.statusBarColor = Color.TRANSPARENT
+
+                WindowCompat.getInsetsController(window, decorView).isAppearanceLightStatusBars =
+                    paletteColor.isColorLight
             }
 
             Live -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 } else {
-                    if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                        window.navigationBarColor = Color.BLACK
+                    if (PreferenceUtil.materialYou) {
+                        window.navigationBarColor = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
                     } else {
-                        window.navigationBarColor = accentColor()
+                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                            window.navigationBarColor = Color.BLACK
+                        } else {
+                            window.navigationBarColor = surfaceColor()
+                        }
+                    }
+                }
+
+                if (PreferenceUtil.isAdaptiveColor) {
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        paletteColor.isColorLight
+                } else {
+                    if (PreferenceUtil.materialYou) {
+                        val color = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
+
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            color.isColorLight
+                    } else {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            surfaceColor().isColorLight
                     }
                 }
             }
 
             Minimal -> {
                 window.navigationBarColor = paletteColor
+
+                if (PreferenceUtil.isAdaptiveColor) {
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        paletteColor.isColorLight
+                } else {
+                    if (PreferenceUtil.materialYou) {
+                        val color = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
+
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            color.isColorLight
+                    } else {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            surfaceColor().isColorLight
+                    }
+                }
             }
 
             Peek -> {
                 if (PreferenceUtil.isAdaptiveColor) {
                     window.navigationBarColor = paletteColor
                 } else {
-                    window.navigationBarColor = accentColor()
+                    if (PreferenceUtil.materialYou) {
+                        window.navigationBarColor = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
+                    } else {
+                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                            window.navigationBarColor = Color.BLACK
+                        } else {
+                            window.navigationBarColor = surfaceColor()
+                        }
+                    }
+                }
+
+                if (PreferenceUtil.materialYou) {
+                    val color = ContextCompat.getColor(
+                        applicationContext,
+                        R.color.m3_widget_background
+                    )
+
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        color.isColorLight
+                } else {
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        surfaceColor().isColorLight
                 }
             }
         }
+
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.isAppearanceLightNavigationBars =
+            window.navigationBarColor.isColorLight
     }
 
     private fun setupSlidingUpPanel() {
@@ -813,23 +1225,54 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private fun onPaletteColorChanged() {
         if (panelState == STATE_EXPANDED) {
             setTaskDescColor(paletteColor)
-            val isColorLight = paletteColor.isColorLight
+            val decorView = window.decorView
+
             when (PreferenceUtil.nowPlayingScreen) {
                 Adaptive -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-                        window.statusBarColor = paletteColor
-
-                        setLightStatusBar(isColorLight)
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
+                    }
 
-                        window.statusBarColor = Color.TRANSPARENT
-                        setLightStatusBarAuto()
+                    window.statusBarColor = Color.TRANSPARENT
+
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            paletteColor.isColorLight
+                    } else {
+                        if (PreferenceUtil.materialYou) {
+                            val color = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
+
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                color.isColorLight
+                        } else {
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                surfaceColor().isColorLight
+                        }
                     }
                 }
 
@@ -837,44 +1280,83 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     window.navigationBarColor = Color.BLACK
                     window.statusBarColor = Color.TRANSPARENT
 
-                    setLightStatusBar(false)
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars = false
                 }
 
                 Card -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
                     }
                     window.statusBarColor = Color.TRANSPARENT
 
-                    setLightStatusBar(false)
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        paletteColor.isColorLight
                 }
 
                 Classic -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-
-                        if (PreferenceUtil.isPlayerBackgroundType) {
-                            window.statusBarColor = Color.TRANSPARENT
-                        } else {
-                            window.statusBarColor = paletteColor
-                        }
-                        setLightStatusBar(isColorLight)
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
+                    }
 
-                        window.statusBarColor = Color.TRANSPARENT
+                    window.statusBarColor = Color.TRANSPARENT
 
-                        setLightStatusBarAuto()
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            paletteColor.isColorLight
+                    } else {
+                        if (PreferenceUtil.materialYou) {
+                            val color = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
+
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                color.isColorLight
+                        } else {
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                surfaceColor().isColorLight
+                        }
                     }
                 }
 
@@ -882,40 +1364,134 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                     window.navigationBarColor = paletteColor
                     window.statusBarColor = Color.TRANSPARENT
 
-                    setLightStatusBar(isColorLight)
+                    WindowCompat.getInsetsController(
+                        window,
+                        decorView
+                    ).isAppearanceLightStatusBars =
+                        paletteColor.isColorLight
                 }
 
                 Live -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
-
-                        setLightStatusBar(isColorLight)
                     } else {
-                        if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
-                            window.navigationBarColor = Color.BLACK
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
                         } else {
-                            window.navigationBarColor = accentColor()
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
                         }
-                        setLightStatusBarAuto()
                     }
                     window.statusBarColor = Color.TRANSPARENT
+
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            paletteColor.isColorLight
+                    } else {
+                        if (PreferenceUtil.materialYou) {
+                            val color = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
+
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                color.isColorLight
+                        } else {
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                surfaceColor().isColorLight
+                        }
+                    }
                 }
 
                 Minimal -> {
                     window.navigationBarColor = paletteColor
                     window.statusBarColor = Color.TRANSPARENT
 
-                    setLightStatusBar(isColorLight)
+                    if (PreferenceUtil.isAdaptiveColor) {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            paletteColor.isColorLight
+                    } else {
+                        if (PreferenceUtil.materialYou) {
+                            val color = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
+
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                color.isColorLight
+                        } else {
+                            WindowCompat.getInsetsController(
+                                window,
+                                decorView
+                            ).isAppearanceLightStatusBars =
+                                surfaceColor().isColorLight
+                        }
+                    }
                 }
 
                 Peek -> {
                     if (PreferenceUtil.isAdaptiveColor) {
                         window.navigationBarColor = paletteColor
                     } else {
-                        window.navigationBarColor = accentColor()
+                        if (PreferenceUtil.materialYou) {
+                            window.navigationBarColor = ContextCompat.getColor(
+                                applicationContext,
+                                R.color.m3_widget_background
+                            )
+                        } else {
+                            if (PreferenceUtil.isNavBarBlack && PreferenceUtil.isBlackMode) {
+                                window.navigationBarColor = Color.BLACK
+                            } else {
+                                window.navigationBarColor = surfaceColor()
+                            }
+                        }
+                    }
+
+                    if (PreferenceUtil.materialYou) {
+                        val color = ContextCompat.getColor(
+                            applicationContext,
+                            R.color.m3_widget_background
+                        )
+
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            color.isColorLight
+                    } else {
+                        WindowCompat.getInsetsController(
+                            window,
+                            decorView
+                        ).isAppearanceLightStatusBars =
+                            surfaceColor().isColorLight
                     }
                 }
             }
+
+            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+            windowInsetsController.isAppearanceLightNavigationBars =
+                window.navigationBarColor.isColorLight
         }
     }
 

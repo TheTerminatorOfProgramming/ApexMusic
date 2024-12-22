@@ -36,8 +36,6 @@ import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.MusicUtil
-import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ThemedFastScroller
 
 
 class PlayingQueueFragment :
@@ -75,6 +73,8 @@ class PlayingQueueFragment :
         }
         checkForPadding()
         mainActivity.collapsePanel()
+
+        binding.appBarLayout.pinWhenScrolled()
     }
 
     private fun setUpRecyclerView() {
@@ -116,13 +116,6 @@ class PlayingQueueFragment :
                 }
             }
         })
-
-        if (PreferenceUtil.scrollbarStyle != "disabled") {
-            ThemedFastScroller.create(
-                binding.recyclerView,
-                PreferenceUtil.scrollbarStyle == "auto_hide"
-            )
-        }
     }
 
     private fun checkForPadding() {

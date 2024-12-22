@@ -31,10 +31,10 @@ import java.util.HashMap;
 public class SortedLongCursor extends AbstractCursor {
     // cursor to wrap
     private final Cursor mCursor;
-    // the map of external indices to internal indices
-    private ArrayList<Integer> mOrderedPositions;
     // this contains the ids that weren't found in the underlying cursor
     private final ArrayList<Long> mMissingIds;
+    // the map of external indices to internal indices
+    private ArrayList<Integer> mOrderedPositions;
     // this contains the mapped cursor positions and afterwards the extra ids that weren't found
     private HashMap<Long, Integer> mMapCursorPositions;
 

@@ -19,6 +19,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.text.parseAsHtml
@@ -38,7 +39,6 @@ import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity.getT
 import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
-import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 
 class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
@@ -75,10 +75,11 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
     }
 
     private fun setupTitle() {
-        val color = ThemeStore.accentColor(requireContext())
+        /*val color = ThemeStore.accentColor(requireContext())
         val hexColor = String.format("#%06X", 0xFFFFFF and color)
-        val appName = "Apex <span  style='color:$hexColor';>Music</span>".parseAsHtml()
-        binding.appNameText.text = appName
+        val appName = "Apex <span  style='color:$hexColor';>Music</span>".parseAsHtml()*/
+        binding.appNameText.text = ContextCompat.getString(requireContext(), R.string.app_name)
+        binding.appNameText.setTextColor(accentColor())
     }
 
     private fun setupNavigationController() {
@@ -124,10 +125,6 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
         //Setting up cast button
         requireContext().setUpMediaRouteButton(menu)
 
-        if (!ApexUtil.isTablet) {
-            menu.removeItem(R.id.action_refresh)
-        }
-
         val yourdrawable = menu.findItem(R.id.action_scan).icon // change 0 with 1,2 ...
         yourdrawable!!.mutate()
         yourdrawable.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
@@ -147,10 +144,6 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
                 childFragmentManager,
                 "ShowCreatePlaylistDialog"
             )
-
-            R.id.action_refresh -> {
-                activity?.recreate()
-            }
         }
         return false
     }

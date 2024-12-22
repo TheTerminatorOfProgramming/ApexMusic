@@ -35,6 +35,7 @@ import com.ttop.app.apex.helper.menu.GenreMenuHelper
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
+import com.ttop.app.apex.util.PreferenceUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -74,7 +75,13 @@ class GenreDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_
     }
 
     private fun setupRecyclerView() {
-        songAdapter = SongAdapter(requireActivity(), ArrayList(), R.layout.item_list)
+        songAdapter = SongAdapter(requireActivity(), ArrayList(), if (PreferenceUtil.isPerformanceMode) {
+            R.layout.item_list_no_image
+        }else
+        {
+            R.layout.item_list
+        })
+
         binding.recyclerView.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(requireContext())

@@ -29,7 +29,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.color.DynamicColors
 import com.ttop.app.apex.R
 import com.ttop.app.apex.appwidgets.base.BaseAppWidget
 import com.ttop.app.apex.glide.ApexGlideExtension
@@ -61,22 +60,14 @@ class AppWidgetFull : BaseAppWidget() {
         val appWidgetView = if (PreferenceUtil.transparentWidgets) {
             RemoteViews(context.packageName, R.layout.app_widget_full_transparent)
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                RemoteViews(context.packageName, R.layout.app_widget_full_md3)
-            } else {
-                RemoteViews(context.packageName, R.layout.app_widget_full_day_night)
-            }
+            RemoteViews(context.packageName, R.layout.app_widget_full_md3)
         }
 
         // Set correct drawable for pause state
         val playRes = if (PreferenceUtil.transparentWidgets) {
             R.drawable.ic_play_arrow
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                R.drawable.ic_play_arrow_md3_new_ui
-            } else {
-                R.drawable.ic_play_arrow_day_night_new_ui
-            }
+            R.drawable.ic_play_arrow_md3_new_ui
         }
 
         appWidgetView.setImageViewResource(
@@ -84,6 +75,9 @@ class AppWidgetFull : BaseAppWidget() {
         )
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
+        appWidgetView.setViewVisibility(R.id.button_next, View.INVISIBLE)
+        appWidgetView.setViewVisibility(R.id.button_prev, View.INVISIBLE)
+        appWidgetView.setViewVisibility(R.id.button_toggle_play_pause, View.INVISIBLE)
         appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art_round)
 
         linkButtons(context, appWidgetView)
@@ -98,11 +92,7 @@ class AppWidgetFull : BaseAppWidget() {
         val appWidgetView = if (PreferenceUtil.transparentWidgets) {
             RemoteViews(service.packageName, R.layout.app_widget_full_transparent)
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                RemoteViews(service.packageName, R.layout.app_widget_full_md3)
-            } else {
-                RemoteViews(service.packageName, R.layout.app_widget_full_day_night)
-            }
+            RemoteViews(service.packageName, R.layout.app_widget_full_md3)
         }
 
         val isPlaying = service.isPlaying
@@ -111,6 +101,9 @@ class AppWidgetFull : BaseAppWidget() {
         // Set the titles and artwork
         if (song.title.isEmpty() && song.artistName.isEmpty()) {
             appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_next, View.INVISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_prev, View.INVISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_toggle_play_pause, View.INVISIBLE)
         } else {
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE)
             appWidgetView.setTextViewText(R.id.title, song.title)
@@ -121,6 +114,9 @@ class AppWidgetFull : BaseAppWidget() {
                     service.songDurationMillis.toLong()
                 )
             )
+            appWidgetView.setViewVisibility(R.id.button_next, View.VISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_prev, View.VISIBLE)
+            appWidgetView.setViewVisibility(R.id.button_toggle_play_pause, View.VISIBLE)
         }
 
         if (PreferenceUtil.isDisableWidgetUpdate) {
@@ -134,11 +130,7 @@ class AppWidgetFull : BaseAppWidget() {
         val playPauseRes = if (PreferenceUtil.transparentWidgets) {
             if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow
         } else {
-            if (DynamicColors.isDynamicColorAvailable()) {
-                if (isPlaying) R.drawable.ic_pause_md3_new_ui else R.drawable.ic_play_arrow_md3_new_ui
-            } else {
-                if (isPlaying) R.drawable.ic_pause_day_night_new_ui else R.drawable.ic_play_arrow_day_night_new_ui
-            }
+            if (isPlaying) R.drawable.ic_pause_md3_new_ui else R.drawable.ic_play_arrow_md3_new_ui
         }
 
         appWidgetView.setImageViewResource(

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_intro_skip_button">スキップする</string>
-    <string name="app_intro_next_button">次へ</string>
-    <string name="app_intro_back_button">戻る</string>
     <string name="app_intro_done_button">完了</string>
     <string name="app_intro_image_content_description">グラフィック</string>
 </resources>

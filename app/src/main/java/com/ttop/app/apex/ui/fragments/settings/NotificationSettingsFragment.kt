@@ -14,12 +14,15 @@
  */
 package com.ttop.app.apex.ui.fragments.settings
 
+import android.app.Dialog
 import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.DISABLE_UPDATE
@@ -33,13 +36,13 @@ import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.accentTextColor
+import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.util.PreferenceUtil
-
-/**
- * @author Hemanth S (h4h13).
- */
 
 class NotificationSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {

@@ -27,6 +27,7 @@ class FilterMaxPreference @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : ATEDialogPreference(context, attrs, defStyleAttr, defStyleRes) {
     init {
+        layoutResource = R.layout.custom_preference_no_summary
         icon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             context.colorControlNormal(),
             SRC_IN

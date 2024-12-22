@@ -15,13 +15,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:text="@string/battery_title"
         app:layout_constraintBottom_toTopOf="@+id/imageLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintVertical_weight="2"
-        android:text="@string/battery_title" />
+        app:layout_constraintVertical_weight="2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageLayout"
@@ -38,11 +38,11 @@
             android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black_color"
-            android:textColor="@color/md_white_1000"
             android:text="@string/disable_battery_optimize"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintBottom_toBottomOf="@id/imageLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/imageLayout"
             app:layout_constraintTop_toBottomOf="@id/image" />
 
         <ImageView
@@ -50,12 +50,12 @@
             style="@style/AppIntroDefaultImage"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/ic_battery"
-            android:scaleType="fitCenter"
             android:contentDescription="@string/app_intro_image_content_description"
-            app:layout_constraintTop_toTopOf="@+id/imageLayout"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_battery"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,10 +65,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:autoLink="web"
+        android:text="@string/battery_summary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLayout"
-        app:layout_constraintVertical_weight="3"
-        android:text="@string/battery_summary" />
+        app:layout_constraintVertical_weight="3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

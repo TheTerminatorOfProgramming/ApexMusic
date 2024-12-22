@@ -20,10 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image"
@@ -70,10 +70,10 @@
         android:id="@+id/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingHorizontal="16dp"
-        android:layout_marginTop="4dp"
         android:textAppearance="@style/TextViewBody2"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,7 +85,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/menu"
-        style="@style/OverFlowButton"
+        style="@style/OverFlowButtonAlternative"
+        android:layout_width="36dp"
+        android:layout_height="48dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="0"
         app:layout_constraintBottom_toBottomOf="parent"

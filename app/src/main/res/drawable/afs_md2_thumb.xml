@@ -25,13 +25,13 @@
     android:tint="?colorControlActivated">
     <solid android:color="@android:color/transparent" />
     <stroke
-        android:color="@android:color/white"
-        android:width="4dp" />
+        android:width="4dp"
+        android:color="@android:color/white" />
     <size
         android:width="15dp"
         android:height="52dp" />
     <corners android:radius="8dp" />
     <padding
-        android:top="4dp"
-        android:bottom="4dp" />
+        android:bottom="4dp"
+        android:top="4dp" />
 </shape>

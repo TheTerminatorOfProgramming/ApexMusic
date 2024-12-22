@@ -190,21 +190,13 @@ class MediaSessionCallback(
     override fun onSkipToNext() {
         super.onSkipToNext()
         val isPlaying = musicService.isPlaying
-        if (PreferenceUtil.isAutoplay) {
-            musicService.playNextSongAuto(true, isPlaying)
-        } else {
-            musicService.playNextSong(true)
-        }
+        musicService.playNextSongAuto(true, isPlaying)
     }
 
     override fun onSkipToPrevious() {
         super.onSkipToPrevious()
         val isPlaying = musicService.isPlaying
-        if (PreferenceUtil.isAutoplay) {
-            musicService.playPreviousSongAuto(true, isPlaying)
-        } else {
-            musicService.playPreviousSong(true)
-        }
+        musicService.playPreviousSongAuto(true, isPlaying)
     }
 
     override fun onStop() {

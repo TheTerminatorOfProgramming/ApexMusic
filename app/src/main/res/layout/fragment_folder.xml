@@ -18,11 +18,11 @@
 
     <com.ttop.app.apex.views.TopAppBarLayout
         android:id="@+id/appBarLayout"
+        style="?appBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:liftOnScroll="true"
-        style="?appBarLayoutStyle"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true">
 
         <com.ttop.app.apex.views.BreadCrumbLayout
             android:id="@+id/breadCrumbs"

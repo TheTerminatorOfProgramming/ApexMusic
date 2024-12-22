@@ -24,6 +24,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.FragmentBlurPlayerPlaybackControlsBinding
+import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
@@ -118,6 +119,8 @@ class BlurPlaybackControlsFragment :
 
         binding.nextButton.setColorFilter(Color.WHITE)
         binding.previousButton.setColorFilter(Color.WHITE)
+
+        seekBar.applyColor(Color.WHITE)
     }
 
     private fun setUpPlayPauseFab() {

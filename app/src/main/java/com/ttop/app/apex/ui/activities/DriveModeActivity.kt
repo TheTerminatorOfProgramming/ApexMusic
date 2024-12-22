@@ -178,18 +178,10 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
 
     private fun setUpPrevNext() {
         binding.nextButton.setOnClickListener {
-            if (PreferenceUtil.isAutoplay) {
-                MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
-            } else {
-                MusicPlayerRemote.playNextSong()
-            }
+            MusicPlayerRemote.playNextSongAuto(MusicPlayerRemote.isPlaying)
         }
         binding.previousButton.setOnClickListener {
-            if (PreferenceUtil.isAutoplay) {
-                MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
-            } else {
-                MusicPlayerRemote.playPreviousSong()
-            }
+            MusicPlayerRemote.playPreviousSongAuto(MusicPlayerRemote.isPlaying)
         }
     }
 

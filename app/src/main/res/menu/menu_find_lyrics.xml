@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_find_lyrics"
-        android:icon="@drawable/ic_lyrics_outline"
+        android:icon="@drawable/ic_lyrics_off_outline"
         android:title="@string/find_lyrics"
         app:showAsAction="always" />
 </menu>

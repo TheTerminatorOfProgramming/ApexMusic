@@ -1,6 +1,7 @@
 package com.ttop.app.apex.extensions
 
 import android.app.ActivityManager
+import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.view.WindowManager
@@ -17,14 +18,6 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.PreferenceUtil
-
-fun AppCompatActivity.maybeSetScreenOn() {
-    if (PreferenceUtil.isScreenOnEnabled) {
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    } else {
-        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    }
-}
 
 fun AppCompatActivity.keepScreenOn(keepScreenOn: Boolean) {
     if (keepScreenOn) {
@@ -122,27 +115,6 @@ fun AppCompatActivity.setTaskDescriptionColorAuto() {
     setTaskDescriptionColor(surfaceColor())
 }
 
-@Suppress("Deprecation")
-fun AppCompatActivity.setLightStatusBar(enabled: Boolean) {
-    val decorView = window.decorView
-    val systemUiVisibility = decorView.systemUiVisibility
-    if (enabled) {
-        decorView.systemUiVisibility =
-            systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    } else {
-        decorView.systemUiVisibility =
-            systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-    }
-}
-
-fun AppCompatActivity.setLightStatusBarAuto() {
-    setLightStatusBar(surfaceColor().isColorLight)
-}
-
-fun AppCompatActivity.setLightStatusBarAuto(bgColor: Int) {
-    setLightStatusBar(bgColor.isColorLight)
-}
-
 /**
  * This will set the color of the view with the id "status_bar" on KitKat and Lollipop. On
  * Lollipop if no such view is found it will set the statusbar color using the native method.
@@ -156,7 +128,6 @@ fun AppCompatActivity.setStatusBarColor(color: Int) {
     } else {
         window.statusBarColor = color
     }
-    setLightStatusBarAuto(surfaceColor())
 }
 
 fun AppCompatActivity.hideSoftKeyboard() {

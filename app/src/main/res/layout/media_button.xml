@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
+    android:clipToPadding="false"
     android:layoutDirection="ltr"
     android:paddingStart="4dp"
-    android:paddingEnd="4dp"
-    android:clipToPadding="false">
+    android:paddingEnd="4dp">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/repeatButton"
@@ -53,8 +53,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/previousButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_pause_white_64dp"
-        tools:tint="@color/md_black_1000" />
+        tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/nextButton"

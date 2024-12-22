@@ -262,7 +262,6 @@ class AutoMusicProvider(
                 .path(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE)
                 .icon(R.drawable.ic_queue_music)
                 .title(resources.getString(R.string.queue))
-                .subTitle(MusicUtil.getPlaylistInfoString(mContext, MusicPlayerRemote.playingQueue))
                 .asBrowsable().build()
         )
         mediaItems.add(

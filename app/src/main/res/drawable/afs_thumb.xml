@@ -30,6 +30,6 @@
 
     <solid android:color="@android:color/transparent" />
     <stroke
-        android:color="@android:color/white"
-        android:width="4dp" />
+        android:width="4dp"
+        android:color="@android:color/white" />
 </shape>

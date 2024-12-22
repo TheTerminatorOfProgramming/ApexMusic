@@ -27,10 +27,12 @@ import com.bumptech.glide.signature.MediaStoreSignature
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.base.AbsMultiSelectAdapter
 import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.getTintedDrawable
 import com.ttop.app.apex.glide.ApexGlideExtension
 import com.ttop.app.apex.glide.audiocover.AudioFileCover
 import com.ttop.app.apex.interfaces.ICallbacks
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
 import com.ttop.app.apex.util.MusicUtil
@@ -84,6 +86,12 @@ class SongFileAdapter(
         if (holder.image != null) {
             loadFileImage(file, holder)
         }
+
+        holder.listCard?.strokeColor = accentColor(activity)
+        holder.title?.setTextColor(activity.accentColor())
+        holder.text?.setTextColor(activity.accentColor())
+        holder.menu?.setColorFilter(activity.accentColor())
+        holder.imagePlaying?.setColorFilter(activity.accentColor())
     }
 
     private fun getFileTitle(file: File): String {
@@ -101,12 +109,6 @@ class SongFileAdapter(
                 it.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN)
                 it.setImageResource(R.drawable.ic_folder)
             }
-            holder.imageTextContainer?.setCardBackgroundColor(
-                ATHUtil.resolveColor(
-                    activity,
-                    R.color.transparent
-                )
-            )
         } else {
             val error = activity.getTintedDrawable(R.drawable.ic_file_music, iconColor)
             Glide.with(activity)

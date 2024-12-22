@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="all_files_summary">Allow access to all files on device to apex music. This permission is needed to auto detect apex backups</string>
-    <string name="all_files_title">Manage All Files Permission</string>
-    <string name="all_files_granted">Manage All Files Permission Already Granted!</string>
-</resources>

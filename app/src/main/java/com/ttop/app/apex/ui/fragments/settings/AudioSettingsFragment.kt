@@ -17,6 +17,7 @@ package com.ttop.app.apex.ui.fragments.settings
 import android.Manifest.permission.BLUETOOTH_CONNECT
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -26,6 +27,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
 import com.ttop.app.apex.AUTO_DOWNLOAD_IMAGES_POLICY
+import com.ttop.app.apex.BLUETOOTH_DELAY
 import com.ttop.app.apex.BLUETOOTH_DEVICE
 import com.ttop.app.apex.BLUETOOTH_PLAYBACK
 import com.ttop.app.apex.EQUALIZER
@@ -34,6 +36,7 @@ import com.ttop.app.apex.PAUSE_ON_ZERO_VOLUME
 import com.ttop.app.apex.R
 import com.ttop.app.apex.SPECIFIC_DEVICE
 import com.ttop.app.apex.TOGGLE_HEADSET
+import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEListPreference
 import com.ttop.app.apex.ui.activities.base.AbsBaseActivity.Companion.BLUETOOTH_PERMISSION_REQUEST
 import com.ttop.app.apex.util.NavigationUtil
@@ -44,7 +47,8 @@ import com.ttop.app.apex.util.PreferenceUtil
  * @author Hemanth S (h4h13).
  */
 
-class AudioSettingsFragment : AbsSettingsFragment() {
+class AudioSettingsFragment : AbsSettingsFragment(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun invalidateSettings() {
         val eqPreference: Preference? = findPreference(EQUALIZER)
@@ -107,38 +111,94 @@ class AudioSettingsFragment : AbsSettingsFragment() {
             }
             true
         }
-
-        val bluetoothDevice: ATEListPreference? = findPreference(BLUETOOTH_DEVICE)
-        val bluetoothManager =
-            context?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-
-        val mBluetoothAdapter = bluetoothManager.adapter
-        val address = ArrayList<String>()
-        val name = ArrayList<String>()
-
-        if (context?.let { ContextCompat.checkSelfPermission(it, BLUETOOTH_CONNECT) }
-            == PERMISSION_GRANTED) {
-            val pairedDevices = mBluetoothAdapter.bondedDevices
-            val sortedBtList = pairedDevices.sortedBy { it.name }
-            for (bt in sortedBtList) {
-                if (!name.contains(bt.name)) {
-                    name.add(bt.name)
-                    address.add(bt.address)
-                }
-            }
-        }
-
-        bluetoothDevice?.entries = name.toTypedArray()
-        bluetoothDevice?.entryValues = address.toTypedArray()
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.pref_audio)
+
+        val bluetoothDelay: Preference? = findPreference(BLUETOOTH_DELAY)
+
+        var value = (PreferenceUtil.bluetoothDelay / 1000).toString()
+
+        value = if (value > "1") {
+            "$value sec"
+        } else {
+            "$value secs"
+        }
+
+        if (PreferenceUtil.isBluetoothSpeaker) {
+            bluetoothDelay?.setSummary(value)
+        } else {
+            bluetoothDelay?.setSummary("")
+        }
+
+        val bluetoothDevice: Preference? = findPreference(BLUETOOTH_DEVICE)
+        val device = (PreferenceUtil.bluetoothDevice)
+        if (PreferenceUtil.specificDevice) {
+            bluetoothDevice?.setSummary(device)
+        } else {
+            bluetoothDevice?.setSummary("")
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
         val preference: Preference? = findPreference(AUTO_DOWNLOAD_IMAGES_POLICY)
         preference?.let { setSummary(it) }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            BLUETOOTH_PLAYBACK -> {
+                val bluetoothDelay: Preference? = findPreference(BLUETOOTH_DELAY)
+
+                var value = (PreferenceUtil.bluetoothDelay / 1000).toString()
+
+                value = if (value > "1") {
+                    "$value sec"
+                } else {
+                    "$value secs"
+                }
+
+                if (PreferenceUtil.isBluetoothSpeaker) {
+                    bluetoothDelay?.setSummary(value)
+                } else {
+                    bluetoothDelay?.setSummary("")
+                }
+            }
+            BLUETOOTH_DELAY -> {
+                val bluetoothDelay: Preference? = findPreference(BLUETOOTH_DELAY)
+
+                var value = (PreferenceUtil.bluetoothDelay / 1000).toString()
+
+                value = if (value > "1") {
+                    "$value sec"
+                } else {
+                    "$value secs"
+                }
+
+                bluetoothDelay?.setSummary(value)
+            }
+            SPECIFIC_DEVICE -> {
+                val bluetoothDevice: Preference? = findPreference(BLUETOOTH_DEVICE)
+                val device = (PreferenceUtil.bluetoothDevice)
+                if (PreferenceUtil.specificDevice) {
+                    bluetoothDevice?.setSummary(device)
+                } else {
+                    bluetoothDevice?.setSummary("")
+                }
+            }
+            BLUETOOTH_DEVICE -> {
+                val bluetoothDevice: Preference? = findPreference(BLUETOOTH_DEVICE)
+                val device = (PreferenceUtil.bluetoothDevice.toString())
+                bluetoothDevice?.setSummary(device)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        PreferenceUtil.unregisterOnSharedPreferenceChangedListener(this)
     }
 }

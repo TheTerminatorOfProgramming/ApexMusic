@@ -215,10 +215,6 @@ object MusicPlayerRemote : KoinComponent {
             ) && musicService != null
         ) {
             musicService?.openQueue(queue, startPosition, startPlaying)
-
-            if (!PreferenceUtil.keepShuffleState) {
-                setShuffleMode(MusicService.SHUFFLE_MODE_NONE)
-            }
         }
     }
 

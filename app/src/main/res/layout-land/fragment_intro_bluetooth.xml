@@ -15,13 +15,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:text="@string/bluetooth_title"
         app:layout_constraintBottom_toTopOf="@+id/imageLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintVertical_weight="2"
-        android:text="@string/bluetooth_title" />
+        app:layout_constraintVertical_weight="2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageLayout"
@@ -38,13 +38,13 @@
             style="@style/AppIntroDefaultImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_bluetooth_connect"
-            app:tint="@color/md_white_1000"
-            android:scaleType="fitCenter"
             android:contentDescription="@string/app_intro_image_content_description"
-            app:layout_constraintTop_toTopOf="@+id/imageLayout"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_bluetooth_connect"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageLayout"
+            app:tint="@color/md_white_1000" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -54,10 +54,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:autoLink="web"
+        android:text="@string/bluetooth_summary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLayout"
-        app:layout_constraintVertical_weight="3"
-        android:text="@string/bluetooth_summary" />
+        app:layout_constraintVertical_weight="3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ThemedFastScroller
+
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -60,6 +60,8 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             setAllContainerColors(surfaceColor())
             setPathMotion(MaterialArcMotion())
         }
+
+        requireActivity().window.statusBarColor = surfaceColor()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -121,7 +123,11 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             arguments.extraPlaylistId,
             requireActivity(),
             ArrayList(),
-            R.layout.item_queue
+            if (PreferenceUtil.isPerformanceMode) {
+                R.layout.item_queue_no_image
+            }else {
+                R.layout.item_queue
+            }
         )
 
         val dragDropManager = RecyclerViewDragDropManager()
@@ -134,10 +140,6 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DraggableItemAnimator()
             dragDropManager.attachRecyclerView(this)
-
-            if (PreferenceUtil.scrollbarStyle != "disabled") {
-                ThemedFastScroller.create(this, PreferenceUtil.scrollbarStyle == "auto_hide")
-            }
         }
         playlistSongAdapter.registerAdapterDataObserver(object :
             RecyclerView.AdapterDataObserver() {
@@ -146,6 +148,11 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
                 checkIsEmpty()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().window.statusBarColor = surfaceColor()
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {

@@ -26,7 +26,6 @@ import com.ttop.app.apex.ALBUM_GRID_SIZE_TABLET_LAND
 import com.ttop.app.apex.ALBUM_GRID_STYLE
 import com.ttop.app.apex.ALBUM_SONG_SORT_ORDER
 import com.ttop.app.apex.ALBUM_SORT_ORDER
-import com.ttop.app.apex.APEX_FONT
 import com.ttop.app.apex.APP_BAR_COLOR
 import com.ttop.app.apex.ARTIST_ALBUM_SORT_ORDER
 import com.ttop.app.apex.ARTIST_DETAIL_SONG_SORT_ORDER
@@ -47,20 +46,19 @@ import com.ttop.app.apex.BACKUP_PATH
 import com.ttop.app.apex.BLACK_THEME
 import com.ttop.app.apex.BLUETOOTH_DELAY
 import com.ttop.app.apex.BLUETOOTH_DEVICE
+import com.ttop.app.apex.BLUETOOTH_MAC
 import com.ttop.app.apex.BLUETOOTH_PLAYBACK
 import com.ttop.app.apex.CAROUSEL_EFFECT
 import com.ttop.app.apex.CAR_CONNECTED
 import com.ttop.app.apex.COLOR_ANIMATE
 import com.ttop.app.apex.CROSS_FADE_DURATION
 import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION
+import com.ttop.app.apex.CUSTOMIZABLE_TOOLBAR_ACTION_2
 import com.ttop.app.apex.DESATURATED_COLOR
 import com.ttop.app.apex.DISABLE_APP_BAR_SCROLL
-import com.ttop.app.apex.DISABLE_QUEUE
 import com.ttop.app.apex.DISABLE_UPDATE
 import com.ttop.app.apex.DISABLE_WIDGETS
-import com.ttop.app.apex.DURATION_SAME
 import com.ttop.app.apex.EXPAND_NOW_PLAYING_PANEL
-import com.ttop.app.apex.FAST_FORWARD_DURATION
 import com.ttop.app.apex.FILTER_SONG_MAX
 import com.ttop.app.apex.FILTER_SONG_MIN
 import com.ttop.app.apex.FONT_SIZE
@@ -73,8 +71,6 @@ import com.ttop.app.apex.HOME_ARTIST_GRID_STYLE
 import com.ttop.app.apex.IGNORE_MEDIA_STORE_ARTWORK
 import com.ttop.app.apex.INITIALIZED_BLACKLIST
 import com.ttop.app.apex.INTERNET_CONNECTED
-import com.ttop.app.apex.IS_QUEUE_HIDDEN_PEEK
-import com.ttop.app.apex.KEEP_SCREEN_ON
 import com.ttop.app.apex.LANGUAGE_NAME
 import com.ttop.app.apex.LAST_ADDED_CUTOFF
 import com.ttop.app.apex.LAST_CHANGELOG_VERSION
@@ -82,7 +78,6 @@ import com.ttop.app.apex.LAST_SLEEP_TIMER_VALUE
 import com.ttop.app.apex.LAST_USED_TAB
 import com.ttop.app.apex.LIBRARY_CATEGORIES
 import com.ttop.app.apex.LOCALE_AUTO_STORE_ENABLED
-import com.ttop.app.apex.LYRICS_MODE
 import com.ttop.app.apex.LYRICS_PATH
 import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.NAV_BAR_BLACK
@@ -102,22 +97,17 @@ import com.ttop.app.apex.PLAYLIST_GRID_SIZE_TABLET
 import com.ttop.app.apex.PLAYLIST_GRID_SIZE_TABLET_LAND
 import com.ttop.app.apex.PLAYLIST_SORT_ORDER
 import com.ttop.app.apex.PROGRESS_BAR_STYLE
-import com.ttop.app.apex.QUEUE_STYLE
-import com.ttop.app.apex.QUEUE_STYLE_LAND
 import com.ttop.app.apex.R
 import com.ttop.app.apex.RECENTLY_PLAYED_CUTOFF
 import com.ttop.app.apex.REMEMBER_LAST_TAB
-import com.ttop.app.apex.REWIND_DURATION
-import com.ttop.app.apex.SCREEN_ON_LYRICS
-import com.ttop.app.apex.SCROLLBAR_STYLE
-import com.ttop.app.apex.SEARCH_ACTION
 import com.ttop.app.apex.SEARCH_FROM_NAVIGATION
 import com.ttop.app.apex.SEARCH_ICON_NAVIGATION
 import com.ttop.app.apex.SHOULD_RECREATE
 import com.ttop.app.apex.SHOULD_RECREATE_TABS
+import com.ttop.app.apex.SHOW_ID3_LYRICS
 import com.ttop.app.apex.SHOW_LYRICS
-import com.ttop.app.apex.SHOW_LYRICS_TABLET
-import com.ttop.app.apex.SHUFFLE_STATE
+import com.ttop.app.apex.CHECK_UPDATE_ON_START
+import com.ttop.app.apex.PERFORMANCE_MODE
 import com.ttop.app.apex.SLEEP_TIMER_FINISH_SONG
 import com.ttop.app.apex.SONG_GRID_SIZE
 import com.ttop.app.apex.SONG_GRID_SIZE_LAND
@@ -128,14 +118,12 @@ import com.ttop.app.apex.SONG_SORT_ORDER
 import com.ttop.app.apex.SPECIFIC_DEVICE
 import com.ttop.app.apex.SQUIRCLE_ART
 import com.ttop.app.apex.START_DIRECTORY
-import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING
-import com.ttop.app.apex.SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE
 import com.ttop.app.apex.TAB_TEXT_MODE
 import com.ttop.app.apex.TEMP_VALUE
 import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
-import com.ttop.app.apex.TOGGLE_AUTOPLAY
 import com.ttop.app.apex.TOGGLE_FULL_SCREEN
 import com.ttop.app.apex.TOGGLE_HEADSET
+import com.ttop.app.apex.TOGGLE_INDEX
 import com.ttop.app.apex.TOGGLE_MINI_SWIPE
 import com.ttop.app.apex.TOGGLE_MINI_SWIPE_NON_FOLDABLE
 import com.ttop.app.apex.TOGGLE_SUGGESTIONS
@@ -222,19 +210,13 @@ object PreferenceUtil {
     fun getGeneralThemeValue(isSystemDark: Boolean): ThemeMode {
         val themeMode: String =
             sharedPreferences.getStringOrDefault(GENERAL_THEME, "auto")
-        return if (isBlackMode && isSystemDark && themeMode != "light") {
-            ThemeMode.BLACK
-        } else {
-            if (isBlackMode && themeMode == "dark") {
-                ThemeMode.BLACK
-            } else {
-                when (themeMode) {
-                    "light" -> ThemeMode.LIGHT
-                    "dark" -> ThemeMode.DARK
-                    "auto" -> ThemeMode.AUTO
-                    else -> ThemeMode.AUTO
-                }
-            }
+        return when (themeMode) {
+            "light" -> ThemeMode.LIGHT
+            "dark" -> ThemeMode.DARK
+            "black" -> ThemeMode.BLACK
+            "auto" -> ThemeMode.AUTO
+            "auto_black" -> ThemeMode.AUTO_BLACK
+            else -> ThemeMode.AUTO
         }
     }
 
@@ -320,11 +302,14 @@ object PreferenceUtil {
             AlbumSongSortOrder.SONG_TRACK_LIST
         )
 
-    val artistAlbumSortOrder
+    var artistAlbumSortOrder
         get() = sharedPreferences.getStringOrDefault(
             ARTIST_ALBUM_SORT_ORDER,
-            ArtistAlbumSortOrder.ALBUM_A_Z
+            ArtistAlbumSortOrder.ARTIST_ALBUM_YEAR
         )
+        set(value) = sharedPreferences.edit {
+            putString(ARTIST_ALBUM_SORT_ORDER, value)
+        }
 
     var playlistSortOrder
         get() = sharedPreferences.getStringOrDefault(
@@ -368,9 +353,6 @@ object PreferenceUtil {
             putBoolean(TOGGLE_ADD_CONTROLS, value)
         }
 
-    var isScreenOnEnabled
-        get() = sharedPreferences.getBoolean(KEEP_SCREEN_ON, false)
-        set(value) = sharedPreferences.edit { putBoolean(KEEP_SCREEN_ON, value) }
     val isPauseOnZeroVolume get() = sharedPreferences.getBoolean(PAUSE_ON_ZERO_VOLUME, true)
 
     var isSleepTimerFinishMusic
@@ -459,9 +441,13 @@ object PreferenceUtil {
             // We can directly use "first" kotlin extension function here but
             // there maybe layout id stored in this so to avoid a crash we use
             // "firstOrNull"
-            return GridStyle.entries.firstOrNull { gridStyle ->
-                gridStyle.id == id
-            } ?: GridStyle.Circular
+            return if (isPerformanceMode && ApexUtil.isTablet) {
+                GridStyle.Card
+            }else {
+                GridStyle.entries.firstOrNull { gridStyle ->
+                    gridStyle.id == id
+                } ?: GridStyle.Circular
+            }
         }
         set(value) = sharedPreferences.edit {
             putInt(SONG_GRID_STYLE, value.id)
@@ -470,9 +456,13 @@ object PreferenceUtil {
     var albumGridStyle: GridStyle
         get() {
             val id: Int = sharedPreferences.getInt(ALBUM_GRID_STYLE, 3)
-            return GridStyle.entries.firstOrNull { gridStyle ->
-                gridStyle.id == id
-            } ?: GridStyle.Circular
+            return if (isPerformanceMode && ApexUtil.isTablet) {
+                GridStyle.Card
+            }else {
+                GridStyle.entries.firstOrNull { gridStyle ->
+                    gridStyle.id == id
+                } ?: GridStyle.Circular
+            }
         }
         set(value) = sharedPreferences.edit {
             putInt(ALBUM_GRID_STYLE, value.id)
@@ -481,9 +471,13 @@ object PreferenceUtil {
     var artistGridStyle: GridStyle
         get() {
             val id: Int = sharedPreferences.getInt(ARTIST_GRID_STYLE, 3)
-            return GridStyle.entries.firstOrNull { gridStyle ->
-                gridStyle.id == id
-            } ?: GridStyle.Circular
+            return if (isPerformanceMode && ApexUtil.isTablet) {
+                GridStyle.Card
+            } else {
+                GridStyle.entries.firstOrNull { gridStyle ->
+                    gridStyle.id == id
+                } ?: GridStyle.Circular
+            }
         }
         set(value) = sharedPreferences.edit {
             putInt(ARTIST_GRID_STYLE, value.id)
@@ -874,10 +868,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(MATERIAL_YOU, true)
         set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
-    var isApexFont
-        get() = sharedPreferences.getBoolean(APEX_FONT, false)
-        set(value) = sharedPreferences.edit { putBoolean(APEX_FONT, value) }
-
     var playbackSpeed
         get() = sharedPreferences
             .getFloat(PLAYBACK_SPEED, 1F)
@@ -887,20 +877,6 @@ object PreferenceUtil {
         get() = sharedPreferences
             .getFloat(PLAYBACK_PITCH, 1F)
         set(value) = sharedPreferences.edit { putFloat(PLAYBACK_PITCH, value) }
-
-    var lyricsScreenOn
-        get() = sharedPreferences.getBoolean(SCREEN_ON_LYRICS, false)
-        set(value) = sharedPreferences.edit {
-            putBoolean(SCREEN_ON_LYRICS, value)
-        }
-
-    var swipeAnywhereToChangeSong
-        get() = sharedPreferences.getString(
-            SWIPE_ANYWHERE_NOW_PLAYING, "off"
-        )
-        set(value) = sharedPreferences.edit {
-            putString(SWIPE_ANYWHERE_NOW_PLAYING, value)
-        }
 
     var tempValue
         get() = sharedPreferences.getInt(TEMP_VALUE, 0)
@@ -932,13 +908,9 @@ object PreferenceUtil {
         get() = sharedPreferences.getString(BLUETOOTH_DEVICE, "")
         set(value) = sharedPreferences.edit { putString(BLUETOOTH_DEVICE, value) }
 
-    var isQueueHiddenPeek
-        get() = sharedPreferences.getBoolean(
-            IS_QUEUE_HIDDEN_PEEK, true
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(IS_QUEUE_HIDDEN_PEEK, value)
-        }
+    var bluetoothMac
+        get() = sharedPreferences.getString(BLUETOOTH_MAC, "")
+        set(value) = sharedPreferences.edit { putString(BLUETOOTH_MAC, value) }
 
     var transparentWidgets
         get() = sharedPreferences.getBoolean(
@@ -965,14 +937,6 @@ object PreferenceUtil {
             putString(TOGGLE_MINI_SWIPE, value)
         }
 
-    var isAutoplay
-        get() = sharedPreferences.getBoolean(
-            TOGGLE_AUTOPLAY, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(TOGGLE_AUTOPLAY, value)
-        }
-
     var isAutoRotate
         get() = sharedPreferences.getBoolean(
             AUTO_ROTATE, false
@@ -982,23 +946,35 @@ object PreferenceUtil {
         }
 
     var isWidgetPanel
-        get() = sharedPreferences.getBoolean(WIDGET_PANEL, false)
+        get() = sharedPreferences.getBoolean(
+            WIDGET_PANEL, false
+        )
         set(value) = sharedPreferences.edit {
             putBoolean(WIDGET_PANEL, value)
         }
 
     var isExpandPanel
-        get() = sharedPreferences.getString(EXPAND_NOW_PLAYING_PANEL, "disabled")
-        set(value) = sharedPreferences.edit { putString(EXPAND_NOW_PLAYING_PANEL, value) }
+        get() = sharedPreferences.getString(
+            EXPAND_NOW_PLAYING_PANEL, "disabled"
+        )
+        set(value) = sharedPreferences.edit {
+            putString(EXPAND_NOW_PLAYING_PANEL, value)
+        }
 
     val isAction1
-        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_1, "repeat")
+        get() = sharedPreferences.getStringOrDefault(
+            NOTIFICATION_ACTION_1, "repeat"
+        )
 
     val isAction2
-        get() = sharedPreferences.getStringOrDefault(NOTIFICATION_ACTION_2, "shuffle")
+        get() = sharedPreferences.getStringOrDefault(
+            NOTIFICATION_ACTION_2, "shuffle"
+        )
 
     val isDisableWidgets
-        get() = sharedPreferences.getBoolean(DISABLE_WIDGETS, false)
+        get() = sharedPreferences.getBoolean(
+            DISABLE_WIDGETS, false
+        )
 
     var isInternetConnected
         get() = sharedPreferences.getBoolean(
@@ -1014,22 +990,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putBoolean("TIMER_CANCELLED", value)
-        }
-
-    var queueStyle
-        get() = sharedPreferences.getString(
-            QUEUE_STYLE, "duo"
-        )
-        set(value) = sharedPreferences.edit {
-            putString(QUEUE_STYLE, value)
-        }
-
-    var queueStyleLand
-        get() = sharedPreferences.getString(
-            QUEUE_STYLE_LAND, "trio"
-        )
-        set(value) = sharedPreferences.edit {
-            putString(QUEUE_STYLE, value)
         }
 
     var isPlayerBackgroundType
@@ -1053,13 +1013,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             DISABLE_UPDATE, false
         )
-    var scrollbarStyle
-        get() = sharedPreferences.getStringOrDefault(
-            SCROLLBAR_STYLE, "auto_hide"
-        )
-        set(value) = sharedPreferences.edit {
-            putString(SCROLLBAR_STYLE, value)
-        }
 
     var isColorAnimate
         get() = sharedPreferences.getBoolean(
@@ -1091,14 +1044,6 @@ object PreferenceUtil {
             putBoolean(USE_NOTIFY_ACTIONS_AUTO, value)
         }
 
-    var searchActionShuffle
-        get() = sharedPreferences.getBoolean(
-            SEARCH_ACTION, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(SEARCH_ACTION, value)
-        }
-
     var isVoiceSearch
         get() = sharedPreferences.getBoolean(
             SEARCH_ICON_NAVIGATION, false
@@ -1120,59 +1065,15 @@ object PreferenceUtil {
             FONT_SIZE, "16"
         )
 
-    val keepShuffleState
-        get() = sharedPreferences.getBoolean(
-            SHUFFLE_STATE, false
-        )
-
-    var rewindDuration
-        get() = sharedPreferences.getInt(
-            REWIND_DURATION, 10
-        )
-        set(value) = sharedPreferences.edit {
-            putInt(REWIND_DURATION, value)
-        }
-
-
-    var fastForwardDuration
-        get() = sharedPreferences.getInt(
-            FAST_FORWARD_DURATION, 10
-        )
-        set(value) = sharedPreferences.edit {
-            putInt(FAST_FORWARD_DURATION, value)
-        }
-
-
-    val isDurationSame
-        get() = sharedPreferences.getBoolean(
-            DURATION_SAME, true
-        )
-
     val isMiniPlayerTransparent
         get() = sharedPreferences.getBoolean(
             TRANSPARENT_MINI_PLAYER, false
         )
 
-    var lyricsMode
-        get() = sharedPreferences.getString(
-            LYRICS_MODE, "disabled"
-        )
-        set(value) = sharedPreferences.edit {
-            putString(LYRICS_MODE, value)
-        }
-
     val isHapticFeedbackDisabled
         get() = sharedPreferences.getBoolean(
             HAPTIC_FEEDBACK, false
         )
-
-    var swipeAnywhereToChangeSongNonFoldable
-        get() = sharedPreferences.getBoolean(
-            SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(SWIPE_ANYWHERE_NOW_PLAYING_NON_FOLDABLE, value)
-        }
 
     var isSwipeNonFoldable
         get() = sharedPreferences.getBoolean(
@@ -1198,14 +1099,6 @@ object PreferenceUtil {
             putBoolean(NAV_BAR_BLACK, value)
         }
 
-    var isPlayerQueueEnabled
-        get() = sharedPreferences.getBoolean(
-            DISABLE_QUEUE, true
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(DISABLE_QUEUE, value)
-        }
-
     var bluetoothDelay
         get() = sharedPreferences.getInt(
             BLUETOOTH_DELAY, 1000
@@ -1221,14 +1114,6 @@ object PreferenceUtil {
         )
         set(value) = sharedPreferences.edit {
             putString(LYRICS_PATH, value)
-        }
-
-    var showLyricsTablet
-        get() = sharedPreferences.getBoolean(
-            SHOW_LYRICS_TABLET, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(SHOW_LYRICS_TABLET, value)
         }
 
     var disableAppBarScroll
@@ -1251,4 +1136,37 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             SQUIRCLE_ART, false
         )
+
+    var customToolbarAction2
+        get() = sharedPreferences.getString(
+            CUSTOMIZABLE_TOOLBAR_ACTION_2, "disabled"
+        )
+        set(value) = sharedPreferences.edit {
+            putString(CUSTOMIZABLE_TOOLBAR_ACTION_2, value)
+        }
+
+    var showId3Lyrics: Boolean
+        get() = sharedPreferences.getBoolean(SHOW_ID3_LYRICS, false)
+        set(value) = sharedPreferences.edit { putBoolean(SHOW_ID3_LYRICS, value) }
+
+    val canCheckUpdateOnStart
+        get() = sharedPreferences.getBoolean(
+            CHECK_UPDATE_ON_START, true
+        )
+
+    var isPerformanceMode
+        get() = sharedPreferences.getBoolean(
+            PERFORMANCE_MODE, false
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(PERFORMANCE_MODE, value)
+        }
+
+    var isIndexVisible
+        get() = sharedPreferences.getBoolean(
+            TOGGLE_INDEX, true
+        )
+        set(value) = sharedPreferences.edit {
+            putBoolean(TOGGLE_INDEX, value)
+        }
 }

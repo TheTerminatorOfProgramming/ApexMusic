@@ -23,7 +23,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceViewHolder
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.card.MaterialCardView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.CategoryInfoAdapter
 import com.ttop.app.apex.databinding.PreferenceDialogLibraryCategoriesBinding
@@ -44,10 +46,18 @@ class LibraryPreference @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : ATEDialogPreference(context, attrs, defStyleAttr, defStyleRes) {
     init {
+        layoutResource = R.layout.custom_preference_no_summary_pref
         icon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             context.colorControlNormal(),
             SRC_IN
         )
+    }
+
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+
+        val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
+        cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
     }
 }
 

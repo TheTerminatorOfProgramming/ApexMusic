@@ -244,6 +244,13 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         }
 
         @CheckResult
+        @ColorInt
+        fun m3accentColor(context: Context): Int {
+            // Set MD3 accent if MD3 is enabled or in-app accent otherwise
+            return ContextCompat.getColor(context, R.color.m3_widget_background)
+        }
+
+        @CheckResult
         fun autoGeneratePrimaryDark(context: Context): Boolean {
             return prefs(context).getBoolean(ThemeStorePrefKeys.KEY_AUTO_GENERATE_PRIMARYDARK, true)
         }

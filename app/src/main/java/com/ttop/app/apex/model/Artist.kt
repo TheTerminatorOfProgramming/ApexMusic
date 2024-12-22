@@ -97,6 +97,37 @@ data class Artist(
                 })
         }
 
+    val sortedAlbums: List<Album>
+        get() {
+            val collator = Collator.getInstance()
+            return albums.sortedWith(
+                when (PreferenceUtil.artistAlbumSortOrder) {
+                    SortOrder.ArtistAlbumSortOrder.ARTIST_ALBUM_A_Z -> { o1, o2 ->
+                        collator.compare(o1.title, o2.title)
+                    }
+
+                    SortOrder.ArtistAlbumSortOrder.ARTIST_ALBUM_Z_A -> { o1, o2 ->
+                        collator.compare(o2.title, o1.title)
+                    }
+
+                    SortOrder.ArtistAlbumSortOrder.ARTIST_ALBUM_YEAR -> { o1, o2 ->
+                        o1.year.compareTo(
+                            o2.year
+                        )
+                    }
+
+                    SortOrder.ArtistAlbumSortOrder.ARTIST_ALBUM_YEAR_DESC -> { o1, o2 ->
+                        o2.year.compareTo(
+                            o1.year
+                        )
+                    }
+
+                    else -> {
+                        throw IllegalArgumentException("invalid ${PreferenceUtil.artistAlbumSortOrder}")
+                    }
+                })
+        }
+
     fun safeGetFirstAlbum(): Album {
         return albums.firstOrNull() ?: Album.empty
     }

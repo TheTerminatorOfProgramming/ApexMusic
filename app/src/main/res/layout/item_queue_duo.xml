@@ -3,140 +3,154 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="90dp"
+    android:background="?rectSelector"
     android:clickable="true"
     android:focusable="true"
-    android:background="?rectSelector"
-    android:transitionGroup="true"
-    tools:ignore="MissingDefaultResource">
+    android:transitionGroup="true">
 
-    <FrameLayout
-        android:id="@+id/dummy_view"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/listCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        app:strokeWidth="2dp"
+        android:backgroundTint="?attr/colorSurface"
+        app:cardCornerRadius="@dimen/m3_card_corner_radius"
+        tools:ignore="MissingPrefix">
+        <FrameLayout
+            android:id="@+id/dummy_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="1dp"
-            android:minHeight="?attr/listPreferredItemHeight"
-            android:orientation="horizontal"
-            tools:ignore="MissingPrefix">
+            android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/drag_view"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_vertical|start"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_drag_handle"
-                app:tint="?attr/colorControlNormal"
-                tools:ignore="ContentDescription"
-                android:paddingHorizontal="8dp"
-                tools:visibility="visible" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="?attr/listPreferredItemHeight"
+                android:orientation="horizontal"
+                tools:ignore="MissingPrefix">
 
-            <FrameLayout
-                android:id="@+id/images"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/drag_view"
-                app:layout_constraintTop_toTopOf="parent">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/drag_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:paddingHorizontal="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_drag_handle"
+                    app:tint="?attr/colorControlNormal"
+                    tools:ignore="ContentDescription"
+                    tools:visibility="visible" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/imageContainer"
+                <FrameLayout
+                    android:id="@+id/images"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                    android:layout_marginStart="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/drag_view"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/imageContainerCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/drag_view"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/image"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:scaleType="centerCrop"
+                            tools:srcCompat="@tools:sample/backgrounds/scenic"
+                            tools:visibility="visible" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/imageText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:minWidth="36dp"
+                            android:minHeight="40dp"
+                            android:textAppearance="@style/TextViewSubtitle1"
+                            android:visibility="gone"
+                            tools:text="100"
+                            tools:visibility="visible" />
+                    </com.google.android.material.card.MaterialCardView>
+
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/image"
+                        android:id="@+id/imagePlaying"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
                         android:scaleType="centerCrop"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic"
-                        tools:visibility="visible" />
+                        android:src="@drawable/ic_play_arrow"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/drag_view"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </FrameLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/imageText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:minWidth="36dp"
-                        android:minHeight="40dp"
-                        android:textAppearance="@style/TextViewSubtitle1"
-                        android:visibility="gone"
-                        tools:text="100"
-                        tools:visibility="visible" />
-                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp"
+                    android:textAppearance="@style/TextViewSubtitle1"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintEnd_toStartOf="@id/menu"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/images"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="@tools:sample/full_names" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp"
+                    android:textAppearance="@style/TextViewBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/menu"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/images"
+                    tools:text="@tools:sample/full_names" />
+
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imagePlaying"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
+                    android:id="@+id/menu"
+                    style="@style/OverFlowButtonAlternative"
+                    android:layout_width="36dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="0"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/drag_view"
-                    android:src="@drawable/ic_play_arrow"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </FrameLayout>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorControlNormal" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingHorizontal="16dp"
-                android:textAppearance="@style/TextViewSubtitle1"
-                android:textColor="?android:attr/textColorPrimary"
-                app:layout_constraintBottom_toTopOf="@+id/text"
-                app:layout_constraintEnd_toStartOf="@id/menu"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/images"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="@tools:sample/full_names" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingHorizontal="16dp"
-                android:textAppearance="@style/TextViewBody2"
-                android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/menu"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/images"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:text="@tools:sample/full_names" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/menu"
-                style="@style/OverFlowButton"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="?attr/colorControlNormal" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
 </FrameLayout>

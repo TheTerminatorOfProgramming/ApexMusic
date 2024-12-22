@@ -24,6 +24,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.isColorLight
 import com.ttop.app.apex.libraries.appintro.indicator.DotIndicatorController
 import com.ttop.app.apex.libraries.appintro.indicator.IndicatorController
 import com.ttop.app.apex.libraries.appintro.indicator.ProgressIndicatorController
@@ -199,8 +200,9 @@ abstract class AppIntroBase : AppCompatActivity(), AppIntroViewPagerListener {
 
     /** Customize the color of the Status Bar */
     private fun setStatusBarColor(@ColorInt color: Int) {
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
         window.statusBarColor = color
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars =
+            !color.isColorLight
     }
 
     /** Customize the color of the Status Bar */

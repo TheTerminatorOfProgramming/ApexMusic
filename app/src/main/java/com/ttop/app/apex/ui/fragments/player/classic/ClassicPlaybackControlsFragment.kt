@@ -104,11 +104,7 @@ class ClassicPlaybackControlsFragment :
 
     override fun setColor(color: MediaNotificationProcessor) {
         val controlsColor = if (PreferenceUtil.isAdaptiveColor) {
-            if (PreferenceUtil.isPlayerBackgroundType) {
-                ColorUtil.getComplimentColor(color.secondaryTextColor)
-            } else {
-                color.secondaryTextColor
-            }
+            color.secondaryTextColor
         } else {
             if (PreferenceUtil.materialYou) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)

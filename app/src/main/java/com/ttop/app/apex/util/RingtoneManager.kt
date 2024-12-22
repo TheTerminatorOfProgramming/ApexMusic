@@ -58,9 +58,10 @@ object RingtoneManager {
     }
 
     fun showDialog(context: Context) {
+        val final = String.format(context.getString(R.string.dialog_message_set_ringtone), context.getString(R.string.name))
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.dialog_title_set_ringtone)
-        builder.setMessage(R.string.dialog_message_set_ringtone)
+        builder.setMessage(final)
 
         builder.setPositiveButton(R.string.yes) { _, _ ->
             val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)

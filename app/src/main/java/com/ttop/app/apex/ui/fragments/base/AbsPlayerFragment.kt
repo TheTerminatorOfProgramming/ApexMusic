@@ -33,6 +33,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.menu.MenuItemImpl
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
@@ -74,7 +75,6 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.NowPlayingScreen
 import com.ttop.app.apex.ui.fragments.ReloadType
-import com.ttop.app.apex.ui.fragments.player.LRCFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
@@ -90,8 +90,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.math.abs
 
 abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout),
-    Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks,
-    LRCFragment.Callbacks {
+    Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks {
 
     val libraryViewModel: LibraryViewModel by activityViewModel()
 
@@ -100,11 +99,9 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
     private var playerAlbumCoverFragment: PlayerAlbumCoverFragment? = null
 
-    private var lrcFragment: LRCFragment? = null
-
     private fun goToLyrics() {
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
-        mainActivity.keepScreenOn(PreferenceUtil.lyricsScreenOn)
+        mainActivity.keepScreenOn(true)
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(MusicPlayerRemote.currentSong.title)
         builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
@@ -374,9 +371,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
         playerAlbumCoverFragment = whichFragment(R.id.playerAlbumCoverFragment)
         playerAlbumCoverFragment?.setCallbacks(this)
 
-        lrcFragment = whichFragment(R.id.lrcFragment)
-        lrcFragment?.setCallbacks(this)
-
         view.findViewById<RelativeLayout>(R.id.statusBarShadow)?.hide()
     }
 
@@ -393,44 +387,29 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
             NowPlayingScreen.Blur -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
 
             NowPlayingScreen.Card -> {
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
 
             NowPlayingScreen.Gradient -> {
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
 
             NowPlayingScreen.Classic -> {
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                }
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
                 playerToolbar()?.menu?.removeItem(R.id.action_fast_forward)
             }
 
             NowPlayingScreen.Peek -> {
                 if (ApexUtil.isTablet) {
-                    playerToolbar()?.menu?.removeItem(R.id.action_queue)
                     playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                } else {
-                    if (ApexUtil.isLandscape) {
-                        playerToolbar()?.menu?.removeItem(R.id.action_queue)
-                    } else {
-                        playerToolbar()?.menu?.removeItem(R.id.now_playing)
-                    }
                 }
 
                 playerToolbar()?.menu?.removeItem(R.id.action_rewind)
@@ -438,7 +417,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
 
             NowPlayingScreen.Live -> {
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
                 playerToolbar()?.menu?.removeItem(R.id.now_playing)
                 playerToolbar()?.menu?.removeItem(R.id.action_go_to_lyrics)
 
@@ -447,55 +425,30 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
 
             NowPlayingScreen.Minimal -> {
-                playerToolbar()?.menu?.removeItem(R.id.action_queue)
             }
         }
     }
+
+    val MenuItem.showAsActionFlag: Int
+        @SuppressLint("RestrictedApi")
+        get() {
+            this as MenuItemImpl
+            return when {
+                requiresActionButton() -> MenuItemImpl.SHOW_AS_ACTION_ALWAYS
+                requestsActionButton() -> MenuItemImpl.SHOW_AS_ACTION_IF_ROOM
+                showsTextAsAction() -> MenuItemImpl.SHOW_AS_ACTION_WITH_TEXT
+                else -> MenuItemImpl.SHOW_AS_ACTION_NEVER
+            }
+        }
 
     override fun onStart() {
         super.onStart()
-        if (ApexUtil.isFoldable(requireContext())) {
-            addSwipeDetector()
-        } else {
-            addSwipeDetectorNonFoldable()
-        }
-    }
-
-    fun addSwipeDetector() {
         view?.setOnTouchListener(
-            if (PreferenceUtil.swipeAnywhereToChangeSong == "always") {
-                SwipeDetector(
-                    requireContext(),
-                    playerAlbumCoverFragment?.viewPager,
-                    requireView()
-                )
-            } else if (PreferenceUtil.swipeAnywhereToChangeSong == "tab") {
-                if (ApexUtil.isTablet) {
-                    SwipeDetector(
-                        requireContext(),
-                        playerAlbumCoverFragment?.viewPager,
-                        requireView()
-                    )
-                } else {
-                    null
-                }
-            } else {
-                null
-            }
-        )
-    }
-
-    fun addSwipeDetectorNonFoldable() {
-        view?.setOnTouchListener(
-            if (PreferenceUtil.swipeAnywhereToChangeSongNonFoldable) {
-                SwipeDetector(
-                    requireContext(),
-                    playerAlbumCoverFragment?.viewPager,
-                    requireView()
-                )
-            } else {
-                null
-            }
+            SwipeDetector(
+                requireContext(),
+                playerAlbumCoverFragment?.viewPager,
+                requireView()
+            )
         )
     }
 

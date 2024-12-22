@@ -24,9 +24,11 @@ import android.view.ViewGroup
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceViewHolder
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import com.google.android.material.card.MaterialCardView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
 import com.ttop.app.apex.extensions.centeredColorButtons
@@ -52,10 +54,18 @@ class NowPlayingScreenPreference @JvmOverloads constructor(
     }
 
     init {
+        layoutResource = R.layout.custom_preference
         icon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             context.colorControlNormal(),
             SRC_IN
         )
+    }
+
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+
+        val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
+        cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
     }
 }
 

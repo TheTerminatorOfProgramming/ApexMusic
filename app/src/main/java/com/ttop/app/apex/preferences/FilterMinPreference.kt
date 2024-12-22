@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceViewHolder
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.slider.Slider
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogFilterBinding
@@ -27,10 +29,18 @@ class FilterMinPreference @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : ATEDialogPreference(context, attrs, defStyleAttr, defStyleRes) {
     init {
+        layoutResource = R.layout.custom_preference_no_summary
         icon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
             context.colorControlNormal(),
             SRC_IN
         )
+    }
+
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+
+        val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
+        cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
     }
 }
 

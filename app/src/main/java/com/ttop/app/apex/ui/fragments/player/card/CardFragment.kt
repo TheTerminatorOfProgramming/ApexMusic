@@ -16,7 +16,8 @@ package com.ttop.app.apex.ui.fragments.player.card
 
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
-import android.view.MenuItem
+import android.view.MenuItem.SHOW_AS_ACTION_ALWAYS
+import android.view.MenuItem.SHOW_AS_ACTION_NEVER
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -74,8 +75,8 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
 
     override fun onColorChanged(color: MediaNotificationProcessor) {
         playbackControlsFragment.setColor(color)
-        lastColor = color.secondaryTextColor
-        libraryViewModel.updateColor(color.secondaryTextColor)
+        lastColor = color.backgroundColor
+        libraryViewModel.updateColor(color.backgroundColor)
         ToolbarContentTintHelper.colorizeToolbar(
             binding.playerToolbar,
             toolbarIconColor(),
@@ -126,173 +127,537 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
         when (PreferenceUtil.customToolbarAction) {
             "disabled" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "add_to_playlist" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "details" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "drive_mode" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "equalizer" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "playback_settings" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "save_playing_queue" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "share" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
             }
 
             "volume" -> {
                 binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_details)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_equalizer)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_share)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                    .setShowAsAction(SHOW_AS_ACTION_NEVER)
                 binding.playerToolbar.menu.findItem(R.id.action_volume)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+            }
+        }
+
+        when (PreferenceUtil.customToolbarAction2) {
+            "disabled" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "add_to_playlist" -> {
+                binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "details" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                binding.playerToolbar.menu.findItem(R.id.action_details)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "drive_mode" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "equalizer" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "playback_settings" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "save_playing_queue" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "share" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                binding.playerToolbar.menu.findItem(R.id.action_share)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_volume).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "volume") {
+                    binding.playerToolbar.menu.findItem(R.id.action_volume)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+            }
+
+            "volume" -> {
+                if (binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "add_to_playlist") {
+                    binding.playerToolbar.menu.findItem(R.id.action_add_to_playlist)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_details).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "details") {
+                    binding.playerToolbar.menu.findItem(R.id.action_details)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_equalizer).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "equalizer") {
+                    binding.playerToolbar.menu.findItem(R.id.action_equalizer)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "drive_mode") {
+                    binding.playerToolbar.menu.findItem(R.id.action_go_to_drive_mode)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_playback_speed).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "playback_settings") {
+                    binding.playerToolbar.menu.findItem(R.id.action_playback_speed)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "save_playing_queue") {
+                    binding.playerToolbar.menu.findItem(R.id.action_save_playing_queue)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                if (binding.playerToolbar.menu.findItem(R.id.action_share).showAsActionFlag != SHOW_AS_ACTION_ALWAYS && PreferenceUtil.customToolbarAction != "share") {
+                    binding.playerToolbar.menu.findItem(R.id.action_share)
+                        .setShowAsAction(SHOW_AS_ACTION_NEVER)
+                }
+
+                binding.playerToolbar.menu.findItem(R.id.action_volume)
+                    .setShowAsAction(SHOW_AS_ACTION_ALWAYS)
             }
         }
     }

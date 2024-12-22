@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.util.FileUtils.createFile
 import com.ttop.app.apex.util.Share.shareFile
 import java.text.DateFormat
@@ -77,5 +78,7 @@ class ErrorActivity : AppCompatActivity() {
                 errorActivityDrawableId
             )
         }
+
+        window.statusBarColor = surfaceColor()
     }
 }

@@ -82,16 +82,15 @@ public class MediaNotificationProcessor {
      * on dark backgrounds.
      */
     private static final int LIGHTNESS_TEXT_DIFFERENCE_DARK = -10;
-
-    private float[] mFilteredBackgroundHsl = null;
     private final Palette.Filter mBlackWhiteFilter =
             (rgb, hsl) -> !isWhiteOrBlack(hsl);
+    private final Context context;
+    private float[] mFilteredBackgroundHsl = null;
     private int backgroundColor;
     private int secondaryTextColor;
     private int primaryTextColor;
     private int actionBarColor;
     private Drawable drawable;
-    private final Context context;
 
     public MediaNotificationProcessor(Context context, Drawable drawable) {
         this.context = context;
@@ -137,6 +136,15 @@ public class MediaNotificationProcessor {
 
     private static void colorToXYZ(@ColorInt int color, @NonNull double[] outXyz) {
         RGBToXYZ(Color.red(color), Color.green(color), Color.blue(color), outXyz);
+    }
+
+    public static MediaNotificationProcessor errorColor(Context context) {
+        MediaNotificationProcessor errorColors = new MediaNotificationProcessor(context);
+        errorColors.backgroundColor = -15724528;
+        errorColors.primaryTextColor = -6974059;
+        errorColors.secondaryTextColor = -8684677;
+        errorColors.actionBarColor = -6974059;
+        return errorColors;
     }
 
     public void getPaletteAsync(
@@ -486,14 +494,5 @@ public class MediaNotificationProcessor {
 
     public interface OnPaletteLoadedListener {
         void onPaletteLoaded(MediaNotificationProcessor mediaNotificationProcessor);
-    }
-
-    public static MediaNotificationProcessor errorColor(Context context) {
-        MediaNotificationProcessor errorColors = new MediaNotificationProcessor(context);
-        errorColors.backgroundColor = -15724528;
-        errorColors.primaryTextColor = -6974059;
-        errorColors.secondaryTextColor = -8684677;
-        errorColors.actionBarColor = -6974059;
-        return errorColors;
     }
 }

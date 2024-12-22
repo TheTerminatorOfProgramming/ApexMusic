@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.ttop.app.apex.views.insets.InsetsRecyclerView
+    <com.ttop.app.apex.libraries.alphabetindex.IndexFastScrollRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,8 +15,14 @@
         android:paddingBottom="0dp"
         android:scrollbars="none"
         android:transitionGroup="true"
+        android:paddingEnd="40dp"
+        android:paddingStart="0dp"
+        app:layout_anchorGravity="bottom"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_list" />
+        app:setIndexBarTransparentValue="0"
+        app:setIndexBarStrokeColor="@color/transparent"
+        app:setPreviewTransparentValue="0"
+        tools:listitem="@layout/item_list"/>
 
     <com.ttop.app.apex.views.TopAppBarLayout
         android:id="@+id/appBarLayout"
@@ -61,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginHorizontal="23dp"
+        android:layout_marginHorizontal="40dp"
         android:contentDescription="@string/shuffle"
         app:srcCompat="@drawable/ic_shuffle" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

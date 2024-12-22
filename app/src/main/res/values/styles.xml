@@ -10,6 +10,10 @@
         <item name="android:windowBackground">?colorSurface</item>
     </style>
 
+    <style name="Theme.Apex.FollowSystem_Black" parent="Theme.Apex.Base.Adaptive">
+        <item name="android:windowBackground">?colorSurface</item>
+    </style>
+
     <style name="Theme.Apex.MD3" parent="@style/Theme.Material3.DynamicColors.DayNight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -67,6 +71,14 @@
         <item name="srcCompat">@drawable/ic_more_vert</item>
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?attr/roundSelector</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="OverFlowButtonAlternative">
+        <item name="srcCompat">@drawable/ic_more_vert</item>
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/roundSelector</item>
         <item name="android:focusableInTouchMode">false</item>
@@ -168,6 +180,17 @@
         <item name="cornerSizeBottomRight">20dp</item>
     </style>
 
+    <style name="CornerCardViewAlt">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+    </style>
+
     <style name="TabQueueTopCornerCardView">
         <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerFamilyTopRight">rounded</item>
@@ -176,6 +199,28 @@
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">5dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">5dp</item>
+    </style>
+
+    <style name="TabQueueTopCornerCardViewAlt">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">5dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+        <item name="cornerSizeBottomRight">5dp</item>
+    </style>
+
+    <style name="TabQueueTopCornerCardViewAltPort">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">5dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
         <item name="cornerSizeBottomRight">5dp</item>
     </style>
 
@@ -219,7 +264,6 @@
     <style name="MaterialCardViewStroke">
         <item name="cardUseCompatPadding">true</item>
         <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">?android:attr/colorButtonNormal</item>
         <item name="cardElevation">0dp</item>
     </style>
 

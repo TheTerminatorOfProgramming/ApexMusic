@@ -161,8 +161,16 @@ class SortOrder {
         companion object {
 
             /* Artist album sort order A-Z */
-            const val ALBUM_A_Z = MediaStore.Audio.Albums.DEFAULT_SORT_ORDER
+            const val ARTIST_ALBUM_A_Z = MediaStore.Audio.Albums.DEFAULT_SORT_ORDER
 
+            /* Artist album sort order Z-A */
+            const val ARTIST_ALBUM_Z_A = "$ARTIST_ALBUM_A_Z DESC"
+
+            /* Album sort order year */
+            const val ARTIST_ALBUM_YEAR = MediaStore.Audio.Media.YEAR
+
+            /* Album sort order year */
+            const val ARTIST_ALBUM_YEAR_DESC = MediaStore.Audio.Media.YEAR + " DESC"
         }
     }
 

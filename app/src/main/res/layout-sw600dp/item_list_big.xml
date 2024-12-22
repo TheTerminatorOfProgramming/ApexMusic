@@ -36,10 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/drag_view"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image"
@@ -74,10 +74,10 @@
         android:paddingHorizontal="16dp"
         android:textAppearance="@style/TextViewSubtitle1"
         android:textColor="?android:attr/textColorPrimary"
-        app:layout_constraintBottom_toBottomOf="@id/imageTextContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/text"
         app:layout_constraintStart_toEndOf="@id/imageTextContainer"
-        app:layout_constraintTop_toTopOf="@id/imageTextContainer"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -87,7 +87,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingHorizontal="16dp"
-        android:textAppearance="@style/TextViewBody2"
+        android:textAppearance="@style/TextViewSubtitle1"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintBottom_toBottomOf="@id/title"
         app:layout_constraintEnd_toStartOf="@id/text2"
@@ -102,7 +102,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingHorizontal="16dp"
-        android:textAppearance="@style/TextViewBody2"
+        android:textAppearance="@style/TextViewSubtitle1"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintBottom_toBottomOf="@id/text"
         app:layout_constraintEnd_toStartOf="@id/menu"
@@ -112,7 +112,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/menu"
-        style="@style/OverFlowButton"
+        style="@style/OverFlowButtonAlternative"
+        android:layout_width="36dp"
+        android:layout_height="48dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="0"
         app:layout_constraintBottom_toBottomOf="parent"

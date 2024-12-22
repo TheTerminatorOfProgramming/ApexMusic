@@ -14,6 +14,7 @@
  */
 package com.ttop.app.apex.ui.fragments.player.card
 
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
@@ -28,7 +29,6 @@ import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.getSongInfo
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
 import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -61,6 +61,10 @@ class CardPlaybackControlsFragment :
 
     override val songCurrentProgress: TextView
         get() = binding.songCurrentProgress
+
+    private var lastUsedBGColor: Int = 0
+
+    private var lastUsedControlColor: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,12 +108,10 @@ class CardPlaybackControlsFragment :
     }
 
     override fun setColor(color: MediaNotificationProcessor) {
+        lastUsedBGColor = color.secondaryTextColor
+        lastUsedControlColor = color.backgroundColor
         val controlsColor = if (PreferenceUtil.isAdaptiveColor) {
-            if (PreferenceUtil.isPlayerBackgroundType) {
-                ColorUtil.getComplimentColor(color.secondaryTextColor)
-            } else {
-                color.secondaryTextColor
-            }
+            color.secondaryTextColor
         } else {
             if (PreferenceUtil.materialYou) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
@@ -128,7 +130,7 @@ class CardPlaybackControlsFragment :
             }
         }
 
-        val backgroundColor = if (PreferenceUtil.isAdaptiveColor) {
+        val buttonColor = if (PreferenceUtil.isAdaptiveColor) {
             color.backgroundColor
         } else {
             if (PreferenceUtil.materialYou) {
@@ -167,19 +169,9 @@ class CardPlaybackControlsFragment :
         binding.songCurrentProgress.setTextColor(controlsColor)
         binding.songTotalTime.setTextColor(controlsColor)
         binding.image.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
-
-        TintHelper.setTintAuto(
-            binding.mediaButton.playPauseButton,
-            backgroundColor!!,
-            false
-        )
-
-        TintHelper.setTintAuto(
-            binding.mediaButton.playPauseButton,
-            controlsColor,
-            true
-        )
-
+        binding.mediaButton.playPauseButton.setColorFilter(buttonColor!!, PorterDuff.Mode.SRC_IN)
+        binding.mediaButton.playPauseButton.backgroundTintList =
+            ColorStateList.valueOf(controlsColor)
         binding.mediaButton.nextButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
         binding.mediaButton.previousButton.setColorFilter(controlsColor, PorterDuff.Mode.SRC_IN)
 
@@ -205,10 +197,37 @@ class CardPlaybackControlsFragment :
 
     private fun updatePlayPauseDrawableState() {
         if (MusicPlayerRemote.isPlaying) {
-            binding.mediaButton.playPauseButton.setImageResource(R.drawable.ic_pause)
+            binding.mediaButton.playPauseButton.setImageResource(R.drawable.ic_pause_white_64dp)
         } else {
-            binding.mediaButton.playPauseButton.setImageResource(R.drawable.ic_play_arrow_white_32dp)
+            binding.mediaButton.playPauseButton.setImageResource(R.drawable.ic_play_arrow)
         }
+
+        val controlsColor = if (PreferenceUtil.isAdaptiveColor) {
+            lastUsedBGColor
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+            } else {
+                accentColor()
+            }
+        }
+
+        val buttonColor = if (PreferenceUtil.isAdaptiveColor) {
+            lastUsedControlColor
+        } else {
+            if (PreferenceUtil.materialYou) {
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.m3_widget_background
+                )
+            } else {
+                context?.surfaceColor()
+            }
+        }
+
+        binding.mediaButton.playPauseButton.setColorFilter(buttonColor!!, PorterDuff.Mode.SRC_IN)
+        binding.mediaButton.playPauseButton.backgroundTintList =
+            ColorStateList.valueOf(controlsColor)
     }
 
     public override fun show() {}

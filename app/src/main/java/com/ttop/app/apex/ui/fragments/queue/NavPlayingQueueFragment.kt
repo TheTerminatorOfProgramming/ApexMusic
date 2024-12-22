@@ -24,6 +24,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
@@ -32,14 +33,16 @@ import com.ttop.app.apex.adapter.song.PlayingQueueAdapter
 import com.ttop.app.apex.databinding.FragmentNavPlayingQueueBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.darkAccentColor
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
-import com.ttop.app.apex.util.ThemedFastScroller
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import kotlin.math.abs
 
 class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_playing_queue) {
 
@@ -94,7 +97,7 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
 
         binding.shuffleButton.backgroundTintList = ColorStateList.valueOf(accentColor())
         binding.shuffleButton.imageTintList =
-            ColorStateList.valueOf(requireContext().darkAccentColor())
+            ColorStateList.valueOf(requireContext().darkAccentColor(requireContext()))
 
         libraryViewModel.getFabMargin().observe(viewLifecycleOwner) {
             binding.shuffleButton.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -113,20 +116,33 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
                 }
             }
         }
-        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
+
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                activity?.window?.statusBarColor = surfaceColor()
+            } else {
+                activity?.window?.statusBarColor = requireActivity().darkAccentColor(requireContext())
+            }
+        } else {
+            activity?.window?.statusBarColor = surfaceColor()
+        }
+
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
+
+        binding.appBarLayout.pinWhenScrolled()
     }
 
     private fun checkForMargins() {
         binding.recyclerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
             bottomMargin = if (ApexUtil.isTablet) {
                 if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                    ApexUtil.dpToMargin(64)
+                    ApexUtil.dpToMargin(55)
                 } else {
                     ApexUtil.dpToMargin(0)
                 }
             } else {
                 if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                    ApexUtil.dpToMargin(144)
+                    ApexUtil.dpToMargin(135)
                 } else {
                     ApexUtil.dpToMargin(80)
                 }
@@ -168,13 +184,6 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
         binding.recyclerView.itemAnimator = animator
         binding.recyclerView.let { recyclerViewTouchActionGuardManager?.attachRecyclerView(it) }
         binding.recyclerView.let { recyclerViewDragDropManager?.attachRecyclerView(it) }
-
-        if (PreferenceUtil.scrollbarStyle != "disabled") {
-            ThemedFastScroller.create(
-                binding.recyclerView,
-                PreferenceUtil.scrollbarStyle == "auto_hide"
-            )
-        }
     }
 
     override fun onQueueChanged() {
@@ -185,6 +194,7 @@ class NavPlayingQueueFragment : AbsMusicServiceFragment(R.layout.fragment_nav_pl
     override fun onResume() {
         super.onResume()
         checkForMargins()
+        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position, 0)
     }
 
     override fun onMediaStoreChanged() {

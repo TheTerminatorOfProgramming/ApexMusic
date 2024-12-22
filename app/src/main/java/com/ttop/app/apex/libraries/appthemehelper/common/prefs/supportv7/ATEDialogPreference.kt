@@ -17,6 +17,8 @@ package com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7
 import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.DialogPreference
+import androidx.preference.PreferenceViewHolder
+import com.google.android.material.card.MaterialCardView
 import com.ttop.app.apex.R
 
 open class ATEDialogPreference @JvmOverloads constructor(
@@ -27,5 +29,12 @@ open class ATEDialogPreference @JvmOverloads constructor(
 
     init {
         layoutResource = R.layout.custom_preference
+    }
+
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+
+        val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
+        cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
     }
 }

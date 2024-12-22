@@ -29,6 +29,8 @@ import com.ttop.app.apex.preferences.BlacklistPreference
 import com.ttop.app.apex.preferences.BlacklistPreferenceDialog
 import com.ttop.app.apex.preferences.BluetoothDelayPreference
 import com.ttop.app.apex.preferences.BluetoothDelayPreferenceDialog
+import com.ttop.app.apex.preferences.BluetoothDevicePreference
+import com.ttop.app.apex.preferences.BluetoothDevicePreferenceDialog
 import com.ttop.app.apex.preferences.BlurPreference
 import com.ttop.app.apex.preferences.BlurPreferenceDialog
 import com.ttop.app.apex.preferences.CrossFadePreference
@@ -43,10 +45,6 @@ import com.ttop.app.apex.preferences.LibraryPreference
 import com.ttop.app.apex.preferences.LibraryPreferenceDialog
 import com.ttop.app.apex.preferences.NowPlayingScreenPreference
 import com.ttop.app.apex.preferences.NowPlayingScreenPreferenceDialog
-import com.ttop.app.apex.preferences.SeekFwdPreference
-import com.ttop.app.apex.preferences.SeekFwdPreferenceDialog
-import com.ttop.app.apex.preferences.SeekRwdPreference
-import com.ttop.app.apex.preferences.SeekRwdPreferenceDialog
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import dev.chrisbanes.insetter.applyInsetter
@@ -129,16 +127,6 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
                 fragment.show(childFragmentManager, preference.key)
             }
 
-            is SeekFwdPreference -> {
-                val fragment = SeekFwdPreferenceDialog.newInstance()
-                fragment.show(childFragmentManager, preference.key)
-            }
-
-            is SeekRwdPreference -> {
-                val fragment = SeekRwdPreferenceDialog.newInstance()
-                fragment.show(childFragmentManager, preference.key)
-            }
-
             is BlurPreference -> {
                 val fragment = BlurPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
@@ -151,6 +139,11 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
 
             is DurationPreference -> {
                 val fragment = DurationPreferenceDialog.newInstance()
+                fragment.show(childFragmentManager, preference.key)
+            }
+
+            is BluetoothDevicePreference -> {
+                val fragment = BluetoothDevicePreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
 

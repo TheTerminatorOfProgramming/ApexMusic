@@ -31,10 +31,13 @@ import com.ttop.app.apex.databinding.FragmentSettingsBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.findNavController
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.PreferenceUtil
 
 class SettingsFragment : AbsMainActivityFragment(R.layout.fragment_settings), ColorCallback {
     private var _binding: FragmentSettingsBinding? = null
@@ -51,7 +54,18 @@ class SettingsFragment : AbsMainActivityFragment(R.layout.fragment_settings), Co
                 ApexUtil.dpToMargin(0)
             }
         }
-        activity?.window?.statusBarColor = requireActivity().darkAccentColor()
+
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                activity?.window?.statusBarColor = surfaceColor()
+            } else {
+                activity?.window?.statusBarColor = requireActivity().darkAccentColor(requireContext())
+            }
+        } else {
+            activity?.window?.statusBarColor = surfaceColor()
+        }
+
+        binding.appBarLayout.pinWhenScrolled()
     }
 
     private fun setupToolbar() {

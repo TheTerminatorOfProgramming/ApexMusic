@@ -11,6 +11,7 @@
     <dimen name="app_widget_circle_min_width">110dp</dimen>
     <dimen name="app_widget_classic_min_height">40dp</dimen>
     <dimen name="app_widget_classic_min_width">250dp</dimen>
+    <dimen name="app_widget_classic_min_width_tab">110dp</dimen>
     <dimen name="app_widget_full_min_height">180dp</dimen>
     <dimen name="app_widget_full_min_width">250dp</dimen>
     <dimen name="bottom_nav_height">80dp</dimen>
@@ -35,6 +36,7 @@
     <dimen name="toolbar_height">48dp</dimen>
     <dimen name="toolbar_margin_horizontal">8dp</dimen>
     <dimen name="status_bar_padding">24dp</dimen>
+    <dimen name="status_bar_padding_double">48dp</dimen>
     <!--APP-THEME-HELPER-->
     <dimen name="ate_circleview_border">1dp</dimen>
     <!--FAST-SCROLLER-->

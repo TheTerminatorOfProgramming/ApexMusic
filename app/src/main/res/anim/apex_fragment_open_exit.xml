@@ -17,24 +17,24 @@
     android:shareInterpolator="false">
     <!-- Fade out, over a black surface, which simulates a black scrim -->
     <alpha
-        android:fromAlpha="1"
-        android:toAlpha="0.0"
-        android:fillEnabled="true"
-        android:fillBefore="true"
+        android:duration="50"
         android:fillAfter="true"
+        android:fillBefore="true"
+        android:fillEnabled="true"
+        android:fromAlpha="1"
         android:interpolator="@android:anim/linear_interpolator"
         android:startOffset="35"
-        android:duration="50" />
+        android:toAlpha="0.0" />
     <scale
+        android:duration="300"
+        android:fillAfter="true"
+        android:fillBefore="true"
+        android:fillEnabled="true"
         android:fromXScale="1"
-        android:toXScale="1.15"
         android:fromYScale="1"
-        android:toYScale="1.15"
+        android:interpolator="@anim/apex_fragment_fast_out_extra_slow_in"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:fillEnabled="true"
-        android:fillBefore="true"
-        android:fillAfter="true"
-        android:interpolator="@anim/apex_fragment_fast_out_extra_slow_in"
-        android:duration="300" />
+        android:toXScale="1.15"
+        android:toYScale="1.15" />
 </set>

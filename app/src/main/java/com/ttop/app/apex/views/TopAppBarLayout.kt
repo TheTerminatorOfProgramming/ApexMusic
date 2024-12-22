@@ -12,7 +12,6 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.ttop.app.apex.databinding.SimpleAppbarLayoutBinding
 import com.ttop.app.apex.extensions.accentColor
-
 import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
@@ -41,7 +40,7 @@ class TopAppBarLayout @JvmOverloads constructor(
             if (PreferenceUtil.appbarColor) {
                 simpleAppbarBinding?.root?.setBackgroundColor(context.surfaceColor())
             } else {
-                simpleAppbarBinding?.root?.setBackgroundColor(context.darkAccentColor())
+                simpleAppbarBinding?.root?.setBackgroundColor(context.darkAccentColor(context))
             }
         }
 

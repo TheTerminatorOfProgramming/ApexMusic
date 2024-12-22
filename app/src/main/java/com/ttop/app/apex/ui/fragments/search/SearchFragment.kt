@@ -47,10 +47,12 @@ import com.ttop.app.apex.adapter.SearchAdapter
 import com.ttop.app.apex.databinding.FragmentSearchBinding
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.addAlpha
+import com.ttop.app.apex.extensions.darkAccentColor
 import com.ttop.app.apex.extensions.focusAndShowKeyboard
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
@@ -138,7 +140,15 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
             PreferenceUtil.isSearchFromNavigation = false
         }
 
-        activity?.window?.statusBarColor = requireContext().surfaceColor()
+        if (!VersionUtils.hasVanillaIceCream()) {
+            if (PreferenceUtil.appbarColor) {
+                activity?.window?.statusBarColor = surfaceColor()
+            } else {
+                activity?.window?.statusBarColor = requireActivity().darkAccentColor(requireActivity())
+            }
+        } else {
+            activity?.window?.statusBarColor = surfaceColor()
+        }
     }
 
     private fun setupChips() {

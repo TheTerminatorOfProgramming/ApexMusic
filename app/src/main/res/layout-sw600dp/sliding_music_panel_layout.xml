@@ -41,11 +41,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="@dimen/mini_player_height"
+        app:behavior_peekHeight="0dp"
         app:enableEdgeToEdge="true"
         app:gestureInsetBottomIgnored="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        tools:visibility="visible">
+        tools:visibility="invisible">
 
         <FrameLayout
             android:id="@+id/playerFragmentContainer"

@@ -43,7 +43,6 @@ object ApexGlideExtension {
         R.drawable.default_artist_art
     private val DEFAULT_SONG_IMAGE: Int = R.drawable.default_audio_art
     private val DEFAULT_ALBUM_IMAGE = R.drawable.default_album_art
-    private val DEFAULT_ERROR_IMAGE_BANNER = R.drawable.material_design_default
 
     private val DEFAULT_DISK_CACHE_STRATEGY_ARTIST = DiskCacheStrategy.RESOURCE
     private val DEFAULT_DISK_CACHE_STRATEGY = DiskCacheStrategy.NONE
@@ -118,24 +117,6 @@ object ApexGlideExtension {
             .error(ContextCompat.getDrawable(getContext(), DEFAULT_ALBUM_IMAGE))
             .placeholder(ContextCompat.getDrawable(getContext(), DEFAULT_ALBUM_IMAGE))
             .signature(createSignature(song))
-    }
-
-    fun <T> RequestBuilder<T>.userProfileOptions(
-        file: File,
-        context: Context
-    ): RequestBuilder<T> {
-        return diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-            .error(getErrorUserProfile(context))
-            .signature(createSignature(file))
-    }
-
-    fun <T> RequestBuilder<T>.profileBannerOptions(
-        file: File
-    ): RequestBuilder<T> {
-        return diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-            .placeholder(DEFAULT_ERROR_IMAGE_BANNER)
-            .error(DEFAULT_ERROR_IMAGE_BANNER)
-            .signature(createSignature(file))
     }
 
     fun <T> RequestBuilder<T>.playlistOptions(): RequestBuilder<T> {

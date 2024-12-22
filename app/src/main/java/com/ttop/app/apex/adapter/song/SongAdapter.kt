@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SectionIndexer
 import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -39,12 +40,16 @@ import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
+import com.ttop.app.apex.libraries.alphabetindex.Helpers.Companion.sectionsHelper
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
 import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import java.util.Locale
 
 
 /**
@@ -59,9 +64,13 @@ open class SongAdapter(
 ) : AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song>(
     activity,
     R.menu.menu_media_selection
-), PopupTextProvider {
+), PopupTextProvider, SectionIndexer {
 
     private var showSectionName = true
+    private var mSectionPositions: ArrayList<Int>? = null
+    private var sectionsTranslator = HashMap<Int, Int>()
+
+    private val mainActivity get() = activity as MainActivity
 
     init {
         this.showSectionName = showSectionName
@@ -100,17 +109,22 @@ open class SongAdapter(
         holder.title?.text = getSongTitle(song)
         holder.text?.text = getSongText(song)
         holder.text2?.text = getSongText2(song)
-        loadAlbumCover(song, holder)
-        val landscape = ApexUtil.isLandscape
+        if (!PreferenceUtil.isPerformanceMode) {
+            loadAlbumCover(song, holder)
+        }
+        /*val landscape = ApexUtil.isLandscape
         if ((PreferenceUtil.songGridSize > 2 && !landscape) || (PreferenceUtil.songGridSizeLand > 5 && landscape)) {
             holder.menu?.isVisible = false
-        }
+        }*/
+
+        holder.listCard?.strokeColor = accentColor(activity)
     }
 
     private fun setColors(color: MediaNotificationProcessor, holder: ViewHolder) {
         if (holder.paletteColorContainer != null) {
             holder.title?.setTextColor(color.primaryTextColor)
             holder.text?.setTextColor(color.secondaryTextColor)
+            holder.text2?.setTextColor(color.secondaryTextColor)
             holder.paletteColorContainer?.setBackgroundColor(color.backgroundColor)
             holder.menu?.imageTintList = ColorStateList.valueOf(color.primaryTextColor)
         }
@@ -160,18 +174,11 @@ open class SongAdapter(
 
     override fun getPopupText(view: View, position: Int): String {
         val sectionName: String? = when (PreferenceUtil.songSortOrder) {
-            SortOrder.SongSortOrder.SONG_DEFAULT, SortOrder.SongSortOrder.SONG_DEFAULT_DESC -> return MusicUtil.getSectionName(
-                dataSet[position].title,
-                true
-            )
-
+            SortOrder.SongSortOrder.SONG_DEFAULT -> return MusicUtil.getSectionName(dataSet[position].title, true)
             SortOrder.SongSortOrder.SONG_A_Z, SortOrder.SongSortOrder.SONG_Z_A -> dataSet[position].title
             SortOrder.SongSortOrder.SONG_ALBUM -> dataSet[position].albumName
             SortOrder.SongSortOrder.SONG_ARTIST -> dataSet[position].artistName
-            SortOrder.SongSortOrder.SONG_YEAR, SortOrder.SongSortOrder.SONG_YEAR_DESC -> return MusicUtil.getYearString(
-                dataSet[position].year
-            )
-
+            SortOrder.SongSortOrder.SONG_YEAR -> return MusicUtil.getYearString(dataSet[position].year)
             SortOrder.SongSortOrder.COMPOSER -> dataSet[position].composer
             SortOrder.SongSortOrder.SONG_ALBUM_ARTIST -> dataSet[position].albumArtist
             else -> {
@@ -221,6 +228,9 @@ open class SongAdapter(
                 toggleChecked(layoutPosition)
             } else {
                 MusicPlayerRemote.openQueue(dataSet, layoutPosition, true)
+                if (PreferenceUtil.isExpandPanel == "default_song" || PreferenceUtil.isExpandPanel == "enhanced_song" ) {
+                    mainActivity.expandPanel()
+                }
             }
         }
 
@@ -231,5 +241,37 @@ open class SongAdapter(
 
     companion object {
         val TAG: String = SongAdapter::class.java.simpleName
+    }
+
+    override fun getSections(): Array<Any>? {
+        val mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        val sections: MutableList<String> = ArrayList(27)
+        val alphabetFull = ArrayList<String>()
+        mSectionPositions = ArrayList()
+        run {
+            var i = 0
+            val size = dataSet.size
+            while (i < size) {
+                val section = dataSet[i].title[0].toString().uppercase(Locale.getDefault())
+                if (!sections.contains(section)) {
+                    sections.add(section)
+                    mSectionPositions?.add(i)
+                }
+                i++
+            }
+        }
+        for (element in mSections) {
+            alphabetFull.add(element.toString())
+        }
+        sectionsTranslator = sectionsHelper(sections, alphabetFull)
+        return alphabetFull.toTypedArray()
+    }
+
+    override fun getPositionForSection(sectionIndex: Int): Int {
+        return mSectionPositions!![sectionsTranslator[sectionIndex]!!]
+    }
+
+    override fun getSectionForPosition(position: Int): Int {
+        return 0
     }
 }

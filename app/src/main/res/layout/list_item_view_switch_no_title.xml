@@ -52,7 +52,6 @@
         tools:maxLines="@string/grid_size_1"
         tools:text="@tools:sample/lorem" />
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_front_margin"
         android:layout_width="wrap_content"
@@ -62,13 +61,13 @@
 
     <com.ttop.app.apex.libraries.appthemehelper.common.views.ATESwitch
         android:id="@android:id/checkbox"
+        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:showText="false"
-        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
         android:clickable="false"
         android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:showText="false" />
 </androidx.constraintlayout.widget.ConstraintLayout>

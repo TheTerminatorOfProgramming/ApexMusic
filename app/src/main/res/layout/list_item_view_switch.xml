@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:tint="?attr/colorControlNormal"
         tools:srcCompat="@drawable/ic_telegram_white" />
 
@@ -74,13 +75,13 @@
 
     <com.ttop.app.apex.libraries.appthemehelper.common.views.ATESwitch
         android:id="@android:id/checkbox"
+        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:showText="false"
         android:clickable="false"
         android:focusable="false"
-        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:showText="false" />
 </androidx.constraintlayout.widget.ConstraintLayout>

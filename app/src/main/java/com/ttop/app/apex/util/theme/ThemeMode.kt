@@ -4,5 +4,6 @@ enum class ThemeMode {
     LIGHT,
     DARK,
     BLACK,
-    AUTO
+    AUTO,
+    AUTO_BLACK
 }

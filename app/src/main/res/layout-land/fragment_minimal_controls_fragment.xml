@@ -5,8 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_gravity="end"
-    android:gravity="end"
     android:layout_marginEnd="80dp"
+    android:gravity="end"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageButton

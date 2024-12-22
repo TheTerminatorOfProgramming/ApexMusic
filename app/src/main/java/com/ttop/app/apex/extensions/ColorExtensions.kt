@@ -60,6 +60,10 @@ fun Context.accentColor() = ThemeStore.accentColor(this)
 
 fun Fragment.accentColor() = ThemeStore.accentColor(requireContext())
 
+fun Context.m3accentColor() = ThemeStore.m3accentColor(this)
+
+fun Fragment.m3accentColor() = ThemeStore.m3accentColor(requireContext())
+
 fun Context.surfaceColor() = resolveColor(R.attr.colorSurface, Color.WHITE)
 
 fun Fragment.surfaceColor() = resolveColor(R.attr.colorSurface, Color.WHITE)
@@ -133,7 +137,7 @@ fun MaterialButton.accentOutlineColor() {
 }
 
 fun MaterialButton.elevatedAccentColor() {
-    val color = context.darkAccentColorVariant()
+    val color = context.darkAccentColorVariant(context)
     rippleColor = ColorStateList.valueOf(color)
     setBackgroundColor(color)
     setTextColor(MaterialValueHelper.getPrimaryTextColor(context, color.isColorLight))
@@ -251,15 +255,15 @@ fun Context.getColorCompat(@ColorRes colorRes: Int): Int {
 }
 
 @ColorInt
-fun Context.darkAccentColor(): Int {
+fun Context.darkAccentColor(context: Context): Int {
     return ColorUtils.blendARGB(
-        if (ThemeStore.isMD3Enabled(applicationContext)) {
-            ContextCompat.getColor(applicationContext, R.color.m3_widget_background)
+        if (ThemeStore.isMD3Enabled(context)) {
+            ContextCompat.getColor(context, R.color.m3_widget_background)
         } else {
             accentColor()
         },
         surfaceColor(),
-        if (ThemeStore.isMD3Enabled(applicationContext)) {
+        if (ThemeStore.isMD3Enabled(context)) {
             0.7f
         } else {
             if (surfaceColor().isColorLight) 0.9f else 0.92f
@@ -268,15 +272,15 @@ fun Context.darkAccentColor(): Int {
 }
 
 @ColorInt
-fun Context.darkAccentColorVariant(): Int {
+fun Context.darkAccentColorVariant(context: Context): Int {
     return ColorUtils.blendARGB(
-        if (ThemeStore.isMD3Enabled(applicationContext)) {
-            ContextCompat.getColor(applicationContext, R.color.m3_widget_background)
+        if (ThemeStore.isMD3Enabled(context)) {
+            ContextCompat.getColor(context, R.color.m3_widget_background)
         } else {
             accentColor()
         },
         surfaceColor(),
-        if (ThemeStore.isMD3Enabled(applicationContext)) {
+        if (ThemeStore.isMD3Enabled(context)) {
             0.75f
         } else {
             if (surfaceColor().isColorLight) 0.9f else 0.95f

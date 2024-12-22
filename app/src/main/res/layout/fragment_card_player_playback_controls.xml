@@ -108,8 +108,8 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:textStyle="bold"
                 android:textAppearance="@style/TextViewSubtitle5"
+                android:textStyle="bold"
                 tools:text="@tools:sample/lorem/random" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -117,12 +117,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:singleLine="true"
-                android:textAppearance="@style/TextViewSubtitle5Point5"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
                 android:paddingTop="4dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textAppearance="@style/TextViewSubtitle5Point5"
                 tools:text="@tools:sample/lorem/random" />
         </LinearLayout>
     </LinearLayout>

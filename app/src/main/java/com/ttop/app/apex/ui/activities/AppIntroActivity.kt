@@ -108,17 +108,17 @@ class AppIntroActivity : AppIntro2() {
 
 
         if (ApexUtil.isFoldable(applicationContext)) {
-            PreferenceManager.setDefaultValues(this, R.xml.pref_general_foldable, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_ui_foldable, false)
             PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen_foldable, false)
         } else {
-            PreferenceManager.setDefaultValues(this, R.xml.pref_general, false)
+            PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
             PreferenceManager.setDefaultValues(this, R.xml.pref_now_playing_screen, false)
         }
         PreferenceManager.setDefaultValues(this, R.xml.pref_advanced, false)
         PreferenceManager.setDefaultValues(this, R.xml.pref_audio, false)
         PreferenceManager.setDefaultValues(this, R.xml.pref_images, false)
         PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false)
-        PreferenceManager.setDefaultValues(this, R.xml.pref_ui, false)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_personalize, false)
 
         ThemeStore.prefs(applicationContext).edit {
             putBoolean(DESATURATED_COLOR, true)

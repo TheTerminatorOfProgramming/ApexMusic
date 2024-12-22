@@ -29,7 +29,6 @@ import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
 import com.afollestad.materialdialogs.color.colorChooser
 import com.ttop.app.apex.ACCENT_COLOR
-import com.ttop.app.apex.APEX_FONT
 import com.ttop.app.apex.BLACK_THEME
 import com.ttop.app.apex.BuildConfig
 import com.ttop.app.apex.DESATURATED_COLOR
@@ -182,15 +181,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val apexFont: TwoStatePreference? = findPreference(APEX_FONT)
-        apexFont?.setOnPreferenceChangeListener { _, _ ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            restartActivity()
-            true
-        }
-
         val swipeGesturesNonFoldable: TwoStatePreference? =
             findPreference(TOGGLE_MINI_SWIPE_NON_FOLDABLE)
         swipeGesturesNonFoldable?.setOnPreferenceChangeListener { _, _ ->
@@ -233,9 +223,9 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (ApexUtil.isFoldable(requireContext())) {
-            addPreferencesFromResource(R.xml.pref_general_foldable)
+            addPreferencesFromResource(R.xml.pref_ui_foldable)
         } else {
-            addPreferencesFromResource(R.xml.pref_general)
+            addPreferencesFromResource(R.xml.pref_ui)
         }
 
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)

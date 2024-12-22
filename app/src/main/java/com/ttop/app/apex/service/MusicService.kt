@@ -793,19 +793,11 @@ class MusicService : MediaBrowserServiceCompat(),
                     ACTION_PLAY -> play()
                     ACTION_PLAY_PLAYLIST -> playFromPlaylist(intent)
                     ACTION_REWIND -> {
-                        if (PreferenceUtil.isAutoplay) {
-                            playPreviousSongAuto(true, isPlaying)
-                        } else {
-                            playPreviousSong(true)
-                        }
+                        playPreviousSongAuto(true, isPlaying)
                     }
 
                     ACTION_SKIP -> {
-                        if (PreferenceUtil.isAutoplay) {
-                            playNextSongAuto(true, isPlaying)
-                        } else {
-                            playNextSong(true)
-                        }
+                        playNextSongAuto(true, isPlaying)
                     }
 
                     ACTION_STOP, ACTION_QUIT -> {
@@ -1252,81 +1244,43 @@ class MusicService : MediaBrowserServiceCompat(),
             .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, null)
             .putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, playingQueue.size.toLong())
 
-        when (Build.VERSION.SDK_INT) {
-            Build.VERSION_CODES.S, Build.VERSION_CODES.TIRAMISU -> {
-                Glide.with(this)
-                    .asBitmap()
-                    .songCoverOptions(song)
-                    .load(getSongModel(song))
-                    .circleCrop()
-                    .transition(getDefaultTransition())
-                    .into(object :
-                        CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                        override fun onLoadFailed(errorDrawable: Drawable?) {
-                            super.onLoadFailed(errorDrawable)
-                            metaData.putBitmap(
-                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                BitmapFactory.decodeResource(
-                                    resources,
-                                    R.drawable.default_audio_art
-                                )
-                            )
-                            mediaSession?.setMetadata(metaData.build())
-                            onCompletion()
-                        }
+        if (VersionUtils.hasT()) {
+            Glide.with(this)
+                .asBitmap()
+                .songCoverOptions(song)
+                .load(getSongModel(song))
+                .into(object :
+                CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    super.onLoadFailed(errorDrawable)
+                    metaData.putBitmap(
+                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                        BitmapFactory.decodeResource(
+                            resources,
+                            R.drawable.default_audio_art
+                        )
+                    )
+                    mediaSession?.setMetadata(metaData.build())
+                    onCompletion()
+                }
 
-                        override fun onResourceReady(
-                            resource: Bitmap,
-                            transition: Transition<in Bitmap?>?,
-                        ) {
-                            metaData.putBitmap(
-                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                resource
-                            )
-                            mediaSession?.setMetadata(metaData.build())
-                            onCompletion()
-                        }
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap?>?,
+                ) {
+                    metaData.putBitmap(
+                        MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
+                        resource
+                    )
+                    mediaSession?.setMetadata(metaData.build())
+                    onCompletion()
+                }
 
-                        override fun onLoadCleared(placeholder: Drawable?) {}
-                    })
-            }
-
-            Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
-                Glide.with(this)
-                    .asBitmap()
-                    .songCoverOptions(song)
-                    .load(getSongModel(song))
-                    .transition(getDefaultTransition())
-                    .into(object :
-                        CustomTarget<Bitmap?>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                        override fun onLoadFailed(errorDrawable: Drawable?) {
-                            super.onLoadFailed(errorDrawable)
-                            metaData.putBitmap(
-                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                BitmapFactory.decodeResource(
-                                    resources,
-                                    R.drawable.default_audio_art
-                                )
-                            )
-                            mediaSession?.setMetadata(metaData.build())
-                            onCompletion()
-                        }
-
-                        override fun onResourceReady(
-                            resource: Bitmap,
-                            transition: Transition<in Bitmap?>?,
-                        ) {
-                            metaData.putBitmap(
-                                MediaMetadataCompat.METADATA_KEY_ALBUM_ART,
-                                resource
-                            )
-                            mediaSession?.setMetadata(metaData.build())
-                            onCompletion()
-                        }
-
-                        override fun onLoadCleared(placeholder: Drawable?) {}
-                    })
-            }
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+        } else {
+            mediaSession?.setMetadata(metaData.build())
+            onCompletion()
         }
     }
 

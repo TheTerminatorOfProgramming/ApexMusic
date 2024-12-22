@@ -3,6 +3,5 @@
     <bool name="actions">true</bool>
     <bool name="auto_rotate">true</bool>
     <bool name="extra_controls">false</bool>
-    <bool name="queue_option">true</bool>
     <bool name="remove_header_color">true</bool>
 </resources>

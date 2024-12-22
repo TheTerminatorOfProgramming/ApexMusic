@@ -15,6 +15,7 @@
 package com.ttop.app.apex.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -23,6 +24,8 @@ import android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.contains
 import androidx.navigation.ui.setupWithNavController
@@ -31,11 +34,16 @@ import com.ttop.app.apex.appwidgets.AppWidgetBig
 import com.ttop.app.apex.appwidgets.AppWidgetCircle
 import com.ttop.app.apex.appwidgets.AppWidgetClassic
 import com.ttop.app.apex.appwidgets.AppWidgetFull
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.currentFragment
 import com.ttop.app.apex.extensions.extra
 import com.ttop.app.apex.extensions.findNavController
 import com.ttop.app.apex.extensions.hideStatusBar
+import com.ttop.app.apex.extensions.keepScreenOn
+import com.ttop.app.apex.extensions.materialDialog
 import com.ttop.app.apex.extensions.setTaskDescriptionColorAuto
+import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SearchQueryHelper.getSongs
 import com.ttop.app.apex.interfaces.IScrollHelper
@@ -46,6 +54,7 @@ import com.ttop.app.apex.repository.PlaylistSongsLoader
 import com.ttop.app.apex.service.MusicService
 import com.ttop.app.apex.ui.activities.base.AbsCastActivity
 import com.ttop.app.apex.util.ApexUtil
+import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logE
 import kotlinx.coroutines.Dispatchers.IO
@@ -111,32 +120,6 @@ class MainActivity : AbsCastActivity() {
         }
 
         PreferenceUtil.isInternetConnected = ApexUtil.isNetworkAvailable(applicationContext)
-
-        //RESET LIBRARY CATEGORIES
-        /*val pInfo = applicationContext.packageManager.getPackageInfo(applicationContext.packageName, 0)
-        val currentVersion = PackageInfoCompat.getLongVersionCode(pInfo)
-        if (currentVersion > lastVersion) {
-            val i = 0
-            val l = i.toLong()
-            if (lastVersion != l) {
-                PreferenceUtil.libraryCategory = PreferenceUtil.defaultCategories
-                showToast(getString(R.string.reset_categories))
-
-                val backupDir = PreferenceUtil.backupPath?.let { File(it) }
-                val lyricsDir = File(PreferenceUtil.lyricsPath + "/Apex/Lyrics/")
-
-                if (backupDir != null) {
-                    if (!backupDir.exists()){
-                        backupDir.mkdirs()
-                    }
-                }
-
-                if (!lyricsDir.exists()){
-                    lyricsDir.mkdirs()
-                }
-            }
-            lastVersion = currentVersion
-        }*/
     }
 
     @SuppressLint("RestrictedApi")
@@ -223,8 +206,8 @@ class MainActivity : AbsCastActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        val expand = if (PreferenceUtil.isExpandPanel == "enhanced") {
-            intent?.getBooleanExtra(EXPAND_PANEL, PreferenceUtil.isExpandPanel == "enhanced")
+        val expand = if (PreferenceUtil.isExpandPanel!!.contains("enhanced")) {
+            intent?.getBooleanExtra(EXPAND_PANEL, PreferenceUtil.isExpandPanel!!.contains("enhanced"))
         } else {
             intent?.extra<Boolean>(EXPAND_PANEL)?.value ?: false
         }

@@ -44,242 +44,7 @@ import java.util.ArrayList;
 
 public final class ToolbarContentTintHelper {
 
-    public static class InternalToolbarContentTintUtil {
-
-        public static final class SearchViewTintUtil {
-
-            public static void setSearchViewContentColor(View searchView, final @ColorInt int color) {
-                if (searchView == null) {
-                    return;
-                }
-                final Class<?> cls = searchView.getClass();
-                try {
-                    final Field mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView");
-                    mSearchSrcTextViewField.setAccessible(true);
-                    final EditText mSearchSrcTextView = (EditText) mSearchSrcTextViewField.get(searchView);
-                    mSearchSrcTextView.setTextColor(color);
-                    mSearchSrcTextView.setHintTextColor(ATHColorUtil.INSTANCE.adjustAlpha(color, 0.5f));
-                    TintHelper.setCursorTint(mSearchSrcTextView, color);
-
-                    Field field = cls.getDeclaredField("mSearchButton");
-                    tintImageView(searchView, field, color);
-                    field = cls.getDeclaredField("mGoButton");
-                    tintImageView(searchView, field, color);
-                    field = cls.getDeclaredField("mCloseButton");
-                    tintImageView(searchView, field, color);
-                    field = cls.getDeclaredField("mVoiceButton");
-                    tintImageView(searchView, field, color);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            private SearchViewTintUtil() {
-            }
-
-            private static void tintImageView(Object target, Field field, final @ColorInt int color)
-                    throws Exception {
-                field.setAccessible(true);
-                final ImageView imageView = (ImageView) field.get(target);
-                if (imageView.getDrawable() != null) {
-                    imageView
-                            .setImageDrawable(
-                                    TintHelper.createTintedDrawable(imageView.getDrawable(), color));
-                }
-            }
-        }
-
-        public static void applyOverflowMenuTint(final @NonNull Context context, final Toolbar toolbar,
-                                                 final @ColorInt int color) {
-            if (toolbar == null) {
-                return;
-            }
-            toolbar.post(() -> {
-                try {
-                    Field f1 = Toolbar.class.getDeclaredField("mMenuView");
-                    f1.setAccessible(true);
-                    ActionMenuView actionMenuView = (ActionMenuView) f1.get(toolbar);
-                    Field f2 = ActionMenuView.class.getDeclaredField("mPresenter");
-                    f2.setAccessible(true);
-
-                    // Actually ActionMenuPresenter
-                    BaseMenuPresenter presenter = (BaseMenuPresenter) f2.get(actionMenuView);
-                    Field f3 = presenter.getClass().getDeclaredField("mOverflowPopup");
-                    f3.setAccessible(true);
-                    MenuPopupHelper overflowMenuPopupHelper = (MenuPopupHelper) f3.get(presenter);
-                    setTintForMenuPopupHelper(context, overflowMenuPopupHelper, color);
-
-                    Field f4 = presenter.getClass().getDeclaredField("mActionButtonPopup");
-                    f4.setAccessible(true);
-                    MenuPopupHelper subMenuPopupHelper = (MenuPopupHelper) f4.get(presenter);
-                    setTintForMenuPopupHelper(context, subMenuPopupHelper, color);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        public static void setOverflowButtonColor(@NonNull Activity activity,
-                                                  final @ColorInt int color) {
-            final String overflowDescription = activity
-                    .getString(androidx.appcompat.R.string.abc_action_menu_overflow_description);
-            final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-            final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    final ArrayList<View> outViews = new ArrayList<>();
-                    decorView.findViewsWithText(outViews, overflowDescription,
-                            View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
-                    if (outViews.isEmpty()) {
-                        return;
-                    }
-                    final AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
-                    overflow.setImageDrawable(TintHelper.createTintedDrawable(overflow.getDrawable(), color));
-                    ViewUtil.INSTANCE.removeOnGlobalLayoutListener(decorView, this);
-                }
-            });
-        }
-
-        public static void setTintForMenuPopupHelper(final @NonNull Context context,
-                                                     @Nullable MenuPopupHelper menuPopupHelper, final @ColorInt int color) {
-            try {
-                if (menuPopupHelper != null) {
-                    final ListView listView = ((ShowableListMenu) menuPopupHelper.getPopup()).getListView();
-                    listView.getViewTreeObserver()
-                            .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                                @Override
-                                public void onGlobalLayout() {
-                                    try {
-                                        Field checkboxField = ListMenuItemView.class.getDeclaredField("mCheckBox");
-                                        checkboxField.setAccessible(true);
-                                        Field radioButtonField = ListMenuItemView.class
-                                                .getDeclaredField("mRadioButton");
-                                        radioButtonField.setAccessible(true);
-
-                                        final boolean isDark = !ATHColorUtil.INSTANCE.isColorLight(
-                                                ATHUtil.INSTANCE
-                                                        .resolveColor(context, android.R.attr.windowBackground));
-
-                                        for (int i = 0; i < listView.getChildCount(); i++) {
-                                            View v = listView.getChildAt(i);
-                                            if (!(v instanceof ListMenuItemView)) {
-                                                continue;
-                                            }
-                                            ListMenuItemView iv = (ListMenuItemView) v;
-
-                                            CheckBox check = (CheckBox) checkboxField.get(iv);
-                                            if (check != null) {
-                                                TintHelper.setTint(check, color, isDark);
-                                                check.setBackground(null);
-                                            }
-
-                                            RadioButton radioButton = (RadioButton) radioButtonField.get(iv);
-                                            if (radioButton != null) {
-                                                TintHelper.setTint(radioButton, color, isDark);
-                                                radioButton.setBackground(null);
-                                            }
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    listView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                                }
-                            });
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public static void tintMenu(@NonNull Toolbar toolbar, @Nullable Menu menu,
-                                    final @ColorInt int color) {
-            try {
-                final Field field = Toolbar.class.getDeclaredField("mCollapseIcon");
-                field.setAccessible(true);
-                Drawable collapseIcon = (Drawable) field.get(toolbar);
-                if (collapseIcon != null) {
-                    field.set(toolbar, TintHelper.createTintedDrawable(collapseIcon, color));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (menu != null && menu.size() > 0) {
-                for (int i = 0; i < menu.size(); i++) {
-                    final MenuItem item = menu.getItem(i);
-                    if (item.getIcon() != null) {
-                        item.setIcon(TintHelper.createTintedDrawable(item.getIcon(), color));
-                    }
-                    // Search view theming
-                    if (item.getActionView() != null && (
-                            item.getActionView() instanceof android.widget.SearchView || item
-                                    .getActionView() instanceof androidx.appcompat.widget.SearchView)) {
-                        SearchViewTintUtil.setSearchViewContentColor(item.getActionView(), color);
-                    }
-                }
-            }
-        }
-
-        private InternalToolbarContentTintUtil() {
-        }
-    }
-
-    private static class ATHMenuPresenterCallback implements MenuPresenter.Callback {
-
-        private final int mColor;
-
-        private final Context mContext;
-
-        private final MenuPresenter.Callback mParentCb;
-
-        private final Toolbar mToolbar;
-
-        public ATHMenuPresenterCallback(Context context, final @ColorInt int color,
-                                        MenuPresenter.Callback parentCb, Toolbar toolbar) {
-            mContext = context;
-            mColor = color;
-            mParentCb = parentCb;
-            mToolbar = toolbar;
-        }
-
-        @Override
-        public void onCloseMenu(@NonNull MenuBuilder menu, boolean allMenusAreClosing) {
-            if (mParentCb != null) {
-                mParentCb.onCloseMenu(menu, allMenusAreClosing);
-            }
-        }
-
-        @Override
-        public boolean onOpenSubMenu(@NonNull MenuBuilder subMenu) {
-            InternalToolbarContentTintUtil.applyOverflowMenuTint(mContext, mToolbar, mColor);
-            return mParentCb != null && mParentCb.onOpenSubMenu(subMenu);
-        }
-    }
-
-    private static class ATHOnMenuItemClickListener implements Toolbar.OnMenuItemClickListener {
-
-        private final int mColor;
-
-        private final Context mContext;
-
-        private final Toolbar.OnMenuItemClickListener mParentListener;
-
-        private final Toolbar mToolbar;
-
-        public ATHOnMenuItemClickListener(Context context, final @ColorInt int color,
-                                          Toolbar.OnMenuItemClickListener parentCb, Toolbar toolbar) {
-            mContext = context;
-            mColor = color;
-            mParentListener = parentCb;
-            mToolbar = toolbar;
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            InternalToolbarContentTintUtil.applyOverflowMenuTint(mContext, mToolbar, mColor);
-            return mParentListener != null && mParentListener.onMenuItemClick(item);
-        }
+    private ToolbarContentTintHelper() {
     }
 
     public static void colorBackButton(@NonNull Toolbar toolbar) {
@@ -522,9 +287,6 @@ public final class ToolbarContentTintHelper {
                 .getPrimaryTextColor(context, ATHColorUtil.INSTANCE.isColorLight(toolbarColor));
     }
 
-    private ToolbarContentTintHelper() {
-    }
-
     private static void removeOnGlobalLayoutListener(View v,
                                                      ViewTreeObserver.OnGlobalLayoutListener listener) {
         v.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
@@ -607,6 +369,244 @@ public final class ToolbarContentTintHelper {
                     image.setImageDrawable(drawable);
                 }
             }
+        }
+    }
+
+    public static class InternalToolbarContentTintUtil {
+
+        private InternalToolbarContentTintUtil() {
+        }
+
+        public static void applyOverflowMenuTint(final @NonNull Context context, final Toolbar toolbar,
+                                                 final @ColorInt int color) {
+            if (toolbar == null) {
+                return;
+            }
+            toolbar.post(() -> {
+                try {
+                    Field f1 = Toolbar.class.getDeclaredField("mMenuView");
+                    f1.setAccessible(true);
+                    ActionMenuView actionMenuView = (ActionMenuView) f1.get(toolbar);
+                    Field f2 = ActionMenuView.class.getDeclaredField("mPresenter");
+                    f2.setAccessible(true);
+
+                    // Actually ActionMenuPresenter
+                    BaseMenuPresenter presenter = (BaseMenuPresenter) f2.get(actionMenuView);
+                    Field f3 = presenter.getClass().getDeclaredField("mOverflowPopup");
+                    f3.setAccessible(true);
+                    MenuPopupHelper overflowMenuPopupHelper = (MenuPopupHelper) f3.get(presenter);
+                    setTintForMenuPopupHelper(context, overflowMenuPopupHelper, color);
+
+                    Field f4 = presenter.getClass().getDeclaredField("mActionButtonPopup");
+                    f4.setAccessible(true);
+                    MenuPopupHelper subMenuPopupHelper = (MenuPopupHelper) f4.get(presenter);
+                    setTintForMenuPopupHelper(context, subMenuPopupHelper, color);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        public static void setOverflowButtonColor(@NonNull Activity activity,
+                                                  final @ColorInt int color) {
+            final String overflowDescription = activity
+                    .getString(androidx.appcompat.R.string.abc_action_menu_overflow_description);
+            final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+            final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    final ArrayList<View> outViews = new ArrayList<>();
+                    decorView.findViewsWithText(outViews, overflowDescription,
+                            View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+                    if (outViews.isEmpty()) {
+                        return;
+                    }
+                    final AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
+                    overflow.setImageDrawable(TintHelper.createTintedDrawable(overflow.getDrawable(), color));
+                    ViewUtil.INSTANCE.removeOnGlobalLayoutListener(decorView, this);
+                }
+            });
+        }
+
+        public static void setTintForMenuPopupHelper(final @NonNull Context context,
+                                                     @Nullable MenuPopupHelper menuPopupHelper, final @ColorInt int color) {
+            try {
+                if (menuPopupHelper != null) {
+                    final ListView listView = ((ShowableListMenu) menuPopupHelper.getPopup()).getListView();
+                    listView.getViewTreeObserver()
+                            .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                                @Override
+                                public void onGlobalLayout() {
+                                    try {
+                                        Field checkboxField = ListMenuItemView.class.getDeclaredField("mCheckBox");
+                                        checkboxField.setAccessible(true);
+                                        Field radioButtonField = ListMenuItemView.class
+                                                .getDeclaredField("mRadioButton");
+                                        radioButtonField.setAccessible(true);
+
+                                        final boolean isDark = !ATHColorUtil.INSTANCE.isColorLight(
+                                                ATHUtil.INSTANCE
+                                                        .resolveColor(context, android.R.attr.windowBackground));
+
+                                        for (int i = 0; i < listView.getChildCount(); i++) {
+                                            View v = listView.getChildAt(i);
+                                            if (!(v instanceof ListMenuItemView)) {
+                                                continue;
+                                            }
+                                            ListMenuItemView iv = (ListMenuItemView) v;
+
+                                            CheckBox check = (CheckBox) checkboxField.get(iv);
+                                            if (check != null) {
+                                                TintHelper.setTint(check, color, isDark);
+                                                check.setBackground(null);
+                                            }
+
+                                            RadioButton radioButton = (RadioButton) radioButtonField.get(iv);
+                                            if (radioButton != null) {
+                                                TintHelper.setTint(radioButton, color, isDark);
+                                                radioButton.setBackground(null);
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    listView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                }
+                            });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public static void tintMenu(@NonNull Toolbar toolbar, @Nullable Menu menu,
+                                    final @ColorInt int color) {
+            try {
+                final Field field = Toolbar.class.getDeclaredField("mCollapseIcon");
+                field.setAccessible(true);
+                Drawable collapseIcon = (Drawable) field.get(toolbar);
+                if (collapseIcon != null) {
+                    field.set(toolbar, TintHelper.createTintedDrawable(collapseIcon, color));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (menu != null && menu.size() > 0) {
+                for (int i = 0; i < menu.size(); i++) {
+                    final MenuItem item = menu.getItem(i);
+                    if (item.getIcon() != null) {
+                        item.setIcon(TintHelper.createTintedDrawable(item.getIcon(), color));
+                    }
+                    // Search view theming
+                    if (item.getActionView() != null && (
+                            item.getActionView() instanceof android.widget.SearchView || item
+                                    .getActionView() instanceof androidx.appcompat.widget.SearchView)) {
+                        SearchViewTintUtil.setSearchViewContentColor(item.getActionView(), color);
+                    }
+                }
+            }
+        }
+
+        public static final class SearchViewTintUtil {
+
+            private SearchViewTintUtil() {
+            }
+
+            public static void setSearchViewContentColor(View searchView, final @ColorInt int color) {
+                if (searchView == null) {
+                    return;
+                }
+                final Class<?> cls = searchView.getClass();
+                try {
+                    final Field mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView");
+                    mSearchSrcTextViewField.setAccessible(true);
+                    final EditText mSearchSrcTextView = (EditText) mSearchSrcTextViewField.get(searchView);
+                    mSearchSrcTextView.setTextColor(color);
+                    mSearchSrcTextView.setHintTextColor(ATHColorUtil.INSTANCE.adjustAlpha(color, 0.5f));
+                    TintHelper.setCursorTint(mSearchSrcTextView, color);
+
+                    Field field = cls.getDeclaredField("mSearchButton");
+                    tintImageView(searchView, field, color);
+                    field = cls.getDeclaredField("mGoButton");
+                    tintImageView(searchView, field, color);
+                    field = cls.getDeclaredField("mCloseButton");
+                    tintImageView(searchView, field, color);
+                    field = cls.getDeclaredField("mVoiceButton");
+                    tintImageView(searchView, field, color);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            private static void tintImageView(Object target, Field field, final @ColorInt int color)
+                    throws Exception {
+                field.setAccessible(true);
+                final ImageView imageView = (ImageView) field.get(target);
+                if (imageView.getDrawable() != null) {
+                    imageView
+                            .setImageDrawable(
+                                    TintHelper.createTintedDrawable(imageView.getDrawable(), color));
+                }
+            }
+        }
+    }
+
+    private static class ATHMenuPresenterCallback implements MenuPresenter.Callback {
+
+        private final int mColor;
+
+        private final Context mContext;
+
+        private final MenuPresenter.Callback mParentCb;
+
+        private final Toolbar mToolbar;
+
+        public ATHMenuPresenterCallback(Context context, final @ColorInt int color,
+                                        MenuPresenter.Callback parentCb, Toolbar toolbar) {
+            mContext = context;
+            mColor = color;
+            mParentCb = parentCb;
+            mToolbar = toolbar;
+        }
+
+        @Override
+        public void onCloseMenu(@NonNull MenuBuilder menu, boolean allMenusAreClosing) {
+            if (mParentCb != null) {
+                mParentCb.onCloseMenu(menu, allMenusAreClosing);
+            }
+        }
+
+        @Override
+        public boolean onOpenSubMenu(@NonNull MenuBuilder subMenu) {
+            InternalToolbarContentTintUtil.applyOverflowMenuTint(mContext, mToolbar, mColor);
+            return mParentCb != null && mParentCb.onOpenSubMenu(subMenu);
+        }
+    }
+
+    private static class ATHOnMenuItemClickListener implements Toolbar.OnMenuItemClickListener {
+
+        private final int mColor;
+
+        private final Context mContext;
+
+        private final Toolbar.OnMenuItemClickListener mParentListener;
+
+        private final Toolbar mToolbar;
+
+        public ATHOnMenuItemClickListener(Context context, final @ColorInt int color,
+                                          Toolbar.OnMenuItemClickListener parentCb, Toolbar toolbar) {
+            mContext = context;
+            mColor = color;
+            mParentListener = parentCb;
+            mToolbar = toolbar;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            InternalToolbarContentTintUtil.applyOverflowMenuTint(mContext, mToolbar, mColor);
+            return mParentListener != null && mParentListener.onMenuItemClick(item);
         }
     }
 }

@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ttop.app.apex" >
+    package="com.ttop.app.apex">
+
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_CONNECT"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.USE_BIOMETRIC"
+        android:requiredFeature="false" />
     <!--
     This is not that important, it's just here so that we can query equalizer package
     and check if it's present on A11+ because of Package visibility restrictions.
@@ -16,7 +45,7 @@
         android:appCategory="audio"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name_short"
+        android:label="@string/app_name"
         android:localeConfig="@xml/locales_config"
         android:requestLegacyExternalStorage="true"
         android:restoreAnyVersion="true"
@@ -27,7 +56,7 @@
         <activity
             android:name="com.ttop.app.apex.ui.activities.MainActivity"
             android:exported="true"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.MUSIC_PLAYER" />
@@ -75,7 +104,7 @@
                 <data android:mimeType="application/x-ogg" />
                 <data android:mimeType="application/itunes" />
             </intent-filter>
-            <intent-filter tools:ignore="AppLinkUrlError" >
+            <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -116,7 +145,7 @@
             android:excludeFromRecents="false"
             android:exported="true"
             android:label="@string/restore"
-            android:theme="@style/Theme.Apex.Dialog" >
+            android:theme="@style/Theme.Apex.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -152,7 +181,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.ttop.app.apex.ui.activities.ErrorActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="cat.ereza.customactivityoncrash.RESTART" />
             </intent-filter>
@@ -162,14 +191,15 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <receiver
             android:name="androidx.media.session.MediaButtonReceiver"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -177,7 +207,7 @@
         <receiver
             android:name="com.ttop.app.apex.appwidgets.AppWidgetBig"
             android:exported="true"
-            android:label="@string/app_widget_big_name" >
+            android:label="@string/app_widget_big_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -189,7 +219,7 @@
         <receiver
             android:name="com.ttop.app.apex.appwidgets.AppWidgetClassic"
             android:exported="true"
-            android:label="@string/app_widget_classic_name" >
+            android:label="@string/app_widget_classic_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -201,7 +231,7 @@
         <receiver
             android:name="com.ttop.app.apex.appwidgets.AppWidgetFull"
             android:exported="true"
-            android:label="@string/app_widget_full_name" >
+            android:label="@string/app_widget_full_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -214,7 +244,7 @@
             android:name="com.ttop.app.apex.appwidgets.AppWidgetCircle"
             android:enabled="true"
             android:exported="true"
-            android:label="@string/app_widget_circle_name" >
+            android:label="@string/app_widget_circle_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -228,7 +258,7 @@
             android:name="com.ttop.app.apex.service.MusicService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
-            android:label="@string/app_name_short" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
@@ -264,7 +294,7 @@
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="autoStoreLocales"
                 android:value="true" />

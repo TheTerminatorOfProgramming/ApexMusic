@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="all_files_summary">允许Apex music访问设备上的所有文件，此权限用于自动检测 Apex 备份</string>
-    <string name="all_files_title">管理所有文件权限</string>
-    <string name="all_files_granted">管理所有文件权限已经授予！</string>
-</resources>

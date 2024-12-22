@@ -15,13 +15,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:text="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/imageLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintVertical_weight="2"
-        android:text="@string/app_name_short" />
+        app:layout_constraintVertical_weight="2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageLayout"
@@ -38,12 +38,12 @@
             style="@style/AppIntroDefaultImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/app_icon"
-            android:scaleType="fitCenter"
             android:contentDescription="@string/app_intro_image_content_description"
-            app:layout_constraintTop_toTopOf="@+id/imageLayout"
+            android:scaleType="fitCenter"
+            android:src="@drawable/app_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

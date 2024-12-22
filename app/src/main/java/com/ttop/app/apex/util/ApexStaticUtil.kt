@@ -49,6 +49,7 @@ object ApexStaticUtil {
                 null,
                 UpdateToastMediaScannerCompletionListener(activity, listOf(*toBeScanned))
             )
+            activity.recreate()
         }
     }
 }
