@@ -233,6 +233,7 @@
     <string name="lyrics">बोल</string>
     <string name="lyrics_search_summary">गीत खोज शब्दों का उपयोग आईडी3 टैग के रूप में करें या मैन्युअल रूप से दर्ज करें?</string>
     <string name="manually">मैन्युअल</string>
+    <string name="material_you">सामग्री आप</string>
     <string name="md_error_label">गलती</string>
     <string name="md_storage_perm_error">अनुमति त्रुटि</string>
     <string name="message_backup_create_success">बैकअप सफलतापूर्वक बनाया गया.</string>
@@ -356,7 +357,6 @@
     <string name="pref_title_keep_pause_on_zero">वॉल्यूम शून्य होने पर संगीत रोकें</string>
     <string name="pref_title_language_name">भाषा चुने</string>
     <string name="pref_title_last_added_interval">अंतिम जोड़ा गया प्लेलिस्ट अंतराल</string>
-    <string name="pref_title_md3">सामग्री आप</string>
     <string name="pref_title_menu_option_1">पहली अनुकूलन योग्य टूलबार क्रिया</string>
     <string name="pref_title_menu_option_2">दूसरा अनुकूलन योग्य टूलबार क्रिया</string>
     <string name="pref_title_notification_action_1">अधिसूचना कार्रवाई शेष</string>

@@ -79,7 +79,6 @@ import com.ttop.app.apex.LAST_USED_TAB
 import com.ttop.app.apex.LIBRARY_CATEGORIES
 import com.ttop.app.apex.LOCALE_AUTO_STORE_ENABLED
 import com.ttop.app.apex.LYRICS_PATH
-import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.NAV_BAR_BLACK
 import com.ttop.app.apex.NEW_BLUR_AMOUNT
 import com.ttop.app.apex.NEXT_SLEEP_TIMER_ELAPSED_REALTIME
@@ -207,10 +206,11 @@ object PreferenceUtil {
 
     val baseTheme get() = sharedPreferences.getString(GENERAL_THEME, "auto")
 
-    fun getGeneralThemeValue(isSystemDark: Boolean): ThemeMode {
+    fun getGeneralThemeValue(): ThemeMode {
         val themeMode: String =
-            sharedPreferences.getStringOrDefault(GENERAL_THEME, "auto")
+            sharedPreferences.getStringOrDefault(GENERAL_THEME, "md3")
         return when (themeMode) {
+            "md3" -> ThemeMode.MD3
             "light" -> ThemeMode.LIGHT
             "dark" -> ThemeMode.DARK
             "black" -> ThemeMode.BLACK
@@ -863,10 +863,6 @@ object PreferenceUtil {
         get() = sharedPreferences
             .getInt(CROSS_FADE_DURATION, 0)
         set(value) = sharedPreferences.edit { putInt(CROSS_FADE_DURATION, value) }
-
-    var materialYou
-        get() = sharedPreferences.getBoolean(MATERIAL_YOU, true)
-        set(value) = sharedPreferences.edit { putBoolean(MATERIAL_YOU, value) }
 
     var playbackSpeed
         get() = sharedPreferences

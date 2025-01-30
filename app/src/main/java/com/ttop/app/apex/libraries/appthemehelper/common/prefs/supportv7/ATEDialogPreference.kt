@@ -15,11 +15,17 @@
 package com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.AttributeSet
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.preference.DialogPreference
 import androidx.preference.PreferenceViewHolder
 import com.google.android.material.card.MaterialCardView
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.surfaceColor
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 open class ATEDialogPreference @JvmOverloads constructor(
     context: Context,
@@ -36,5 +42,6 @@ open class ATEDialogPreference @JvmOverloads constructor(
 
         val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
         cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
+        cardview?.setBackgroundColor(context.surfaceColor())
     }
 }

@@ -21,6 +21,9 @@ import android.widget.FrameLayout
 import androidx.core.content.withStyledAttributes
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ListSettingItemViewBinding
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.extensions.surfaceColor
+
 /**
  * Created by hemanths on 2019-12-10.
  */
@@ -41,7 +44,9 @@ class SettingListItemView @JvmOverloads constructor(
                 getColor(R.styleable.SettingListItemView_settingListItemIconColor, Color.WHITE)
             )
             binding.title.text = getText(R.styleable.SettingListItemView_settingListItemTitle)
+            binding.title.setTextColor(context.accentColor())
             //binding.text.text = getText(R.styleable.SettingListItemView_settingListItemText)
+            binding.card.setBackgroundColor(context.surfaceColor())
             binding.card.strokeColor = getColor(R.styleable.SettingListItemView_settingListItemIconColor, Color.WHITE)
         }
     }

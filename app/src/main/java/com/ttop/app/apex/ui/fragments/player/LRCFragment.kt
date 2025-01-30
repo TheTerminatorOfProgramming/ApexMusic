@@ -40,6 +40,7 @@ import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.LyricUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -168,7 +169,7 @@ class LRCFragment : AbsMusicServiceFragment(R.layout.fragment_lrc),
                         )
                     }
                 } else {
-                    if (PreferenceUtil.materialYou) {
+                    if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                         setLRCViewColors(
                             accentColor(),
                             ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)

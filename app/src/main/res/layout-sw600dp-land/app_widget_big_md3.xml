@@ -24,7 +24,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp">
+        android:layout_margin="8dp">
 
         <RelativeLayout
             android:id="@+id/media_actions"
@@ -125,7 +125,7 @@
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/app_widget_buttons_circular_outline_md3"
+            android:background="@drawable/app_widget_buttons_update_circular_outline_md3"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_refresh_md3" />
     </RelativeLayout>

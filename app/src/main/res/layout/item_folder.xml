@@ -62,6 +62,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        app:strokeColor="@android:color/transparent"
+                        app:strokeWidth="0dp"
                         app:cardElevation="0dp"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
                         app:layout_constraintBottom_toBottomOf="parent"

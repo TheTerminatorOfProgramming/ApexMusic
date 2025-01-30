@@ -231,6 +231,7 @@
     <string name="lyrics">歌词</string>
     <string name="lyrics_search_summary">使用歌词搜索词表单id3标签或手动输入？</string>
     <string name="manually">手动操作</string>
+    <string name="material_you">您的材料</string>
     <string name="md_error_label">错误</string>
     <string name="md_storage_perm_error">权限错误</string>
     <string name="message_backup_create_success">备份创建成功。</string>
@@ -354,7 +355,6 @@
     <string name="pref_title_keep_pause_on_zero">无音量时暂停</string>
     <string name="pref_title_language_name">选择语言</string>
     <string name="pref_title_last_added_interval">最后添加的播放列表间隔</string>
-    <string name="pref_title_md3">您的材料</string>
     <string name="pref_title_menu_option_1">第一个自定义工具栏动作</string>
     <string name="pref_title_menu_option_2">第二个自定义工具栏动作</string>
     <string name="pref_title_notification_action_1">通知左侧动作</string>

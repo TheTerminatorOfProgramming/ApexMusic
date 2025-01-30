@@ -37,6 +37,7 @@
     </string-array>
 
     <string-array name="pref_general_theme_list_titles">
+        <item>@string/material_you</item>
         <item>@string/light_theme_name</item>
         <item>@string/dark_theme_name</item>
         <item>@string/black_theme_name</item>
@@ -45,6 +46,7 @@
     </string-array>
 
     <string-array name="pref_general_theme_list_values">
+        <item>md3</item>
         <item>light</item>
         <item>dark</item>
         <item>black</item>

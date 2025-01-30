@@ -15,10 +15,17 @@
 package com.ttop.app.apex.helper.menu
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.iterator
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import com.ttop.app.apex.EXTRA_ALBUM_ID
@@ -27,6 +34,7 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
 import com.ttop.app.apex.dialogs.DeleteSongsDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.interfaces.IPaletteColorHolder
 import com.ttop.app.apex.model.Song
@@ -37,7 +45,9 @@ import com.ttop.app.apex.ui.activities.tageditor.SongTagEditorActivity
 import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.ui.fragments.ReloadType
 import com.ttop.app.apex.util.MusicUtil
+import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
+import com.ttop.app.apex.util.theme.ThemeMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -152,6 +162,62 @@ object SongMenuHelper : KoinComponent {
             val popupMenu = PopupMenu(activity, v)
             popupMenu.inflate(menuRes)
             popupMenu.setOnMenuItemClickListener(this)
+
+            for (item in popupMenu.menu.iterator()){
+                val title = item.title
+                val s = SpannableString(title).apply {
+                    when (PreferenceUtil.getGeneralThemeValue()) {
+                        ThemeMode.AUTO -> {
+                            when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                                Configuration.UI_MODE_NIGHT_YES -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                Configuration.UI_MODE_NIGHT_NO,
+                                Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.darkColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                else -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+                            }
+                        }
+
+                        ThemeMode.AUTO_BLACK -> {
+                            when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                                Configuration.UI_MODE_NIGHT_YES -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                Configuration.UI_MODE_NIGHT_NO,
+                                Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.blackColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                else -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+                            }
+                        }
+
+                        ThemeMode.BLACK,
+                        ThemeMode.DARK -> {
+                            setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+
+                        ThemeMode.LIGHT -> {
+                            setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.darkColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+
+                        ThemeMode.MD3 -> {
+                            setSpan(ForegroundColorSpan(activity.accentColor()), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
+                item.title = s
+            }
+
             popupMenu.show()
         }
 

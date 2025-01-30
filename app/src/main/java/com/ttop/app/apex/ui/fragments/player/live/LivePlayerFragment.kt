@@ -70,6 +70,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.DrawableGradient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -110,7 +111,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
         return if (PreferenceUtil.isAdaptiveColor) {
             toolbarColor
         } else {
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
             } else {
                 accentColor()
@@ -211,7 +212,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
                 valueAnimator?.cancel()
             }
 
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 valueAnimator = ValueAnimator.ofObject(
                     ArgbEvaluator(),
                     accentColor(),
@@ -257,7 +258,7 @@ class LivePlayerFragment : AbsPlayerFragment(R.layout.fragment_live_player) {
             valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
         } else {
             //SINGLE COLOR
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 binding.colorGradientBackground.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),

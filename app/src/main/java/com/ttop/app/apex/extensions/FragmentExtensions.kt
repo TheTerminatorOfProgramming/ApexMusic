@@ -36,15 +36,15 @@ fun Context.getIntRes(@IntegerRes int: Int): Int {
 }
 
 val Context.generalThemeValue
-    get() = PreferenceUtil.getGeneralThemeValue(isSystemDarkModeEnabled())
+    get() = PreferenceUtil.getGeneralThemeValue()
 
-fun Context.isSystemDarkModeEnabled(): Boolean {
+/*fun Context.isSystemDarkModeEnabled(): Boolean {
     val isBatterySaverEnabled =
         (getSystemService<PowerManager>())?.isPowerSaveMode ?: false
     val isDarkModeEnabled =
         (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
     return isBatterySaverEnabled or isDarkModeEnabled
-}
+}*/
 
 inline fun <reified T : Any> Fragment.extra(key: String, default: T? = null) = lazy {
     val value = arguments?.get(key)

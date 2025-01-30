@@ -43,6 +43,8 @@ import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.libraries.appthemehelper.util.MaterialValueHelper
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 fun Int.ripAlpha(): Int {
     return ATHColorUtil.stripAlpha(this)
@@ -61,6 +63,8 @@ fun Context.accentColor() = ThemeStore.accentColor(this)
 fun Fragment.accentColor() = ThemeStore.accentColor(requireContext())
 
 fun Context.m3accentColor() = ThemeStore.m3accentColor(this)
+
+fun Context.m3BgaccentColor() = ContextCompat.getColor(this, R.color.m3_widget_background)
 
 fun Fragment.m3accentColor() = ThemeStore.m3accentColor(requireContext())
 
@@ -257,13 +261,13 @@ fun Context.getColorCompat(@ColorRes colorRes: Int): Int {
 @ColorInt
 fun Context.darkAccentColor(context: Context): Int {
     return ColorUtils.blendARGB(
-        if (ThemeStore.isMD3Enabled(context)) {
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
             ContextCompat.getColor(context, R.color.m3_widget_background)
         } else {
             accentColor()
         },
         surfaceColor(),
-        if (ThemeStore.isMD3Enabled(context)) {
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
             0.7f
         } else {
             if (surfaceColor().isColorLight) 0.9f else 0.92f
@@ -274,13 +278,13 @@ fun Context.darkAccentColor(context: Context): Int {
 @ColorInt
 fun Context.darkAccentColorVariant(context: Context): Int {
     return ColorUtils.blendARGB(
-        if (ThemeStore.isMD3Enabled(context)) {
+        if (ThemeStore.isMD3Enabled()) {
             ContextCompat.getColor(context, R.color.m3_widget_background)
         } else {
             accentColor()
         },
         surfaceColor(),
-        if (ThemeStore.isMD3Enabled(context)) {
+        if (ThemeStore.isMD3Enabled()) {
             0.75f
         } else {
             if (surfaceColor().isColorLight) 0.9f else 0.95f

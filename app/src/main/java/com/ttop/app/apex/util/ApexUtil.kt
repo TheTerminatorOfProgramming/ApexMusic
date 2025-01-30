@@ -55,6 +55,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.ResponseBody
 import java.io.BufferedReader
+import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStreamReader
@@ -216,14 +217,16 @@ object ApexUtil {
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 dp.toFloat(),
-                metrics)
+                metrics
+            )
         } else {
             val metrics = Resources.getSystem().displayMetrics
 
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 dp.toFloat(),
-                metrics)
+                metrics
+            )
         }
     }
 
@@ -351,11 +354,18 @@ object ApexUtil {
     }
 
     fun isDeviceSecured(context: Context): Boolean {
-        val manager: KeyguardManager = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+        val manager: KeyguardManager =
+            context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
         return manager.isDeviceSecure
     }
 
-    fun fadeAnimator(toBeShown: View, toBeHidden: View, animationDuration: Int, tobeShownVisibleCode: Boolean, showListener: Boolean) {
+    fun fadeAnimator(
+        toBeShown: View,
+        toBeHidden: View,
+        animationDuration: Int,
+        tobeShownVisibleCode: Boolean,
+        showListener: Boolean
+    ) {
         toBeShown.apply {
             // Set the content view to 0% opacity but visible, so that it is
             // visible but fully transparent during the animation.
@@ -384,7 +394,7 @@ object ApexUtil {
                         toBeHidden.visibility = View.GONE
                     }
                 })
-        }else {
+        } else {
             toBeHidden.animate()
                 .alpha(0f)
                 .setDuration(animationDuration.toLong())
@@ -392,7 +402,8 @@ object ApexUtil {
     }
 
     fun canVibrate(context: Context): Boolean {
-        val mVibrator = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager?
+        val mVibrator =
+            context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager?
 
         return mVibrator!!.defaultVibrator.hasVibrator()
     }
@@ -469,11 +480,22 @@ object ApexUtil {
                     .setUpdateFrom(UpdateFrom.GITHUB)
                     .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
                     .setDisplay(Display.DIALOG)
-                    .setContentOnUpdateAvailable(String.format(context.getString(R.string.appupdater_update_available_description), getLatestAppVersion() ,context.getString(R.string.name)) + "\n\n" + context.getString(R.string.appupdater_update_disable))
-                    .setContentOnUpdateNotAvailable(String.format(context.getString(R.string.appupdater_update_not_available_description), context.getString(R.string.name)) + "\n\n" + context.getString(R.string.appupdater_update_disable))
+                    .setContentOnUpdateAvailable(
+                        String.format(
+                            context.getString(R.string.appupdater_update_available_description),
+                            getLatestAppVersion(),
+                            context.getString(R.string.name)
+                        ) + "\n\n" + context.getString(R.string.appupdater_update_disable)
+                    )
+                    .setContentOnUpdateNotAvailable(
+                        String.format(
+                            context.getString(R.string.appupdater_update_not_available_description),
+                            context.getString(R.string.name)
+                        ) + "\n\n" + context.getString(R.string.appupdater_update_disable)
+                    )
                     .showAppUpdated(true)
                     .start()
-            }else {
+            } else {
                 appUpdater
                     .setUpdateFrom(UpdateFrom.GITHUB)
                     .setGitHubUserAndRepo("TheTerminatorOfProgramming", "ApexMusic")
@@ -482,5 +504,19 @@ object ApexUtil {
                     .start()
             }
         }
+    }
+
+    fun getPaths(context: Context): Array<out File> {
+        val rootPaths = ArrayList<String>()
+        val rootsStorage = ContextCompat.getExternalFilesDirs(context, null)
+        for (i in rootsStorage.indices) {
+            val root = rootsStorage[i].absolutePath.replace(
+                "/Android/data/" + context.packageName + "/files",
+                ""
+            )
+            rootPaths.add(root)
+        }
+
+        return rootsStorage
     }
 }

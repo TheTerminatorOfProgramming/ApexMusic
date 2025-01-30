@@ -40,6 +40,7 @@ import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity
 import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.util.theme.getNightMode
 import com.ttop.app.apex.util.theme.getThemeResValue
 
@@ -92,7 +93,7 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable,
 
     private fun updateTheme() {
         setTheme(getThemeResValue())
-        if (PreferenceUtil.materialYou) {
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
             setDefaultNightMode(getNightMode())
         }
 

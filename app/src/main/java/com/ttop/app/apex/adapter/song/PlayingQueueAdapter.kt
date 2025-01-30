@@ -100,6 +100,7 @@ class PlayingQueueAdapter(
         imageView.visibility = View.VISIBLE
 
         if (itemLayoutRes == R.layout.item_nav_queue) {
+            holder.listCard?.strokeColor = accentColor(activity)
             if (holder.itemViewType == HISTORY) {
                 holder.listCard?.strokeWidth = 0
             } else if (holder.itemViewType == CURRENT) {
@@ -111,9 +112,8 @@ class PlayingQueueAdapter(
                 holder.imagePlaying?.setColorFilter(activity.accentColor())
                 imageView.setColorFilter(activity.accentColor())
             } else {
-                if (PreferenceUtil.materialYou) {
+                if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                     if (holder.itemViewType == CURRENT) {
-                        holder.listCard?.strokeColor = accentColor(activity)
                         holder.title?.setTextColor(activity.accentColor())
                         holder.text?.setTextColor(activity.accentColor())
                         holder.text2?.setTextColor(activity.accentColor())
@@ -121,10 +121,6 @@ class PlayingQueueAdapter(
                         holder.imagePlaying?.setColorFilter(activity.accentColor())
                         imageView.setColorFilter(activity.accentColor())
                     } else {
-                        holder.listCard?.strokeColor = ContextCompat.getColor(
-                            activity,
-                            R.color.m3_widget_other_text
-                        )
                         holder.title?.setTextColor(
                             ContextCompat.getColor(
                                 activity,
@@ -164,7 +160,6 @@ class PlayingQueueAdapter(
                     }
                 } else {
                     if (holder.itemViewType == CURRENT) {
-                        holder.listCard?.strokeColor = accentColor(activity)
                         holder.title?.setTextColor(activity.accentColor())
                         holder.text?.setTextColor(activity.accentColor())
                         holder.text2?.setTextColor(activity.accentColor())
@@ -175,10 +170,6 @@ class PlayingQueueAdapter(
                         val colorBg =
                             ATHUtil.resolveColor(activity, android.R.attr.colorBackground)
                         if (ATHColorUtil.isColorLight(colorBg)) {
-                            holder.listCard?.strokeColor = ContextCompat.getColor(
-                                activity,
-                                R.color.md_black_1000
-                            )
                             holder.title?.setTextColor(
                                 ContextCompat.getColor(
                                     activity,
@@ -216,10 +207,6 @@ class PlayingQueueAdapter(
                                 )
                             )
                         } else {
-                            holder.listCard?.strokeColor = ContextCompat.getColor(
-                                activity,
-                                R.color.md_white_1000
-                            )
                             holder.title?.setTextColor(
                                 ContextCompat.getColor(
                                     activity,
@@ -266,11 +253,10 @@ class PlayingQueueAdapter(
             holder.listCard?.backgroundTintList = ColorStateList.valueOf(activity.surfaceColor())
 
             when (activity.generalThemeValue) {
-                ThemeMode.LIGHT -> {
+                ThemeMode.LIGHT, ThemeMode.MD3 -> {
                     when (holder.itemViewType) {
                         HISTORY -> {
                             holder.listCard?.strokeWidth = 0
-
                         }
                         CURRENT -> {
                             holder.listCard?.strokeWidth =
@@ -562,7 +548,7 @@ class PlayingQueueAdapter(
                     )
                 }
             } else {
-                if (PreferenceUtil.materialYou) {
+                if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                     holder.listCard?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(
                         activity,
                         R.color.m3_widget_background

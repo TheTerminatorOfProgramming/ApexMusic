@@ -82,6 +82,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.ViewUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.DrawableGradient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -664,11 +665,14 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player), S
         super.onQueueChanged()
         updateQueue()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
     }
 
     override fun onServiceConnected() {
@@ -677,11 +681,14 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player), S
         updateSong()
         updateQueue()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
     }
 
     override fun onPlayingMetaChanged() {
@@ -689,11 +696,14 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player), S
         updateSong()
         updateQueuePosition()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
 
         scroll.scrollTo(0, 0)
     }
@@ -764,7 +774,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player), S
         } else {
             binding.playerQueueSheet?.strokeColor = accentColor()
             scrollCard?.strokeColor = accentColor()
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 embed.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -897,7 +907,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player), S
                 valueAnimator?.cancel()
             }
 
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 valueAnimator = ValueAnimator.ofObject(
                     ArgbEvaluator(),
                     accentColor(),
@@ -943,7 +953,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player), S
             valueAnimator?.setDuration(ViewUtil.APEX_MUSIC_ANIM_TIME.toLong())?.start()
         } else {
             //SINGLE COLOR
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 binding.colorGradientBackground.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -978,7 +988,7 @@ class AdaptiveFragment : AbsPlayerFragment(R.layout.fragment_adaptive_player), S
         return if (PreferenceUtil.isAdaptiveColor) {
             toolbarColor
         } else {
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
             } else {
                 accentColor()

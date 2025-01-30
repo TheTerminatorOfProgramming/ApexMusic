@@ -194,11 +194,15 @@ class AlbumCoverPagerAdapter(
         private fun showLyricsDialog() {
             lifecycleScope.launch(Dispatchers.IO) {
                 val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+                val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+                val replacement = ""
+                val newData = data?.replace(regex, replacement)
+
                 withContext(Dispatchers.Main) {
                     mainActivity.keepScreenOn(true)
                     val builder = AlertDialog.Builder(requireContext(), R.style.CustomDialogTheme)
                     builder.setTitle(MusicPlayerRemote.currentSong.title + " : " + MusicPlayerRemote.currentSong.artistName)
-                    builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else data)
+                    builder.setMessage(if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else newData)
 
                     builder.setNegativeButton(R.string.dismiss) { _, _ ->
                         if (!PreferenceUtil.isHapticFeedbackDisabled) {

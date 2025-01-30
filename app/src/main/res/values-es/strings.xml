@@ -235,6 +235,7 @@
     <string name="lyrics">Letras</string>
     <string name="lyrics_search_summary">¿Usar etiquetas id3 de los términos de búsqueda de letras o introducir manualmente?</string>
     <string name="manually">Manualmente</string>
+    <string name="material_you">Material que usted</string>
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Error de permiso</string>
     <string name="message_backup_create_success">Copia de seguridad creada con éxito.</string>
@@ -358,7 +359,6 @@
     <string name="pref_title_keep_pause_on_zero">Pausa en cero</string>
     <string name="pref_title_language_name">Seleccione idioma</string>
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
-    <string name="pref_title_md3">Material que usted</string>
     <string name="pref_title_menu_option_1">1.ª acción personalizable de la barra de herramientas</string>
     <string name="pref_title_menu_option_2">2.ª acción personalizable de la barra de herramientas</string>
     <string name="pref_title_notification_action_1">Acción de notificación izquierda</string>

@@ -16,12 +16,14 @@ package com.ttop.app.apex.adapter.artist
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SectionIndexer
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -43,9 +45,12 @@ import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentCol
 import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.activities.MainActivity
+import com.ttop.app.apex.ui.fragments.GridStyle
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 import java.util.Locale
 
 class ArtistAdapter(
@@ -62,6 +67,8 @@ class ArtistAdapter(
 
     private var mSectionPositions: ArrayList<Int>? = null
     private var sectionsTranslator = HashMap<Int, Int>()
+
+    private val mainActivity get() = activity as MainActivity
 
     init {
         this.setHasStableIds(true)
@@ -120,6 +127,79 @@ class ArtistAdapter(
         if (holder.paletteColorContainer != null) {
             holder.paletteColorContainer?.setBackgroundColor(processor.backgroundColor)
             holder.title?.setTextColor(processor.primaryTextColor)
+        }else {
+            if (PreferenceUtil.artistGridStyle == GridStyle.Image && PreferenceUtil.artistGridSize > 1 && !PreferenceUtil.isPerformanceMode || PreferenceUtil.artistGridStyle == GridStyle.GradientImage && PreferenceUtil.artistGridSize > 1 && !PreferenceUtil.isPerformanceMode) {
+                holder.title?.setTextColor(
+                    ContextCompat.getColor(
+                        mainActivity,
+                        R.color.md_white_1000
+                    )
+                )
+                holder.paletteColorContainer?.setBackgroundColor(
+                    ContextCompat.getColor(
+                        mainActivity,
+                        R.color.md_white_1000
+                    )
+                )
+            } else {
+                when (PreferenceUtil.getGeneralThemeValue()) {
+                    ThemeMode.AUTO -> {
+                        when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            Configuration.UI_MODE_NIGHT_YES -> {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            }
+
+                            Configuration.UI_MODE_NIGHT_NO,
+                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                                holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                            }
+
+                            else -> {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            }
+                        }
+                    }
+
+                    ThemeMode.AUTO_BLACK -> {
+                        when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            Configuration.UI_MODE_NIGHT_YES -> {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            }
+
+                            Configuration.UI_MODE_NIGHT_NO,
+                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.blackColorSurface))
+                                holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.blackColorSurface))
+                            }
+
+                            else -> {
+                                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                                holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                            }
+                        }
+                    }
+
+                    ThemeMode.BLACK,
+                    ThemeMode.DARK -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    }
+
+                    ThemeMode.LIGHT -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                        holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                    }
+
+                    ThemeMode.MD3 -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.m3_widget_other_text))
+                        holder.paletteColorContainer?.setBackgroundColor(ContextCompat.getColor(activity, R.color.m3_widget_other_text))
+                    }
+                }
+            }
         }
         holder.imageContainerCard?.setCardBackgroundColor(processor.backgroundColor)
     }

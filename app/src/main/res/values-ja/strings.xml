@@ -231,6 +231,7 @@
     <string name="lyrics">歌詞</string>
     <string name="lyrics_search_summary">歌詞検索語フォームID3タグを使用するか、手動で入力しますか？</string>
     <string name="manually">手動で</string>
+    <string name="material_you">自分の素材</string>
     <string name="md_error_label">エラー</string>
     <string name="md_storage_perm_error">権限エラー</string>
     <string name="message_backup_create_success">バックアップが作成されました。</string>
@@ -354,7 +355,6 @@
     <string name="pref_title_keep_pause_on_zero">ゼロで一時停止</string>
     <string name="pref_title_language_name">言語の選択</string>
     <string name="pref_title_last_added_interval">最後に追加したプレイリストの間隔</string>
-    <string name="pref_title_md3">自分の素材</string>
     <string name="pref_title_menu_option_1">最初のカスタマイズ可能なツールバーアクション</string>
     <string name="pref_title_menu_option_2">2番目のカスタマイズ可能なツールバーアクション</string>
     <string name="pref_title_notification_action_1">通知アクション左</string>

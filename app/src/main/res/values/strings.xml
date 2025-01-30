@@ -235,6 +235,7 @@
     <string name="lyrics">Lyrics</string>
     <string name="lyrics_search_summary">Use lyrics search terms form id3 tags or enter manually?</string>
     <string name="manually">Manually</string>
+    <string name="material_you">Material You</string>
     <string name="md_error_label">Error</string>
     <string name="md_storage_perm_error">Permission error</string>
     <string name="message_backup_create_success">Backup created successfully.</string>
@@ -358,7 +359,6 @@
     <string name="pref_title_keep_pause_on_zero">Pause On Zero</string>
     <string name="pref_title_language_name">Select Language</string>
     <string name="pref_title_last_added_interval">Last Added Playlist Interval</string>
-    <string name="pref_title_md3">Material You</string>
     <string name="pref_title_menu_option_1">1st Customizable Toolbar Action</string>
     <string name="pref_title_menu_option_2">2nd Customizable Toolbar Action</string>
     <string name="pref_title_notification_action_1">Notification Action Left</string>

@@ -26,7 +26,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/shuffleAction"
-        style="@style/Widget.Material3.Button.Icon"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
@@ -34,6 +34,7 @@
         android:paddingVertical="10dp"
         android:text="@string/shuffle"
         android:textAppearance="@style/TextViewButton"
+        android:textColor="?android:attr/textColorPrimary"
         app:icon="@drawable/ic_shuffle"
         app:layout_constraintBottom_toBottomOf="@+id/playAction"
         app:layout_constraintEnd_toEndOf="parent"

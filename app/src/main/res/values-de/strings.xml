@@ -233,6 +233,7 @@
     <string name="lyrics">Songtext</string>
     <string name="lyrics_search_summary">Verwenden Sie Songtext-Suchbegriffe aus id3-Tags oder geben Sie manuell ein?</string>
     <string name="manually">Manuell</string>
+    <string name="material_you">Material</string>
     <string name="md_error_label">Fehler</string>
     <string name="md_storage_perm_error">Berechtigungsfehler</string>
     <string name="message_backup_create_success">Sicherung erfolgreich erstellt.</string>
@@ -356,7 +357,6 @@
     <string name="pref_title_keep_pause_on_zero">Pause bei Nulllautstärke</string>
     <string name="pref_title_language_name">Sprache auswählen</string>
     <string name="pref_title_last_added_interval">Zuletzt hinzugefügtes Playlist-Intervall</string>
-    <string name="pref_title_md3">Material</string>
     <string name="pref_title_menu_option_1">1. Anpassbare Toolbar Aktion</string>
     <string name="pref_title_menu_option_2">2. Anpassbare Toolbar Aktion</string>
     <string name="pref_title_notification_action_1">Benachrichtigungsaktion links</string>

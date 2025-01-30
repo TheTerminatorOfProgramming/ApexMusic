@@ -1,5 +1,7 @@
 package com.ttop.app.apex.ui.fragments.artists
 
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spanned
@@ -10,6 +12,9 @@ import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.os.bundleOf
 import androidx.core.text.parseAsHtml
 import androidx.core.view.doOnPreDraw
@@ -30,8 +35,10 @@ import com.ttop.app.apex.adapter.album.HorizontalAlbumAdapter
 import com.ttop.app.apex.adapter.song.SimpleSongAdapter
 import com.ttop.app.apex.databinding.FragmentArtistDetailsBinding
 import com.ttop.app.apex.dialogs.AddToPlaylistDialog
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.applyOutlineColor
+import com.ttop.app.apex.extensions.m3BgaccentColor
 import com.ttop.app.apex.extensions.show
 import com.ttop.app.apex.extensions.showToast
 import com.ttop.app.apex.extensions.surfaceColor
@@ -42,6 +49,8 @@ import com.ttop.app.apex.glide.SingleColorTarget
 import com.ttop.app.apex.helper.MusicPlayerRemote
 import com.ttop.app.apex.helper.SortOrder
 import com.ttop.app.apex.interfaces.IAlbumClickListener
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.Artist
 import com.ttop.app.apex.network.Result
 import com.ttop.app.apex.network.model.LastFmArtist
@@ -53,6 +62,7 @@ import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.logD
 import com.ttop.app.apex.util.logE
+import com.ttop.app.apex.util.theme.ThemeMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -128,6 +138,22 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
 
         binding.appBarLayout?.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
+
+        binding.toolbar.navigationIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+
+        binding.fragmentArtistContent.songSortOrder.iconTint = ColorStateList.valueOf(accentColor())
+
+        binding.fragmentArtistContent.albumSortOrder.iconTint = ColorStateList.valueOf(accentColor())
+
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
+            binding.appBarLayout?.setBackgroundColor(requireContext().m3BgaccentColor())
+        }else {
+            binding.appBarLayout?.setBackgroundColor(surfaceColor())
+        }
     }
 
     private fun setupRecyclerView() {
@@ -161,6 +187,13 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
             MusicUtil.getArtistInfoString(requireContext(), artist),
             MusicUtil.getReadableDurationString(MusicUtil.getTotalDuration(artist.songs))
         )
+
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
+            binding.text.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+        }else {
+            binding.text.setTextColor(accentColor())
+        }
+
         val songText = resources.getQuantityString(
             R.plurals.albumSongs,
             artist.songCount,
@@ -175,6 +208,22 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
         binding.fragmentArtistContent.albumTitle.text = albumText
         songAdapter.swapDataSet(artist.sortedSongs)
         albumAdapter.swapDataSet(artist.sortedAlbums)
+
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
+            binding.artistTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            binding.fragmentArtistContent.songTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            binding.fragmentArtistContent.albumTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            binding.fragmentArtistContent.biographyTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            binding.fragmentArtistContent.listenersLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            binding.fragmentArtistContent.scrobblesLabel.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+        }else {
+            binding.artistTitle.setTextColor(accentColor())
+            binding.fragmentArtistContent.songTitle.setTextColor(accentColor())
+            binding.fragmentArtistContent.albumTitle.setTextColor(accentColor())
+            binding.fragmentArtistContent.biographyTitle.setTextColor(accentColor())
+            binding.fragmentArtistContent.listenersLabel.setTextColor(accentColor())
+            binding.fragmentArtistContent.scrobblesLabel.setTextColor(accentColor())
+        }
     }
 
     private fun loadBiography(
@@ -220,6 +269,73 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
         if (biography == null && lang != null) {
             loadBiography(artist.name, null)
         }
+
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                    }
+
+                    else -> {
+                        binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.AUTO_BLACK -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                    }
+
+                    else -> {
+                        binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+            }
+
+            ThemeMode.LIGHT -> {
+                binding.fragmentArtistContent.listeners.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.fragmentArtistContent.scrobbles.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.fragmentArtistContent.biographyText.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+            }
+
+            ThemeMode.MD3 -> {
+                binding.fragmentArtistContent.listeners.setTextColor(requireContext().accentColor())
+                binding.fragmentArtistContent.scrobbles.setTextColor(requireContext().accentColor())
+                binding.fragmentArtistContent.biographyText.setTextColor(requireContext().accentColor())
+            }
+        }
     }
 
     private fun loadArtistImage(artist: Artist) {
@@ -228,15 +344,12 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
             .dontAnimate()
             .into(object : SingleColorTarget(binding.image) {
                 override fun onColorReady(color: Int) {
-                    setColors(color)
                 }
             })
-    }
 
-    private fun setColors(color: Int) {
-        if (_binding != null) {
-            binding.fragmentArtistContent.shuffleAction.applyColor(color)
-            binding.fragmentArtistContent.playAction.applyOutlineColor(color)
+        _binding?.fragmentArtistContent?.apply {
+            shuffleAction.applyOutlineColor(accentColor())
+            playAction.applyOutlineColor(accentColor())
         }
     }
 
@@ -415,6 +528,19 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_artist_detail, menu)
+
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(
+            requireContext(),
+            binding.toolbar,
+            menu,
+            getToolbarBackgroundColor(binding.toolbar)
+        )
+
+        binding.toolbar.overflowIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
     }
 
     override fun onDestroyView() {

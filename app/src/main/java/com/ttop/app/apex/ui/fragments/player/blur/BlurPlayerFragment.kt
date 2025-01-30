@@ -1022,11 +1022,14 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         super.onQueueChanged()
         updateQueue()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
     }
 
     override fun onServiceConnected() {
@@ -1034,11 +1037,14 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         updateBlur()
         updateQueue()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
     }
 
     override fun onPlayingMetaChanged() {
@@ -1046,11 +1052,14 @@ class BlurPlayerFragment : AbsPlayerFragment(R.layout.fragment_blur_player),
         updateBlur()
         updateQueuePosition()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
 
         scroll.scrollTo(0, 0)
     }

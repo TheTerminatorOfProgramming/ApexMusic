@@ -13,14 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title" />
+        android:singleLine="true" />
 </com.ttop.app.apex.views.NumberRollView>

@@ -11,64 +11,37 @@ import com.ttop.app.apex.util.theme.ThemeMode.AUTO
 import com.ttop.app.apex.util.theme.ThemeMode.BLACK
 import com.ttop.app.apex.util.theme.ThemeMode.DARK
 import com.ttop.app.apex.util.theme.ThemeMode.LIGHT
+import com.ttop.app.apex.util.theme.ThemeMode.AUTO_BLACK
+import com.ttop.app.apex.util.theme.ThemeMode.MD3
 
 @StyleRes
 fun Context.getThemeResValue(): Int =
     when (generalThemeValue) {
+     MD3 -> {
+            R.style.Theme_Apex_MD3
+        }
         LIGHT -> {
-            if (PreferenceUtil.materialYou) {
-                R.style.Theme_Apex_MD3_Light
-            } else {
-                R.style.Theme_Apex_Light
-            }
+            R.style.Theme_Apex_Light
         }
 
         DARK -> {
-            if (PreferenceUtil.materialYou) {
-                R.style.Theme_Apex_MD3_Dark
-            } else {
-                R.style.Theme_Apex_Base
-            }
+            R.style.Theme_Apex_Base
         }
 
         BLACK -> {
-            if (PreferenceUtil.materialYou) {
-                R.style.Theme_Apex_MD3_Black
-            } else {
-                R.style.Theme_Apex_Black
-            }
+            R.style.Theme_Apex_Black
         }
 
         AUTO -> {
-            if (PreferenceUtil.materialYou) {
-                when (applicationContext?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                    Configuration.UI_MODE_NIGHT_YES -> R.style.Theme_Apex_MD3_Dark
-                    Configuration.UI_MODE_NIGHT_NO,
-                    Configuration.UI_MODE_NIGHT_UNDEFINED -> R.style.Theme_Apex_MD3_Light
-
-                    else -> R.style.Theme_Apex_MD3_Dark
-                }
-            } else {
-                R.style.Theme_Apex_FollowSystem
-            }
+            R.style.Theme_Apex_FollowSystem
         }
-        ThemeMode.AUTO_BLACK -> {
-            if (PreferenceUtil.materialYou) {
-                when (applicationContext?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                    Configuration.UI_MODE_NIGHT_YES -> R.style.Theme_Apex_MD3_Black
-                    Configuration.UI_MODE_NIGHT_NO,
-                    Configuration.UI_MODE_NIGHT_UNDEFINED -> R.style.Theme_Apex_MD3_Light
+        AUTO_BLACK -> {
+            when (applicationContext?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> R.style.Theme_Apex_Black
+                Configuration.UI_MODE_NIGHT_NO,
+                Configuration.UI_MODE_NIGHT_UNDEFINED -> R.style.Theme_Apex_Light
 
-                    else -> R.style.Theme_Apex_MD3_Black
-                }
-            } else {
-                when (applicationContext?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                    Configuration.UI_MODE_NIGHT_YES -> R.style.Theme_Apex_Black
-                    Configuration.UI_MODE_NIGHT_NO,
-                    Configuration.UI_MODE_NIGHT_UNDEFINED -> R.style.Theme_Apex_Light
-
-                    else -> R.style.Theme_Apex_Black
-                }
+                else -> R.style.Theme_Apex_Black
             }
         }
     }

@@ -16,11 +16,15 @@ package com.ttop.app.apex.preferences
 
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.fragment.app.DialogFragment
@@ -32,13 +36,17 @@ import com.google.android.material.card.MaterialCardView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.PreferenceDialogNowPlayingScreenBinding
 import com.ttop.app.apex.databinding.PreferenceNowPlayingScreenItemBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
+import com.ttop.app.apex.ui.fragments.AlbumCoverStyle
 import com.ttop.app.apex.ui.fragments.AlbumCoverStyle.values
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.ViewUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 class AlbumCoverStylePreference @JvmOverloads constructor(
     context: Context,
@@ -67,6 +75,60 @@ class AlbumCoverStylePreference @JvmOverloads constructor(
 
         val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
         cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
+        cardview?.setBackgroundColor(context.surfaceColor())
+
+        val title = holder.itemView.findViewById<TextView>(android.R.id.title)
+        val summary = holder.itemView.findViewById<TextView>(android.R.id.summary)
+
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                        summary.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                    }
+                    else -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.AUTO_BLACK -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                        summary.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                    }
+                    else -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+            }
+            ThemeMode.LIGHT -> {
+                title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                summary.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+            }
+            ThemeMode.MD3 -> {
+                title.setTextColor(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+                summary.setTextColor(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+            }
+        }
     }
 }
 
@@ -84,9 +146,16 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
             currentItem = PreferenceUtil.albumCoverStyle.ordinal
         }
 
+        val dialogTitle = TextView(requireContext())
+        dialogTitle.text = ContextCompat.getString(requireContext(), R.string.pref_title_now_playing_screen_appearance)
+        dialogTitle.setTextColor(accentColor())
+        dialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+        dialogTitle.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
         return materialDialog(R.string.pref_title_album_cover_style)
+            .setCustomTitle(dialogTitle)
             .setPositiveButton(R.string.set) { _, _ ->
-                val coverStyle = values()[viewPagerPosition]
+                val coverStyle = AlbumCoverStyle.entries[viewPagerPosition]
                 PreferenceUtil.albumCoverStyle = coverStyle
             }
             .setView(binding.root)
@@ -108,13 +177,96 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
         PagerAdapter() {
 
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
-            val albumCoverStyle = values()[position]
+            val albumCoverStyle = AlbumCoverStyle.entries[position]
 
             val inflater = LayoutInflater.from(context)
             val binding = PreferenceNowPlayingScreenItemBinding.inflate(inflater, collection, true)
 
             Glide.with(context).load(albumCoverStyle.drawableResId).into(binding.image)
             binding.title.setText(albumCoverStyle.titleRes)
+            when (PreferenceUtil.getGeneralThemeValue()) {
+                ThemeMode.AUTO -> {
+                    when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            binding.title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            binding.title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.darkColorSurface
+                                )
+                            )
+                        }
+
+                        else -> {
+                            binding.title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+                    }
+                }
+
+                ThemeMode.AUTO_BLACK -> {
+                    when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            binding.title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            binding.title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.blackColorSurface
+                                )
+                            )
+                        }
+
+                        else -> {
+                            binding.title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+                    }
+                }
+
+                ThemeMode.BLACK,
+                ThemeMode.DARK -> {
+                    binding.title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                }
+
+                ThemeMode.LIGHT -> {
+                    binding.title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                }
+
+                ThemeMode.MD3 -> {
+                    binding.title.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.m3_widget_other_text
+                        )
+                    )
+                }
+            }
             return binding.root
         }
 
@@ -127,7 +279,7 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
         }
 
         override fun getCount(): Int {
-            return values().size
+            return AlbumCoverStyle.entries.size
         }
 
         override fun isViewFromObject(view: View, instace: Any): Boolean {
@@ -135,7 +287,7 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
         }
 
         override fun getPageTitle(position: Int): CharSequence {
-            return context.getString(values()[position].titleRes)
+            return context.getString(AlbumCoverStyle.entries[position].titleRes)
         }
     }
 

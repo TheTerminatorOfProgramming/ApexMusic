@@ -38,6 +38,7 @@ import com.ttop.app.apex.TOP_ARTISTS
 import com.ttop.app.apex.adapter.album.AlbumAdapter
 import com.ttop.app.apex.adapter.artist.ArtistAdapter
 import com.ttop.app.apex.adapter.song.SongAdapter
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.interfaces.IAlbumClickListener
 import com.ttop.app.apex.interfaces.IArtistClickListener
 import com.ttop.app.apex.model.Album
@@ -82,6 +83,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                         bundleOf("type" to RECENT_ALBUMS)
                     )
                 }
+                holder.title.setTextColor(activity.accentColor())
             }
 
             TOP_ALBUMS -> {
@@ -94,6 +96,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                         bundleOf("type" to TOP_ALBUMS)
                     )
                 }
+                holder.title.setTextColor(activity.accentColor())
             }
 
             RECENT_ARTISTS -> {
@@ -106,6 +109,7 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                         bundleOf("type" to RECENT_ARTISTS)
                     )
                 }
+                holder.title.setTextColor(activity.accentColor())
             }
 
             TOP_ARTISTS -> {
@@ -118,6 +122,8 @@ class HomeAdapter(private val activity: AppCompatActivity) :
                         bundleOf("type" to TOP_ARTISTS)
                     )
                 }
+                holder.title.setTextColor(activity.accentColor())
+                holder
             }
 
             FAVOURITES -> {

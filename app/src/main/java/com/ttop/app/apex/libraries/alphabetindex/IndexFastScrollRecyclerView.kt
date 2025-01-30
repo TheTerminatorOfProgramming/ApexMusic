@@ -17,9 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
+import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import dev.chrisbanes.insetter.applyInsetter
 
 /*
@@ -266,8 +269,17 @@ class IndexFastScrollRecyclerView : RecyclerView {
             // This line here is necessary else the attributes won't be updated if a value is passed from XML
             mScroller = IndexFastScrollRecyclerSection(context, this)
             mScroller?.setIndexBarVisibility(mEnabled)
-            mScroller?.setIndexBarTextColor(ColorUtil.getAnalogousColor(context.accentColor())[1].toArgb())
-            mScroller?.setPreviewTextColor(ColorUtil.getAnalogousColor(context.accentColor())[1].toArgb())
+
+            val accentColor = ThemeStore.accentColor(context)
+            val iconColor = ATHColorUtil.lightenColor(accentColor, 0.1f)
+            val alternateColor = if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
+                ContextCompat.getColor(context, R.color.m3_widget_other_text)
+            } else {
+                accentColor
+            }
+
+            mScroller?.setIndexBarTextColor(alternateColor)
+            mScroller?.setPreviewTextColor(iconColor)
 
             PreferenceUtil.fontSize?.let { Integer.valueOf(it) }
                 ?.let { mScroller?.setIndexTextSize(it) }

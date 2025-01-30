@@ -33,6 +33,7 @@ import com.ttop.app.apex.ui.fragments.base.AbsPlayerFragment
 import com.ttop.app.apex.ui.fragments.player.PlayerAlbumCoverFragment
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 
 class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
     override fun playerToolbar(): Toolbar {
@@ -65,7 +66,7 @@ class CardFragment : AbsPlayerFragment(R.layout.fragment_card_player) {
         return if (PreferenceUtil.isAdaptiveColor) {
             lastColor
         } else {
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
             } else {
                 accentColor()

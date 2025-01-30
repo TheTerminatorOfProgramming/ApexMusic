@@ -3,12 +3,19 @@ package com.ttop.app.apex.views
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.res.Configuration
 import android.util.AttributeSet
 import android.util.Property
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import java.text.NumberFormat
 
 class NumberRollView(context: Context?, attrs: AttributeSet?) :
@@ -25,6 +32,65 @@ class NumberRollView(context: Context?, attrs: AttributeSet?) :
         mDownNumber = findViewById(R.id.down)
         assert(mUpNumber != null)
         assert(mDownNumber != null)
+
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                        mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                    }
+
+                    else -> {
+                        mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.AUTO_BLACK -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                        mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                    }
+
+                    else -> {
+                        mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+            }
+
+            ThemeMode.LIGHT -> {
+                mUpNumber?.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                mDownNumber?.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+            }
+
+            ThemeMode.MD3 -> {
+                mUpNumber?.setTextColor(context.accentColor())
+                mDownNumber?.setTextColor(context.accentColor())
+            }
+        }
+
         setNumberRoll(mNumber)
     }
 

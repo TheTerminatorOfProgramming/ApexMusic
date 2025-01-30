@@ -233,6 +233,7 @@
     <string name="lyrics">Şarkı sözleri</string>
     <string name="lyrics_search_summary">Şarkı sözü arama terimlerini id3 etiketlerinden mi kullanacaksınız yoksa manuel olarak mı gireceksiniz?</string>
     <string name="manually">Manuel olarak</string>
+    <string name="material_you">Malzeme Siz</string>
     <string name="md_error_label">Hata</string>
     <string name="md_storage_perm_error">İzin hatası</string>
     <string name="message_backup_create_success">Yedekleme başarıyla oluşturuldu.</string>
@@ -356,7 +357,6 @@
     <string name="pref_title_keep_pause_on_zero">Sıfır Hacimde Duraklama</string>
     <string name="pref_title_language_name">Dil Seçin</string>
     <string name="pref_title_last_added_interval">Son Eklenen Oynatma Listesi Aralığı</string>
-    <string name="pref_title_md3">Malzeme Siz</string>
     <string name="pref_title_menu_option_1">İlk Özelleştirilebilir Araç Çubuğu Eylemi</string>
     <string name="pref_title_menu_option_2">İkinci Özelleştirilebilir Araç Çubuğu Eylemi</string>
     <string name="pref_title_notification_action_1">Bildirim Eylemi Sol</string>

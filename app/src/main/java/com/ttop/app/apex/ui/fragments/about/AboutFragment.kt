@@ -17,6 +17,7 @@ package com.ttop.app.apex.ui.fragments.about
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -25,6 +26,7 @@ import android.os.Process
 import android.provider.Settings
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,6 +46,7 @@ import com.ttop.app.apex.ui.fragments.LibraryViewModel
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import dev.chrisbanes.insetter.applyInsetter
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.text.SimpleDateFormat
@@ -82,6 +85,194 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
         binding.aboutContent.cardTroubleshoot.aboutCard.strokeColor = accentColor()
         binding.aboutContent.cardCredit.aboutCard.strokeColor = accentColor()
         binding.aboutContent.cardApexInfo.aboutCard.strokeColor = accentColor()
+
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                    }
+                    else -> {
+                        binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.AUTO_BLACK -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                    }
+                    else -> {
+                        binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+            }
+            ThemeMode.LIGHT -> {
+                binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+            }
+            ThemeMode.MD3 -> {
+                binding.aboutContent.cardPermissions.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardOther.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardTroubleshoot.sb4.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardCredit.sb1.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardApexInfo.sb2.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            }
+        }
+
+
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                        binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                    }
+                    else -> {
+                        binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.AUTO_BLACK -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                        binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                    }
+                    else -> {
+                        binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                        binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+            }
+            ThemeMode.LIGHT -> {
+                binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+            }
+            ThemeMode.MD3 -> {
+                binding.aboutContent.cardPermissions.storagePermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardPermissions.btPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardPermissions.batteryPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardPermissions.filesPermissionTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardPermissions.storagePermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardPermissions.btPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardPermissions.batteryPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+                binding.aboutContent.cardPermissions.filesPermission.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            }
+        }
+        binding.aboutContent.cardPermissions.sb4.setTextColor(accentColor())
+        binding.aboutContent.cardOther.sb4.setTextColor(accentColor())
+        binding.aboutContent.cardTroubleshoot.sb4.setTextColor(accentColor())
+        binding.aboutContent.cardCredit.sb1.setTextColor(accentColor())
+        binding.aboutContent.cardApexInfo.sb2.setTextColor(accentColor())
     }
 
     override fun onResume() {
@@ -227,7 +418,7 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
     }
 
     private fun loadContributors() {
-        val contributorAdapter = ContributorAdapter(emptyList())
+        val contributorAdapter = ContributorAdapter(emptyList(), requireContext())
         binding.aboutContent.cardCredit.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DefaultItemAnimator()

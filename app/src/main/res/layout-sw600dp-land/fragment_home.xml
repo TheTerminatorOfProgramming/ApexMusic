@@ -19,10 +19,11 @@
 
     <com.ttop.app.apex.views.TopAppBarLayout
         android:id="@+id/appBarLayout"
-        style="?appBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true" />
+        android:fitsSystemWindows="true"
+        android:theme="@style/CenteredCheckBoxTheme"
+        app:elevation="0dp"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/container"

@@ -235,6 +235,7 @@
     <string name="lyrics">Versuri</string>
     <string name="lyrics_search_summary">Utilizați termenii de căutare a versurilor formularul id3 tag-uri sau introduceți manual?</string>
     <string name="manually">Manual</string>
+    <string name="material_you">Materiale cu tine</string>
     <string name="md_error_label">Eroare</string>
     <string name="md_storage_perm_error">Eroare de permisiune</string>
     <string name="message_backup_create_success">Backup creat cu succes.</string>
@@ -358,7 +359,6 @@
     <string name="pref_title_keep_pause_on_zero">Pauză la zero</string>
     <string name="pref_title_language_name">Selectaţi limba</string>
     <string name="pref_title_last_added_interval">Ultimul interval de redare adăugat</string>
-    <string name="pref_title_md3">Materiale cu tine</string>
     <string name="pref_title_menu_option_1">Prima acțiune personalizabilă din bara de instrumente</string>
     <string name="pref_title_menu_option_2">A doua acțiune personalizabilă din bara de instrumente</string>
     <string name="pref_title_notification_action_1">Acțiune de notificare stânga</string>

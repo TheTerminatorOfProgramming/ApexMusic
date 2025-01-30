@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -15,6 +16,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -42,6 +44,7 @@ import com.ttop.app.apex.helper.BackupHelper
 import com.ttop.app.apex.helper.sanitize
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.Share
+import com.ttop.app.apex.util.theme.ThemeMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -129,6 +132,55 @@ class BackupFragment : Fragment(R.layout.fragment_backup), BackupAdapter.BackupC
         binding.createBackup.accentColor()
         binding.restoreBackup.accentColor()
         binding.pathLabel.setTextColor(requireContext().accentColor())
+        binding.backupPath
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+                    }
+
+                    else -> {
+                        binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.AUTO_BLACK -> {
+                when (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.blackColorSurface))
+                    }
+
+                    else -> {
+                        binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.md_white_1000))
+            }
+
+            ThemeMode.LIGHT -> {
+                binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.darkColorSurface))
+            }
+
+            ThemeMode.MD3 -> {
+                binding.backupPath.setTextColor(ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text))
+            }
+        }
         binding.resetToDefault.accentOutlineColor()
         binding.createBackup.setOnClickListener {
             showCreateBackupDialog()

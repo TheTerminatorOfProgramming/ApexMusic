@@ -92,7 +92,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/button_toggle_play_pause"
-                        android:background="@drawable/app_widget_buttons_circular_outline_md3"
+                        android:background="@drawable/app_widget_buttons_update_circular_outline_md3"
                         android:src="@drawable/ic_refresh_md3"
                         tools:ignore="ContentDescription" />
                 </RelativeLayout>

@@ -16,6 +16,8 @@ import com.ttop.app.apex.R
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil.isWindowBackgroundDark
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil.resolveColor
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 
 /**
@@ -225,7 +227,7 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
         @ColorInt
         fun accentColor(context: Context): Int {
             // Set MD3 accent if MD3 is enabled or in-app accent otherwise
-            if (isMD3Enabled(context)) {
+            if (isMD3Enabled()) {
                 return ContextCompat.getColor(context, R.color.m3_accent_color)
             }
             val desaturatedColor = prefs(context).getBoolean("desaturated_color", false)
@@ -293,9 +295,8 @@ private constructor(private val mContext: Context) : ThemeStorePrefKeys, ThemeSt
             return true
         }
 
-        fun isMD3Enabled(context: Context): Boolean {
-            return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(ThemeStorePrefKeys.KEY_MATERIAL_YOU, true)
+        fun isMD3Enabled(): Boolean {
+            return PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3
         }
 
         fun fontSize(context: Context): String? {

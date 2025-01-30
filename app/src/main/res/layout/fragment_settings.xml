@@ -18,9 +18,9 @@
 
     <com.ttop.app.apex.views.TopAppBarLayout
         android:id="@+id/appBarLayout"
-        style="?appBarLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:theme="@style/CenteredCheckBoxTheme" />
+        android:theme="@style/CenteredCheckBoxTheme"
+        app:elevation="0dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

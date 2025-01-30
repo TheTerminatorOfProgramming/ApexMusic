@@ -25,6 +25,7 @@ import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 class TintedNavigationRailView @JvmOverloads constructor(
     context: Context,
@@ -37,17 +38,17 @@ class TintedNavigationRailView @JvmOverloads constructor(
             labelVisibilityMode = PreferenceUtil.tabTitleMode
 
             val accentColor = ThemeStore.accentColor(context)
-            val alternateColor = if (PreferenceUtil.materialYou) {
+            val alternateColor = if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 ContextCompat.getColor(context, com.ttop.app.apex.R.color.m3_widget_other_text)
             } else {
-                ColorUtil.getAnalogousColor(accentColor)[1].toArgb()
+                accentColor
             }
 
             val iconColor = ATHColorUtil.lightenColor(accentColor, 0.1f)
 
             setItemColors(iconColor, alternateColor)
-            itemRippleColor = ColorStateList.valueOf(alternateColor.addAlpha(0.08F))
-            itemActiveIndicatorColor = ColorStateList.valueOf(alternateColor.addAlpha(0.12F))
+            itemRippleColor = ColorStateList.valueOf(alternateColor) //.addAlpha(0.08F)
+            itemActiveIndicatorColor = ColorStateList.valueOf(alternateColor.addAlpha(0F))
         }
     }
 

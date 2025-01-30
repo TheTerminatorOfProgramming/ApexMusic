@@ -19,12 +19,16 @@ import android.content.ContentUris
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.HapticFeedbackConstants
 import android.view.MenuItem
 import android.view.View
@@ -37,6 +41,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.iterator
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -66,6 +71,7 @@ import com.ttop.app.apex.dialogs.SleepTimerDialog
 import com.ttop.app.apex.dialogs.SongDetailDialog
 import com.ttop.app.apex.dialogs.SongShareDialog
 import com.ttop.app.apex.dialogs.VolumeDialog
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.applyColor
 import com.ttop.app.apex.extensions.drawAboveSystemBars
 import com.ttop.app.apex.extensions.getBottomInsets
@@ -91,6 +97,7 @@ import com.ttop.app.apex.util.NavigationUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.RingtoneManager
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -164,6 +171,61 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
             popupMenu.menu.removeItem(R.id.action_rewind)
             popupMenu.menu.removeItem(R.id.action_fast_forward)
             popupMenu.menu.findItem(R.id.action_toggle_favorite).isVisible = false
+
+            for (item in popupMenu.menu.iterator()){
+                val title = item.title
+                val s = SpannableString(title).apply {
+                    when (PreferenceUtil.getGeneralThemeValue()) {
+                        ThemeMode.AUTO -> {
+                            when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                                Configuration.UI_MODE_NIGHT_YES -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.darkColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                Configuration.UI_MODE_NIGHT_NO,
+                                Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.darkColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                else -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+                            }
+                        }
+
+                        ThemeMode.AUTO_BLACK -> {
+                            when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                                Configuration.UI_MODE_NIGHT_YES -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                Configuration.UI_MODE_NIGHT_NO,
+                                Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.blackColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+
+                                else -> {
+                                    setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+                            }
+                        }
+
+                        ThemeMode.BLACK,
+                        ThemeMode.DARK -> {
+                            setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+
+                        ThemeMode.LIGHT -> {
+                            setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.darkColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+
+                        ThemeMode.MD3 -> {
+                            setSpan(ForegroundColorSpan(accentColor()), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
+                item.title = s
+            }
 
             popupMenu.show()
         }
@@ -786,11 +848,14 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         updateQueue()
         updateIsFavoriteIcon()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
     }
 
     override fun onPlayStateChanged() {
@@ -811,11 +876,14 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         updateQueuePosition()
         updateIsFavoriteIcon()
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
 
         scroll.scrollTo(0, 0)
     }
@@ -829,11 +897,14 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
         updateLabel()
         playingQueueAdapter?.swapDataSet(MusicPlayerRemote.playingQueue)
 
+        val regex = "\\[(\\d{2}:\\d{2}.\\d{2})]\\s".toRegex()
+        val replacement = ""
         val data: String? = MusicUtil.getLyrics(MusicPlayerRemote.currentSong)
+        val newData = data?.replace(regex, replacement)
         val string = StringBuilder()
-        string.append(data).append("\n")
+        string.append(newData).append("\n")
         embed.text =
-            (if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString())
+            if (data.isNullOrEmpty()) R.string.no_lyrics_found.toString() else string.toString()
     }
 
     private fun updateSong() {

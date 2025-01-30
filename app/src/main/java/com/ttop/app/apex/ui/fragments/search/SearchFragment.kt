@@ -56,6 +56,7 @@ import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import kotlinx.coroutines.Job
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import java.util.Locale
@@ -153,7 +154,7 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
 
     private fun setupChips() {
         val chips = binding.searchFilterGroup.children.map { it as Chip }
-        if (!PreferenceUtil.materialYou) {
+        if (PreferenceUtil.getGeneralThemeValue() != ThemeMode.MD3) {
             val states = arrayOf(
                 intArrayOf(-android.R.attr.state_checked),
                 intArrayOf(android.R.attr.state_checked)
@@ -169,6 +170,13 @@ class SearchFragment : AbsMainActivityFragment(R.layout.fragment_search),
             }
         }
         binding.searchFilterGroup.setOnCheckedStateChangeListener(this)
+
+        binding.chipAudio.chipStrokeColor = ColorStateList.valueOf(accentColor())
+        binding.chipAlbums.chipStrokeColor = ColorStateList.valueOf(accentColor())
+        binding.chipAlbumArtists.chipStrokeColor = ColorStateList.valueOf(accentColor())
+        binding.chipArtists.chipStrokeColor = ColorStateList.valueOf(accentColor())
+        binding.chipGenres.chipStrokeColor = ColorStateList.valueOf(accentColor())
+        binding.chipPlaylists.chipStrokeColor = ColorStateList.valueOf(accentColor())
     }
 
     private fun showData(data: List<Any>) {

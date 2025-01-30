@@ -35,7 +35,6 @@ import com.ttop.app.apex.DESATURATED_COLOR
 import com.ttop.app.apex.FONT_SIZE
 import com.ttop.app.apex.GENERAL_THEME
 import com.ttop.app.apex.LANGUAGE_NAME
-import com.ttop.app.apex.MATERIAL_YOU
 import com.ttop.app.apex.R
 import com.ttop.app.apex.TOGGLE_ADD_CONTROLS
 import com.ttop.app.apex.TOGGLE_MINI_SWIPE_NON_FOLDABLE
@@ -53,6 +52,7 @@ import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATESwit
 import com.ttop.app.apex.libraries.appthemehelper.util.ATHColorUtil
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 /**
  * @author Hemanth S (h4h13).
@@ -61,6 +61,9 @@ import com.ttop.app.apex.util.PreferenceUtil
 class ThemeSettingsFragment : AbsSettingsFragment() {
     @SuppressLint("CheckResult")
     override fun invalidateSettings() {
+        val accentColorPref: ATEColorPreference? = findPreference(ACCENT_COLOR)
+        val desaturatedColor: ATESwitchPreference? = findPreference(DESATURATED_COLOR)
+
         val generalTheme: Preference? = findPreference(GENERAL_THEME)
         generalTheme?.let {
             setSummary(it)
@@ -68,12 +71,26 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 setSummary(it, newValue)
                 ThemeStore.markChanged(requireContext())
                 DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
+
+                val colorCategory: Preference? = findPreference("category_color")
+                if (newValue != getString(R.string.material_you)) {
+                    ThemeStore.prefs(requireContext()).edit {
+                        putBoolean(DESATURATED_COLOR, PreferenceUtil.isDesaturatedColor)
+                    }
+                    accentColorPref?.isEnabled = true
+                    desaturatedColor?.isEnabled = true
+                    colorCategory?.isVisible = true
+                }else {
+                    accentColorPref?.isEnabled = false
+                    desaturatedColor?.isEnabled = false
+                    colorCategory?.isVisible = false
+                }
+
                 restartActivity()
                 true
             }
         }
 
-        val accentColorPref: ATEColorPreference? = findPreference(ACCENT_COLOR)
         val accentColor = ThemeStore.accentColor(requireContext())
         accentColorPref?.setColor(accentColor, ATHColorUtil.darkenColor(accentColor))
         val hexColor = String.format("#%06X", (0xFFFFFF and accentColor))
@@ -129,7 +146,7 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             true
         }
 
-        val desaturatedColor: ATESwitchPreference? = findPreference(DESATURATED_COLOR)
+
         desaturatedColor?.setOnPreferenceChangeListener { _, value ->
             if (!PreferenceUtil.isHapticFeedbackDisabled) {
                 requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -139,22 +156,6 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
                 putBoolean(DESATURATED_COLOR, desaturated)
             }
             PreferenceUtil.isDesaturatedColor = desaturated
-            restartActivity()
-            true
-        }
-
-        val materialYou: ATESwitchPreference? = findPreference(MATERIAL_YOU)
-        materialYou?.setOnPreferenceChangeListener { _, newValue ->
-            if (!PreferenceUtil.isHapticFeedbackDisabled) {
-                requireView().performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            }
-            if (newValue as Boolean) {
-                DynamicShortcutManager(requireContext()).updateDynamicShortcuts()
-            } else {
-                ThemeStore.prefs(requireContext()).edit {
-                    putBoolean(DESATURATED_COLOR, PreferenceUtil.isDesaturatedColor)
-                }
-            }
             restartActivity()
             true
         }
@@ -226,6 +227,22 @@ class ThemeSettingsFragment : AbsSettingsFragment() {
             addPreferencesFromResource(R.xml.pref_ui_foldable)
         } else {
             addPreferencesFromResource(R.xml.pref_ui)
+        }
+
+        val accentColorPref: ATEColorPreference? = findPreference(ACCENT_COLOR)
+        val desaturatedColor: ATESwitchPreference? = findPreference(DESATURATED_COLOR)
+        val colorCategory: Preference? = findPreference("category_color")
+        if (PreferenceUtil.getGeneralThemeValue() != ThemeMode.MD3) {
+            ThemeStore.prefs(requireContext()).edit {
+                putBoolean(DESATURATED_COLOR, PreferenceUtil.isDesaturatedColor)
+            }
+            accentColorPref?.isEnabled = true
+            desaturatedColor?.isEnabled = true
+            colorCategory?.isVisible = true
+        }else {
+            accentColorPref?.isEnabled = false
+            desaturatedColor?.isEnabled = false
+            colorCategory?.isVisible = false
         }
 
         val blackTheme: ATESwitchPreference? = findPreference(BLACK_THEME)

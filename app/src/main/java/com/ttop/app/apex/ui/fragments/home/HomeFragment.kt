@@ -215,6 +215,11 @@ class HomeFragment :
         binding.lastAdded.elevatedAccentColor()
         binding.topPlayed.elevatedAccentColor()
         binding.actionShuffle.elevatedAccentColor()
+
+        binding.history.setTextColor(accentColor())
+        binding.lastAdded.setTextColor(accentColor())
+        binding.topPlayed.setTextColor(accentColor())
+        binding.actionShuffle.setTextColor(accentColor())
     }
 
     private fun checkForMargins() {
@@ -290,6 +295,7 @@ class HomeFragment :
             binding.suggestions.image8
         )
         val color = accentColor()
+        binding.suggestions.title.setTextColor(color)
         binding.suggestions.message.apply {
             setTextColor(color)
             setOnClickListener {

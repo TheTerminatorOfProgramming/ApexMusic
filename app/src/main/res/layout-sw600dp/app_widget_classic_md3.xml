@@ -73,7 +73,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@drawable/app_widget_buttons_circular_outline_md3"
+                android:background="@drawable/app_widget_buttons_update_circular_outline_md3"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_refresh_md3" />
 

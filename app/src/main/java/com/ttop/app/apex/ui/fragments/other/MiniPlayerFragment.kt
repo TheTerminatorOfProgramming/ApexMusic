@@ -18,6 +18,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -45,6 +47,7 @@ import com.ttop.app.apex.ui.fragments.base.AbsMusicServiceFragment
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import kotlin.math.abs
 
 
@@ -129,12 +132,11 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     private fun setUpMiniPlayer() {
         setUpPlayPauseButton()
 
-        val indicatorColor = if (PreferenceUtil.materialYou) {
+        val indicatorColor = if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
             ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
         } else {
             ColorUtil.getAnalogousColor(accentColor())[1].toArgb()
         }
-        val colorFinal = indicatorColor.addAlpha(0.4F)
 
         binding.progressBar.setIndicatorColor(indicatorColor)
 
@@ -157,10 +159,44 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     }
 
     private fun updateSongTitle() {
-        val indicatorColor = if (PreferenceUtil.materialYou) {
+        val indicatorColor = if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
             ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
         } else {
-            ColorUtil.getAnalogousColor(accentColor())[1].toArgb()
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.LIGHT) {
+                ContextCompat.getColor(requireContext(), R.color.darkColorSurface)
+            }else  if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.DARK) {
+                ContextCompat.getColor(requireContext(), R.color.md_white_1000)
+            }else if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.BLACK) {
+                ContextCompat.getColor(requireContext(), R.color.md_white_1000)
+            }else if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.AUTO) {
+                when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        ContextCompat.getColor(requireContext(), R.color.md_white_1000)
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        ContextCompat.getColor(requireContext(), R.color.darkColorSurface)
+                    }
+                    else -> {
+                        ContextCompat.getColor(requireContext(), R.color.md_white_1000)
+                    }
+                }
+            }else if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.AUTO_BLACK) {
+                when (requireContext().resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        ContextCompat.getColor(requireContext(), R.color.md_white_1000)
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        ContextCompat.getColor(requireContext(), R.color.blackColorSurface)
+                    }
+                    else -> {
+                        ContextCompat.getColor(requireContext(), R.color.md_white_1000)
+                    }
+                }
+            } else {
+                ContextCompat.getColor(requireContext(), R.color.md_white_1000)
+            }
         }
 
         val song = MusicPlayerRemote.currentSong
@@ -320,7 +356,7 @@ open class MiniPlayerFragment : AbsMusicServiceFragment(R.layout.fragment_mini_p
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
             PROGRESS_BAR_STYLE -> {
-                val indicatorColor = if (PreferenceUtil.materialYou) {
+                val indicatorColor = if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                     ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
                 } else {
                     ColorUtil.getAnalogousColor(accentColor())[1].toArgb()

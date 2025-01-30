@@ -26,6 +26,7 @@ import android.webkit.MimeTypeMap
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.os.BundleCompat
@@ -54,7 +55,7 @@ import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.extensions.textColorPrimary
 import com.ttop.app.apex.extensions.textColorSecondary
 import com.ttop.app.apex.helper.MusicPlayerRemote
-import com.ttop.app.apex.helper.MusicPlayerRemote.openQueue
+import com.ttop.app.apex.helper.MusicPlayerRemote.openQueueKeepShuffleMode
 import com.ttop.app.apex.helper.menu.SongMenuHelper
 import com.ttop.app.apex.helper.menu.SongsMenuHelper
 import com.ttop.app.apex.interfaces.ICallbacks
@@ -75,6 +76,7 @@ import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.PreferenceUtil.startDirectory
 import com.ttop.app.apex.util.getExternalStorageDirectory
 import com.ttop.app.apex.util.getExternalStoragePublicDirectory
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.BreadCrumbLayout
 import com.ttop.app.apex.views.BreadCrumbLayout.Crumb
 import com.ttop.app.apex.views.BreadCrumbLayout.SelectionCallback
@@ -166,6 +168,8 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
         } else {
             activity?.window?.statusBarColor = surfaceColor()
         }
+
+        binding.appBarLayout.pinWhenScrolled()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -325,7 +329,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                             }
                         }
                         if (startIndex > -1) {
-                            openQueue(songs, startIndex, true)
+                            openQueueKeepShuffleMode(songs, startIndex, true)
                         } else {
                             Snackbar.make(
                                 mainActivity.slidingPanel,
@@ -509,13 +513,23 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     }
 
     private fun setUpBreadCrumbs() {
-        binding.breadCrumbs.setActivatedContentColor(
-            textColorPrimary()
-        )
-        binding.breadCrumbs.setDeactivatedContentColor(
-            textColorSecondary()
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
+            binding.breadCrumbs.setActivatedContentColor(
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+            )
+            binding.breadCrumbs.setDeactivatedContentColor(
+                ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
+            )
+        }else {
+            binding.breadCrumbs.setActivatedContentColor(
+                accentColor()
+            )
+            binding.breadCrumbs.setDeactivatedContentColor(
+                accentColor()
+            )
+        }
 
-        )
+        binding.breadCrumbs.setBackgroundColor(surfaceColor())
         binding.breadCrumbs.setCallback(this)
     }
 

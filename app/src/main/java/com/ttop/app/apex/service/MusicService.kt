@@ -281,7 +281,7 @@ class MusicService : MediaBrowserServiceCompat(),
 
                 if (BluetoothDevice.ACTION_ACL_CONNECTED == action && isBluetoothSpeaker) {
                     if (PreferenceUtil.specificDevice) {
-                        if (device?.address == PreferenceUtil.bluetoothDevice) {
+                        if (device?.address == PreferenceUtil.bluetoothMac) {
                             connected = true
 
                             Handler(Looper.getMainLooper()).postDelayed(

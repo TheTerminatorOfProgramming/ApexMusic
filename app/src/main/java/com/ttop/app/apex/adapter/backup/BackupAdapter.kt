@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ItemListBackupBinding
+import com.ttop.app.apex.libraries.appthemehelper.ThemeStore.Companion.accentColor
+import com.ttop.app.apex.util.ViewUtil
 import java.io.File
 
 
@@ -26,6 +28,8 @@ class BackupAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.title.text = dataSet[position].nameWithoutExtension
+        holder.binding.listCard.strokeWidth = ViewUtil.convertDpToPixel(2f, activity.resources).toInt()
+        holder.binding.listCard.strokeColor = accentColor(activity)
     }
 
     override fun getItemCount(): Int = dataSet.size

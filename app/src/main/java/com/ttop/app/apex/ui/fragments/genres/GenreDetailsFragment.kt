@@ -14,11 +14,14 @@
  */
 package com.ttop.app.apex.ui.fragments.genres
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
@@ -30,12 +33,18 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.ttop.app.apex.R
 import com.ttop.app.apex.adapter.song.SongAdapter
 import com.ttop.app.apex.databinding.FragmentPlaylistDetailBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dipToPix
+import com.ttop.app.apex.extensions.m3BgaccentColor
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.helper.menu.GenreMenuHelper
+import com.ttop.app.apex.libraries.appthemehelper.common.ATHToolbarActivity.getToolbarBackgroundColor
+import com.ttop.app.apex.libraries.appthemehelper.util.ToolbarContentTintHelper
 import com.ttop.app.apex.model.Genre
 import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -72,6 +81,26 @@ class GenreDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_
         }
         binding.appBarLayout.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
+
+        binding.toolbar.navigationIcon?.colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+            requireContext().accentColor(),
+            SRC_IN
+        )
+        binding.toolbar.isTitleCentered = true
+
+        binding.toolbar.setTitleTextColor(accentColor())
+
+        binding.toolbar.navigationIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
+            binding.appBarLayout.setBackgroundColor(requireContext().m3BgaccentColor())
+        }else {
+            binding.appBarLayout.setBackgroundColor(surfaceColor())
+        }
     }
 
     private fun setupRecyclerView() {
@@ -116,8 +145,30 @@ class GenreDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_
         binding.recyclerView.setPadding(0, 0, 0, height)
     }
 
+    override fun onPrepareMenu(menu: Menu) {
+        ToolbarContentTintHelper.setToolbarContentColor(requireActivity(), binding.toolbar, binding.toolbar.menu, accentColor(), accentColor(), accentColor(), accentColor())
+        binding.toolbar.overflowIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+    }
+
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_genre_detail, menu)
+
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(
+            requireContext(),
+            binding.toolbar,
+            menu,
+            getToolbarBackgroundColor(binding.toolbar)
+        )
+
+        binding.toolbar.overflowIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {

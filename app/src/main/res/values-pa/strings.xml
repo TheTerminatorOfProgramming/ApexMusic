@@ -233,6 +233,7 @@
     <string name="lyrics">ਬੋਲ</string>
     <string name="lyrics_search_summary">id3 ਟੈਗ ਦੇ ਰੂਪ ਵਿੱਚ ਬੋਲ ਖੋਜ ਸ਼ਬਦਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ ਜਾਂ ਹੱਥੀਂ ਦਰਜ ਕਰੋ?</string>
     <string name="manually">ਹੱਥੀਂ</string>
+    <string name="material_you">ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ</string>
     <string name="md_error_label">ਗਲਤੀ</string>
     <string name="md_storage_perm_error">ਇਜਾਜ਼ਤ ਗਲਤੀ</string>
     <string name="message_backup_create_success">ਬੈਕਅੱਪ ਸਫਲਤਾਪੂਰਵਕ ਬਣਾਇਆ ਗਿਆ।</string>
@@ -356,7 +357,6 @@
     <string name="pref_title_keep_pause_on_zero">ਜ਼ੀਰੋ ਵਾਲੀਅਮ \'ਤੇ ਰੋਕੋ</string>
     <string name="pref_title_language_name">ਭਾਸ਼ਾ ਚੁਣੋ</string>
     <string name="pref_title_last_added_interval">ਆਖਰੀ ਜੋੜਿਆ ਪਲੇਲਿਸਟ ਅੰਤਰਾਲ</string>
-    <string name="pref_title_md3">ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ</string>
     <string name="pref_title_menu_option_1">ਪਹਿਲੀ ਅਨੁਕੂਲਿਤ ਟੂਲਬਾਰ ਐਕਸ਼ਨ</string>
     <string name="pref_title_menu_option_2">ਦੂਜੀ ਅਨੁਕੂਲਿਤ ਟੂਲਬਾਰ ਐਕਸ਼ਨ</string>
     <string name="pref_title_notification_action_1">ਸੂਚਨਾ ਕਾਰਵਾਈ ਖੱਬੇ</string>

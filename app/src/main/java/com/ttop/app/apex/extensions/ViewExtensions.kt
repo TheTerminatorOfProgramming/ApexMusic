@@ -42,6 +42,7 @@ import com.ttop.app.apex.libraries.appthemehelper.ThemeStore
 import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
 import com.ttop.app.apex.util.ApexUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import dev.chrisbanes.insetter.applyInsetter
 
 const val ANIM_DURATION = 300L
@@ -68,7 +69,7 @@ fun View.goAway() {
 }
 
 fun EditText.appHandleColor(): EditText {
-    if (PreferenceUtil.materialYou) return this
+    if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) return this
     TintHelper.colorHandles(this, ThemeStore.accentColor(context))
     return this
 }

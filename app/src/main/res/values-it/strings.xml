@@ -235,6 +235,7 @@
     <string name="lyrics">Testi</string>
     <string name="lyrics_search_summary">Utilizzare i termini di ricerca del testo id3 tag modulo o inserire manualmente?</string>
     <string name="manually">Manualmente</string>
+    <string name="material_you">Materiale Tu</string>
     <string name="md_error_label">Errore</string>
     <string name="md_storage_perm_error">Errore di autorizzazione</string>
     <string name="message_backup_create_success">Backup creato con successo.</string>
@@ -358,7 +359,6 @@
     <string name="pref_title_keep_pause_on_zero">Pausa quando non c\'è volume</string>
     <string name="pref_title_language_name">Seleziona Lingua</string>
     <string name="pref_title_last_added_interval">Intervallo Ultima Scaletta Aggiunta</string>
-    <string name="pref_title_md3">Materiale Tu</string>
     <string name="pref_title_menu_option_1">1a Azione Barra Strumenti Personalizzabile</string>
     <string name="pref_title_menu_option_2">2a Azione Barra Strumenti Personalizzabile</string>
     <string name="pref_title_notification_action_1">Azione Di Notifica Sinistra</string>

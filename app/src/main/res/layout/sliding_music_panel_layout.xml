@@ -18,9 +18,9 @@
 
     <FrameLayout
         android:id="@+id/slidingPanel"
-        style="@style/BottomSheetStyleFlat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTintMode="src_in"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
         app:enableEdgeToEdge="true"

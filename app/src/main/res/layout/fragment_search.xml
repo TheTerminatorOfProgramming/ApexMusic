@@ -90,42 +90,48 @@
                     style="@style/SearchChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/songs" />
+                    android:text="@string/songs"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_artists"
                     style="@style/SearchChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/artists" />
+                    android:text="@string/artists"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_albums"
                     style="@style/SearchChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/albums" />
+                    android:text="@string/albums"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_album_artists"
                     style="@style/SearchChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/album_artist" />
+                    android:text="@string/album_artist"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_genres"
                     style="@style/SearchChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/genres" />
+                    android:text="@string/genres"
+                    app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_playlists"
                     style="@style/SearchChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/playlists" />
+                    android:text="@string/playlists"
+                    app:chipStrokeWidth="1dp" />
             </com.google.android.material.chip.ChipGroup>
 
         </HorizontalScrollView>

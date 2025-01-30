@@ -19,6 +19,7 @@ import com.ttop.app.apex.extensions.accentOutlineColor
 import com.ttop.app.apex.extensions.addAccentColor
 import com.ttop.app.apex.helper.BackupContent
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.util.theme.getNightMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -66,7 +67,7 @@ class RestoreActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(getNightMode())
 
         // Apply dynamic colors to activity if enabled
-        if (PreferenceUtil.materialYou) {
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
             DynamicColors.applyToActivityIfAvailable(
                 this,
                 DynamicColorsOptions.Builder()

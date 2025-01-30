@@ -235,6 +235,7 @@
     <string name="lyrics">Letras</string>
     <string name="lyrics_search_summary">Usar os termos de busca de letras com tags id3 ou inserir manualmente?</string>
     <string name="manually">Manualmente</string>
+    <string name="material_you">Material de que você</string>
     <string name="md_error_label">ERRO</string>
     <string name="md_storage_perm_error">Erro de permissão</string>
     <string name="message_backup_create_success">Backup criado com sucesso.</string>
@@ -358,7 +359,6 @@
     <string name="pref_title_keep_pause_on_zero">Pausar no zero</string>
     <string name="pref_title_language_name">Selecione o idioma</string>
     <string name="pref_title_last_added_interval">Último intervalo adicionado</string>
-    <string name="pref_title_md3">Material de que você</string>
     <string name="pref_title_menu_option_1">1ª Ação da Barra de Ferramentas Personalizável</string>
     <string name="pref_title_menu_option_2">2ª Ação da Barra de Ferramentas Personalizável</string>
     <string name="pref_title_notification_action_1">Ação de Notificação à Esquerda</string>

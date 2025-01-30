@@ -15,14 +15,20 @@
 package com.ttop.app.apex.views
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.ttop.app.apex.R
 import com.ttop.app.apex.databinding.ListItemViewNoCardBinding
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.hide
 import com.ttop.app.apex.extensions.show
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 
 /**
  * Created by hemanths on 2019-10-02.
@@ -40,13 +46,133 @@ class ListItemView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.ListItemView) {
             if (hasValue(R.styleable.ListItemView_listItemIcon)) {
                 binding.icon.setImageDrawable(getDrawable(R.styleable.ListItemView_listItemIcon))
+                when (PreferenceUtil.getGeneralThemeValue()) {
+                    ThemeMode.AUTO -> {
+                        when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            Configuration.UI_MODE_NIGHT_YES -> {
+                                binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                            Configuration.UI_MODE_NIGHT_NO,
+                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.darkColorSurface))
+                            }
+                            else -> {
+                                binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                        }
+                    }
+                    ThemeMode.AUTO_BLACK -> {
+                        when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            Configuration.UI_MODE_NIGHT_YES -> {
+                                binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                            Configuration.UI_MODE_NIGHT_NO,
+                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blackColorSurface))
+                            }
+                            else -> {
+                                binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                        }
+                    }
+                    ThemeMode.BLACK,
+                    ThemeMode.DARK -> {
+                        binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    ThemeMode.LIGHT -> {
+                        binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.darkColorSurface))
+                    }
+                    ThemeMode.MD3 -> {
+                        binding.icon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+                    }
+                }
             } else {
                 binding.icon.hide()
             }
 
             binding.title.text = getText(R.styleable.ListItemView_listItemTitle)
+            when (PreferenceUtil.getGeneralThemeValue()) {
+                ThemeMode.AUTO -> {
+                    when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            binding.title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        }
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            binding.title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                        }
+                        else -> {
+                            binding.title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        }
+                    }
+                }
+                ThemeMode.AUTO_BLACK -> {
+                    when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            binding.title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        }
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            binding.title.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                        }
+                        else -> {
+                            binding.title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                        }
+                    }
+                }
+                ThemeMode.BLACK,
+                ThemeMode.DARK -> {
+                    binding.title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                }
+                ThemeMode.LIGHT -> {
+                    binding.title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                }
+                ThemeMode.MD3 -> {
+                    binding.title.setTextColor(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+                }
+            }
             if (hasValue(R.styleable.ListItemView_listItemSummary)) {
                 binding.summary.text = getText(R.styleable.ListItemView_listItemSummary)
+                when (PreferenceUtil.getGeneralThemeValue()) {
+                    ThemeMode.AUTO -> {
+                        when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            Configuration.UI_MODE_NIGHT_YES -> {
+                                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                            Configuration.UI_MODE_NIGHT_NO,
+                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                            }
+                            else -> {
+                                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                        }
+                    }
+                    ThemeMode.AUTO_BLACK -> {
+                        when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                            Configuration.UI_MODE_NIGHT_YES -> {
+                                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                            Configuration.UI_MODE_NIGHT_NO,
+                            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                            }
+                            else -> {
+                                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                            }
+                        }
+                    }
+                    ThemeMode.BLACK,
+                    ThemeMode.DARK -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    ThemeMode.LIGHT -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                    }
+                    ThemeMode.MD3 -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+                    }
+                }
             } else {
                 binding.summary.hide()
             }
@@ -56,5 +182,45 @@ class ListItemView @JvmOverloads constructor(
     fun setSummary(appVersion: String) {
         binding.summary.show()
         binding.summary.text = appVersion
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                    }
+                    else -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.AUTO_BLACK -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                    }
+                    else -> {
+                        binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+            }
+            ThemeMode.LIGHT -> {
+                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+            }
+            ThemeMode.MD3 -> {
+                binding.summary.setTextColor(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+            }
+        }
     }
 }

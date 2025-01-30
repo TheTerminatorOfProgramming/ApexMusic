@@ -36,6 +36,7 @@ import com.ttop.app.apex.ui.fragments.base.AbsPlayerControlsFragment
 import com.ttop.app.apex.util.ColorUtil
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.color.MediaNotificationProcessor
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.SquigglyProgress
 import kotlin.math.sqrt
 
@@ -126,7 +127,7 @@ class AdaptivePlaybackControlsFragment :
         val controlsColor = if (PreferenceUtil.isAdaptiveColor) {
             color.secondaryTextColor
         } else {
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_other_text)
             } else {
                 accentColor()
@@ -136,7 +137,7 @@ class AdaptivePlaybackControlsFragment :
         val lastPlaybackColor = if (PreferenceUtil.isAdaptiveColor) {
             ColorUtil.getComplimentColor(color.secondaryTextColor)
         } else {
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 ContextCompat.getColor(requireContext(), R.color.m3_widget_foreground)
             } else {
                 ColorUtil.getComplimentColor(accentColor())
@@ -146,7 +147,7 @@ class AdaptivePlaybackControlsFragment :
         val backgroundColor = if (PreferenceUtil.isAdaptiveColor) {
             color.backgroundColor
         } else {
-            if (PreferenceUtil.materialYou) {
+            if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.m3_widget_background

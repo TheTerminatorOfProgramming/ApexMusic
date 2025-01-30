@@ -6,6 +6,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -26,6 +28,7 @@ import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.db.toSongs
 import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.elevatedAccentColor
+import com.ttop.app.apex.extensions.m3BgaccentColor
 import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.glide.ApexGlideExtension.playlistOptions
 import com.ttop.app.apex.glide.playlistPreview.PlaylistPreview
@@ -35,10 +38,9 @@ import com.ttop.app.apex.model.Song
 import com.ttop.app.apex.ui.fragments.base.AbsMainActivityFragment
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
-
+import com.ttop.app.apex.util.theme.ThemeMode
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-
 
 class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_detail_new) {
     private val arguments by navArgs<PlaylistDetailsFragmentArgs>()
@@ -87,7 +89,6 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
             binding.title.text = playlist.playlistEntity.playlistName
             binding.subtitle.text =
                 MusicUtil.getPlaylistInfoString(requireContext(), playlist.songs.toSongs())
-            binding.collapsingAppBarLayout.title = playlist.playlistEntity.playlistName
         }
         viewModel.getSongs().observe(viewLifecycleOwner) {
             songs(it.toSongs())
@@ -101,6 +102,21 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
         view.doOnPreDraw { startPostponedEnterTransition() }
         binding.appBarLayout.statusBarForeground =
             MaterialShapeDrawable.createWithElevationOverlay(requireContext())
+
+        if (PreferenceUtil.getGeneralThemeValue() == ThemeMode.MD3) {
+            binding.appBarLayout.setBackgroundColor(requireContext().m3BgaccentColor())
+        }else {
+            binding.appBarLayout.setBackgroundColor(surfaceColor())
+        }
+
+        binding.toolbar.navigationIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
+
+        binding.title.setTextColor(accentColor())
+        binding.subtitle.setTextColor(accentColor())
     }
 
     private fun setupButtons() {
@@ -153,6 +169,15 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
     override fun onResume() {
         super.onResume()
         requireActivity().window.statusBarColor = surfaceColor()
+    }
+
+    override fun onPrepareMenu(menu: Menu) {
+        //ToolbarContentTintHelper.setToolbarContentColor(requireActivity(), toolbar, toolbar.menu, accentColor(), accentColor(), accentColor(), accentColor())
+        binding.toolbar.overflowIcon?.colorFilter =
+            BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                requireContext().accentColor(),
+                SRC_IN
+            )
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {

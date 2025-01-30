@@ -15,21 +15,27 @@
 package com.ttop.app.apex.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ttop.app.apex.R
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.openUrl
 import com.ttop.app.apex.model.Contributor
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import com.ttop.app.apex.views.ApexShapeableImageView
 
 class ContributorAdapter(
     private var contributors: List<Contributor>,
+    var context: Context
 ) : RecyclerView.Adapter<ContributorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -89,6 +95,128 @@ class ContributorAdapter(
         internal fun bindData(contributor: Contributor) {
             title.text = contributor.name
             text.text = contributor.summary
+            when (PreferenceUtil.getGeneralThemeValue()) {
+                ThemeMode.AUTO -> {
+                    when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            text.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.darkColorSurface
+                                )
+                            )
+                            text.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.darkColorSurface
+                                )
+                            )
+                        }
+
+                        else -> {
+                            title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            text.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+                    }
+                }
+
+                ThemeMode.AUTO_BLACK -> {
+                    when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            text.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+
+                        Configuration.UI_MODE_NIGHT_NO,
+                        Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                            title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.blackColorSurface
+                                )
+                            )
+                            text.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.blackColorSurface
+                                )
+                            )
+                        }
+
+                        else -> {
+                            title.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                            text.setTextColor(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.md_white_1000
+                                )
+                            )
+                        }
+                    }
+                }
+
+                ThemeMode.BLACK,
+                ThemeMode.DARK -> {
+                    title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    text.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                }
+
+                ThemeMode.LIGHT -> {
+                    title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                    text.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                }
+
+                ThemeMode.MD3 -> {
+                    title.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.m3_widget_other_text
+                        )
+                    )
+                    text.setTextColor(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+                }
+            }
             if (PreferenceUtil.isInternetConnected) {
                 Glide.with(image.context)
                     .load(contributor.image)

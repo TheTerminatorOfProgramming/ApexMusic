@@ -2,20 +2,27 @@
 <resources>
 
     <style name="Theme.Apex.Base.Adaptive" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Light</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.MD3.Light</item>
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
         <item name="materialAlertDialogTheme">@style/MaterialAlertDialogTheme</item>
         <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
         <item name="elevationOverlayColor">@color/elevationOverlay</item>
         <item name="popupMenuBackground">@drawable/popup_background</item>
-        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">false</item>
+    </style>
+
+    <style name="ThemeOverlay.Material3.MD3.Light" parent="@style/ThemeOverlay.Material3.Light">
+        <item name="android:backgroundTint">@color/md_white_1000</item>
+    </style>
+
+    <style name="ThemeOverlay.Material3.MD3.Dark" parent="@style/ThemeOverlay.Material3.Dark">
+        <item name="android:backgroundTint">@color/darkColorSurface</item>
     </style>
 
     <style name="Theme.Apex.Base" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.MD3.Dark</item>
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
@@ -24,10 +31,25 @@
         <!--Manual setting colors-->
         <item name="colorSurface">@color/darkColorSurface</item>
         <item name="android:windowBackground">?colorSurface</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
         <item name="elevationOverlayColor">@color/elevationOverlay</item>
         <item name="popupMenuBackground">@drawable/popup_background</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/ActionModeStyleDark</item>
+        <item name="actionBarTheme">@style/MyActionBarThemeDark</item>
+    </style>
+
+    <style name="MyActionBarThemeDark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/md_white_1000</item>
+        <item name="colorSurface">@color/darkColorSurface</item>
+    </style>
+
+    <style name="ActionModeStyleDark" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/darkColorSurface</item>
+        <item name="titleTextStyle">@style/ActionModeTitleTextStyleDark</item>
+    </style>
+
+    <style name="ActionModeTitleTextStyleDark" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">@color/md_white_1000</item>
     </style>
 
     <style name="Theme.Apex.Base.Black" parent="Theme.Material3.Dark.NoActionBar">
@@ -38,26 +60,62 @@
         <item name="colorSurface">@color/blackColorSurface</item>
         <item name="android:windowBackground">?colorSurface</item>
         <item name="colorOnBackground">@color/blackColorSurface</item>
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Black</item>
         <item name="popupMenuStyle">@style/MaterialPopupMenuStyle</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
         <item name="elevationOverlayColor">@color/elevationOverlayDark</item>
         <item name="popupMenuBackground">@drawable/popup_background</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/ActionModeStyleBlack</item>
+        <item name="actionBarTheme">@style/MyActionBarThemeBlack</item>
+    </style>
+
+    <style name="MyActionBarThemeBlack" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/md_white_1000</item>
+        <item name="colorSurface">@color/blackColorSurface</item>
+    </style>
+
+    <style name="ActionModeStyleBlack" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/blackColorSurface</item>
+        <item name="titleTextStyle">@style/ActionModeTitleTextStyleBlack</item>
+    </style>
+
+    <style name="ActionModeTitleTextStyleBlack" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">@color/md_white_1000</item>
     </style>
 
     <style name="Theme.Apex.Base.Light" parent="Theme.Material3.Light.NoActionBar">
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
-        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.Light</item>
+        <item name="toolbarPopupTheme">@style/ThemeOverlay.Material3.MD3.Light</item>
         <item name="android:windowBackground">?colorSurface</item>
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
         <item name="materialAlertDialogTheme">@style/MaterialAlertDialogTheme</item>
+        <item name="colorSurface">@color/md_white_1000</item>
         <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
         <item name="elevationOverlayColor">@color/elevationOverlayLight</item>
         <item name="popupMenuBackground">@drawable/popup_background</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/ActionModeStyleLight</item>
+        <item name="actionBarTheme">@style/MyActionBarThemeLight</item>
+    </style>
+
+    <style name="MyActionBarThemeLight" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/darkColorSurface</item>
+        <item name="colorSurface">@color/md_white_1000</item>
+        <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
+    </style>
+
+    <style name="ActionButtonOverflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/darkColorSurface</item>
+    </style>
+
+    <style name="ActionModeStyleLight" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/md_white_1000</item>
+        <item name="titleTextStyle">@style/ActionModeTitleTextStyleLight</item>
+    </style>
+
+    <style name="ActionModeTitleTextStyleLight" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">@color/darkColorSurface</item>
     </style>
 
     <!-- content description is necessary to find the overflow button later in the layout-->

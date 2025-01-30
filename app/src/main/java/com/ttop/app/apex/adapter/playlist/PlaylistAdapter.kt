@@ -14,15 +14,22 @@
  */
 package com.ttop.app.apex.adapter.playlist
 
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SectionIndexer
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
+import androidx.core.view.iterator
 import androidx.core.view.setPadding
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -32,6 +39,7 @@ import com.ttop.app.apex.adapter.base.MediaEntryViewHolder
 import com.ttop.app.apex.db.PlaylistEntity
 import com.ttop.app.apex.db.PlaylistWithSongs
 import com.ttop.app.apex.db.toSongs
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.dipToPix
 import com.ttop.app.apex.glide.ApexGlideExtension.playlistOptions
 import com.ttop.app.apex.glide.playlistPreview.PlaylistPreview
@@ -45,8 +53,10 @@ import com.ttop.app.apex.libraries.appthemehelper.util.ATHUtil
 import com.ttop.app.apex.libraries.appthemehelper.util.TintHelper
 import com.ttop.app.apex.libraries.fastscroller.PopupTextProvider
 import com.ttop.app.apex.model.Song
+import com.ttop.app.apex.ui.activities.MainActivity
 import com.ttop.app.apex.util.MusicUtil
 import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import java.util.Locale
 
 class PlaylistAdapter(
@@ -62,6 +72,7 @@ class PlaylistAdapter(
     private var mSectionPositions: ArrayList<Int>? = null
     private var sectionsTranslator = HashMap<Int, Int>()
 
+    private val mainActivity get() = activity as MainActivity
     init {
         setHasStableIds(true)
     }
@@ -117,6 +128,73 @@ class PlaylistAdapter(
             .into(holder.image!!)
 
         holder.listCard?.strokeColor = accentColor(activity)
+
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                    }
+
+                    else -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.AUTO_BLACK -> {
+                when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.blackColorSurface))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.blackColorSurface))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.blackColorSurface))
+                    }
+
+                    else -> {
+                        holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                        holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+                    }
+                }
+            }
+
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.md_white_1000))
+                holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.md_white_1000))
+            }
+
+            ThemeMode.LIGHT -> {
+                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.darkColorSurface))
+                holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.darkColorSurface))
+            }
+
+            ThemeMode.MD3 -> {
+                holder.title?.setTextColor(ContextCompat.getColor(activity, R.color.m3_widget_other_text))
+                holder.text?.setTextColor(ContextCompat.getColor(activity, R.color.m3_widget_other_text))
+                holder.menu?.setColorFilter(ContextCompat.getColor(activity, R.color.m3_widget_other_text))
+            }
+        }
     }
 
     private fun getIconRes(): Drawable = TintHelper.createTintedDrawable(
@@ -162,6 +240,60 @@ class PlaylistAdapter(
                 popupMenu.inflate(R.menu.menu_item_playlist)
                 popupMenu.setOnMenuItemClickListener { item ->
                     PlaylistMenuHelper.handleMenuClick(activity, dataSet[layoutPosition], item)
+                }
+                for (item in popupMenu.menu.iterator()){
+                    val title = item.title
+                    val s = SpannableString(title).apply {
+                        when (PreferenceUtil.getGeneralThemeValue()) {
+                            ThemeMode.AUTO -> {
+                                when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                                    Configuration.UI_MODE_NIGHT_YES -> {
+                                        setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+
+                                    Configuration.UI_MODE_NIGHT_NO,
+                                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                        setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.darkColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+
+                                    else -> {
+                                        setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+                                }
+                            }
+
+                            ThemeMode.AUTO_BLACK -> {
+                                when (activity.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                                    Configuration.UI_MODE_NIGHT_YES -> {
+                                        setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+
+                                    Configuration.UI_MODE_NIGHT_NO,
+                                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                                        setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.blackColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+
+                                    else -> {
+                                        setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    }
+                                }
+                            }
+
+                            ThemeMode.BLACK,
+                            ThemeMode.DARK -> {
+                                setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.md_white_1000)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            }
+
+                            ThemeMode.LIGHT -> {
+                                setSpan(ForegroundColorSpan(ContextCompat.getColor(activity, R.color.darkColorSurface)), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            }
+
+                            ThemeMode.MD3 -> {
+                                setSpan(ForegroundColorSpan(activity.accentColor()), 0, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            }
+                        }
+                    }
+                    item.title = s
                 }
                 popupMenu.show()
             }

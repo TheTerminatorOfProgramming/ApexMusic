@@ -16,9 +16,14 @@ package com.ttop.app.apex.preferences
 
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
 import androidx.core.text.parseAsHtml
@@ -28,13 +33,17 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ttop.app.apex.R
 import com.ttop.app.apex.dialogs.BlacklistFolderChooserDialog
+import com.ttop.app.apex.extensions.accentColor
 import com.ttop.app.apex.extensions.accentTextColor
 import com.ttop.app.apex.extensions.centeredColorButtons
 import com.ttop.app.apex.extensions.colorControlNormal
 import com.ttop.app.apex.extensions.materialDialog
+import com.ttop.app.apex.extensions.surfaceColor
 import com.ttop.app.apex.extensions.withCenteredButtons
 import com.ttop.app.apex.libraries.appthemehelper.common.prefs.supportv7.ATEDialogPreference
 import com.ttop.app.apex.providers.BlacklistStore
+import com.ttop.app.apex.util.PreferenceUtil
+import com.ttop.app.apex.util.theme.ThemeMode
 import java.io.File
 
 class BlacklistPreference @JvmOverloads constructor(
@@ -51,6 +60,8 @@ class BlacklistPreference @JvmOverloads constructor(
                 context.colorControlNormal(),
                 SRC_IN
             )
+
+
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
@@ -58,6 +69,50 @@ class BlacklistPreference @JvmOverloads constructor(
 
         val cardview = holder.itemView.findViewById<MaterialCardView>(R.id.listCard)
         cardview?.strokeColor = com.ttop.app.apex.libraries.appthemehelper.ThemeStore.accentColor(context)
+        cardview?.setBackgroundColor(context.surfaceColor())
+
+        val title = holder.itemView.findViewById<TextView>(android.R.id.title)
+
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                    }
+                    else -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.AUTO_BLACK -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.blackColorSurface))
+                    }
+                    else -> {
+                        title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                    }
+                }
+            }
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+            }
+            ThemeMode.LIGHT -> {
+                title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+            }
+            ThemeMode.MD3 -> {
+                title.setTextColor(ContextCompat.getColor(context, R.color.m3_widget_other_text))
+            }
+        }
     }
 }
 
@@ -75,12 +130,33 @@ class BlacklistPreferenceDialog : DialogFragment(), BlacklistFolderChooserDialog
         val context = requireActivity()
 
         refreshBlacklistData(context)
+
+        val dialogTitle = TextView(requireContext())
+        dialogTitle.text = ContextCompat.getString(requireContext(), R.string.blacklist)
+        dialogTitle.setTextColor(accentColor())
+        dialogTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+        dialogTitle.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+        val dialogTitle1 = TextView(requireContext())
+        dialogTitle1.text = ContextCompat.getString(requireContext(), R.string.clear_blacklist)
+        dialogTitle1.setTextColor(accentColor())
+        dialogTitle1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+        dialogTitle1.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+        val dialogTitle2 = TextView(requireContext())
+        dialogTitle2.text = ContextCompat.getString(requireContext(), R.string.clear_blacklist)
+        dialogTitle2.setTextColor(accentColor())
+        dialogTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f)
+        dialogTitle2.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
         return materialDialog(R.string.blacklist)
+            .setCustomTitle(dialogTitle)
             .setPositiveButton(R.string.done) { _, _ ->
                 dismiss()
             }
             .setNeutralButton(R.string.clear_action) { _, _ ->
                 materialDialog(R.string.clear_blacklist)
+                    .setCustomTitle(dialogTitle1)
                     .setMessage(R.string.do_you_want_to_clear_the_blacklist)
                     .setPositiveButton(R.string.clear_action) { _, _ ->
                         BlacklistStore.getInstance(context).clear()
@@ -97,6 +173,7 @@ class BlacklistPreferenceDialog : DialogFragment(), BlacklistFolderChooserDialog
             }
             .setItems(paths.toTypedArray()) { _, which ->
                 materialDialog(R.string.remove_from_blacklist)
+                    .setCustomTitle(dialogTitle2)
                     .setMessage(
                         String.format(
                             getString(R.string.do_you_want_to_remove_from_the_blacklist),
@@ -128,6 +205,7 @@ class BlacklistPreferenceDialog : DialogFragment(), BlacklistFolderChooserDialog
         this.paths = BlacklistStore.getInstance(context).paths
         val dialog = dialog as MaterialAlertDialogBuilder?
         dialog?.setItems(paths.toTypedArray(), null)
+
     }
 
     override fun onFolderSelection(context: Context, folder: File) {

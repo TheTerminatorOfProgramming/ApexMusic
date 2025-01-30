@@ -17,6 +17,7 @@ import androidx.media.AudioFocusRequestCompat
 import androidx.media.AudioManagerCompat
 import com.ttop.app.apex.R
 import com.ttop.app.apex.extensions.showToast
+import com.ttop.app.apex.libraries.appthemehelper.util.VersionUtils
 import com.ttop.app.apex.service.playback.Playback
 import com.ttop.app.apex.util.PreferenceUtil.playbackPitch
 import com.ttop.app.apex.util.PreferenceUtil.playbackSpeed
@@ -139,7 +140,7 @@ abstract class LocalPlayback(val context: Context) : Playback, MediaPlayer.OnErr
                 player.setOnPreparedListener(null)
                 completion(true)
             }
-            player.prepareAsync()
+            player.prepare()
         } catch (e: Exception) {
             completion(false)
             e.printStackTrace()

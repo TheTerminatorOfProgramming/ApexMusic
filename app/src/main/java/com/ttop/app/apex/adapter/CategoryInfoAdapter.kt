@@ -14,11 +14,14 @@
 package com.ttop.app.apex.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ttop.app.apex.R
@@ -29,8 +32,9 @@ import com.ttop.app.apex.model.CategoryInfo
 import com.ttop.app.apex.util.PreferenceUtil
 import com.ttop.app.apex.util.SwipeAndDragHelper
 import com.ttop.app.apex.util.SwipeAndDragHelper.ActionCompletionContract
+import com.ttop.app.apex.util.theme.ThemeMode
 
-class CategoryInfoAdapter : RecyclerView.Adapter<CategoryInfoAdapter.ViewHolder>(),
+class CategoryInfoAdapter(var context: Context) : RecyclerView.Adapter<CategoryInfoAdapter.ViewHolder>(),
     ActionCompletionContract {
     var categoryInfos: MutableList<CategoryInfo> =
         PreferenceUtil.libraryCategory.toMutableList()
@@ -134,7 +138,149 @@ class CategoryInfoAdapter : RecyclerView.Adapter<CategoryInfoAdapter.ViewHolder>
             }
         }
 
+        when (PreferenceUtil.getGeneralThemeValue()) {
+            ThemeMode.AUTO -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        holder.binding.title.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
 
+                        holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        holder.binding.title.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.darkColorSurface
+                            )
+                        )
+
+                        holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.darkColorSurface
+                            )
+                        )
+                    }
+
+                    else -> {
+                        holder.binding.title.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
+
+                        holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
+                    }
+                }
+            }
+
+            ThemeMode.AUTO_BLACK -> {
+                when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        holder.binding.title.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
+
+                        holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO,
+                    Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                        holder.binding.title.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.blackColorSurface
+                            )
+                        )
+
+                        holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.blackColorSurface
+                            )
+                        )
+                    }
+
+                    else -> {
+                        holder.binding.title.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
+
+                        holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.md_white_1000
+                            )
+                        )
+                    }
+                }
+            }
+
+            ThemeMode.BLACK,
+            ThemeMode.DARK -> {
+                holder.binding.title.setTextColor(ContextCompat.getColor(context, R.color.md_white_1000))
+                holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.md_white_1000
+                    )
+                )
+            }
+
+            ThemeMode.LIGHT -> {
+                holder.binding.title.setTextColor(ContextCompat.getColor(context, R.color.darkColorSurface))
+                holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.darkColorSurface
+                    )
+                )
+            }
+
+            ThemeMode.MD3 -> {
+                holder.binding.title.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.m3_widget_other_text
+                    )
+                )
+                holder.binding.dragView.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.m3_widget_other_text
+                    )
+                )
+            }
+        }
     }
 
     override fun onCreateViewHolder(

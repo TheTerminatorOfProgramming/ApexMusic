@@ -235,6 +235,7 @@
     <string name="lyrics">Paroles</string>
     <string name="lyrics_search_summary">Utiliser les termes de recherche de paroles formulaire tags id3 ou entrer manuellement?</string>
     <string name="manually">Manuellement</string>
+    <string name="material_you">Matériel Vous</string>
     <string name="md_error_label">Erreur</string>
     <string name="md_storage_perm_error">Erreur d\'autorisation</string>
     <string name="message_backup_create_success">Sauvegarde créée avec succès.</string>
@@ -358,7 +359,6 @@
     <string name="pref_title_keep_pause_on_zero">Pause à zéro</string>
     <string name="pref_title_language_name">Sélectionner la langue</string>
     <string name="pref_title_last_added_interval">Dernier intervalle de la playlist ajoutée</string>
-    <string name="pref_title_md3">Matériel Vous</string>
     <string name="pref_title_menu_option_1">1ère action de barre d\'outils personnalisable</string>
     <string name="pref_title_menu_option_2">2ème action de la barre d\'outils personnalisable</string>
     <string name="pref_title_notification_action_1">Action de notification restante</string>

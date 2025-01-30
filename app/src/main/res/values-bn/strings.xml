@@ -233,6 +233,7 @@
     <string name="lyrics">গানের কথা</string>
     <string name="lyrics_search_summary">id3 ট্যাগ আকারে গানের সার্চ টার্ম ব্যবহার করবেন নাকি ম্যানুয়ালি লিখবেন?</string>
     <string name="manually">ম্যানুয়ালি</string>
+    <string name="material_you">উপাদান আপনি</string>
     <string name="md_error_label">ত্রুটি</string>
     <string name="md_storage_perm_error">অনুমতি ত্রুটি</string>
     <string name="message_backup_create_success">ব্যাকআপ সফলভাবে তৈরি করা হয়েছে।</string>
@@ -356,7 +357,6 @@
     <string name="pref_title_keep_pause_on_zero">জিরো ভলিউমে বিরতি দিন</string>
     <string name="pref_title_language_name">ভাষা নির্বাচন করুন</string>
     <string name="pref_title_last_added_interval">সর্বশেষ যোগ করা প্লেলিস্ট ব্যবধান</string>
-    <string name="pref_title_md3">উপাদান আপনি</string>
     <string name="pref_title_menu_option_1">১ম কাস্টমাইজযোগ্য টুলবার অ্যাকশন</string>
     <string name="pref_title_menu_option_2">২য় কাস্টমাইজযোগ্য টুলবার অ্যাকশন</string>
     <string name="pref_title_notification_action_1">বিজ্ঞপ্তি কর্ম বাম</string>

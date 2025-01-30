@@ -30,7 +30,7 @@ public class MediaEntryViewHolder extends AbstractDraggableSwipeableItemViewHold
         implements View.OnLongClickListener, View.OnClickListener {
 
     @Nullable
-    public View dragView;
+    public ImageView dragView;
 
     @Nullable
     public View dummyContainer;

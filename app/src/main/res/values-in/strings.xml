@@ -231,6 +231,7 @@
     <string name="lyrics">Lirik</string>
     <string name="lyrics_search_summary">Gunakan istilah pencarian lirik dari tag id3 atau masukkan secara manual?</string>
     <string name="manually">Secara manual</string>
+    <string name="material_you">Materi Anda</string>
     <string name="md_error_label">Kesalahan</string>
     <string name="md_storage_perm_error">Kesalahan izin</string>
     <string name="message_backup_create_success">Cadangan berhasil dibuat.</string>
@@ -354,7 +355,6 @@
     <string name="pref_title_keep_pause_on_zero">Jeda di Nol</string>
     <string name="pref_title_language_name">Pilih Bahasa</string>
     <string name="pref_title_last_added_interval">Interval Daftar Putar Terakhir Ditambahkan</string>
-    <string name="pref_title_md3">Materi Anda</string>
     <string name="pref_title_menu_option_1">Tindakan Toolbar Pertama yang Dapat Disesuaikan</string>
     <string name="pref_title_menu_option_2">Tindakan Toolbar yang Dapat Disesuaikan Kedua</string>
     <string name="pref_title_notification_action_1">Tindakan Notifikasi Tersisa</string>
